@@ -8,7 +8,9 @@ const { samples, defaultSample } = useKnowledge();
 const scanner = useScanner();
 const store = useScanStore();
 
-const mode = ref<"github" | "folder" | "sample">("github");
+const mode = ref<"sample" | "github" | "folder">("sample");
+// Set when an outbound fetch is blocked by the page host, so the UI can explain it once.
+const networkBlocked = ref(false);
 const url = ref("");
 const token = ref("");
 const sample = ref(defaultSample?.name ?? "");
@@ -59,9 +61,23 @@ async function scanFolder(ev: Event) {
   });
 }
 
+/**
+ * A host that forbids outbound requests (a sandboxed embed with a restrictive
+ * connect-src) fails fetch with a bare TypeError and no status. Say so plainly
+ * instead of showing "Failed to fetch", which reads like a bug in the scanner.
+ */
+function describe(e: any): string {
+  const msg = e?.message ?? String(e);
+  const blocked = e instanceof TypeError && /failed to fetch|load failed|networkerror/i.test(msg);
+  if (!blocked) return msg;
+  networkBlocked.value = true;
+  mode.value = "sample";
+  return "This page cannot reach GitHub. The site is embedded in a sandbox that blocks outbound requests, so scanning by URL is unavailable here. Sample repositories and local folders still work, and both scan exactly the same way. To scan by URL, run the site locally or deploy the static export to your own host.";
+}
+
 async function guard(fn: () => Promise<void>) {
   busy.value = true; error.value = ""; status.value = "Starting";
-  try { await fn(); } catch (e: any) { error.value = e?.message ?? String(e); } finally { busy.value = false; status.value = ""; }
+  try { await fn(); } catch (e: any) { error.value = describe(e); } finally { busy.value = false; status.value = ""; }
 }
 
 onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
@@ -77,11 +93,14 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
 
     <section class="panel panel-pad stack block">
       <div class="tabs" role="tablist" aria-label="Scan source">
+        <button role="tab" :aria-selected="mode === 'sample'" @click="mode = 'sample'">Sample repository</button>
         <button role="tab" :aria-selected="mode === 'github'" @click="mode = 'github'">GitHub URL</button>
         <button role="tab" :aria-selected="mode === 'folder'" @click="mode = 'folder'">Local folder</button>
-        <button role="tab" :aria-selected="mode === 'sample'" @click="mode = 'sample'">Sample repository</button>
       </div>
 
+      <p v-if="networkBlocked && mode === 'github'" class="notice" role="status">
+        Unavailable on this host: outbound requests are blocked. Use a sample or a local folder, or run the site yourself.
+      </p>
       <form v-if="mode === 'github'" class="stack" @submit.prevent="scanGitHub">
         <div class="row">
           <input id="repo-url" class="input" style="flex: 1 1 320px" v-model="url" placeholder="https://github.com/owner/repo" aria-label="GitHub repository URL" :disabled="busy" />

@@ -14,8 +14,27 @@ Four surfaces, four ways to try it. The UI is one of them, not the only one. Eve
 Published at the artifact link from the session. Three input modes on the landing page:
 
 - **Sample.** Pick one of the fourteen bundled fixtures. No network.
-- **GitHub URL.** Paste any public repository URL. Verified working without any server: two calls to the GitHub API for the file tree, then file contents from `raw.githubusercontent.com`, which is not counted against the API limit. The whole scan, including the tree-sitter call-site layer, runs in your browser.
 - **Folder.** Drop a local directory. Nothing leaves the browser.
+- **GitHub URL.** Paste any public repository URL. Two calls to the GitHub API for the file tree, then file contents from `raw.githubusercontent.com`, which is not counted against the API limit. The whole scan, including the tree-sitter call-site layer, runs in your browser.
+
+### GitHub URL mode needs a host that permits outbound requests
+
+The published artifact page runs in a sandbox that blocks requests to other origins, so URL mode fails there with a browser-level "Failed to fetch". The page detects this and says so. Samples and folders are unaffected, and they exercise exactly the same engine.
+
+URL mode is verified working when the site is served from a normal host. Run it yourself:
+
+```
+cd web && npm run dev                      # http://localhost:3000
+```
+
+or serve the built export:
+
+```
+cd web && npm run generate
+npx serve .output/public                   # or any static server
+```
+
+The same applies to any static host you deploy to, such as Cloudflare Pages.
 
 The anonymous GitHub API limit is 60 requests an hour per address, and each scan spends two, so roughly thirty scans an hour. Paste a personal access token in the field to raise it. The token is held in memory and never stored.
 
@@ -113,6 +132,8 @@ Live network tests are off by default so the suite cannot be broken by someone e
 ```
 cd web && DOCWATCHER_LIVE=1 npx playwright test github-live
 ```
+
+That test scans a real public repository through the browser and asserts the findings, which is how URL mode is verified.
 
 ## What to look at first
 
