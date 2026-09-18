@@ -1,0 +1,30 @@
+id: openai-o4-mini-2025-04-16-shutdown-2026
+provider: openai
+kind: retired
+severity: breaking
+title: "o4-mini-2025-04-16 shut down"
+summary: >
+  Requests to the model o4-mini-2025-04-16 fail after the shutdown date.
+  OpenAI recommends gpt-5.6-terra as the replacement.
+
+affects:
+  - kind: model
+    match: "o4-mini-2025-04-16"
+
+announced: 2026-04-22
+effective: 2026-10-23
+
+sources:
+  - kind: provider_page
+    url: https://developers.openai.com/api/docs/deprecations
+    observed: 2026-09-18
+
+migration:
+  replacement: "gpt-5.6-terra"
+  guide: https://developers.openai.com/api/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID string. Re-run any evals, because output style and
+    token usage differ between model generations.
+
+status: active

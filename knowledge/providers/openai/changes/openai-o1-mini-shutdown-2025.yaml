@@ -1,0 +1,30 @@
+id: openai-o1-mini-shutdown-2025
+provider: openai
+kind: retired
+severity: breaking
+title: "o1-mini shut down"
+summary: >
+  Requests to the model o1-mini fail after the shutdown date.
+  OpenAI recommends o4-mini as the replacement.
+
+affects:
+  - kind: model
+    match: "o1-mini"
+
+announced: 2025-04-28
+effective: 2025-10-27
+
+sources:
+  - kind: provider_page
+    url: https://developers.openai.com/api/docs/deprecations
+    observed: 2026-09-18
+
+migration:
+  replacement: "o4-mini"
+  guide: https://developers.openai.com/api/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID string. Re-run any evals, because output style and
+    token usage differ between model generations.
+
+status: expired

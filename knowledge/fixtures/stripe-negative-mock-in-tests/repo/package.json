@@ -1,0 +1,10 @@
+{
+  "name": "billing",
+  "version": "0.1.0",
+  "dependencies": {
+    "stripe": "^17.3.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

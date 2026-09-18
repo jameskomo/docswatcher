@@ -1,0 +1,92 @@
+provider: stripe
+
+manifests:
+  - ecosystem: maven
+    package: com.stripe:stripe-java
+  - ecosystem: npm
+    package: stripe
+  - ecosystem: pypi
+    package: stripe
+  - ecosystem: go
+    package: github.com/stripe/stripe-go
+
+literals:
+  - id: stripe.literal.endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://api\.stripe\.com(/v1/[a-z_]+(?:/[a-z_]+)*)'
+    key: "ANY $1"
+    confidence: medium
+
+  - id: stripe.literal.api-version
+    kind: api_version
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: '(?:Stripe-Version|setStripeVersionOverride\(|apiVersion|api_version)["'']?\s*[:=(]?\s*["'']([0-9]{4}-[0-9]{2}-[0-9]{2}(?:\.[a-z]+)?)["'']'
+    key: "$1"
+    confidence: medium
+
+callsites:
+  - id: stripe.java.source-create
+    language: java
+    kind: sdk_method
+    requires: com.stripe:stripe-java
+    query: |
+      (method_invocation
+        object: (identifier) @cls
+        name: (identifier) @m
+        (#eq? @cls "Source") (#eq? @m "create")) @call
+    key: "Source.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/sources"
+    confidence: high
+
+  - id: stripe.python.source-create
+    language: python
+    kind: sdk_method
+    requires: stripe
+    query: |
+      (call
+        function: (attribute
+          object: (attribute object: (identifier) @mod attribute: (identifier) @cls)
+          attribute: (identifier) @m)
+        (#eq? @mod "stripe") (#eq? @cls "Source") (#eq? @m "create")) @call
+    key: "Source.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/sources"
+    confidence: high
+
+  - id: stripe.javascript.sources-create
+    language: javascript
+    kind: sdk_method
+    requires: stripe
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @a1)
+          property: (property_identifier) @m)
+        (#eq? @a1 "sources") (#eq? @m "create")) @call
+    key: "sources.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/sources"
+    confidence: high
+
+  - id: stripe.typescript.sources-create
+    language: typescript
+    kind: sdk_method
+    requires: stripe
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @a1)
+          property: (property_identifier) @m)
+        (#eq? @a1 "sources") (#eq? @m "create")) @call
+    key: "sources.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/sources"
+    confidence: high

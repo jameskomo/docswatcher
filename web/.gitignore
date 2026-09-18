@@ -1,0 +1,7 @@
+node_modules/
+.nuxt/
+.output/
+generated/
+public/grammars/
+test-results/
+playwright-report/

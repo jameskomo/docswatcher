@@ -1,0 +1,37 @@
+id: anthropic-sampling-parameters-deprecated-2026
+provider: anthropic
+kind: field_change
+severity: warning
+title: temperature, top_p, and top_k rejected on Claude Opus 4.7 and later
+summary: >
+  Setting temperature, top_p, or top_k to a non-default value returns a
+  400 error on Claude Opus 4.7 and later models. The Python SDK from
+  version 1.0 removes the parameters entirely. Omit them and guide
+  behavior through prompting.
+
+affects:
+  - kind: sdk_method
+    match: "messages.create"
+  - kind: sdk_method
+    match: "messages().create"
+  - kind: endpoint
+    match: "POST /v1/messages"
+
+announced: 2026-04-16
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://platform.claude.com/docs/en/about-claude/model-deprecations
+    observed: 2026-09-18
+
+migration:
+  replacement: null
+  guide: https://platform.claude.com/docs/en/about-claude/models/migration-guide
+  effort: small
+  notes: >
+    Remove temperature, top_p, and top_k from requests that target Opus 4.7
+    or later. Behavior that was tuned through sampling is tuned through the
+    prompt instead.
+
+status: active

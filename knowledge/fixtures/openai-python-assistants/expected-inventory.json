@@ -1,0 +1,122 @@
+[
+  {
+    "id": "openai:endpoint:ANY /v1/threads",
+    "provider": "openai",
+    "kind": "endpoint",
+    "key": "ANY /v1/threads",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/agent.py",
+        "line": 6,
+        "column": 38,
+        "snippet": "THREADS_URL = \"https://api.openai.com/v1/threads\"",
+        "detector": "openai.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "openai",
+        "version": "1.68.2"
+      }
+    }
+  },
+  {
+    "id": "openai:endpoint:POST /v1/assistants",
+    "provider": "openai",
+    "kind": "endpoint",
+    "key": "POST /v1/assistants",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/agent.py",
+        "line": 10,
+        "column": 12,
+        "snippet": "return client.beta.assistants.create(",
+        "detector": "openai.python.assistants-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "openai",
+        "version": "1.68.2"
+      }
+    }
+  },
+  {
+    "id": "openai:model:gpt-4-turbo",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4-turbo",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/agent.py",
+        "line": 12,
+        "column": 16,
+        "snippet": "model=\"gpt-4-turbo\",",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "openai",
+        "version": "1.68.2"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_method:beta.assistants.create",
+    "provider": "openai",
+    "kind": "sdk_method",
+    "key": "beta.assistants.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/agent.py",
+        "line": 10,
+        "column": 12,
+        "snippet": "return client.beta.assistants.create(",
+        "detector": "openai.python.assistants-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "openai",
+        "version": "1.68.2"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_package:openai",
+    "provider": "openai",
+    "kind": "sdk_package",
+    "key": "openai",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "openai==1.68.2",
+        "detector": "openai.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "openai",
+        "version": "1.68.2"
+      }
+    }
+  }
+]

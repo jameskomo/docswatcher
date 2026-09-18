@@ -1,0 +1,15 @@
+# Per-store pinned versions. Older stores were never upgraded.
+[stores.alpha]
+api_version = "2025-01"
+[stores.beta]
+api_version = "2025-04"
+[stores.gamma]
+api_version = "2025-07"
+[stores.delta]
+api_version = "2025-10"
+[stores.epsilon]
+api_version = "2026-01"
+[stores.zeta]
+api_version = "2026-04"
+[stores.eta]
+api_version = "2026-07"

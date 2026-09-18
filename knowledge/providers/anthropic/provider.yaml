@@ -1,0 +1,15 @@
+id: anthropic
+name: Anthropic
+homepage: https://www.anthropic.com
+docs: https://platform.claude.com/docs
+changelog: https://platform.claude.com/docs/en/about-claude/model-deprecations
+base_urls:
+  - https://api.anthropic.com
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [python, typescript, java, go, ruby, csharp, php]
+deprecation_policy: >
+  Models move from active to deprecated with a retirement date at least
+  60 days out, then to retired. Dated model IDs and their aliases retire
+  together. The model deprecations page lists every event.

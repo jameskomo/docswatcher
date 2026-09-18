@@ -1,0 +1,8 @@
+name = "docwatcher-relay"
+main = "src/worker.js"
+compatibility_date = "2026-09-01"
+
+# Optional: set with `npx wrangler secret put GITHUB_TOKEN` to raise the outbound
+# GitHub rate limit from 60 to 5000 requests per hour. Never required for public repos.
+# [vars]
+# ALLOWED_ORIGINS = "*"

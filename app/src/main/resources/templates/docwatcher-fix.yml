@@ -1,0 +1,51 @@
+# DocWatcher fix handoff. Add this file to your repository at
+# .github/workflows/docwatcher-fix.yml and set the ANTHROPIC_API_KEY secret.
+#
+# DocWatcher dispatches a `docwatcher-fix` event when you press Fix on a
+# finding. The workflow runs Claude Code in your own Actions with your own
+# key, applies the migration, runs the affected tests, and opens a PR.
+name: DocWatcher fix
+
+on:
+  repository_dispatch:
+    types: [docwatcher-fix]
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply the migration with Claude Code
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            You are fixing one external API deprecation found by DocWatcher.
+            The finding, every affected code location with a snippet, the
+            provider's migration notes, and the guide URL are in this JSON:
+
+            ${{ toJson(github.event.client_payload) }}
+
+            Do the following, in order:
+            1. Read the migration guide URL and the migration notes.
+            2. Create a branch named docwatcher/${{ github.event.client_payload.finding.change }}.
+            3. Change every listed evidence location so it no longer depends on
+               the deprecated contract, following the provider's replacement.
+               Search the repository for other occurrences of the same contract
+               and change those too.
+            4. Run the tests that cover the changed files. Fix failures caused
+               by your change. Do not silence tests.
+            5. Commit with a message that names the change ID, push the branch,
+               and open a pull request. The PR body must start with the line
+               "DocWatcher finding: ${{ github.event.client_payload.finding.id }}"
+               and include a short summary of what changed and why, with the
+               guide URL.
+          claude_args: "--max-turns 60"

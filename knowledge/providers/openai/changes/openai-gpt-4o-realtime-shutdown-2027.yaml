@@ -1,0 +1,30 @@
+id: openai-gpt-4o-realtime-shutdown-2027
+provider: openai
+kind: retired
+severity: breaking
+title: "gpt-4o-realtime shut down"
+summary: >
+  Requests to the model gpt-4o-realtime fail after the shutdown date.
+  OpenAI recommends gpt-realtime-2.1 as the replacement.
+
+affects:
+  - kind: model
+    match: "gpt-4o-realtime"
+
+announced: 2026-07-20
+effective: 2027-01-20
+
+sources:
+  - kind: provider_page
+    url: https://developers.openai.com/api/docs/deprecations
+    observed: 2026-09-18
+
+migration:
+  replacement: "gpt-realtime-2.1"
+  guide: https://developers.openai.com/api/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID string. Re-run any evals, because output style and
+    token usage differ between model generations.
+
+status: active

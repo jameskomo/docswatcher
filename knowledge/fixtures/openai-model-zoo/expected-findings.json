@@ -1,0 +1,130 @@
+[
+  {
+    "contract": "openai:model:gpt-4.5-preview",
+    "change": "openai-gpt-4-5-preview-shutdown-2025"
+  },
+  {
+    "contract": "openai:model:o1-preview",
+    "change": "openai-o1-preview-shutdown-2025"
+  },
+  {
+    "contract": "openai:model:o1-mini",
+    "change": "openai-o1-mini-shutdown-2025"
+  },
+  {
+    "contract": "openai:model:chatgpt-4o-latest",
+    "change": "openai-chatgpt-4o-latest-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-4-0125-preview",
+    "change": "openai-gpt-4-0125-preview-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-4-0314",
+    "change": "openai-gpt-4-0314-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:dall-e-2",
+    "change": "openai-dall-e-2-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:dall-e-3",
+    "change": "openai-dall-e-3-shutdown-2026"
+  },
+  {
+    "contract": "openai:endpoint:ANY /v1/assistants",
+    "change": "openai-assistants-api-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:babbage-002",
+    "change": "openai-babbage-002-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:davinci-002",
+    "change": "openai-davinci-002-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-3.5-turbo-1106",
+    "change": "openai-gpt-3-5-turbo-1106-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-3.5-turbo-instruct",
+    "change": "openai-gpt-3-5-turbo-instruct-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-3.5-turbo-0125",
+    "change": "openai-gpt-3-5-turbo-0125-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-4-0613",
+    "change": "openai-gpt-4-0613-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-4-1106-preview",
+    "change": "openai-gpt-4-1106-preview-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-4-turbo",
+    "change": "openai-gpt-4-turbo-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-4.1-nano",
+    "change": "openai-gpt-4-1-nano-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-4o-2024-05-13",
+    "change": "openai-gpt-4o-2024-05-13-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-image-1",
+    "change": "openai-gpt-image-1-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:o1-2024-12-17",
+    "change": "openai-o1-2024-12-17-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:o3-mini-2025-01-31",
+    "change": "openai-o3-mini-2025-01-31-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:o4-mini-2025-04-16",
+    "change": "openai-o4-mini-2025-04-16-shutdown-2026"
+  },
+  {
+    "contract": "openai:endpoint:ANY /v1/prompts",
+    "change": "openai-prompts-api-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-5-2025-08-07",
+    "change": "openai-gpt-5-2025-08-07-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-5-mini-2025-08-07",
+    "change": "openai-gpt-5-mini-2025-08-07-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-5-nano-2025-08-07",
+    "change": "openai-gpt-5-nano-2025-08-07-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:o3-2025-04-16",
+    "change": "openai-o3-2025-04-16-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-4o-realtime",
+    "change": "openai-gpt-4o-realtime-shutdown-2027"
+  },
+  {
+    "contract": "openai:model:gpt-realtime",
+    "change": "openai-gpt-realtime-shutdown-2027"
+  },
+  {
+    "contract": "openai:model:gpt-4o-transcribe",
+    "change": "openai-gpt-4o-transcribe-shutdown-2027"
+  },
+  {
+    "contract": "openai:model:whisper-1",
+    "change": "openai-whisper-1-shutdown-2027"
+  }
+]

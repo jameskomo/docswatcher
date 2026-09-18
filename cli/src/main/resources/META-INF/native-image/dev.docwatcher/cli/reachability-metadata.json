@@ -1,0 +1,611 @@
+{
+  "reflection": [
+    {
+      "type": "com.fasterxml.jackson.databind.ext.Java7SupportImpl",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "dev.docwatcher.cli.DocWatcher"
+    },
+    {
+      "type": "dev.docwatcher.cli.DocWatcher$Common",
+      "fields": [
+        {
+          "name": "knowledge"
+        },
+        {
+          "name": "today"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "dev.docwatcher.cli.MatchCommand",
+      "fields": [
+        {
+          "name": "common"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "dev.docwatcher.cli.ScanCommand",
+      "fields": [
+        {
+          "name": "common"
+        },
+        {
+          "name": "includeLow"
+        },
+        {
+          "name": "path"
+        },
+        {
+          "name": "ref"
+        },
+        {
+          "name": "repo"
+        },
+        {
+          "name": "sha"
+        },
+        {
+          "name": "writeExpected"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "dev.docwatcher.cli.ValidateCommand",
+      "fields": [
+        {
+          "name": "common"
+        },
+        {
+          "name": "dir"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "dev.docwatcher.engine.Context",
+      "methods": [
+        {
+          "name": "apiVersion",
+          "parameterTypes": []
+        },
+        {
+          "name": "sdk",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "dev.docwatcher.engine.Context$Sdk",
+      "methods": [
+        {
+          "name": "ecosystem",
+          "parameterTypes": []
+        },
+        {
+          "name": "pkg",
+          "parameterTypes": []
+        },
+        {
+          "name": "version",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "dev.docwatcher.engine.Contract",
+      "methods": [
+        {
+          "name": "confidence",
+          "parameterTypes": []
+        },
+        {
+          "name": "context",
+          "parameterTypes": []
+        },
+        {
+          "name": "evidence",
+          "parameterTypes": []
+        },
+        {
+          "name": "id",
+          "parameterTypes": []
+        },
+        {
+          "name": "key",
+          "parameterTypes": []
+        },
+        {
+          "name": "kind",
+          "parameterTypes": []
+        },
+        {
+          "name": "provider",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "dev.docwatcher.engine.Evidence",
+      "methods": [
+        {
+          "name": "column",
+          "parameterTypes": []
+        },
+        {
+          "name": "detector",
+          "parameterTypes": []
+        },
+        {
+          "name": "layer",
+          "parameterTypes": []
+        },
+        {
+          "name": "line",
+          "parameterTypes": []
+        },
+        {
+          "name": "path",
+          "parameterTypes": []
+        },
+        {
+          "name": "snippet",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "dev.docwatcher.engine.Finding$Pair",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dev.docwatcher.engine.Inventory",
+      "methods": [
+        {
+          "name": "contracts",
+          "parameterTypes": []
+        },
+        {
+          "name": "engine",
+          "parameterTypes": []
+        },
+        {
+          "name": "repo",
+          "parameterTypes": []
+        },
+        {
+          "name": "scannedAt",
+          "parameterTypes": []
+        },
+        {
+          "name": "schemaVersion",
+          "parameterTypes": []
+        },
+        {
+          "name": "stats",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "dev.docwatcher.engine.Inventory$EngineInfo",
+      "methods": [
+        {
+          "name": "knowledgeVersion",
+          "parameterTypes": []
+        },
+        {
+          "name": "name",
+          "parameterTypes": []
+        },
+        {
+          "name": "version",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "dev.docwatcher.engine.Inventory$Stats",
+      "methods": [
+        {
+          "name": "durationMs",
+          "parameterTypes": []
+        },
+        {
+          "name": "filesScanned",
+          "parameterTypes": []
+        },
+        {
+          "name": "filesSkipped",
+          "parameterTypes": []
+        },
+        {
+          "name": "layers",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "dev.docwatcher.engine.RepoRef",
+      "methods": [
+        {
+          "name": "host",
+          "parameterTypes": []
+        },
+        {
+          "name": "name",
+          "parameterTypes": []
+        },
+        {
+          "name": "owner",
+          "parameterTypes": []
+        },
+        {
+          "name": "ref",
+          "parameterTypes": []
+        },
+        {
+          "name": "sha",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "groovy.lang.Closure"
+    },
+    {
+      "type": "java.io.Serializable"
+    },
+    {
+      "type": "java.lang.Boolean",
+      "jniAccessible": true,
+      "methods": [
+        {
+          "name": "getBoolean",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "java.lang.Class",
+      "methods": [
+        {
+          "name": "getRecordComponents",
+          "parameterTypes": []
+        },
+        {
+          "name": "isRecord",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "java.lang.Iterable"
+    },
+    {
+      "type": "java.lang.Object"
+    },
+    {
+      "type": "java.lang.Object[]"
+    },
+    {
+      "type": "java.lang.Record"
+    },
+    {
+      "type": "java.lang.String[]"
+    },
+    {
+      "type": "java.lang.reflect.RecordComponent",
+      "methods": [
+        {
+          "name": "getName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getType",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "java.nio.file.Path"
+    },
+    {
+      "type": "java.nio.file.Paths",
+      "methods": [
+        {
+          "name": "get",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String[]"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "java.sql.Connection"
+    },
+    {
+      "type": "java.sql.Date"
+    },
+    {
+      "type": "java.sql.Driver"
+    },
+    {
+      "type": "java.sql.DriverManager"
+    },
+    {
+      "type": "java.sql.Time"
+    },
+    {
+      "type": "java.sql.Timestamp"
+    },
+    {
+      "type": "java.time.Duration"
+    },
+    {
+      "type": "java.time.Instant"
+    },
+    {
+      "type": "java.time.LocalDate",
+      "methods": [
+        {
+          "name": "parse",
+          "parameterTypes": [
+            "java.lang.CharSequence"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "java.time.LocalDateTime"
+    },
+    {
+      "type": "java.time.LocalTime"
+    },
+    {
+      "type": "java.time.MonthDay"
+    },
+    {
+      "type": "java.time.OffsetDateTime"
+    },
+    {
+      "type": "java.time.OffsetTime"
+    },
+    {
+      "type": "java.time.Period"
+    },
+    {
+      "type": "java.time.Year"
+    },
+    {
+      "type": "java.time.YearMonth"
+    },
+    {
+      "type": "java.time.ZoneId"
+    },
+    {
+      "type": "java.time.ZoneOffset"
+    },
+    {
+      "type": "java.time.ZonedDateTime"
+    },
+    {
+      "type": "java.util.AbstractCollection"
+    },
+    {
+      "type": "java.util.Collection"
+    },
+    {
+      "type": "java.util.ImmutableCollections$AbstractImmutableCollection"
+    },
+    {
+      "type": "java.util.ImmutableCollections$AbstractImmutableList"
+    },
+    {
+      "type": "java.util.ImmutableCollections$List12"
+    },
+    {
+      "type": "java.util.ImmutableCollections$ListN"
+    },
+    {
+      "type": "java.util.List"
+    },
+    {
+      "type": "java.util.RandomAccess"
+    },
+    {
+      "type": "org.treesitter.TSNode",
+      "unsafeAllocated": true,
+      "jniAccessible": true,
+      "fields": [
+        {
+          "name": "context0"
+        },
+        {
+          "name": "context1"
+        },
+        {
+          "name": "context2"
+        },
+        {
+          "name": "context3"
+        },
+        {
+          "name": "idPtr"
+        },
+        {
+          "name": "treePtr"
+        }
+      ]
+    },
+    {
+      "type": "org.treesitter.TSQueryCapture",
+      "unsafeAllocated": true,
+      "jniAccessible": true,
+      "fields": [
+        {
+          "name": "index"
+        },
+        {
+          "name": "node"
+        }
+      ]
+    },
+    {
+      "type": "org.treesitter.TSQueryCapture[]"
+    },
+    {
+      "type": "org.treesitter.TSQueryMatch",
+      "jniAccessible": true,
+      "fields": [
+        {
+          "name": "captureIndex"
+        },
+        {
+          "name": "captures"
+        },
+        {
+          "name": "id"
+        },
+        {
+          "name": "patternIndex"
+        }
+      ]
+    },
+    {
+      "type": "org.treesitter.TSQueryPredicateStep",
+      "unsafeAllocated": true,
+      "jniAccessible": true,
+      "fields": [
+        {
+          "name": "type"
+        },
+        {
+          "name": "valueId"
+        }
+      ]
+    },
+    {
+      "type": "org.treesitter.TSQueryPredicateStepType",
+      "jniAccessible": true,
+      "fields": [
+        {
+          "name": "TSQueryPredicateStepTypeCapture"
+        },
+        {
+          "name": "TSQueryPredicateStepTypeDone"
+        },
+        {
+          "name": "TSQueryPredicateStepTypeString"
+        }
+      ]
+    },
+    {
+      "type": "org.treesitter.TSQueryPredicateStep[]"
+    },
+    {
+      "type": "picocli.CommandLine$AutoHelpMixin",
+      "fields": [
+        {
+          "name": "helpRequested"
+        },
+        {
+          "name": "versionRequested"
+        }
+      ]
+    },
+    {
+      "type": "sun.security.provider.NativePRNG",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.security.SecureRandomParameters"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.security.provider.SHA",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.text.resources.cldr.FormatData"
+    },
+    {
+      "type": "sun.text.resources.cldr.FormatData_en"
+    },
+    {
+      "type": "sun.text.resources.cldr.FormatData_en_US"
+    },
+    {
+      "type": "sun.util.resources.cldr.CalendarData"
+    }
+  ],
+  "resources": [
+    {
+      "glob": "META-INF/services/java.time.zone.ZoneRulesProvider"
+    },
+    {
+      "glob": "lib/x86_64-linux-gnu-tree-sitter-java.so"
+    },
+    {
+      "glob": "lib/x86_64-linux-gnu-tree-sitter-javascript.so"
+    },
+    {
+      "glob": "lib/x86_64-linux-gnu-tree-sitter-python.so"
+    },
+    {
+      "glob": "lib/x86_64-linux-gnu-tree-sitter-typescript.so"
+    },
+    {
+      "glob": "lib/x86_64-linux-gnu-tree-sitter.so"
+    }
+  ]
+}

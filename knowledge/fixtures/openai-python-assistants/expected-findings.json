@@ -1,0 +1,18 @@
+[
+  {
+    "contract": "openai:endpoint:ANY /v1/threads",
+    "change": "openai-assistants-api-shutdown-2026"
+  },
+  {
+    "contract": "openai:endpoint:POST /v1/assistants",
+    "change": "openai-assistants-api-shutdown-2026"
+  },
+  {
+    "contract": "openai:sdk_method:beta.assistants.create",
+    "change": "openai-assistants-api-shutdown-2026"
+  },
+  {
+    "contract": "openai:model:gpt-4-turbo",
+    "change": "openai-gpt-4-turbo-shutdown-2026"
+  }
+]

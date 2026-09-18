@@ -1,0 +1,40 @@
+provider: shopify
+
+manifests:
+  - ecosystem: npm
+    package: "@shopify/shopify-api"
+  - ecosystem: npm
+    package: "@shopify/shopify-app-remix"
+  - ecosystem: pypi
+    package: ShopifyAPI
+  - ecosystem: rubygems
+    package: shopify_api
+
+literals:
+  - id: shopify.literal.api-version-path
+    kind: api_version
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: '/admin/api/([0-9]{4}-[0-9]{2})/'
+    key: "$1"
+    confidence: medium
+
+  - id: shopify.literal.api-version-config
+    kind: api_version
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    # (?![0-9-]) not \b: a word boundary also matches inside Stripe's 2022-11-15,
+    # which made every Stripe apiVersion look like a Shopify one.
+    pattern: '(?:apiVersion|api_version|API_VERSION|SHOPIFY_API_VERSION)["'']?\s*[:=]\s*["'']?([0-9]{4}-[0-9]{2})(?![0-9-])'
+    key: "$1"
+    confidence: medium
+
+  - id: shopify.literal.api-version-header
+    kind: api_version
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: 'X-Shopify-API-Version["'']?\s*[:=,]\s*["'']([0-9]{4}-[0-9]{2})["'']'
+    key: "$1"
+    confidence: medium
+
+callsites: []

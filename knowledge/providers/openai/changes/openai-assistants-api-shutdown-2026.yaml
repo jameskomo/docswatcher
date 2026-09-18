@@ -1,0 +1,38 @@
+id: openai-assistants-api-shutdown-2026
+provider: openai
+kind: sunset
+severity: breaking
+title: Assistants API shut down
+summary: >
+  The Assistants API, including assistants, threads, and runs endpoints,
+  was shut down on 2026-08-26. OpenAI recommends the Responses API and
+  the Conversations API.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v1/assistants"
+  - kind: endpoint
+    match: "POST /v1/assistants"
+  - kind: endpoint
+    match: "ANY /v1/threads"
+  - kind: sdk_method
+    match: "beta.assistants.create"
+
+announced: 2025-08-20
+effective: 2026-08-26
+
+sources:
+  - kind: provider_page
+    url: https://developers.openai.com/api/docs/deprecations
+    observed: 2026-09-18
+
+migration:
+  replacement: "POST /v1/responses"
+  guide: https://developers.openai.com/api/docs/deprecations
+  effort: large
+  notes: >
+    Assistants, threads, and runs map onto Responses with a conversation
+    object. Tool definitions carry over. Persisted thread state must be
+    migrated to conversations before cut-over.
+
+status: expired

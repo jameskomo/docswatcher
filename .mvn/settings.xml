@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Project-local settings: Maven Central only. Overrides any corporate mirror in ~/.m2/settings.xml. -->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0">
+  <mirrors>
+    <mirror>
+      <id>central</id>
+      <mirrorOf>*</mirrorOf>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </mirror>
+  </mirrors>
+  <profiles>
+    <profile>
+      <id>central-only</id>
+      <repositories>
+        <repository><id>central</id><url>https://repo.maven.apache.org/maven2</url></repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository><id>central</id><url>https://repo.maven.apache.org/maven2</url></pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+  <activeProfiles><activeProfile>central-only</activeProfile></activeProfiles>
+</settings>

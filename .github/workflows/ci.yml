@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 3 * * *"   # nightly: benchmark corpus, performance budget, native builds
+
+jobs:
+  java:
+    name: Java engine, CLI, app
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: { POSTGRES_PASSWORD: docwatcher, POSTGRES_USER: docwatcher, POSTGRES_DB: docwatcher }
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: "25"
+          distribution: graalvm-community
+          cache: maven
+      - name: Build and test
+        run: ./mvnw -B verify
+      - name: Validate knowledge base
+        run: java -jar cli/target/docwatcher-cli.jar validate knowledge
+
+  web:
+    name: Web, TypeScript engine, parity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22", cache: npm, cache-dependency-path: web/package-lock.json }
+      - run: npm ci
+        working-directory: web
+      - run: npm test
+        working-directory: web
+      - name: Two-engine parity
+        run: npm run parity
+        working-directory: web
+      - run: npm run generate
+        working-directory: web
+      - run: npx playwright install --with-deps chromium && npm run e2e
+        working-directory: web
+
+  relay:
+    name: Relay worker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - run: npm test
+        working-directory: relay
+
+  nightly:
+    name: Nightly native builds and performance budget
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with: { java-version: "25", distribution: graalvm-community, cache: maven }
+      - name: Performance budget
+        run: ./mvnw -B -pl engine -am verify -Dgroups=nightly
+      - name: Native CLI
+        run: ./mvnw -B -Pnative -pl cli -am package -DskipTests
+      - name: Native app
+        run: ./mvnw -B -Pnative -pl app -am package -DskipTests

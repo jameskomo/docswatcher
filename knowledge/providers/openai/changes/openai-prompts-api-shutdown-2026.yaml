@@ -1,0 +1,30 @@
+id: openai-prompts-api-shutdown-2026
+provider: openai
+kind: sunset
+severity: breaking
+title: Prompts API shut down
+summary: >
+  The /v1/prompts API is removed on 2026-11-30. OpenAI recommends moving
+  prompt content into application code.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v1/prompts"
+
+announced: 2026-06-03
+effective: 2026-11-30
+
+sources:
+  - kind: provider_page
+    url: https://developers.openai.com/api/docs/deprecations
+    observed: 2026-09-18
+
+migration:
+  replacement: null
+  guide: https://developers.openai.com/api/docs/deprecations
+  effort: medium
+  notes: >
+    Export stored prompts and inline them in code or a config file under
+    version control.
+
+status: active

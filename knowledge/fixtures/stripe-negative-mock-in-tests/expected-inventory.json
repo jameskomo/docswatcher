@@ -1,0 +1,74 @@
+[
+  {
+    "id": "stripe:endpoint:POST /v1/sources",
+    "provider": "stripe",
+    "kind": "endpoint",
+    "key": "POST /v1/sources",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "test/legacy.test.js",
+        "line": 4,
+        "column": 21,
+        "snippet": "const src = await stripe.sources.create({ type: \"card\" });",
+        "detector": "stripe.javascript.sources-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "stripe",
+        "version": "^17.3.0"
+      }
+    }
+  },
+  {
+    "id": "stripe:sdk_method:sources.create",
+    "provider": "stripe",
+    "kind": "sdk_method",
+    "key": "sources.create",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "test/legacy.test.js",
+        "line": 4,
+        "column": 21,
+        "snippet": "const src = await stripe.sources.create({ type: \"card\" });",
+        "detector": "stripe.javascript.sources-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "stripe",
+        "version": "^17.3.0"
+      }
+    }
+  },
+  {
+    "id": "stripe:sdk_package:stripe",
+    "provider": "stripe",
+    "kind": "sdk_package",
+    "key": "stripe",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"stripe\": \"^17.3.0\"",
+        "detector": "stripe.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "stripe",
+        "version": "^17.3.0"
+      }
+    }
+  }
+]

@@ -1,0 +1,140 @@
+<script setup lang="ts">
+import type { InputFile, RepoRef } from "~~/engine/types";
+import { fetchViaApi, fetchViaRelay, parseGitHubUrl, readFolder } from "~/utils/fetchRepo";
+
+const config = useRuntimeConfig();
+const relay = (config.public.relayUrl as string) || "";
+const { samples, defaultSample } = useKnowledge();
+const scanner = useScanner();
+const store = useScanStore();
+
+const mode = ref<"github" | "folder" | "sample">("github");
+const url = ref("");
+const token = ref("");
+const sample = ref(defaultSample?.name ?? "");
+const busy = ref(false);
+const status = ref("");
+const error = ref("");
+const fetchNote = ref("");
+const folderInput = ref<HTMLInputElement | null>(null);
+
+const result = computed(() => store.current.value);
+const findings = computed(() => (result.value?.findings ?? []).filter((f) => store.effectiveStatus(f) === "open"));
+
+async function runScan(files: InputFile[], repo: RepoRef, source: { label: string; kind: "sample" | "github" | "folder" }) {
+  status.value = "Scanning";
+  const r = await scanner.run(files, repo);
+  store.save({ inventory: r.inventory, findings: r.findings, source, at: new Date().toISOString() });
+}
+
+async function scanSample() {
+  const s = samples.find((x) => x.name === sample.value);
+  if (!s) return;
+  await guard(async () => {
+    fetchNote.value = "";
+    await runScan(s.files, { host: "fixture", owner: "docwatcher", name: s.name, ref: "fixture", sha: "0000000" }, { label: `Example · ${s.name}`, kind: "sample" });
+  });
+}
+
+async function scanGitHub() {
+  const t = parseGitHubUrl(url.value);
+  if (!t) { error.value = "Enter a GitHub repository URL like https://github.com/owner/repo"; return; }
+  await guard(async () => {
+    const progress = (msg: string, done?: number, total?: number) => { status.value = total ? `${msg} ${done}/${total}` : msg; };
+    const res = relay ? await fetchViaRelay(relay, t, progress) : await fetchViaApi(t, token.value.trim() || undefined, progress);
+    fetchNote.value = `${res.files.length} text files read` + (res.binaries ? `, ${res.binaries} binary skipped` : "") + (res.skipped ? `, ${res.skipped} skipped` : "")
+      + (res.truncated ? ". Large repository: only the first 300 relevant files were read without a relay." : "");
+    await runScan(res.files, res.repo, { label: `${t.owner}/${t.name}`, kind: "github" });
+  });
+}
+
+async function scanFolder(ev: Event) {
+  const list = (ev.target as HTMLInputElement).files;
+  if (!list?.length) return;
+  await guard(async () => {
+    const progress = (msg: string, done?: number, total?: number) => { status.value = total ? `${msg} ${done}/${total}` : msg; };
+    const res = await readFolder(list, progress);
+    fetchNote.value = `${res.files.length} text files read` + (res.skipped ? `, ${res.skipped} skipped` : "");
+    await runScan(res.files, { host: "local", owner: "local", name: res.root, ref: "working-tree", sha: "0000000" }, { label: `Folder · ${res.root}`, kind: "folder" });
+  });
+}
+
+async function guard(fn: () => Promise<void>) {
+  busy.value = true; error.value = ""; status.value = "Starting";
+  try { await fn(); } catch (e: any) { error.value = e?.message ?? String(e); } finally { busy.value = false; status.value = ""; }
+}
+
+onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
+</script>
+
+<template>
+  <div class="stack" style="gap: 28px">
+    <section class="hero">
+      <span class="eyebrow">Dependabot for the APIs you call, not the packages you install</span>
+      <h1>Which of your API calls has an expiry date?</h1>
+      <p>Paste a repository. DocWatcher finds every external contract in the code, from SDK calls to model IDs in config, and matches them against provider deprecations. The scan runs in this tab. Nothing is uploaded.</p>
+    </section>
+
+    <section class="panel panel-pad stack block">
+      <div class="tabs" role="tablist" aria-label="Scan source">
+        <button role="tab" :aria-selected="mode === 'github'" @click="mode = 'github'">GitHub URL</button>
+        <button role="tab" :aria-selected="mode === 'folder'" @click="mode = 'folder'">Local folder</button>
+        <button role="tab" :aria-selected="mode === 'sample'" @click="mode = 'sample'">Sample repository</button>
+      </div>
+
+      <form v-if="mode === 'github'" class="stack" @submit.prevent="scanGitHub">
+        <div class="row">
+          <input id="repo-url" class="input" style="flex: 1 1 320px" v-model="url" placeholder="https://github.com/owner/repo" aria-label="GitHub repository URL" :disabled="busy" />
+          <button id="scan-github" class="btn primary" type="submit" :disabled="busy">Scan repository</button>
+        </div>
+        <div v-if="!relay" class="row small">
+          <input id="gh-token" class="input" style="flex: 1 1 260px" type="password" v-model="token" placeholder="Optional GitHub token for private repos or more than 60 requests per hour" aria-label="GitHub token" autocomplete="off" />
+          <span class="muted">Kept in memory only. Without a relay, files are read through the GitHub API, which allows 60 requests per hour per address.</span>
+        </div>
+      </form>
+
+      <div v-else-if="mode === 'folder'" class="stack">
+        <p class="ink2">Pick a project folder. Files are read in the browser; vendored directories and files over 1 MB are skipped.</p>
+        <input id="folder-input" ref="folderInput" type="file" webkitdirectory multiple @change="scanFolder" :disabled="busy" aria-label="Choose a folder" />
+      </div>
+
+      <div v-else class="row">
+        <select id="sample-select" class="select" v-model="sample" :disabled="busy" aria-label="Sample repository">
+          <option v-for="s in samples" :key="s.name" :value="s.name">{{ s.name }}</option>
+        </select>
+        <button id="scan-sample" class="btn primary" @click="scanSample" :disabled="busy">Scan sample</button>
+        <span class="muted small">Bundled fixtures from the open knowledge base.</span>
+      </div>
+
+      <div v-if="busy" class="stack" aria-live="polite">
+        <div class="row between small"><span>{{ scanner.phase.value || status }}</span><span class="mono muted" v-if="scanner.progress.value">{{ scanner.progress.value.path }}</span></div>
+        <div class="progress"><div :style="{ width: scanner.progress.value ? (100 * scanner.progress.value.done / scanner.progress.value.total) + '%' : '15%' }"></div></div>
+      </div>
+      <div v-if="error" class="notice error" role="alert">{{ error }}</div>
+    </section>
+
+    <template v-if="result">
+      <section class="block" id="results">
+        <div class="row between">
+          <div>
+            <span class="eyebrow">{{ result.source.kind === 'sample' ? 'Example scan' : 'Scan result' }}</span>
+            <h2>{{ result.source.label }}</h2>
+          </div>
+          <div class="small muted">{{ result.inventory.stats.filesScanned }} files scanned in {{ result.inventory.stats.durationMs }} ms<span v-if="fetchNote"> · {{ fetchNote }}</span> · <NuxtLink to="/app">open dashboard →</NuxtLink></div>
+        </div>
+        <StatTiles :inventory="result.inventory" :findings="findings" />
+      </section>
+
+      <section class="block">
+        <h2>Needs attention</h2>
+        <FindingsList :findings="findings" show-actions />
+      </section>
+
+      <section class="block">
+        <h2>Inventory</h2>
+        <p class="ink2">Every external contract found, including the ones nobody remembers adding.</p>
+        <InventoryTable :contracts="result.inventory.contracts" :findings="findings" />
+      </section>
+    </template>
+  </div>
+</template>

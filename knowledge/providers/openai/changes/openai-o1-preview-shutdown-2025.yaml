@@ -1,0 +1,30 @@
+id: openai-o1-preview-shutdown-2025
+provider: openai
+kind: retired
+severity: breaking
+title: "o1-preview shut down"
+summary: >
+  Requests to the model o1-preview fail after the shutdown date.
+  OpenAI recommends o3 as the replacement.
+
+affects:
+  - kind: model
+    match: "o1-preview"
+
+announced: 2025-04-28
+effective: 2025-07-28
+
+sources:
+  - kind: provider_page
+    url: https://developers.openai.com/api/docs/deprecations
+    observed: 2026-09-18
+
+migration:
+  replacement: "o3"
+  guide: https://developers.openai.com/api/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID string. Re-run any evals, because output style and
+    token usage differ between model generations.
+
+status: expired

@@ -1,0 +1,342 @@
+[
+  {
+    "id": "anthropic:model:claude-2.0",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-2.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 19,
+        "column": 6,
+        "snippet": "\"claude-2.0\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-2.1",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-2.1",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 20,
+        "column": 6,
+        "snippet": "\"claude-2.1\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-3-5-haiku-20241022",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-3-5-haiku-20241022",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 10,
+        "column": 6,
+        "snippet": "\"claude-3-5-haiku-20241022\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-3-5-haiku-latest",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-3-5-haiku-latest",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 11,
+        "column": 6,
+        "snippet": "\"claude-3-5-haiku-latest\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-3-5-sonnet-20240620",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-3-5-sonnet-20240620",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 14,
+        "column": 6,
+        "snippet": "\"claude-3-5-sonnet-20240620\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-3-5-sonnet-20241022",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-3-5-sonnet-20241022",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 15,
+        "column": 6,
+        "snippet": "\"claude-3-5-sonnet-20241022\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-3-5-sonnet-latest",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-3-5-sonnet-latest",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 16,
+        "column": 6,
+        "snippet": "\"claude-3-5-sonnet-latest\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-3-7-sonnet-20250219",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-3-7-sonnet-20250219",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 12,
+        "column": 6,
+        "snippet": "\"claude-3-7-sonnet-20250219\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-3-7-sonnet-latest",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-3-7-sonnet-latest",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 13,
+        "column": 6,
+        "snippet": "\"claude-3-7-sonnet-latest\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-3-haiku-20240307",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-3-haiku-20240307",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 9,
+        "column": 6,
+        "snippet": "\"claude-3-haiku-20240307\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-3-opus-20240229",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-3-opus-20240229",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 17,
+        "column": 6,
+        "snippet": "\"claude-3-opus-20240229\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-3-opus-latest",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-3-opus-latest",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 18,
+        "column": 6,
+        "snippet": "\"claude-3-opus-latest\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-3-sonnet-20240229",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-3-sonnet-20240229",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 21,
+        "column": 6,
+        "snippet": "\"claude-3-sonnet-20240229\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-opus-4-0",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-opus-4-0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 8,
+        "column": 6,
+        "snippet": "\"claude-opus-4-0\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-opus-4-1",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-opus-4-1",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 4,
+        "column": 6,
+        "snippet": "\"claude-opus-4-1\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-opus-4-1-20250805",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-opus-4-1-20250805",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 3,
+        "column": 6,
+        "snippet": "\"claude-opus-4-1-20250805\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-opus-4-20250514",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-opus-4-20250514",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 7,
+        "column": 6,
+        "snippet": "\"claude-opus-4-20250514\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-sonnet-4-0",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-sonnet-4-0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"claude-sonnet-4-0\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-sonnet-4-20250514",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-sonnet-4-20250514",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"claude-sonnet-4-20250514\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "anthropic:model:claude-sonnet-4-6",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-sonnet-4-6",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models.py",
+        "line": 22,
+        "column": 6,
+        "snippet": "\"claude-sonnet-4-6\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  }
+]

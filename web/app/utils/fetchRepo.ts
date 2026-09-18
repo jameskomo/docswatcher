@@ -1,0 +1,107 @@
+import type { InputFile, RepoRef } from "~~/engine/types";
+import { gunzip, isBinary, pathIsSkipped, untar } from "./tar";
+
+export interface RepoTarget { owner: string; name: string; ref: string | null; }
+
+export function parseGitHubUrl(input: string): RepoTarget | null {
+  const s = input.trim().replace(/\.git$/, "");
+  let m = /^(?:https?:\/\/)?(?:www\.)?github\.com\/([\w.-]+)\/([\w.-]+)(?:\/tree\/([^\s]+))?\/?$/.exec(s);
+  if (m) return { owner: m[1], name: m[2], ref: m[3] ? decodeURIComponent(m[3]) : null };
+  m = /^([\w.-]+)\/([\w.-]+)$/.exec(s);
+  if (m) return { owner: m[1], name: m[2], ref: null };
+  return null;
+}
+
+export interface FetchProgress { (msg: string, done?: number, total?: number): void; }
+export interface FetchResult { files: InputFile[]; repo: RepoRef; binaries: number; skipped: number; truncated: boolean; }
+
+const MAX_FILES = 300;
+const decoder = new TextDecoder("utf-8", { fatal: false });
+
+export async function fetchViaRelay(relay: string, t: RepoTarget, progress: FetchProgress): Promise<FetchResult> {
+  const url = `${relay.replace(/\/$/, "")}/tarball/${t.owner}/${t.name}${t.ref ? "/" + encodeURIComponent(t.ref) : ""}`;
+  progress("Downloading repository archive");
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Relay returned ${res.status} for ${t.owner}/${t.name}`);
+  const sha = res.headers.get("x-docwatcher-sha") ?? "unknown";
+  const ref = res.headers.get("x-docwatcher-ref") ?? t.ref ?? "HEAD";
+  const gz = new Uint8Array(await res.arrayBuffer());
+  progress("Unpacking");
+  const tar = await gunzip(gz);
+  const { files, binaries, skipped } = untar(tar);
+  return { files, binaries, skipped, truncated: false, repo: { host: "github", owner: t.owner, name: t.name, ref, sha } };
+}
+
+async function gh(url: string, token?: string) {
+  const headers: Record<string, string> = { Accept: "application/vnd.github+json" };
+  if (token) headers.Authorization = `Bearer ${token}`;
+  const res = await fetch(url, { headers });
+  if (res.status === 403 || res.status === 429) {
+    const reset = res.headers.get("x-ratelimit-reset");
+    const when = reset ? new Date(Number(reset) * 1000).toLocaleTimeString() : "later";
+    throw new Error(`GitHub API rate limit reached (60 requests per hour without a token). Try again after ${when}, or paste a personal token.`);
+  }
+  if (res.status === 404) throw new Error("Repository not found. Private repositories need a token with repo read access.");
+  if (!res.ok) throw new Error(`GitHub API returned ${res.status}`);
+  return res.json();
+}
+
+const PRIORITY = [/(^|\/)(package\.json|requirements[^/]*\.txt|pyproject\.toml|pom\.xml|go\.mod|Gemfile)$/, /\.(ya?ml|toml|env|properties|json)$/, /\.(java|kt|ts|tsx|js|jsx|mjs|cjs|py|go|rb|php|cs)$/];
+
+/** Fallback without a relay: one tree call to the API, then raw file reads (not counted against the API limit). */
+export async function fetchViaApi(t: RepoTarget, token: string | undefined, progress: FetchProgress): Promise<FetchResult> {
+  progress("Resolving default branch");
+  let ref = t.ref;
+  if (!ref) { const info = await gh(`https://api.github.com/repos/${t.owner}/${t.name}`, token); ref = info.default_branch as string; }
+  progress("Listing files");
+  const tree = await gh(`https://api.github.com/repos/${t.owner}/${t.name}/git/trees/${encodeURIComponent(ref)}?recursive=1`, token);
+  const sha: string = tree.sha;
+  const all: Array<{ path: string; size: number }> = (tree.tree as any[])
+    .filter((e) => e.type === "blob" && !pathIsSkipped(e.path) && e.size <= 1024 * 1024)
+    .map((e) => ({ path: e.path, size: e.size }));
+  const rank = (p: string) => { for (let i = 0; i < PRIORITY.length; i++) if (PRIORITY[i].test(p)) return i; return PRIORITY.length; };
+  all.sort((a, b) => rank(a.path) - rank(b.path) || a.path.localeCompare(b.path));
+  const chosen = all.filter((e) => rank(e.path) < PRIORITY.length).slice(0, MAX_FILES);
+  const truncated = all.filter((e) => rank(e.path) < PRIORITY.length).length > chosen.length;
+  const files: InputFile[] = [];
+  let binaries = 0, done = 0;
+  const headers: Record<string, string> = {};
+  if (token) headers.Authorization = `Bearer ${token}`;
+  const queue = [...chosen];
+  const worker = async () => {
+    while (queue.length) {
+      const e = queue.shift()!;
+      const res = await fetch(`https://raw.githubusercontent.com/${t.owner}/${t.name}/${sha}/${e.path.split("/").map(encodeURIComponent).join("/")}`, { headers });
+      if (res.ok) {
+        const bytes = new Uint8Array(await res.arrayBuffer());
+        if (isBinary(bytes)) binaries++; else files.push({ path: e.path, text: decoder.decode(bytes) });
+      }
+      done++;
+      progress("Reading files", done, chosen.length);
+    }
+  };
+  await Promise.all(Array.from({ length: 6 }, worker));
+  files.sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0));
+  return { files, binaries, skipped: all.length - chosen.length, truncated, repo: { host: "github", owner: t.owner, name: t.name, ref: `refs/heads/${ref}`, sha } };
+}
+
+/** Reads a dropped or picked directory. Skips vendored directories before reading to keep it fast. */
+export async function readFolder(list: FileList, progress: FetchProgress): Promise<{ files: InputFile[]; binaries: number; skipped: number; root: string }> {
+  const entries = Array.from(list);
+  const root = entries[0]?.webkitRelativePath.split("/")[0] ?? "folder";
+  const candidates = entries.filter((f) => {
+    const rel = f.webkitRelativePath.split("/").slice(1).join("/");
+    return rel && !pathIsSkipped(rel) && f.size <= 1024 * 1024;
+  });
+  const files: InputFile[] = [];
+  let binaries = 0, done = 0;
+  for (const f of candidates) {
+    const rel = f.webkitRelativePath.split("/").slice(1).join("/");
+    const bytes = new Uint8Array(await f.arrayBuffer());
+    if (isBinary(bytes)) binaries++; else files.push({ path: rel, text: decoder.decode(bytes) });
+    done++;
+    if (done % 25 === 0 || done === candidates.length) progress("Reading files", done, candidates.length);
+  }
+  files.sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0));
+  return { files, binaries, skipped: entries.length - candidates.length, root };
+}

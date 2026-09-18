@@ -1,0 +1,21 @@
+name: Knowledge base link check
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # weekly, Monday
+  workflow_dispatch:
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check every url in change records
+        run: |
+          set -e
+          fail=0
+          for u in $(grep -rhoE 'url: https?://[^ ]+' knowledge/providers | awk '{print $2}' | sort -u); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" -L --max-time 20 "$u" || echo 000)
+            case "$code" in 2*|3*) ;; *) echo "BROKEN $code $u"; fail=1;; esac
+          done
+          exit $fail

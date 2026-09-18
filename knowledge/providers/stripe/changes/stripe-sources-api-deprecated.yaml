@@ -1,0 +1,39 @@
+id: stripe-sources-api-deprecated
+provider: stripe
+kind: sunset
+severity: warning
+title: Sources API deprecated, removal planned
+summary: >
+  Stripe has deprecated the Sources API and plans to remove support. New
+  integrations cannot use it. Existing integrations must migrate to the
+  Payment Intents and Payment Methods APIs. No removal date is published.
+
+affects:
+  - kind: endpoint
+    match: "POST /v1/sources"
+  - kind: endpoint
+    match: "ANY /v1/sources"
+  - kind: sdk_method
+    match: "Source.create"
+  - kind: sdk_method
+    match: "sources.create"
+
+announced: 2024-01-01
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://docs.stripe.com/sources
+    observed: 2026-09-18
+    note: "Page is titled [Deprecated] The Sources API and states removal is planned."
+
+migration:
+  replacement: "POST /v1/payment_methods"
+  guide: https://docs.stripe.com/payments/payment-methods/transitioning
+  effort: large
+  notes: >
+    Source objects become PaymentMethods attached to a Customer. Charges
+    created from a source become PaymentIntents with confirm=true. Webhook
+    handlers for source.chargeable move to payment_intent events.
+
+status: active

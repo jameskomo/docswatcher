@@ -1,0 +1,121 @@
+[
+  {
+    "id": "shopify:api_version:2025-01",
+    "provider": "shopify",
+    "kind": "api_version",
+    "key": "2025-01",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/shopify.toml",
+        "line": 3,
+        "column": 16,
+        "snippet": "api_version = \"2025-01\"",
+        "detector": "shopify.literal.api-version-config",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "shopify:api_version:2025-04",
+    "provider": "shopify",
+    "kind": "api_version",
+    "key": "2025-04",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/shopify.toml",
+        "line": 5,
+        "column": 16,
+        "snippet": "api_version = \"2025-04\"",
+        "detector": "shopify.literal.api-version-config",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "shopify:api_version:2025-07",
+    "provider": "shopify",
+    "kind": "api_version",
+    "key": "2025-07",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/shopify.toml",
+        "line": 7,
+        "column": 16,
+        "snippet": "api_version = \"2025-07\"",
+        "detector": "shopify.literal.api-version-config",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "shopify:api_version:2025-10",
+    "provider": "shopify",
+    "kind": "api_version",
+    "key": "2025-10",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/shopify.toml",
+        "line": 9,
+        "column": 16,
+        "snippet": "api_version = \"2025-10\"",
+        "detector": "shopify.literal.api-version-config",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "shopify:api_version:2026-01",
+    "provider": "shopify",
+    "kind": "api_version",
+    "key": "2026-01",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/shopify.toml",
+        "line": 11,
+        "column": 16,
+        "snippet": "api_version = \"2026-01\"",
+        "detector": "shopify.literal.api-version-config",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "shopify:api_version:2026-04",
+    "provider": "shopify",
+    "kind": "api_version",
+    "key": "2026-04",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/shopify.toml",
+        "line": 13,
+        "column": 16,
+        "snippet": "api_version = \"2026-04\"",
+        "detector": "shopify.literal.api-version-config",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "shopify:api_version:2026-07",
+    "provider": "shopify",
+    "kind": "api_version",
+    "key": "2026-07",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/shopify.toml",
+        "line": 15,
+        "column": 16,
+        "snippet": "api_version = \"2026-07\"",
+        "detector": "shopify.literal.api-version-config",
+        "layer": "literal"
+      }
+    ]
+  }
+]

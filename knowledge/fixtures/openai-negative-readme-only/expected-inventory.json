@@ -1,0 +1,19 @@
+[
+  {
+    "id": "openai:model:gpt-4-turbo",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4-turbo",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "README.md",
+        "line": 3,
+        "column": 10,
+        "snippet": "We tried gpt-4-turbo for triage in a 2024 experiment and dropped it. The",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  }
+]

@@ -1,0 +1,15 @@
+id: openai
+name: OpenAI
+homepage: https://openai.com
+docs: https://developers.openai.com/api
+changelog: https://developers.openai.com/api/docs/deprecations
+base_urls:
+  - https://api.openai.com
+openapi:
+  url: https://raw.githubusercontent.com/openai/openai-openapi/master/openapi.yaml
+  pinned_sha: null
+sdk_languages: [python, typescript, java, go, csharp]
+deprecation_policy: >
+  Models and endpoints are announced with a shutdown date, typically three to
+  six months out. Dated model snapshots retire individually. The deprecations
+  page is the source of truth.

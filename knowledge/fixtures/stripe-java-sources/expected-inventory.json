@@ -1,0 +1,102 @@
+[
+  {
+    "id": "stripe:api_version:2020-08-27",
+    "provider": "stripe",
+    "kind": "api_version",
+    "key": "2020-08-27",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/main/java/pay/SourceClient.java",
+        "line": 10,
+        "column": 58,
+        "snippet": "RequestOptions.builder().setStripeVersionOverride(\"2020-08-27\").build();",
+        "detector": "stripe.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "maven",
+        "package": "com.stripe:stripe-java",
+        "version": "29.0.0"
+      },
+      "apiVersion": "2020-08-27"
+    }
+  },
+  {
+    "id": "stripe:endpoint:POST /v1/sources",
+    "provider": "stripe",
+    "kind": "endpoint",
+    "key": "POST /v1/sources",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/main/java/pay/SourceClient.java",
+        "line": 14,
+        "column": 12,
+        "snippet": "return Source.create(params, OPTIONS);",
+        "detector": "stripe.java.source-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "maven",
+        "package": "com.stripe:stripe-java",
+        "version": "29.0.0"
+      },
+      "apiVersion": "2020-08-27"
+    }
+  },
+  {
+    "id": "stripe:sdk_method:Source.create",
+    "provider": "stripe",
+    "kind": "sdk_method",
+    "key": "Source.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/main/java/pay/SourceClient.java",
+        "line": 14,
+        "column": 12,
+        "snippet": "return Source.create(params, OPTIONS);",
+        "detector": "stripe.java.source-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "maven",
+        "package": "com.stripe:stripe-java",
+        "version": "29.0.0"
+      },
+      "apiVersion": "2020-08-27"
+    }
+  },
+  {
+    "id": "stripe:sdk_package:com.stripe:stripe-java",
+    "provider": "stripe",
+    "kind": "sdk_package",
+    "key": "com.stripe:stripe-java",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "pom.xml",
+        "line": 10,
+        "column": 19,
+        "snippet": "<artifactId>stripe-java</artifactId>",
+        "detector": "stripe.manifest.maven",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "maven",
+        "package": "com.stripe:stripe-java",
+        "version": "29.0.0"
+      },
+      "apiVersion": "2020-08-27"
+    }
+  }
+]

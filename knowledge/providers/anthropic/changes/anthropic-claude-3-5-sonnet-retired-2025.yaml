@@ -1,0 +1,35 @@
+id: anthropic-claude-3-5-sonnet-retired-2025
+provider: anthropic
+kind: retired
+severity: breaking
+title: "Claude Sonnet 3.5 models retired"
+summary: >
+  Requests to claude-3-5-sonnet-20240620 and claude-3-5-sonnet-20241022 fail after the retirement date. Anthropic
+  recommends claude-sonnet-4-6 as the replacement.
+
+affects:
+  - kind: model
+    match: "claude-3-5-sonnet-20240620"
+  - kind: model
+    match: "claude-3-5-sonnet-20241022"
+  - kind: model
+    match: "claude-3-5-sonnet-latest"
+
+announced: 2025-08-13
+effective: 2025-10-28
+
+sources:
+  - kind: provider_page
+    url: https://platform.claude.com/docs/en/about-claude/model-deprecations
+    observed: 2026-09-18
+
+migration:
+  replacement: "claude-sonnet-4-6"
+  guide: https://platform.claude.com/docs/en/about-claude/models/migration-guide
+  effort: small
+  notes: >
+    Replace the model ID string. Check the migration guide for request
+    parameters that changed between generations, such as thinking
+    configuration and sampling parameters.
+
+status: expired

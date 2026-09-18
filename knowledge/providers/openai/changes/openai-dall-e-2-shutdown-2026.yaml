@@ -1,0 +1,30 @@
+id: openai-dall-e-2-shutdown-2026
+provider: openai
+kind: retired
+severity: breaking
+title: "dall-e-2 shut down"
+summary: >
+  Requests to the model dall-e-2 fail after the shutdown date.
+  OpenAI recommends gpt-image-2 as the replacement.
+
+affects:
+  - kind: model
+    match: "dall-e-2"
+
+announced: 2025-11-14
+effective: 2026-05-12
+
+sources:
+  - kind: provider_page
+    url: https://developers.openai.com/api/docs/deprecations
+    observed: 2026-09-18
+
+migration:
+  replacement: "gpt-image-2"
+  guide: https://developers.openai.com/api/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID string. Re-run any evals, because output style and
+    token usage differ between model generations.
+
+status: expired

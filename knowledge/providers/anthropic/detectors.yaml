@@ -1,0 +1,92 @@
+provider: anthropic
+
+manifests:
+  - ecosystem: pypi
+    package: anthropic
+  - ecosystem: npm
+    package: "@anthropic-ai/sdk"
+  - ecosystem: maven
+    package: com.anthropic:anthropic-java
+  - ecosystem: go
+    package: github.com/anthropics/anthropic-sdk-go
+
+literals:
+  - id: anthropic.literal.model
+    kind: model
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: '\b(claude-(?:[0-9]+(?:\.[0-9]+)?|opus|sonnet|haiku|fable|mythos|instant)[0-9a-z.-]*[0-9a-z])\b'
+    key: "$1"
+    confidence: medium
+
+  - id: anthropic.literal.endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://api\.anthropic\.com(/v1/[a-z_]+(?:/[a-z_]+)*)'
+    key: "ANY $1"
+    confidence: medium
+
+callsites:
+  - id: anthropic.python.messages-create
+    language: python
+    kind: sdk_method
+    requires: anthropic
+    query: |
+      (call
+        function: (attribute
+          object: (attribute attribute: (identifier) @a1)
+          attribute: (identifier) @m)
+        (#eq? @a1 "messages") (#eq? @m "create")) @call
+    key: "messages.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/messages"
+    confidence: high
+
+  - id: anthropic.typescript.messages-create
+    language: typescript
+    kind: sdk_method
+    requires: "@anthropic-ai/sdk"
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @a1)
+          property: (property_identifier) @m)
+        (#eq? @a1 "messages") (#eq? @m "create")) @call
+    key: "messages.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/messages"
+    confidence: high
+
+  - id: anthropic.javascript.messages-create
+    language: javascript
+    kind: sdk_method
+    requires: "@anthropic-ai/sdk"
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @a1)
+          property: (property_identifier) @m)
+        (#eq? @a1 "messages") (#eq? @m "create")) @call
+    key: "messages.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/messages"
+    confidence: high
+
+  - id: anthropic.java.messages-create
+    language: java
+    kind: sdk_method
+    requires: com.anthropic:anthropic-java
+    query: |
+      (method_invocation
+        object: (method_invocation name: (identifier) @a1)
+        name: (identifier) @m
+        (#eq? @a1 "messages") (#eq? @m "create")) @call
+    key: "messages().create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/messages"
+    confidence: high
