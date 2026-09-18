@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: docwatcher
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    url: ${DOCWATCHER_DB_URL:jdbc:postgresql://localhost:5432/docwatcher}
+    username: ${DOCWATCHER_DB_USER:docwatcher}
+    password: ${DOCWATCHER_DB_PASSWORD:docwatcher}
+  flyway:
+    enabled: true
+
+server:
+  port: ${PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+docwatcher:
+  github:
+    app-id: ${GITHUB_APP_ID:}
+    private-key: ${GITHUB_APP_PRIVATE_KEY:}
+    webhook-secret: ${GITHUB_WEBHOOK_SECRET:}
+    api-base: ${GITHUB_API_BASE:https://api.github.com}
+    fix-label: docwatcher:fix
+    snooze-label: docwatcher:snooze-30d
+    not-in-prod-label: docwatcher:not-in-prod
+  api:
+    token: ${DOCWATCHER_API_TOKEN:}
+    require-token: true
+  web:
+    origin: ${DOCWATCHER_WEB_ORIGIN:http://localhost:3000}
+  knowledge:
+    dir: ${DOCWATCHER_KNOWLEDGE_DIR:}
+  worker:
+    enabled: true
+    threads: 2
+    poll-ms: 2000
+    clone-timeout-seconds: 120
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+docwatcher:
+  api:
+    require-token: false

@@ -1,0 +1,33 @@
+id: anthropic-claude-opus-4-1-retired-2026
+provider: anthropic
+kind: retired
+severity: breaking
+title: "Claude Opus 4.1 retired"
+summary: >
+  Requests to claude-opus-4-1-20250805 fail after the retirement date. Anthropic
+  recommends claude-opus-4-8 as the replacement.
+
+affects:
+  - kind: model
+    match: "claude-opus-4-1-20250805"
+  - kind: model
+    match: "claude-opus-4-1"
+
+announced: 2026-06-05
+effective: 2026-08-05
+
+sources:
+  - kind: provider_page
+    url: https://platform.claude.com/docs/en/about-claude/model-deprecations
+    observed: 2026-09-18
+
+migration:
+  replacement: "claude-opus-4-8"
+  guide: https://platform.claude.com/docs/en/about-claude/models/migration-guide
+  effort: small
+  notes: >
+    Replace the model ID string. Check the migration guide for request
+    parameters that changed between generations, such as thinking
+    configuration and sampling parameters.
+
+status: expired

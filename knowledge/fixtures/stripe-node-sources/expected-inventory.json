@@ -1,0 +1,102 @@
+[
+  {
+    "id": "stripe:api_version:2022-11-15",
+    "provider": "stripe",
+    "kind": "api_version",
+    "key": "2022-11-15",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/checkout.js",
+        "line": 3,
+        "column": 66,
+        "snippet": "const stripe = new Stripe(process.env.STRIPE_KEY, { apiVersion: \"2022-11-15\" });",
+        "detector": "stripe.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "stripe",
+        "version": "^14.25.0"
+      },
+      "apiVersion": "2022-11-15"
+    }
+  },
+  {
+    "id": "stripe:endpoint:POST /v1/sources",
+    "provider": "stripe",
+    "kind": "endpoint",
+    "key": "POST /v1/sources",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/checkout.js",
+        "line": 6,
+        "column": 24,
+        "snippet": "const source = await stripe.sources.create({",
+        "detector": "stripe.javascript.sources-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "stripe",
+        "version": "^14.25.0"
+      },
+      "apiVersion": "2022-11-15"
+    }
+  },
+  {
+    "id": "stripe:sdk_method:sources.create",
+    "provider": "stripe",
+    "kind": "sdk_method",
+    "key": "sources.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/checkout.js",
+        "line": 6,
+        "column": 24,
+        "snippet": "const source = await stripe.sources.create({",
+        "detector": "stripe.javascript.sources-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "stripe",
+        "version": "^14.25.0"
+      },
+      "apiVersion": "2022-11-15"
+    }
+  },
+  {
+    "id": "stripe:sdk_package:stripe",
+    "provider": "stripe",
+    "kind": "sdk_package",
+    "key": "stripe",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"stripe\": \"^14.25.0\"",
+        "detector": "stripe.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "stripe",
+        "version": "^14.25.0"
+      },
+      "apiVersion": "2022-11-15"
+    }
+  }
+]

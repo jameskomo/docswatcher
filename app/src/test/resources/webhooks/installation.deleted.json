@@ -1,0 +1,8 @@
+{
+  "action": "deleted",
+  "installation": {
+    "id": 5001,
+    "account": { "login": "acme", "type": "Organization" }
+  },
+  "sender": { "login": "octocat" }
+}

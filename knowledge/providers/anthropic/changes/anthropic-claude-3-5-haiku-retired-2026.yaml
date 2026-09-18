@@ -1,0 +1,33 @@
+id: anthropic-claude-3-5-haiku-retired-2026
+provider: anthropic
+kind: retired
+severity: breaking
+title: "Claude Haiku 3.5 retired"
+summary: >
+  Requests to claude-3-5-haiku-20241022 fail after the retirement date. Anthropic
+  recommends claude-haiku-4-5-20251001 as the replacement.
+
+affects:
+  - kind: model
+    match: "claude-3-5-haiku-20241022"
+  - kind: model
+    match: "claude-3-5-haiku-latest"
+
+announced: 2025-12-19
+effective: 2026-02-19
+
+sources:
+  - kind: provider_page
+    url: https://platform.claude.com/docs/en/about-claude/model-deprecations
+    observed: 2026-09-18
+
+migration:
+  replacement: "claude-haiku-4-5-20251001"
+  guide: https://platform.claude.com/docs/en/about-claude/models/migration-guide
+  effort: small
+  notes: >
+    Replace the model ID string. Check the migration guide for request
+    parameters that changed between generations, such as thinking
+    configuration and sampling parameters.
+
+status: expired

@@ -1,0 +1,30 @@
+id: openai-o3-mini-2025-01-31-shutdown-2026
+provider: openai
+kind: retired
+severity: breaking
+title: "o3-mini-2025-01-31 shut down"
+summary: >
+  Requests to the model o3-mini-2025-01-31 fail after the shutdown date.
+  OpenAI recommends gpt-5.6-sol as the replacement.
+
+affects:
+  - kind: model
+    match: "o3-mini-2025-01-31"
+
+announced: 2026-04-22
+effective: 2026-10-23
+
+sources:
+  - kind: provider_page
+    url: https://developers.openai.com/api/docs/deprecations
+    observed: 2026-09-18
+
+migration:
+  replacement: "gpt-5.6-sol"
+  guide: https://developers.openai.com/api/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID string. Re-run any evals, because output style and
+    token usage differ between model generations.
+
+status: active

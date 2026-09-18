@@ -1,0 +1,65 @@
+package dev.docwatcher.app.store;
+
+import java.util.List;
+import java.util.Optional;
+import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class RepoStore {
+
+  private final JdbcClient jdbc;
+
+  public RepoStore(JdbcClient jdbc) {
+    this.jdbc = jdbc;
+  }
+
+  public void upsert(long id, long installationId, String fullName, String defaultBranch) {
+    jdbc.sql(
+            """
+            insert into repo (id, installation_id, full_name, default_branch) values (:id, :inst, :name, :branch)
+            on conflict (id) do update set installation_id = excluded.installation_id,
+              full_name = excluded.full_name, default_branch = excluded.default_branch
+            """)
+        .param("id", id)
+        .param("inst", installationId)
+        .param("name", fullName)
+        .param("branch", defaultBranch)
+        .update();
+  }
+
+  public void delete(long id) {
+    jdbc.sql("delete from repo where id = :id").param("id", id).update();
+  }
+
+  public Optional<Repo> find(long id) {
+    return jdbc.sql("select * from repo where id = :id").param("id", id).query(Repo.class).optional();
+  }
+
+  public Optional<Repo> findByFullName(String fullName) {
+    return jdbc.sql("select * from repo where full_name = :n").param("n", fullName).query(Repo.class).optional();
+  }
+
+  public List<Repo> forLogin(String login) {
+    return jdbc.sql(
+            """
+            select r.* from repo r join installation i on i.id = r.installation_id
+            where i.account_login = :login order by r.full_name
+            """)
+        .param("login", login)
+        .query(Repo.class)
+        .list();
+  }
+
+  public List<Repo> forInstallation(long installationId) {
+    return jdbc.sql("select * from repo where installation_id = :id order by full_name").param("id", installationId).query(Repo.class).list();
+  }
+
+  public void setLastScannedSha(long id, String sha) {
+    jdbc.sql("update repo set last_scanned_sha = :sha where id = :id").param("sha", sha).param("id", id).update();
+  }
+
+  public void setProduction(long id, boolean production) {
+    jdbc.sql("update repo set production = :p where id = :id").param("p", production).param("id", id).update();
+  }
+}

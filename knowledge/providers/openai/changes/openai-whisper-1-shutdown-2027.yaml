@@ -1,0 +1,30 @@
+id: openai-whisper-1-shutdown-2027
+provider: openai
+kind: retired
+severity: breaking
+title: "whisper-1 shut down"
+summary: >
+  Requests to the model whisper-1 fail after the shutdown date.
+  OpenAI recommends gpt-transcribe as the replacement.
+
+affects:
+  - kind: model
+    match: "whisper-1"
+
+announced: 2026-08-26
+effective: 2027-02-26
+
+sources:
+  - kind: provider_page
+    url: https://developers.openai.com/api/docs/deprecations
+    observed: 2026-09-18
+
+migration:
+  replacement: "gpt-transcribe"
+  guide: https://developers.openai.com/api/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID string. Re-run any evals, because output style and
+    token usage differ between model generations.
+
+status: active

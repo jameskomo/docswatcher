@@ -1,0 +1,546 @@
+[
+  {
+    "id": "openai:endpoint:ANY /v1/assistants",
+    "provider": "openai",
+    "kind": "endpoint",
+    "key": "ANY /v1/assistants",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/endpoints.py",
+        "line": 1,
+        "column": 41,
+        "snippet": "ASSISTANTS_URL = \"https://api.openai.com/v1/assistants\"",
+        "detector": "openai.literal.endpoint",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:endpoint:ANY /v1/prompts",
+    "provider": "openai",
+    "kind": "endpoint",
+    "key": "ANY /v1/prompts",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/endpoints.py",
+        "line": 2,
+        "column": 38,
+        "snippet": "PROMPTS_URL = \"https://api.openai.com/v1/prompts\"",
+        "detector": "openai.literal.endpoint",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:babbage-002",
+    "provider": "openai",
+    "kind": "model",
+    "key": "babbage-002",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 30,
+        "column": 15,
+        "snippet": "base_babbage: babbage-002",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:chatgpt-4o-latest",
+    "provider": "openai",
+    "kind": "model",
+    "key": "chatgpt-4o-latest",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 26,
+        "column": 17,
+        "snippet": "chatgpt_latest: chatgpt-4o-latest",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:dall-e-2",
+    "provider": "openai",
+    "kind": "model",
+    "key": "dall-e-2",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 12,
+        "column": 15,
+        "snippet": "image_oldest: dall-e-2",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:dall-e-3",
+    "provider": "openai",
+    "kind": "model",
+    "key": "dall-e-3",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 11,
+        "column": 14,
+        "snippet": "image_older: dall-e-3",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:davinci-002",
+    "provider": "openai",
+    "kind": "model",
+    "key": "davinci-002",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 31,
+        "column": 15,
+        "snippet": "base_davinci: davinci-002",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-3.5-turbo-0125",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-3.5-turbo-0125",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 5,
+        "column": 13,
+        "snippet": "chat_cheap: gpt-3.5-turbo-0125",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-3.5-turbo-1106",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-3.5-turbo-1106",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 7,
+        "column": 12,
+        "snippet": "chat_1106: gpt-3.5-turbo-1106",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-3.5-turbo-instruct",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-3.5-turbo-instruct",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 6,
+        "column": 16,
+        "snippet": "chat_instruct: gpt-3.5-turbo-instruct",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4-0125-preview",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4-0125-preview",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 28,
+        "column": 12,
+        "snippet": "gpt4_0125: gpt-4-0125-preview",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4-0314",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4-0314",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 27,
+        "column": 12,
+        "snippet": "gpt4_0314: gpt-4-0314",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4-0613",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4-0613",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 3,
+        "column": 14,
+        "snippet": "chat_legacy: gpt-4-0613",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4-1106-preview",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4-1106-preview",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 4,
+        "column": 15,
+        "snippet": "chat_preview: gpt-4-1106-preview",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4-turbo",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4-turbo",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 2,
+        "column": 15,
+        "snippet": "chat_default: gpt-4-turbo",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4.1-nano",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4.1-nano",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 9,
+        "column": 7,
+        "snippet": "nano: gpt-4.1-nano",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4.5-preview",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4.5-preview",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 29,
+        "column": 8,
+        "snippet": "gpt45: gpt-4.5-preview",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4o-2024-05-13",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o-2024-05-13",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 8,
+        "column": 9,
+        "snippet": "vision: gpt-4o-2024-05-13",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4o-realtime",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o-realtime",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 25,
+        "column": 14,
+        "snippet": "realtime_4o: gpt-4o-realtime",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4o-transcribe",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o-transcribe",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 23,
+        "column": 16,
+        "snippet": "transcribe_4o: gpt-4o-transcribe",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-5-2025-08-07",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-5-2025-08-07",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 19,
+        "column": 7,
+        "snippet": "gpt5: gpt-5-2025-08-07",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-5-mini-2025-08-07",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-5-mini-2025-08-07",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 20,
+        "column": 12,
+        "snippet": "gpt5_mini: gpt-5-mini-2025-08-07",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-5-nano-2025-08-07",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-5-nano-2025-08-07",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 21,
+        "column": 12,
+        "snippet": "gpt5_nano: gpt-5-nano-2025-08-07",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-image-1",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-image-1",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 10,
+        "column": 12,
+        "snippet": "image_old: gpt-image-1",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-realtime",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-realtime",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 24,
+        "column": 11,
+        "snippet": "realtime: gpt-realtime",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:o1-2024-12-17",
+    "provider": "openai",
+    "kind": "model",
+    "key": "o1-2024-12-17",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 13,
+        "column": 16,
+        "snippet": "reasoning_o1: \"o1-2024-12-17\"",
+        "detector": "openai.literal.model-o-series",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:o1-mini",
+    "provider": "openai",
+    "kind": "model",
+    "key": "o1-mini",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 18,
+        "column": 21,
+        "snippet": "reasoning_o1_mini: \"o1-mini\"",
+        "detector": "openai.literal.model-o-series",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:o1-preview",
+    "provider": "openai",
+    "kind": "model",
+    "key": "o1-preview",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 17,
+        "column": 24,
+        "snippet": "reasoning_o1_preview: \"o1-preview\"",
+        "detector": "openai.literal.model-o-series",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:o3-2025-04-16",
+    "provider": "openai",
+    "kind": "model",
+    "key": "o3-2025-04-16",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 16,
+        "column": 16,
+        "snippet": "reasoning_o3: \"o3-2025-04-16\"",
+        "detector": "openai.literal.model-o-series",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:o3-mini-2025-01-31",
+    "provider": "openai",
+    "kind": "model",
+    "key": "o3-mini-2025-01-31",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 14,
+        "column": 21,
+        "snippet": "reasoning_o3_mini: \"o3-mini-2025-01-31\"",
+        "detector": "openai.literal.model-o-series",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:o4-mini-2025-04-16",
+    "provider": "openai",
+    "kind": "model",
+    "key": "o4-mini-2025-04-16",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 15,
+        "column": 21,
+        "snippet": "reasoning_o4_mini: \"o4-mini-2025-04-16\"",
+        "detector": "openai.literal.model-o-series",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:whisper-1",
+    "provider": "openai",
+    "kind": "model",
+    "key": "whisper-1",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 22,
+        "column": 13,
+        "snippet": "transcribe: whisper-1",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  }
+]

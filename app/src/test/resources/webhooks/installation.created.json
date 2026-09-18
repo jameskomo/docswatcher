@@ -1,0 +1,13 @@
+{
+  "action": "created",
+  "installation": {
+    "id": 5001,
+    "account": { "login": "acme", "type": "Organization" },
+    "repository_selection": "selected"
+  },
+  "repositories": [
+    { "id": 9001, "name": "checkout-service", "full_name": "acme/checkout-service", "private": true },
+    { "id": 9002, "name": "notify", "full_name": "acme/notify", "private": true }
+  ],
+  "sender": { "login": "octocat" }
+}

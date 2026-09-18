@@ -1,0 +1,30 @@
+id: openai-babbage-002-shutdown-2026
+provider: openai
+kind: retired
+severity: breaking
+title: "babbage-002 shut down"
+summary: >
+  Requests to the model babbage-002 fail after the shutdown date.
+  OpenAI recommends gpt-5.6-terra as the replacement.
+
+affects:
+  - kind: model
+    match: "babbage-002"
+
+announced: 2025-09-26
+effective: 2026-09-28
+
+sources:
+  - kind: provider_page
+    url: https://developers.openai.com/api/docs/deprecations
+    observed: 2026-09-18
+
+migration:
+  replacement: "gpt-5.6-terra"
+  guide: https://developers.openai.com/api/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID string. Re-run any evals, because output style and
+    token usage differ between model generations.
+
+status: active

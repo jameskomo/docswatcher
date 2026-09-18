@@ -1,0 +1,98 @@
+[
+  {
+    "id": "anthropic:endpoint:POST /v1/messages",
+    "provider": "anthropic",
+    "kind": "endpoint",
+    "key": "POST /v1/messages",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/main/java/bot/Replier.java",
+        "line": 22,
+        "column": 23,
+        "snippet": "Message message = client.messages().create(params);",
+        "detector": "anthropic.java.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "maven",
+        "package": "com.anthropic:anthropic-java",
+        "version": "2.9.0"
+      }
+    }
+  },
+  {
+    "id": "anthropic:model:claude-3-5-sonnet-20241022",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-3-5-sonnet-20241022",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/main/java/bot/Replier.java",
+        "line": 10,
+        "column": 40,
+        "snippet": "private static final String MODEL = \"claude-3-5-sonnet-20241022\";",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "maven",
+        "package": "com.anthropic:anthropic-java",
+        "version": "2.9.0"
+      }
+    }
+  },
+  {
+    "id": "anthropic:sdk_method:messages().create",
+    "provider": "anthropic",
+    "kind": "sdk_method",
+    "key": "messages().create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/main/java/bot/Replier.java",
+        "line": 22,
+        "column": 23,
+        "snippet": "Message message = client.messages().create(params);",
+        "detector": "anthropic.java.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "maven",
+        "package": "com.anthropic:anthropic-java",
+        "version": "2.9.0"
+      }
+    }
+  },
+  {
+    "id": "anthropic:sdk_package:com.anthropic:anthropic-java",
+    "provider": "anthropic",
+    "kind": "sdk_package",
+    "key": "com.anthropic:anthropic-java",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "pom.xml",
+        "line": 10,
+        "column": 19,
+        "snippet": "<artifactId>anthropic-java</artifactId>",
+        "detector": "anthropic.manifest.maven",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "maven",
+        "package": "com.anthropic:anthropic-java",
+        "version": "2.9.0"
+      }
+    }
+  }
+]

@@ -1,0 +1,15 @@
+id: stripe
+name: Stripe
+homepage: https://stripe.com
+docs: https://docs.stripe.com/api
+changelog: https://docs.stripe.com/changelog
+base_urls:
+  - https://api.stripe.com
+openapi:
+  url: https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.yaml
+  pinned_sha: null
+sdk_languages: [java, python, typescript, go, ruby, php, csharp]
+deprecation_policy: >
+  Versioned by a date header. Major releases are named and contain breaking
+  changes. Individual APIs such as Sources are deprecated in the docs
+  without a removal date; Sunset headers may precede removal.

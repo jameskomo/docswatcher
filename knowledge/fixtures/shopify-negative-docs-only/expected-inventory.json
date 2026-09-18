@@ -1,0 +1,22 @@
+[
+  {
+    "id": "shopify:api_version:2025-01",
+    "provider": "shopify",
+    "kind": "api_version",
+    "key": "2025-01",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "docs/integration.md",
+        "line": 3,
+        "column": 49,
+        "snippet": "Historical: the 2023 prototype used `/admin/api/2025-01/products.json`. It was",
+        "detector": "shopify.literal.api-version-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "apiVersion": "2025-01"
+    }
+  }
+]

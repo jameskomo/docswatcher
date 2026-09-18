@@ -1,0 +1,14 @@
+[
+  {
+    "contract": "anthropic:model:claude-3-haiku-20240307",
+    "change": "anthropic-claude-3-haiku-retired-2026"
+  },
+  {
+    "contract": "anthropic:endpoint:POST /v1/messages",
+    "change": "anthropic-sampling-parameters-deprecated-2026"
+  },
+  {
+    "contract": "anthropic:sdk_method:messages.create",
+    "change": "anthropic-sampling-parameters-deprecated-2026"
+  }
+]

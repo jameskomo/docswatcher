@@ -1,0 +1,8 @@
+{
+  "action": "added",
+  "installation": { "id": 5001, "account": { "login": "acme" } },
+  "repository_selection": "selected",
+  "repositories_added": [ { "id": 9003, "name": "billing", "full_name": "acme/billing" } ],
+  "repositories_removed": [],
+  "sender": { "login": "octocat" }
+}

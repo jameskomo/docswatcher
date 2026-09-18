@@ -1,0 +1,17 @@
+id: shopify
+name: Shopify
+homepage: https://www.shopify.com
+docs: https://shopify.dev/docs/api
+changelog: https://shopify.dev/changelog
+base_urls:
+  - https://{shop}.myshopify.com/admin/api
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [typescript, python, ruby, php]
+deprecation_policy: >
+  A new API version is released on the first day of each quarter. Each
+  stable version is supported for at least twelve months. Requests to an
+  unsupported version fall forward to the oldest supported stable version,
+  which can change response shapes silently. The version appears in the
+  URL path as /admin/api/YYYY-MM/.

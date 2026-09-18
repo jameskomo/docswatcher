@@ -1,0 +1,11 @@
+docwatcher:
+  engine:
+    enabled: false
+  github:
+    app-id: ""
+    webhook-secret: test-secret
+  api:
+    token: test-token
+    require-token: true
+  worker:
+    enabled: false

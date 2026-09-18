@@ -1,0 +1,12 @@
+{
+  "name": "docwatcher-relay",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloudflare Worker that relays GitHub repository tarballs to the browser with permissive CORS headers.",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "dev": "npx wrangler dev",
+    "deploy": "npx wrangler deploy"
+  }
+}

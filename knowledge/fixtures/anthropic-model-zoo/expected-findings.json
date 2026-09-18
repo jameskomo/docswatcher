@@ -1,0 +1,78 @@
+[
+  {
+    "contract": "anthropic:model:claude-2.0",
+    "change": "anthropic-claude-2-retired-2025"
+  },
+  {
+    "contract": "anthropic:model:claude-2.1",
+    "change": "anthropic-claude-2-retired-2025"
+  },
+  {
+    "contract": "anthropic:model:claude-3-sonnet-20240229",
+    "change": "anthropic-claude-2-retired-2025"
+  },
+  {
+    "contract": "anthropic:model:claude-3-5-sonnet-20240620",
+    "change": "anthropic-claude-3-5-sonnet-retired-2025"
+  },
+  {
+    "contract": "anthropic:model:claude-3-5-sonnet-20241022",
+    "change": "anthropic-claude-3-5-sonnet-retired-2025"
+  },
+  {
+    "contract": "anthropic:model:claude-3-5-sonnet-latest",
+    "change": "anthropic-claude-3-5-sonnet-retired-2025"
+  },
+  {
+    "contract": "anthropic:model:claude-3-opus-20240229",
+    "change": "anthropic-claude-3-opus-retired-2026"
+  },
+  {
+    "contract": "anthropic:model:claude-3-opus-latest",
+    "change": "anthropic-claude-3-opus-retired-2026"
+  },
+  {
+    "contract": "anthropic:model:claude-3-5-haiku-20241022",
+    "change": "anthropic-claude-3-5-haiku-retired-2026"
+  },
+  {
+    "contract": "anthropic:model:claude-3-5-haiku-latest",
+    "change": "anthropic-claude-3-5-haiku-retired-2026"
+  },
+  {
+    "contract": "anthropic:model:claude-3-7-sonnet-20250219",
+    "change": "anthropic-claude-3-7-sonnet-retired-2026"
+  },
+  {
+    "contract": "anthropic:model:claude-3-7-sonnet-latest",
+    "change": "anthropic-claude-3-7-sonnet-retired-2026"
+  },
+  {
+    "contract": "anthropic:model:claude-3-haiku-20240307",
+    "change": "anthropic-claude-3-haiku-retired-2026"
+  },
+  {
+    "contract": "anthropic:model:claude-opus-4-0",
+    "change": "anthropic-claude-opus-4-retired-2026"
+  },
+  {
+    "contract": "anthropic:model:claude-opus-4-20250514",
+    "change": "anthropic-claude-opus-4-retired-2026"
+  },
+  {
+    "contract": "anthropic:model:claude-sonnet-4-0",
+    "change": "anthropic-claude-sonnet-4-retired-2026"
+  },
+  {
+    "contract": "anthropic:model:claude-sonnet-4-20250514",
+    "change": "anthropic-claude-sonnet-4-retired-2026"
+  },
+  {
+    "contract": "anthropic:model:claude-opus-4-1",
+    "change": "anthropic-claude-opus-4-1-retired-2026"
+  },
+  {
+    "contract": "anthropic:model:claude-opus-4-1-20250805",
+    "change": "anthropic-claude-opus-4-1-retired-2026"
+  }
+]

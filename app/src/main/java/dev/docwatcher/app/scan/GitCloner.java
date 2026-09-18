@@ -1,0 +1,64 @@
+package dev.docwatcher.app.scan;
+
+import dev.docwatcher.app.github.GitHubClient;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Comparator;
+import java.util.stream.Stream;
+import org.eclipse.jgit.api.CloneCommand;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.springframework.stereotype.Component;
+
+/** Shallow clones with JGit. Depth one at a branch, then an optional checkout of a specific SHA. */
+@Component
+public class GitCloner {
+
+  public record Checkout(Path dir, String sha) implements AutoCloseable {
+    @Override
+    public void close() {
+      deleteQuietly(dir);
+    }
+  }
+
+  public Checkout clone(GitHubClient.CloneSource source, String branch, String sha) throws Exception {
+    Path dir = Files.createTempDirectory("docwatcher-scan-");
+    try {
+      CloneCommand cmd = Git.cloneRepository().setURI(source.uri()).setDirectory(dir.toFile()).setDepth(1).setCloneAllBranches(false);
+      if (branch != null) {
+        cmd.setBranch("refs/heads/" + branch);
+      }
+      UsernamePasswordCredentialsProvider credentials = null;
+      if (source.username() != null) {
+        credentials = new UsernamePasswordCredentialsProvider(source.username(), source.password());
+        cmd.setCredentialsProvider(credentials);
+      }
+      String head;
+      try (Git git = cmd.call()) {
+        head = git.getRepository().resolve("HEAD").getName();
+        if (sha != null && !sha.equals(head)) {
+          git.fetch().setDepth(1).setRefSpecs(sha).setCredentialsProvider(credentials).call();
+          git.checkout().setName(sha).call();
+          head = sha;
+        }
+      }
+      deleteQuietly(dir.resolve(".git"));
+      return new Checkout(dir, head);
+    } catch (Exception e) {
+      deleteQuietly(dir);
+      throw e;
+    }
+  }
+
+  static void deleteQuietly(Path dir) {
+    if (dir == null || !Files.exists(dir)) {
+      return;
+    }
+    try (Stream<Path> walk = Files.walk(dir)) {
+      walk.sorted(Comparator.reverseOrder()).forEach(p -> p.toFile().delete());
+    } catch (IOException ignored) {
+      // best effort
+    }
+  }
+}

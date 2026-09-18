@@ -1,0 +1,98 @@
+[
+  {
+    "id": "anthropic:endpoint:POST /v1/messages",
+    "provider": "anthropic",
+    "kind": "endpoint",
+    "key": "POST /v1/messages",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/client.ts",
+        "line": 6,
+        "column": 21,
+        "snippet": "const msg = await client.messages.create({",
+        "detector": "anthropic.typescript.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@anthropic-ai/sdk",
+        "version": "^0.52.0"
+      }
+    }
+  },
+  {
+    "id": "anthropic:model:claude-3-haiku-20240307",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-3-haiku-20240307",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/client.ts",
+        "line": 7,
+        "column": 13,
+        "snippet": "model: \"claude-3-haiku-20240307\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@anthropic-ai/sdk",
+        "version": "^0.52.0"
+      }
+    }
+  },
+  {
+    "id": "anthropic:sdk_method:messages.create",
+    "provider": "anthropic",
+    "kind": "sdk_method",
+    "key": "messages.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/client.ts",
+        "line": 6,
+        "column": 21,
+        "snippet": "const msg = await client.messages.create({",
+        "detector": "anthropic.typescript.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@anthropic-ai/sdk",
+        "version": "^0.52.0"
+      }
+    }
+  },
+  {
+    "id": "anthropic:sdk_package:@anthropic-ai/sdk",
+    "provider": "anthropic",
+    "kind": "sdk_package",
+    "key": "@anthropic-ai/sdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"@anthropic-ai/sdk\": \"^0.52.0\"",
+        "detector": "anthropic.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@anthropic-ai/sdk",
+        "version": "^0.52.0"
+      }
+    }
+  }
+]

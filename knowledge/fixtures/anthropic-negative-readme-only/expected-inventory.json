@@ -1,0 +1,19 @@
+[
+  {
+    "id": "anthropic:model:claude-3-haiku-20240307",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-3-haiku-20240307",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "README.md",
+        "line": 3,
+        "column": 30,
+        "snippet": "Internal notes. We evaluated claude-3-haiku-20240307 in 2024 and decided",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ]
+  }
+]

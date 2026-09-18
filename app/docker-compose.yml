@@ -1,0 +1,39 @@
+# Local stack: Postgres plus the app on the JVM.
+# Build the app image first:  ../mvnw -pl app spring-boot:build-image -DskipTests
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: docwatcher
+      POSTGRES_USER: docwatcher
+      POSTGRES_PASSWORD: docwatcher
+    ports:
+      - "5432:5432"
+    volumes:
+      - docwatcher-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U docwatcher"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  app:
+    image: app:0.1.0-SNAPSHOT
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DOCWATCHER_DB_URL: jdbc:postgresql://db:5432/docwatcher
+      DOCWATCHER_DB_USER: docwatcher
+      DOCWATCHER_DB_PASSWORD: docwatcher
+      DOCWATCHER_API_TOKEN: ${DOCWATCHER_API_TOKEN:-dev-token}
+      DOCWATCHER_WEB_ORIGIN: ${DOCWATCHER_WEB_ORIGIN:-http://localhost:3000}
+      GITHUB_APP_ID: ${GITHUB_APP_ID:-}
+      GITHUB_APP_PRIVATE_KEY: ${GITHUB_APP_PRIVATE_KEY:-}
+      GITHUB_WEBHOOK_SECRET: ${GITHUB_WEBHOOK_SECRET:-}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
+    ports:
+      - "8080:8080"
+
+volumes:
+  docwatcher-db:
