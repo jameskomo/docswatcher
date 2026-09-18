@@ -59,7 +59,22 @@ for (const name of readdirSync(fixturesDir).sort()) {
   const expectedInventory = existsSync(invPath) ? JSON.parse(readFileSync(invPath, "utf8")) : null;
   samples.push({ name, files, expectedFindings, expectedInventory });
 }
-writeFileSync(join(outDir, "samples.json"), JSON.stringify(samples, null, 2) + "\n");
+
+// Vendored real repositories. These let the site scan genuine public code with no
+// network, which matters on hosts that block outbound requests entirely.
+const vendorDir = join(web, "vendor");
+const vendored = [];
+if (existsSync(vendorDir)) {
+  for (const f of readdirSync(vendorDir).sort()) {
+    if (!f.endsWith(".json")) continue;
+    const d = JSON.parse(readFileSync(join(vendorDir, f), "utf8"));
+    vendored.push({ name: d.repo, sha: d.sha, note: d.note, real: true, files: d.files, expectedFindings: null, expectedInventory: null });
+  }
+}
+// Real repositories first: they are the more convincing demo.
+const allSamples = [...vendored, ...samples.map((s) => ({ ...s, real: false }))];
+writeFileSync(join(outDir, "samples.json"), JSON.stringify(allSamples, null, 2) + "\n");
+console.log(`samples: ${vendored.length} real repositories, ${samples.length} fixtures`);
 
 // Grammars for the browser. Same versions the Java engine pins.
 const grammarsOut = join(web, "public", "grammars");

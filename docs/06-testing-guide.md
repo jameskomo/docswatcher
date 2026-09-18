@@ -13,7 +13,14 @@ Four surfaces, four ways to try it. The UI is one of them, not the only one. Eve
 
 Published at the artifact link from the session. Three input modes on the landing page:
 
-- **Sample.** Pick one of the fourteen bundled fixtures. No network.
+- **Sample.** Two real public repositories are vendored into the site at a pinned commit, plus the fourteen knowledge base fixtures. The real ones are scanned live in your browser by the same engine, with no network at all, which is what makes the demo work on hosts that block outbound requests.
+
+| Bundled repository | Commit | Result |
+|---|---|---|
+| `openai/openai-quickstart-python` | ec8890d | 3 breaking findings, including the Assistants API sunset |
+| `Shopify/shopify-app-template-node` | 4e73e21 | Healthy, nothing pending |
+
+Refresh or add to them with `node web/scripts/vendor-repos.mjs --refresh`.
 - **Folder.** Drop a local directory. Nothing leaves the browser.
 - **GitHub URL.** Paste any public repository URL. The page tries three routes in order and uses the first that the host permits:
 
@@ -27,7 +34,7 @@ jsDelivr is tried before the GitHub API because it has no per-hour ceiling. The 
 
 ### GitHub URL mode needs a host that permits outbound requests
 
-Some embedding hosts block requests to other origins. The page tries every route before giving up, and if all are blocked it names each one and falls back to the sample tab rather than showing a bare "Failed to fetch". Samples and folders are unaffected, and they exercise exactly the same engine.
+The published artifact page blocks every outbound origin, verified: both jsDelivr and the GitHub API are refused there. That is why the real repositories are bundled. Some embedding hosts block requests to other origins. The page tries every route before giving up, and if all are blocked it names each one and falls back to the sample tab rather than showing a bare "Failed to fetch". Samples and folders are unaffected, and they exercise exactly the same engine.
 
 URL mode is verified working when the site is served from a normal host. Run it yourself:
 

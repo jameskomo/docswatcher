@@ -144,7 +144,7 @@ section.block { display: flex; flex-direction: column; gap: 12px; }
 .btn.sm { padding: 4px 10px; font-size: 0.86rem; }
 .input { padding: 8px 10px; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); min-width: 0; width: 100%; }
 .input:focus { border-color: var(--accent); }
-.select { padding: 8px 10px; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); }
+.select { padding: 8px 10px; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); max-width: 100%; }
 
 .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--line); }
 .tabs button { background: none; border: 0; padding: 10px 14px; cursor: pointer; color: var(--ink-2); border-bottom: 2px solid transparent; margin-bottom: -1px; font-weight: 500; }

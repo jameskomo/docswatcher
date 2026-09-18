@@ -4,7 +4,7 @@ import { fetchViaApi, fetchViaRelay, parseGitHubUrl, readFolder, fetchViaJsDeliv
 
 const config = useRuntimeConfig();
 const relay = (config.public.relayUrl as string) || "";
-const { samples, defaultSample } = useKnowledge();
+const { samples, realSamples, fixtureSamples, defaultSample } = useKnowledge();
 const scanner = useScanner();
 const store = useScanStore();
 
@@ -14,6 +14,7 @@ const networkBlocked = ref(false);
 const url = ref("");
 const token = ref("");
 const sample = ref(defaultSample?.name ?? "");
+const selectedSample = computed(() => samples.find((s) => s.name === sample.value));
 const busy = ref(false);
 const status = ref("");
 const error = ref("");
@@ -34,7 +35,10 @@ async function scanSample() {
   if (!s) return;
   await guard(async () => {
     fetchNote.value = "";
-    await runScan(s.files, { host: "fixture", owner: "docwatcher", name: s.name, ref: "fixture", sha: "0000000" }, { label: `Example · ${s.name}`, kind: "sample" });
+    const ref = s.real
+      ? { host: "github", owner: s.name.split("/")[0], name: s.name.split("/")[1], ref: s.sha ?? "HEAD", sha: s.sha ?? "0000000" }
+      : { host: "fixture", owner: "docwatcher", name: s.name, ref: "fixture", sha: "0000000" };
+    await runScan(s.files, ref, { label: s.real ? `${s.name} @ ${s.sha}` : `Example · ${s.name}`, kind: "sample" });
   });
 }
 
@@ -140,8 +144,17 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
 
       <div v-else class="row">
         <select id="sample-select" class="select" v-model="sample" :disabled="busy" aria-label="Sample repository">
-          <option v-for="s in samples" :key="s.name" :value="s.name">{{ s.name }}</option>
+          <optgroup label="Real public repositories">
+            <option v-for="s in realSamples" :key="s.name" :value="s.name">{{ s.name }} @ {{ s.sha }}</option>
+          </optgroup>
+          <optgroup label="Knowledge base fixtures">
+            <option v-for="s in fixtureSamples" :key="s.name" :value="s.name">{{ s.name }}</option>
+          </optgroup>
         </select>
+        <p v-if="selectedSample?.real" class="ink2">
+          A vendored copy of <strong>{{ selectedSample.name }}</strong> at commit {{ selectedSample.sha }}, scanned here by the same engine.
+          {{ selectedSample.note }}
+        </p>
         <button id="scan-sample" class="btn primary" @click="scanSample" :disabled="busy">Scan sample</button>
         <span class="muted small">Bundled fixtures from the open knowledge base.</span>
       </div>
@@ -165,12 +178,12 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
         <StatTiles :inventory="result.inventory" :findings="findings" />
       </section>
 
-      <section class="block">
+      <section class="block" id="findings">
         <h2>Needs attention</h2>
         <FindingsList :findings="findings" show-actions />
       </section>
 
-      <section class="block">
+      <section class="block" id="inventory">
         <h2>Inventory</h2>
         <p class="ink2">Every external contract found, including the ones nobody remembers adding.</p>
         <InventoryTable :contracts="result.inventory.contracts" :findings="findings" />
