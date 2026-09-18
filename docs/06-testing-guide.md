@@ -15,11 +15,19 @@ Published at the artifact link from the session. Three input modes on the landin
 
 - **Sample.** Pick one of the fourteen bundled fixtures. No network.
 - **Folder.** Drop a local directory. Nothing leaves the browser.
-- **GitHub URL.** Paste any public repository URL. Two calls to the GitHub API for the file tree, then file contents from `raw.githubusercontent.com`, which is not counted against the API limit. The whole scan, including the tree-sitter call-site layer, runs in your browser.
+- **GitHub URL.** Paste any public repository URL. The page tries three routes in order and uses the first that the host permits:
+
+| Route | Hosts | Limit |
+|---|---|---|
+| Relay | Your Cloudflare Worker, if configured | None |
+| jsDelivr | `data.jsdelivr.com`, `cdn.jsdelivr.net` | None, but branch refs are cached so a scan can lag the newest commit |
+| GitHub API | `api.github.com`, `raw.githubusercontent.com` | 60 requests per hour per address, two per scan |
+
+jsDelivr is tried before the GitHub API because it has no per-hour ceiling. The whole scan, including the tree-sitter call-site layer, runs in your browser either way.
 
 ### GitHub URL mode needs a host that permits outbound requests
 
-The published artifact page runs in a sandbox that blocks requests to other origins, so URL mode fails there with a browser-level "Failed to fetch". The page detects this and says so. Samples and folders are unaffected, and they exercise exactly the same engine.
+Some embedding hosts block requests to other origins. The page tries every route before giving up, and if all are blocked it names each one and falls back to the sample tab rather than showing a bare "Failed to fetch". Samples and folders are unaffected, and they exercise exactly the same engine.
 
 URL mode is verified working when the site is served from a normal host. Run it yourself:
 
@@ -133,7 +141,7 @@ Live network tests are off by default so the suite cannot be broken by someone e
 cd web && DOCWATCHER_LIVE=1 npx playwright test github-live
 ```
 
-That test scans a real public repository through the browser and asserts the findings, which is how URL mode is verified.
+Two tests run there. One scans a real public repository through the browser and asserts the findings. The other blocks `api.github.com` and `raw.githubusercontent.com` outright, so only the jsDelivr route can succeed, which is what makes it a real test of that route instead of the fallback.
 
 ## What to look at first
 
