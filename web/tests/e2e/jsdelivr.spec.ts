@@ -1,12 +1,14 @@
 import { test, expect } from "@playwright/test";
 
-// Live network test against real public repositories. Skipped unless DOCWATCHER_LIVE=1,
-// so CI stays offline and cannot be broken by someone else's repository changing.
-// Run with: DOCWATCHER_LIVE=1 npx playwright test github-live
+// Live network. Blocks the GitHub API so only the jsDelivr route can succeed,
+// which is what makes this a real test of that route rather than of the fallback.
 test.skip(!process.env.DOCWATCHER_LIVE, "set DOCWATCHER_LIVE=1 to run live network tests");
 
-test("scans a real public repo by URL and finds the Assistants API sunset", async ({ page }) => {
+test("scans a real repo through jsDelivr with the GitHub API blocked", async ({ page }) => {
   test.setTimeout(120_000);
+  await page.route("**://api.github.com/**", (r) => r.abort());
+  await page.route("**://raw.githubusercontent.com/**", (r) => r.abort());
+
   await page.goto("./");
   await page.getByRole("tab", { name: /GitHub URL/i }).click();
   await page.getByPlaceholder(/github\.com/i).fill("https://github.com/openai/openai-quickstart-python");

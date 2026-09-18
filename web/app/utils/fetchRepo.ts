@@ -85,6 +85,58 @@ export async function fetchViaApi(t: RepoTarget, token: string | undefined, prog
   return { files, binaries, skipped: all.length - chosen.length, truncated, repo: { host: "github", owner: t.owner, name: t.name, ref: `refs/heads/${ref}`, sha } };
 }
 
+/**
+ * Reads a public repository through jsDelivr. Preferred over the GitHub API because
+ * jsDelivr imposes no per-hour request ceiling and both of its hosts answer with
+ * Access-Control-Allow-Origin, so it also works from restrictive embedding hosts.
+ * jsDelivr caches branch refs, so a scan can lag the very latest commit.
+ */
+export async function fetchViaJsDelivr(t: RepoTarget, progress: FetchProgress): Promise<FetchResult> {
+  const ref = t.ref ?? "HEAD";
+  progress("Listing files");
+  const listUrl = `https://data.jsdelivr.com/v1/packages/gh/${t.owner}/${t.name}@${encodeURIComponent(ref)}?structure=flat`;
+  const res = await fetch(listUrl);
+  if (res.status === 404) throw new Error(`jsDelivr could not resolve ${t.owner}/${t.name}@${ref}. Check the repository name, or try without a branch.`);
+  if (!res.ok) throw new Error(`jsDelivr listing returned ${res.status}`);
+  const data = await res.json();
+
+  const all: string[] = (data.files ?? [])
+    .map((f: any) => String(f.name ?? "").replace(/^\//, ""))
+    .filter((path: string) => path && !pathIsSkipped(path));
+  const rank = (p: string) => { for (let i = 0; i < PRIORITY.length; i++) if (PRIORITY[i].test(p)) return i; return PRIORITY.length; };
+  const relevant = all.filter((p) => rank(p) < PRIORITY.length).sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
+  const chosen = relevant.slice(0, MAX_FILES);
+  const truncated = relevant.length > chosen.length;
+
+  const base = `https://cdn.jsdelivr.net/gh/${t.owner}/${t.name}@${encodeURIComponent(ref)}`;
+  const files: InputFile[] = [];
+  let binaries = 0, done = 0;
+  const queue = [...chosen];
+  const worker = async () => {
+    while (queue.length) {
+      const path = queue.shift()!;
+      try {
+        const r = await fetch(`${base}/${path.split("/").map(encodeURIComponent).join("/")}`);
+        if (r.ok) {
+          const bytes = new Uint8Array(await r.arrayBuffer());
+          if (bytes.byteLength > 1024 * 1024) { /* oversized, skip */ }
+          else if (isBinary(bytes)) binaries++;
+          else files.push({ path, text: decoder.decode(bytes) });
+        }
+      } catch { /* one unreadable file must not fail the scan */ }
+      done++;
+      progress("Reading files", done, chosen.length);
+    }
+  };
+  await Promise.all(Array.from({ length: 6 }, worker));
+  files.sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0));
+  return {
+    files, binaries, truncated,
+    skipped: all.length - chosen.length,
+    repo: { host: "github", owner: t.owner, name: t.name, ref, sha: String(data.version ?? ref) },
+  };
+}
+
 /** Reads a dropped or picked directory. Skips vendored directories before reading to keep it fast. */
 export async function readFolder(list: FileList, progress: FetchProgress): Promise<{ files: InputFile[]; binaries: number; skipped: number; root: string }> {
   const entries = Array.from(list);

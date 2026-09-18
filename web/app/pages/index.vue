@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { InputFile, RepoRef } from "~~/engine/types";
-import { fetchViaApi, fetchViaRelay, parseGitHubUrl, readFolder } from "~/utils/fetchRepo";
+import { fetchViaApi, fetchViaRelay, parseGitHubUrl, readFolder, fetchViaJsDelivr } from "~/utils/fetchRepo";
 
 const config = useRuntimeConfig();
 const relay = (config.public.relayUrl as string) || "";
@@ -43,7 +43,28 @@ async function scanGitHub() {
   if (!t) { error.value = "Enter a GitHub repository URL like https://github.com/owner/repo"; return; }
   await guard(async () => {
     const progress = (msg: string, done?: number, total?: number) => { status.value = total ? `${msg} ${done}/${total}` : msg; };
-    const res = relay ? await fetchViaRelay(relay, t, progress) : await fetchViaApi(t, token.value.trim() || undefined, progress);
+    // Try every route. Hosts differ in what they permit: an embedded sandbox may block
+    // one origin and allow another, so a single blocked route must not end the scan.
+    const routes: Array<{ name: string; run: () => Promise<any> }> = [];
+    if (relay) routes.push({ name: "relay", run: () => fetchViaRelay(relay, t, progress) });
+    routes.push({ name: "jsDelivr", run: () => fetchViaJsDelivr(t, progress) });
+    routes.push({ name: "GitHub API", run: () => fetchViaApi(t, token.value.trim() || undefined, progress) });
+
+    let res: any = null;
+    const tried: string[] = [];
+    for (const route of routes) {
+      try { res = await route.run(); break; }
+      catch (e: any) {
+        const blocked = e instanceof TypeError && /failed to fetch|load failed|networkerror/i.test(e?.message ?? "");
+        tried.push(`${route.name}: ${blocked ? "blocked by this page's host" : e?.message ?? String(e)}`);
+        if (!blocked && route.name !== "relay") throw e;
+      }
+    }
+    if (!res) {
+      networkBlocked.value = true;
+      mode.value = "sample";
+      throw new Error(`Could not reach any source for ${t.owner}/${t.name}. ${tried.join(". ")}. Sample repositories and local folders still work here and run the same engine. To scan by URL, run the site locally or deploy the static export to your own host.`);
+    }
     fetchNote.value = `${res.files.length} text files read` + (res.binaries ? `, ${res.binaries} binary skipped` : "") + (res.skipped ? `, ${res.skipped} skipped` : "")
       + (res.truncated ? ". Large repository: only the first 300 relevant files were read without a relay." : "");
     await runScan(res.files, res.repo, { label: `${t.owner}/${t.name}`, kind: "github" });
