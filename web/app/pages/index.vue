@@ -164,8 +164,8 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
               @click="scanSample('openai/openai-quickstart-python')"
               :disabled="busy"
             >
-              <span style="color: var(--overdue)">●</span>
-              <span>OpenAI Quickstart (Assistants Sunset)</span>
+              <span>⚡</span>
+              <span>OpenAI Quickstart</span>
             </button>
             <button
               type="button"
@@ -174,8 +174,8 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
               @click="scanSample('Shopify/shopify-app-template-node')"
               :disabled="busy"
             >
-              <span style="color: var(--soon)">●</span>
-              <span>Shopify Template (2024-10 Expired)</span>
+              <span>🛍️</span>
+              <span>Shopify App Template</span>
             </button>
             <button
               type="button"
@@ -184,30 +184,35 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
               @click="scanSample('stripe-java-sources')"
               :disabled="busy"
             >
-              <span style="color: var(--soon)">●</span>
-              <span>Stripe Java (Sources API)</span>
+              <span>💳</span>
+              <span>Stripe Java SDK</span>
             </button>
           </div>
 
-          <div class="row" style="gap: var(--s3)">
-            <select
-              id="sample-select"
-              class="select grow"
-              style="flex: 1 1 200px; min-width: 0; max-width: 100%"
-              v-model="sample"
-              :disabled="busy"
-              aria-label="Sample repository"
-            >
-              <optgroup label="Real public repositories">
-                <option v-for="s in realSamples" :key="s.name" :value="s.name">{{ s.name }} at {{ s.sha }}</option>
-              </optgroup>
-              <optgroup label="Knowledge base fixtures">
-                <option v-for="s in fixtureSamples" :key="s.name" :value="s.name">{{ s.name }}</option>
-              </optgroup>
-            </select>
-            <button id="scan-sample" class="btn solid" @click="scanSample()" :disabled="busy">
-              <span>Scan sample</span>
-            </button>
+          <div>
+            <label for="sample-select" style="font-size: var(--t2); font-weight: 600; color: var(--ink-max); margin-bottom: 6px; display: block">
+              Select a repository to scan
+            </label>
+            <div class="row" style="gap: var(--s3)">
+              <select
+                id="sample-select"
+                class="select grow"
+                style="flex: 1 1 200px; min-width: 0; max-width: 100%"
+                v-model="sample"
+                :disabled="busy"
+                aria-label="Sample repository"
+              >
+                <optgroup label="Real public repositories">
+                  <option v-for="s in realSamples" :key="s.name" :value="s.name">{{ s.name }} at {{ s.sha }}</option>
+                </optgroup>
+                <optgroup label="Knowledge base fixtures">
+                  <option v-for="s in fixtureSamples" :key="s.name" :value="s.name">{{ s.name }}</option>
+                </optgroup>
+              </select>
+              <button id="scan-sample" class="btn solid" @click="scanSample()" :disabled="busy">
+                <span>Scan sample</span>
+              </button>
+            </div>
           </div>
 
           <p v-if="selectedSample?.real" class="t2 ink-soft" style="margin-top: var(--s1)">
@@ -221,34 +226,44 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
 
         <!-- GitHub URL Mode -->
         <form v-else-if="mode === 'github'" class="stack" @submit.prevent="scanGitHub">
-          <div class="row">
-            <input
-              id="repo-url"
-              class="input grow"
-              style="flex: 1 1 200px; min-width: 0; max-width: 100%"
-              v-model="url"
-              placeholder="https://github.com/owner/repo"
-              aria-label="GitHub repository URL"
-              :disabled="busy"
-            />
-            <button id="scan-github" class="btn solid" type="submit" :disabled="busy">
-              <span>Scan repository</span>
-            </button>
+          <div>
+            <label for="repo-url" style="font-size: var(--t2); font-weight: 600; color: var(--ink-max); margin-bottom: 6px; display: block">
+              Public GitHub repository URL
+            </label>
+            <div class="row">
+              <input
+                id="repo-url"
+                class="input grow"
+                style="flex: 1 1 200px; min-width: 0; max-width: 100%"
+                v-model="url"
+                placeholder="https://github.com/owner/repo"
+                aria-label="GitHub repository URL"
+                :disabled="busy"
+              />
+              <button id="scan-github" class="btn solid" type="submit" :disabled="busy">
+                <span>Scan repository</span>
+              </button>
+            </div>
           </div>
-          <div v-if="!relay" class="row t2" style="align-items: center">
-            <input
-              id="gh-token"
-              class="input grow"
-              style="flex: 1 1 180px; min-width: 0; max-width: 100%"
-              type="password"
-              v-model="token"
-              placeholder="GitHub personal access token (optional)"
-              aria-label="GitHub token"
-              autocomplete="off"
-            />
-            <span class="ink-faint">
-              Stored only in memory. Used for GitHub API rate limits (60 req/hr anonymous vs 5,000 with token).
-            </span>
+          <div v-if="!relay" class="stack" style="gap: 4px">
+            <label for="gh-token" style="font-size: var(--t1); font-weight: 600; color: var(--ink-soft); display: block">
+              Personal Access Token (optional)
+            </label>
+            <div class="row t2" style="align-items: center">
+              <input
+                id="gh-token"
+                class="input grow"
+                style="flex: 1 1 180px; min-width: 0; max-width: 100%"
+                type="password"
+                v-model="token"
+                placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                aria-label="GitHub token"
+                autocomplete="off"
+              />
+              <span class="ink-faint">
+                Stored only in memory. Increases GitHub API rate limit from 60 to 5,000 req/hr.
+              </span>
+            </div>
           </div>
         </form>
 

@@ -62,7 +62,7 @@ const days = (c: ChangeRecord) => (c.effective ? daysBetween(today, c.effective)
             </div>
             <p class="ink-soft t2">{{ c.summary }}</p>
             <div class="row t2" style="gap: 14px; align-items: center">
-              <span class="mono ink-faint" style="background: rgba(0,0,0,0.25); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--hair)">
+              <span class="code-pill">
                 {{ c.affects.map(a => a.match).slice(0, 3).join(", ") }}<span v-if="c.affects.length > 3"> +{{ c.affects.length - 3 }}</span>
               </span>
               <a v-if="c.migration?.guide" :href="c.migration.guide" target="_blank" rel="noopener">migration guide ↗</a>
@@ -101,7 +101,7 @@ const days = (c: ChangeRecord) => (c.effective ? daysBetween(today, c.effective)
                 <span style="font-weight: 600; color: var(--ink)">{{ c.title }}</span>
               </div>
               <div class="row t2" style="gap: 14px">
-                <span class="mono ink-faint" style="background: rgba(0,0,0,0.25); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--hair)">
+                <span class="code-pill">
                   {{ c.affects.map(a => a.match).slice(0, 3).join(", ") }}
                 </span>
                 <NuxtLink to="/">still referenced in your repo? check</NuxtLink>

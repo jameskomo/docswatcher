@@ -141,7 +141,7 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
               <tr v-for="e in finding.evidence" :key="e.path + e.line + e.column">
                 <td class="mono" style="color: var(--ink-accent)">{{ e.path }}</td>
                 <td class="n mono">{{ e.line }}:{{ e.column }}</td>
-                <td class="mono" style="background: rgba(0,0,0,0.25); border-radius: 4px; padding: 4px 8px">{{ e.snippet }}</td>
+                <td><code class="code-pill">{{ e.snippet }}</code></td>
                 <td class="ink-faint">{{ e.detector }} ({{ e.layer }} layer)</td>
               </tr>
             </tbody>
