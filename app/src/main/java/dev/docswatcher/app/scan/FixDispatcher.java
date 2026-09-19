@@ -39,6 +39,9 @@ public class FixDispatcher {
     return payload;
   }
 
+  /** Caps how many locations one repository can push into the dispatched payload. */
+  private static final int MAX_EVIDENCE = 50;
+
   public Map<String, Object> payload(Repo repo, StoredFinding finding) {
     Optional<ChangeDoc> change = engine.change(finding.changeId());
     Optional<StoredContract> contract = contracts.forRepo(repo.id()).stream().filter(c -> c.id().equals(finding.contractId())).findFirst();
@@ -50,7 +53,14 @@ public class FixDispatcher {
     f.put("change", finding.changeId());
     f.put("severity", finding.severity());
     f.put("effective", finding.effective() == null ? null : finding.effective().toString());
-    f.put("evidence", evidence);
+    // Structural locators only. Evidence.snippet is the verbatim matched source line of a
+    // repository DocsWatcher does not control, and the shipped workflow interpolates this whole
+    // payload into a coding agent's prompt in a job holding contents: write. The agent has the
+    // checkout and can read the line itself, so the prose never needs to cross that boundary.
+    f.put("evidence", evidence.stream()
+        .limit(MAX_EVIDENCE)
+        .map(e -> Map.<String, Object>of("path", e.path(), "line", e.line(), "column", e.column()))
+        .toList());
 
     Map<String, Object> out = new LinkedHashMap<>();
     out.put("finding", f);

@@ -90,5 +90,11 @@ public class GitHubFallbackConfig {
     public void repositoryDispatch(long installationId, String fullName, String eventType, Map<String, Object> clientPayload) {
       throw fail();
     }
+
+    @Override
+    public String collaboratorPermission(long installationId, String fullName, String login) {
+      // Unconfigured means no authority can be established, and no authority means no.
+      return "none";
+    }
   }
 }

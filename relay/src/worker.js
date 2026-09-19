@@ -51,11 +51,21 @@ export async function handle(request, env, ctx, upstreamFetch, cache) {
     Accept: "application/vnd.github+json",
   });
   const clientAuth = request.headers.get("Authorization");
-  if (clientAuth) headers.set("Authorization", clientAuth);
-  else if (env?.GITHUB_TOKEN) headers.set("Authorization", `Bearer ${env.GITHUB_TOKEN}`);
+  // Which credential actually reached GitHub. null means none did.
+  let usedCredential = null;
+  if (clientAuth) {
+    headers.set("Authorization", clientAuth);
+    usedCredential = "client";
+  } else if (env?.GITHUB_TOKEN) {
+    headers.set("Authorization", `Bearer ${env.GITHUB_TOKEN}`);
+    usedCredential = "relay";
+  }
 
-  // Only anonymous requests are cached. Authenticated tarballs may be private.
-  const cacheable = !clientAuth;
+  // Cacheability follows the identity that produced the bytes, not the header the caller sent.
+  // Those are opposite things here: a caller with no Authorization is exactly the caller whose
+  // response was fetched with the relay's OWN credential, so treating "anonymous" as "public"
+  // put credentialed bytes into a shared cache under a URL-only key.
+  const cacheable = usedCredential === null;
   const cacheKey = new Request(url.toString(), { method: "GET" });
   if (cacheable && cache) {
     const hit = await cache.match(cacheKey);
@@ -84,7 +94,7 @@ export async function handle(request, env, ctx, upstreamFetch, cache) {
     headers: {
       ...cors,
       "Content-Type": "application/gzip",
-      "Cache-Control": "public, max-age=300",
+      "Cache-Control": cacheable ? "public, max-age=300" : "private, no-store",
       "X-Relay-Cache": "miss",
       "X-Relay-Upstream": upstream,
     },
@@ -97,7 +107,8 @@ export async function handle(request, env, ctx, upstreamFetch, cache) {
 }
 
 function corsHeaders(origin, env) {
-  const allowed = env?.ALLOWED_ORIGINS ?? "*";
+  // No wildcard default: an unset ALLOWED_ORIGINS must not open the relay to every page.
+  const allowed = env?.ALLOWED_ORIGINS ?? "";
   const allowOrigin = allowed === "*" ? "*" : allowed.split(",").map((s) => s.trim()).includes(origin) ? origin : "null";
   return {
     "Access-Control-Allow-Origin": allowOrigin,
@@ -105,7 +116,7 @@ function corsHeaders(origin, env) {
     "Access-Control-Allow-Headers": "Authorization, Content-Type",
     "Access-Control-Expose-Headers": "X-Relay-Cache, X-Relay-Upstream, Content-Length",
     "Access-Control-Max-Age": "86400",
-    Vary: "Origin",
+    Vary: "Origin, Authorization",
   };
 }
 

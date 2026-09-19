@@ -25,7 +25,10 @@ public final class Validator {
   static final Set<String> EFFORTS = Set.of("small", "medium", "large");
   static final Set<String> CONFIDENCES = Set.of("high", "medium", "low");
   static final Set<String> ECOSYSTEMS = Set.of("npm", "pypi", "maven", "go", "rubygems");
-  static final Set<String> LANGUAGES = Set.of("java", "python", "typescript", "javascript", "go");
+  // tsx belongs here because CallsiteLayer.run compiles a typescript rule against the tsx
+  // grammar for .tsx files. Leaving it out meant a query that compiles for typescript and not
+  // for tsx passed the build and threw at scan time, on the first repository with a .tsx file.
+  static final Set<String> LANGUAGES = Set.of("java", "python", "typescript", "tsx", "javascript", "go");
 
   private Validator() {}
 

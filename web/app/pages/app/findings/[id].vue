@@ -111,7 +111,7 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
           <dt>Provider</dt>
           <dd>
             <strong>{{ providerName(contractLabel(finding.contract).provider) }}</strong>
-            <a v-if="provider(contractLabel(finding.contract).provider)?.info.changelog" :href="provider(contractLabel(finding.contract).provider)!.info.changelog" target="_blank" rel="noopener" class="t2" style="margin-left: 8px">changelog ↗</a>
+            <a v-if="safeUrl(provider(contractLabel(finding.contract).provider)?.info.changelog)" :href="safeUrl(provider(contractLabel(finding.contract).provider)!.info.changelog)!" target="_blank" rel="noopener" class="t2" style="margin-left: 8px">changelog ↗</a>
           </dd>
           <dt>Contract</dt><dd class="mono" style="color: var(--ink-accent)">{{ finding.contract }}</dd>
           <dt>Effective</dt><dd>{{ fmtDate(finding.effective) }} <span class="ink-faint num">({{ daysLabel(finding.daysRemaining) }})</span></dd>
@@ -122,7 +122,7 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
           <dt>Sources</dt>
           <dd>
             <span v-for="s in rec?.sources" :key="s.url ?? s.kind" class="t2">
-              <a v-if="s.url" :href="s.url" target="_blank" rel="noopener">{{ s.kind }} ↗</a><span v-else>{{ s.kind }}</span>
+              <a v-if="safeUrl(s.url)" :href="safeUrl(s.url)!" target="_blank" rel="noopener">{{ s.kind }} ↗</a><span v-else>{{ s.kind }}</span>
               observed {{ s.observed }}&nbsp;
             </span>
           </dd>
@@ -154,7 +154,7 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
         <dl class="kv">
           <dt>Replacement</dt><dd class="mono" style="color: var(--ok)">{{ rec.migration.replacement ?? "none published" }}</dd>
           <dt>Effort</dt><dd><span class="state">{{ rec.migration.effort }}</span></dd>
-          <dt>Guide</dt><dd><a v-if="rec.migration.guide" :href="rec.migration.guide" target="_blank" rel="noopener">{{ rec.migration.guide }}</a><span v-else class="ink-faint">none published</span></dd>
+          <dt>Guide</dt><dd><a v-if="safeUrl(rec.migration.guide)" :href="safeUrl(rec.migration.guide)!" target="_blank" rel="noopener">{{ rec.migration.guide }}</a><span v-else class="ink-faint">none published</span></dd>
           <dt>Notes</dt><dd>{{ rec.migration.notes }}</dd>
         </dl>
       </section>

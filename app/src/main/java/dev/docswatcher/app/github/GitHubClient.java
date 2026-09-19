@@ -23,4 +23,11 @@ public interface GitHubClient {
   void addLabels(long installationId, String fullName, int issueNumber, List<String> labels);
 
   void repositoryDispatch(long installationId, String fullName, String eventType, Map<String, Object> clientPayload);
+
+  /**
+   * The actor's permission on the repository: "admin", "maintain", "write", "triage", "read" or
+   * "none". Needed because applying a label is a triage capability, while the actions a label
+   * triggers here spend the installation's write authority.
+   */
+  String collaboratorPermission(long installationId, String fullName, String login);
 }

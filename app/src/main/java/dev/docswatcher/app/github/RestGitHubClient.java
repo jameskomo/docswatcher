@@ -115,4 +115,21 @@ public class RestGitHubClient implements GitHubClient {
   public void repositoryDispatch(long installationId, String fullName, String eventType, Map<String, Object> clientPayload) {
     post(installationId, "/repos/{repo}/dispatches", fullName).body(Map.of("event_type", eventType, "client_payload", clientPayload)).retrieve().toBodilessEntity();
   }
+
+  @Override
+  public String collaboratorPermission(long installationId, String fullName, String login) {
+    try {
+      Map<?, ?> body =
+          rest.get()
+              .uri("/repos/{repo}/collaborators/{login}/permission", fullName, login)
+              .header("Authorization", "Bearer " + installationToken(installationId))
+              .retrieve()
+              .body(Map.class);
+      Object permission = body == null ? null : body.get("permission");
+      return permission == null ? "none" : permission.toString();
+    } catch (RuntimeException e) {
+      // Fail closed. An answer we could not get is not authority.
+      return "none";
+    }
+  }
 }

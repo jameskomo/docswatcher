@@ -44,10 +44,15 @@ public final class IssueText {
       }
     });
     b.append("\n**Where**\n");
+    int shown = 0;
     for (EvidenceDoc e : f.evidence()) {
-      b.append("- [").append(e.path()).append(":").append(e.line()).append("](https://github.com/")
-          .append(repo.fullName()).append("/blob/").append(sha).append("/").append(e.path()).append("#L").append(e.line())
-          .append(") `").append(e.snippet()).append("`\n");
+      if (shown++ == MAX_EVIDENCE_ROWS) {
+        b.append("- ...and ").append(f.evidence().size() - MAX_EVIDENCE_ROWS).append(" more\n");
+        break;
+      }
+      b.append("- [").append(mdText(e.path())).append(":").append(e.line()).append("](https://github.com/")
+          .append(repo.fullName()).append("/blob/").append(sha).append("/").append(urlPath(e.path())).append("#L").append(e.line())
+          .append(") ").append(codeSpan(e.snippet())).append("\n");
     }
     b.append("\n**Actions**: add the label `").append(fixLabel).append("` to open a fix PR, `")
         .append(snoozeLabel).append("` to snooze, or `").append(notInProdLabel).append("` if this code does not run in production.\n");
@@ -69,7 +74,7 @@ public final class IssueText {
     }
     StringBuilder b = new StringBuilder();
     for (FindingDoc f : findings) {
-      b.append("- ").append(f.severity()).append(" | ").append(f.change()).append(" | ").append(contractKey(f.contract()));
+      b.append("- ").append(f.severity()).append(" | ").append(mdText(f.change())).append(" | ").append(mdText(contractKey(f.contract())));
       if (f.effective() != null) {
         b.append(" | ").append(f.effective());
       }
@@ -89,5 +94,52 @@ public final class IssueText {
     int i = contractId.indexOf(':');
     int j = contractId.indexOf(':', i + 1);
     return j > 0 ? contractId.substring(j + 1) : contractId;
+  }
+
+  /** No more than this many evidence rows are rendered, so one repository cannot author a whole issue body. */
+  private static final int MAX_EVIDENCE_ROWS = 20;
+
+  /**
+   * Renders repository-derived text as a code span it cannot escape from.
+   *
+   * <p>The snippet is the verbatim matched source line of a repository DocsWatcher does not
+   * control, and it used to be placed between two single backticks. Under the CommonMark rule
+   * GitHub applies to issue bodies, one backtick inside the snippet closes that span and the rest
+   * of the attacker-chosen line becomes live markdown in a document published under this App's
+   * identity, next to the Actions block that tells a maintainer which label to apply. The fence is
+   * therefore always longer than the longest backtick run in the value, and control characters go
+   * first so nothing can break the list item either.
+   */
+  static String codeSpan(String raw) {
+    String t = raw == null ? "" : raw.replaceAll("\\p{Cntrl}", " ");
+    int longest = 0;
+    int run = 0;
+    for (int i = 0; i < t.length(); i++) {
+      run = t.charAt(i) == '`' ? run + 1 : 0;
+      longest = Math.max(longest, run);
+    }
+    String fence = "`".repeat(longest + 1);
+    String pad = t.startsWith("`") || t.endsWith("`") || t.isBlank() ? " " : "";
+    return fence + pad + t + pad + fence;
+  }
+
+  /** Escapes the markdown punctuation that can break out of link text or open a construct. */
+  static String mdText(String raw) {
+    if (raw == null) {
+      return "";
+    }
+    return raw.replaceAll("\\p{Cntrl}", " ").replaceAll("([\\\\`*_\\[\\]()<>#+\\-!|])", "\\\\$1");
+  }
+
+  /** Percent-encodes each path segment so a path cannot terminate the blob URL early. */
+  static String urlPath(String path) {
+    StringBuilder out = new StringBuilder();
+    for (String seg : (path == null ? "" : path).split("/", -1)) {
+      if (out.length() > 0) {
+        out.append('/');
+      }
+      out.append(java.net.URLEncoder.encode(seg, java.nio.charset.StandardCharsets.UTF_8).replace("+", "%20"));
+    }
+    return out.toString();
   }
 }

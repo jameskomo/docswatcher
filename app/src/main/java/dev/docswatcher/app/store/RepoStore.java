@@ -36,8 +36,23 @@ public class RepoStore {
     return jdbc.sql("select * from repo where id = :id").param("id", id).query(Repo.class).optional();
   }
 
+  /**
+   * Resolves a repository by name without an owner. Safe only where the name did not come from a
+   * caller: full_name identifies a GitHub repository, not an owner of the data, and a deployment
+   * can hold many installations the moment the App is installed more than once. Caller-supplied
+   * names must use {@link #findByFullName(long, String)}.
+   */
   public Optional<Repo> findByFullName(String fullName) {
     return jdbc.sql("select * from repo where full_name = :n").param("n", fullName).query(Repo.class).optional();
+  }
+
+  /** Resolves a repository by name inside one installation. */
+  public Optional<Repo> findByFullName(long installationId, String fullName) {
+    return jdbc.sql("select * from repo where installation_id = :i and full_name = :n")
+        .param("i", installationId)
+        .param("n", fullName)
+        .query(Repo.class)
+        .optional();
   }
 
   public List<Repo> forLogin(String login) {

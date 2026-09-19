@@ -10,6 +10,7 @@ import dev.docswatcher.app.store.ScanRunStore;
 import dev.docswatcher.app.store.FindingStore;
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -122,8 +123,20 @@ public class WebhookService {
     String label = payload.path("label").path("name").asString();
     long repoId = payload.path("repository").path("id").asLong();
     int number = payload.path("issue").path("number").asInt();
+    String actor = payload.path("sender").path("login").asString();
     Optional<Repo> repo = repos.find(repoId);
     if (repo.isEmpty()) {
+      return;
+    }
+    if (!label.equals(github.fixLabel()) && !label.equals(github.snoozeLabel()) && !label.equals(github.notInProdLabel())) {
+      return;
+    }
+    // Authorize the actor, not the label. The webhook HMAC proves GitHub sent this message; it
+    // says nothing about who applied the label. Applying a label is a triage capability on
+    // GitHub, while these branches dispatch into the repository with the installation token and
+    // rewrite finding state, so the gate has to be the labeller's own permission.
+    if (!canCommand(repo.get(), actor)) {
+      log.warn("Ignoring label {} on {}#{} from {}: no write permission", label, repo.get().fullName(), number, actor);
       return;
     }
     findings.findByIssue(repoId, number).ifPresent(f -> {
@@ -135,5 +148,15 @@ public class WebhookService {
         findings.setStatus(repoId, f.contractId(), f.changeId(), "not_in_prod", null);
       }
     });
+  }
+
+  private static final Set<String> WRITE_OR_ABOVE = Set.of("admin", "maintain", "write");
+
+  /** Fails closed: a permission we cannot establish is not permission. */
+  private boolean canCommand(Repo repo, String actor) {
+    if (actor == null || actor.isBlank()) {
+      return false;
+    }
+    return WRITE_OR_ABOVE.contains(client.collaboratorPermission(repo.installationId(), repo.fullName(), actor));
   }
 }

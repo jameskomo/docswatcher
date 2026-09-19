@@ -51,7 +51,15 @@ public class ScanWorker implements SmartLifecycle {
         next = Optional.empty();
       }
       if (next.isPresent()) {
-        runner.run(next.get());
+        try {
+          runner.run(next.get());
+        } catch (Throwable t) {
+          // The loop was guarded against a failing claim but not against a failing run, and
+          // ScanRunner catches Exception rather than Throwable. An Error from the engine walking
+          // an attacker-chosen repository therefore ended this virtual thread for the life of the
+          // process, while running stayed true and isRunning() kept reporting healthy.
+          log.error("scan run {} died; worker continues", next.get().id(), t);
+        }
       } else {
         try {
           Thread.sleep(config.pollMs());

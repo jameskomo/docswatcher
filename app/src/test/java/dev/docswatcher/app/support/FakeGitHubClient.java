@@ -63,4 +63,13 @@ public class FakeGitHubClient implements GitHubClient {
   public void repositoryDispatch(long installationId, String fullName, String eventType, Map<String, Object> clientPayload) {
     calls.add(new Call("repositoryDispatch", installationId, fullName, eventType, clientPayload));
   }
+
+  /** Defaults to write so existing tests keep exercising the happy path; set it to deny. */
+  public String permission = "write";
+
+  @Override
+  public String collaboratorPermission(long installationId, String fullName, String login) {
+    calls.add(new Call("collaboratorPermission", installationId, fullName, login, null));
+    return permission;
+  }
 }

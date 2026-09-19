@@ -121,4 +121,22 @@ class WebhookReplayTest extends PostgresTest {
     assertThat(dispatches.getFirst().args()[2]).isEqualTo("docswatcher-fix");
     assertThat(dispatches.getFirst().args()[3].toString()).contains("gpt-5.6-sol").contains("developers.openai.com");
   }
+
+  /**
+   * Applying a label is a triage capability on GitHub. The branches it reaches here spend the
+   * installation's write authority, so the labeller's own permission is the gate. Before the
+   * actor was checked, this payload produced a dispatch regardless of who sent it.
+   */
+  @Test
+  void labelFromAnActorWithoutWritePermissionDoesNothing() throws Exception {
+    Webhooks.post(mvc, "installation", Webhooks.payload("installation.created.json"));
+    findings.insertOpen(9001, FakeScanEngine.CONTRACT_ID, FakeScanEngine.CHANGE_ID, "acme/checkout-service:x", "breaking", LocalDate.of(2026, 10, 23));
+    findings.setIssueNumber(9001, FakeScanEngine.CONTRACT_ID, FakeScanEngine.CHANGE_ID, 101);
+    github.permission = "triage";
+
+    Webhooks.post(mvc, "issues", Webhooks.payload("issues.labeled.fix.json")).andExpect(status().isAccepted());
+
+    assertThat(github.calls("repositoryDispatch")).isEmpty();
+  }
+
 }

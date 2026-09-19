@@ -32,7 +32,13 @@ public class WebhookController {
     if (!WebhookSignature.verify(github.webhookSecret(), body, signature)) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("bad signature");
     }
-    if (delivery != null && !service.firstDelivery(delivery)) {
+    // Omitting X-GitHub-Delivery used to skip the replay check altogether: the guard was
+    // `delivery != null && !firstDelivery(delivery)`. GitHub always sends the header, so a
+    // request without one is not a delivery this endpoint should act on.
+    if (delivery == null || delivery.isBlank()) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("missing delivery id");
+    }
+    if (!service.firstDelivery(delivery)) {
       return ResponseEntity.status(HttpStatus.ACCEPTED).body("duplicate delivery");
     }
     JsonNode payload = mapper.readTree(body);

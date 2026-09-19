@@ -65,7 +65,7 @@ const days = (c: ChangeRecord) => (c.effective ? daysBetween(today, c.effective)
               <span class="code-pill">
                 {{ c.affects.map(a => a.match).slice(0, 3).join(", ") }}<span v-if="c.affects.length > 3"> +{{ c.affects.length - 3 }}</span>
               </span>
-              <a v-if="c.migration?.guide" :href="c.migration.guide" target="_blank" rel="noopener">migration guide ↗</a>
+              <a v-if="safeUrl(c.migration?.guide)" :href="safeUrl(c.migration!.guide)!" target="_blank" rel="noopener">migration guide ↗</a>
               <NuxtLink to="/">check whether your repo is affected</NuxtLink>
             </div>
           </div>

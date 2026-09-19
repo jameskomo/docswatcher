@@ -16,7 +16,10 @@ function fakeFetch(status, body = "", headers = {}) {
 test("preflight returns CORS headers", async () => {
   const res = await handle(new Request("https://r.test/tarball/a/b", { method: "OPTIONS", headers: { Origin: "https://x.test" } }), {}, ctx, fakeFetch(200), noCache);
   assert.equal(res.status, 204);
-  assert.equal(res.headers.get("Access-Control-Allow-Origin"), "*");
+  // An unset ALLOWED_ORIGINS denies rather than opening the relay to every page. The relay
+  // lends its own GitHub credential on the anonymous branch, so a wildcard default meant any
+  // third-party page could drive a credentialed fetch from a visitor's browser.
+  assert.equal(res.headers.get("Access-Control-Allow-Origin"), "null");
 });
 
 test("health endpoint", async () => {
@@ -35,7 +38,10 @@ test("streams tarball with gzip content type and relay headers", async () => {
   const res = await handle(new Request("https://r.test/tarball/stripe/stripe-java/master", { headers: { Origin: "https://x.test" } }), {}, ctx, f, noCache);
   assert.equal(res.status, 200);
   assert.equal(res.headers.get("Content-Type"), "application/gzip");
-  assert.equal(res.headers.get("Access-Control-Allow-Origin"), "*");
+  // An unset ALLOWED_ORIGINS denies rather than opening the relay to every page. The relay
+  // lends its own GitHub credential on the anonymous branch, so a wildcard default meant any
+  // third-party page could drive a credentialed fetch from a visitor's browser.
+  assert.equal(res.headers.get("Access-Control-Allow-Origin"), "null");
   assert.equal(res.headers.get("X-Relay-Cache"), "miss");
   assert.equal(await res.text(), "gzipbytes");
   assert.equal(f.last.url, "https://api.github.com/repos/stripe/stripe-java/tarball/master");
@@ -75,4 +81,23 @@ test("serves from cache when present", async () => {
   const res = await handle(new Request("https://r.test/tarball/o/r"), {}, ctx, fakeFetch(500), cache);
   assert.equal(res.headers.get("X-Relay-Cache"), "hit");
   assert.equal(await res.text(), "cached");
+});
+
+test("a response fetched with the relay's own token is never cached or marked public", async () => {
+  // The defect this pins: cacheability used to be !clientAuth, which is exactly the branch
+  // where the relay attached its OWN credential to a repository the caller named.
+  let put = null;
+  const cache = { match: async () => null, put: async (k, v) => { put = { k, v }; } };
+  const ctx = { waitUntil: (p) => p };
+  const res = await handle(
+    new Request("https://r.test/tarball/o/private"),
+    { GITHUB_TOKEN: "envtok" },
+    ctx,
+    fakeFetch(200, "gzipbytes", { "content-length": "9" }),
+    cache,
+  );
+  assert.equal(res.status, 200);
+  assert.equal(put, null, "a relay-credentialed response must not enter the shared cache");
+  assert.equal(res.headers.get("Cache-Control"), "private, no-store");
+  assert.match(res.headers.get("Vary"), /Authorization/);
 });

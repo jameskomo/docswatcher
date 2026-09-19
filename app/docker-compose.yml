@@ -4,6 +4,10 @@ services:
   db:
     image: postgres:16-alpine
     environment:
+      # No fallbacks. An unset token leaves docswatcher.api.token blank, which reaches
+      # ApiTokenFilter's 503 rather than accepting a value published in this file, and an
+      # unset profile leaves require-token true. Running open is now something you ask for:
+      #   SPRING_PROFILES_ACTIVE=dev docker compose up
       POSTGRES_DB: docswatcher
       POSTGRES_USER: docswatcher
       POSTGRES_PASSWORD: docswatcher
@@ -26,14 +30,16 @@ services:
       DOCSWATCHER_DB_URL: jdbc:postgresql://db:5432/docswatcher
       DOCSWATCHER_DB_USER: docswatcher
       DOCSWATCHER_DB_PASSWORD: docswatcher
-      DOCSWATCHER_API_TOKEN: ${DOCSWATCHER_API_TOKEN:-dev-token}
+      DOCSWATCHER_API_TOKEN: ${DOCSWATCHER_API_TOKEN:-}
       DOCSWATCHER_WEB_ORIGIN: ${DOCSWATCHER_WEB_ORIGIN:-http://localhost:3000}
       GITHUB_APP_ID: ${GITHUB_APP_ID:-}
       GITHUB_APP_PRIVATE_KEY: ${GITHUB_APP_PRIVATE_KEY:-}
       GITHUB_WEBHOOK_SECRET: ${GITHUB_WEBHOOK_SECRET:-}
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-}
     ports:
-      - "8080:8080"
+      # Loopback only. A stack that can run with the API gate off must not be
+      # reachable from the local network.
+      - "127.0.0.1:8080:8080"
 
 volumes:
   docswatcher-db:

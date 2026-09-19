@@ -137,10 +137,25 @@ public class RuntimeIngestService {
     return ids;
   }
 
+  /**
+   * The envelope pins attribution. A resource attribute may name the repository only when the
+   * caller supplied no override, and it may never contradict one that was supplied.
+   *
+   * <p>This used to be {@code get(REPO_ATTRIBUTE).orElse(override)}, so a value inside the posted
+   * body silently outranked the ?repo= parameter an operator set on the collector's endpoint URL.
+   * A field in the message must not outrank the envelope.
+   */
   private static String repoName(JsonNode resourceSpan, String override) {
     JsonNode resource = resourceSpan.get("resource");
     JsonNode attrs = resource == null ? null : resource.get("attributes");
-    return SpanReader.Attributes.of(attrs).get(REPO_ATTRIBUTE).orElse(override);
+    String asserted = SpanReader.Attributes.of(attrs).get(REPO_ATTRIBUTE).orElse(null);
+    if (override == null || override.isBlank()) {
+      return asserted;
+    }
+    if (asserted != null && !asserted.equals(override)) {
+      return null;   // disagreement is a misconfiguration or a spoof; neither is guessed at
+    }
+    return override;
   }
 
   private static int countSpans(JsonNode resourceSpan) {
