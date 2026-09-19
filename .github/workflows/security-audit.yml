@@ -1,0 +1,92 @@
+name: Security audit
+
+# A scheduled, agent-driven audit of this repository.
+#
+# It is deliberately not part of the per-push CI. The audit orchestrates many
+# agents and costs real tokens, so it runs on a cadence and on demand, never on
+# every commit. The workflow fails only when the audit itself cannot complete;
+# findings are reported as an issue, because a finding needs a human decision
+# rather than a red build.
+
+on:
+  schedule:
+    # Mondays at 04:00 UTC, before the working week.
+    - cron: "0 4 * * 1"
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: "Audit breadth"
+        required: false
+        default: standard
+        type: choice
+        options: [quick, standard, deep]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: security-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install the audit skill
+        run: |
+          mkdir -p ~/.claude/skills
+          git clone --depth 1 https://github.com/cloudflare/security-audit-skill /tmp/sas
+          cp -r /tmp/sas/skills/security-audit ~/.claude/skills/
+          node ~/.claude/skills/security-audit/validate-findings.test.cjs
+          node ~/.claude/skills/security-audit/validate-coverage-ledger.test.cjs
+
+      - name: Run the audit
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Run the security-audit skill in full audit mode against this repository.
+            Profile: ${{ inputs.profile || 'standard' }}.
+            Write the artifacts to ./security-audit-output.
+            Source inspection only. Do not execute target-controlled code: this
+            runner cannot enforce the sandbox the skill requires, so record any
+            check that would need it as needs_validation with that blocker.
+
+      - name: Publish the report
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const dir = 'security-audit-output';
+            if (!fs.existsSync(dir)) {
+              core.setFailed('The audit produced no artifacts.');
+              return;
+            }
+            const run = fs.readdirSync(dir).sort().pop();
+            const read = (f) => { try { return fs.readFileSync(`${dir}/${run}/${f}`, 'utf8'); } catch { return ''; } };
+            const report = read('REPORT.md');
+            if (!report) { core.setFailed('The audit produced no REPORT.md.'); return; }
+
+            let confirmed = 0;
+            try {
+              confirmed = JSON.parse(read('findings.json')).filter(r => r.verdict === 'confirmed').length;
+            } catch { /* the report still gets published */ }
+
+            const title = `Security audit ${new Date().toISOString().slice(0, 10)}: ${confirmed} confirmed`;
+            const body = [report, '', '---', '', read('NEEDS-VALIDATION.md')].join('\n').slice(0, 60000);
+            await github.rest.issues.create({ ...context.repo, title, body, labels: ['security'] });
+
+      - name: Keep the artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit
+          path: security-audit-output/
+          retention-days: 90
