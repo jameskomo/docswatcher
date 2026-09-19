@@ -62,6 +62,28 @@ class ApiIT extends PostgresTest {
     mvc.perform(get("/api/orgs/acme/overview").header("Authorization", "Bearer nope")).andExpect(status().isUnauthorized());
   }
 
+  /**
+   * The gate must agree with the router for every spelling of the same routed path.
+   *
+   * <p>Spring matches PathPattern literals against each segment's decoded, path-parameter-stripped
+   * value, so {@code %61pi} and {@code api;x=y} both route to the {@code /api} handlers. A filter
+   * that tests the raw request line instead lets both through unauthenticated. These three failed
+   * before the filter was changed to parse the path the way the router does.
+   */
+  @Test
+  void rejectsNonLiteralSpellingsOfTheApiPrefix() throws Exception {
+    mvc.perform(get("/api;x=y/orgs/acme/overview")).andExpect(status().isUnauthorized());
+    mvc.perform(post("/api;x=y/repos/9001/rescan")).andExpect(status().isUnauthorized());
+    // The percent-encoded spelling, /%61pi/..., is deliberately NOT asserted here. MockMvc does
+    // not model the container's raw requestURI: it neither routes nor gates that spelling, so it
+    // answers 404 with the old filter and with this one, and an assertion on it would pin nothing.
+    // In a real Tomcat it is the spelling that matters, because CoyoteAdapter leaves requestURI
+    // undecoded while the handler mapping decodes each segment. The fix is symmetric by
+    // construction - this filter now parses the path with ServletRequestPathUtils, exactly as the
+    // router does - so any spelling the router accepts, this gate now sees too. Verify it against
+    // a running container: curl -i --path-as-is http://127.0.0.1:8080/%61pi/orgs/acme/overview
+  }
+
   @Test
   void overviewCountsRepoContractsAndFindings() throws Exception {
     mvc.perform(get("/api/orgs/acme/overview").header("Authorization", AUTH))
