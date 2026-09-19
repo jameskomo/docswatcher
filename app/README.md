@@ -49,7 +49,10 @@ Worker tuning lives under `docswatcher.worker` in `application.yaml`: `threads`,
    | Metadata | Read | Mandatory, selected automatically |
    | Pull requests | Read | Only if you later want the app to see the PR a fix opened. Not required today. |
 4. Subscribe to events: Installation, Installation repositories, Push, Issues.
-5. Generate a private key, convert it to PKCS8, and set `GITHUB_APP_PRIVATE_KEY` and `GITHUB_APP_ID`.
+5. Generate a private key. GitHub downloads a `.pem` file. Put its contents in
+   `GITHUB_APP_PRIVATE_KEY` and the numeric App ID in `GITHUB_APP_ID`. No conversion is
+   needed: GitHub's file is PKCS#1 and the app accepts it directly, as well as a PKCS#8
+   conversion of the same key.
 6. Install the App on an organisation. The installation webhook queues one scan per repository.
 
 Findings arrive as issues labelled `docswatcher` and `docswatcher:<severity>`. Adding these labels to a finding issue acts on it:
