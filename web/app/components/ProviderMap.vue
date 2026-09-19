@@ -88,7 +88,7 @@ const visibleContracts = computed(() => props.inventory.contracts.filter((c) => 
           <span class="name trunc">{{ r.name }}</span>
         </span>
         <span class="counts">
-          {{ r.contracts }} contract{{ r.contracts === 1 ? "" : "s" }} ·
+          {{ r.contracts }} contract{{ r.contracts === 1 ? "" : "s" }} in
           {{ r.callSites }} location{{ r.callSites === 1 ? "" : "s" }}
         </span>
         <span
@@ -127,20 +127,20 @@ const visibleContracts = computed(() => props.inventory.contracts.filter((c) => 
         <circle :cx="n.x" :cy="n.y" :r="n.r" :fill="colorVar(n.health)" fill-opacity="0.16" :stroke="colorVar(n.health)" stroke-width="2" />
         <text :x="n.x" :y="n.y + 5" text-anchor="middle" style="font-size: 13px; font-weight: 700" :style="{ fill: colorVar(n.health) }">{{ glyph(n.health) }}</text>
         <text :x="n.x" :y="n.y < CY - 4 ? n.y - n.r - 20 : n.y + n.r + 16" text-anchor="middle" style="font-weight: 600; fill: var(--ink)">{{ n.name }}</text>
-        <text :x="n.x" :y="n.y < CY - 4 ? n.y - n.r - 7 : n.y + n.r + 29" text-anchor="middle" style="font-size: 11px">{{ n.contracts }} contract{{ n.contracts === 1 ? "" : "s" }} · {{ n.callSites }} location{{ n.callSites === 1 ? "" : "s" }}</text>
+        <text :x="n.x" :y="n.y < CY - 4 ? n.y - n.r - 7 : n.y + n.r + 29" text-anchor="middle" style="font-size: 11px">{{ n.contracts }} in {{ n.callSites }} place{{ n.callSites === 1 ? "" : "s" }}</text>
       </g>
     </svg>
 
     <div v-else class="empty">
       <h3>No external providers detected</h3>
-      <p class="small">This repository calls nothing DocsWatcher tracks, or the scan found only low-confidence mentions.</p>
+      <p class="t2">This repository calls nothing DocsWatcher tracks, or the scan found only low-confidence mentions.</p>
     </div>
 
     <div class="legend" v-if="rows.length">
       <span><span class="sw" style="background: var(--critical)"></span>breaking change pending</span>
       <span><span class="sw" style="background: var(--warning)"></span>behaviour change</span>
       <span><span class="sw" style="background: var(--good)"></span>healthy</span>
-      <span class="muted">{{ useGraph ? "node size and line weight follow call sites in code" : "bar width is the share of each provider's contracts" }}</span>
+      <span class="ink-faint">{{ useGraph ? "node size and line weight follow call sites in code" : "bar width is the share of each provider's contracts" }}</span>
     </div>
   </div>
 </template>

@@ -4,7 +4,7 @@ import type { NuxtError } from "#app";
 const props = defineProps<{ error: NuxtError }>();
 const is404 = computed(() => props.error?.statusCode === 404);
 
-useHead({ title: () => (is404.value ? "Not found · DocsWatcher" : "Error · DocsWatcher") });
+useHead({ title: () => (is404.value ? "Not found, DocsWatcher" : "Error, DocsWatcher") });
 </script>
 
 <template>
@@ -22,8 +22,8 @@ useHead({ title: () => (is404.value ? "Not found · DocsWatcher" : "Error · Doc
       </div>
     </header>
     <main class="wrap">
-      <section class="hero">
-        <span class="label">{{ error?.statusCode ?? "Error" }}</span>
+      <section class="page">
+        <p class="t2 ink-faint num">Status {{ error?.statusCode ?? "unknown" }}</p>
         <h1>{{ is404 ? "No such page" : "Something went wrong" }}</h1>
         <p class="lede">
           {{ is404
@@ -31,7 +31,7 @@ useHead({ title: () => (is404.value ? "Not found · DocsWatcher" : "Error · Doc
             : (error?.message || "An unexpected error occurred while rendering this page.") }}
         </p>
         <div class="row">
-          <NuxtLink class="btn primary" to="/" @click="clearError({ redirect: '/' })">Scan a repository</NuxtLink>
+          <NuxtLink class="btn solid" to="/" @click="clearError({ redirect: '/' })">Scan a repository</NuxtLink>
           <NuxtLink class="btn" to="/calendar" @click="clearError({ redirect: '/calendar' })">Deprecation calendar</NuxtLink>
           <NuxtLink class="btn quiet" to="/about" @click="clearError({ redirect: '/about' })">What this is</NuxtLink>
         </div>

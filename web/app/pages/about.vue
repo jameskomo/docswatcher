@@ -10,15 +10,14 @@ const totalChanges = computed(() => providers.value.reduce((n, p) => n + p.chang
 const negatives = computed(() => fixtureSamples.filter((s) => s.expectedFindings && s.expectedFindings.length === 0).length);
 
 useHead({
-  title: "About DocsWatcher · what it is and why it exists",
+  title: "About DocsWatcher, what it is and why it exists",
   meta: [{ name: "description", content: "DocsWatcher finds the external APIs your code calls and tells you which ones have an expiry date. What it is, how it works, and what it does not do yet." }],
 });
 </script>
 
 <template>
   <div class="prose">
-    <section class="hero" style="max-width: none">
-      <span class="label">About</span>
+    <section class="page" style="max-width: none">
       <h1>Dependabot for the APIs you call, not the packages you install</h1>
       <p class="lede">
         DocsWatcher reads a repository and builds an inventory of every external API it depends on.
@@ -73,7 +72,7 @@ useHead({
           <tr v-for="p in providers" :key="p.id">
             <td>{{ p.name }}</td>
             <td class="n num">{{ p.changes }}</td>
-            <td class="muted">{{ p.policy }}</td>
+            <td class="ink-faint">{{ p.policy }}</td>
           </tr>
         </tbody>
       </table>
@@ -186,7 +185,7 @@ useHead({
       folder on your machine. It takes a few seconds and asks for nothing.
     </p>
     <div class="row">
-      <NuxtLink class="btn primary" to="/">Scan a repository</NuxtLink>
+      <NuxtLink class="btn solid" to="/">Scan a repository</NuxtLink>
       <NuxtLink class="btn" to="/calendar">See what breaks when</NuxtLink>
     </div>
   </div>

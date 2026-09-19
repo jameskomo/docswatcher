@@ -25,11 +25,11 @@ async function offline(page: Page) {
 test("home runs the example scan under a subpath and shows findings", async ({ page }) => {
   const failed = watchFailures(page);
   await page.goto("./");
-  await expect(page.locator("h1")).toContainText("expiry date");
+  await expect(page.locator("h1")).toContainText("deadline");
   await expect(page.locator("#results")).toBeVisible();
   // The default scan is a vendored real repository, not a fixture.
   await expect(page.locator("#results")).toContainText("openai/openai-quickstart-python");
-  await expect(page.locator("#findings")).toContainText("Breaking · act before a date");
+  await expect(page.locator("#findings")).toContainText("Stops working on a date");
   // callsite layer ran: the inventory lists the SDK call found through tree-sitter
   await expect(page.locator("#inventory")).toContainText("beta.assistants.create");
   expect(own(failed)).toEqual([]);
@@ -38,7 +38,7 @@ test("home runs the example scan under a subpath and shows findings", async ({ p
 test("a different sample can be scanned from the picker", async ({ page }) => {
   await page.goto("./");
   await scanSample(page, "stripe-java-sources");
-  await expect(page.getByText("Example · stripe-java-sources")).toBeVisible();
+  await expect(page.locator("#results")).toContainText("stripe-java-sources");
   await expect(page.getByText("Source.create").first()).toBeVisible();
   await expect(page.getByText("Sources API deprecated").first()).toBeVisible();
 });

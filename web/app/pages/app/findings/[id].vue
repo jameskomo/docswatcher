@@ -11,7 +11,7 @@ const contract = computed(() => store.current.value?.inventory.contracts.find((c
 const copied = ref(false);
 const copyFailed = ref(false);
 
-useHead({ title: () => (rec.value ? `${rec.value.title} · DocsWatcher` : "Finding · DocsWatcher") });
+useHead({ title: () => (rec.value ? `${rec.value.title}, DocsWatcher` : "Finding, DocsWatcher") });
 
 const prompt = computed(() => {
   const f = finding.value, ch = rec.value;
@@ -57,19 +57,19 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
 
 <template>
   <div class="stack" style="gap: var(--s5)">
-    <NuxtLink to="/app" class="small">← back to dashboard</NuxtLink>
+    <NuxtLink to="/app" class="t2">← back to dashboard</NuxtLink>
 
     <div v-if="!finding" class="empty">
       <h3>This finding is not in the current scan</h3>
-      <p class="small">Findings live in the scan held by this browser. Run a scan to see it again.</p>
-      <NuxtLink class="btn primary" to="/">Scan a repository</NuxtLink>
+      <p class="t2">Findings live in the scan held by this browser. Run a scan to see it again.</p>
+      <NuxtLink class="btn solid" to="/">Scan a repository</NuxtLink>
     </div>
 
     <template v-else>
       <section class="hero">
         <div class="row" style="gap: var(--s2)">
           <SeverityChip :severity="finding.severity" />
-          <span class="chip neutral" v-if="status !== 'open'">{{ status === "snoozed" ? "snoozed" : "not in production" }}</span>
+          <span class="sev neutral" v-if="status !== 'open'">{{ status === "snoozed" ? "snoozed" : "not in production" }}</span>
         </div>
         <h1>{{ rec?.title }}</h1>
         <p class="lede">{{ rec?.summary }}</p>
@@ -77,9 +77,9 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
 
       <!-- The primary action sits directly under the summary, where a reader
            who has decided to act will look for it. -->
-      <section class="block">
+      <section class="section">
         <div class="row">
-          <button id="fix-pr" class="btn primary" @click="copy">{{ copied ? "Copied" : "Copy fix prompt for a coding agent" }}</button>
+          <button id="fix-pr" class="btn solid" @click="copy">{{ copied ? "Copied" : "Copy fix prompt for a coding agent" }}</button>
           <button class="btn" @click="status === 'snoozed' ? store.unsnooze(finding.id) : store.snooze(finding.id, 30)">
             {{ status === "snoozed" ? "Unsnooze" : "Snooze 30 days" }}
           </button>
@@ -87,32 +87,32 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
             {{ status === "not_in_prod" ? "Mark used in production" : "Not used in production" }}
           </button>
         </div>
-        <p class="small muted">
+        <p class="t2 ink-faint">
           Snooze and production flags are kept in this browser only. With the GitHub App installed, the
           same actions are issue labels and the fix runs as a pull request in your own CI, on your own key.
         </p>
-        <p v-if="copyFailed" class="notice error" role="alert">
+        <p v-if="copyFailed" class="notice bad" role="alert">
           The clipboard is not available here. Select the prompt at the bottom of this page and copy it manually.
         </p>
       </section>
 
-      <section class="block">
-        <div class="block-head"><h2>What and where</h2></div>
+      <section class="section">
+        <div class="section-head"><h2>What and where</h2></div>
         <dl class="kv">
           <dt>Provider</dt>
           <dd>
             {{ providerName(contractLabel(finding.contract).provider) }}
-            <a v-if="provider(contractLabel(finding.contract).provider)?.info.changelog" :href="provider(contractLabel(finding.contract).provider)!.info.changelog" target="_blank" rel="noopener" class="small">changelog ↗</a>
+            <a v-if="provider(contractLabel(finding.contract).provider)?.info.changelog" :href="provider(contractLabel(finding.contract).provider)!.info.changelog" target="_blank" rel="noopener" class="t2">changelog ↗</a>
           </dd>
           <dt>Contract</dt><dd class="mono">{{ finding.contract }}</dd>
-          <dt>Effective</dt><dd>{{ fmtDate(finding.effective) }} <span class="muted num">({{ daysLabel(finding.daysRemaining) }})</span></dd>
+          <dt>Effective</dt><dd>{{ fmtDate(finding.effective) }} <span class="ink-faint num">({{ daysLabel(finding.daysRemaining) }})</span></dd>
           <dt>Announced</dt><dd>{{ fmtDate(rec?.announced) }}</dd>
           <dt>SDK</dt>
           <dd v-if="contract?.context?.sdk" class="mono">{{ contract.context.sdk.package }} {{ contract.context.sdk.version ?? "" }}</dd>
-          <dd v-else class="muted">no SDK package detected</dd>
+          <dd v-else class="ink-faint">no SDK package detected</dd>
           <dt>Sources</dt>
           <dd>
-            <span v-for="s in rec?.sources" :key="s.url ?? s.kind" class="small">
+            <span v-for="s in rec?.sources" :key="s.url ?? s.kind" class="t2">
               <a v-if="s.url" :href="s.url" target="_blank" rel="noopener">{{ s.kind }} ↗</a><span v-else>{{ s.kind }}</span>
               observed {{ s.observed }}&nbsp;
             </span>
@@ -120,8 +120,8 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
         </dl>
       </section>
 
-      <section class="block">
-        <div class="block-head">
+      <section class="section">
+        <div class="section-head">
           <h2>Evidence</h2>
           <span class="aside">{{ finding.evidence.length }} location{{ finding.evidence.length === 1 ? "" : "s" }}</span>
         </div>
@@ -133,25 +133,25 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
                 <td class="mono">{{ e.path }}</td>
                 <td class="n mono">{{ e.line }}:{{ e.column }}</td>
                 <td class="mono">{{ e.snippet }}</td>
-                <td class="muted">{{ e.detector }} · {{ e.layer }}</td>
+                <td class="ink-faint">{{ e.detector }} ({{ e.layer }} layer)</td>
               </tr>
             </tbody>
           </table>
         </div>
       </section>
 
-      <section class="block" v-if="rec?.migration">
-        <div class="block-head"><h2>Migration</h2></div>
+      <section class="section" v-if="rec?.migration">
+        <div class="section-head"><h2>Migration</h2></div>
         <dl class="kv">
           <dt>Replacement</dt><dd class="mono">{{ rec.migration.replacement ?? "none published" }}</dd>
           <dt>Effort</dt><dd>{{ rec.migration.effort }}</dd>
-          <dt>Guide</dt><dd><a v-if="rec.migration.guide" :href="rec.migration.guide" target="_blank" rel="noopener">{{ rec.migration.guide }}</a><span v-else class="muted">none published</span></dd>
+          <dt>Guide</dt><dd><a v-if="rec.migration.guide" :href="rec.migration.guide" target="_blank" rel="noopener">{{ rec.migration.guide }}</a><span v-else class="ink-faint">none published</span></dd>
           <dt>Notes</dt><dd>{{ rec.migration.notes }}</dd>
         </dl>
       </section>
 
-      <section class="block">
-        <div class="block-head">
+      <section class="section">
+        <div class="section-head">
           <h2>Fix prompt</h2>
           <span class="aside">the exact context handed to a coding agent</span>
         </div>
