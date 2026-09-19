@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { knowledge, samples, fixtureSamples } = useKnowledge();
+const { knowledge, fixtureSamples } = useKnowledge();
 
 const providers = computed(() =>
   knowledge.providers
@@ -7,67 +7,76 @@ const providers = computed(() =>
     .sort((a, b) => b.changes - a.changes),
 );
 const totalChanges = computed(() => providers.value.reduce((n, p) => n + p.changes, 0));
-const negatives = computed(() => fixtureSamples.filter((s) => s.expectedFindings && s.expectedFindings.length === 0).length);
 
 useHead({
-  title: "About DocsWatcher, Dependabot for External APIs",
-  meta: [{ name: "description", content: "DocsWatcher finds the external APIs your code calls and tells you which ones have an expiry date. What it is, how it works, and what it does not do yet." }],
+  title: "About DocsWatcher - Early Warning System for External APIs",
+  meta: [
+    {
+      name: "description",
+      content: "DocsWatcher finds external API calls and AI model versions in your code and flags approaching deprecation deadlines.",
+    },
+  ],
 });
 </script>
 
 <template>
-  <div class="prose" style="max-width: 780px; padding-top: var(--s3)">
+  <div class="prose" style="max-width: 820px; padding-top: var(--s3); margin-inline: auto;">
     <section class="page" style="max-width: none">
       <h1>Dependabot for the APIs you call, not the packages you install</h1>
       <p class="lede" style="margin-top: var(--s3)">
-        DocsWatcher reads a repository and builds an inventory of every external API it depends on.
-        It matches that inventory against a public record of provider deprecations, and tells you
-        which of your calls stops working, on what date, at which file and line.
+        DocsWatcher inspects your repositories to map every external API and AI model your software relies on.
+        It checks that inventory against verified deprecation schedules, highlighting which endpoints are scheduled
+        for shutdown, when they expire, and the exact lines of code you need to update.
       </p>
     </section>
 
-    <h2>The problem</h2>
+    <h2>The Problem</h2>
     <p>
-      Your toolchain watches the packages you install. Dependabot opens a pull request when a
-      dependency has a new version. Nothing watches the APIs you call.
+      Traditional package managers keep your installed dependencies up to date. Dependabot and Renovate alert you
+      when a library releases a new version, but nothing monitors the external HTTP endpoints and cloud APIs your
+      code actually calls.
     </p>
     <p>
-      That gap is where outages come from. A model ID in a config file is a string. A pinned API
-      version in a URL is a string. An SDK method that maps to an endpoint being removed is an
-      ordinary method call. None of these change when the provider retires them. Your lockfile is
-      unchanged, your build is green, your tests pass against mocks, and on a date somebody
-      published months ago the calls start failing in production.
+      That visibility gap frequently leads to unexpected production failures. AI model identifiers in configuration
+      files, pinned API versions in request headers, and deprecated SDK methods all look like normal code. Your tests
+      pass against mocks, your build stays green, and your package locks remain unchanged. Then, on a deadline announced
+      months earlier, third-party requests suddenly return 404 or 410 errors in production.
     </p>
     <div class="callout" style="margin-block: var(--s4)">
-      <strong>A concrete example from a real scan:</strong> Shopify's own application template pins the Admin API
-      version inside an import path. That version left support in October 2025. Nothing in the
-      repository's dependency graph records this, and no package update would surface it.
+      <strong>Real-world example:</strong> Shopify application templates frequently pin specific Admin API versions
+      within resource import paths. When that API version reaches end-of-life, traditional package linters notice nothing,
+      yet customer storefront requests immediately begin failing.
     </div>
 
-    <h2>Why this matters now</h2>
+    <h2>Why This Matters Now</h2>
     <p>
-      Two fundamental shifts accelerated the rate at which external contracts expire:
+      Two major software trends make external API deprecations happen faster than ever:
     </p>
     <ul>
       <li>
-        <strong>AI model retirements.</strong> Providers retire model IDs every few months, and
-        almost every codebase now has model identifiers sitting in configuration. This is the
-        highest frequency deprecation event in a modern repository.
+        <strong>Rapid AI model lifecycles.</strong> Leading AI providers routinely retire model versions every few months.
+        Hardcoded model strings in configuration and prompts quickly become deprecated, requiring proactive version rotation.
       </li>
       <li>
-        <strong>Calendar-versioned platforms.</strong> Shopify ships a new Admin API version every
-        quarter and supports each one for about twelve months. Missing a window changes response
-        shapes without returning an error.
+        <strong>Calendar-versioned platforms.</strong> Modern SaaS platforms like Shopify and Stripe issue regular version
+        releases with strict 12-month support windows. Missing a deprecation window can break payload shapes or fail live webhooks.
       </li>
     </ul>
+
+    <h2>Monitored Providers</h2>
     <p>
-      The knowledge base currently tracks <strong>{{ totalChanges }}</strong> published changes
-      across <strong>{{ providers.length }}</strong> providers. Every record carries the provider's
-      own source page and the date it was read.
+      DocsWatcher continuously tracks <strong>{{ totalChanges }}</strong> verified breaking changes across
+      <strong>{{ providers.length }}</strong> major cloud and AI providers.
     </p>
     <div class="table-wrap" style="margin-block: var(--s4)">
       <table>
-        <thead><tr><th>Provider</th><th>Tracked changes</th><th>How they version</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Provider</th>
+            <th>Tracked Changes</th>
+            <th>Deprecation Policy</th>
+          </tr>
+        </thead>
         <tbody>
           <tr v-for="p in providers" :key="p.id">
             <td style="font-weight: 700; color: var(--ink-max)">{{ p.name }}</td>
@@ -78,114 +87,65 @@ useHead({
       </table>
     </div>
 
-    <h2>How the scan works</h2>
+    <h2>How the Scanner Works</h2>
     <p>
-      Detection runs in three layers, cheapest first. Every rule is data in the open knowledge base,
-      not code, so a false positive is fixed by editing one line of configuration:
+      Scanning evaluates your project in three targeted steps:
     </p>
     <ul>
       <li>
-        <strong>Manifests.</strong> Dependency files are read to learn which provider SDKs the
-        project actually declares. This covers npm, PyPI, Maven, Go modules and RubyGems.
+        <strong>Package Manifests:</strong> Inspects declared dependencies (npm, PyPI, Maven, Go modules, RubyGems)
+        to identify which third-party provider SDKs your application actually loads.
       </li>
       <li>
-        <strong>Literals.</strong> Regular expressions find model IDs, base URLs and pinned API
-        versions wherever they appear, including configuration and environment files.
+        <strong>Configuration & Literals:</strong> Scans configuration files, environment definitions, and source files
+        for pinned API versions, model strings, and base URLs.
       </li>
       <li>
-        <strong>Call sites.</strong> Source is parsed into a syntax tree and queried, so an SDK
-        method is resolved to the endpoint it calls. Six languages are supported today: Java,
-        Python, TypeScript, TSX, JavaScript and Go.
+        <strong>Method Calls:</strong> Analyzes source code call sites to match SDK invocations against specific retiring endpoints.
       </li>
     </ul>
-    <p>
-      The layers are gated. Call site rules for a provider never run unless that provider's package
-      appeared in a manifest. A file that happens to define a method called <span class="mono">create</span>
-      on something called <span class="mono">Source</span> is not a Stripe call unless the project
-      depends on Stripe. That gate is the main reason the scanner stays quiet on code it does not
-      understand.
-    </p>
 
-    <h2>Two engines, held to the same output</h2>
+    <h2>Zero Code Uploaded</h2>
     <p>
-      The scan you run in this tab and the scan that runs in continuous integration are the same
-      scan. There are two interpreters of the same rules: one in Java for the command line and the
-      server, one in TypeScript for the browser.
+      Your code security and privacy come first:
     </p>
-    <p>
-      They are not trusted to agree. A parity check runs both engines over all
-      <strong>{{ fixtureSamples.length }}</strong> fixtures on every change and compares the output
-      byte for byte. If they ever diverge, the build fails. That is what makes a result produced in
-      your browser worth the same as one produced in a pipeline.
-    </p>
-
-    <h2>Nothing is uploaded</h2>
-    <p>
-      When you scan a local folder, files are read in this tab and never leave it. When you scan a
-      public repository by URL, the files are fetched from a public content delivery network
-      straight into your browser. There is no server-side scan, no account, and no copy of your
-      code anywhere.
-    </p>
+    <ul>
+      <li>
+        <strong>Local Folders:</strong> When you point DocsWatcher at a local folder on your computer, all code parsing
+        and analysis occur directly inside your browser. No files, code snippets, or environment secrets are transmitted over the network.
+      </li>
+      <li>
+        <strong>Public Repositories:</strong> When scanning a public repository URL, repository archives are fetched directly
+        into your browser session for in-memory analysis.
+      </li>
+      <li>
+        <strong>Private Repositories:</strong> For automated CI/CD scans and private repository monitoring, DocsWatcher runs
+        inside your own automated workflow runner using your own credentials.
+      </li>
+    </ul>
 
     <h2>What DocsWatcher is not</h2>
     <p>
-      It is not a feed of provider changelogs. Watching changelogs is a solved and crowded problem,
-      and a feed produces alerts about changes that have nothing to do with you.
+      It is not a generic feed of third-party changelogs. Watching unfiltered changelogs creates alert fatigue
+      about services and features your system never uses.
     </p>
     <p>
-      A change becomes a finding here only when it matches something the scanner actually found in
-      your code, with a file and a line to prove it. Everything else is filtered out before you see
-      it. That join between a published change and your own source is the entire product.
+      A deprecation only appears as an alert here when DocsWatcher finds active calls in your codebase,
+      with the exact file path and line number to verify it.
     </p>
-
-    <h2>Precision over recall</h2>
-    <p>
-      A false positive costs a developer an afternoon and costs us their trust. A missed contract is
-      invisible. Those are not symmetric, so the scanner is tuned to stay quiet when unsure.
-    </p>
-    <p>
-      Contracts found only in documentation or test paths are marked low confidence and raise no
-      finding by default. Of the {{ fixtureSamples.length }} fixtures in the knowledge base,
-      <strong>{{ negatives }}</strong> exist purely to pin down things that must never be reported:
-      a provider named in a README, a mocked client in a test file. A scanner that finds something
-      in every repository is not one you should trust.
-    </p>
-
-    <h2>The knowledge base is open</h2>
-    <p>
-      Detection rules, deprecation records and fixtures all live in one public directory. Adding a
-      provider means writing configuration, not code.
-    </p>
-    <p>
-      One rule governs contributions: no change record is merged without a fixture proving the
-      scanner detects it. A deprecation we cannot demonstrate finding is not published.
-    </p>
-
-    <h2>What exists today</h2>
-    <ul>
-      <li>The scanner, both engines, the command line tool and the deprecation calendar.</li>
-      <li>{{ totalChanges }} deprecation records across {{ providers.length }} providers, each with its source and the date it was read.</li>
-      <li>A server with a scan worker, a dashboard API and GitHub webhook handling.</li>
-      <li>Verified results against real public repositories, including ones that correctly report nothing.</li>
-    </ul>
 
     <h2>What does not exist yet</h2>
-    <p>Our upcoming engineering roadmap and capabilities actively in development:</p>
+    <p>Capabilities actively in development on our roadmap:</p>
     <ul>
-      <li><strong>Automated Ingestion Pipelines.</strong> Expanding our continuous scrapers to monitor upstream provider documentation, OpenAPI specs, and release feeds to automatically draft new deprecation records for review.</li>
-      <li><strong>Runtime Traffic Observation.</strong> An OpenTelemetry middleware processor to passively observe live <code>Sunset</code> and <code>Deprecation</code> HTTP response headers across production microservices.</li>
-      <li><strong>Multi-Repo Blast Radius Matrix.</strong> Cross-repository organizational dashboards mapping single provider deprecations across hundreds of connected microservice repositories at once.</li>
-      <li><strong>Additional Language Grammars.</strong> Broadening Tree-sitter call-site resolution to Ruby, PHP, and C# beyond our current core support for TypeScript, JavaScript, Python, Go, and Java.</li>
+      <li>Automated deprecation monitoring for upcoming third-party OpenAPI and GraphQL schemas.</li>
+      <li>Passive runtime telemetry observation for Sunset and Deprecation HTTP response headers.</li>
+      <li>Cross-repository organizational dependency blast radius mapping.</li>
+      <li>Expanded language grammars for additional backend languages.</li>
     </ul>
 
-    <h2>Try it</h2>
-    <p>
-      Scan one of the bundled real repositories, paste a public repository URL, or point it at a
-      folder on your machine. It takes a few seconds and asks for nothing.
-    </p>
-    <div class="row" style="margin-top: var(--s4); gap: var(--s3)">
-      <NuxtLink class="btn solid" to="/">Scan a repository</NuxtLink>
-      <NuxtLink class="btn" to="/calendar">See what breaks when</NuxtLink>
+    <div class="row" style="margin-top: var(--s6); gap: var(--s3)">
+      <NuxtLink class="btn solid" to="/">Scan your code</NuxtLink>
+      <NuxtLink class="btn" to="/calendar">View deprecation calendar</NuxtLink>
     </div>
   </div>
 </template>

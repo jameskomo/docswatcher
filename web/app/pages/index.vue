@@ -122,20 +122,8 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
 
 <template>
   <div>
-    <!-- The hero is the product doing its job: The Telemetry Command Deck -->
-    <Board
-      :inventory="result?.inventory"
-      :findings="findings"
-      :subject="result?.source.label"
-      subject-to="/app"
-      :note="fetchNote || undefined"
-      :busy="busy"
-      :phase="scanner.phase.value || status"
-      :percent="percent"
-    />
-
-    <!-- Interactive Scan Launcher Deck -->
-    <section class="section" id="scan-source">
+    <!-- Interactive Scan Launcher Deck (Primary Action at Top) -->
+    <section class="section" id="scan-source" style="padding-top: var(--s2)">
       <div class="section-head">
         <h1>Which of your API calls has a deadline?</h1>
         <p>
@@ -286,8 +274,19 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
       </div>
     </section>
 
-    <!-- Scan Results -->
-    <template v-if="result">
+    <!-- Scan Results & Telemetry Command Deck (Directly below Scanner) -->
+    <template v-if="result || busy">
+      <Board
+        :inventory="result?.inventory"
+        :findings="findings"
+        :subject="result?.source.label"
+        subject-to="/app"
+        :note="fetchNote || undefined"
+        :busy="busy"
+        :phase="scanner.phase.value || status"
+        :percent="percent"
+      />
+
       <section class="section">
         <div class="section-head">
           <h2>What is expiring</h2>
@@ -303,7 +302,7 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
           <h2>Everything this repository calls</h2>
           <p>Every external API contract detected in this codebase, including SDK methods, API keys, and model IDs.</p>
         </div>
-        <InventoryTable :contracts="result.inventory.contracts" :findings="findings" />
+        <InventoryTable :contracts="result?.inventory?.contracts || []" :findings="findings" />
       </section>
     </template>
 
