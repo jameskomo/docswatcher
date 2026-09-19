@@ -2,16 +2,6 @@
 import type { Finding, Severity } from "~~/engine/types";
 import { contractLabel, daysParts, encodeId, fmtDate, KIND_LABEL } from "~/utils/format";
 
-/**
- * Findings, ordered by when they bite and anchored on the day count.
- *
- * The number of days is the largest thing in the row because it is the only
- * figure that changes a reader's behaviour. Everything else, provider, key,
- * migration, file and line, is support for that number.
- *
- * The whole row is the link to its detail page: a plain anchor, so keyboard,
- * middle click and focus all work, and nothing competes for the click.
- */
 const props = defineProps<{ findings: Finding[]; compact?: boolean }>();
 const { change, providerName } = useKnowledge();
 const store = useScanStore();
@@ -76,11 +66,21 @@ const shown = computed(() => (props.compact ? 1 : 2));
               {{ store.effectiveStatus(f) === "snoozed" ? "snoozed" : "not in production" }}
             </span>
           </span>
-          <span class="subject">{{ providerName(contractLabel(f.contract).provider) }} {{ subject(f) }}</span>
-          <span class="guidance" v-if="guidance(f)">{{ guidance(f) }}</span>
+
+          <span class="subject">
+            {{ providerName(contractLabel(f.contract).provider) }} {{ subject(f) }}
+          </span>
+
+          <span class="guidance" v-if="guidance(f)">
+            <span style="color: var(--ink-accent); margin-right: 4px">→</span>
+            {{ guidance(f) }}
+          </span>
+
           <span class="where">
-            <span v-for="e in f.evidence.slice(0, shown)" :key="e.path + e.line + e.column">{{ e.path }}:{{ e.line }}</span>
-            <span v-if="f.evidence.length > shown">
+            <span v-for="e in f.evidence.slice(0, shown)" :key="e.path + e.line + e.column">
+              {{ e.path }}:{{ e.line }}
+            </span>
+            <span v-if="f.evidence.length > shown" style="color: var(--ink-soft)">
               and {{ f.evidence.length - shown }} more
               {{ f.evidence.length - shown === 1 ? "place" : "places" }}
             </span>
@@ -91,7 +91,9 @@ const shown = computed(() => (props.compact ? 1 : 2));
   </div>
 
   <div v-else class="empty">
-    <SeverityChip severity="healthy" />
+    <div style="margin-bottom: var(--s2)">
+      <SeverityChip severity="healthy" />
+    </div>
     <h3>Nothing in this repository has a deadline</h3>
     <p>
       Every contract found here is healthy against the current knowledge base. Scan another

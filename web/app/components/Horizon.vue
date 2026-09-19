@@ -126,6 +126,16 @@ function fitted(p: Pin): string {
       role="img"
       :aria-label="`Time ruler covering ${span} months from today, with ${pins.length} dated deadlines`"
     >
+      <!-- Overdue Danger Zone shading -->
+      <rect
+        :x="PAD_L"
+        :y="TOP - 16"
+        :width="Math.max(0, nowX - PAD_L)"
+        :height="axisY - (TOP - 16)"
+        fill="rgba(255, 56, 92, 0.05)"
+        rx="4"
+      />
+
       <!-- Month ticks. The rule is the axis, so it carries information. -->
       <g>
         <line
@@ -185,29 +195,25 @@ function fitted(p: Pin): string {
 <style scoped>
 .ruler svg { width: 100%; height: auto; overflow: visible; }
 
-.ruler.paper .tick-line,
-.ruler.paper .axis-line { stroke: var(--hair); }
-.ruler.paper .tick-text { fill: var(--ink-faint); font-family: var(--face); font-size: 11px; }
-.ruler.paper .now-line { stroke: var(--ink-max); stroke-width: 1.5; }
-.ruler.paper .now-text {
-  fill: var(--ink-max);
+.ruler .tick-line,
+.ruler .axis-line { stroke: var(--hair-strong); }
+.ruler .tick-text { fill: var(--ink-faint); font-family: var(--face); font-size: 11px; font-weight: 600; }
+.ruler .now-line {
+  stroke: var(--ink-accent);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.6));
+}
+.ruler .now-text {
+  fill: var(--ink-accent);
   font-family: var(--face);
   font-size: 11px;
-  font-variation-settings: "wdth" 88, "wght" 700;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
-.ruler.paper .pin-label { fill: var(--ink); font-family: var(--face-mono); font-size: 13px; }
+.ruler .pin-label { fill: var(--ink); font-family: var(--face-mono); font-size: 12px; font-weight: 500; }
 
-.ruler.board .tick-line,
-.ruler.board .axis-line { stroke: var(--board-hair); }
-.ruler.board .tick-text { fill: var(--board-soft); font-family: var(--face); font-size: 11px; }
-.ruler.board .now-line { stroke: var(--board-ink); stroke-width: 1.5; }
-.ruler.board .now-text {
-  fill: var(--board-ink);
-  font-family: var(--face);
-  font-size: 11px;
-  font-variation-settings: "wdth" 88, "wght" 700;
-}
-.ruler.board .pin-label { fill: var(--board-ink); font-family: var(--face-mono); font-size: 13px; }
+.ruler.board .pin-label { fill: #f1f5f9; }
 
 /* At phone width the labels are unreadable and redundant: the list directly
    below names every finding. The dots and the today line still carry the

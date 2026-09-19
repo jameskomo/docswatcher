@@ -48,7 +48,6 @@ async function copy() {
     copied.value = true;
     setTimeout(() => (copied.value = false), 2000);
   } catch {
-    // Clipboard is unavailable in some contexts. The prompt is on the page, so say so.
     copyFailed.value = true;
   }
 }
@@ -56,44 +55,54 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
 </script>
 
 <template>
-  <div class="stack" style="gap: var(--s5)">
-    <NuxtLink to="/app" class="t2">← back to dashboard</NuxtLink>
+  <div class="stack" style="gap: var(--s5); padding-top: var(--s3)">
+    <NuxtLink to="/app" class="t2" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600">
+      <span>←</span>
+      <span>Back to dashboard</span>
+    </NuxtLink>
 
     <div v-if="!finding" class="empty">
       <h3>This finding is not in the current scan</h3>
       <p class="t2">Findings live in the scan held by this browser. Run a scan to see it again.</p>
-      <NuxtLink class="btn solid" to="/">Scan a repository</NuxtLink>
+      <NuxtLink class="btn solid" to="/" style="margin-top: var(--s3)">Scan a repository</NuxtLink>
     </div>
 
     <template v-else>
-      <section class="hero">
-        <div class="row" style="gap: var(--s2)">
-          <SeverityChip :severity="finding.severity" />
-          <span class="sev neutral" v-if="status !== 'open'">{{ status === "snoozed" ? "snoozed" : "not in production" }}</span>
+      <section class="hero" style="background: var(--bg-surface); border: 1px solid var(--hair-strong); padding: var(--s5); border-radius: var(--radius-xl); box-shadow: var(--shadow-card)">
+        <div class="row between" style="align-items: center">
+          <div class="row" style="gap: var(--s2)">
+            <SeverityChip :severity="finding.severity" />
+            <span class="sev neutral" v-if="status !== 'open'">{{ status === "snoozed" ? "snoozed" : "not in production" }}</span>
+          </div>
+          <span class="mono t2" v-if="finding.effective" :style="{ color: (finding.daysRemaining ?? 0) < 0 ? 'var(--overdue)' : 'var(--soon)', fontWeight: 700 }">
+            {{ (finding.daysRemaining ?? 0) < 0 ? `${-(finding.daysRemaining ?? 0)} days overdue` : `Due in ${finding.daysRemaining} days` }}
+          </span>
         </div>
-        <h1>{{ rec?.title }}</h1>
-        <p class="lede">{{ rec?.summary }}</p>
-      </section>
+        <h1 style="margin-top: var(--s3)">{{ rec?.title }}</h1>
+        <p class="lede" style="margin-top: var(--s2)">{{ rec?.summary }}</p>
 
-      <!-- The primary action sits directly under the summary, where a reader
-           who has decided to act will look for it. -->
-      <section class="section">
-        <div class="row">
-          <button id="fix-pr" class="btn solid" @click="copy">{{ copied ? "Copied" : "Copy fix prompt for a coding agent" }}</button>
-          <button class="btn" @click="status === 'snoozed' ? store.unsnooze(finding.id) : store.snooze(finding.id, 30)">
-            {{ status === "snoozed" ? "Unsnooze" : "Snooze 30 days" }}
-          </button>
-          <button class="btn" @click="store.toggleNotInProd(finding.id)">
-            {{ status === "not_in_prod" ? "Mark used in production" : "Not used in production" }}
-          </button>
+        <!-- Primary Action Bar -->
+        <div style="margin-top: var(--s5); border-top: 1px solid var(--hair); padding-top: var(--s4)">
+          <div class="row" style="gap: var(--s3)">
+            <button id="fix-pr" class="btn solid" @click="copy">
+              <span>⚡</span>
+              <span>{{ copied ? "Copied" : "Copy fix prompt for a coding agent" }}</span>
+            </button>
+            <button class="btn" @click="status === 'snoozed' ? store.unsnooze(finding.id) : store.snooze(finding.id, 30)">
+              {{ status === "snoozed" ? "Unsnooze" : "Snooze 30 days" }}
+            </button>
+            <button class="btn" @click="store.toggleNotInProd(finding.id)">
+              {{ status === "not_in_prod" ? "Mark used in production" : "Not used in production" }}
+            </button>
+          </div>
+          <p class="t2 ink-faint" style="margin-top: var(--s3)">
+            Snooze and production flags are kept in this browser only. With the GitHub App installed, the
+            same actions are issue labels and the fix runs as a pull request in your own CI, on your own key.
+          </p>
+          <p v-if="copyFailed" class="notice bad" role="alert" style="margin-top: var(--s3)">
+            The clipboard is not available here. Select the prompt at the bottom of this page and copy it manually.
+          </p>
         </div>
-        <p class="t2 ink-faint">
-          Snooze and production flags are kept in this browser only. With the GitHub App installed, the
-          same actions are issue labels and the fix runs as a pull request in your own CI, on your own key.
-        </p>
-        <p v-if="copyFailed" class="notice bad" role="alert">
-          The clipboard is not available here. Select the prompt at the bottom of this page and copy it manually.
-        </p>
       </section>
 
       <section class="section">
@@ -101,10 +110,10 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
         <dl class="kv">
           <dt>Provider</dt>
           <dd>
-            {{ providerName(contractLabel(finding.contract).provider) }}
-            <a v-if="provider(contractLabel(finding.contract).provider)?.info.changelog" :href="provider(contractLabel(finding.contract).provider)!.info.changelog" target="_blank" rel="noopener" class="t2">changelog ↗</a>
+            <strong>{{ providerName(contractLabel(finding.contract).provider) }}</strong>
+            <a v-if="provider(contractLabel(finding.contract).provider)?.info.changelog" :href="provider(contractLabel(finding.contract).provider)!.info.changelog" target="_blank" rel="noopener" class="t2" style="margin-left: 8px">changelog ↗</a>
           </dd>
-          <dt>Contract</dt><dd class="mono">{{ finding.contract }}</dd>
+          <dt>Contract</dt><dd class="mono" style="color: var(--ink-accent)">{{ finding.contract }}</dd>
           <dt>Effective</dt><dd>{{ fmtDate(finding.effective) }} <span class="ink-faint num">({{ daysLabel(finding.daysRemaining) }})</span></dd>
           <dt>Announced</dt><dd>{{ fmtDate(rec?.announced) }}</dd>
           <dt>SDK</dt>
@@ -130,9 +139,9 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
             <thead><tr><th>File</th><th>Line</th><th>Snippet</th><th>Detector</th></tr></thead>
             <tbody>
               <tr v-for="e in finding.evidence" :key="e.path + e.line + e.column">
-                <td class="mono">{{ e.path }}</td>
+                <td class="mono" style="color: var(--ink-accent)">{{ e.path }}</td>
                 <td class="n mono">{{ e.line }}:{{ e.column }}</td>
-                <td class="mono">{{ e.snippet }}</td>
+                <td class="mono" style="background: rgba(0,0,0,0.25); border-radius: 4px; padding: 4px 8px">{{ e.snippet }}</td>
                 <td class="ink-faint">{{ e.detector }} ({{ e.layer }} layer)</td>
               </tr>
             </tbody>
@@ -143,8 +152,8 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
       <section class="section" v-if="rec?.migration">
         <div class="section-head"><h2>Migration</h2></div>
         <dl class="kv">
-          <dt>Replacement</dt><dd class="mono">{{ rec.migration.replacement ?? "none published" }}</dd>
-          <dt>Effort</dt><dd>{{ rec.migration.effort }}</dd>
+          <dt>Replacement</dt><dd class="mono" style="color: var(--ok)">{{ rec.migration.replacement ?? "none published" }}</dd>
+          <dt>Effort</dt><dd><span class="state">{{ rec.migration.effort }}</span></dd>
           <dt>Guide</dt><dd><a v-if="rec.migration.guide" :href="rec.migration.guide" target="_blank" rel="noopener">{{ rec.migration.guide }}</a><span v-else class="ink-faint">none published</span></dd>
           <dt>Notes</dt><dd>{{ rec.migration.notes }}</dd>
         </dl>
@@ -155,7 +164,20 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
           <h2>Fix prompt</h2>
           <span class="aside">the exact context handed to a coding agent</span>
         </div>
-        <pre>{{ prompt }}</pre>
+        <div style="background: #05070b; border: 1px solid var(--hair-strong); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card)">
+          <div class="row between" style="background: rgba(255,255,255,0.03); padding: 8px 16px; border-bottom: 1px solid var(--hair)">
+            <div class="row" style="gap: 6px">
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; display: inline-block"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block"></span>
+              <span class="mono t1 ink-faint" style="margin-left: 8px">agent-fix-prompt.md</span>
+            </div>
+            <button class="btn quiet t1" @click="copy" style="padding: 2px 8px">
+              {{ copied ? "Copied" : "Copy" }}
+            </button>
+          </div>
+          <pre style="margin: 0; border: none; border-radius: 0; background: transparent">{{ prompt }}</pre>
+        </div>
       </section>
     </template>
   </div>

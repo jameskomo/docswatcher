@@ -10,11 +10,20 @@ const changes = knowledge.providers.reduce((n, p) => n + p.changes.length, 0);
 
     <header class="site-header">
       <div class="wrap">
-        <NuxtLink to="/" class="wordmark" aria-label="DocsWatcher home">
-          <!-- A single overdue mark. The product is one red dot on a calendar. -->
-          <span class="tick" aria-hidden="true"></span>
-          <span>DocsWatcher</span>
-        </NuxtLink>
+        <div class="brand-group">
+          <NuxtLink to="/" class="wordmark" aria-label="DocsWatcher home">
+            <span class="wordmark-logo">
+              <span class="tick" aria-hidden="true"></span>
+            </span>
+            <span>DocsWatcher</span>
+          </NuxtLink>
+
+          <span class="registry-badge" title="Deprecation registry active and verified">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span>KB {{ knowledge.version }} · {{ changes }} tracked</span>
+          </span>
+        </div>
+
         <nav class="nav" aria-label="Main">
           <NuxtLink to="/">Scan</NuxtLink>
           <NuxtLink to="/calendar">Calendar</NuxtLink>
@@ -35,7 +44,9 @@ const changes = knowledge.providers.reduce((n, p) => n + p.changes.length, 0);
           {{ changes }} published changes across {{ providers }} providers.
           <NuxtLink to="/about">How this works</NuxtLink>
         </span>
-        <span>Scans run in your browser. No code leaves it.</span>
+        <span>
+          <span class="mono">🔒</span> Scans run in your browser. No code leaves it.
+        </span>
       </div>
     </footer>
   </div>

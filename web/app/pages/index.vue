@@ -37,12 +37,13 @@ const percent = computed(() => {
 });
 
 async function runScan(files: InputFile[], repo: RepoRef, source: { label: string; kind: "sample" | "github" | "folder" }) {
-  status.value = "Scanning";
+  status.value = "Scanning AST";
   const r = await scanner.run(files, repo);
   store.save({ inventory: r.inventory, findings: r.findings, source, at: new Date().toISOString() });
 }
 
-async function scanSample() {
+async function scanSample(targetName?: string) {
+  if (targetName) sample.value = targetName;
   const s = samples.find((x) => x.name === sample.value);
   if (!s) return;
   await guard(async () => {
@@ -62,8 +63,6 @@ async function scanGitHub() {
   }
   await guard(async () => {
     const progress = (msg: string, done?: number, total?: number) => { status.value = total ? `${msg} ${done} of ${total}` : msg; };
-    // Try every route. Hosts differ in what they permit: an embedded sandbox may block
-    // one origin and allow another, so a single blocked route must not end the scan.
     const routes: Array<{ name: string; run: () => Promise<any> }> = [];
     if (relay) routes.push({ name: "relay", run: () => fetchViaRelay(relay, t, progress) });
     routes.push({ name: "jsDelivr", run: () => fetchViaJsDelivr(t, progress) });
@@ -104,11 +103,6 @@ async function scanFolder(ev: Event) {
   });
 }
 
-/**
- * A host that forbids outbound requests fails fetch with a bare TypeError and
- * no status. Say what happened and what still works, rather than surfacing
- * "Failed to fetch", which reads like a bug in the scanner.
- */
 function describe(e: any): string {
   const msg = e?.message ?? String(e);
   const blocked = e instanceof TypeError && /failed to fetch|load failed|networkerror/i.test(msg);
@@ -119,7 +113,7 @@ function describe(e: any): string {
 }
 
 async function guard(fn: () => Promise<void>) {
-  busy.value = true; error.value = ""; status.value = "Starting";
+  busy.value = true; error.value = ""; status.value = "Initializing WebAssembly engine";
   try { await fn(); } catch (e: any) { error.value = describe(e); } finally { busy.value = false; status.value = ""; }
 }
 
@@ -128,7 +122,7 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
 
 <template>
   <div>
-    <!-- The hero is the product doing its job, not a claim about it. -->
+    <!-- The hero is the product doing its job: The Telemetry Command Deck -->
     <Board
       :inventory="result?.inventory"
       :findings="findings"
@@ -140,106 +134,166 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
       :percent="percent"
     />
 
+    <!-- Interactive Scan Launcher Deck -->
     <section class="section" id="scan-source">
       <div class="section-head">
         <h1>Which of your API calls has a deadline?</h1>
         <p>
-          DocsWatcher reads a repository and finds every external contract in it, from SDK calls
-          and endpoints to model IDs in configuration and pinned API versions. It matches them
-          against {{ trackedChanges }} published provider deprecations and tells you which ones
-          have a date on them, at the file and the line. The scan runs in this tab and nothing is
-          uploaded.
+          DocsWatcher parses your codebase in WebAssembly Tree-sitter to find every external API contract—from
+          SDK methods and base URLs to model strings in config and pinned versions. It matches your inventory
+          against {{ trackedChanges }} published deprecation records and pins each deadline to the exact file and line.
         </p>
       </div>
 
-      <div class="tabs" role="tablist" aria-label="What to scan">
-        <button role="tab" :aria-selected="mode === 'sample'" @click="mode = 'sample'">Sample repository</button>
-        <button role="tab" :aria-selected="mode === 'github'" @click="mode = 'github'">GitHub URL</button>
-        <button role="tab" :aria-selected="mode === 'folder'" @click="mode = 'folder'">Local folder</button>
-      </div>
+      <div class="scan-box">
+        <div class="tabs" role="tablist" aria-label="What to scan">
+          <button role="tab" :aria-selected="mode === 'sample'" @click="mode = 'sample'">
+            <span>⚡</span>
+            <span>Sample repository</span>
+          </button>
+          <button role="tab" :aria-selected="mode === 'github'" @click="mode = 'github'">
+            <span>🐙</span>
+            <span>GitHub URL</span>
+          </button>
+          <button role="tab" :aria-selected="mode === 'folder'" @click="mode = 'folder'">
+            <span>📁</span>
+            <span>Local folder</span>
+          </button>
+        </div>
 
-      <p v-if="networkBlocked && mode === 'github'" class="notice" role="status">
-        This host blocks outbound requests, so URL scanning is unavailable here. Use a sample or a
-        local folder, or run the site yourself.
-      </p>
+        <p v-if="networkBlocked && mode === 'github'" class="notice" role="status">
+          This host blocks outbound requests, so URL scanning is unavailable here. Use a sample or a
+          local folder, or run the site yourself.
+        </p>
 
-      <form v-if="mode === 'github'" class="stack" @submit.prevent="scanGitHub">
-        <div class="row">
+        <!-- Sample Repo Mode -->
+        <div v-if="mode === 'sample'" class="stack">
+          <!-- Curated Quick Presets -->
+          <div class="preset-chips">
+            <span class="preset-label">Quick Presets:</span>
+            <button
+              type="button"
+              class="preset-pill"
+              :class="{ active: sample === 'openai/openai-quickstart-python' }"
+              @click="scanSample('openai/openai-quickstart-python')"
+              :disabled="busy"
+            >
+              <span style="color: var(--overdue)">●</span>
+              <span>OpenAI Quickstart (Assistants Sunset)</span>
+            </button>
+            <button
+              type="button"
+              class="preset-pill"
+              :class="{ active: sample === 'Shopify/shopify-app-template-node' }"
+              @click="scanSample('Shopify/shopify-app-template-node')"
+              :disabled="busy"
+            >
+              <span style="color: var(--soon)">●</span>
+              <span>Shopify Template (2024-10 Expired)</span>
+            </button>
+            <button
+              type="button"
+              class="preset-pill"
+              :class="{ active: sample === 'stripe-java-sources' }"
+              @click="scanSample('stripe-java-sources')"
+              :disabled="busy"
+            >
+              <span style="color: var(--soon)">●</span>
+              <span>Stripe Java (Sources API)</span>
+            </button>
+          </div>
+
+          <div class="row" style="gap: var(--s3)">
+            <select
+              id="sample-select"
+              class="select grow"
+              style="flex: 1 1 200px; min-width: 0; max-width: 100%"
+              v-model="sample"
+              :disabled="busy"
+              aria-label="Sample repository"
+            >
+              <optgroup label="Real public repositories">
+                <option v-for="s in realSamples" :key="s.name" :value="s.name">{{ s.name }} at {{ s.sha }}</option>
+              </optgroup>
+              <optgroup label="Knowledge base fixtures">
+                <option v-for="s in fixtureSamples" :key="s.name" :value="s.name">{{ s.name }}</option>
+              </optgroup>
+            </select>
+            <button id="scan-sample" class="btn solid" @click="scanSample()" :disabled="busy">
+              <span>Scan sample</span>
+            </button>
+          </div>
+
+          <p v-if="selectedSample?.real" class="t2 ink-soft" style="margin-top: var(--s1)">
+            Vendored copy of <strong>{{ selectedSample.name }}</strong> at commit
+            <span class="mono">{{ selectedSample.sha }}</span>. Scanned entirely in your browser. {{ selectedSample.note }}
+          </p>
+          <p v-else class="t2 ink-faint" style="margin-top: var(--s1)">
+            Knowledge base regression fixture with pinned expected findings.
+          </p>
+        </div>
+
+        <!-- GitHub URL Mode -->
+        <form v-else-if="mode === 'github'" class="stack" @submit.prevent="scanGitHub">
+          <div class="row">
+            <input
+              id="repo-url"
+              class="input grow"
+              style="flex: 1 1 200px; min-width: 0; max-width: 100%"
+              v-model="url"
+              placeholder="https://github.com/owner/repo"
+              aria-label="GitHub repository URL"
+              :disabled="busy"
+            />
+            <button id="scan-github" class="btn solid" type="submit" :disabled="busy">
+              <span>Scan repository</span>
+            </button>
+          </div>
+          <div v-if="!relay" class="row t2" style="align-items: center">
+            <input
+              id="gh-token"
+              class="input grow"
+              style="flex: 1 1 180px; min-width: 0; max-width: 100%"
+              type="password"
+              v-model="token"
+              placeholder="GitHub personal access token (optional)"
+              aria-label="GitHub token"
+              autocomplete="off"
+            />
+            <span class="ink-faint">
+              Stored only in memory. Used for GitHub API rate limits (60 req/hr anonymous vs 5,000 with token).
+            </span>
+          </div>
+        </form>
+
+        <!-- Local Folder Mode -->
+        <div v-else-if="mode === 'folder'" class="stack">
+          <p class="t2 ink-soft">
+            Select a project directory on your local machine. Files are parsed via Tree-sitter in WebAssembly inside this tab.
+            No code or file contents ever leave your browser.
+          </p>
           <input
-            id="repo-url"
-            class="input grow"
-            style="flex-basis: 320px"
-            v-model="url"
-            placeholder="https://github.com/owner/repo"
-            aria-label="GitHub repository URL"
+            id="folder-input"
+            type="file"
+            webkitdirectory
+            multiple
+            @change="scanFolder"
             :disabled="busy"
+            aria-label="Choose a folder"
+            style="color: var(--ink-soft); font-family: var(--face-mono); font-size: var(--t2)"
           />
-          <button id="scan-github" class="btn solid" type="submit" :disabled="busy">Scan repository</button>
         </div>
-        <div v-if="!relay" class="row t2">
-          <input
-            id="gh-token"
-            class="input grow"
-            style="flex-basis: 260px"
-            type="password"
-            v-model="token"
-            placeholder="GitHub token, optional"
-            aria-label="GitHub token"
-            autocomplete="off"
-          />
-          <span class="ink-faint">
-            Held in memory only. Files come from jsDelivr first, then the GitHub API, which allows
-            60 requests an hour for each address.
-          </span>
-        </div>
-      </form>
 
-      <div v-else-if="mode === 'folder'" class="stack">
-        <p class="t2 ink-soft">
-          Pick a project folder. Files are read in this tab. Vendored directories and files over
-          1 MB are skipped.
-        </p>
-        <input
-          id="folder-input"
-          type="file"
-          webkitdirectory
-          multiple
-          @change="scanFolder"
-          :disabled="busy"
-          aria-label="Choose a folder"
-        />
+        <p v-if="error" class="notice bad" role="alert" style="margin-top: var(--s3)">{{ error }}</p>
       </div>
-
-      <div v-else class="stack">
-        <div class="row">
-          <select id="sample-select" class="select" v-model="sample" :disabled="busy" aria-label="Sample repository">
-            <optgroup label="Real public repositories">
-              <option v-for="s in realSamples" :key="s.name" :value="s.name">{{ s.name }} at {{ s.sha }}</option>
-            </optgroup>
-            <optgroup label="Knowledge base fixtures">
-              <option v-for="s in fixtureSamples" :key="s.name" :value="s.name">{{ s.name }}</option>
-            </optgroup>
-          </select>
-          <button id="scan-sample" class="btn solid" @click="scanSample" :disabled="busy">Scan sample</button>
-        </div>
-        <p v-if="selectedSample?.real" class="t2 ink-soft">
-          A vendored copy of <strong>{{ selectedSample.name }}</strong> at commit
-          <span class="mono">{{ selectedSample.sha }}</span>, scanned here by the same engine that
-          runs in continuous integration. {{ selectedSample.note }}
-        </p>
-        <p v-else class="t2 ink-faint">
-          A fixture from the open knowledge base, with a pinned expected result.
-        </p>
-      </div>
-
-      <p v-if="error" class="notice bad" role="alert">{{ error }}</p>
     </section>
 
+    <!-- Scan Results -->
     <template v-if="result">
       <section class="section">
         <div class="section-head">
           <h2>What is expiring</h2>
-          <p>Ordered by how soon it bites. Open any row for the evidence, the migration notes and a fix prompt.</p>
+          <p>Chronological deadline queue. Click any card to inspect code evidence, migration blueprints, and agent fix prompts.</p>
         </div>
         <div id="findings">
           <FindingsList :findings="findings" />
@@ -249,7 +303,7 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
       <section class="section" id="inventory">
         <div class="section-head">
           <h2>Everything this repository calls</h2>
-          <p>Every external contract found, including the ones nobody remembers adding.</p>
+          <p>Every external API contract detected in this codebase, including SDK methods, API keys, and model IDs.</p>
         </div>
         <InventoryTable :contracts="result.inventory.contracts" :findings="findings" />
       </section>

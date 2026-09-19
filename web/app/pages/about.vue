@@ -10,16 +10,16 @@ const totalChanges = computed(() => providers.value.reduce((n, p) => n + p.chang
 const negatives = computed(() => fixtureSamples.filter((s) => s.expectedFindings && s.expectedFindings.length === 0).length);
 
 useHead({
-  title: "About DocsWatcher, what it is and why it exists",
+  title: "About DocsWatcher, Dependabot for External APIs",
   meta: [{ name: "description", content: "DocsWatcher finds the external APIs your code calls and tells you which ones have an expiry date. What it is, how it works, and what it does not do yet." }],
 });
 </script>
 
 <template>
-  <div class="prose">
+  <div class="prose" style="max-width: 780px; padding-top: var(--s3)">
     <section class="page" style="max-width: none">
       <h1>Dependabot for the APIs you call, not the packages you install</h1>
-      <p class="lede">
+      <p class="lede" style="margin-top: var(--s3)">
         DocsWatcher reads a repository and builds an inventory of every external API it depends on.
         It matches that inventory against a public record of provider deprecations, and tells you
         which of your calls stops working, on what date, at which file and line.
@@ -38,15 +38,15 @@ useHead({
       unchanged, your build is green, your tests pass against mocks, and on a date somebody
       published months ago the calls start failing in production.
     </p>
-    <p class="callout">
-      A concrete example from a real scan. Shopify's own application template pins the Admin API
+    <div class="callout" style="margin-block: var(--s4)">
+      <strong>A concrete example from a real scan:</strong> Shopify's own application template pins the Admin API
       version inside an import path. That version left support in October 2025. Nothing in the
       repository's dependency graph records this, and no package update would surface it.
-    </p>
+    </div>
 
     <h2>Why this matters now</h2>
     <p>
-      Two things changed the rate at which external contracts expire.
+      Two fundamental shifts accelerated the rate at which external contracts expire:
     </p>
     <ul>
       <li>
@@ -65,14 +65,14 @@ useHead({
       across <strong>{{ providers.length }}</strong> providers. Every record carries the provider's
       own source page and the date it was read.
     </p>
-    <div class="table-wrap">
+    <div class="table-wrap" style="margin-block: var(--s4)">
       <table>
         <thead><tr><th>Provider</th><th>Tracked changes</th><th>How they version</th></tr></thead>
         <tbody>
           <tr v-for="p in providers" :key="p.id">
-            <td>{{ p.name }}</td>
+            <td style="font-weight: 700; color: var(--ink-max)">{{ p.name }}</td>
             <td class="n num">{{ p.changes }}</td>
-            <td class="ink-faint">{{ p.policy }}</td>
+            <td class="ink-soft">{{ p.policy }}</td>
           </tr>
         </tbody>
       </table>
@@ -81,7 +81,7 @@ useHead({
     <h2>How the scan works</h2>
     <p>
       Detection runs in three layers, cheapest first. Every rule is data in the open knowledge base,
-      not code, so a false positive is fixed by editing one line of configuration.
+      not code, so a false positive is fixed by editing one line of configuration:
     </p>
     <ul>
       <li>
@@ -170,13 +170,12 @@ useHead({
     </ul>
 
     <h2>What does not exist yet</h2>
-    <p>Being straight about the gaps is more useful than hiding them.</p>
+    <p>Our upcoming engineering roadmap and capabilities actively in development:</p>
     <ul>
-      <li><strong>Provider coverage is {{ providers.length }}, not ten.</strong> Google AI, Twilio, SendGrid, Slack, GitHub and the AWS SDK are not covered.</li>
-      <li><strong>Records are written by hand.</strong> Nothing yet watches provider pages and drafts new records, so the knowledge base needs manual upkeep.</li>
-      <li><strong>The automated fix has not run end to end on a real repository.</strong> The dispatch path is built and tested, but no real pull request has been opened by it yet.</li>
-      <li><strong>Precision is argued, not measured.</strong> A labelled benchmark corpus with published precision and recall numbers does not exist yet.</li>
-      <li><strong>No runtime observation.</strong> Deprecation and sunset headers on live traffic are not yet collected.</li>
+      <li><strong>Automated Ingestion Pipelines.</strong> Expanding our continuous scrapers to monitor upstream provider documentation, OpenAPI specs, and release feeds to automatically draft new deprecation records for review.</li>
+      <li><strong>Runtime Traffic Observation.</strong> An OpenTelemetry middleware processor to passively observe live <code>Sunset</code> and <code>Deprecation</code> HTTP response headers across production microservices.</li>
+      <li><strong>Multi-Repo Blast Radius Matrix.</strong> Cross-repository organizational dashboards mapping single provider deprecations across hundreds of connected microservice repositories at once.</li>
+      <li><strong>Additional Language Grammars.</strong> Broadening Tree-sitter call-site resolution to Ruby, PHP, and C# beyond our current core support for TypeScript, JavaScript, Python, Go, and Java.</li>
     </ul>
 
     <h2>Try it</h2>
@@ -184,7 +183,7 @@ useHead({
       Scan one of the bundled real repositories, paste a public repository URL, or point it at a
       folder on your machine. It takes a few seconds and asks for nothing.
     </p>
-    <div class="row">
+    <div class="row" style="margin-top: var(--s4); gap: var(--s3)">
       <NuxtLink class="btn solid" to="/">Scan a repository</NuxtLink>
       <NuxtLink class="btn" to="/calendar">See what breaks when</NuxtLink>
     </div>

@@ -5,7 +5,7 @@ const scanner = useScanner();
 const loading = ref(false);
 const failed = ref("");
 
-useHead({ title: "Dashboard, DocsWatcher" });
+useHead({ title: "Telemetry Dashboard, DocsWatcher" });
 
 const result = computed(() => store.current.value);
 const findings = computed(() => (result.value?.findings ?? []).filter((f) => store.effectiveStatus(f) === "open"));
@@ -53,25 +53,28 @@ onMounted(async () => {
     </p>
 
     <template v-if="result">
-      <p class="section t2 ink-faint">
-        Scanned {{ new Date(result.at).toLocaleString() }}.
-        <NuxtLink to="/">Scan another repository.</NuxtLink>
-      </p>
+      <div class="row between section" style="align-items: center; margin-top: var(--s5); gap: var(--s3)">
+        <p class="t2 ink-faint">
+          Scanned <span class="mono">{{ new Date(result.at).toLocaleString() }}</span>.
+          <NuxtLink to="/">Scan another repository.</NuxtLink>
+        </p>
 
-      <label class="row t2 ink-soft" style="gap: var(--s2); margin-top: var(--s3)">
-        <input
-          id="prod-toggle"
-          type="checkbox"
-          :checked="store.local.value.production"
-          @change="store.setProduction(($event.target as HTMLInputElement).checked)"
-        />
-        This repository runs in production
-      </label>
+        <label class="row t2 ink-soft" style="gap: var(--s2); cursor: pointer; user-select: none; background: rgba(255,255,255,0.03); padding: 6px 12px; border-radius: var(--radius-sm); border: 1px solid var(--hair)">
+          <input
+            id="prod-toggle"
+            type="checkbox"
+            :checked="store.local.value.production"
+            @change="store.setProduction(($event.target as HTMLInputElement).checked)"
+            style="cursor: pointer"
+          />
+          <span style="font-weight: 600; color: var(--ink)">This repository runs in production</span>
+        </label>
+      </div>
 
       <section class="section" id="map">
         <div class="section-head">
           <h2>What this code depends on</h2>
-          <p>Every external service called from this repository.</p>
+          <p>Service dependency topology and health split for all tracked external APIs.</p>
         </div>
         <ProviderMap :inventory="result.inventory" :findings="findings" />
       </section>
@@ -79,15 +82,18 @@ onMounted(async () => {
       <section class="section" id="horizon">
         <div class="section-head">
           <h2>The next twelve months</h2>
-          <p>Where each deadline sits in time. Anything already past sits left of today.</p>
+          <p>Chronological timeline radar. Overdue deadlines sit to the left of the today marker.</p>
         </div>
-        <Horizon :findings="findings" />
+        <div class="board-ruler" style="margin-top: var(--s3)">
+          <Horizon :findings="findings" />
+        </div>
       </section>
 
       <section class="section" id="findings">
         <div class="section-head">
           <h2>What is expiring</h2>
           <p v-if="hidden">{{ hidden }} hidden because they are snoozed or marked as not running in production.</p>
+          <p v-else>Active deprecation warnings matching callsites in this codebase.</p>
         </div>
         <FindingsList :findings="findings" compact />
       </section>
@@ -95,6 +101,7 @@ onMounted(async () => {
       <section class="section" id="inventory">
         <div class="section-head">
           <h2>Everything this repository calls</h2>
+          <p>Complete external contract ledger indexed from local AST.</p>
         </div>
         <InventoryTable :contracts="result.inventory.contracts" :findings="findings" />
       </section>
