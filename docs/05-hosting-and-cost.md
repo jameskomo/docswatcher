@@ -1,6 +1,6 @@
 # Hosting and cost
 
-DocWatcher has no paying customers. The plan is that nothing recurs on a bill until a customer pays. Every component below has a free tier, a known trigger that forces an upgrade, and a named first paid step. Check current limits before relying on any number here. Free tiers change.
+DocsWatcher has no paying customers. The plan is that nothing recurs on a bill until a customer pays. Every component below has a free tier, a known trigger that forces an upgrade, and a named first paid step. Check current limits before relying on any number here. Free tiers change.
 
 ## The plan in one table
 

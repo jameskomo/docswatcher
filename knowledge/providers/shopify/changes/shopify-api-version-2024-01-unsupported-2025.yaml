@@ -1,0 +1,32 @@
+id: shopify-api-version-2024-01-unsupported-2025
+provider: shopify
+kind: sunset
+severity: breaking
+title: "Admin API version 2024-01 unsupported"
+summary: >
+  API version 2024-01 left support on 2025-01-16. Requests that name it fall
+  forward to the oldest supported stable version, so response shapes and
+  available fields change without an error.
+
+affects:
+  - kind: api_version
+    match: "2024-01"
+
+announced: 2024-01-01
+effective: 2025-01-16
+
+sources:
+  - kind: provider_page
+    url: https://shopify.dev/docs/api/usage/versioning
+    observed: 2026-09-18
+
+migration:
+  replacement: "2026-07"
+  guide: https://shopify.dev/docs/api/usage/versioning
+  effort: medium
+  notes: >
+    Update the version segment in every Admin API URL, the apiVersion setting
+    in the SDK config, and the REST resources import path. Read the release
+    notes for each version between the current one and the target.
+
+status: expired

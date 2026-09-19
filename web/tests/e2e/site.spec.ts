@@ -104,10 +104,11 @@ test("scans a bundled real repository offline and finds the Assistants API sunse
   expect(own(failed)).toEqual([]);
 });
 
-test("the healthy bundled repository reports nothing pending", async ({ page }) => {
+test("the second bundled repository reports its unsupported Shopify version", async ({ page }) => {
   await offline(page);
   await page.goto("./");
   await scanSample(page, "Shopify/shopify-app-template-node");
   await expect(page.locator("#results")).toContainText("Shopify/shopify-app-template-node");
-  await expect(page.locator("#findings")).toContainText(/nothing pending/i);
+  await expect(page.locator("#findings")).toContainText("2024-10");
+  await expect(page.locator("#findings")).toContainText("unsupported");
 });

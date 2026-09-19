@@ -14,7 +14,7 @@ jobs:
     services:
       postgres:
         image: postgres:16-alpine
-        env: { POSTGRES_PASSWORD: docwatcher, POSTGRES_USER: docwatcher, POSTGRES_DB: docwatcher }
+        env: { POSTGRES_PASSWORD: docswatcher, POSTGRES_USER: docswatcher, POSTGRES_DB: docswatcher }
         ports: ["5432:5432"]
         options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
     steps:
@@ -27,7 +27,7 @@ jobs:
       - name: Build and test
         run: ./mvnw -B verify
       - name: Validate knowledge base
-        run: java -jar cli/target/docwatcher-cli.jar validate knowledge
+        run: java -jar cli/target/docswatcher-cli.jar validate knowledge
 
   web:
     name: Web, TypeScript engine, parity

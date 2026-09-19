@@ -4,15 +4,15 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: docwatcher
-      POSTGRES_USER: docwatcher
-      POSTGRES_PASSWORD: docwatcher
+      POSTGRES_DB: docswatcher
+      POSTGRES_USER: docswatcher
+      POSTGRES_PASSWORD: docswatcher
     ports:
       - "5432:5432"
     volumes:
-      - docwatcher-db:/var/lib/postgresql/data
+      - docswatcher-db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U docwatcher"]
+      test: ["CMD-SHELL", "pg_isready -U docswatcher"]
       interval: 5s
       timeout: 3s
       retries: 20
@@ -23,11 +23,11 @@ services:
       db:
         condition: service_healthy
     environment:
-      DOCWATCHER_DB_URL: jdbc:postgresql://db:5432/docwatcher
-      DOCWATCHER_DB_USER: docwatcher
-      DOCWATCHER_DB_PASSWORD: docwatcher
-      DOCWATCHER_API_TOKEN: ${DOCWATCHER_API_TOKEN:-dev-token}
-      DOCWATCHER_WEB_ORIGIN: ${DOCWATCHER_WEB_ORIGIN:-http://localhost:3000}
+      DOCSWATCHER_DB_URL: jdbc:postgresql://db:5432/docswatcher
+      DOCSWATCHER_DB_USER: docswatcher
+      DOCSWATCHER_DB_PASSWORD: docswatcher
+      DOCSWATCHER_API_TOKEN: ${DOCSWATCHER_API_TOKEN:-dev-token}
+      DOCSWATCHER_WEB_ORIGIN: ${DOCSWATCHER_WEB_ORIGIN:-http://localhost:3000}
       GITHUB_APP_ID: ${GITHUB_APP_ID:-}
       GITHUB_APP_PRIVATE_KEY: ${GITHUB_APP_PRIVATE_KEY:-}
       GITHUB_WEBHOOK_SECRET: ${GITHUB_WEBHOOK_SECRET:-}
@@ -36,4 +36,4 @@ services:
       - "8080:8080"
 
 volumes:
-  docwatcher-db:
+  docswatcher-db:

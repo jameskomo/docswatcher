@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     // Not "_nuxt": artifact hosts reserve published paths that start with an underscore.
     buildAssetsDir: "nuxt/",
     head: {
-      title: "DocWatcher",
+      title: "DocsWatcher",
       meta: [
         { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
         { name: "description", content: "Scan a repository for every external API contract it depends on and see which ones have an expiry date." },

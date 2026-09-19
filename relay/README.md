@@ -1,4 +1,4 @@
-# DocWatcher relay
+# DocsWatcher relay
 
 A Cloudflare Worker that streams a GitHub repository tarball to the browser with permissive CORS headers. It exists because `codeload.github.com` only allows cross-origin reads from GitHub's own renderer, so the browser scanner cannot fetch a tarball directly. See `docs/adr/0003-browser-scanning-and-repo-fetch.md`.
 

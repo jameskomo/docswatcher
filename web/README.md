@@ -1,4 +1,4 @@
-# DocWatcher web
+# DocsWatcher web
 
 The public site, the browser scanner, and the dashboard. Nuxt 4, Vue 3, TypeScript. The scan engine in `engine/` is a pure TypeScript interpreter of the knowledge base and runs unchanged in the browser and in Node.
 

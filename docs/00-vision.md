@@ -1,4 +1,4 @@
-# DocWatcher
+# DocsWatcher
 
 Dependabot for the APIs you call, not the packages you install.
 

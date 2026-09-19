@@ -47,7 +47,7 @@ for (const name of readdirSync(fixturesDir).sort()) {
   const files = walk(repo).map((p) => ({ path: relative(repo, p).split("\\").join("/"), text: readFileSync(p, "utf8") }))
     .sort((a, b) => (a.path < b.path ? -1 : 1));
   const inv = await scan(files, {
-    repo: { host: "fixture", owner: "docwatcher", name, ref: "fixture", sha: "0000000" },
+    repo: { host: "fixture", owner: "docswatcher", name, ref: "fixture", sha: "0000000" },
     knowledge, grammars, now: () => today,
   });
   const invPath = join(dir, "expected-inventory.json");

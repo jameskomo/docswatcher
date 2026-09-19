@@ -4,7 +4,7 @@ A guide for someone who has just cloned this repository and knows nothing about 
 
 ## What this is
 
-DocWatcher scans a repository for every external API it depends on: SDK packages, HTTP endpoints, AI model IDs in config, pinned API versions. It matches that inventory against a knowledge base of provider deprecations. It tells you which of your calls has an expiry date, at which file and line.
+DocsWatcher scans a repository for every external API it depends on: SDK packages, HTTP endpoints, AI model IDs in config, pinned API versions. It matches that inventory against a knowledge base of provider deprecations. It tells you which of your calls has an expiry date, at which file and line.
 
 Think of it as Dependabot for the APIs you call rather than the packages you install.
 
@@ -33,7 +33,7 @@ tar xzf graalvm.tar.gz && rm graalvm.tar.gz
 Then point the build at it. The repository ships `build-env.sh` for this:
 
 ```
-cd /path/to/DocWatcher
+cd /path/to/DocsWatcher
 source build-env.sh
 java --version        # should say GraalVM Community 25
 ```
@@ -49,14 +49,14 @@ source build-env.sh
 
 Use `./mvnw`, never a globally installed `mvn`. The repository carries its own Maven settings so the build resolves from Maven Central. See troubleshooting below if you are behind a corporate mirror.
 
-This takes a few minutes the first time. It produces `cli/target/docwatcher-cli.jar`.
+This takes a few minutes the first time. It produces `cli/target/docswatcher-cli.jar`.
 
 ## Five minutes: see it work
 
 Scan one of the bundled fixtures:
 
 ```
-java -jar cli/target/docwatcher-cli.jar match \
+java -jar cli/target/docswatcher-cli.jar match \
   knowledge/fixtures/stripe-java-sources/repo \
   --knowledge knowledge --format text
 ```
@@ -79,7 +79,7 @@ Now try a real project:
 
 ```
 git clone --depth 1 https://github.com/openai/openai-quickstart-python /tmp/oqp
-java -jar cli/target/docwatcher-cli.jar match /tmp/oqp --knowledge knowledge --format text
+java -jar cli/target/docswatcher-cli.jar match /tmp/oqp --knowledge knowledge --format text
 ```
 
 Three breaking findings, including the Assistants API sunset at three call sites found through the syntax tree.
@@ -134,7 +134,7 @@ The parity check is the one to run if you only run one. It scans all 14 fixtures
 Tests that touch the network are off by default:
 
 ```
-cd web && DOCWATCHER_LIVE=1 npx playwright test
+cd web && DOCSWATCHER_LIVE=1 npx playwright test
 ```
 
 ## Troubleshooting

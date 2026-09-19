@@ -5,6 +5,8 @@ manifests:
     package: "@shopify/shopify-api"
   - ecosystem: npm
     package: "@shopify/shopify-app-remix"
+  - ecosystem: npm
+    package: "@shopify/shopify-app-express"
   - ecosystem: pypi
     package: ShopifyAPI
   - ecosystem: rubygems
@@ -26,6 +28,16 @@ literals:
     # (?![0-9-]) not \b: a word boundary also matches inside Stripe's 2022-11-15,
     # which made every Stripe apiVersion look like a Shopify one.
     pattern: '(?:apiVersion|api_version|API_VERSION|SHOPIFY_API_VERSION)["'']?\s*[:=]\s*["'']?([0-9]{4}-[0-9]{2})(?![0-9-])'
+    key: "$1"
+    confidence: medium
+
+  # The REST resources import pins the version in the module path, which is how
+  # Shopify's own app template does it. Found while scanning that template.
+  - id: shopify.literal.api-version-rest-import
+    kind: api_version
+    files: ["**/*.{ts,tsx,js,jsx,mjs,cjs}"]
+    exclude: ["**/node_modules/**", "**/dist/**"]
+    pattern: '@shopify/shopify-api/rest/admin/([0-9]{4}-[0-9]{2})'
     key: "$1"
     confidence: medium
 

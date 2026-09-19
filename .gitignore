@@ -11,3 +11,4 @@ dist/
 .vscode/
 web/.data/
 relay/.wrangler/
+web/dist

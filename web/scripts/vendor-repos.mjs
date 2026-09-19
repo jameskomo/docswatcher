@@ -23,7 +23,7 @@ export const REPOS = [
   {
     name: "Shopify/shopify-app-template-node",
     sha: "4e73e21",
-    note: "A healthy app on a supported Admin API version. Nothing pending.",
+    note: "Shopify's own app template, pinned to an Admin API version that left support in 2025.",
   },
 ];
 

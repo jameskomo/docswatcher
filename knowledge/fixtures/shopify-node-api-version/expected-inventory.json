@@ -1,5 +1,22 @@
 [
   {
+    "id": "shopify:api_version:2024-10",
+    "provider": "shopify",
+    "kind": "api_version",
+    "key": "2024-10",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/resources.js",
+        "line": 2,
+        "column": 64,
+        "snippet": "import { restResources } from \"@shopify/shopify-api/rest/admin/2024-10\";",
+        "detector": "shopify.literal.api-version-rest-import",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
     "id": "shopify:api_version:2025-10",
     "provider": "shopify",
     "kind": "api_version",
@@ -14,15 +31,7 @@
         "detector": "shopify.literal.api-version-path",
         "layer": "literal"
       }
-    ],
-    "context": {
-      "sdk": {
-        "ecosystem": "npm",
-        "package": "@shopify/shopify-api",
-        "version": "^11.6.0"
-      },
-      "apiVersion": "2025-10"
-    }
+    ]
   },
   {
     "id": "shopify:sdk_package:@shopify/shopify-api",
@@ -39,14 +48,23 @@
         "detector": "shopify.manifest.npm",
         "layer": "manifest"
       }
-    ],
-    "context": {
-      "sdk": {
-        "ecosystem": "npm",
-        "package": "@shopify/shopify-api",
-        "version": "^11.6.0"
-      },
-      "apiVersion": "2025-10"
-    }
+    ]
+  },
+  {
+    "id": "shopify:sdk_package:@shopify/shopify-app-express",
+    "provider": "shopify",
+    "kind": "sdk_package",
+    "key": "@shopify/shopify-app-express",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"@shopify/shopify-app-express\": \"^5.0.4\",",
+        "detector": "shopify.manifest.npm",
+        "layer": "manifest"
+      }
+    ]
   }
 ]

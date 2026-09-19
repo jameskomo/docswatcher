@@ -13,7 +13,7 @@ onMounted(async () => {
   loading.value = true;
   try {
     const s = defaultSample!;
-    const r = await scanner.run(s.files, { host: "fixture", owner: "docwatcher", name: s.name, ref: "fixture", sha: "0000000" });
+    const r = await scanner.run(s.files, { host: "fixture", owner: "docswatcher", name: s.name, ref: "fixture", sha: "0000000" });
     store.save({ inventory: r.inventory, findings: r.findings, source: { label: `Example · ${s.name}`, kind: "sample" }, at: new Date().toISOString() });
   } finally { loading.value = false; }
 });
