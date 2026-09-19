@@ -7,6 +7,8 @@ import dev.docswatcher.app.model.EvidenceDoc;
 import dev.docswatcher.app.model.FindingDoc;
 import dev.docswatcher.app.model.InventoryDoc;
 import dev.docswatcher.app.model.RepoRefDoc;
+import dev.docswatcher.app.runtime.RuntimeObservation;
+import dev.docswatcher.app.runtime.RuntimeObservationStore;
 import dev.docswatcher.app.scan.ScanRunner;
 import dev.docswatcher.app.store.ContractStore;
 import dev.docswatcher.app.store.FindingStore;
@@ -37,15 +39,17 @@ public class DashboardService {
   private final ScanRunStore runs;
   private final ScanEngine engine;
   private final ScanRunner runner;
+  private final RuntimeObservationStore runtime;
   private final ObjectMapper mapper;
 
-  public DashboardService(RepoStore repos, ContractStore contracts, FindingStore findings, ScanRunStore runs, ScanEngine engine, ScanRunner runner, ObjectMapper mapper) {
+  public DashboardService(RepoStore repos, ContractStore contracts, FindingStore findings, ScanRunStore runs, ScanEngine engine, ScanRunner runner, RuntimeObservationStore runtime, ObjectMapper mapper) {
     this.repos = repos;
     this.contracts = contracts;
     this.findings = findings;
     this.runs = runs;
     this.engine = engine;
     this.runner = runner;
+    this.runtime = runtime;
     this.mapper = mapper;
   }
 
@@ -97,9 +101,12 @@ public class DashboardService {
       return List.of();
     }
     Map<String, StoredContract> byId = contractsById(repoId);
+    Map<String, Dto.Runtime> runtimeByContract = runtimeByContract(repoId);
     List<Dto.RepoFinding> out = new ArrayList<>();
     for (StoredFinding f : findings.forRepo(repoId)) {
-      out.add(toDto(repo.get(), f, byId));
+      Dto.RepoFinding dto = toDto(repo.get(), f, byId);
+      Dto.Runtime seen = runtimeByContract.get(f.contractId());
+      out.add(seen == null ? dto : new Dto.RepoFinding(dto.repoId(), dto.repoFullName(), dto.finding(), dto.changeTitle(), seen));
     }
     return out;
   }
@@ -151,6 +158,31 @@ public class DashboardService {
       list.add(toDto(repo, f, contractsByRepo.computeIfAbsent(f.repoId(), this::contractsById)));
     }
     return new Dto.BlastRadius(changeId, change.map(ChangeDoc::title).orElse(changeId), change.map(ChangeDoc::effective).orElse(null), repoById.size(), list);
+  }
+
+  /**
+   * Collapses a contract's daily observations into one summary. Calls per day is the mean
+   * over the days actually seen rather than over the calendar, because a job that runs on
+   * weekdays should not read as quieter than it is.
+   */
+  private Map<String, Dto.Runtime> runtimeByContract(long repoId) {
+    Map<String, List<RuntimeObservation>> byContract = new LinkedHashMap<>();
+    for (RuntimeObservation o : runtime.attributedForRepo(repoId)) {
+      byContract.computeIfAbsent(o.contractId(), c -> new ArrayList<>()).add(o);
+    }
+    Map<String, Dto.Runtime> out = new LinkedHashMap<>();
+    byContract.forEach((contractId, list) -> {
+      long total = list.stream().mapToLong(RuntimeObservation::callCount).sum();
+      int days = (int) list.stream().map(RuntimeObservation::observedDate).distinct().count();
+      out.put(contractId, new Dto.Runtime(
+          days == 0 ? 0 : Math.round((double) total / days),
+          total,
+          days,
+          list.stream().map(RuntimeObservation::lastSeen).filter(java.util.Objects::nonNull).max(java.time.OffsetDateTime::compareTo).orElse(null),
+          list.stream().map(RuntimeObservation::deprecationHeader).filter(java.util.Objects::nonNull).findFirst().orElse(null),
+          list.stream().map(RuntimeObservation::sunsetHeader).filter(java.util.Objects::nonNull).findFirst().orElse(null)));
+    });
+    return out;
   }
 
   private Map<String, StoredContract> contractsById(long repoId) {
