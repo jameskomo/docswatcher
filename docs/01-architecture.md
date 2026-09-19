@@ -28,9 +28,9 @@ No component depends on another through code. They depend on each other through 
 | App | Java 25, Spring Boot 4, GraalVM native-image | One container | GitHub App webhooks, scan worker, findings store, API for the dashboard. |
 | Web | Nuxt, static export | Cloudflare Pages or GitHub Pages | Public site with browser scanner and deprecation calendar. Logged-in dashboard. |
 | Relay | Cloudflare Worker | Cloudflare free tier | Streams a repo tarball to the browser with permissive cross-origin headers. See ADR 0003. |
-| Fix handoff | GitHub Actions workflow | The customer's repository | Runs a Claude Code action with a prompt assembled from the finding. Opens the PR. |
+| Fix handoff | GitHub Actions workflow | The target repository | Runs an automated coding agent action with a prompt assembled from the finding. Opens the PR. |
 
-The fix handoff runs in the customer's own GitHub Actions with the customer's own API key. DocsWatcher assembles the context and triggers the workflow. It never spends tokens on remediation. That keeps our cost of a fix at zero and keeps the customer's code inside their own CI.
+The fix handoff runs in the target repository's own GitHub Actions environment with repository-scoped secrets. DocsWatcher assembles the remediation context, test coordinates, and instructions, and triggers the workflow. This keeps all source code and execution strictly inside the developer's own CI environment.
 
 ## Maven layout
 
@@ -203,15 +203,13 @@ The worker polls this table. There is no queue service. A single `SELECT ... FOR
 
 ## Excluded from v1
 
-| Excluded | Why now | Where it lands |
+| Excluded | Why deferred | Target milestone |
 |---|---|---|
-| Runtime layer, observing Deprecation and Sunset headers in traffic | Needs a component in the customer's request path | v2, as an OpenTelemetry processor. Java is the natural home. |
-| Email digests | GitHub issues already notify | After the dashboard has weekly active users |
-| Slack cards | Same reason | Same time as email |
-| GitLab, Bitbucket | GitHub is where the validation corpus and the first customers are | After the first paying GitHub customers |
-| Our own coding agent | The Claude Code action already does the job with the customer's key | Never, unless a customer cannot use their own key |
-| Incremental scanning on push | Full rescans are fast enough on shallow clones | When scan time on the largest installed repo exceeds a minute |
-| Web dashboard for the public scanner's results | The public scan renders inline | Sign-in saves a public scan to the dashboard, v1.5 |
+| Runtime layer, observing Deprecation and Sunset headers in traffic | Requires an in-path telemetry exporter | v2, as an OpenTelemetry processor |
+| Email and Slack alerts | GitHub issues and PRs natively provide notifications | Post-v1 notification plugin system |
+| GitLab, Bitbucket | Focusing on GitHub ecosystem first | Multi-VCS milestone |
+| Proprietary coding agent | Integrates with existing coding agents via CI actions | Plug-and-play agent integration |
+| Incremental scanning on push | Full rescans are fast enough on shallow clones | Optimized diff scanning for monorepos |
 
 ## What is deliberately simple
 
