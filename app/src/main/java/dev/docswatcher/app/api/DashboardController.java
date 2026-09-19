@@ -1,6 +1,8 @@
 package dev.docswatcher.app.api;
 
 import dev.docswatcher.app.model.InventoryDoc;
+import dev.docswatcher.app.runtime.RuntimeObservation;
+import dev.docswatcher.app.runtime.RuntimeObservationStore;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class DashboardController {
 
   private final DashboardService service;
+  private final RuntimeObservationStore runtime;
 
-  public DashboardController(DashboardService service) {
+  public DashboardController(DashboardService service, RuntimeObservationStore runtime) {
     this.service = service;
+    this.runtime = runtime;
   }
 
   @GetMapping("/orgs/{login}/overview")
@@ -51,5 +55,10 @@ public class DashboardController {
   @GetMapping("/repos/{id}/findings")
   public List<Dto.RepoFinding> findings(@PathVariable("id") long id) {
     return service.findings(id);
+  }
+
+  @GetMapping("/repos/{id}/runtime")
+  public List<RuntimeObservation> runtime(@PathVariable("id") long id) {
+    return runtime.forRepo(id);
   }
 }
