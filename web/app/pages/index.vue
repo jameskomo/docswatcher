@@ -125,9 +125,9 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
     <!-- Interactive Scan Launcher Deck (Primary Action at Top) -->
     <section class="section" id="scan-source" style="padding-top: var(--s2)">
       <div class="section-head">
-        <h1>Which of your API calls has a deadline?</h1>
+        <h1>How many of the APIs you call are already deprecated?</h1>
         <p>
-          Find every third-party API and AI model your code calls. DocsWatcher compares your code against {{ trackedChanges }} verified deprecation notices and shows you exactly which endpoints have an approaching deadline.
+          Find every third-party API and AI model your code calls. DocsWatcher compares your code against {{ trackedChanges }} verified deprecation notices and shows you exactly which ones are already past their date and which are next.
         </p>
       </div>
 
