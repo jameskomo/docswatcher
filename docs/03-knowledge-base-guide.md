@@ -1,6 +1,6 @@
 # Knowledge base contributor guide
 
-The knowledge base is the open-source half of DocWatcher. It holds every provider we understand, every rule that finds a provider in code, every deprecation we know about, and the fixture that proves each one is detectable. Both engines, Java and TypeScript, are interpreters over this directory. If you can write YAML, you can add a provider.
+The knowledge base is the open-source half of DocsWatcher. It holds every provider we understand, every rule that finds a provider in code, every deprecation we know about, and the fixture that proves each one is detectable. Both engines, Java and TypeScript, are interpreters over this directory. If you can write YAML, you can add a provider.
 
 Formats are defined in `docs/02-schemas.md`. This guide covers the workflow. The two rules that matter most:
 
@@ -245,7 +245,7 @@ def summarize(text: str) -> str:
 Generate the expected inventory:
 
 ```
-docwatcher scan fixtures/exampleai-python-model-config/repo --write-expected
+docswatcher scan fixtures/exampleai-python-model-config/repo --write-expected
 ```
 
 `expected-inventory.json` after review:

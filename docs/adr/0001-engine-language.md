@@ -5,7 +5,7 @@ Status: accepted
 
 ## Context
 
-DocWatcher has three runtime shapes for the same logic: a CLI that runs in CI on every push, a server worker that scans repos on webhook, and a browser scanner on the public site. The engine must start fast in CI, parse source with tree-sitter for the call-site layer, and be something the team builds quickly in. There are no paying customers, so velocity and zero hosting cost outrank raw performance.
+DocsWatcher has three runtime shapes for the same logic: a CLI that runs in CI on every push, a server worker that scans repos on webhook, and a browser scanner on the public site. The engine must start fast in CI, parse source with tree-sitter for the call-site layer, and be something the team builds quickly in. There are no paying customers, so velocity and zero hosting cost outrank raw performance.
 
 Candidates considered: Rust, Java 25 with Spring Boot 4, Go, Python, TypeScript with Nitro.
 

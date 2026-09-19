@@ -1,6 +1,6 @@
 # Features
 
-Every capability DocWatcher has today, what it does, how to use it, and how it works. Verified on 2026-09-18.
+Every capability DocsWatcher has today, what it does, how to use it, and how it works. Verified on 2026-09-18.
 
 ## Contents
 
@@ -233,7 +233,7 @@ The payoff showed up immediately. A false positive, where a Stripe version strin
 ## 6. The command line
 
 ```
-docwatcher match /path/to/repo --knowledge knowledge --format text
+docswatcher match /path/to/repo --knowledge knowledge --format text
 ```
 
 Text output is shaped as a drift report: grouped by severity, each finding naming the provider, what changed, the effective date and days remaining, the evidence locations, and the migration one-liner with a guide link.
@@ -257,7 +257,7 @@ Three input modes on the landing page.
 | Bundled repository | Commit | Result |
 |---|---|---|
 | `openai/openai-quickstart-python` | ec8890d | 3 breaking findings |
-| `Shopify/shopify-app-template-node` | 4e73e21 | Healthy, nothing pending |
+| `Shopify/shopify-app-template-node` | 4e73e21 | 1 breaking finding, an Admin API version unsupported since 2025 |
 
 Refresh them with `node web/scripts/vendor-repos.mjs --refresh`.
 
@@ -317,9 +317,9 @@ A rematch re-runs the matcher over stored contracts without cloning, which is wh
 
 | Label | Effect |
 |---|---|
-| `docwatcher:fix` | Dispatches the fix workflow |
-| `docwatcher:snooze-30d` | Hides the finding for thirty days |
-| `docwatcher:not-in-prod` | Marks it informational |
+| `docswatcher:fix` | Dispatches the fix workflow |
+| `docswatcher:snooze-30d` | Hides the finding for thirty days |
+| `docswatcher:not-in-prod` | Marks it informational |
 
 Snoozes survive rescans because findings are keyed by repository, contract, and change together.
 

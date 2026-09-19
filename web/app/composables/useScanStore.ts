@@ -12,8 +12,8 @@ export interface LocalState {
   notInProd: Record<string, true>;
 }
 
-const KEY = "docwatcher.lastScan";
-const LOCAL = "docwatcher.local";
+const KEY = "docswatcher.lastScan";
+const LOCAL = "docswatcher.local";
 
 const current = ref<StoredScan | null>(null);
 const local = ref<LocalState>({ production: true, snoozed: {}, notInProd: {} });

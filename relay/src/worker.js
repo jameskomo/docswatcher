@@ -1,4 +1,4 @@
-// DocWatcher tarball relay.
+// DocsWatcher tarball relay.
 //
 // GET /tarball/:owner/:repo[/:ref]  ->  streams the repository tarball from GitHub
 // with permissive CORS headers so the browser scanner can read it. Holds no state.
@@ -33,7 +33,7 @@ export async function handle(request, env, ctx, upstreamFetch, cache) {
   const parts = url.pathname.split("/").filter(Boolean);
 
   if (parts.length === 0 || parts[0] === "health") {
-    return json({ ok: true, service: "docwatcher-relay" }, 200, cors);
+    return json({ ok: true, service: "docswatcher-relay" }, 200, cors);
   }
   if (parts[0] !== "tarball" || parts.length < 3) {
     return json({ error: "use /tarball/:owner/:repo[/:ref]" }, 404, cors);
@@ -47,7 +47,7 @@ export async function handle(request, env, ctx, upstreamFetch, cache) {
 
   const upstream = `https://api.github.com/repos/${owner}/${repo}/tarball/${ref}`;
   const headers = new Headers({
-    "User-Agent": "docwatcher-relay/0.1 (+https://github.com)",
+    "User-Agent": "docswatcher-relay/0.1 (+https://github.com)",
     Accept: "application/vnd.github+json",
   });
   const clientAuth = request.headers.get("Authorization");

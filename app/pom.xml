@@ -4,24 +4,24 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>dev.docwatcher</groupId>
-    <artifactId>docwatcher</artifactId>
+    <groupId>dev.docswatcher</groupId>
+    <artifactId>docswatcher</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <artifactId>app</artifactId>
-  <name>DocWatcher App</name>
+  <name>DocsWatcher App</name>
   <description>GitHub App webhooks, scan worker, and dashboard API.</description>
 
   <properties>
     <jgit.version>7.8.0.202609011348-r</jgit.version>
-    <start-class>dev.docwatcher.app.DocWatcherApplication</start-class>
+    <start-class>dev.docswatcher.app.DocsWatcherApplication</start-class>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>dev.docwatcher</groupId>
+      <groupId>dev.docswatcher</groupId>
       <artifactId>engine</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -156,7 +156,7 @@
             <artifactId>native-maven-plugin</artifactId>
             <extensions>true</extensions>
             <configuration>
-              <imageName>docwatcher-app</imageName>
+              <imageName>docswatcher-app</imageName>
               <mainClass>${start-class}</mainClass>
               <buildArgs>
                 <buildArg>--no-fallback</buildArg>

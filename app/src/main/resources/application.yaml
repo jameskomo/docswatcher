@@ -1,13 +1,13 @@
 spring:
   application:
-    name: docwatcher
+    name: docswatcher
   threads:
     virtual:
       enabled: true
   datasource:
-    url: ${DOCWATCHER_DB_URL:jdbc:postgresql://localhost:5432/docwatcher}
-    username: ${DOCWATCHER_DB_USER:docwatcher}
-    password: ${DOCWATCHER_DB_PASSWORD:docwatcher}
+    url: ${DOCSWATCHER_DB_URL:jdbc:postgresql://localhost:5432/docswatcher}
+    username: ${DOCSWATCHER_DB_USER:docswatcher}
+    password: ${DOCSWATCHER_DB_PASSWORD:docswatcher}
   flyway:
     enabled: true
 
@@ -20,22 +20,22 @@ management:
       exposure:
         include: health
 
-docwatcher:
+docswatcher:
   github:
     app-id: ${GITHUB_APP_ID:}
     private-key: ${GITHUB_APP_PRIVATE_KEY:}
     webhook-secret: ${GITHUB_WEBHOOK_SECRET:}
     api-base: ${GITHUB_API_BASE:https://api.github.com}
-    fix-label: docwatcher:fix
-    snooze-label: docwatcher:snooze-30d
-    not-in-prod-label: docwatcher:not-in-prod
+    fix-label: docswatcher:fix
+    snooze-label: docswatcher:snooze-30d
+    not-in-prod-label: docswatcher:not-in-prod
   api:
-    token: ${DOCWATCHER_API_TOKEN:}
+    token: ${DOCSWATCHER_API_TOKEN:}
     require-token: true
   web:
-    origin: ${DOCWATCHER_WEB_ORIGIN:http://localhost:3000}
+    origin: ${DOCSWATCHER_WEB_ORIGIN:http://localhost:3000}
   knowledge:
-    dir: ${DOCWATCHER_KNOWLEDGE_DIR:}
+    dir: ${DOCSWATCHER_KNOWLEDGE_DIR:}
   worker:
     enabled: true
     threads: 2
@@ -47,6 +47,6 @@ spring:
   config:
     activate:
       on-profile: dev
-docwatcher:
+docswatcher:
   api:
     require-token: false

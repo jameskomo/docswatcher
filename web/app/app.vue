@@ -8,7 +8,7 @@ const changes = knowledge.providers.reduce((n, p) => n + p.changes.length, 0);
   <div>
     <header class="site-header">
       <div class="wrap">
-        <NuxtLink to="/" class="wordmark"><span class="dot" aria-hidden="true"></span>DocWatcher</NuxtLink>
+        <NuxtLink to="/" class="wordmark"><span class="dot" aria-hidden="true"></span>DocsWatcher</NuxtLink>
         <nav class="nav" aria-label="Main">
           <NuxtLink to="/">Scan</NuxtLink>
           <NuxtLink to="/calendar">Calendar</NuxtLink>

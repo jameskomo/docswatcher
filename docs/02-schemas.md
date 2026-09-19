@@ -1,6 +1,6 @@
 # Schemas
 
-These four documents are the contracts between every component of DocWatcher. The engine emits the inventory. The knowledge base supplies change records and detector tables. Fixtures prove that a detector finds what a change record describes. Everything else, the CLI, the app, the browser scanner, the dashboard, reads or writes one of these and nothing else.
+These four documents are the contracts between every component of DocsWatcher. The engine emits the inventory. The knowledge base supplies change records and detector tables. Fixtures prove that a detector finds what a change record describes. Everything else, the CLI, the app, the browser scanner, the dashboard, reads or writes one of these and nothing else.
 
 Rule: a component may only depend on another through one of these documents. No shared code between the Java engine and the TypeScript browser engine, only shared data.
 
@@ -20,7 +20,7 @@ Produced by a scan. One per repo per commit. JSON.
   },
   "scannedAt": "2026-09-18T14:02:11Z",
   "engine": {
-    "name": "docwatcher-engine-java",
+    "name": "docswatcher-engine-java",
     "version": "0.1.0",
     "knowledgeVersion": "2026.09.18"
   },

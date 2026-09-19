@@ -1,5 +1,21 @@
 [
   {
+    "contract": "shopify:api_version:2024-01",
+    "change": "shopify-api-version-2024-01-unsupported-2025"
+  },
+  {
+    "contract": "shopify:api_version:2024-04",
+    "change": "shopify-api-version-2024-04-unsupported-2025"
+  },
+  {
+    "contract": "shopify:api_version:2024-07",
+    "change": "shopify-api-version-2024-07-unsupported-2025"
+  },
+  {
+    "contract": "shopify:api_version:2024-10",
+    "change": "shopify-api-version-2024-10-unsupported-2025"
+  },
+  {
     "contract": "shopify:api_version:2025-01",
     "change": "shopify-api-version-2025-01-unsupported-2026"
   },

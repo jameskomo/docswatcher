@@ -7,7 +7,7 @@ import { scanLiterals } from "./literals";
 import { scanCallsites, type TreeSitterApi } from "./callsites";
 import { isDocOrTestPath, isSkippedDir, isTooLarge, languageOf } from "./paths";
 
-export const ENGINE_NAME = "docwatcher-engine-ts";
+export const ENGINE_NAME = "docswatcher-engine-ts";
 export const ENGINE_VERSION = "0.1.0";
 
 export interface ScanOptions {

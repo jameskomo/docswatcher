@@ -1,4 +1,4 @@
-# DocWatcher app
+# DocsWatcher app
 
 Spring Boot 4.1 on Java 25. GitHub App webhooks, the scan worker, and the dashboard API. One process, one Postgres. The worker polls the `scan_run` table; there is no queue service.
 
@@ -14,7 +14,7 @@ docker compose up -d db                      # Postgres on 5432
 curl localhost:8080/actuator/health
 ```
 
-The `dev` profile turns off the API token check. Every other profile requires `DOCWATCHER_API_TOKEN` and rejects requests without `Authorization: Bearer <token>`.
+The `dev` profile turns off the API token check. Every other profile requires `DOCSWATCHER_API_TOKEN` and rejects requests without `Authorization: Bearer <token>`.
 
 To run the JVM image in compose instead: `../mvnw -pl app spring-boot:build-image -DskipTests` then `docker compose up`.
 
@@ -22,18 +22,18 @@ To run the JVM image in compose instead: `../mvnw -pl app spring-boot:build-imag
 
 | Variable | Purpose | Default |
 |---|---|---|
-| `DOCWATCHER_DB_URL` | JDBC URL | `jdbc:postgresql://localhost:5432/docwatcher` |
-| `DOCWATCHER_DB_USER`, `DOCWATCHER_DB_PASSWORD` | Database credentials | `docwatcher` / `docwatcher` |
+| `DOCSWATCHER_DB_URL` | JDBC URL | `jdbc:postgresql://localhost:5432/docswatcher` |
+| `DOCSWATCHER_DB_USER`, `DOCSWATCHER_DB_PASSWORD` | Database credentials | `docswatcher` / `docswatcher` |
 | `GITHUB_APP_ID` | The GitHub App's numeric ID. When blank, the real GitHub client is not created and webhooks cannot resolve repositories. | blank |
 | `GITHUB_APP_PRIVATE_KEY` | The App's private key as a PKCS8 PEM. Convert GitHub's PKCS1 download with `openssl pkcs8 -topk8 -nocrypt -in key.pem`. | blank |
 | `GITHUB_WEBHOOK_SECRET` | Shared secret GitHub signs webhook bodies with | blank, which rejects every webhook |
 | `GITHUB_API_BASE` | GitHub API base URL, for GitHub Enterprise | `https://api.github.com` |
-| `DOCWATCHER_API_TOKEN` | Bearer token for `/api/**` | blank |
-| `DOCWATCHER_WEB_ORIGIN` | CORS origin for the dashboard | `http://localhost:3000` |
-| `DOCWATCHER_KNOWLEDGE_DIR` | A local knowledge checkout instead of the bundled release | bundled |
+| `DOCSWATCHER_API_TOKEN` | Bearer token for `/api/**` | blank |
+| `DOCSWATCHER_WEB_ORIGIN` | CORS origin for the dashboard | `http://localhost:3000` |
+| `DOCSWATCHER_KNOWLEDGE_DIR` | A local knowledge checkout instead of the bundled release | bundled |
 | `PORT` | HTTP port | `8080` |
 
-Worker tuning lives under `docwatcher.worker` in `application.yaml`: `threads`, `poll-ms`, `enabled`.
+Worker tuning lives under `docswatcher.worker` in `application.yaml`: `threads`, `poll-ms`, `enabled`.
 
 ## GitHub App setup
 
@@ -44,17 +44,17 @@ Worker tuning lives under `docwatcher.worker` in `application.yaml`: `threads`, 
 5. Generate a private key, convert it to PKCS8, and set `GITHUB_APP_PRIVATE_KEY` and `GITHUB_APP_ID`.
 6. Install the App on an organisation. The installation webhook queues one scan per repository.
 
-Findings arrive as issues labelled `docwatcher` and `docwatcher:<severity>`. Adding these labels to a finding issue acts on it:
+Findings arrive as issues labelled `docswatcher` and `docswatcher:<severity>`. Adding these labels to a finding issue acts on it:
 
 | Label | Effect |
 |---|---|
-| `docwatcher:fix` | Dispatches the fix workflow with the finding's context |
-| `docwatcher:snooze-30d` | Snoozes for thirty days |
-| `docwatcher:not-in-prod` | Marks the finding informational |
+| `docswatcher:fix` | Dispatches the fix workflow with the finding's context |
+| `docswatcher:snooze-30d` | Snoozes for thirty days |
+| `docswatcher:not-in-prod` | Marks the finding informational |
 
 ## Fix handoff
 
-Customers add `src/main/resources/templates/docwatcher-fix.yml` to their repository as `.github/workflows/docwatcher-fix.yml` and set the `ANTHROPIC_API_KEY` secret. The app serves the file at `GET /api/setup/workflow`. Pressing Fix, or adding the fix label, sends a `repository_dispatch` event of type `docwatcher-fix` whose `client_payload` holds the finding, every evidence location with a snippet, the migration block, and the guide URL. The workflow runs `anthropics/claude-code-action@v1` in the customer's Actions with the customer's key. DocWatcher never spends tokens on a fix.
+Customers add `src/main/resources/templates/docswatcher-fix.yml` to their repository as `.github/workflows/docswatcher-fix.yml` and set the `ANTHROPIC_API_KEY` secret. The app serves the file at `GET /api/setup/workflow`. Pressing Fix, or adding the fix label, sends a `repository_dispatch` event of type `docswatcher-fix` whose `client_payload` holds the finding, every evidence location with a snippet, the migration block, and the guide URL. The workflow runs `anthropics/claude-code-action@v1` in the customer's Actions with the customer's key. DocsWatcher never spends tokens on a fix.
 
 ## API
 
@@ -89,7 +89,7 @@ Needs Docker for the Postgres Testcontainer. The suite covers webhook signatures
 
 ```
 ../mvnw -Pnative -pl app package -DskipTests
-./target/docwatcher-app
+./target/docswatcher-app
 ```
 
 See the note at the end of this file for the outcome of the last native build on the development machine.

@@ -8,7 +8,7 @@ const web = join(__dirname, "..", "..");
 const knowledge: Knowledge = JSON.parse(readFileSync(join(web, "generated", "knowledge.json"), "utf8"));
 const samples = JSON.parse(readFileSync(join(web, "generated", "samples.json"), "utf8"));
 const today = new Date(Date.UTC(2026, 8, 18));
-const repo = { host: "fixture", owner: "docwatcher", name: "t", ref: "fixture", sha: "0000000" };
+const repo = { host: "fixture", owner: "docswatcher", name: "t", ref: "fixture", sha: "0000000" };
 
 let grammars: Awaited<ReturnType<typeof createTreeSitter>>;
 beforeAll(async () => {
@@ -102,7 +102,10 @@ describe("matcher", () => {
 });
 
 describe("fixtures end to end", () => {
-  for (const s of samples) {
+  // Only knowledge base fixtures carry expected files. The vendored real
+  // repositories are demo data with no pinned expectations; they are covered
+  // by the browser tests instead.
+  for (const s of samples.filter((x: any) => !x.real)) {
     it(`${s.name} yields the expected findings`, async () => {
       const inv = await scan(s.files, { repo: { ...repo, name: s.name }, knowledge, grammars, now: () => today });
       const findings = match(inv, knowledge, { today }).map((f) => ({ contract: f.contract, change: f.change }));
@@ -111,6 +114,17 @@ describe("fixtures end to end", () => {
       if (s.expectedInventory) expect(toJson(inv.contracts)).toBe(toJson(s.expectedInventory));
     });
   }
+  it("every vendored real repository scans without throwing", async () => {
+    const real = samples.filter((x: any) => x.real);
+    expect(real.length).toBeGreaterThan(0);
+    for (const s of real) {
+      const inv = await scan(s.files, { repo: { ...repo, name: s.name }, knowledge, grammars, now: () => today });
+      expect(inv.schemaVersion).toBe("1");
+      expect(inv.contracts.length).toBeGreaterThan(0);
+      match(inv, knowledge, { today });
+    }
+  });
+
   it("hides low-confidence contracts unless asked", async () => {
     const s = samples.find((x: any) => x.name === "anthropic-negative-readme-only");
     const inv = await scan(s.files, { repo, knowledge, grammars, now: () => today });

@@ -7,8 +7,8 @@ Commands, endpoints, and settings. Verified on 2026-09-18.
 Run as a jar or as the native binary. Both behave identically.
 
 ```
-java -jar cli/target/docwatcher-cli.jar <command> [options]
-cli/target/docwatcher <command> [options]
+java -jar cli/target/docswatcher-cli.jar <command> [options]
+cli/target/docswatcher <command> [options]
 ```
 
 ### Commands
@@ -38,16 +38,16 @@ cli/target/docwatcher <command> [options]
 
 ```
 # Human-readable drift report, clock pinned for reproducibility
-docwatcher match /path/to/repo --knowledge knowledge --format text --today 2026-09-18
+docswatcher match /path/to/repo --knowledge knowledge --format text --today 2026-09-18
 
 # Machine-readable, for a CI step or a script
-docwatcher match /path/to/repo --format json > findings.json
+docswatcher match /path/to/repo --format json > findings.json
 
 # Inventory only, no matching
-docwatcher scan /path/to/repo --knowledge knowledge
+docswatcher scan /path/to/repo --knowledge knowledge
 
 # Check the knowledge base
-docwatcher validate knowledge
+docswatcher validate knowledge
 ```
 
 Output shapes are defined in `docs/02-schemas.md`. They are not repeated here.
@@ -58,13 +58,13 @@ Served by the app module. Base path `/api`. All responses are JSON.
 
 ### Authentication
 
-A single bearer token from `DOCWATCHER_API_TOKEN`:
+A single bearer token from `DOCSWATCHER_API_TOKEN`:
 
 ```
-curl -H "Authorization: Bearer $DOCWATCHER_API_TOKEN" localhost:8080/api/orgs/acme/overview
+curl -H "Authorization: Bearer $DOCSWATCHER_API_TOKEN" localhost:8080/api/orgs/acme/overview
 ```
 
-`docwatcher.api.require-token` is `true` by default and `false` under the `dev` profile. With the token required but unset, the API refuses requests rather than running open.
+`docswatcher.api.require-token` is `true` by default and `false` under the `dev` profile. With the token required but unset, the API refuses requests rather than running open.
 
 ### Endpoints
 
@@ -99,21 +99,21 @@ Read by the app module. Defaults come from `app/src/main/resources/application.y
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `DOCWATCHER_DB_URL` | `jdbc:postgresql://localhost:5432/docwatcher` | Postgres JDBC URL |
-| `DOCWATCHER_DB_USER` | `docwatcher` | Database user |
-| `DOCWATCHER_DB_PASSWORD` | `docwatcher` | Database password |
-| `DOCWATCHER_API_TOKEN` | empty | Bearer token for the REST API |
-| `DOCWATCHER_WEB_ORIGIN` | `http://localhost:3000` | Origin allowed by CORS |
-| `DOCWATCHER_KNOWLEDGE_DIR` | empty | Knowledge directory. Empty means the bundled release |
+| `DOCSWATCHER_DB_URL` | `jdbc:postgresql://localhost:5432/docswatcher` | Postgres JDBC URL |
+| `DOCSWATCHER_DB_USER` | `docswatcher` | Database user |
+| `DOCSWATCHER_DB_PASSWORD` | `docswatcher` | Database password |
+| `DOCSWATCHER_API_TOKEN` | empty | Bearer token for the REST API |
+| `DOCSWATCHER_WEB_ORIGIN` | `http://localhost:3000` | Origin allowed by CORS |
+| `DOCSWATCHER_KNOWLEDGE_DIR` | empty | Knowledge directory. Empty means the bundled release |
 | `GITHUB_APP_ID` | empty | GitHub App numeric id |
 | `GITHUB_APP_PRIVATE_KEY` | empty | App private key, PKCS8 PEM |
 | `GITHUB_WEBHOOK_SECRET` | empty | Shared secret for signature verification |
 | `GITHUB_API_BASE` | `https://api.github.com` | Override for GitHub Enterprise |
 | `PORT` | `8080` | HTTP port |
 
-Worker settings live under `docwatcher.worker` in the YAML: `enabled` true, `threads` 2, `poll-ms` 2000, `clone-timeout-seconds` 120. The worker runs on virtual threads.
+Worker settings live under `docswatcher.worker` in the YAML: `enabled` true, `threads` 2, `poll-ms` 2000, `clone-timeout-seconds` 120. The worker runs on virtual threads.
 
-Label names are configurable and default to `docwatcher:fix`, `docwatcher:snooze-30d`, and `docwatcher:not-in-prod`.
+Label names are configurable and default to `docswatcher:fix`, `docswatcher:snooze-30d`, and `docswatcher:not-in-prod`.
 
 The web site reads `NUXT_PUBLIC_RELAY_URL`. Leave it empty to use jsDelivr and the GitHub API instead of a relay.
 
@@ -126,7 +126,7 @@ Always `source build-env.sh` first.
 | `./mvnw verify` | Builds and tests every module |
 | `./mvnw -q -pl knowledge,engine,cli -am install -DskipTests` | Fast path to a working CLI |
 | `./mvnw -pl app verify` | App tests only. Needs Docker |
-| `./mvnw -Pnative -pl cli -am package` | Native CLI binary at `cli/target/docwatcher` |
+| `./mvnw -Pnative -pl cli -am package` | Native CLI binary at `cli/target/docswatcher` |
 | `./mvnw -Pnative -pl app package -DskipTests` | Native app image. See `docs/09-status.md` for its current state |
 | `./mvnw -pl engine -am verify -Dgroups=nightly` | The performance budget test |
 
@@ -167,7 +167,7 @@ In `relay/`:
 
 | Path | Returns |
 |---|---|
-| `GET /health` | `{"ok": true, "service": "docwatcher-relay"}` |
+| `GET /health` | `{"ok": true, "service": "docswatcher-relay"}` |
 | `GET /tarball/:owner/:repo` | Tarball of the default branch, as `application/gzip` |
 | `GET /tarball/:owner/:repo/:ref` | Tarball at a branch, tag, or SHA |
 

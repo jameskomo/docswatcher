@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
 
-// Live network test against real public repositories. Skipped unless DOCWATCHER_LIVE=1,
+// Live network test against real public repositories. Skipped unless DOCSWATCHER_LIVE=1,
 // so CI stays offline and cannot be broken by someone else's repository changing.
-// Run with: DOCWATCHER_LIVE=1 npx playwright test github-live
-test.skip(!process.env.DOCWATCHER_LIVE, "set DOCWATCHER_LIVE=1 to run live network tests");
+// Run with: DOCSWATCHER_LIVE=1 npx playwright test github-live
+test.skip(!process.env.DOCSWATCHER_LIVE, "set DOCSWATCHER_LIVE=1 to run live network tests");
 
 test("scans a real public repo by URL and finds the Assistants API sunset", async ({ page }) => {
   test.setTimeout(120_000);

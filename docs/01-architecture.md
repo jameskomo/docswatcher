@@ -1,6 +1,6 @@
 # Architecture
 
-DocWatcher scans a repository for every external contract it depends on, matches those contracts against a knowledge base of provider deprecations, and turns each match into a finding with a due date and a fix. This document describes the pieces, how they connect, and what v1 leaves out.
+DocsWatcher scans a repository for every external contract it depends on, matches those contracts against a knowledge base of provider deprecations, and turns each match into a finding with a due date and a fix. This document describes the pieces, how they connect, and what v1 leaves out.
 
 Read `docs/02-schemas.md` first. Every arrow in this document carries one of the schemas defined there.
 
@@ -30,14 +30,14 @@ No component depends on another through code. They depend on each other through 
 | Relay | Cloudflare Worker | Cloudflare free tier | Streams a repo tarball to the browser with permissive cross-origin headers. See ADR 0003. |
 | Fix handoff | GitHub Actions workflow | The customer's repository | Runs a Claude Code action with a prompt assembled from the finding. Opens the PR. |
 
-The fix handoff runs in the customer's own GitHub Actions with the customer's own API key. DocWatcher assembles the context and triggers the workflow. It never spends tokens on remediation. That keeps our cost of a fix at zero and keeps the customer's code inside their own CI.
+The fix handoff runs in the customer's own GitHub Actions with the customer's own API key. DocsWatcher assembles the context and triggers the workflow. It never spends tokens on remediation. That keeps our cost of a fix at zero and keeps the customer's code inside their own CI.
 
 ## Maven layout
 
 One multi-module build. One language for everything that runs on a server.
 
 ```
-docwatcher/
+docswatcher/
   pom.xml
   knowledge/     YAML providers, changes, detectors, fixtures. Validators and spec generators.
   engine/        Plain library. Detectors, inventory model, matcher. No Spring.
@@ -55,9 +55,9 @@ The CLI is the contributor's and CI's view of the engine. Three commands, stable
 
 | Command | Does | Exit code |
 |---|---|---|
-| `docwatcher scan <path>` | Runs the engine on a checkout and prints the inventory document | 0 |
-| `docwatcher match <path>` | Runs scan, then the matcher against the bundled knowledge release, and prints findings | 1 if any breaking finding is open, else 0 |
-| `docwatcher validate` | Runs the knowledge base validators on the bundled or a given knowledge directory | 1 on any violation |
+| `docswatcher scan <path>` | Runs the engine on a checkout and prints the inventory document | 0 |
+| `docswatcher match <path>` | Runs scan, then the matcher against the bundled knowledge release, and prints findings | 1 if any breaking finding is open, else 0 |
+| `docswatcher validate` | Runs the knowledge base validators on the bundled or a given knowledge directory | 1 on any violation |
 
 `scan` accepts `--write-expected` to write `expected-inventory.json` and `expected-findings.json` next to a fixture. CI never uses it. `--knowledge <dir>` on any command points at a local knowledge checkout instead of the bundled release. `--format json` is the default and `--format text` is for humans.
 
@@ -128,7 +128,7 @@ The CLI is the contributor's and CI's view of the engine. Three commands, stable
 
 1. A user adds the fix label to a finding issue, or clicks fix in the dashboard.
 2. The app assembles the context: the finding, every evidence location with a snippet, the change record's migration block, and the migration guide fetched and inlined.
-3. The app dispatches a workflow in the customer's repository. The workflow is a file DocWatcher offers to add on install. It runs a Claude Code action with the customer's API key from their repository secrets.
+3. The app dispatches a workflow in the customer's repository. The workflow is a file DocsWatcher offers to add on install. It runs a Claude Code action with the customer's API key from their repository secrets.
 4. The action edits the code, runs the affected tests, and opens a PR. The PR body links back to the finding.
 5. The app records the PR URL on the finding. When the PR merges and the next push rescan no longer observes the contract, the finding closes as `fixed`.
 

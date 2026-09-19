@@ -37,7 +37,7 @@ async function scanSample() {
     fetchNote.value = "";
     const ref = s.real
       ? { host: "github", owner: s.name.split("/")[0], name: s.name.split("/")[1], ref: s.sha ?? "HEAD", sha: s.sha ?? "0000000" }
-      : { host: "fixture", owner: "docwatcher", name: s.name, ref: "fixture", sha: "0000000" };
+      : { host: "fixture", owner: "docswatcher", name: s.name, ref: "fixture", sha: "0000000" };
     await runScan(s.files, ref, { label: s.real ? `${s.name} @ ${s.sha}` : `Example · ${s.name}`, kind: "sample" });
   });
 }
@@ -113,7 +113,7 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
     <section class="hero">
       <span class="eyebrow">Dependabot for the APIs you call, not the packages you install</span>
       <h1>Which of your API calls has an expiry date?</h1>
-      <p>Paste a repository. DocWatcher finds every external contract in the code, from SDK calls to model IDs in config, and matches them against provider deprecations. The scan runs in this tab. Nothing is uploaded.</p>
+      <p>Paste a repository. DocsWatcher finds every external contract in the code, from SDK calls to model IDs in config, and matches them against provider deprecations. The scan runs in this tab. Nothing is uploaded.</p>
     </section>
 
     <section class="panel panel-pad stack block">

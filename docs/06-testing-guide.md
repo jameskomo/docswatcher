@@ -1,4 +1,4 @@
-# How to test DocWatcher
+# How to test DocsWatcher
 
 Four surfaces, four ways to try it. The UI is one of them, not the only one. Every command below was run on this machine on 2026-09-18.
 
@@ -18,7 +18,7 @@ Published at the artifact link from the session. Three input modes on the landin
 | Bundled repository | Commit | Result |
 |---|---|---|
 | `openai/openai-quickstart-python` | ec8890d | 3 breaking findings, including the Assistants API sunset |
-| `Shopify/shopify-app-template-node` | 4e73e21 | Healthy, nothing pending |
+| `Shopify/shopify-app-template-node` | 4e73e21 | 1 breaking finding: an Admin API version unsupported since 2025 |
 
 Refresh or add to them with `node web/scripts/vendor-repos.mjs --refresh`.
 - **Folder.** Drop a local directory. Nothing leaves the browser.
@@ -69,8 +69,8 @@ source build-env.sh                        # GraalVM 25
 Then either the jar or the native binary:
 
 ```
-java -jar cli/target/docwatcher-cli.jar match /path/to/repo --knowledge knowledge
-cli/target/docwatcher match /path/to/repo --knowledge knowledge
+java -jar cli/target/docswatcher-cli.jar match /path/to/repo --knowledge knowledge
+cli/target/docswatcher match /path/to/repo --knowledge knowledge
 ```
 
 Commands and flags:
@@ -90,7 +90,7 @@ The exit code is what makes this useful in CI. Add it as a step and the build fa
 ```
 cd app && docker compose up -d             # Postgres plus the app
 curl -s localhost:8080/actuator/health
-curl -s -H "Authorization: Bearer $DOCWATCHER_API_TOKEN" \
+curl -s -H "Authorization: Bearer $DOCSWATCHER_API_TOKEN" \
   localhost:8080/api/orgs/acme/overview | jq
 ```
 
@@ -100,7 +100,7 @@ Endpoints cover the org overview, per-repo inventory and findings, the horizon, 
 
 Register an app with contents read, checks write, issues write, metadata read, subscribed to installation, push, and issues. Point the webhook at `/webhooks/github` with a shared secret. Setup steps are in `app/README.md`.
 
-On install it scans every repository and opens one issue per finding. On push it rescans and closes findings whose evidence is gone. Adding the `docwatcher:fix` label to an issue dispatches a workflow in the customer's own repository, which runs a coding agent on their own API key. Nothing is billed to us.
+On install it scans every repository and opens one issue per finding. On push it rescans and closes findings whose evidence is gone. Adding the `docswatcher:fix` label to an issue dispatches a workflow in the customer's own repository, which runs a coding agent on their own API key. Nothing is billed to us.
 
 Fetch the workflow file the customer installs:
 
@@ -126,7 +126,7 @@ Try the first two through the web UI by pasting their URLs. On the command line:
 
 ```
 git clone --depth 1 https://github.com/openai/openai-quickstart-python /tmp/oqp
-java -jar cli/target/docwatcher-cli.jar match /tmp/oqp --knowledge knowledge --format text
+java -jar cli/target/docswatcher-cli.jar match /tmp/oqp --knowledge knowledge --format text
 ```
 
 That prints three breaking findings, including the Assistants API sunset at three exact call sites.
@@ -145,7 +145,7 @@ cd relay && npm test                        # 9 worker tests
 Live network tests are off by default so the suite cannot be broken by someone else's repository changing:
 
 ```
-cd web && DOCWATCHER_LIVE=1 npx playwright test github-live
+cd web && DOCSWATCHER_LIVE=1 npx playwright test github-live
 ```
 
 Two tests run there. One scans a real public repository through the browser and asserts the findings. The other blocks `api.github.com` and `raw.githubusercontent.com` outright, so only the jsDelivr route can succeed, which is what makes it a real test of that route instead of the fallback.

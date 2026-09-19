@@ -1,6 +1,6 @@
 # Test plan
 
-DocWatcher is correct when it finds the right external contracts and nothing else, and when the browser scanner and the CI scanner agree. Every test below serves one of those two properties or protects the plumbing that delivers them.
+DocsWatcher is correct when it finds the right external contracts and nothing else, and when the browser scanner and the CI scanner agree. Every test below serves one of those two properties or protects the plumbing that delivers them.
 
 Stack under test: Java 25, Maven multi-module, Spring Boot 4, GraalVM native-image, a TypeScript engine in the Nuxt frontend, and a knowledge base of YAML and fixtures. Two engines, one rule set, one fixture corpus.
 
@@ -256,7 +256,7 @@ Initial fixture migrations:
 
 - **Dogfood.** The app is installed on our own repositories from the first deploy. We call GitHub, Anthropic, and Stripe, so every finding path is exercised by us first.
 - **Synthetic canary.** A repository that intentionally references a retired model is rescanned in production every six hours. An alert fires if the expected finding is absent or if the scan takes longer than the performance budget.
-- **Our own API.** The app's OpenAPI document is registered in the knowledge base as a provider. When we deprecate an endpoint, DocWatcher reports it to any user calling it, including ourselves.
+- **Our own API.** The app's OpenAPI document is registered in the knowledge base as a provider. When we deprecate an endpoint, DocsWatcher reports it to any user calling it, including ourselves.
 
 ## Native-image tests
 

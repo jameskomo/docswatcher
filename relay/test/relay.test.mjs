@@ -22,7 +22,7 @@ test("preflight returns CORS headers", async () => {
 test("health endpoint", async () => {
   const res = await handle(new Request("https://r.test/health"), {}, ctx, fakeFetch(200), noCache);
   assert.equal(res.status, 200);
-  assert.deepEqual(await res.json(), { ok: true, service: "docwatcher-relay" });
+  assert.deepEqual(await res.json(), { ok: true, service: "docswatcher-relay" });
 });
 
 test("rejects malformed owner", async () => {

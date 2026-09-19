@@ -23,8 +23,8 @@ export async function fetchViaRelay(relay: string, t: RepoTarget, progress: Fetc
   progress("Downloading repository archive");
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Relay returned ${res.status} for ${t.owner}/${t.name}`);
-  const sha = res.headers.get("x-docwatcher-sha") ?? "unknown";
-  const ref = res.headers.get("x-docwatcher-ref") ?? t.ref ?? "HEAD";
+  const sha = res.headers.get("x-docswatcher-sha") ?? "unknown";
+  const ref = res.headers.get("x-docswatcher-ref") ?? t.ref ?? "HEAD";
   const gz = new Uint8Array(await res.arrayBuffer());
   progress("Unpacking");
   const tar = await gunzip(gz);

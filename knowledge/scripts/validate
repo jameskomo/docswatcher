@@ -3,10 +3,10 @@
 set -euo pipefail
 here="$(cd "$(dirname "$0")/.." && pwd)"
 root="$(cd "$here/.." && pwd)"
-if [ -x "$root/cli/target/docwatcher" ]; then
-  exec "$root/cli/target/docwatcher" validate "$here" "$@"
+if [ -x "$root/cli/target/docswatcher" ]; then
+  exec "$root/cli/target/docswatcher" validate "$here" "$@"
 fi
-jar="$root/cli/target/docwatcher-cli.jar"
+jar="$root/cli/target/docswatcher-cli.jar"
 if [ ! -f "$jar" ]; then
   echo "Building the CLI first (./mvnw -pl cli -am -DskipTests package)..." >&2
   (cd "$root" && source build-env.sh 2>/dev/null || true; ./mvnw -q -pl cli -am -DskipTests package)

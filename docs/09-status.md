@@ -28,7 +28,7 @@ Total: 165 Java tests, 28 TypeScript unit tests, 8 browser tests, 9 relay tests.
 |---|---|---|
 | `anthropics/anthropic-quickstarts` | 467 | 10 |
 | `openai/openai-quickstart-python` | 13 | 3 |
-| `Shopify/shopify-app-template-node` | 30 | 0 |
+| `Shopify/shopify-app-template-node` | 30 | 1 |
 | `stripe-samples/accept-a-payment` | 650 | 0 |
 
 The two zero-finding repositories are as important as the others. They are evidence the scanner does not fire indiscriminately.
