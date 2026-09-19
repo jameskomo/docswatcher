@@ -1,0 +1,40 @@
+id: aws-sdk-go-v1-end-of-support-2025
+provider: aws
+kind: retired
+severity: breaking
+title: AWS SDK for Go v1 reached end of support
+summary: >
+  The github.com/aws/aws-sdk-go module entered maintenance on 2024-07-31 and
+  reached end of support on 2025-07-31. It receives no fixes now, including
+  security fixes. The module path of v2 differs, so both can be required while
+  a migration is in progress.
+
+affects:
+  - kind: sdk_package
+    match: "github.com/aws/aws-sdk-go"
+
+announced: 2024-01-12
+effective: 2025-07-31
+
+sources:
+  - kind: changelog
+    url: https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-go-v1-on-july-31-2025/
+    observed: 2026-09-19
+    note: "Published 2024-01-12; maintenance 2024-07-31, end of support 2025-07-31."
+
+migration:
+  replacement: "github.com/aws/aws-sdk-go-v2"
+  guide: https://aws.github.io/aws-sdk-go-v2/docs/migrating/
+  effort: large
+  notes: >
+    Change imports from github.com/aws/aws-sdk-go/aws and .../service/<svc> to
+    github.com/aws/aws-sdk-go-v2/aws and .../service/<svc>. Session handling
+    changes: session.NewSession is replaced by config.LoadDefaultConfig(ctx),
+    which returns an aws.Config passed to each client constructor. Every
+    operation takes a context as its first argument and drops the WithContext
+    suffix, so svc.GetObjectWithContext(ctx, in) becomes svc.GetObject(ctx, in).
+    Input and output structs no longer use aws.String helpers for every field;
+    enums become typed constants. Error handling moves from awserr.Error to
+    errors.As with typed error structs.
+
+status: expired

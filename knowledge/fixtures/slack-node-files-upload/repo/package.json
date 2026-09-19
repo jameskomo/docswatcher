@@ -1,0 +1,8 @@
+{
+  "name": "report-bot",
+  "version": "1.4.0",
+  "dependencies": {
+    "@slack/web-api": "^6.12.0",
+    "node-fetch": "^3.3.2"
+  }
+}

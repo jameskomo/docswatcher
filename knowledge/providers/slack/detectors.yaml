@@ -1,0 +1,90 @@
+provider: slack
+
+manifests:
+  - ecosystem: npm
+    package: "@slack/web-api"
+  - ecosystem: npm
+    package: "@slack/bolt"
+  - ecosystem: npm
+    package: "@slack/rtm-api"
+  - ecosystem: pypi
+    package: slack_sdk
+  - ecosystem: pypi
+    package: slackclient
+  - ecosystem: maven
+    package: com.slack.api:slack-api-client
+  - ecosystem: go
+    package: github.com/slack-go/slack
+
+literals:
+  # Every Web API method is a POST or GET to one flat path, so one rule covers
+  # the whole surface. The method name is always <family>.<action>.
+  - id: slack.literal.method-url
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://slack\.com(/api/[a-zA-Z]+\.[a-zA-Z]+)'
+    key: "ANY $1"
+    confidence: medium
+
+callsites:
+  # @slack/web-api exposes methods as client.files.upload(...).
+  - id: slack.javascript.files-upload
+    language: javascript
+    kind: sdk_method
+    requires: "@slack/web-api"
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @a1)
+          property: (property_identifier) @m)
+        (#eq? @a1 "files") (#eq? @m "upload")) @call
+    key: "files.upload"
+    maps_to:
+      kind: endpoint
+      key: "POST /api/files.upload"
+    confidence: high
+
+  - id: slack.typescript.files-upload
+    language: typescript
+    kind: sdk_method
+    requires: "@slack/web-api"
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @a1)
+          property: (property_identifier) @m)
+        (#eq? @a1 "files") (#eq? @m "upload")) @call
+    key: "files.upload"
+    maps_to:
+      kind: endpoint
+      key: "POST /api/files.upload"
+    confidence: high
+
+  # slack_sdk flattens the method name to a single snake_case attribute.
+  - id: slack.python.files-upload
+    language: python
+    kind: sdk_method
+    requires: slack_sdk
+    query: |
+      (call
+        function: (attribute
+          object: (identifier) @obj
+          attribute: (identifier) @m)
+        (#eq? @m "files_upload")) @call
+    key: "files_upload"
+    maps_to:
+      kind: endpoint
+      key: "POST /api/files.upload"
+    confidence: high
+
+  # RTM is only available to classic apps, so its use is the detectable proxy
+  # for an app class that stops working on 2026-11-16.
+  - id: slack.python.rtm-client
+    language: python
+    kind: sdk_method
+    requires: slack_sdk
+    query: |
+      (call function: (identifier) @f (#eq? @f "RTMClient")) @call
+    key: "RTMClient"
+    confidence: high

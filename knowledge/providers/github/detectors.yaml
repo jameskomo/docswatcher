@@ -1,0 +1,68 @@
+provider: github
+
+manifests:
+  - ecosystem: npm
+    package: "@octokit/rest"
+  - ecosystem: npm
+    package: octokit
+  - ecosystem: npm
+    package: "@octokit/core"
+  - ecosystem: pypi
+    package: PyGithub
+  - ecosystem: maven
+    package: org.kohsuke:github-api
+  - ecosystem: rubygems
+    package: octokit
+
+literals:
+  # The pinned REST version. Its absence means the default, which is itself a
+  # version with an end of support date, but only an explicit pin is detectable.
+  - id: github.literal.api-version
+    kind: api_version
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: 'X-GitHub-Api-Version["'']?\s*[:=,]\s*["'']([0-9]{4}-[0-9]{2}-[0-9]{2})["'']'
+    key: "$1"
+    confidence: medium
+
+  - id: github.literal.endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://api\.github\.com(/[a-z_]+(?:/[a-z_]+)*)'
+    key: "ANY $1"
+    confidence: medium
+
+callsites:
+  # Octokit namespaces the REST surface, so search.code is the code search API.
+  - id: github.javascript.search-code
+    language: javascript
+    kind: sdk_method
+    requires: "@octokit/rest"
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @a1)
+          property: (property_identifier) @m)
+        (#eq? @a1 "search") (#eq? @m "code")) @call
+    key: "search.code"
+    maps_to:
+      kind: endpoint
+      key: "GET /search/code"
+    confidence: high
+
+  - id: github.typescript.search-code
+    language: typescript
+    kind: sdk_method
+    requires: "@octokit/rest"
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @a1)
+          property: (property_identifier) @m)
+        (#eq? @a1 "search") (#eq? @m "code")) @call
+    key: "search.code"
+    maps_to:
+      kind: endpoint
+      key: "GET /search/code"
+    confidence: high

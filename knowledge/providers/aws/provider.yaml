@@ -1,0 +1,18 @@
+id: aws
+name: AWS SDK
+homepage: https://aws.amazon.com
+docs: https://docs.aws.amazon.com/sdkref/latest/guide/
+changelog: https://aws.amazon.com/blogs/developer/
+base_urls:
+  - https://amazonaws.com
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [javascript, typescript, java, python, go, ruby, php, csharp]
+deprecation_policy: >
+  AWS rarely removes a service API. What expires is the SDK major version. Each
+  one gets an announcement, a maintenance window of about a year where only
+  critical fixes land, then an end of support date after which nothing is
+  patched, including security issues. The dated event is therefore the SDK
+  package in the manifest, not an endpoint in the code, which is why every
+  record here targets a package.

@@ -1,0 +1,43 @@
+id: slack-classic-apps-retired-2026
+provider: slack
+kind: retired
+severity: breaking
+title: Classic Slack apps stop functioning
+summary: >
+  Classic apps stop working on 2026-11-16. Their API calls are rejected, their
+  tokens are revoked, and they are removed from channels. The RTM API is the
+  visible signal: only classic apps can use it, so any code opening an RTM
+  connection belongs to an app that is going away.
+
+affects:
+  - kind: endpoint
+    match: "ANY /api/rtm.connect"
+  - kind: sdk_method
+    match: "RTMClient"
+
+announced: 2024-09-30
+effective: 2026-11-16
+
+sources:
+  - kind: changelog
+    url: https://docs.slack.dev/changelog/2024-09-legacy-custom-bots-classic-apps-deprecation/
+    observed: 2026-09-19
+    note: "Beginning November 16, 2026, classic apps will no longer function."
+  - kind: provider_page
+    url: https://docs.slack.dev/legacy/legacy-rtm-api
+    observed: 2026-09-19
+    note: "Granular permission Slack apps cannot use the RTM API; classic apps can."
+
+migration:
+  replacement: "POST /api/apps.connections.open"
+  guide: https://docs.slack.dev/changelog/2024-09-legacy-custom-bots-classic-apps-deprecation/
+  effort: large
+  notes: >
+    Recreate the app as a modern Slack app with granular scopes, then move off
+    RTM. For the closest equivalent to the old loop, enable Socket Mode: call
+    apps.connections.open to get a WebSocket URL, open it, and read events from
+    it. Otherwise subscribe to the Events API and accept HTTP POSTs. Event
+    payload shapes differ from RTM messages, so message handlers need
+    rewriting, and bot tokens must be reissued under the new app.
+
+status: active

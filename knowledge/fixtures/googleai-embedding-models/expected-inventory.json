@@ -1,0 +1,74 @@
+[
+  {
+    "id": "googleai:model:embedding-001",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "embedding-001",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/embed.py",
+        "line": 4,
+        "column": 21,
+        "snippet": "LEGACY_EMBEDDING = \"embedding-001\"",
+        "detector": "googleai.literal.model-embedding",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  },
+  {
+    "id": "googleai:model:text-embedding-004",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "text-embedding-004",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/embed.py",
+        "line": 5,
+        "column": 22,
+        "snippet": "CURRENT_EMBEDDING = \"text-embedding-004\"",
+        "detector": "googleai.literal.model-embedding",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  },
+  {
+    "id": "googleai:sdk_package:google-genai",
+    "provider": "googleai",
+    "kind": "sdk_package",
+    "key": "google-genai",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "google-genai==1.12.0",
+        "detector": "googleai.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  }
+]

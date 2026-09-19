@@ -1,0 +1,39 @@
+id: github-api-version-2022-11-28-unsupported-2028
+provider: github
+kind: sunset
+severity: breaking
+title: "REST API version 2022-11-28 closes down"
+summary: >
+  Version 2022-11-28 leaves support on 2028-03-10, 24 months after 2026-03-10
+  shipped. Requests naming a closed version receive 410 Gone; they do not fall
+  forward to a supported version. This is also the version used when no
+  X-GitHub-Api-Version header is sent.
+
+affects:
+  - kind: api_version
+    match: "2022-11-28"
+
+announced: 2026-03-10
+effective: 2028-03-10
+
+sources:
+  - kind: provider_page
+    url: https://docs.github.com/en/rest/about-the-rest-api/api-versions
+    observed: 2026-09-19
+    note: "Lists 2022-11-28 with end of support March 10, 2028, and 2026-03-10 with none scheduled."
+
+migration:
+  replacement: "2026-03-10"
+  guide: https://docs.github.com/en/rest/about-the-rest-api/breaking-changes
+  effort: medium
+  notes: >
+    Change the X-GitHub-Api-Version header to 2026-03-10 and work through the
+    breaking changes list. The ones that bite silently are property removals:
+    assignee is gone in favour of assignees, merge_commit_sha is gone from all
+    pull request responses, has_downloads is gone from Repository, cvss is
+    replaced by cvss_severities, and the rate property of GET /rate_limit is
+    replaced by resources.core. Two status codes change: deleting an app
+    installation returns 202 instead of 204, and dispatching a workflow returns
+    200 with run details instead of 204.
+
+status: active

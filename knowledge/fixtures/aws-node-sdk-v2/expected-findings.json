@@ -1,0 +1,6 @@
+[
+  {
+    "contract": "aws:sdk_package:aws-sdk",
+    "change": "aws-sdk-javascript-v2-end-of-support-2025"
+  }
+]

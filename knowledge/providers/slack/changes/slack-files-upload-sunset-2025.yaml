@@ -1,0 +1,49 @@
+id: slack-files-upload-sunset-2025
+provider: slack
+kind: sunset
+severity: breaking
+title: files.upload retired
+summary: >
+  The files.upload Web API method stopped functioning on 2025-11-12. Uploading
+  a file now takes two calls: files.getUploadURLExternal to reserve a URL, then
+  files.completeUploadExternal to publish it. New apps lost access to
+  files.upload on 2024-05-16, well before the sunset.
+
+affects:
+  - kind: endpoint
+    match: "ANY /api/files.upload"
+  - kind: endpoint
+    match: "POST /api/files.upload"
+  - kind: sdk_method
+    match: "files.upload"
+  - kind: sdk_method
+    match: "files_upload"
+
+announced: 2024-05-16
+effective: 2025-11-12
+
+sources:
+  - kind: provider_page
+    url: https://docs.slack.dev/reference/methods/files.upload
+    observed: 2026-09-19
+    note: "Reference page states the method is deprecated and was sunset on November 12, 2025."
+  - kind: changelog
+    url: https://docs.slack.dev/changelog/2025/03/17/files-upload-extension/
+    observed: 2026-09-19
+    note: "Timeline adjustment moving the sunset from 2025-03-11 to 2025-11-12."
+
+migration:
+  replacement: "POST /api/files.getUploadURLExternal"
+  guide: https://docs.slack.dev/messaging/working-with-files
+  effort: medium
+  notes: >
+    Replace the single files.upload call with two calls. First call
+    files.getUploadURLExternal with filename and length, which returns
+    upload_url and file_id. PUT the file bytes to upload_url. Then call
+    files.completeUploadExternal with the file_id and the channel to share
+    into. The channels parameter of files.upload becomes channel_id on the
+    complete call. In slack_sdk the method is files_upload_v2. In
+    @slack/web-api use client.files.uploadV2. Response shape differs: the
+    file object arrives on the complete call, not the first one.
+
+status: expired

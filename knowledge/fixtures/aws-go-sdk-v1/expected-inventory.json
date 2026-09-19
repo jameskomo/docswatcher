@@ -1,0 +1,26 @@
+[
+  {
+    "id": "aws:sdk_package:github.com/aws/aws-sdk-go",
+    "provider": "aws",
+    "kind": "sdk_package",
+    "key": "github.com/aws/aws-sdk-go",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "go.mod",
+        "line": 6,
+        "column": 2,
+        "snippet": "github.com/aws/aws-sdk-go v1.55.5",
+        "detector": "aws.manifest.go",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "go",
+        "package": "github.com/aws/aws-sdk-go",
+        "version": "v1.55.5"
+      }
+    }
+  }
+]

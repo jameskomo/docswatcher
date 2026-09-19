@@ -1,0 +1,70 @@
+[
+  {
+    "id": "aws:sdk_package:com.amazonaws:aws-java-sdk-bom",
+    "provider": "aws",
+    "kind": "sdk_package",
+    "key": "com.amazonaws:aws-java-sdk-bom",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "pom.xml",
+        "line": 11,
+        "column": 21,
+        "snippet": "<artifactId>aws-java-sdk-bom</artifactId>",
+        "detector": "aws.manifest.maven",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "aws:sdk_package:com.amazonaws:aws-java-sdk-core",
+    "provider": "aws",
+    "kind": "sdk_package",
+    "key": "com.amazonaws:aws-java-sdk-core",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "pom.xml",
+        "line": 21,
+        "column": 19,
+        "snippet": "<artifactId>aws-java-sdk-core</artifactId>",
+        "detector": "aws.manifest.maven",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "aws:sdk_package:com.amazonaws:aws-java-sdk-dynamodb",
+    "provider": "aws",
+    "kind": "sdk_package",
+    "key": "com.amazonaws:aws-java-sdk-dynamodb",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "pom.xml",
+        "line": 31,
+        "column": 19,
+        "snippet": "<artifactId>aws-java-sdk-dynamodb</artifactId>",
+        "detector": "aws.manifest.maven",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "aws:sdk_package:com.amazonaws:aws-java-sdk-s3",
+    "provider": "aws",
+    "kind": "sdk_package",
+    "key": "com.amazonaws:aws-java-sdk-s3",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "pom.xml",
+        "line": 26,
+        "column": 19,
+        "snippet": "<artifactId>aws-java-sdk-s3</artifactId>",
+        "detector": "aws.manifest.maven",
+        "layer": "manifest"
+      }
+    ]
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "github:api_version:2022-11-28",
+    "provider": "github",
+    "kind": "api_version",
+    "key": "2022-11-28",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/client.js",
+        "line": 6,
+        "column": 30,
+        "snippet": "\"X-GitHub-Api-Version\": \"2022-11-28\",",
+        "detector": "github.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@octokit/rest",
+        "version": "^20.1.1"
+      },
+      "apiVersion": "2022-11-28"
+    }
+  },
+  {
+    "id": "github:sdk_package:@octokit/rest",
+    "provider": "github",
+    "kind": "sdk_package",
+    "key": "@octokit/rest",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"@octokit/rest\": \"^20.1.1\"",
+        "detector": "github.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@octokit/rest",
+        "version": "^20.1.1"
+      },
+      "apiVersion": "2022-11-28"
+    }
+  }
+]

@@ -1,0 +1,266 @@
+[
+  {
+    "id": "googleai:model:gemini-2.0-flash",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-2.0-flash",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 2,
+        "column": 15,
+        "snippet": "chat_default: gemini-2.0-flash",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  },
+  {
+    "id": "googleai:model:gemini-2.0-flash-lite",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-2.0-flash-lite",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 3,
+        "column": 12,
+        "snippet": "chat_lite: gemini-2.0-flash-lite",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  },
+  {
+    "id": "googleai:model:gemini-2.5-flash-image",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-2.5-flash-image",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 8,
+        "column": 14,
+        "snippet": "flash_image: gemini-2.5-flash-image",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  },
+  {
+    "id": "googleai:model:gemini-2.5-pro-preview-03-25",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-2.5-pro-preview-03-25",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 9,
+        "column": 11,
+        "snippet": "pro_0325: gemini-2.5-pro-preview-03-25",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  },
+  {
+    "id": "googleai:model:gemini-2.5-pro-preview-05-06",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-2.5-pro-preview-05-06",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 10,
+        "column": 11,
+        "snippet": "pro_0506: gemini-2.5-pro-preview-05-06",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  },
+  {
+    "id": "googleai:model:gemini-2.5-pro-preview-06-05",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-2.5-pro-preview-06-05",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 11,
+        "column": 11,
+        "snippet": "pro_0605: gemini-2.5-pro-preview-06-05",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  },
+  {
+    "id": "googleai:model:gemini-3-pro-image-preview",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-3-pro-image-preview",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 5,
+        "column": 20,
+        "snippet": "pro_image_preview: gemini-3-pro-image-preview",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  },
+  {
+    "id": "googleai:model:gemini-3-pro-preview",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-3-pro-preview",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 4,
+        "column": 14,
+        "snippet": "pro_preview: gemini-3-pro-preview",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  },
+  {
+    "id": "googleai:model:gemini-3.1-flash-image-preview",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-3.1-flash-image-preview",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 7,
+        "column": 22,
+        "snippet": "flash_image_preview: gemini-3.1-flash-image-preview",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  },
+  {
+    "id": "googleai:model:gemini-3.1-flash-lite-preview",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-3.1-flash-lite-preview",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 6,
+        "column": 21,
+        "snippet": "flash_lite_preview: gemini-3.1-flash-lite-preview",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  },
+  {
+    "id": "googleai:sdk_package:google-genai",
+    "provider": "googleai",
+    "kind": "sdk_package",
+    "key": "google-genai",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "google-genai==1.12.0",
+        "detector": "googleai.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  }
+]

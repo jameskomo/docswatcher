@@ -1,0 +1,34 @@
+[
+  {
+    "id": "aws:sdk_package:aws-sdk",
+    "provider": "aws",
+    "kind": "sdk_package",
+    "key": "aws-sdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"aws-sdk\": \"^2.1691.0\",",
+        "detector": "aws.manifest.npm",
+        "layer": "manifest"
+      },
+      {
+        "path": "src/store.js",
+        "line": 2,
+        "column": 20,
+        "snippet": "const S3 = require(\"aws-sdk/clients/s3\");",
+        "detector": "aws.literal.js-v2-client-import",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "aws-sdk",
+        "version": "^2.1691.0"
+      }
+    }
+  }
+]

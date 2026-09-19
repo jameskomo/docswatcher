@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "googleai:model:embedding-001",
+    "change": "googleai-embedding-001-shutdown-2025"
+  },
+  {
+    "contract": "googleai:model:text-embedding-004",
+    "change": "googleai-text-embedding-004-shutdown-2026"
+  }
+]

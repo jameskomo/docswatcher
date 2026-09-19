@@ -1,0 +1,47 @@
+id: aws-sdk-java-v1-end-of-support-2025
+provider: aws
+kind: retired
+severity: breaking
+title: AWS SDK for Java 1.x reached end of support
+summary: >
+  The com.amazonaws artifacts entered maintenance on 2024-07-31 and reached end
+  of support on 2025-12-31. No further fixes are published, including security
+  fixes. Version 2 ships under a different group id, so the two can be held
+  side by side during a migration.
+
+affects:
+  - kind: sdk_package
+    match: "com.amazonaws:aws-java-sdk-bom"
+  - kind: sdk_package
+    match: "com.amazonaws:aws-java-sdk-core"
+  - kind: sdk_package
+    match: "com.amazonaws:aws-java-sdk-s3"
+  - kind: sdk_package
+    match: "com.amazonaws:aws-java-sdk-dynamodb"
+
+announced: 2024-01-12
+effective: 2025-12-31
+
+sources:
+  - kind: changelog
+    url: https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-java-v1-x-on-december-31-2025/
+    observed: 2026-09-19
+    note: "Announced 2024-01-12, maintenance 2024-07-31, end of support 2025-12-31."
+
+migration:
+  replacement: "software.amazon.awssdk:s3"
+  guide: https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/migration.html
+  effort: large
+  notes: >
+    Change the group id from com.amazonaws to software.amazon.awssdk and the
+    artifact from aws-java-sdk-<service> to plain <service>, for example
+    aws-java-sdk-s3 becomes s3. Client construction moves from
+    AmazonS3ClientBuilder.standard().build() to S3Client.builder().build().
+    Request and response classes are immutable builders rather than setters, so
+    new GetObjectRequest(bucket, key) becomes
+    GetObjectRequest.builder().bucket(bucket).key(key).build(). Exceptions move
+    from AmazonServiceException to SdkServiceException. Both versions can sit on
+    the classpath together, so migrate one service at a time. The two SDKs use
+    separate HTTP clients, so connection pool tuning does not carry over.
+
+status: expired

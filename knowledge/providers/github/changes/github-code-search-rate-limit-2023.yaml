@@ -1,0 +1,38 @@
+id: github-code-search-rate-limit-2023
+provider: github
+kind: limit_change
+severity: warning
+title: Code search moved to its own 10 requests per minute limit
+summary: >
+  Code search was split out of the shared search rate limit on 2023-04-10 and
+  given its own budget of 10 requests per minute. Every code search endpoint
+  also requires authentication. A batch job tuned to the old shared limit now
+  receives 403 responses rather than results.
+
+affects:
+  - kind: endpoint
+    match: "ANY /search/code"
+  - kind: sdk_method
+    match: "search.code"
+
+announced: 2023-03-10
+effective: 2023-04-10
+
+sources:
+  - kind: changelog
+    url: https://github.blog/changelog/2023-03-10-changes-to-the-code-search-api/
+    observed: 2026-09-19
+    note: "Code search separated from other search types with a 10 requests per minute limit."
+
+migration:
+  replacement: null
+  guide: https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api
+  effort: small
+  notes: >
+    Throttle code search to at most 10 requests per minute and handle 403 with
+    a retry that honours the retry-after and x-ratelimit-reset headers. Read
+    the search object of GET /rate_limit rather than the core object, because
+    code search is budgeted separately. Ensure the client authenticates;
+    unauthenticated code search is rejected outright.
+
+status: expired

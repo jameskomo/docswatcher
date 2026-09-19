@@ -1,0 +1,31 @@
+id: googleai-text-embedding-004-shutdown-2026
+provider: googleai
+kind: retired
+severity: breaking
+title: "text-embedding-004 shut down"
+summary: >
+  Requests naming the model text-embedding-004 fail after the shutdown date.
+  Google recommends gemini-embedding-2 as the replacement.
+
+affects:
+  - kind: model
+    match: "text-embedding-004"
+
+announced: 2024-04-09
+effective: 2026-01-14
+
+sources:
+  - kind: provider_page
+    url: https://ai.google.dev/gemini-api/docs/deprecations
+    observed: 2026-09-19
+
+migration:
+  replacement: "gemini-embedding-2"
+  guide: https://ai.google.dev/gemini-api/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID string. Embedding dimensionality differs between
+    models, so stored vectors must be regenerated and any vector index rebuilt
+    before switching reads over. This is not a drop-in swap.
+
+status: expired

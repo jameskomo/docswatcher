@@ -1,0 +1,17 @@
+id: slack
+name: Slack
+homepage: https://slack.com
+docs: https://docs.slack.dev
+changelog: https://docs.slack.dev/changelog
+base_urls:
+  - https://slack.com/api
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [typescript, javascript, python, java, go]
+deprecation_policy: >
+  Individual Web API methods are deprecated in the changelog with a sunset
+  date, and the method reference page carries the notice until removal. Whole
+  app classes are retired too: legacy custom bots stopped working in March
+  2025 and classic apps stop working in November 2026. Dates have been
+  extended before, so a published date is a floor rather than a promise.

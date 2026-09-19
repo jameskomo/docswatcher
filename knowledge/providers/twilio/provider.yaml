@@ -1,0 +1,22 @@
+id: twilio
+name: Twilio
+homepage: https://www.twilio.com
+docs: https://www.twilio.com/docs
+changelog: https://www.twilio.com/en-us/changelog
+base_urls:
+  - https://api.twilio.com
+  - https://notify.twilio.com
+  - https://chat.twilio.com
+  - https://conversations.twilio.com
+  - https://verify.twilio.com
+openapi:
+  url: https://raw.githubusercontent.com/twilio/twilio-oai/main/spec/yaml/twilio_api_v2010.yaml
+  pinned_sha: null
+sdk_languages: [python, typescript, javascript, java, go, ruby, php, csharp]
+deprecation_policy: >
+  Products reach end of life on an announced date and are then removed, with
+  the notice published in the changelog. Twilio has extended announced end of
+  life dates more than once, so a date can move later. Each product is served
+  from its own subdomain, which is what makes a retired product visible in
+  code. The core REST API is pinned to the dated version 2010-04-01 and has
+  not been superseded.

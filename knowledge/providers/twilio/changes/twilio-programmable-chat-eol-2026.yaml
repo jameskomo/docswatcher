@@ -1,0 +1,37 @@
+id: twilio-programmable-chat-eol-2026
+provider: twilio
+kind: sunset
+severity: breaking
+title: Programmable Chat in Flex end of life
+summary: >
+  Programmable Chat in Flex reached end of life on 1 June 2026. After that
+  date it may stop working and receives no further fixes or security updates.
+  The chat.twilio.com and ip-messaging.twilio.com endpoints are the visible
+  trace of it in code.
+
+affects:
+  - kind: endpoint
+    match: "ANY /chat/v2/Services"
+  - kind: endpoint
+    match: "ANY /ip-messaging/v2/Services"
+
+announced: 2025-05-19
+effective: 2026-06-01
+
+sources:
+  - kind: changelog
+    url: https://www.twilio.com/en-us/changelog/programmable-chat-in-flex-reaching-end-of-life-on-june-1--2026
+    observed: 2026-09-19
+
+migration:
+  replacement: "Flex Conversations"
+  guide: https://www.twilio.com/en-us/changelog/programmable-chat-in-flex-reaching-end-of-life-on-june-1--2026
+  effort: large
+  notes: >
+    Move to Flex Conversations, which spans Webchat, SMS and WhatsApp on one
+    API. Channels become Conversations and members become Participants, so
+    stored channel SIDs must be mapped rather than reused. Webhook handlers
+    for onMessageSent and similar Chat events need rewriting against the
+    Conversations event names.
+
+status: expired

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "github:api_version:2022-11-28",
+    "provider": "github",
+    "kind": "api_version",
+    "key": "2022-11-28",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "README.md",
+        "line": 5,
+        "column": 2,
+        "snippet": "\"2022-11-28\", but the network dependency was dropped. Nothing here talks to",
+        "detector": "github.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "apiVersion": "2022-11-28"
+    }
+  }
+]

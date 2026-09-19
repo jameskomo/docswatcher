@@ -1,0 +1,18 @@
+id: github
+name: GitHub
+homepage: https://github.com
+docs: https://docs.github.com/rest
+changelog: https://docs.github.com/en/rest/about-the-rest-api/breaking-changes
+base_urls:
+  - https://api.github.com
+openapi:
+  url: https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.json
+  pinned_sha: null
+sdk_languages: [typescript, javascript, python, java, go, ruby]
+deprecation_policy: >
+  The REST API is versioned by the X-GitHub-Api-Version header using a date
+  string. Each version is supported for at least 24 months after a newer
+  version ships, and requests naming a closed version receive 410 Gone rather
+  than falling forward. Deprecation and Sunset response headers precede
+  removal. Rate limits change separately from versions and without a version
+  bump.

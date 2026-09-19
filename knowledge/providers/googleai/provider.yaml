@@ -1,0 +1,17 @@
+id: googleai
+name: Google AI
+homepage: https://ai.google.dev
+docs: https://ai.google.dev/gemini-api/docs
+changelog: https://ai.google.dev/gemini-api/docs/deprecations
+base_urls:
+  - https://generativelanguage.googleapis.com
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [python, typescript, javascript, java, go]
+deprecation_policy: >
+  Each deprecated model is listed with a deprecation date and a shutdown date.
+  Google describes the published shutdown dates as the earliest possible dates
+  on which a model might be retired, so a date can move later but not earlier.
+  Preview models change with short notice and are retired when the stable
+  version they precede reaches general availability.

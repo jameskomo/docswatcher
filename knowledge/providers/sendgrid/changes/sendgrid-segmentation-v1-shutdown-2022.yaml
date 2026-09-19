@@ -1,0 +1,35 @@
+id: sendgrid-segmentation-v1-shutdown-2022
+provider: sendgrid
+kind: sunset
+severity: breaking
+title: Segmentation v1 API shut down
+summary: >
+  The POST and PATCH endpoints of the Segmentation v1 API stopped accepting
+  requests on 31 December 2022. Segments created in the Marketing Campaigns
+  interface use the v2 API from that date.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v3/contactdb/segments"
+
+announced: 2022-07-05
+effective: 2022-12-31
+
+sources:
+  - kind: changelog
+    url: https://www.twilio.com/en-us/changelog/segmentation-v1-api-deprecation
+    observed: 2026-09-19
+
+migration:
+  replacement: "POST /v3/marketing/segments/2.0"
+  guide: https://www.twilio.com/en-us/changelog/segmentation-v1-api-deprecation
+  effort: medium
+  notes: >
+    Create and update segments through the v2 segments endpoint. The query
+    language differs: v2 takes a SQL-like query string rather than the v1
+    conditions array, so every stored segment definition has to be rewritten
+    rather than reposted. SendGrid auto migrated v1 segments that were not in
+    use by an Automation or a scheduled Single Send, so a segment id in code
+    may now point at a v2 segment.
+
+status: expired
