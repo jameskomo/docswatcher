@@ -1784,6 +1784,14 @@ pre {
   color: var(--ink);
 }
 
+[data-theme="light"] .prose .callout,
+[data-theme="light"] .prose .pull {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  border-left: 4px solid #e11d48;
+  color: #1e293b;
+}
+
 .ink-soft { color: var(--ink-soft); }
 .ink-faint { color: var(--ink-faint); }
 .t1 { font-size: var(--t1); }
