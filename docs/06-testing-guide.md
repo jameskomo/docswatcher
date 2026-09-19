@@ -98,7 +98,7 @@ Endpoints cover the org overview, per-repo inventory and findings, the horizon, 
 
 ## 4. The GitHub App
 
-Register an app with contents read, checks write, issues write, metadata read, subscribed to installation, push, and issues. Point the webhook at `/webhooks/github` with a shared secret. Setup steps are in `app/README.md`.
+Register an app with contents read and write, checks read and write, issues read and write, and metadata read, subscribed to installation, installation repositories, push, and issues. Contents needs write, not read: `repository_dispatch`, which is how a fix is triggered, requires it, and an app registered with read only works until the moment someone presses Fix. Point the webhook at `/webhooks/github` with a shared secret. Setup steps are in `app/README.md`.
 
 On install it scans every repository and opens one issue per finding. On push it rescans and closes findings whose evidence is gone. Adding the `docswatcher:fix` label to an issue dispatches a workflow in the customer's own repository, which runs a coding agent on their own API key. Nothing is billed to us.
 
