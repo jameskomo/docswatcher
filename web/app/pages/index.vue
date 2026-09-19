@@ -4,9 +4,16 @@ import { fetchViaApi, fetchViaRelay, parseGitHubUrl, readFolder, fetchViaJsDeliv
 
 const config = useRuntimeConfig();
 const relay = (config.public.relayUrl as string) || "";
-const { samples, realSamples, fixtureSamples, defaultSample } = useKnowledge();
+const { knowledge, samples, realSamples, fixtureSamples, defaultSample } = useKnowledge();
 const scanner = useScanner();
 const store = useScanStore();
+
+const trackedChanges = knowledge.providers.reduce((n, p) => n + p.changes.length, 0);
+
+useHead({
+  title: "DocsWatcher · which of your API calls has an expiry date",
+  meta: [{ name: "description", content: `Scan a repository for the external APIs it calls and match them against ${trackedChanges} published provider deprecations. The scan runs in your browser.` }],
+});
 
 const mode = ref<"sample" | "github" | "folder">("sample");
 // Set when an outbound fetch is blocked by the page host, so the UI can explain it once.
@@ -23,6 +30,10 @@ const folderInput = ref<HTMLInputElement | null>(null);
 
 const result = computed(() => store.current.value);
 const findings = computed(() => (result.value?.findings ?? []).filter((f) => store.effectiveStatus(f) === "open"));
+const percent = computed(() => {
+  const p = scanner.progress.value;
+  return p && p.total ? Math.round((100 * p.done) / p.total) : null;
+});
 
 async function runScan(files: InputFile[], repo: RepoRef, source: { label: string; kind: "sample" | "github" | "folder" }) {
   status.value = "Scanning";
@@ -69,7 +80,9 @@ async function scanGitHub() {
       mode.value = "sample";
       throw new Error(`Could not reach any source for ${t.owner}/${t.name}. ${tried.join(". ")}. Sample repositories and local folders still work here and run the same engine. To scan by URL, run the site locally or deploy the static export to your own host.`);
     }
-    fetchNote.value = `${res.files.length} text files read` + (res.binaries ? `, ${res.binaries} binary skipped` : "") + (res.skipped ? `, ${res.skipped} skipped` : "")
+    fetchNote.value = `${res.files.length} text files read`
+      + (res.binaries ? `, ${res.binaries} binary skipped` : "")
+      + (res.skipped ? `, ${res.skipped} skipped` : "")
       + (res.truncated ? ". Large repository: only the first 300 relevant files were read without a relay." : "");
     await runScan(res.files, res.repo, { label: `${t.owner}/${t.name}`, kind: "github" });
   });
@@ -109,14 +122,22 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
 </script>
 
 <template>
-  <div class="stack" style="gap: 28px">
+  <div class="stack" style="gap: var(--s6)">
     <section class="hero">
-      <span class="eyebrow">Dependabot for the APIs you call, not the packages you install</span>
       <h1>Which of your API calls has an expiry date?</h1>
-      <p>Paste a repository. DocsWatcher finds every external contract in the code, from SDK calls to model IDs in config, and matches them against provider deprecations. The scan runs in this tab. Nothing is uploaded.</p>
+      <p class="lede">
+        DocsWatcher reads a repository and finds every external contract in it: SDK calls, endpoints,
+        model IDs in config, pinned API versions. It matches them against
+        <strong>{{ trackedChanges }}</strong> published provider deprecations and tells you which ones
+        have a date on them, at the file and line.
+      </p>
+      <p class="small muted">
+        The scan runs in this tab. Nothing is uploaded.
+        <NuxtLink to="/about">How it works</NuxtLink>
+      </p>
     </section>
 
-    <section class="panel panel-pad stack block">
+    <section class="block">
       <div class="tabs" role="tablist" aria-label="Scan source">
         <button role="tab" :aria-selected="mode === 'sample'" @click="mode = 'sample'">Sample repository</button>
         <button role="tab" :aria-selected="mode === 'github'" @click="mode = 'github'">GitHub URL</button>
@@ -126,68 +147,100 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
       <p v-if="networkBlocked && mode === 'github'" class="notice" role="status">
         Unavailable on this host: outbound requests are blocked. Use a sample or a local folder, or run the site yourself.
       </p>
+
       <form v-if="mode === 'github'" class="stack" @submit.prevent="scanGitHub">
         <div class="row">
-          <input id="repo-url" class="input" style="flex: 1 1 320px" v-model="url" placeholder="https://github.com/owner/repo" aria-label="GitHub repository URL" :disabled="busy" />
+          <input id="repo-url" class="input grow" style="flex-basis: 320px" v-model="url" placeholder="https://github.com/owner/repo" aria-label="GitHub repository URL" :disabled="busy" />
           <button id="scan-github" class="btn primary" type="submit" :disabled="busy">Scan repository</button>
         </div>
         <div v-if="!relay" class="row small">
-          <input id="gh-token" class="input" style="flex: 1 1 260px" type="password" v-model="token" placeholder="Optional GitHub token for private repos or more than 60 requests per hour" aria-label="GitHub token" autocomplete="off" />
-          <span class="muted">Kept in memory only. Without a relay, files are read through the GitHub API, which allows 60 requests per hour per address.</span>
+          <input id="gh-token" class="input grow" style="flex-basis: 260px" type="password" v-model="token" placeholder="Optional GitHub token" aria-label="GitHub token" autocomplete="off" />
+          <span class="muted">Held in memory only. Files are read through jsDelivr, then the GitHub API, which allows 60 requests an hour per address.</span>
         </div>
       </form>
 
       <div v-else-if="mode === 'folder'" class="stack">
-        <p class="ink2">Pick a project folder. Files are read in the browser; vendored directories and files over 1 MB are skipped.</p>
+        <p class="ink2 small">Pick a project folder. Files are read in this tab. Vendored directories and files over 1 MB are skipped.</p>
         <input id="folder-input" ref="folderInput" type="file" webkitdirectory multiple @change="scanFolder" :disabled="busy" aria-label="Choose a folder" />
       </div>
 
-      <div v-else class="row">
-        <select id="sample-select" class="select" v-model="sample" :disabled="busy" aria-label="Sample repository">
-          <optgroup label="Real public repositories">
-            <option v-for="s in realSamples" :key="s.name" :value="s.name">{{ s.name }} @ {{ s.sha }}</option>
-          </optgroup>
-          <optgroup label="Knowledge base fixtures">
-            <option v-for="s in fixtureSamples" :key="s.name" :value="s.name">{{ s.name }}</option>
-          </optgroup>
-        </select>
-        <p v-if="selectedSample?.real" class="ink2">
-          A vendored copy of <strong>{{ selectedSample.name }}</strong> at commit {{ selectedSample.sha }}, scanned here by the same engine.
+      <div v-else class="stack">
+        <div class="row">
+          <select id="sample-select" class="select" v-model="sample" :disabled="busy" aria-label="Sample repository">
+            <optgroup label="Real public repositories">
+              <option v-for="s in realSamples" :key="s.name" :value="s.name">{{ s.name }} @ {{ s.sha }}</option>
+            </optgroup>
+            <optgroup label="Knowledge base fixtures">
+              <option v-for="s in fixtureSamples" :key="s.name" :value="s.name">{{ s.name }}</option>
+            </optgroup>
+          </select>
+          <button id="scan-sample" class="btn primary" @click="scanSample" :disabled="busy">Scan sample</button>
+        </div>
+        <p v-if="selectedSample?.real" class="ink2 small">
+          A vendored copy of <strong>{{ selectedSample.name }}</strong> at commit
+          <span class="mono">{{ selectedSample.sha }}</span>, scanned here by the same engine.
           {{ selectedSample.note }}
         </p>
-        <button id="scan-sample" class="btn primary" @click="scanSample" :disabled="busy">Scan sample</button>
-        <span class="muted small">Bundled fixtures from the open knowledge base.</span>
+        <p v-else class="muted small">A fixture from the open knowledge base, with a pinned expected result.</p>
       </div>
 
-      <div v-if="busy" class="stack" aria-live="polite">
-        <div class="row between small"><span>{{ scanner.phase.value || status }}</span><span class="mono muted" v-if="scanner.progress.value">{{ scanner.progress.value.path }}</span></div>
-        <div class="progress"><div :style="{ width: scanner.progress.value ? (100 * scanner.progress.value.done / scanner.progress.value.total) + '%' : '15%' }"></div></div>
+      <div v-if="busy" class="stack" style="gap: var(--s1)" aria-live="polite">
+        <div class="row between small">
+          <span>{{ scanner.phase.value || status }}<span v-if="percent !== null" class="muted"> · {{ percent }}%</span></span>
+          <span class="mono muted trunc" style="max-width: 46ch" v-if="scanner.progress.value">{{ scanner.progress.value.path }}</span>
+        </div>
+        <div class="progress" :class="{ indeterminate: percent === null }">
+          <div :style="{ width: percent !== null ? percent + '%' : undefined }"></div>
+        </div>
       </div>
+
       <div v-if="error" class="notice error" role="alert">{{ error }}</div>
     </section>
 
     <template v-if="result">
       <section class="block" id="results">
-        <div class="row between">
-          <div>
-            <span class="eyebrow">{{ result.source.kind === 'sample' ? 'Example scan' : 'Scan result' }}</span>
-            <h2>{{ result.source.label }}</h2>
+        <div class="block-head">
+          <div class="stack" style="gap: 2px">
+            <span class="label">{{ result.source.kind === "sample" ? "Example scan" : "Scan result" }}</span>
+            <h2>
+              <NuxtLink to="/app" class="result-link">{{ result.source.label }}</NuxtLink>
+            </h2>
           </div>
-          <div class="small muted">{{ result.inventory.stats.filesScanned }} files scanned in {{ result.inventory.stats.durationMs }} ms<span v-if="fetchNote"> · {{ fetchNote }}</span> · <NuxtLink to="/app">open dashboard →</NuxtLink></div>
+          <div class="aside">
+            <span class="num">{{ result.inventory.stats.filesScanned }}</span> files in
+            <span class="num">{{ result.inventory.stats.durationMs }}</span> ms
+            <span v-if="fetchNote"><br />{{ fetchNote }}</span>
+            <br /><NuxtLink to="/app">open dashboard →</NuxtLink>
+          </div>
         </div>
-        <StatTiles :inventory="result.inventory" :findings="findings" />
+        <ScanSummary :inventory="result.inventory" :findings="findings" />
       </section>
 
       <section class="block" id="findings">
-        <h2>Needs attention</h2>
-        <FindingsList :findings="findings" show-actions />
+        <div class="block-head">
+          <h2>Needs attention</h2>
+          <span class="aside">select a row for evidence, migration notes and a fix prompt</span>
+        </div>
+        <FindingsList :findings="findings" />
       </section>
 
       <section class="block" id="inventory">
-        <h2>Inventory</h2>
-        <p class="ink2">Every external contract found, including the ones nobody remembers adding.</p>
+        <div class="block-head">
+          <h2>Inventory</h2>
+          <span class="aside">every external contract found, including the ones nobody remembers adding</span>
+        </div>
         <InventoryTable :contracts="result.inventory.contracts" :findings="findings" />
       </section>
     </template>
+
+    <section v-else-if="!busy" class="empty">
+      <h3>No scan yet</h3>
+      <p class="small">Choose a sample, paste a repository URL, or pick a folder to begin.</p>
+    </section>
   </div>
 </template>
+
+<style scoped>
+.result-link { color: var(--ink); }
+.result-link:hover { color: var(--accent); }
+</style>

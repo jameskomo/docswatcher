@@ -16,6 +16,8 @@ export default defineNuxtConfig({
         { name: "color-scheme", content: "light dark" },
       ],
       link: [
+        // scripts/relativize.mjs rewrites this to ./favicon.svg so it resolves at any subpath.
+        { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
         { rel: "preconnect", href: "https://fonts.googleapis.com" },
         { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
         { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" },
