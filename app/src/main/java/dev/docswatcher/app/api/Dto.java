@@ -1,7 +1,9 @@
 package dev.docswatcher.app.api;
 
 import dev.docswatcher.app.model.FindingDoc;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +16,26 @@ public final class Dto {
 
   public record RepoSummary(long id, String fullName, String defaultBranch, String lastScannedSha, boolean production, long openFindings) {}
 
-  public record RepoFinding(long repoId, String repoFullName, FindingDoc finding, String changeTitle) {}
+  /**
+   * What telemetry saw for the endpoint behind a finding. Absent when nothing has been
+   * observed, which is the normal case: runtime observation is opt in.
+   */
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  public record Runtime(
+      long callsPerDay,
+      long totalCalls,
+      int daysObserved,
+      OffsetDateTime lastSeen,
+      String deprecationHeader,
+      String sunsetHeader) {}
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  public record RepoFinding(long repoId, String repoFullName, FindingDoc finding, String changeTitle, Runtime runtime) {
+
+    public RepoFinding(long repoId, String repoFullName, FindingDoc finding, String changeTitle) {
+      this(repoId, repoFullName, finding, changeTitle, null);
+    }
+  }
 
   public record HorizonMonth(String month, List<RepoFinding> findings) {}
 
