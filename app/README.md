@@ -96,12 +96,12 @@ See the note at the end of this file for the outcome of the last native build on
 
 ### Last native build outcome
 
-Attempted on 2026-09-18 with GraalVM Community 25+37.1 and native-maven-plugin 1.1.14. The JVM build and all 26 tests pass. The native build failed before compiling, with this message from the plugin:
+Attempted again on 2026-09-18 with GraalVM Community 25.0.2 and native-maven-plugin 1.1.14. The JVM build and all 31 tests pass. The native image does not yet build. Two blockers were cleared and one remains.
 
-```
-The configured GraalVM reachability metadata repository provides a reachability-metadata schema,
-but your GraalVM installation at ~/.jdks/graalvm-community-openjdk-25+37.1 does not.
-Please update your GraalVM installation to a newer version. Update to the latest 25 release.
-```
+**Cleared: the metadata schema mismatch.** GraalVM 25.0.0 predated the schema the plugin downloads. Installing 25.0.2 fixed it.
 
-The metadata repository the plugin downloads now uses a schema that GraalVM 25.0.0 predates. The fix is to install the latest GraalVM 25 patch release and point `build-env.sh` at it, then rerun the command above. Pinning an older metadata release is not an option because the plugin's download endpoint only serves the current line. Nothing in the app code needed a change for the native profile; the profile stays in the pom and runs unchanged once the JDK is updated.
+**Cleared: the main class was not found.** `spring-boot:repackage` rewrites `target/app.jar` into the `BOOT-INF` layout during the `package` phase, and `native-image` then cannot find the main class at the jar root. This project imports the Spring Boot BOM rather than inheriting the starter parent, so the two steps were never ordered. The `native` profile now skips `repackage`, and the ordinary build is unaffected.
+
+**Remaining: `native-image` itself exits non-zero** during image generation. Not yet diagnosed. The next step is to rerun with `-X` and read the generation log rather than the Maven wrapper error.
+
+The CLI native image does build and run; see `cli/README.md`. Nothing in the app code needs to change for the profile, and the JVM jar is a fine way to run the app in the meantime.

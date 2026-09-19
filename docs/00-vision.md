@@ -77,6 +77,10 @@ Label fifty public repositories that reference retired model IDs or sunset endpo
 | `04-test-plan.md` | What is tested, how, and how often |
 | `05-hosting-and-cost.md` | What runs where and what it costs |
 | `06-testing-guide.md` | Four ways to test it, and verified test repositories |
+| `07-getting-started.md` | From a fresh clone to a real scan |
+| `08-features.md` | Every feature, how to use it, how it works |
+| `09-status.md` | What is built, what is pending, known issues |
+| `10-reference.md` | CLI, REST API, environment variables, scripts |
 | `adr/0001-engine-language.md` | Java 25, Spring Boot 4, Maven, GraalVM |
 | `adr/0002-data-driven-detectors.md` | Rules are data, two interpreters, parity |
 | `adr/0003-browser-scanning-and-repo-fetch.md` | Client-side scans and the tarball relay |

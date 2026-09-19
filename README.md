@@ -22,11 +22,27 @@ relay/         Cloudflare Worker that relays GitHub tarballs
 
 ## Reading order
 
-1. `docs/00-vision.md`
-2. `docs/adr/` in number order
-3. `docs/01-architecture.md`
-4. `docs/02-schemas.md`
-5. `docs/03-knowledge-base-guide.md`
-6. `docs/04-test-plan.md`
-7. `docs/05-hosting-and-cost.md`
-8. `docs/06-testing-guide.md`
+**New here?** Read `docs/07-getting-started.md`. It gets you from a fresh clone to a real scan.
+
+| Document | What it covers |
+|---|---|
+| `docs/00-vision.md` | The problem, the product, who buys it, what we do not build |
+| `docs/07-getting-started.md` | Prerequisites, first build, first scan, troubleshooting |
+| `docs/08-features.md` | Every feature, how to use it, how it works |
+| `docs/09-status.md` | What is built, what is pending, known issues |
+| `docs/10-reference.md` | CLI flags, REST endpoints, environment variables, scripts |
+| `docs/01-architecture.md` | The pieces, the seam, the surfaces, the data model |
+| `docs/02-schemas.md` | Inventory, change record, detector table, fixture, finding |
+| `docs/03-knowledge-base-guide.md` | How to add a provider, a rule, a deprecation |
+| `docs/04-test-plan.md` | What is tested, how, and how often |
+| `docs/05-hosting-and-cost.md` | What runs where and what it costs |
+| `docs/06-testing-guide.md` | Four ways to test, and verified test repositories |
+| `docs/adr/0001` | Java 25, Spring Boot 4, Maven, GraalVM |
+| `docs/adr/0002` | Detectors as data, two interpreters, parity |
+| `docs/adr/0003` | Browser scanning and the tarball relay |
+
+## Status
+
+Built and green: the knowledge base, both engines, the CLI, the server app, the web site, and the relay all exist and pass their tests. 165 Java tests, 28 TypeScript unit tests, 8 browser tests, 9 relay tests, and both engines agree byte for byte on all 14 fixtures.
+
+Not yet done: nothing is deployed, only four of the ten launch providers exist, change records are hand-written with no ingestion automation, and the fix loop has never run against a real repository. Full list in `docs/09-status.md`.
