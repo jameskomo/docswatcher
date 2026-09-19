@@ -1,3 +1,12 @@
+// Assets live under a directory unique to each build.
+//
+// Nuxt content-hashes chunk filenames, but /nuxt/builds/latest.json keeps one URL
+// forever while its contents change every build. Cached at the edge it pinned the
+// client to a previous build's manifest, which loaded that build's stylesheet and
+// silently reverted the design. A per-build directory means a stale URL is simply
+// never requested again, so the site self-heals without a cache purge.
+const BUILD = process.env.DOCSWATCHER_BUILD_ID ?? Date.now().toString(36);
+
 export default defineNuxtConfig({
   compatibilityDate: "2026-09-01",
   ssr: false,
@@ -7,7 +16,7 @@ export default defineNuxtConfig({
     // Kept absolute for dev; scripts/relativize.mjs rewrites the export to relative URLs so it works at any subpath.
     baseURL: "/",
     // Not "_nuxt": artifact hosts reserve published paths that start with an underscore.
-    buildAssetsDir: "nuxt/",
+    buildAssetsDir: `nuxt-${BUILD}/`,
     head: {
       title: "DocsWatcher",
       meta: [

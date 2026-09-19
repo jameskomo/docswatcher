@@ -70,13 +70,16 @@
   --face-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* Scale. Ratio near 1.22, with a jump at the top for display numerals. */
-  --t1: 0.75rem;    /* 12  captions, table heads */
-  --t2: 0.8125rem;  /* 13  secondary */
-  --t3: 0.9375rem;  /* 15  body */
-  --t4: 1.0625rem;  /* 17  lead */
-  --t5: 1.3125rem;  /* 21  section heads */
-  --t6: 1.75rem;    /* 28  page heads */
-  --t7: 3.5rem;     /* 56  display numerals */
+  /* Raised one step after the first build read as cramped. Body sits at 17,
+     the smallest step is 13 rather than 12, and nothing that carries meaning
+     is set below 13. Dense is not the same as small. */
+  --t1: 0.8125rem;  /* 13  captions, table heads */
+  --t2: 0.9375rem;  /* 15  secondary */
+  --t3: 1.0625rem;  /* 17  body */
+  --t4: 1.1875rem;  /* 19  lead */
+  --t5: 1.5rem;     /* 24  section heads */
+  --t6: 2.125rem;   /* 34  page heads */
+  --t7: 4rem;       /* 64  display numerals */
 
   /* --- Space ------------------------------------------------------------ */
   --s1: 4px;

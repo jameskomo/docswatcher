@@ -102,7 +102,7 @@ const tone = (f: Finding) => {
 
 const label = (p: Pin) => `${p.label}, ${p.past ? "expired" : "expires"} ${fmtDate(p.f.effective)}`;
 
-const CHAR = 6.1;
+const CHAR = 6.9;
 
 /**
  * Overdue pins sit left of the today line and their labels read rightward, so a
@@ -195,7 +195,7 @@ function fitted(p: Pin): string {
   font-size: 11px;
   font-variation-settings: "wdth" 88, "wght" 700;
 }
-.ruler.paper .pin-label { fill: var(--ink); font-family: var(--face-mono); font-size: 11.5px; }
+.ruler.paper .pin-label { fill: var(--ink); font-family: var(--face-mono); font-size: 13px; }
 
 .ruler.board .tick-line,
 .ruler.board .axis-line { stroke: var(--board-hair); }
@@ -207,7 +207,7 @@ function fitted(p: Pin): string {
   font-size: 11px;
   font-variation-settings: "wdth" 88, "wght" 700;
 }
-.ruler.board .pin-label { fill: var(--board-ink); font-family: var(--face-mono); font-size: 11.5px; }
+.ruler.board .pin-label { fill: var(--board-ink); font-family: var(--face-mono); font-size: 13px; }
 
 /* At phone width the labels are unreadable and redundant: the list directly
    below names every finding. The dots and the today line still carry the
