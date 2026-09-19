@@ -39,7 +39,15 @@ Worker tuning lives under `docswatcher.worker` in `application.yaml`: `threads`,
 
 1. Create a GitHub App at Settings, Developer settings, GitHub Apps.
 2. Webhook URL: `https://<your host>/webhooks/github`. Set a webhook secret and put it in `GITHUB_WEBHOOK_SECRET`.
-3. Repository permissions: Contents read, Checks write, Issues write, Metadata read.
+3. Repository permissions:
+
+   | Permission | Level | Needed for |
+   |---|---|---|
+   | Contents | Read and write | Cloning to scan needs read. Write is required by the `repository_dispatch` call that triggers a fix, which fails with read only. |
+   | Issues | Read and write | Opening, closing and labelling finding issues |
+   | Checks | Read and write | The check run posted on each push |
+   | Metadata | Read | Mandatory, selected automatically |
+   | Pull requests | Read | Only if you later want the app to see the PR a fix opened. Not required today. |
 4. Subscribe to events: Installation, Installation repositories, Push, Issues.
 5. Generate a private key, convert it to PKCS8, and set `GITHUB_APP_PRIVATE_KEY` and `GITHUB_APP_ID`.
 6. Install the App on an organisation. The installation webhook queues one scan per repository.
