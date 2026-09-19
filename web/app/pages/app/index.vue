@@ -1,5 +1,15 @@
 <script setup lang="ts">
 const store = useScanStore();
+
+/**
+ * The scan is kept in browser storage so a reload does not lose it, and that record holds the
+ * verbatim matched source lines. This is the control that removes it; the about page says it
+ * exists, so it has to.
+ */
+function forgetScan() {
+  store.forget();
+  navigateTo("/");
+}
 const { samples, defaultSample } = useKnowledge();
 const scanner = useScanner();
 const loading = ref(false);
@@ -57,6 +67,7 @@ onMounted(async () => {
         <p class="t2 ink-faint">
           Scanned <span class="mono">{{ new Date(result.at).toLocaleString() }}</span>.
           <NuxtLink to="/">Scan another repository.</NuxtLink>
+          <button type="button" class="linkish" @click="forgetScan">Clear this scan.</button>
         </p>
 
         <label class="row t2 ink-soft" style="gap: var(--s2); cursor: pointer; user-select: none; background: rgba(255,255,255,0.03); padding: 6px 12px; border-radius: var(--radius-sm); border: 1px solid var(--hair)">

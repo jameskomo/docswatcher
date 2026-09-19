@@ -125,7 +125,7 @@ useHead({
         </li>
       </ul>
       <p>
-        Scans run entirely on client side. No source code or secrets are sent to external servers. To let you refresh the page without losing your scan, results are saved locally in your browser storage until you choose to clear site data.
+        Scans run entirely on client side. No source code or secrets are sent to external servers. To let you refresh the page without losing your scan, results are saved locally in your browser storage. A sample scan stays until you replace it; a scan of your own folder or repository is discarded after an hour, and the dashboard has a Clear this scan control that removes it immediately.
       </p>
 
       <h2>What DocsWatcher is not</h2>

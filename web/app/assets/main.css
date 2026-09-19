@@ -1898,3 +1898,18 @@ pre {
   }
 }
 
+
+/* A button that has to read as a sentence link, because it sits inside one.
+   Used for "Clear this scan." next to "Scan another repository." */
+.linkish {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--ink-accent);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.linkish:hover { opacity: 0.8; }
+.linkish:focus-visible { outline: 2px solid var(--ink-accent); outline-offset: 2px; border-radius: 2px; }
