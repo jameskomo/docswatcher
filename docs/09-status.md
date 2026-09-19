@@ -10,7 +10,7 @@ The scanner works end to end. You can point it at a real repository and get corr
 
 | Component | State | Evidence |
 |---|---|---|
-| Knowledge base | 4 providers, 50 change records, 14 fixtures | `knowledge/scripts/validate` reports 0 errors, 0 warnings |
+| Knowledge base | 10 providers, 77 change records, 33 fixtures | `knowledge/scripts/validate` reports 0 errors, 0 warnings |
 | Java engine | 3 detection layers, matcher, validator | 130 tests pass |
 | TypeScript engine | Same three layers, runs in the browser | 28 unit tests pass |
 | Two-engine parity | Byte-identical output on every fixture | 14 of 14 pass |
@@ -19,6 +19,7 @@ The scanner works end to end. You can point it at a real repository and get corr
 | Web site | Scanner, calendar, dashboard, finding detail | 8 browser tests pass |
 | Relay worker | Tarball streaming with permissive origins | 9 tests pass |
 | Documentation | 11 documents and 3 decision records | This set |
+| Deployment | Live behind a Cloudflare Tunnel, five containers, no inbound ports | Deployment and operations runbooks, in the private ops repository |
 
 Total: 165 Java tests, 28 TypeScript unit tests, 8 browser tests, 9 relay tests.
 
@@ -37,17 +38,30 @@ The two zero-finding repositories are as important as the others. They are evide
 
 Ordered by what most limits the product today.
 
-### 1. Nothing is deployed
+### 1. The fix loop has never run against a real repository
 
-The web site exists only as a static export and a published preview. The server app runs locally. The relay is written and tested but never deployed.
+This is the largest gap between the product as built and the product as
+pitched, and the only one blocked on something outside the code.
 
-What it needs: a Cloudflare or GitHub account for the site and relay, a Postgres instance, and a host for the app. The hosting plan in `docs/05-hosting-and-cost.md` keeps all of this inside free tiers. None of it can be done from here because it needs your credentials.
+The dispatch path is built and tested against a fake GitHub client. The
+workflow template exists and is served by the app. What has never happened is
+a real run: a real label on a real issue, dispatching a real workflow, opening
+a real pull request.
 
-### 2. Provider coverage is four, not ten
+It needs a GitHub App registered under the owner's account, giving an app id, a
+private key and a webhook secret, plus a throwaway repository holding an API
+key in its secrets. None of that can be created from here.
 
-Built: OpenAI, Anthropic, Shopify, Stripe. The launch list in `docs/03-knowledge-base-guide.md` also names Google AI, Twilio, SendGrid, Slack, GitHub, and the AWS SDK. Stripe has a single change record because Stripe publishes no removal dates, so there is little to record beyond the Sources deprecation.
+### 2. Record counts are uneven, and that is the providers' fault
 
-Each additional provider is a `provider.yaml`, a `detectors.yaml`, change records, and at least one positive and one negative fixture. The contributor guide walks through it.
+All ten launch providers are covered. The counts differ a lot, from 32 for
+OpenAI to 2 for Twilio, Slack, SendGrid and GitHub, and 1 for Stripe. That
+reflects what each provider actually publishes. Google keeps a table with an
+announced date and a shutdown date per model. Twilio's changelog carries almost
+no dated API deprecations, and Stripe publishes almost no removal dates at all.
+
+Padding a thin provider would mean inventing dates, so the counts stay honest.
+The gap worth closing is not more records for these ten, it is more providers.
 
 ### 3. Change records are hand-written
 
@@ -102,6 +116,10 @@ Three things were decided by evidence rather than design.
 
 ## Next three things worth doing
 
-1. **Build the benchmark corpus.** Fifty labeled repositories and a scoring script. It converts the precision claim into a number and doubles as outreach, since each finding is a real issue you can open on a real project.
-2. **Automate ingestion.** A scheduled job that drafts change records as pull requests. Without it the knowledge base decays.
-3. **Run the fix loop once, for real.** It is the part of the pitch nobody has seen work.
+1. **Run the fix loop once, for real.** It is the part of the pitch nobody has
+   seen work, and it is blocked only on a GitHub App registration.
+2. **Build the benchmark corpus.** Fifty labelled repositories and a scoring
+   script. It turns the precision claim into a number, and every true finding
+   is a real issue that could be opened on a real project.
+3. **Automate ingestion.** A scheduled job that drafts change records as pull
+   requests. Without it the knowledge base decays from the day it was written.

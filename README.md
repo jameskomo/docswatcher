@@ -12,7 +12,7 @@ Start with `docs/00-vision.md`, or jump to `docs/06-testing-guide.md` to run it.
 ```
 docs/          vision, architecture, schemas, contributor guide, test plan, hosting
 docs/adr/      architecture decision records
-knowledge/     4 providers, 50 change records, 14 fixtures, detector tables
+knowledge/     10 providers, 77 change records, 33 fixtures, detector tables
 engine/        Java 25 library: detectors, inventory, matcher (no Spring)
 cli/           picocli wrapper, fat jar and GraalVM native binary
 app/           Spring Boot 4: webhooks, API, scan worker
@@ -41,8 +41,13 @@ relay/         Cloudflare Worker that relays GitHub tarballs
 | `docs/adr/0002` | Detectors as data, two interpreters, parity |
 | `docs/adr/0003` | Browser scanning and the tarball relay |
 
+## Deployment
+
+Deployment and operations live in a separate private repository, because they
+describe a specific server. This repository carries the product only.
+
 ## Status
 
-Built and green: the knowledge base, both engines, the CLI, the server app, the web site, and the relay all exist and pass their tests. 165 Java tests, 28 TypeScript unit tests, 8 browser tests, 9 relay tests, and both engines agree byte for byte on all 14 fixtures.
+Built and green: the knowledge base, both engines, the CLI, the server app, the web site, and the relay all exist and pass their tests. 174 engine tests plus the CLI and app suites, TypeScript unit tests, browser tests and relay tests all pass, and both engines agree byte for byte on all 33 fixtures.
 
 Not yet done: nothing is deployed, only four of the ten launch providers exist, change records are hand-written with no ingestion automation, and the fix loop has never run against a real repository. Full list in `docs/09-status.md`.
