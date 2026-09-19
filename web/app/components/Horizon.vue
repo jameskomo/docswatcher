@@ -101,6 +101,21 @@ const tone = (f: Finding) => {
 };
 
 const label = (p: Pin) => `${p.label}, ${p.past ? "expired" : "expires"} ${fmtDate(p.f.effective)}`;
+
+const CHAR = 6.1;
+
+/**
+ * Overdue pins sit left of the today line and their labels read rightward, so a
+ * long one runs into that line and looks like it belongs to the future. Clip it
+ * to the space actually available. The full text stays in the circle's <title>,
+ * so nothing is lost to a reader or to assistive technology.
+ */
+function fitted(p: Pin): string {
+  const available = (p.past ? nowX.value - 6 : W - PAD_R) - (p.x + 10);
+  const max = Math.floor(available / CHAR);
+  if (max < 4) return "";
+  return p.label.length <= max ? p.label : p.label.slice(0, max - 1).trimEnd() + "\u2026";
+}
 </script>
 
 <template>
@@ -157,7 +172,7 @@ const label = (p: Pin) => `${p.label}, ${p.past ? "expired" : "expires"} ${fmtDa
           class="pin-label"
           :x="p.x + 10"
           :y="TOP + p.lane * (ROW + GAP) + ROW / 2 + 4"
-        >{{ p.label }}</text>
+        >{{ fitted(p) }}</text>
       </g>
 
       <text v-if="!pins.length" class="tick-text" :x="PAD_L" :y="TOP + 14">

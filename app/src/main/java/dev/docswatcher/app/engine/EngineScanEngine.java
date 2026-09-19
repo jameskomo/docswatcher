@@ -4,6 +4,7 @@ import dev.docswatcher.app.config.AppProperties;
 import dev.docswatcher.app.model.ChangeDoc;
 import dev.docswatcher.app.model.FindingDoc;
 import dev.docswatcher.app.model.InventoryDoc;
+import dev.docswatcher.app.model.ProviderDoc;
 import dev.docswatcher.app.model.RepoRefDoc;
 import dev.docswatcher.engine.Engine;
 import dev.docswatcher.engine.Inventory;
@@ -31,6 +32,7 @@ public class EngineScanEngine implements ScanEngine {
   private final Engine engine;
   private final ObjectMapper mapper;
   private final List<ChangeDoc> changes;
+  private final List<ProviderDoc> providers;
 
   public EngineScanEngine(AppProperties properties, ObjectMapper mapper) {
     String dir = properties.knowledge().dir();
@@ -38,6 +40,7 @@ public class EngineScanEngine implements ScanEngine {
     this.engine = new Engine(knowledge);
     this.mapper = mapper;
     this.changes = List.of(mapper.readValue(Json.write(knowledge.changes()), ChangeDoc[].class));
+    this.providers = List.of(mapper.readValue(Json.write(knowledge.providers()), ProviderDoc[].class));
   }
 
   @Override
@@ -69,5 +72,10 @@ public class EngineScanEngine implements ScanEngine {
   @Override
   public List<ChangeDoc> changes() {
     return changes;
+  }
+
+  @Override
+  public List<ProviderDoc> providers() {
+    return providers;
   }
 }
