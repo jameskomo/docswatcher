@@ -12,3 +12,4 @@ dist/
 web/.data/
 relay/.wrangler/
 web/dist
+deployment/.env.prod
