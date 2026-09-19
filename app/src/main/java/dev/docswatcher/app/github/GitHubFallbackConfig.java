@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,10 +36,17 @@ public class GitHubFallbackConfig {
 
   @Bean
   @ConditionalOnMissingBean(GitHubClient.class)
-  GitHubClient unconfiguredGitHubClient() {
+  GitHubClient unconfiguredGitHubClient(
+      @Value("${docswatcher.github.app-id:}") String appId,
+      @Value("${docswatcher.github.private-key:}") String privateKey) {
+    String missing =
+        appId.isBlank() && privateKey.isBlank()
+            ? "no app id and no private key"
+            : appId.isBlank() ? "no app id" : "an app id but no private key";
     log.warn(
-        "No GitHub App configured. The site and the dashboard API are available; "
-            + "installation scanning, issues and fix pull requests are not.");
+        "GitHub App incomplete ({}). The site and the dashboard API are available; "
+            + "installation scanning, issues and fix pull requests are not.",
+        missing);
     return new Unconfigured();
   }
 

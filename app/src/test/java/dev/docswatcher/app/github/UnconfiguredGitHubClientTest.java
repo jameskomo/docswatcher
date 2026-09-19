@@ -9,11 +9,18 @@ import org.junit.jupiter.api.Test;
 
 class UnconfiguredGitHubClientTest {
 
-  private final GitHubClient subject = new GitHubFallbackConfig().unconfiguredGitHubClient();
+  private final GitHubClient subject = new GitHubFallbackConfig().unconfiguredGitHubClient("", "");
 
   @Test
   void the_bean_exists_so_the_application_can_start_without_github() {
     assertThat(subject).isNotNull();
+  }
+
+  @Test
+  void an_app_id_without_a_key_still_yields_the_fallback() {
+    // The container used to crash-loop in this state, which is the worst way to
+    // report a missing secret.
+    assertThat(new GitHubFallbackConfig().unconfiguredGitHubClient("4998498", "")).isNotNull();
   }
 
   @Test

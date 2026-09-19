@@ -12,7 +12,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 @Component
-@ConditionalOnExpression("'${docswatcher.github.app-id:}' != ''")
+// Both are required. With an app id but no key the constructor used to throw and
+// the container crash-looped, which is the worst way to report a missing secret.
+// Requiring both means a half-configured deployment starts and the fallback client
+// says exactly what is absent.
+@ConditionalOnExpression("'${docswatcher.github.app-id:}' != '' and '${docswatcher.github.private-key:}' != ''")
 public class RestGitHubClient implements GitHubClient {
 
   private record Token(String value, Instant expiresAt) {}
