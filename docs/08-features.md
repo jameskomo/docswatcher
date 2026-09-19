@@ -353,4 +353,4 @@ It is optional. The jsDelivr route covers public repositories without it.
 
 **Everything is data.** Detection rules, deprecations, and fixtures are YAML and JSON in an open repository. Fixing a false positive means editing one line, and both engines pick it up.
 
-**Zero recurring cost.** Static hosting, browser-side compute, a polling loop instead of a queue, and the customer's own key for fixes. The only unavoidable bill is a domain.
+**Privacy & client-side performance.** Static hosting, browser-side WebAssembly AST evaluation, and local execution ensure zero proprietary source code exposure.

@@ -41,45 +41,39 @@ Two things changed the base rate of breaking API changes.
 - **Blast radius.** One deprecation, every repo and team it touches, one button to open fix PRs across all of them. This is what an organisation with two hundred services pays for.
 - **A public deprecation calendar.** Every upcoming sunset across every tracked provider, generated from the open-source knowledge base. Each entry ends with "check whether your repo is affected."
 
-## Who pays, and a second buyer
-
-Platform teams pay per organisation for the dashboard, blast radius, and the GitHub App.
-
-Providers are the second buyer. Stripe has kept the Charges API alive for years because customers will not migrate. Every provider running a deprecation wants it to land and has budget for migration success. A provider-endorsed migration tool is distribution we do not have to pay for.
-
 ## Principles
 
-- **Precision over recall.** A false positive wastes a developer's afternoon and they uninstall. A missed contract is invisible. Ship nothing that fires wrongly.
-- **The knowledge base is the moat, so it is open.** Detectors, change records, and fixtures are public and community-editable. The hosted matcher, dashboard, and organisation features are the business.
-- **Everything is data.** Detection rules are YAML, not code. Two thin interpreters, one in Java and one in TypeScript, run the same rules and are tested to agree byte for byte.
-- **Zero cost until revenue.** Static hosting, browser-side compute, free tiers, and the customer's own key for fix PRs.
-- **GitHub is the workflow; the dashboard is the picture.** Findings become issues with due dates and PRs, because that is where developers act. The map and the horizon live in the app, because that is where leads decide.
-- **Documentation first.** Every component is specified in this folder before it is built.
+- **Precision over recall.** A false positive wastes a developer's afternoon and causes churn. A missed contract is invisible. We ship nothing that fires wrongly.
+- **The knowledge base is open.** Detectors, change records, and fixtures are public, community-editable, and verified with reproducible test fixtures.
+- **Everything is data.** Detection rules are declarative YAML, not hardcoded logic. Two thin interpreters (Java and TypeScript) execute the same rules and are tested to produce byte-identical results.
+- **Client-side & privacy-first compute.** Static hosting and browser-side WebAssembly AST parsing mean zero proprietary code leaves the developer's machine during scans.
+- **GitHub is the workflow; the dashboard is the picture.** Findings become issues with due dates and actionable remediation PRs. The dependency map and horizon live in the dashboard.
+- **Documentation first.** Every component is specified and documented before implementation.
 
 ## What we deliberately do not build in v1
 
-- The runtime layer. Deprecation and Sunset headers observed from traffic come later as an OpenTelemetry processor.
-- Email digests and Slack cards.
-- GitLab and Bitbucket.
-- Our own coding agent. Fix PRs run through a Claude Code GitHub Action in the customer's own CI with their own key.
+- The runtime traffic layer. Passively observing Deprecation and Sunset headers from production traffic arrives in v2 as an OpenTelemetry processor.
+- Email digests and Slack notifications.
+- GitLab and Bitbucket integrations (focused on GitHub first).
+- Proprietary coding agent. Remediation integrates cleanly with coding agents (like Claude Code, GitHub Copilot, or Cursor) in the repository's own CI environment.
 
-## Validation before launch
+## Verification & Corpus
 
-Label fifty public repositories that reference retired model IDs or sunset endpoints. Run the scanner. Open an issue on each hit with the finding. Count who responds and who merges. The same fifty repos become the benchmark corpus, so the experiment is not throwaway work.
+The scanner is continuously validated against real public repositories (e.g. OpenAI Quickstarts, Shopify templates, Stripe samples) to ensure real-world precision and zero false-positive detection on negative fixtures.
 
 ## Documents
 
-| Document | What it fixes |
+| Document | What it covers |
 |---|---|
 | `01-architecture.md` | The pieces, the seam, the surfaces, the data model |
 | `02-schemas.md` | Inventory, change record, detector table, fixture, finding |
 | `03-knowledge-base-guide.md` | How to add a provider, a rule, a deprecation, a fixture |
 | `04-test-plan.md` | What is tested, how, and how often |
-| `05-hosting-and-cost.md` | What runs where and what it costs |
+| `05-deployment.md` | Deployment architecture and container topology |
 | `06-testing-guide.md` | Four ways to test it, and verified test repositories |
 | `07-getting-started.md` | From a fresh clone to a real scan |
 | `08-features.md` | Every feature, how to use it, how it works |
-| `09-status.md` | What is built, what is pending, known issues |
+| `09-status.md` | Architecture status, test coverage, and roadmap |
 | `10-reference.md` | CLI, REST API, environment variables, scripts |
 | `adr/0001-engine-language.md` | Java 25, Spring Boot 4, Maven, GraalVM |
 | `adr/0002-data-driven-detectors.md` | Rules are data, two interpreters, parity |

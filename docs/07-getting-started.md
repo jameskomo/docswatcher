@@ -167,12 +167,13 @@ cd web && npx playwright install chromium
 
 | Document | Read it for |
 |---|---|
-| `docs/00-vision.md` | Why this exists and who buys it |
+| `docs/00-vision.md` | Core architecture vision, motivation, and principles |
 | `docs/08-features.md` | Every feature, what it does, how it works |
 | `docs/10-reference.md` | CLI flags, REST endpoints, environment variables |
 | `docs/02-schemas.md` | The data contracts between every component |
 | `docs/03-knowledge-base-guide.md` | How to add a provider or a deprecation |
+| `docs/05-deployment.md` | Deployment architecture and container topology |
 | `docs/06-testing-guide.md` | The four ways to test, and verified test repositories |
-| `docs/09-status.md` | What is built and what is still pending |
+| `docs/09-status.md` | Architecture status, test coverage, and roadmap |
 | `docs/01-architecture.md` | How the pieces fit together |
 | `docs/adr/` | Why the big decisions went the way they did |

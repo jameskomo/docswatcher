@@ -28,7 +28,7 @@ Tree-sitter runs in the browser through the official web-tree-sitter build, with
 
 ## Rejected alternatives
 
-- **Detection logic in Java only, browser calls the server.** Simpler, but puts a server in the path of every public scan, which costs money before revenue and makes the public demo slower and less private.
+- **Detection logic in Java only, browser calls the server.** Simpler, but forces server-side processing for every public scan, reducing user privacy and making the browser experience slower and dependent on network availability.
 - **Detection logic in TypeScript only, Java calls out to Node.** Forces a Node runtime into the CI binary and the native image.
 - **One engine compiled to both targets.** Only Rust offers this today. GraalVM 25 has an experimental WebAssembly backend for native-image that may make it possible for Java later. Watch it; do not build on it yet.
 

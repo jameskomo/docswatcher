@@ -5,7 +5,7 @@ Status: accepted
 
 ## Context
 
-The public site lets anyone paste a GitHub URL and see the inventory. For zero cost and privacy, the scan runs in the browser. The browser must therefore fetch the repo contents itself.
+The public site lets anyone paste a GitHub URL and see the inventory. For complete privacy and low-latency feedback, the scan runs locally in the browser. The browser must therefore fetch the repo contents itself.
 
 Checked on 2026-09-18 with cross-origin request headers:
 
@@ -20,16 +20,16 @@ A browser cannot read the tarball directly, and per-file fetching exhausts the l
 
 ## Decision
 
-- A Cloudflare Worker on the free tier relays the tarball: it fetches `codeload.github.com` server-side and streams the bytes back with permissive cross-origin headers. It caches by commit SHA. It holds no state and no secrets for public repos.
+- A Cloudflare Worker relays the tarball: it fetches `codeload.github.com` server-side and streams the bytes back with permissive cross-origin headers. It caches by commit SHA. It holds no state and no secrets for public repos.
 - The browser decompresses the tarball, builds the file tree, and runs the TypeScript engine locally. No file contents leave the browser.
 - For private repos, the user signs in with GitHub and the relay forwards their token to fetch the tarball. Still no server-side scanning, and the token is never stored.
 - The tree API is used for one thing only: to detect languages present before deciding which tree-sitter grammars to load.
 
 ## Reasons
 
-- Keeps the public scan free of any recurring cost. The Worker free tier allows on the order of one hundred thousand requests per day.
-- Keeps the privacy story honest: the relay sees the tarball bytes in transit and nothing else.
-- Keeps the demo fast. One request for the tarball, one for the tree, then everything is local.
+- Scalable, low-overhead edge distribution with no central backend bottleneck.
+- Keeps the privacy guarantee absolute: the relay sees the tarball bytes in transit and stores nothing.
+- Keeps scans instant. One request for the tarball, one for the tree, then everything runs client-side.
 
 ## Rejected alternatives
 
