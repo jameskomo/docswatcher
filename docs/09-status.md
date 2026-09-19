@@ -69,19 +69,15 @@ Every one of the 50 records was researched and written by hand today from the pr
 
 This is the single biggest gap between the product as built and the product as pitched. Without it the knowledge base goes stale.
 
-### 4. The fix loop has never run against a real repository
-
-The dispatch path is built and tested with a fake GitHub client. The workflow template exists and is served from the app. What has not happened is a real end-to-end run: a real label on a real issue, dispatching a real workflow, opening a real pull request. The closed-loop test described in the test plan is not written.
-
-### 5. The runtime layer does not exist
+### 4. The runtime layer does not exist
 
 Observing `Deprecation` and `Sunset` response headers from live traffic was deliberately deferred to v2, as an OpenTelemetry processor. The mockup's "1,204 calls/day" line is not backed by anything yet.
 
-### 6. The benchmark corpus is informal
+### 5. The benchmark corpus is informal
 
 The test plan calls for fifty labeled public repositories with measured precision and recall against targets of 95 and 80 percent. Four repositories were scanned today and their results eyeballed. There is no labeled ground truth and no scoring script, so the precision claim is currently an argument, not a measurement.
 
-### 7. Smaller gaps
+### 6. Smaller gaps
 
 | Gap | Detail |
 |---|---|
