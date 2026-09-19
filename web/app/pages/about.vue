@@ -23,7 +23,7 @@ useHead({
   <div class="stack" style="gap: var(--s5)">
     <section class="page" style="padding-top: var(--s2)">
       <div class="section-head">
-        <h1>Dependabot for the APIs you call, not the packages you install</h1>
+        <h1>You can pin a package. You can't pin someone else's API.</h1>
         <p class="lede">
           DocsWatcher parses your codebase in WebAssembly Tree-sitter to find every external API contract: from SDK methods and base URLs to model strings in config and pinned versions. It matches your inventory against {{ totalChanges }} published deprecation records and pins each deadline to the exact file and line.
         </p>

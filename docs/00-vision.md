@@ -1,6 +1,6 @@
 # DocsWatcher
 
-Dependabot for the APIs you call, not the packages you install.
+You can pin a package. You can't pin someone else's API.
 
 ## The problem
 
