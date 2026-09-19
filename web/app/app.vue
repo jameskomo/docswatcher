@@ -1,7 +1,45 @@
 <script setup lang="ts">
 import knowledge from "~~/generated/knowledge.json";
+
+// Guard against web-tree-sitter reading process?.versions.node in browser
+if (typeof globalThis !== "undefined" && (globalThis as any).process && !(globalThis as any).process.versions) {
+  (globalThis as any).process.versions = {};
+}
+
 const providers = knowledge.providers.length;
 const changes = knowledge.providers.reduce((n, p) => n + p.changes.length, 0);
+
+const theme = ref<"dark" | "light">("dark");
+
+function applyTheme(t: "dark" | "light") {
+  theme.value = t;
+  if (typeof document !== "undefined") {
+    document.documentElement.setAttribute("data-theme", t);
+  }
+}
+
+function toggleTheme() {
+  const next = theme.value === "dark" ? "light" : "dark";
+  applyTheme(next);
+  try {
+    localStorage.setItem("docswatcher.theme", next);
+  } catch {}
+}
+
+onMounted(() => {
+  try {
+    const saved = localStorage.getItem("docswatcher.theme");
+    if (saved === "light" || saved === "dark") {
+      applyTheme(saved);
+      return;
+    }
+  } catch {}
+  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+    applyTheme("light");
+  } else {
+    applyTheme("dark");
+  }
+});
 </script>
 
 <template>
@@ -29,6 +67,16 @@ const changes = knowledge.providers.reduce((n, p) => n + p.changes.length, 0);
           <NuxtLink to="/calendar">Calendar</NuxtLink>
           <NuxtLink to="/app">Dashboard</NuxtLink>
           <NuxtLink to="/about">About</NuxtLink>
+          <button
+            type="button"
+            class="theme-toggle-btn"
+            :aria-label="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`"
+            :title="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`"
+            @click="toggleTheme"
+          >
+            <span v-if="theme === 'dark'" aria-hidden="true">☀️</span>
+            <span v-else aria-hidden="true">🌙</span>
+          </button>
         </nav>
       </div>
     </header>

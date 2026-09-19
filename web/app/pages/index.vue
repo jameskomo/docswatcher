@@ -139,9 +139,7 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
       <div class="section-head">
         <h1>Which of your API calls has a deadline?</h1>
         <p>
-          DocsWatcher parses your codebase in WebAssembly Tree-sitter to find every external API contract—from
-          SDK methods and base URLs to model strings in config and pinned versions. It matches your inventory
-          against {{ trackedChanges }} published deprecation records and pins each deadline to the exact file and line.
+          Find every third-party API and AI model your code calls. DocsWatcher compares your code against {{ trackedChanges }} verified deprecation notices and shows you exactly which endpoints have an approaching deadline.
         </p>
       </div>
 

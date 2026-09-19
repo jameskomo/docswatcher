@@ -22,11 +22,12 @@ export async function scanCallsites(
   try {
     for (const rule of rules) {
       const matches = ts.matches(lang, rule.query, tree.rootNode);
-      for (const m of matches) {
-        const call = m.captures.find((c) => c.name === "call");
-        if (!call) continue;
-        const line = call.node.startPosition.row + 1;
-        const column = call.node.startPosition.column + 1;
+      for (const m of matches ?? []) {
+        if (!m || !Array.isArray(m.captures)) continue;
+        const call = m.captures.find((c) => c && c.name === "call" && c.node);
+        if (!call || !call.node || !call.node.startPosition) continue;
+        const line = (call.node.startPosition.row ?? 0) + 1;
+        const column = (call.node.startPosition.column ?? 0) + 1;
         out.push({ rule, path: file.path, line, column, snippet: snippetOf(file.text, starts, line) });
       }
     }

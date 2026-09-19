@@ -153,3 +153,30 @@ test("the second bundled repository reports its unsupported Shopify version", as
   await expect(page.locator("#findings")).toContainText("2024-10");
   await expect(page.locator("#findings")).toContainText("unsupported");
 });
+
+test("direct visit to /app prepares example dashboard without runtime error", async ({ page }) => {
+  const failed = watchFailures(page);
+  await page.goto("./#/app");
+  await expect(page.locator(".notice.bad")).toHaveCount(0);
+  await expect(page.locator(".board")).toBeVisible({ timeout: 10000 });
+  await expect(page.locator("#map")).toContainText("OpenAI");
+  expect(own(failed)).toEqual([]);
+});
+
+test("theme toggle switches between dark and light mode", async ({ page }) => {
+  await page.goto("./");
+  const toggleBtn = page.locator(".theme-toggle-btn");
+  await expect(toggleBtn).toBeVisible();
+
+  // Initial theme (defaults to dark or system)
+  const initialTheme = await page.evaluate(() => document.documentElement.getAttribute("data-theme") || "dark");
+  await toggleBtn.click();
+
+  const newTheme = await page.evaluate(() => document.documentElement.getAttribute("data-theme"));
+  expect(newTheme).not.toEqual(initialTheme);
+
+  // Toggle back
+  await toggleBtn.click();
+  const restoredTheme = await page.evaluate(() => document.documentElement.getAttribute("data-theme"));
+  expect(restoredTheme).toEqual(initialTheme);
+});

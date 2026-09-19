@@ -1,5 +1,9 @@
 import type { Finding, InputFile, Inventory, RepoRef } from "~~/engine/types";
 
+if (typeof globalThis !== "undefined" && (globalThis as any).process && !(globalThis as any).process.versions) {
+  (globalThis as any).process.versions = {};
+}
+
 let grammarsPromise: Promise<any> | null = null;
 
 async function grammars() {
