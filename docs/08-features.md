@@ -158,8 +158,14 @@ Open source, community-editable, and the part that is hardest to copy.
 | Provider | Change records |
 |---|---|
 | OpenAI | 32 |
+| Google AI | 12 |
+| Shopify | 11 |
 | Anthropic | 10 |
-| Shopify | 7 |
+| AWS SDK | 3 |
+| GitHub | 2 |
+| SendGrid | 2 |
+| Slack | 2 |
+| Twilio | 2 |
 | Stripe | 1 |
 
 Every record was researched from the provider's own deprecation page on 2026-09-18 and carries its source URL and the date observed.
@@ -192,7 +198,7 @@ status: expired
 
 ### Fixtures
 
-Fourteen, each a tiny repository plus the exact inventory and findings it must produce. Four are negatives: a provider named in a README, a mocked client in a test file. They exist to pin down false positives, and every provider needs at least one.
+33, each a tiny repository plus the exact inventory and findings it must produce. Ten are negatives: a provider named in a README, a mocked client in a test file. They exist to pin down false positives, and every provider needs at least one.
 
 ### The central invariant
 
@@ -206,7 +212,7 @@ Warnings: an individual `affects` entry that no fixture exercises.
 
 ```
 $ knowledge/scripts/validate
-Knowledge local: 4 providers, 50 change records, 14 fixtures
+Knowledge local: 10 providers, 77 change records, 33 fixtures
 OK · 0 errors, 0 warnings
 ```
 

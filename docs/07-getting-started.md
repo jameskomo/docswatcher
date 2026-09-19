@@ -129,7 +129,7 @@ cd relay && npm test                         # 9 relay tests
 ./knowledge/scripts/parity                   # both engines must agree exactly
 ```
 
-The parity check is the one to run if you only run one. It scans all 14 fixtures with the Java engine and the browser engine and compares the output byte for byte.
+The parity check is the one to run if you only run one. It scans all 33 fixtures with the Java engine and the browser engine and compares the output byte for byte.
 
 Tests that touch the network are off by default:
 
