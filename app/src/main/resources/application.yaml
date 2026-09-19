@@ -1,6 +1,16 @@
 spring:
   application:
     name: docswatcher
+  config:
+    # Secrets are read from files, not environment variables.
+    #
+    # An environment variable is visible to anything that can run docker inspect
+    # or read /proc/<pid>/environ, and it is easy to leak into a log or a crash
+    # report. Spring's config tree maps each file in this directory to the
+    # property named by the file, so a Docker secret mounted as
+    # /run/secrets/docswatcher.github.private-key becomes that property with no
+    # code. Optional, so local development and the tests still run without it.
+    import: "optional:configtree:/run/secrets/"
   threads:
     virtual:
       enabled: true
