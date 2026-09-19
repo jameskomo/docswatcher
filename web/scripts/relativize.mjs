@@ -18,14 +18,14 @@ for (const file of walk(out)) {
   let after = before;
   if (file.endsWith(".html")) {
     after = after
-      .replace(/"\/nuxt\//g, '"./nuxt/')                   // href/src attributes and the import map
+      .replace(/"\/(nuxt-[a-z0-9]+)\//g, '"./$1/')          // href/src attributes and the import map
       .replace(/(href|src)="\/(grammars|favicon)/g, '$1="./$2')
       .replace(/cdnURL:""/g, 'cdnURL:"."')                 // runtime public asset URLs become ./nuxt/...
       .replace(/<base href="\/">/g, "");
   } else if (/\.(js|mjs)$/.test(file)) {
     // Nuxt's runtime reads app.baseURL / buildAssetsDir for dynamic chunk URLs; make them page-relative.
     after = after
-      .replace(/"\/nuxt\/"/g, '"./nuxt/"')
+      .replace(/"\/(nuxt-[a-z0-9]+)\/"/g, '"./$1/"')
       .replace(/baseURL:"\/"/g, 'baseURL:"./"');
   }
   if (after !== before) { writeFileSync(file, after); touched++; }
