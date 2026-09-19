@@ -116,13 +116,18 @@ useHead({
       </li>
       <li>
         <strong>Public Repositories:</strong> When scanning a public repository URL, repository archives are fetched directly
-        into your browser session for in-memory analysis.
+        into your browser and analysed there.
       </li>
       <li>
         <strong>Private Repositories:</strong> For automated CI/CD scans and private repository monitoring, DocsWatcher runs
         inside your own automated workflow runner using your own credentials.
       </li>
     </ul>
+    <p>
+      One copy does stay on this device. So the dashboard survives a reload, the most recent scan is kept in this
+      browser's local storage, and that record includes the matched source lines and their file paths. Nothing is
+      transmitted, but it does persist until you clear this site's data.
+    </p>
 
     <h2>What DocsWatcher is not</h2>
     <p>
