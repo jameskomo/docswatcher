@@ -17,3 +17,6 @@ deployment/.env.prod
 # Deployment describes a specific server: its address, key name and paths.
 # It lives in the private operations repository, not here.
 deployment/
+
+# Private keys live here for convenience. Never commit them.
+pem/

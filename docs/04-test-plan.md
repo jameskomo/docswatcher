@@ -282,6 +282,35 @@ The JVM profile runs on every PR. The native binary runs nightly and before any 
 
 The benchmark numbers are the ones on the dashboard. Line coverage elsewhere is a floor, not a goal.
 
+## Security audit
+
+Separate from the test suite, because it answers a different question. The tests
+ask whether the code does what it should. The audit asks whether it can be made
+to do something else.
+
+It runs the Cloudflare security-audit skill, which drives isolated agents through
+reconnaissance, coverage-led hunting, and then hands every candidate to a fresh
+verifier whose job is to disprove it. Findings are split into confirmed,
+needs-validation, and rejected. Only confirmed records carry a severity.
+
+| When | How |
+|---|---|
+| Mondays 04:00 UTC | `.github/workflows/security-audit.yml` |
+| On demand | The same workflow, run manually, with a quick, standard or deep profile |
+| Locally | `/security-audit` against a checkout |
+
+It is deliberately not part of per-push CI. The audit orchestrates many agents
+and costs real tokens, so a cadence is right and every commit is not. A finding
+opens an issue rather than failing a build, because a finding needs a human
+decision. The workflow fails only when the audit cannot complete.
+
+The surfaces that most deserve this attention, in order: the scan worker, which
+shallow-clones arbitrary untrusted repositories; the webhook endpoint, which
+accepts unauthenticated input and verifies a signature; the OTLP ingest, which
+parses attacker-influenced JSON; the fix dispatcher, which sends a payload built
+from scanned source into a workflow that runs a coding agent; and the browser
+engine, which unpacks tar archives from a third party.
+
 ## CI layout
 
 | Cadence | Jobs | Budget |
