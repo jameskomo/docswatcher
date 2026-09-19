@@ -1,0 +1,9 @@
+# Keeps the SHA pins in .github/workflows current. Pinning actions to a commit is
+# what stops a mutable tag changing the code a privileged job runs; without this,
+# the pins rot instead.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
