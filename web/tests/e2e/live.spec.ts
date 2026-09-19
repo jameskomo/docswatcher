@@ -34,6 +34,7 @@ test("calendar and dashboard render on the deployed site", async ({ page }) => {
   await page.goto(BASE, { waitUntil: "networkidle" });
   await expect(page.locator("#results")).toBeVisible();
   await page.goto(`${BASE}/#/app`, { waitUntil: "networkidle" });
-  await expect(page.locator("#map svg circle").first()).toBeVisible();
+  // One provider renders the ledger; three or more render the node graph.
+  await expect(page.locator("#map .ledger-row, #map svg circle").first()).toBeVisible();
   await expect(page.locator("#horizon svg")).toContainText("today");
 });

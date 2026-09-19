@@ -16,6 +16,11 @@ function group(list: ChangeRecord[]) {
   return [...m.entries()].sort(([a], [b]) => (a === "none" ? 1 : b === "none" ? -1 : a < b ? -1 : 1))
     .map(([key, items]) => ({ key, items: items.sort((a, b) => (a.effective ?? "9") < (b.effective ?? "9") ? -1 : 1) }));
 }
+useHead({
+  title: "Deprecation calendar · DocsWatcher",
+  meta: [{ name: "description", content: "Every dated API deprecation DocsWatcher tracks, grouped by month, generated from the open knowledge base." }],
+});
+
 const todayIso = today.toISOString().slice(0, 10);
 const upcoming = computed(() => group(all.filter((c) => !c.effective || c.effective >= todayIso)));
 const past = computed(() => group(all.filter((c) => c.effective && c.effective < todayIso)).reverse());
@@ -24,11 +29,11 @@ const days = (c: ChangeRecord) => (c.effective ? daysBetween(today, c.effective)
 </script>
 
 <template>
-  <div class="stack" style="gap: 28px">
+  <div class="stack" style="gap: var(--s6)">
     <section class="hero">
-      <span class="eyebrow">Public deprecation calendar</span>
+      <span class="label">Public deprecation calendar</span>
       <h1>What breaks when</h1>
-      <p>Every dated change across {{ knowledge.providers.length }} tracked providers, generated from the open knowledge base. {{ all.length }} records.</p>
+      <p class="lede">Every dated change across {{ knowledge.providers.length }} tracked providers, generated from the open knowledge base. {{ all.length }} records.</p>
     </section>
 
     <section class="block" v-for="g in upcoming" :key="g.key">

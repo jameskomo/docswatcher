@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- A dial with a hand and a marked point on the rim: the deadline on a contract
+       you are still calling. Ink adapts to the viewer's colour scheme; the marker
+       stays red because it is the one thing that means "this expires". -->
+  <style>
+    .ink { stroke: #17160f; }
+    @media (prefers-color-scheme: dark) { .ink { stroke: #ece9e1; } }
+  </style>
+  <circle class="ink" cx="11" cy="13" r="7.5" fill="none" stroke-width="2"/>
+  <path class="ink" d="M11 13 L11 8" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="18.5" cy="5.5" r="3.5" fill="#a8201a"/>
+</svg>

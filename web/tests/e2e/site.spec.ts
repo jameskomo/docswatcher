@@ -55,34 +55,75 @@ test("calendar renders months and records", async ({ page }) => {
   expect(own(failed)).toEqual([]);
 });
 
-test("dashboard renders the map and the horizon from the stored scan", async ({ page }) => {
+test("dashboard renders the dependency view and the horizon from the stored scan", async ({ page }) => {
   const failed = watchFailures(page);
   await page.goto("./");
   await expect(page.locator("#results")).toBeVisible();
   await page.goto("./#/app");
-  await expect(page.locator("#map svg circle").first()).toBeVisible();
-  await expect(page.locator("#map svg")).toContainText("your repo");
-  await expect(page.locator("#map svg")).toContainText("OpenAI");
+  // The default sample has one provider, so the map renders a ledger rather than
+  // a node graph. A graph with one node is a mostly empty rectangle.
+  await expect(page.locator("#map .ledger-row")).toHaveCount(1);
+  await expect(page.locator("#map")).toContainText("OpenAI");
+  await expect(page.locator("#map svg")).toHaveCount(0);
   await expect(page.locator("#horizon svg")).toContainText("today");
   await expect(page.locator("#horizon svg circle").first()).toBeVisible();
   expect(own(failed)).toEqual([]);
 });
 
-test("finding detail shows evidence and the fix prompt", async ({ page }) => {
+test("a finding row opens its detail page, and shows evidence and the fix prompt", async ({ page }) => {
   await page.goto("./");
   await scanSample(page, "openai-python-model-config");
-  await page.getByRole("link", { name: "Open fix" }).first().click();
+  // The whole row is the link. Nothing else competes for the click.
+  await page.locator("#findings .finding-row").first().click();
   await expect(page.locator("h1")).toContainText("gpt-4-turbo shut down");
   await expect(page.locator("#fix-pr")).toBeVisible();
   await expect(page.locator("pre")).toContainText("Affected locations");
   await expect(page.locator("pre")).toContainText("src/summarize.py:5");
 });
 
+test("a finding row is reachable and activatable by keyboard", async ({ page }) => {
+  await page.goto("./");
+  await scanSample(page, "openai-python-model-config");
+  const row = page.locator("#findings .finding-row").first();
+  await expect(row).toBeVisible();
+  // Focus and read activeElement in one evaluation, and poll it. The list
+  // re-renders when the scan is stored, which can detach the node between
+  // resolving the locator and reading focus.
+  await expect
+    .poll(
+      () => row.evaluate((el) => {
+        (el as HTMLElement).focus();
+        return document.activeElement === el;
+      }),
+      { message: "the finding row must take keyboard focus" },
+    )
+    .toBe(true);
+  await row.press("Enter");
+  await expect(page.locator("#fix-pr")).toBeVisible();
+});
+
+test("about page explains the product and reports the real counts", async ({ page }) => {
+  const failed = watchFailures(page);
+  await page.goto("./#/about");
+  await expect(page.locator("h1")).toContainText("Dependabot for the APIs you call");
+  await expect(page.locator(".prose")).toContainText("What DocsWatcher is not");
+  await expect(page.locator(".prose")).toContainText("What does not exist yet");
+  // The provider table is generated from the knowledge base, not hardcoded.
+  await expect(page.locator(".prose table")).toContainText("Shopify");
+  expect(own(failed)).toEqual([]);
+});
+
+test("an unknown route shows the 404 page, not a blank screen", async ({ page }) => {
+  await page.goto("./#/no-such-page");
+  await expect(page.locator("h1")).toContainText("No such page");
+  await expect(page.getByRole("link", { name: /Scan a repository/ })).toBeVisible();
+});
+
 test("no horizontal scroll at phone width", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 800 });
   await page.goto("./");
   await expect(page.locator("#results")).toBeVisible();
-  for (const path of ["./", "./#/calendar", "./#/app"]) {
+  for (const path of ["./", "./#/calendar", "./#/app", "./#/about"]) {
     await page.goto(path);
     await page.waitForTimeout(300);
     const overflow = await page.evaluate(() => document.scrollingElement!.scrollWidth - window.innerWidth);
