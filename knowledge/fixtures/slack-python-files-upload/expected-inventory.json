@@ -1,0 +1,74 @@
+[
+  {
+    "id": "slack:endpoint:POST /api/files.upload",
+    "provider": "slack",
+    "kind": "endpoint",
+    "key": "POST /api/files.upload",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/uploader.py",
+        "line": 10,
+        "column": 16,
+        "snippet": "return client.files_upload(",
+        "detector": "slack.python.files-upload",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "slack_sdk",
+        "version": "3.27.1"
+      }
+    }
+  },
+  {
+    "id": "slack:sdk_method:files_upload",
+    "provider": "slack",
+    "kind": "sdk_method",
+    "key": "files_upload",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/uploader.py",
+        "line": 10,
+        "column": 16,
+        "snippet": "return client.files_upload(",
+        "detector": "slack.python.files-upload",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "slack_sdk",
+        "version": "3.27.1"
+      }
+    }
+  },
+  {
+    "id": "slack:sdk_package:slack_sdk",
+    "provider": "slack",
+    "kind": "sdk_package",
+    "key": "slack_sdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "slack_sdk==3.27.1",
+        "detector": "slack.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "slack_sdk",
+        "version": "3.27.1"
+      }
+    }
+  }
+]

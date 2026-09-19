@@ -1,0 +1,84 @@
+provider: googleai
+
+manifests:
+  - ecosystem: pypi
+    package: google-genai
+  - ecosystem: pypi
+    package: google-generativeai
+  - ecosystem: npm
+    package: "@google/genai"
+  - ecosystem: npm
+    package: "@google/generative-ai"
+  - ecosystem: maven
+    package: com.google.genai:google-genai
+  - ecosystem: go
+    package: google.golang.org/genai
+
+literals:
+  # Gemini, Imagen, Veo and Lyria identifiers. Anchored on the family prefix and
+  # required to end on an alphanumeric so a trailing hyphen or dot is not captured.
+  - id: googleai.literal.model
+    kind: model
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: '\b(gemini-[0-9][0-9a-z.-]*[0-9a-z]|imagen-[0-9][0-9a-z.-]*[0-9a-z]|veo-[0-9][0-9a-z.-]*[0-9a-z]|lyria-[0-9][0-9a-z.-]*[0-9a-z]|antigravity-preview-[0-9]{2}-[0-9]{4})\b'
+    key: "$1"
+    confidence: medium
+
+  # Embedding identifiers are listed separately because they share no family
+  # prefix with the generative models.
+  - id: googleai.literal.model-embedding
+    kind: model
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: '\b(text-embedding-[0-9]{3}|embedding-[0-9]{3}|gemini-embedding-[0-9a-z-]*[0-9a-z])\b'
+    key: "$1"
+    confidence: medium
+
+  - id: googleai.literal.endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://generativelanguage\.googleapis\.com(/v1[a-z0-9]*/[a-zA-Z0-9_/.-]+)'
+    key: "ANY $1"
+    confidence: medium
+
+callsites:
+  - id: googleai.python.models-generate-content
+    language: python
+    kind: sdk_method
+    requires: google-genai
+    query: |
+      (call
+        function: (attribute
+          object: (attribute attribute: (identifier) @a1)
+          attribute: (identifier) @m)
+        (#eq? @a1 "models") (#eq? @m "generate_content")) @call
+    key: "models.generate_content"
+    confidence: high
+
+  - id: googleai.typescript.models-generate-content
+    language: typescript
+    kind: sdk_method
+    requires: "@google/genai"
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @a1)
+          property: (property_identifier) @m)
+        (#eq? @a1 "models") (#eq? @m "generateContent")) @call
+    key: "models.generateContent"
+    confidence: high
+
+  - id: googleai.javascript.models-generate-content
+    language: javascript
+    kind: sdk_method
+    requires: "@google/genai"
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @a1)
+          property: (property_identifier) @m)
+        (#eq? @a1 "models") (#eq? @m "generateContent")) @call
+    key: "models.generateContent"
+    confidence: high

@@ -1,0 +1,16 @@
+id: sendgrid
+name: Twilio SendGrid
+homepage: https://sendgrid.com
+docs: https://www.twilio.com/docs/sendgrid/api-reference
+changelog: https://www.twilio.com/en-us/changelog
+base_urls:
+  - https://api.sendgrid.com
+openapi:
+  url: https://raw.githubusercontent.com/sendgrid/sendgrid-oai/main/oai_stoplight.json
+  pinned_sha: null
+sdk_languages: [python, typescript, javascript, java, go, ruby, php, csharp]
+deprecation_policy: >
+  The v2 Web API is superseded by v3 and documented as legacy, but SendGrid
+  has published no shutdown date for it. Individual legacy features are retired
+  with a dated changelog notice. Records here without an effective date reflect
+  that absence rather than an unknown date.

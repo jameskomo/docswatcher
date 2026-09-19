@@ -1,0 +1,14 @@
+[
+  {
+    "contract": "sendgrid:endpoint:ANY /v3/contactdb/segments",
+    "change": "sendgrid-segmentation-v1-shutdown-2022"
+  },
+  {
+    "contract": "sendgrid:endpoint:POST /api/mail.send.json",
+    "change": "sendgrid-web-api-v2-legacy"
+  },
+  {
+    "contract": "sendgrid:endpoint:POST /api/mail.send.xml",
+    "change": "sendgrid-web-api-v2-legacy"
+  }
+]

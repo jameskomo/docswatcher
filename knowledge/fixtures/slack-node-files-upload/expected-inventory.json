@@ -1,0 +1,98 @@
+[
+  {
+    "id": "slack:endpoint:ANY /api/files.upload",
+    "provider": "slack",
+    "kind": "endpoint",
+    "key": "ANY /api/files.upload",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/share.js",
+        "line": 16,
+        "column": 45,
+        "snippet": "const res = await fetch(\"https://slack.com/api/files.upload\", {",
+        "detector": "slack.literal.method-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@slack/web-api",
+        "version": "^6.12.0"
+      }
+    }
+  },
+  {
+    "id": "slack:endpoint:POST /api/files.upload",
+    "provider": "slack",
+    "kind": "endpoint",
+    "key": "POST /api/files.upload",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/share.js",
+        "line": 7,
+        "column": 10,
+        "snippet": "return web.files.upload({",
+        "detector": "slack.javascript.files-upload",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@slack/web-api",
+        "version": "^6.12.0"
+      }
+    }
+  },
+  {
+    "id": "slack:sdk_method:files.upload",
+    "provider": "slack",
+    "kind": "sdk_method",
+    "key": "files.upload",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/share.js",
+        "line": 7,
+        "column": 10,
+        "snippet": "return web.files.upload({",
+        "detector": "slack.javascript.files-upload",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@slack/web-api",
+        "version": "^6.12.0"
+      }
+    }
+  },
+  {
+    "id": "slack:sdk_package:@slack/web-api",
+    "provider": "slack",
+    "kind": "sdk_package",
+    "key": "@slack/web-api",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"@slack/web-api\": \"^6.12.0\",",
+        "detector": "slack.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@slack/web-api",
+        "version": "^6.12.0"
+      }
+    }
+  }
+]

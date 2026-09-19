@@ -1,0 +1,18 @@
+[
+  {
+    "contract": "aws:sdk_package:com.amazonaws:aws-java-sdk-bom",
+    "change": "aws-sdk-java-v1-end-of-support-2025"
+  },
+  {
+    "contract": "aws:sdk_package:com.amazonaws:aws-java-sdk-core",
+    "change": "aws-sdk-java-v1-end-of-support-2025"
+  },
+  {
+    "contract": "aws:sdk_package:com.amazonaws:aws-java-sdk-dynamodb",
+    "change": "aws-sdk-java-v1-end-of-support-2025"
+  },
+  {
+    "contract": "aws:sdk_package:com.amazonaws:aws-java-sdk-s3",
+    "change": "aws-sdk-java-v1-end-of-support-2025"
+  }
+]

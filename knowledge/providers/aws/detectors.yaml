@@ -1,0 +1,41 @@
+provider: aws
+
+manifests:
+  # JavaScript: the whole v2 SDK is one package, v3 is one package per service.
+  - ecosystem: npm
+    package: aws-sdk
+  - ecosystem: npm
+    package: "@aws-sdk/client-s3"
+  - ecosystem: npm
+    package: "@aws-sdk/client-dynamodb"
+  # Java: v1 lives under com.amazonaws, v2 under software.amazon.awssdk.
+  - ecosystem: maven
+    package: com.amazonaws:aws-java-sdk-bom
+  - ecosystem: maven
+    package: com.amazonaws:aws-java-sdk-core
+  - ecosystem: maven
+    package: com.amazonaws:aws-java-sdk-s3
+  - ecosystem: maven
+    package: com.amazonaws:aws-java-sdk-dynamodb
+  - ecosystem: maven
+    package: software.amazon.awssdk:s3
+  # Go: the major version is part of the module path.
+  - ecosystem: go
+    package: github.com/aws/aws-sdk-go
+  - ecosystem: go
+    package: github.com/aws/aws-sdk-go-v2
+  - ecosystem: pypi
+    package: boto3
+
+literals:
+  # A deep client import is v2-only, so it identifies the major version even
+  # where the manifest is out of reach, for example a vendored lockless build.
+  - id: aws.literal.js-v2-client-import
+    kind: sdk_package
+    files: ["**/*.{ts,tsx,js,jsx,mjs,cjs}"]
+    exclude: ["**/node_modules/**", "**/dist/**", "**/build/**"]
+    pattern: '["'']aws-sdk/clients/[a-z0-9]+["'']'
+    key: "aws-sdk"
+    confidence: medium
+
+callsites: []

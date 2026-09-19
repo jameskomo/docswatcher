@@ -1,0 +1,36 @@
+[
+  {
+    "id": "googleai:model:gemini-2.0-flash",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-2.0-flash",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "README.md",
+        "line": 3,
+        "column": 14,
+        "snippet": "We evaluated gemini-2.0-flash and text-embedding-004 during a spike in 2025 and",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "googleai:model:text-embedding-004",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "text-embedding-004",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "README.md",
+        "line": 3,
+        "column": 35,
+        "snippet": "We evaluated gemini-2.0-flash and text-embedding-004 during a spike in 2025 and",
+        "detector": "googleai.literal.model-embedding",
+        "layer": "literal"
+      }
+    ]
+  }
+]

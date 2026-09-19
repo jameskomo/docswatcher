@@ -1,0 +1,19 @@
+[
+  {
+    "id": "aws:sdk_package:aws-sdk",
+    "provider": "aws",
+    "kind": "sdk_package",
+    "key": "aws-sdk",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "test/cache.test.js",
+        "line": 3,
+        "column": 11,
+        "snippet": "jest.mock(\"aws-sdk/clients/s3\", () => ({ putObject: jest.fn() }));",
+        "detector": "aws.literal.js-v2-client-import",
+        "layer": "literal"
+      }
+    ]
+  }
+]

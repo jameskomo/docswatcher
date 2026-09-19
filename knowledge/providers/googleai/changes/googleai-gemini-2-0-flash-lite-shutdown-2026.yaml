@@ -1,0 +1,31 @@
+id: googleai-gemini-2-0-flash-lite-shutdown-2026
+provider: googleai
+kind: retired
+severity: breaking
+title: "gemini-2.0-flash-lite shut down"
+summary: >
+  Requests naming the model gemini-2.0-flash-lite fail after the shutdown date.
+  Google recommends gemini-3.1-flash-lite as the replacement.
+
+affects:
+  - kind: model
+    match: "gemini-2.0-flash-lite"
+
+announced: 2025-02-25
+effective: 2026-06-01
+
+sources:
+  - kind: provider_page
+    url: https://ai.google.dev/gemini-api/docs/deprecations
+    observed: 2026-09-19
+
+migration:
+  replacement: "gemini-3.1-flash-lite"
+  guide: https://ai.google.dev/gemini-api/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID string. Output style, latency and token usage differ
+    between model generations, so re-run any evals and check assertions that
+    depend on response length.
+
+status: expired

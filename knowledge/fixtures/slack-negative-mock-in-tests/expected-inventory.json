@@ -1,0 +1,19 @@
+[
+  {
+    "id": "slack:endpoint:ANY /api/files.upload",
+    "provider": "slack",
+    "kind": "endpoint",
+    "key": "ANY /api/files.upload",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "test/notify.test.js",
+        "line": 3,
+        "column": 40,
+        "snippet": "const SLACK_UPLOAD = \"https://slack.com/api/files.upload\";",
+        "detector": "slack.literal.method-url",
+        "layer": "literal"
+      }
+    ]
+  }
+]

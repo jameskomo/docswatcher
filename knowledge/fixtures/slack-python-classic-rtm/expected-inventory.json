@@ -1,0 +1,74 @@
+[
+  {
+    "id": "slack:endpoint:ANY /api/rtm.connect",
+    "provider": "slack",
+    "kind": "endpoint",
+    "key": "ANY /api/rtm.connect",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/listener.py",
+        "line": 5,
+        "column": 29,
+        "snippet": "RTM_URL = \"https://slack.com/api/rtm.connect\"",
+        "detector": "slack.literal.method-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "slack_sdk",
+        "version": "3.21.0"
+      }
+    }
+  },
+  {
+    "id": "slack:sdk_method:RTMClient",
+    "provider": "slack",
+    "kind": "sdk_method",
+    "key": "RTMClient",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/listener.py",
+        "line": 7,
+        "column": 7,
+        "snippet": "rtm = RTMClient(token=os.environ[\"SLACK_CLASSIC_TOKEN\"])",
+        "detector": "slack.python.rtm-client",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "slack_sdk",
+        "version": "3.21.0"
+      }
+    }
+  },
+  {
+    "id": "slack:sdk_package:slack_sdk",
+    "provider": "slack",
+    "kind": "sdk_package",
+    "key": "slack_sdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "slack_sdk==3.21.0",
+        "detector": "slack.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "slack_sdk",
+        "version": "3.21.0"
+      }
+    }
+  }
+]

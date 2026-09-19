@@ -1,0 +1,40 @@
+id: aws-sdk-javascript-v2-end-of-support-2025
+provider: aws
+kind: retired
+severity: breaking
+title: AWS SDK for JavaScript v2 reached end of support
+summary: >
+  The aws-sdk package entered maintenance on 2024-09-08 and reached end of
+  support on 2025-09-08. It receives no fixes of any kind now, including
+  security fixes, and it never gained support for services or features
+  released after it entered maintenance.
+
+affects:
+  - kind: sdk_package
+    match: "aws-sdk"
+
+announced: 2024-03-06
+effective: 2025-09-08
+
+sources:
+  - kind: changelog
+    url: https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-javascript-v2/
+    observed: 2026-09-19
+    note: "Announced 2024-03-06, maintenance 2024-09-08, end of support 2025-09-08."
+
+migration:
+  replacement: "@aws-sdk/client-*"
+  guide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/migrating-to-v3.html
+  effort: large
+  notes: >
+    Replace the single aws-sdk dependency with one @aws-sdk/client-<service>
+    package per service in use. The v2 pattern of new AWS.S3().getObject(params)
+    .promise() becomes new S3Client({region}).send(new GetObjectCommand(params)).
+    Every operation is a Command object imported by name. Responses no longer
+    carry .promise(); send returns a promise directly. Streaming bodies change
+    type: GetObject returns a stream that must be consumed with
+    transformToString or transformToByteArray rather than a Buffer. Credentials
+    and region resolution move to the client constructor. AWS publishes a
+    codemod that handles the mechanical parts.
+
+status: expired

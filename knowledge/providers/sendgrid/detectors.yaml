@@ -1,0 +1,65 @@
+provider: sendgrid
+
+manifests:
+  - ecosystem: npm
+    package: "@sendgrid/mail"
+  - ecosystem: npm
+    package: "@sendgrid/client"
+  - ecosystem: pypi
+    package: sendgrid
+  - ecosystem: maven
+    package: com.sendgrid:sendgrid-java
+  - ecosystem: go
+    package: github.com/sendgrid/sendgrid-go
+
+literals:
+  # The v2 Web API uses a verb-in-path style with a format suffix, which is what
+  # makes it distinguishable from v3 at a glance.
+  - id: sendgrid.literal.endpoint-v2
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://api\.sendgrid\.com(/api/[a-z_]+\.[a-z_]+\.(?:json|xml))'
+    key: "POST $1"
+    confidence: medium
+
+  - id: sendgrid.literal.endpoint-v3
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://api\.sendgrid\.com(/v3/[a-zA-Z0-9_/-]+)'
+    key: "ANY $1"
+    confidence: medium
+
+callsites:
+  - id: sendgrid.javascript.mail-send
+    language: javascript
+    kind: sdk_method
+    requires: "@sendgrid/mail"
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (identifier) @o
+          property: (property_identifier) @m)
+        (#eq? @o "sgMail") (#eq? @m "send")) @call
+    key: "sgMail.send"
+    maps_to:
+      kind: endpoint
+      key: "POST /v3/mail/send"
+    confidence: high
+
+  - id: sendgrid.typescript.mail-send
+    language: typescript
+    kind: sdk_method
+    requires: "@sendgrid/mail"
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (identifier) @o
+          property: (property_identifier) @m)
+        (#eq? @o "sgMail") (#eq? @m "send")) @call
+    key: "sgMail.send"
+    maps_to:
+      kind: endpoint
+      key: "POST /v3/mail/send"
+    confidence: high

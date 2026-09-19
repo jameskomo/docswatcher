@@ -1,0 +1,146 @@
+[
+  {
+    "id": "twilio:endpoint:ANY /chat/v2/Services",
+    "provider": "twilio",
+    "kind": "endpoint",
+    "key": "ANY /chat/v2/Services",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/chat.js",
+        "line": 5,
+        "column": 32,
+        "snippet": "const CHAT_SERVICES = \"https://chat.twilio.com/v2/Services\";",
+        "detector": "twilio.literal.endpoint-product",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "twilio",
+        "version": "^5.3.0"
+      }
+    }
+  },
+  {
+    "id": "twilio:endpoint:ANY /ip-messaging/v2/Services",
+    "provider": "twilio",
+    "kind": "endpoint",
+    "key": "ANY /ip-messaging/v2/Services",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/chat.js",
+        "line": 6,
+        "column": 39,
+        "snippet": "const LEGACY_CHAT_SERVICES = \"https://ip-messaging.twilio.com/v2/Services\";",
+        "detector": "twilio.literal.endpoint-product",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "twilio",
+        "version": "^5.3.0"
+      }
+    }
+  },
+  {
+    "id": "twilio:endpoint:ANY /notify/v1/Credentials",
+    "provider": "twilio",
+    "kind": "endpoint",
+    "key": "ANY /notify/v1/Credentials",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/notify.js",
+        "line": 5,
+        "column": 37,
+        "snippet": "const NOTIFY_CREDENTIALS = \"https://notify.twilio.com/v1/Credentials\";",
+        "detector": "twilio.literal.endpoint-product",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "twilio",
+        "version": "^5.3.0"
+      }
+    }
+  },
+  {
+    "id": "twilio:endpoint:ANY /notify/v1/Services",
+    "provider": "twilio",
+    "kind": "endpoint",
+    "key": "ANY /notify/v1/Services",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/notify.js",
+        "line": 4,
+        "column": 34,
+        "snippet": "const NOTIFY_SERVICES = \"https://notify.twilio.com/v1/Services\";",
+        "detector": "twilio.literal.endpoint-product",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "twilio",
+        "version": "^5.3.0"
+      }
+    }
+  },
+  {
+    "id": "twilio:sdk_method:messages.create",
+    "provider": "twilio",
+    "kind": "sdk_method",
+    "key": "messages.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/sms.js",
+        "line": 6,
+        "column": 10,
+        "snippet": "return client.messages.create({ to, body, from: process.env.TWILIO_FROM });",
+        "detector": "twilio.javascript.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "twilio",
+        "version": "^5.3.0"
+      }
+    }
+  },
+  {
+    "id": "twilio:sdk_package:twilio",
+    "provider": "twilio",
+    "kind": "sdk_package",
+    "key": "twilio",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"twilio\": \"^5.3.0\",",
+        "detector": "twilio.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "twilio",
+        "version": "^5.3.0"
+      }
+    }
+  }
+]

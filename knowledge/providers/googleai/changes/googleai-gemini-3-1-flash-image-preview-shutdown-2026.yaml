@@ -1,0 +1,32 @@
+id: googleai-gemini-3-1-flash-image-preview-shutdown-2026
+provider: googleai
+kind: retired
+severity: breaking
+title: "gemini-3.1-flash-image-preview shut down"
+summary: >
+  Requests naming the model gemini-3.1-flash-image-preview fail after the shutdown date.
+  Google recommends gemini-3.1-flash-image as the replacement.
+
+affects:
+  - kind: model
+    match: "gemini-3.1-flash-image-preview"
+
+announced: 2026-02-26
+effective: 2026-06-25
+
+sources:
+  - kind: provider_page
+    url: https://ai.google.dev/gemini-api/docs/deprecations
+    observed: 2026-09-19
+
+migration:
+  replacement: "gemini-3.1-flash-image"
+  guide: https://ai.google.dev/gemini-api/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID string. This was a preview model, so the stable
+    release it preceded is the replacement and request and response shapes are
+    unchanged in the common case. Re-run evals: preview and stable checkpoints
+    do not produce identical output.
+
+status: expired

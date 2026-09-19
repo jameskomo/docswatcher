@@ -1,0 +1,14 @@
+[
+  {
+    "contract": "github:endpoint:ANY /search/code",
+    "change": "github-code-search-rate-limit-2023"
+  },
+  {
+    "contract": "github:endpoint:GET /search/code",
+    "change": "github-code-search-rate-limit-2023"
+  },
+  {
+    "contract": "github:sdk_method:search.code",
+    "change": "github-code-search-rate-limit-2023"
+  }
+]

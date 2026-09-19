@@ -1,0 +1,41 @@
+id: twilio-notify-api-eol-2025
+provider: twilio
+kind: sunset
+severity: breaking
+title: Notify API end of life
+summary: >
+  The Twilio Notify API reached end of life on 31 December 2025 and is no
+  longer available. Twilio stopped supporting Notify in October 2022 and did
+  not ship a like for like successor, so each Notify use case moves to a
+  different product.
+
+affects:
+  - kind: endpoint
+    match: "ANY /notify/v1/Services"
+  - kind: endpoint
+    match: "ANY /notify/v1/Credentials"
+
+announced: 2024-01-23
+effective: 2025-12-31
+
+sources:
+  - kind: changelog
+    url: https://www.twilio.com/en-us/changelog/notify-api-end-of-life-further-extension-notice
+    observed: 2026-09-19
+  - kind: provider_page
+    url: https://www.twilio.com/docs/notify/api
+    observed: 2026-09-19
+    note: "Documentation carries a caution banner stating Twilio stopped supporting Notify in October 2022."
+
+migration:
+  replacement: null
+  guide: https://www.twilio.com/docs/notify/api
+  effort: large
+  notes: >
+    There is no drop in replacement. Bulk SMS senders move to the Bulk
+    Messaging API. Push notification senders move to a different push path
+    entirely, so the notification payload, the device registration flow and
+    the delivery callbacks all have to be rebuilt. Remove the Notify service
+    SID and binding logic rather than repointing it.
+
+status: expired

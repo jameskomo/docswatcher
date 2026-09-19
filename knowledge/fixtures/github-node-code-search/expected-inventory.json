@@ -1,0 +1,98 @@
+[
+  {
+    "id": "github:endpoint:ANY /search/code",
+    "provider": "github",
+    "kind": "endpoint",
+    "key": "ANY /search/code",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/audit.js",
+        "line": 14,
+        "column": 48,
+        "snippet": "const SEARCH_ENDPOINT = \"https://api.github.com/search/code\";",
+        "detector": "github.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@octokit/rest",
+        "version": "^20.1.1"
+      }
+    }
+  },
+  {
+    "id": "github:endpoint:GET /search/code",
+    "provider": "github",
+    "kind": "endpoint",
+    "key": "GET /search/code",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/audit.js",
+        "line": 7,
+        "column": 26,
+        "snippet": "const { data } = await octokit.rest.search.code({",
+        "detector": "github.javascript.search-code",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@octokit/rest",
+        "version": "^20.1.1"
+      }
+    }
+  },
+  {
+    "id": "github:sdk_method:search.code",
+    "provider": "github",
+    "kind": "sdk_method",
+    "key": "search.code",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/audit.js",
+        "line": 7,
+        "column": 26,
+        "snippet": "const { data } = await octokit.rest.search.code({",
+        "detector": "github.javascript.search-code",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@octokit/rest",
+        "version": "^20.1.1"
+      }
+    }
+  },
+  {
+    "id": "github:sdk_package:@octokit/rest",
+    "provider": "github",
+    "kind": "sdk_package",
+    "key": "@octokit/rest",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"@octokit/rest\": \"^20.1.1\",",
+        "detector": "github.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@octokit/rest",
+        "version": "^20.1.1"
+      }
+    }
+  }
+]

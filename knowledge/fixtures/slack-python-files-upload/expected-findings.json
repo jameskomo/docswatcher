@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "slack:endpoint:POST /api/files.upload",
+    "change": "slack-files-upload-sunset-2025"
+  },
+  {
+    "contract": "slack:sdk_method:files_upload",
+    "change": "slack-files-upload-sunset-2025"
+  }
+]

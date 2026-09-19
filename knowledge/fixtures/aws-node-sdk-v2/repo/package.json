@@ -1,0 +1,8 @@
+{
+  "name": "asset-pipeline",
+  "version": "1.8.3",
+  "dependencies": {
+    "aws-sdk": "^2.1691.0",
+    "sharp": "^0.33.4"
+  }
+}

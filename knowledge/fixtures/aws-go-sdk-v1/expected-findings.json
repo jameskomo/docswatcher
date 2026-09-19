@@ -1,0 +1,6 @@
+[
+  {
+    "contract": "aws:sdk_package:github.com/aws/aws-sdk-go",
+    "change": "aws-sdk-go-v1-end-of-support-2025"
+  }
+]

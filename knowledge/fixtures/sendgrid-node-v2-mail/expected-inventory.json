@@ -1,0 +1,146 @@
+[
+  {
+    "id": "sendgrid:endpoint:ANY /v3/contactdb/segments",
+    "provider": "sendgrid",
+    "kind": "endpoint",
+    "key": "ANY /v3/contactdb/segments",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/segments.js",
+        "line": 4,
+        "column": 43,
+        "snippet": "const SEGMENTS = \"https://api.sendgrid.com/v3/contactdb/segments\";",
+        "detector": "sendgrid.literal.endpoint-v3",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@sendgrid/mail",
+        "version": "^8.1.3"
+      }
+    }
+  },
+  {
+    "id": "sendgrid:endpoint:POST /api/mail.send.json",
+    "provider": "sendgrid",
+    "kind": "endpoint",
+    "key": "POST /api/mail.send.json",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacy-mail.js",
+        "line": 4,
+        "column": 47,
+        "snippet": "const V2_MAIL_JSON = \"https://api.sendgrid.com/api/mail.send.json\";",
+        "detector": "sendgrid.literal.endpoint-v2",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@sendgrid/mail",
+        "version": "^8.1.3"
+      }
+    }
+  },
+  {
+    "id": "sendgrid:endpoint:POST /api/mail.send.xml",
+    "provider": "sendgrid",
+    "kind": "endpoint",
+    "key": "POST /api/mail.send.xml",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacy-mail.js",
+        "line": 5,
+        "column": 46,
+        "snippet": "const V2_MAIL_XML = \"https://api.sendgrid.com/api/mail.send.xml\";",
+        "detector": "sendgrid.literal.endpoint-v2",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@sendgrid/mail",
+        "version": "^8.1.3"
+      }
+    }
+  },
+  {
+    "id": "sendgrid:endpoint:POST /v3/mail/send",
+    "provider": "sendgrid",
+    "kind": "endpoint",
+    "key": "POST /v3/mail/send",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/mail.js",
+        "line": 6,
+        "column": 10,
+        "snippet": "return sgMail.send({",
+        "detector": "sendgrid.javascript.mail-send",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@sendgrid/mail",
+        "version": "^8.1.3"
+      }
+    }
+  },
+  {
+    "id": "sendgrid:sdk_method:sgMail.send",
+    "provider": "sendgrid",
+    "kind": "sdk_method",
+    "key": "sgMail.send",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/mail.js",
+        "line": 6,
+        "column": 10,
+        "snippet": "return sgMail.send({",
+        "detector": "sendgrid.javascript.mail-send",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@sendgrid/mail",
+        "version": "^8.1.3"
+      }
+    }
+  },
+  {
+    "id": "sendgrid:sdk_package:@sendgrid/mail",
+    "provider": "sendgrid",
+    "kind": "sdk_package",
+    "key": "@sendgrid/mail",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"@sendgrid/mail\": \"^8.1.3\",",
+        "detector": "sendgrid.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@sendgrid/mail",
+        "version": "^8.1.3"
+      }
+    }
+  }
+]

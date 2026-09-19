@@ -1,0 +1,11 @@
+# Every Gemini model this service has been pointed at, kept for routing history.
+chat_default: gemini-2.0-flash
+chat_lite: gemini-2.0-flash-lite
+pro_preview: gemini-3-pro-preview
+pro_image_preview: gemini-3-pro-image-preview
+flash_lite_preview: gemini-3.1-flash-lite-preview
+flash_image_preview: gemini-3.1-flash-image-preview
+flash_image: gemini-2.5-flash-image
+pro_0325: gemini-2.5-pro-preview-03-25
+pro_0506: gemini-2.5-pro-preview-05-06
+pro_0605: gemini-2.5-pro-preview-06-05

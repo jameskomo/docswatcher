@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "slack:endpoint:ANY /api/rtm.connect",
+    "change": "slack-classic-apps-retired-2026"
+  },
+  {
+    "contract": "slack:sdk_method:RTMClient",
+    "change": "slack-classic-apps-retired-2026"
+  }
+]

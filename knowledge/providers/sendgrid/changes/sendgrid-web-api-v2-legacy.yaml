@@ -1,0 +1,41 @@
+id: sendgrid-web-api-v2-legacy
+provider: sendgrid
+kind: sunset
+severity: warning
+title: Web API v2 superseded by v3
+summary: >
+  The v2 Web API, including the mail send endpoint, is documented as legacy
+  and receives no new features. SendGrid urges migration to v3 but has not
+  published a shutdown date, so this carries no effective date.
+
+affects:
+  - kind: endpoint
+    match: "POST /api/mail.send.json"
+  - kind: endpoint
+    match: "POST /api/mail.send.xml"
+
+announced: 2020-01-01
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://www.twilio.com/docs/sendgrid/v2-api/mail
+    observed: 2026-09-19
+    note: "The v2 mail page directs readers to the v3 API for all current features."
+  - kind: provider_page
+    url: https://www.twilio.com/docs/sendgrid/for-developers/sending-email/migrating-from-v2-to-v3-mail-send
+    observed: 2026-09-19
+
+migration:
+  replacement: "POST /v3/mail/send"
+  guide: https://www.twilio.com/docs/sendgrid/for-developers/sending-email/migrating-from-v2-to-v3-mail-send
+  effort: medium
+  notes: >
+    The request body changes shape entirely. v2 takes form encoded fields with
+    a to array and an x-smtpapi header for personalisation; v3 takes JSON with
+    a personalizations array, and substitutions move inside each
+    personalization. Success responses change from a JSON message body to
+    202 Accepted with an empty body, so any code asserting on the response
+    payload needs updating.
+
+status: active
