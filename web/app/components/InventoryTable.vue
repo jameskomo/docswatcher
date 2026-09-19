@@ -68,7 +68,7 @@ const allLocations = (c: Contract) => c.evidence.map((e) => `${e.path}:${e.line}
               {{ providerName(c.provider) }}
             </td>
             <td>
-              <span class="mono" style="font-size: var(--t1); color: var(--ink-soft); background: rgba(255, 255, 255, 0.04); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--hair)">
+              <span class="code-pill">
                 {{ KIND_LABEL[c.kind] ?? c.kind }}
               </span>
             </td>
