@@ -112,6 +112,7 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
         <executions>
           <execution>
+            <id>repackage</id>
             <goals>
               <goal>repackage</goal>
             </goals>
@@ -135,6 +136,18 @@
                 <goals>
                   <goal>process-aot</goal>
                 </goals>
+              </execution>
+              <!--
+                Repackaging rewrites target/app.jar into the Spring Boot BOOT-INF layout.
+                native-image then cannot find the main class at the jar root, because
+                this project imports the Spring Boot BOM rather than inheriting the
+                starter parent, which would have ordered these two steps for us.
+              -->
+              <execution>
+                <id>repackage</id>
+                <configuration>
+                  <skip>true</skip>
+                </configuration>
               </execution>
             </executions>
           </plugin>
