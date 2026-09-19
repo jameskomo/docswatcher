@@ -47,6 +47,7 @@ for (const id of readdirSync(join(knowledgeDir, "providers")).sort()) {
 writeFileSync(join(outDir, "knowledge.json"), JSON.stringify({ version, providers }, null, 2) + "\n");
 
 const samples = [];
+const skipped = [];
 const fixturesDir = join(knowledgeDir, "fixtures");
 for (const name of readdirSync(fixturesDir).sort()) {
   const dir = join(fixturesDir, name);
@@ -54,7 +55,15 @@ for (const name of readdirSync(fixturesDir).sort()) {
   const repo = join(dir, "repo");
   const files = walk(repo).map((p) => ({ path: relative(repo, p).split("\\").join("/"), text: readFileSync(p, "utf8") }))
     .sort((a, b) => (a.path < b.path ? -1 : 1));
-  const expectedFindings = JSON.parse(readFileSync(join(dir, "expected-findings.json"), "utf8"));
+  // A fixture whose expected files have not been generated yet is skipped rather
+  // than crashing the build. Providers are added to the knowledge base before the
+  // engine regenerates their expectations, so this directory is routinely mid-flight.
+  const findingsPath = join(dir, "expected-findings.json");
+  if (!existsSync(findingsPath)) {
+    skipped.push(name);
+    continue;
+  }
+  const expectedFindings = JSON.parse(readFileSync(findingsPath, "utf8"));
   const invPath = join(dir, "expected-inventory.json");
   const expectedInventory = existsSync(invPath) ? JSON.parse(readFileSync(invPath, "utf8")) : null;
   samples.push({ name, files, expectedFindings, expectedInventory });
@@ -74,7 +83,7 @@ if (existsSync(vendorDir)) {
 // Real repositories first: they are the more convincing demo.
 const allSamples = [...vendored, ...samples.map((s) => ({ ...s, real: false }))];
 writeFileSync(join(outDir, "samples.json"), JSON.stringify(allSamples, null, 2) + "\n");
-console.log(`samples: ${vendored.length} real repositories, ${samples.length} fixtures`);
+console.log(`samples: ${vendored.length} real repositories, ${samples.length} fixtures` + (skipped.length ? `, ${skipped.length} fixtures skipped with no expected files (${skipped.join(", ")})` : ""));
 
 // Grammars for the browser. Same versions the Java engine pins.
 const grammarsOut = join(web, "public", "grammars");

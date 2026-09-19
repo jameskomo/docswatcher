@@ -32,3 +32,15 @@ export function nearest(findings: Finding[]): Finding | null {
   const upcoming = findings.filter((f) => f.daysRemaining !== null && f.daysRemaining >= 0);
   return upcoming.length ? upcoming[0] : null;
 }
+
+/**
+ * Splits a day count into a numeral and a unit so the numeral can be set as
+ * display type. The design anchors each finding on this number, so it has to
+ * stand alone rather than sit inside a sentence.
+ */
+export function daysParts(n: number | null): { n: string; unit: string } {
+  if (n === null) return { n: "—", unit: "no date set" };
+  if (n === 0) return { n: "0", unit: "today" };
+  if (n > 0) return { n: String(n), unit: n === 1 ? "day left" : "days left" };
+  return { n: String(-n), unit: -n === 1 ? "day ago" : "days ago" };
+}

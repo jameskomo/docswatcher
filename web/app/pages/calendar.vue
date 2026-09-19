@@ -17,7 +17,7 @@ function group(list: ChangeRecord[]) {
     .map(([key, items]) => ({ key, items: items.sort((a, b) => (a.effective ?? "9") < (b.effective ?? "9") ? -1 : 1) }));
 }
 useHead({
-  title: "Deprecation calendar · DocsWatcher",
+  title: "Deprecation calendar, DocsWatcher",
   meta: [{ name: "description", content: "Every dated API deprecation DocsWatcher tracks, grouped by month, generated from the open knowledge base." }],
 });
 
@@ -30,42 +30,41 @@ const days = (c: ChangeRecord) => (c.effective ? daysBetween(today, c.effective)
 
 <template>
   <div class="stack" style="gap: var(--s6)">
-    <section class="hero">
-      <span class="label">Public deprecation calendar</span>
+    <section class="page">
       <h1>What breaks when</h1>
       <p class="lede">Every dated change across {{ knowledge.providers.length }} tracked providers, generated from the open knowledge base. {{ all.length }} records.</p>
     </section>
 
-    <section class="block" v-for="g in upcoming" :key="g.key">
+    <section class="section" v-for="g in upcoming" :key="g.key">
       <div class="month">
         <h3>{{ g.key === "none" ? "Announced, no date yet" : fmtMonth(g.key) }}</h3>
         <div v-for="c in g.items" :key="c.id" class="cal-row">
-          <div class="date">{{ c.effective ? fmtDate(c.effective) : "—" }}<div class="small muted num" v-if="days(c) !== null">in {{ days(c) }} days</div></div>
+          <div class="date">{{ c.effective ? fmtDate(c.effective) : "—" }}<div class="t2 ink-faint num" v-if="days(c) !== null">in {{ days(c) }} days</div></div>
           <div class="stack" style="gap: 4px">
             <div class="row" style="gap: 8px"><SeverityChip :severity="c.severity" /><strong>{{ providerName(c.provider) }}</strong><span>{{ c.title }}</span></div>
-            <p class="ink2 small">{{ c.summary }}</p>
-            <div class="row small" style="gap: 14px">
-              <span class="mono muted">{{ c.affects.map(a => a.match).slice(0, 3).join(", ") }}<span v-if="c.affects.length > 3"> +{{ c.affects.length - 3 }}</span></span>
+            <p class="ink-soft t2">{{ c.summary }}</p>
+            <div class="row t2" style="gap: 14px">
+              <span class="mono ink-faint">{{ c.affects.map(a => a.match).slice(0, 3).join(", ") }}<span v-if="c.affects.length > 3"> +{{ c.affects.length - 3 }}</span></span>
               <a v-if="c.migration?.guide" :href="c.migration.guide" target="_blank" rel="noopener">migration guide ↗</a>
-              <NuxtLink to="/">check whether your repo is affected →</NuxtLink>
+              <NuxtLink to="/">check whether your repo is affected</NuxtLink>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="block">
+    <section class="section">
       <button class="btn" @click="showPast = !showPast">{{ showPast ? "Hide" : "Show" }} already effective ({{ past.reduce((n, g) => n + g.items.length, 0) }})</button>
       <template v-if="showPast">
         <div class="month" v-for="g in past" :key="g.key">
           <h3>{{ fmtMonth(g.key) }}</h3>
           <div v-for="c in g.items" :key="c.id" class="cal-row">
-            <div class="date">{{ fmtDate(c.effective) }}<div class="small muted num">{{ -days(c)! }} days ago</div></div>
+            <div class="date">{{ fmtDate(c.effective) }}<div class="t2 ink-faint num">{{ -days(c)! }} days ago</div></div>
             <div class="stack" style="gap: 4px">
               <div class="row" style="gap: 8px"><SeverityChip :severity="c.severity" /><strong>{{ providerName(c.provider) }}</strong><span>{{ c.title }}</span></div>
-              <div class="row small" style="gap: 14px">
-                <span class="mono muted">{{ c.affects.map(a => a.match).slice(0, 3).join(", ") }}</span>
-                <NuxtLink to="/">still referenced in your repo? check →</NuxtLink>
+              <div class="row t2" style="gap: 14px">
+                <span class="mono ink-faint">{{ c.affects.map(a => a.match).slice(0, 3).join(", ") }}</span>
+                <NuxtLink to="/">still referenced in your repo? check</NuxtLink>
               </div>
             </div>
           </div>

@@ -7,6 +7,6 @@ const text = computed(() => props.label ?? (props.severity === "healthy" ? "Heal
 </script>
 
 <template>
-  <!-- Glyph and label always travel together: severity is never colour alone. -->
-  <span class="chip" :class="severity"><span class="glyph" aria-hidden="true">{{ glyph }}</span>{{ text }}</span>
+  <!-- Glyph and word always travel together: severity is never colour alone. -->
+  <span class="sev" :class="severity"><span class="g" aria-hidden="true">{{ glyph }}</span>{{ text }}</span>
 </template>

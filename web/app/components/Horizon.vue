@@ -1,91 +1,212 @@
 <script setup lang="ts">
 import type { Finding } from "~~/engine/types";
-import { contractLabel, daysLabel, fmtDate, fmtMonth } from "~/utils/format";
+import { contractLabel, encodeId, fmtDate, fmtMonth } from "~/utils/format";
 
-const props = defineProps<{ findings: Finding[]; today?: Date }>();
-const { change, providerName } = useKnowledge();
+/**
+ * The time ruler. One component, two grounds.
+ *
+ * This is the product's central claim rendered directly: a deadline exists,
+ * it has a position in time, and some of them are already behind you. It runs
+ * on the dark board at the top of a scan, and again on light paper in the
+ * dashboard. Nothing else on the site is allowed to be this loud.
+ *
+ * Items with a date in the past clamp to the left edge and sit behind the now
+ * line, so "already expired" is a position rather than a label.
+ */
+const props = defineProps<{
+  findings: Finding[];
+  today?: Date;
+  variant?: "board" | "paper";
+  months?: number;
+}>();
 
-const W = 760, LEFT = 20, RIGHT = 20, TOP = 34, ROW = 22, LANE_GAP = 6;
+const { providerName } = useKnowledge();
+
+const W = 1000;
+const PAD_L = 8;
+const PAD_R = 8;
+const TOP = 26;   // headroom: the today label lives above every lane
+const ROW = 20;
+const GAP = 5;
+const AXIS_GAP = 16;
+
+const span = computed(() => props.months ?? 12);
 const today = computed(() => props.today ?? new Date());
-const start = computed(() => new Date(Date.UTC(today.value.getUTCFullYear(), today.value.getUTCMonth(), 1)));
-const months = computed(() => Array.from({ length: 12 }, (_, i) => {
-  const d = new Date(Date.UTC(start.value.getUTCFullYear(), start.value.getUTCMonth() + i, 1));
-  return { key: d.toISOString().slice(0, 7), t: d.getTime() };
-}));
-const end = computed(() => Date.UTC(start.value.getUTCFullYear(), start.value.getUTCMonth() + 12, 1));
-const x = (t: number) => LEFT + ((t - start.value.getTime()) / (end.value - start.value.getTime())) * (W - LEFT - RIGHT);
+const start = computed(() => Date.UTC(today.value.getUTCFullYear(), today.value.getUTCMonth(), 1));
+const end = computed(() => Date.UTC(today.value.getUTCFullYear(), today.value.getUTCMonth() + span.value, 1));
 
-interface Item { f: Finding; t: number; label: string; x: number; lane: number; }
-const placed = computed<Item[]>(() => {
+const ticks = computed(() =>
+  Array.from({ length: span.value }, (_, i) => {
+    const d = new Date(start.value);
+    d.setUTCMonth(d.getUTCMonth() + i);
+    return { key: d.toISOString().slice(0, 7), t: d.getTime() };
+  }),
+);
+
+const x = (t: number) => PAD_L + ((t - start.value) / (end.value - start.value)) * (W - PAD_L - PAD_R);
+
+interface Pin {
+  f: Finding;
+  t: number;
+  label: string;
+  x: number;
+  lane: number;
+  past: boolean;
+}
+
+const pins = computed<Pin[]>(() => {
   const items = props.findings
     .filter((f) => f.effective)
     .map((f) => {
       const [y, m, d] = f.effective!.split("-").map(Number);
       const t = Date.UTC(y, m - 1, d);
       const c = contractLabel(f.contract);
-      return { f, t, label: `${providerName(c.provider)} · ${c.key}`, x: x(Math.max(start.value.getTime(), Math.min(t, end.value - 1))), lane: 0 };
+      return {
+        f,
+        t,
+        label: `${providerName(c.provider)} ${c.key}`,
+        x: x(Math.min(Math.max(t, start.value), end.value - 1)),
+        lane: 0,
+        past: t < today.value.getTime(),
+      };
     })
-    .filter((i) => i.t < end.value)
+    .filter((p) => p.t < end.value)
     .sort((a, b) => a.t - b.t || a.f.contract.localeCompare(b.f.contract));
-  // greedy lane packing so labels do not collide
-  const laneRight: number[] = [];
-  for (const it of items) {
-    const width = 8 + it.label.length * 6.4;
-    let lane = laneRight.findIndex((r) => r + 10 < it.x);
-    if (lane < 0) { lane = laneRight.length; laneRight.push(0); }
-    laneRight[lane] = it.x + width;
-    it.lane = lane;
+
+  // Greedy lane packing so labels never overlap.
+  const laneEnd: number[] = [];
+  for (const p of items) {
+    const width = 14 + p.label.length * 6.1;
+    let lane = laneEnd.findIndex((e) => e + 8 < p.x);
+    if (lane < 0) {
+      lane = laneEnd.length;
+      laneEnd.push(0);
+    }
+    laneEnd[lane] = p.x + width;
+    p.lane = lane;
   }
   return items;
 });
-const lanes = computed(() => Math.max(1, ...placed.value.map((p) => p.lane + 1)));
-const H = computed(() => TOP + lanes.value * (ROW + LANE_GAP) + 30);
-const todayX = computed(() => x(today.value.getTime()));
-const overdue = computed(() => placed.value.filter((p) => p.t < today.value.getTime()).length);
-const sevColor = (s: Finding["severity"]) => s === "breaking" ? "var(--critical)" : s === "warning" ? "var(--warning)" : "var(--info)";
-const hover = ref<Item | null>(null);
-const tableRows = computed(() => [...props.findings].filter((f) => f.effective).sort((a, b) => a.effective! < b.effective! ? -1 : 1));
+
+const lanes = computed(() => Math.max(1, ...pins.value.map((p) => p.lane + 1)));
+const axisY = computed(() => TOP + lanes.value * (ROW + GAP) + AXIS_GAP);
+const H = computed(() => axisY.value + 22);
+const nowX = computed(() => x(today.value.getTime()));
+
+const tone = (f: Finding) => {
+  const board = props.variant === "board";
+  if (f.severity === "breaking") return board ? "var(--overdue-on-board)" : "var(--overdue)";
+  if (f.severity === "warning") return board ? "var(--soon-on-board)" : "var(--soon)";
+  return board ? "var(--note-on-board)" : "var(--note)";
+};
+
+const label = (p: Pin) => `${p.label}, ${p.past ? "expired" : "expires"} ${fmtDate(p.f.effective)}`;
 </script>
 
 <template>
-  <div class="stack">
-    <svg class="chart" :viewBox="`0 0 ${W} ${H}`" role="img" aria-label="Twelve month timeline of effective dates">
-      <g v-for="m in months" :key="m.key">
-        <line class="grid" :x1="x(m.t)" :x2="x(m.t)" :y1="TOP - 10" :y2="H - 24" />
-        <text :x="x(m.t) + 4" :y="TOP - 14" style="font-size: 11px">{{ fmtMonth(m.key) }}</text>
+  <div class="ruler" :class="variant ?? 'paper'">
+    <svg
+      :viewBox="`0 0 ${W} ${H}`"
+      preserveAspectRatio="xMidYMin meet"
+      role="img"
+      :aria-label="`Time ruler covering ${span} months from today, with ${pins.length} dated deadlines`"
+    >
+      <!-- Month ticks. The rule is the axis, so it carries information. -->
+      <g>
+        <line
+          v-for="t in ticks"
+          :key="t.key"
+          class="tick-line"
+          :x1="x(t.t)"
+          :x2="x(t.t)"
+          :y1="TOP - 16"
+          :y2="axisY"
+        />
       </g>
-      <line class="axis" :x1="LEFT" :x2="W - RIGHT" :y1="H - 24" :y2="H - 24" />
-      <line :x1="todayX" :x2="todayX" :y1="TOP - 10" :y2="H - 24" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 3" />
-      <text :x="todayX + 4" :y="H - 8" style="fill: var(--accent); font-weight: 600; font-size: 11px">today</text>
-      <g v-for="p in placed" :key="p.f.id" @mouseenter="hover = p" @mouseleave="hover = null">
-        <rect :x="p.x - 4" :y="TOP + p.lane * (ROW + LANE_GAP) - 2" :width="8 + p.label.length * 6.4" :height="ROW" rx="4" fill="var(--chart-surface)" />
-        <circle :cx="p.x" :cy="TOP + p.lane * (ROW + LANE_GAP) + ROW / 2 - 2" r="5" :fill="sevColor(p.f.severity)" stroke="var(--chart-surface)" stroke-width="2" />
-        <text :x="p.x + 10" :y="TOP + p.lane * (ROW + LANE_GAP) + ROW / 2 + 2" style="font-size: 11.5px; fill: var(--ink)">{{ p.label }}</text>
+      <line class="axis-line" :x1="PAD_L" :x2="W - PAD_R" :y1="axisY" :y2="axisY" />
+      <text
+        v-for="t in ticks"
+        :key="`l-${t.key}`"
+        class="tick-text"
+        :x="x(t.t) + 5"
+        :y="axisY + 15"
+      >{{ fmtMonth(t.key) }}</text>
+
+      <!-- Now. -->
+      <line class="now-line" :x1="nowX" :x2="nowX" :y1="TOP - 16" :y2="axisY" />
+      <text class="now-text" :x="nowX + 5" :y="TOP - 18">today</text>
+
+      <!-- Deadlines. -->
+      <g
+        v-for="(p, i) in pins"
+        :key="p.f.id"
+        class="pin"
+        :style="{ animationDelay: `${Math.min(i * 45, 400)}ms` }"
+      >
+        <circle
+          :cx="p.x"
+          :cy="TOP + p.lane * (ROW + GAP) + ROW / 2"
+          :r="p.past ? 4.5 : 4"
+          :fill="p.past ? tone(p.f) : 'none'"
+          :stroke="tone(p.f)"
+          stroke-width="2"
+        >
+          <title>{{ label(p) }}</title>
+        </circle>
+        <text
+          class="pin-label"
+          :x="p.x + 10"
+          :y="TOP + p.lane * (ROW + GAP) + ROW / 2 + 4"
+        >{{ p.label }}</text>
       </g>
-      <text v-if="!placed.length" :x="W / 2" :y="TOP + 20" text-anchor="middle">No dated changes in the next twelve months.</text>
+
+      <text v-if="!pins.length" class="tick-text" :x="PAD_L" :y="TOP + 14">
+        Nothing dated in the next {{ span }} months.
+      </text>
     </svg>
-    <div v-if="hover" class="notice">
-      <strong>{{ change(hover.f.change)?.title }}</strong> · {{ fmtDate(hover.f.effective) }} ({{ daysLabel(hover.f.daysRemaining) }}) · {{ hover.f.evidence.length }} location{{ hover.f.evidence.length === 1 ? "" : "s" }}
-    </div>
-    <div class="legend">
-      <span><span class="sw" style="background: var(--critical)"></span>breaking</span>
-      <span><span class="sw" style="background: var(--warning)"></span>warning</span>
-      <span><span class="sw" style="background: var(--info)"></span>informational</span>
-      <span v-if="overdue" class="muted">{{ overdue }} already effective, shown at the left edge</span>
-    </div>
-    <details>
-      <summary class="small ink2">Table view</summary>
-      <div class="table-wrap" style="margin-top: 8px">
-        <table>
-          <thead><tr><th>Effective</th><th>Days</th><th>Provider</th><th>Contract</th><th>Change</th></tr></thead>
-          <tbody>
-            <tr v-for="f in tableRows" :key="f.id">
-              <td class="num">{{ fmtDate(f.effective) }}</td><td class="num">{{ f.daysRemaining }}</td>
-              <td>{{ providerName(contractLabel(f.contract).provider) }}</td><td class="mono">{{ contractLabel(f.contract).key }}</td><td>{{ change(f.change)?.title }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </details>
   </div>
 </template>
+
+<style scoped>
+.ruler svg { width: 100%; height: auto; overflow: visible; }
+
+.ruler.paper .tick-line,
+.ruler.paper .axis-line { stroke: var(--hair); }
+.ruler.paper .tick-text { fill: var(--ink-faint); font-family: var(--face); font-size: 11px; }
+.ruler.paper .now-line { stroke: var(--ink-max); stroke-width: 1.5; }
+.ruler.paper .now-text {
+  fill: var(--ink-max);
+  font-family: var(--face);
+  font-size: 11px;
+  font-variation-settings: "wdth" 88, "wght" 700;
+}
+.ruler.paper .pin-label { fill: var(--ink); font-family: var(--face-mono); font-size: 11.5px; }
+
+.ruler.board .tick-line,
+.ruler.board .axis-line { stroke: var(--board-hair); }
+.ruler.board .tick-text { fill: var(--board-soft); font-family: var(--face); font-size: 11px; }
+.ruler.board .now-line { stroke: var(--board-ink); stroke-width: 1.5; }
+.ruler.board .now-text {
+  fill: var(--board-ink);
+  font-family: var(--face);
+  font-size: 11px;
+  font-variation-settings: "wdth" 88, "wght" 700;
+}
+.ruler.board .pin-label { fill: var(--board-ink); font-family: var(--face-mono); font-size: 11.5px; }
+
+/* At phone width the labels are unreadable and redundant: the list directly
+   below names every finding. The dots and the today line still carry the
+   message, which is how many sit behind today and how many ahead. */
+@media (max-width: 640px) {
+  .pin-label { display: none; }
+}
+
+/* The single orchestrated moment on the site: pins land once, after a scan. */
+@media (prefers-reduced-motion: no-preference) {
+  .pin { animation: land 360ms cubic-bezier(0.2, 0.9, 0.3, 1) backwards; }
+}
+@keyframes land {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
