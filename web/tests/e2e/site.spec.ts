@@ -158,7 +158,7 @@ test("direct visit to /app prepares example dashboard without runtime error", as
   const failed = watchFailures(page);
   await page.goto("./#/app");
   await expect(page.locator(".notice.bad")).toHaveCount(0);
-  await expect(page.locator(".board")).toBeVisible({ timeout: 10000 });
+  await expect(page.locator("#results")).toBeVisible({ timeout: 10000 });
   await expect(page.locator("#map")).toContainText("OpenAI");
   expect(own(failed)).toEqual([]);
 });
