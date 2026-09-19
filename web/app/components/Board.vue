@@ -2,17 +2,6 @@
 import type { Finding, Inventory } from "~~/engine/types";
 import { fmtDate, nearest } from "~/utils/format";
 
-/**
- * The board. The hero of the site and the only loud surface on it.
- *
- * It answers the product's question before any explanation: how many of this
- * repository's API calls have already stopped working, and when the next one
- * goes. The figures are here rather than in a row of tiles because a tile row
- * is the default treatment and says nothing a sentence cannot.
- *
- * While a scan runs the board keeps its shape and shows progress on the same
- * horizontal axis the ruler will use, so it is never an empty rectangle.
- */
 const props = defineProps<{
   inventory?: Inventory | null;
   findings?: Finding[];
@@ -57,12 +46,6 @@ const verdict = computed(() => {
   return { n: "0", unit: "deadlines in this repository", tone: "is-ok" };
 });
 
-/**
- * How much time to draw. A fixed twelve months spends most of its width on
- * empty axis when every deadline is inside two, which makes urgent items look
- * distant. Cover from today to the last deadline plus a month of air, clamped
- * so the ruler never gets uselessly short or longer than a year.
- */
 const rulerMonths = computed(() => {
   const dated = findings.value.filter((f) => f.daysRemaining !== null && f.daysRemaining > 0);
   if (!dated.length) return 3;
@@ -84,7 +67,17 @@ const second = computed(() => {
   <section class="board" id="results">
     <div class="board-top">
       <div class="board-what">
-        <component :is="heading ? 'h1' : 'p'" class="subject">
+        <div class="subject-badge-row">
+          <span class="target-badge">
+            <span class="mono">TARGET REPO</span>
+          </span>
+          <span class="registry-badge" v-if="!busy && inventory">
+            <span class="live-dot"></span>
+            <span>Contract Radar Active</span>
+          </span>
+        </div>
+
+        <component :is="heading ? 'h1' : 'div'" class="subject">
           <NuxtLink v-if="subjectTo && subject" :to="subjectTo">{{ subject }}</NuxtLink>
           <span v-else-if="subject">{{ subject }}</span>
           <span v-else>No repository scanned yet</span>
@@ -92,29 +85,102 @@ const second = computed(() => {
         <p class="says" v-if="note">{{ note }}</p>
       </div>
 
-      <p class="verdict" :class="verdict.tone" v-if="!busy && inventory">
+      <!-- Verdict Banner -->
+      <div class="verdict" :class="verdict.tone" v-if="!busy && inventory">
         <span class="n num">{{ verdict.n }}</span>
         <span class="u">{{ verdict.unit }}</span>
-      </p>
+      </div>
     </div>
 
+    <!-- Live Telemetry HUD Grid -->
+    <div v-if="!busy && inventory" class="hud-grid">
+      <div class="hud-card" :class="{ 'alert-critical': expired > 0 }">
+        <div class="hud-label">
+          <span>●</span>
+          <span>Expired Calls</span>
+        </div>
+        <div class="hud-val num">
+          {{ expired }}
+        </div>
+        <div class="hud-sub">
+          {{ expired === 0 ? "No expired contracts" : (expired === 1 ? "1 call stopped working" : `${expired} calls stopped working`) }}
+        </div>
+      </div>
+
+      <div class="hud-card" :class="{ 'alert-warning': next && (next.daysRemaining ?? 999) <= 90 }">
+        <div class="hud-label">
+          <span>▲</span>
+          <span>Next Expiry</span>
+        </div>
+        <div class="hud-val num">
+          <template v-if="next">
+            {{ next.daysRemaining }}<span style="font-size: 1rem; font-weight: 600; color: var(--ink-soft)">d</span>
+          </template>
+          <template v-else-if="expired > 0">
+            0<span style="font-size: 1rem; font-weight: 600; color: var(--ink-soft)">d</span>
+          </template>
+          <template v-else>
+            —
+          </template>
+        </div>
+        <div class="hud-sub">
+          {{ next ? `Due ${fmtDate(next.effective)}` : (expired ? "Active overdue debt" : "No pending dates") }}
+        </div>
+      </div>
+
+      <div class="hud-card">
+        <div class="hud-label">
+          <span>◈</span>
+          <span>External APIs</span>
+        </div>
+        <div class="hud-val num">
+          {{ contracts.length }}
+        </div>
+        <div class="hud-sub">
+          Across {{ providers }} {{ providers === 1 ? "provider" : "providers" }}
+        </div>
+      </div>
+
+      <div class="hud-card">
+        <div class="hud-label">
+          <span>⚡</span>
+          <span>Engine Performance</span>
+        </div>
+        <div class="hud-val num" style="font-size: 1.875rem">
+          {{ inventory.stats.durationMs }}<span style="font-size: 1rem; font-weight: 600; color: var(--ink-soft)">ms</span>
+        </div>
+        <div class="hud-sub">
+          {{ inventory.stats.filesScanned }} files · 100% in-browser AST
+        </div>
+      </div>
+    </div>
+
+    <!-- Scanning Radar Animation -->
     <div v-if="busy" class="board-scanning" aria-live="polite">
-      <span>{{ phase || "Reading files" }}</span>
-      <span class="board-bar" :class="{ indeterminate: percent === null || percent === undefined }">
+      <div class="scanning-header">
+        <div class="scanning-pulse">
+          <div class="radar-spinner"></div>
+          <span>{{ phase || "Analyzing AST and manifests" }}</span>
+        </div>
+        <span class="num mono" style="font-weight: 700; color: var(--ink-accent)" v-if="percent !== null && percent !== undefined">
+          {{ percent }}%
+        </span>
+      </div>
+      <div class="board-bar" :class="{ indeterminate: percent === null || percent === undefined }">
         <span :style="percent !== null && percent !== undefined ? { width: percent + '%' } : undefined"></span>
-      </span>
-      <span class="num" v-if="percent !== null && percent !== undefined">{{ percent }}%</span>
+      </div>
     </div>
 
+    <!-- Horizon Timeline -->
     <div v-else-if="inventory" class="board-ruler">
       <Horizon :findings="findings" variant="board" :today="today" :months="rulerMonths" />
     </div>
 
+    <!-- Telemetry Footnote -->
     <p class="board-note" v-if="!busy && inventory">
-      {{ inventory.stats.filesScanned }} files read in {{ inventory.stats.durationMs }} ms.
-      {{ contracts.length }} external {{ contracts.length === 1 ? "contract" : "contracts" }}
-      across {{ providers }} {{ providers === 1 ? "provider" : "providers" }}.
-      <span v-if="second">{{ second }}.</span>
+      <span class="meta-pill">⚡ {{ inventory.stats.filesScanned }} files read in {{ inventory.stats.durationMs }} ms</span>
+      <span class="meta-pill">📦 {{ contracts.length }} external {{ contracts.length === 1 ? "contract" : "contracts" }} across {{ providers }} {{ providers === 1 ? "provider" : "providers" }}</span>
+      <span class="meta-pill" v-if="second">{{ second }}.</span>
     </p>
   </section>
 </template>

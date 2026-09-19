@@ -11,6 +11,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2026-09-01",
   ssr: false,
   devtools: { enabled: false },
+  telemetry: false,
   css: ["~/assets/main.css"],
   app: {
     // Kept absolute for dev; scripts/relativize.mjs rewrites the export to relative URLs so it works at any subpath.
@@ -22,14 +23,14 @@ export default defineNuxtConfig({
       meta: [
         { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
         { name: "description", content: "Scan a repository for every external API contract it depends on and see which ones have an expiry date." },
-        { name: "color-scheme", content: "light dark" },
+        { name: "color-scheme", content: "dark light" },
       ],
       link: [
         // scripts/relativize.mjs rewrites this to ./favicon.svg so it resolves at any subpath.
         { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
         { rel: "preconnect", href: "https://fonts.googleapis.com" },
         { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
-        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=DM+Mono:wght@400;500&display=swap" },
+        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wdth,wght@62..125,400..800&family=DM+Mono:wght@400;500&display=swap" },
       ],
     },
   },

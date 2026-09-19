@@ -17,7 +17,7 @@ function group(list: ChangeRecord[]) {
     .map(([key, items]) => ({ key, items: items.sort((a, b) => (a.effective ?? "9") < (b.effective ?? "9") ? -1 : 1) }));
 }
 useHead({
-  title: "Deprecation calendar, DocsWatcher",
+  title: "Deprecation Calendar, DocsWatcher",
   meta: [{ name: "description", content: "Every dated API deprecation DocsWatcher tracks, grouped by month, generated from the open knowledge base." }],
 });
 
@@ -32,19 +32,39 @@ const days = (c: ChangeRecord) => (c.effective ? daysBetween(today, c.effective)
   <div class="stack" style="gap: var(--s6)">
     <section class="page">
       <h1>What breaks when</h1>
-      <p class="lede">Every dated change across {{ knowledge.providers.length }} tracked providers, generated from the open knowledge base. {{ all.length }} records.</p>
+      <p class="lede">
+        Continuous timeline of published API deprecations across {{ knowledge.providers.length }} tracked cloud and AI providers.
+        {{ all.length }} active and historical records from the open knowledge base.
+      </p>
     </section>
 
-    <section class="section" v-for="g in upcoming" :key="g.key">
+    <section class="section" v-for="g in upcoming" :key="g.key" style="margin-top: 0">
       <div class="month">
-        <h3>{{ g.key === "none" ? "Announced, no date yet" : fmtMonth(g.key) }}</h3>
+        <h3>
+          <span style="color: var(--ink-accent); margin-right: 8px">◈</span>
+          <span>{{ g.key === "none" ? "Announced, no date yet" : fmtMonth(g.key) }}</span>
+        </h3>
         <div v-for="c in g.items" :key="c.id" class="cal-row">
-          <div class="date">{{ c.effective ? fmtDate(c.effective) : "—" }}<div class="t2 ink-faint num" v-if="days(c) !== null">in {{ days(c) }} days</div></div>
-          <div class="stack" style="gap: 4px">
-            <div class="row" style="gap: 8px"><SeverityChip :severity="c.severity" /><strong>{{ providerName(c.provider) }}</strong><span>{{ c.title }}</span></div>
+          <div class="date">
+            <span style="display: block; font-size: 1.125rem; font-weight: 700; color: var(--ink-max)">
+              {{ c.effective ? fmtDate(c.effective) : "—" }}
+            </span>
+            <span class="t1 num" v-if="days(c) !== null" :style="{ color: (days(c) ?? 99) <= 60 ? 'var(--soon)' : 'var(--ink-faint)', fontWeight: 600 }">
+              in {{ days(c) }} days
+            </span>
+          </div>
+
+          <div class="stack" style="gap: 6px">
+            <div class="row" style="gap: 8px; align-items: center">
+              <SeverityChip :severity="c.severity" />
+              <strong style="color: var(--ink-max)">{{ providerName(c.provider) }}</strong>
+              <span style="font-weight: 600; color: var(--ink)">{{ c.title }}</span>
+            </div>
             <p class="ink-soft t2">{{ c.summary }}</p>
-            <div class="row t2" style="gap: 14px">
-              <span class="mono ink-faint">{{ c.affects.map(a => a.match).slice(0, 3).join(", ") }}<span v-if="c.affects.length > 3"> +{{ c.affects.length - 3 }}</span></span>
+            <div class="row t2" style="gap: 14px; align-items: center">
+              <span class="mono ink-faint" style="background: rgba(0,0,0,0.25); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--hair)">
+                {{ c.affects.map(a => a.match).slice(0, 3).join(", ") }}<span v-if="c.affects.length > 3"> +{{ c.affects.length - 3 }}</span>
+              </span>
               <a v-if="c.migration?.guide" :href="c.migration.guide" target="_blank" rel="noopener">migration guide ↗</a>
               <NuxtLink to="/">check whether your repo is affected</NuxtLink>
             </div>
@@ -53,17 +73,37 @@ const days = (c: ChangeRecord) => (c.effective ? daysBetween(today, c.effective)
       </div>
     </section>
 
-    <section class="section">
-      <button class="btn" @click="showPast = !showPast">{{ showPast ? "Hide" : "Show" }} already effective ({{ past.reduce((n, g) => n + g.items.length, 0) }})</button>
+    <section class="section" style="margin-top: var(--s4)">
+      <button class="btn" @click="showPast = !showPast">
+        <span>⏱</span>
+        <span>{{ showPast ? "Hide" : "Show" }} already effective ({{ past.reduce((n, g) => n + g.items.length, 0) }})</span>
+      </button>
+
       <template v-if="showPast">
-        <div class="month" v-for="g in past" :key="g.key">
-          <h3>{{ fmtMonth(g.key) }}</h3>
+        <div class="month" v-for="g in past" :key="g.key" style="margin-top: var(--s4); opacity: 0.9">
+          <h3 style="color: var(--ink-soft)">
+            <span style="color: var(--overdue); margin-right: 8px">✕</span>
+            <span>{{ fmtMonth(g.key) }} (Already Effective)</span>
+          </h3>
           <div v-for="c in g.items" :key="c.id" class="cal-row">
-            <div class="date">{{ fmtDate(c.effective) }}<div class="t2 ink-faint num">{{ -days(c)! }} days ago</div></div>
-            <div class="stack" style="gap: 4px">
-              <div class="row" style="gap: 8px"><SeverityChip :severity="c.severity" /><strong>{{ providerName(c.provider) }}</strong><span>{{ c.title }}</span></div>
+            <div class="date">
+              <span style="display: block; font-size: 1.125rem; font-weight: 700; color: var(--overdue)">
+                {{ fmtDate(c.effective) }}
+              </span>
+              <div class="t1 num" style="color: var(--overdue); font-weight: 600">
+                {{ -days(c)! }} days ago
+              </div>
+            </div>
+            <div class="stack" style="gap: 6px">
+              <div class="row" style="gap: 8px; align-items: center">
+                <SeverityChip :severity="c.severity" />
+                <strong style="color: var(--ink-max)">{{ providerName(c.provider) }}</strong>
+                <span style="font-weight: 600; color: var(--ink)">{{ c.title }}</span>
+              </div>
               <div class="row t2" style="gap: 14px">
-                <span class="mono ink-faint">{{ c.affects.map(a => a.match).slice(0, 3).join(", ") }}</span>
+                <span class="mono ink-faint" style="background: rgba(0,0,0,0.25); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--hair)">
+                  {{ c.affects.map(a => a.match).slice(0, 3).join(", ") }}
+                </span>
                 <NuxtLink to="/">still referenced in your repo? check</NuxtLink>
               </div>
             </div>
