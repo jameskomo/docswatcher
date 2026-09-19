@@ -6,7 +6,7 @@ A guide for someone who has just cloned this repository and knows nothing about 
 
 DocsWatcher scans a repository for every external API it depends on: SDK packages, HTTP endpoints, AI model IDs in config, pinned API versions. It matches that inventory against a knowledge base of provider deprecations. It tells you which of your calls has an expiry date, at which file and line.
 
-Think of it as Dependabot for the APIs you call rather than the packages you install.
+You can pin a package. You can't pin someone else's API — that gap is what this watches.
 
 ## Prerequisites
 

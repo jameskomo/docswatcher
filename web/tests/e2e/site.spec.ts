@@ -105,7 +105,7 @@ test("a finding row is reachable and activatable by keyboard", async ({ page }) 
 test("about page explains the product and reports the real counts", async ({ page }) => {
   const failed = watchFailures(page);
   await page.goto("./#/about");
-  await expect(page.locator("h1")).toContainText("Dependabot for the APIs you call");
+  await expect(page.locator("h1")).toContainText("You can pin a package");
   await expect(page.locator(".prose")).toContainText("What DocsWatcher is not");
   await expect(page.locator(".prose")).toContainText("What does not exist yet");
   // The provider table is generated from the knowledge base, not hardcoded.

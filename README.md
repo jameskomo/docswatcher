@@ -1,6 +1,6 @@
 # DocsWatcher
 
-> **Dependabot for the APIs you call, not the packages you install.**
+> **You can pin a package. You can't pin someone else's API.**
 
 [![Live Web App](https://img.shields.io/badge/Hosted%20Radar-docswatcher.vukisha.co.ke-0284c7?style=flat-square&logo=cloudflare)](https://docswatcher.vukisha.co.ke)
 [![Knowledge Base](https://img.shields.io/badge/Knowledge%20Base-10%20Providers%20%7C%2077%20Rules-10b981?style=flat-square)](https://docswatcher.vukisha.co.ke/#/calendar)

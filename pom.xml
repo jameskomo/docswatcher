@@ -9,7 +9,7 @@
   <version>0.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>DocsWatcher</name>
-  <description>Dependabot for the APIs you call, not the packages you install.</description>
+  <description>Finds the external API contracts your code depends on and tells you which ones have an expiry date.</description>
 
   <modules>
     <module>knowledge</module>

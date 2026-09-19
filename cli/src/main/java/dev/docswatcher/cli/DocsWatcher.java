@@ -9,7 +9,7 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
-/** DocsWatcher command line. Dependabot for the APIs you call, not the packages you install. */
+/** DocsWatcher command line. Finds the external API contracts a repository depends on. */
 @Command(
     name = "docswatcher",
     mixinStandardHelpOptions = true,
