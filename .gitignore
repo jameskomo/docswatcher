@@ -13,3 +13,7 @@ web/.data/
 relay/.wrangler/
 web/dist
 deployment/.env.prod
+
+# Deployment describes a specific server: its address, key name and paths.
+# It lives in the private operations repository, not here.
+deployment/

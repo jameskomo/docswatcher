@@ -6,6 +6,7 @@ import dev.docswatcher.app.model.ContractDoc;
 import dev.docswatcher.app.model.EvidenceDoc;
 import dev.docswatcher.app.model.FindingDoc;
 import dev.docswatcher.app.model.InventoryDoc;
+import dev.docswatcher.app.model.ProviderDoc;
 import dev.docswatcher.app.model.RepoRefDoc;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -64,6 +65,16 @@ public class FakeScanEngine implements ScanEngine {
   @Override
   public String knowledgeVersion() {
     return "test";
+  }
+
+  @Override
+  public List<ProviderDoc> providers() {
+    return List.of(
+        new ProviderDoc("openai", "OpenAI", List.of("https://api.openai.com")),
+        new ProviderDoc("slack", "Slack", List.of("https://slack.com/api")),
+        new ProviderDoc("shopify", "Shopify", List.of("https://{shop}.myshopify.com/admin/api")),
+        new ProviderDoc("aws", "AWS SDK", List.of("https://amazonaws.com")),
+        new ProviderDoc("twilio", "Twilio", List.of("https://api.twilio.com", "https://notify.twilio.com")));
   }
 
   @Override
