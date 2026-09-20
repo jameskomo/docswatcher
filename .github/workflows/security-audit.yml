@@ -75,7 +75,7 @@ jobs:
             runner cannot enforce the sandbox the skill requires, so record any
             check that would need it as needs_validation with that blocker.
 
-      - name: Publish the report
+      - name: Publish a summary
         if: always()
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
@@ -88,22 +88,40 @@ jobs:
             }
             const run = fs.readdirSync(dir).sort().pop();
             const read = (f) => { try { return fs.readFileSync(`${dir}/${run}/${f}`, 'utf8'); } catch { return ''; } };
-            const report = read('REPORT.md');
-            if (!report) { core.setFailed('The audit produced no REPORT.md.'); return; }
+            if (!read('REPORT.md')) { core.setFailed('The audit produced no REPORT.md.'); return; }
 
-            let confirmed = 0;
+            // COUNTS ONLY. This repository is public, so an issue body is world-readable the
+            // moment it is created. The report carries file paths, traces, line numbers and
+            // reproduction steps for findings nobody has fixed yet; publishing that on a
+            // schedule hands an attacker a worked example before the maintainer has read it.
+            // The detail stays on the machine that ran the audit.
+            let counts = {};
             try {
-              confirmed = JSON.parse(read('findings.json')).filter(r => r.verdict === 'confirmed').length;
-            } catch { /* the report still gets published */ }
+              for (const r of JSON.parse(read('findings.json'))) {
+                if (r.verdict !== 'confirmed') continue;
+                const s = r.severity?.overall_severity ?? 'unrated';
+                counts[s] = (counts[s] ?? 0) + 1;
+              }
+            } catch { /* the summary still gets published */ }
 
-            const title = `Security audit ${new Date().toISOString().slice(0, 10)}: ${confirmed} confirmed`;
-            const body = [report, '', '---', '', read('NEEDS-VALIDATION.md')].join('\n').slice(0, 60000);
+            const order = ['critical', 'high', 'medium', 'low', 'informational'];
+            const total = Object.values(counts).reduce((a, b) => a + b, 0);
+            const rows = order.filter(s => counts[s]).map(s => `| ${s} | ${counts[s]} |`).join('\n');
+            const title = `Security audit ${new Date().toISOString().slice(0, 10)}: ${total} confirmed`;
+            const body = [
+              rows ? `| severity | confirmed |\n|---|---|\n${rows}` : 'No confirmed findings.',
+              '',
+              'Detail is deliberately withheld. This repository is public, so anything in this',
+              'issue is readable by anyone, and the report names exact files, lines and',
+              'reproduction steps for findings that are not fixed yet.',
+              '',
+              `To read it, re-run the audit locally: \`gh workflow run security-audit.yml\` is`,
+              'not enough, because the artifacts are not retained either. Run the security-audit',
+              'skill against a local checkout and read REPORT.md there.',
+            ].join('\n');
             await github.rest.issues.create({ ...context.repo, title, body, labels: ['security'] });
 
-      - name: Keep the artifacts
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: security-audit
-          path: security-audit-output/
-          retention-days: 90
+      # No artifact upload. On a public repository an Actions artifact is downloadable by
+      # anyone, so retaining REPORT.md and NEEDS-VALIDATION.md there leaks exactly what the
+      # summary above withholds. If this repository is ever made private, or the artifacts are
+      # sent somewhere access-controlled, restore the upload-artifact step from git history.
