@@ -2,167 +2,135 @@
 
 > **You can pin a package. You can't pin someone else's API.**
 
-[![Live Web App](https://img.shields.io/badge/Hosted%20Radar-docswatcher.vukisha.co.ke-0284c7?style=flat-square&logo=cloudflare)](https://docswatcher.vukisha.co.ke)
-[![Knowledge Base](https://img.shields.io/badge/Knowledge%20Base-10%20Providers%20%7C%2077%20Rules-10b981?style=flat-square)](https://docswatcher.vukisha.co.ke/#/calendar)
-[![Test Suite](https://img.shields.io/badge/Tests-100%25%20Passing-success?style=flat-square)](./docs/04-test-plan.md)
-[![Privacy](https://img.shields.io/badge/Client--Side%20AST-100%25%20Private-violet?style=flat-square)](#-privacy--security-model)
+[Try it](https://docswatcher.vukisha.co.ke) ·
+[Deprecation calendar](https://docswatcher.vukisha.co.ke/#/calendar) ·
+[Add it to CI](./docs/11-ci-integration.md) ·
+Apache-2.0
 
-Every codebase depends on external contracts nobody actively tracks: third-party payment endpoints, AI model IDs in configuration files, API version dates in URLs, and deprecating SDK methods. Providers change these on aggressive release schedules. Stripe sunsets an API version, OpenAI retires a model series, and Shopify shuts down an API release twelve months after publication.
+Stripe retires an API version. OpenAI shuts down a model. Shopify drops a release a year after
+publishing it. Your lockfile cannot help with any of them: the code still compiles, the tests
+still pass against their mocks, and one morning a payment fails.
 
-Package managers bump dependency versions, but **nothing in the standard toolchain warns you that an endpoint your checkout service calls will cease to exist on November 30.**
+DocsWatcher reads a repository, finds every external API it actually calls, and tells you which
+ones already have a shutdown date — with the file, the line, and the date.
 
-**DocsWatcher closes this gap.** It scans repositories, constructs a living inventory of every external contract, matches it against an open knowledge base of provider deprecations, surfaces exact breaking dates and call-site coordinates, and generates actionable prompts for coding agents to open automated fix PRs.
+It currently tracks **77 published shutdowns across 10 providers**. 52 of those are AI model
+retirements, which is where this hurts most right now.
 
----
+## What a scan finds
 
-## 🌐 Try the Live Hosted Service
+Four kinds of thing, because an API dependency hides in four places:
 
-DocsWatcher is deployed and accessible at:
-### 👉 [**https://docswatcher.vukisha.co.ke**](https://docswatcher.vukisha.co.ke)
-
-* **Instant In-Browser AST Scanning**: Paste any public GitHub repository URL, pick a sample repository, or select a local project directory.
-* **100% Private (Zero Code Uploaded)**: All syntax parsing and rule evaluation execute client-side in your browser via WebAssembly Tree-sitter. Your code never leaves your device.
-* **Interactive Time Horizon**: Visualize upcoming API deprecations on a chronological timeline with an overdue danger zone and a live countdown to every contract deadline.
-* **Continuous Deprecation Calendar**: Explore upcoming sunsets across 10 major providers at [`https://docswatcher.vukisha.co.ke/#/calendar`](https://docswatcher.vukisha.co.ke/#/calendar).
-* **AI Remediation Terminal**: View exact code evidence and copy pre-assembled fix prompts ready for Claude Code, GitHub Copilot, or Cursor.
-
----
-
-## 🛠️ The Four Surfaces
-
-DocsWatcher provides four distinct interfaces suited for development, continuous integration, and fleet management:
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                              DocsWatcher                               │
-├───────────────────┬────────────────────┬─────────────────┬─────────────┤
-│ 1. Web Console    │ 2. CI/CD CLI       │ 3. GitHub App   │ 4. Open KB  │
-│ Browser WASM AST  │ GraalVM native binary│ Spring Boot 4 │ Declarative │
-│ Telemetry HUD     │ Sub-second scans   │ Webhooks & PRs  │ YAML rules  │
-│ Zero code uploaded│ JSON & text out    │ Auto-fix loop   │ 10 providers│
-└───────────────────┴────────────────────┴─────────────────┴─────────────┘
-```
-
-1. **Web Radar Console (`web/`)**: Nuxt 3 static SPA delivering a high-precision developer telemetry HUD, dynamic dependency graphs, and client-side AST inspection.
-2. **Static Analysis CLI (`cli/`)**: Picocli CLI packaged as a GraalVM native binary or executable JAR for pre-commit hooks and CI pipelines. `docswatcher match . --format json` prints the findings and exits 1 when a breaking deprecation is open — see [`docs/11-ci-integration.md`](./docs/11-ci-integration.md).
-3. **Continuous GitHub App (`app/`)**: Spring Boot 4 service running on Java 25. Ingests GitHub webhooks, scans commits asynchronously, records inventory in PostgreSQL, posts Check Runs, and dispatches automated fix workflows.
-4. **Open Knowledge Base (`knowledge/`)**: Open-source collection of YAML detection rules, change records, and verified test fixtures tracking deprecations across 10 major developer platforms.
-
----
-
-## 🔍 How It Works: The Three-Layer Detection Engine
-
-Rather than relying on naive text grep or unvalidated AI summaries, DocsWatcher employs a layered multi-pass engine that guarantees precision over recall:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│ 1. Manifest Layer: SDK package coordinates & pinned version │
-├─────────────────────────────────────────────────────────────┤
-│ 2. Literal Layer: Model IDs, API dates, URI route constants │
-├─────────────────────────────────────────────────────────────┤
-│ 3. Call-Site Layer: Tree-sitter AST queries for methods     │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│ Contract Inventory & Matcher against Open Knowledge Base    │
-└─────────────────────────────────────────────────────────────┘
-```
-
-* **Layer 1: Manifest Gate**: Analyzes `package.json`, `pom.xml`, `requirements.txt`, `go.mod`, and `Gemfile` to verify that an SDK is actually an installed dependency.
-* **Layer 2: Config & Literals**: Detects version pins, model identifiers (e.g. `gpt-3.5-turbo-0125`, `claude-2.0`), and versioned endpoints across source code and configuration.
-* **Layer 3: Syntax Tree Call Sites**: Uses Tree-sitter (via `java-tree-sitter` in Java and `web-tree-sitter` in the browser) to parse concrete syntax trees and pinpoint exact method calls with file, line, and column precision.
-
-Both the Java and TypeScript engines share identical declarative YAML rules and are tested on every build to guarantee **byte-for-byte identical output**.
-
----
-
-## 📡 Tracked Ecosystem Providers
-
-The open knowledge base actively monitors deprecation schedules, API version shutdowns, and model retirements for:
-
-| Provider | Tracked Contracts | Examples |
-|---|---|---|
-| **OpenAI** | Model shutdowns & API migrations | Assistants v1, `gpt-3.5-turbo-0125`, Completions API |
-| **Anthropic** | Model deprecations & message formats | `claude-2.0`, `claude-2.1`, legacy completions |
-| **Google AI** | Gemini model retirements | `gemini-1.0-pro`, legacy embedding endpoints |
-| **Shopify** | Admin API quarterly version sunsets | Expired release versions (e.g. `2024-10`, `2024-07`) |
-| **Stripe** | Legacy API endpoints & sources | Sources API, Tokens API, deprecated charge fields |
-| **AWS SDK** | SDK v1/v2 lifecycles | Go SDK v1, Java SDK v1, Node SDK v2 retirement |
-| **GitHub** | REST API versioning & sunset routes | `2022-11-28` version pins, legacy search endpoints |
-| **Slack** | Web API methods & Webhooks | `files.upload` migration to `files.getUploadURLExternal` |
-| **SendGrid** | Mail API deprecations | Legacy v2 Web API endpoints |
-| **Twilio** | REST API changes | Legacy notification & subresource endpoints |
-
----
-
-## 🔒 Privacy & Security Model
-
-* **Zero Code Exfiltration**: During public browser scans, source files are decompressed in browser memory and parsed directly via WebAssembly. Neither file contents nor repository metadata are transmitted to external servers.
-* **Secure GitHub App Execution**: The server application processes repositories in isolated ephemeral working directories with zero long-term source retention.
-* **In-Repo AI Remediation**: Fix pull requests are triggered via standard `repository_dispatch` events that run inside your own GitHub Actions environment with your own secrets.
-
----
-
-## 🚀 Local Development & Quickstart
-
-### Prerequisites
-* **Java 25** (for CLI, Engine, and Server App)
-* **Node.js 20+** (for Web frontend and Relay worker)
-* **Docker** (for local PostgreSQL and deployment testing)
-
-### 1. Run the Web Application Locally
-```bash
-cd web
-npm install
-npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### 2. Run the Command-Line Scanner
-```bash
-# Build the CLI jar
-./mvnw -pl cli -am package -DskipTests
-
-# Scan any local directory
-java -jar cli/target/docswatcher-cli.jar scan --repo /path/to/project --format text
-```
-
-### 3. Run the Test Suite
-```bash
-# Java Engine & App tests (174 tests)
-./mvnw test
-
-# TypeScript Engine Unit Tests (48 tests)
-cd web && npm test
-
-# Playwright E2E Tests (11 tests)
-npm run generate && npx playwright test tests/e2e/site.spec.ts
-```
-
----
-
-## 📚 Documentation Index
-
-For in-depth guides, architectural decision records, and operational manuals:
-
-| Guide | Description |
+| | Example |
 |---|---|
-| [`docs/01-architecture.md`](./docs/01-architecture.md) | Multi-module design, engine seams, data models, and lifecycles |
-| [`docs/02-schemas.md`](./docs/02-schemas.md) | Specification of inventory, change records, and findings |
-| [`docs/03-knowledge-base-guide.md`](./docs/03-knowledge-base-guide.md) | How to add new providers, YAML detector rules, and test fixtures |
-| [`docs/04-test-plan.md`](./docs/04-test-plan.md) | Parity testing, negative fixtures, and continuous verification |
-| [`docs/05-deployment.md`](./docs/05-deployment.md) | Infrastructure topology, container layout, and ingress |
-| [`docs/06-testing-guide.md`](./docs/06-testing-guide.md) | Testing recipes and verified public benchmark repositories |
-| [`docs/07-getting-started.md`](./docs/07-getting-started.md) | Step-by-step onboarding from clone to first scan |
-| [`docs/08-features.md`](./docs/08-features.md) | Complete inventory of capabilities and detection mechanics |
-| [`docs/09-status.md`](./docs/09-status.md) | Current test coverage, verified repositories, and roadmap |
-| [`docs/10-reference.md`](./docs/10-reference.md) | CLI commands, REST endpoints, and environment variables |
-| [`docs/11-ci-integration.md`](./docs/11-ci-integration.md) | Add DocsWatcher to your CI so a new breaking dependency cannot reach your default branch |
-| `deployment/` *(private)* | Server setup, Cloudflare Tunnel configuration, and systemd ops. Kept out of this repository because it describes one specific deployment; see [`docs/05-deployment.md`](./docs/05-deployment.md) for the architecture. |
+| SDK packages and versions | `openai==1.0.0` in `requirements.txt` |
+| Endpoint paths and base URLs | `https://api.stripe.com/v1/sources` |
+| Model IDs in configuration | `model: dall-e-2` in a YAML file |
+| API versions pinned in headers or paths | `Stripe-Version: 2022-11-15`, `/admin/api/2024-04/` |
 
----
+It finds them by parsing, not grepping: a manifest pass to confirm the SDK is really installed,
+a literal pass for versions and model strings, then tree-sitter queries over the syntax tree for
+the actual call sites. That is why it can point at a line and a column instead of a file.
 
-## 📄 License
+## Three ways to run it
 
-Licensed under the [Apache License 2.0](LICENSE).
+**In your browser.** Paste a public repository URL, or pick a local folder.
+[docswatcher.vukisha.co.ke](https://docswatcher.vukisha.co.ke). Parsing happens client-side in
+WebAssembly, so no file contents are transmitted. The most recent scan is kept in your browser's
+local storage so a reload does not lose it, and there is a control to clear it.
+
+**In your CI.** Five lines, and the build fails when a breaking deprecation is open:
+
+```yaml
+- uses: actions/checkout@v4
+- uses: jameskomo/docswatcher@v0
+```
+
+Or one command anywhere with a shell:
+
+```bash
+curl -sSL -o docswatcher \
+  https://github.com/jameskomo/docswatcher/releases/latest/download/docswatcher-linux-x64
+chmod +x docswatcher
+./docswatcher match . --format text     # exits 1 if anything breaking is open
+```
+
+See [`docs/11-ci-integration.md`](./docs/11-ci-integration.md) for GitLab, Jenkins, monorepos,
+and how to introduce it to a codebase that already has findings without blocking your team.
+
+**Watching a repository.** The GitHub App scans on every push, opens an issue per finding with
+the file and line, and can open a fix pull request when you add a label. Setup is in
+[`docs/07-getting-started.md`](./docs/07-getting-started.md).
+
+## What it will not tell you
+
+It only knows about deprecations someone has written down. **A green result means nothing
+*known* is expiring — not that nothing is.**
+
+The knowledge base is plain YAML in this repository and takes pull requests. If a provider you
+depend on is missing, adding it is a detector rule and a change record:
+[`docs/03-knowledge-base-guide.md`](./docs/03-knowledge-base-guide.md).
+
+It also will not rewrite your code for you. It can hand a coding agent the exact locations and
+the provider's migration notes, and the agent opens a pull request you review like any other.
+
+## Providers tracked today
+
+OpenAI · Anthropic · Google AI · Shopify · Stripe · AWS SDK · GitHub · Slack · SendGrid · Twilio
+
+The [deprecation calendar](https://docswatcher.vukisha.co.ke/#/calendar) shows every tracked
+shutdown on a timeline, whether or not you have scanned anything.
+
+## How it is put together
+
+Four pieces: a browser scanner (`web/`), a CLI (`cli/`), a GitHub App (`app/`), and the open
+knowledge base (`knowledge/`). The detection rules are declarative YAML shared by two
+independent engines — one in Java, one in TypeScript — and a parity check runs both over every
+fixture on each build and fails if their output differs by a byte. A finding you get in the
+browser is the same finding CI would give you.
+
+Architecture and the reasoning behind it:
+[`docs/01-architecture.md`](./docs/01-architecture.md) and the ADRs in [`docs/adr/`](./docs/adr).
+
+## Building it yourself
+
+Needs **Java 25** and **Node 20+**.
+
+```bash
+# the web scanner
+cd web && npm install && npm run dev
+
+# the CLI
+./mvnw -pl cli -am package -DskipTests
+java -jar cli/target/docswatcher-cli.jar match /path/to/project --format text
+
+# the tests: 174 Java, 48 TypeScript, 14 end-to-end
+./mvnw test
+cd web && npm test && npm run e2e
+```
+
+## Documentation
+
+| | |
+|---|---|
+| [`docs/00-vision.md`](./docs/00-vision.md) | What this is for and who it is for |
+| [`docs/01-architecture.md`](./docs/01-architecture.md) | Module design, engine seams, data models |
+| [`docs/02-schemas.md`](./docs/02-schemas.md) | Inventory, change record and finding schemas |
+| [`docs/03-knowledge-base-guide.md`](./docs/03-knowledge-base-guide.md) | Adding a provider, writing detector rules |
+| [`docs/04-test-plan.md`](./docs/04-test-plan.md) | Parity testing, negative fixtures, benchmarks |
+| [`docs/05-deployment.md`](./docs/05-deployment.md) | Topology, containers, ingress |
+| [`docs/06-testing-guide.md`](./docs/06-testing-guide.md) | Recipes and public benchmark repositories |
+| [`docs/07-getting-started.md`](./docs/07-getting-started.md) | Clone to first scan, and GitHub App setup |
+| [`docs/08-features.md`](./docs/08-features.md) | Capabilities and detection mechanics in full |
+| [`docs/09-status.md`](./docs/09-status.md) | What works, what does not exist yet |
+| [`docs/10-reference.md`](./docs/10-reference.md) | CLI commands, REST endpoints, configuration |
+| [`docs/11-ci-integration.md`](./docs/11-ci-integration.md) | Running it in a pipeline |
+| [`docs/13-runtime-observation.md`](./docs/13-runtime-observation.md) | Feeding it live traffic to prioritise findings |
+
+`deployment/` is intentionally not in this repository: it describes one specific server, its
+secret layout and its tunnel, so publishing it would document an attack surface without helping
+anyone run their own.
+
+## License
+
+[Apache License 2.0](LICENSE).

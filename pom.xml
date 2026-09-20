@@ -7,6 +7,14 @@
   <groupId>dev.docswatcher</groupId>
   <artifactId>docswatcher</artifactId>
   <version>0.1.2-SNAPSHOT</version>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   <packaging>pom</packaging>
   <name>DocsWatcher</name>
   <description>Finds the external API contracts your code depends on and tells you which ones have an expiry date.</description>

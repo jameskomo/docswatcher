@@ -8,5 +8,6 @@
     "test": "node --test test/*.test.mjs",
     "dev": "npx wrangler dev",
     "deploy": "npx wrangler deploy"
-  }
+  },
+  "license": "Apache-2.0"
 }

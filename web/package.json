@@ -33,5 +33,6 @@
     "tsx": "^4.23.13",
     "typescript": "^7.0.2",
     "vitest": "^5.0.1"
-  }
+  },
+  "license": "Apache-2.0"
 }
