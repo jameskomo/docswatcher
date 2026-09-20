@@ -7,7 +7,10 @@ name: Release
 
 on:
   push:
-    tags: ["v*"]
+    # Only real version tags. "v*" also matched the moving v0 tag, so every time v0 was
+    # repointed this workflow built and published a junk "v0" release that then claimed to
+    # be the latest one.
+    tags: ["v[0-9]+.[0-9]+.[0-9]+"]
   workflow_dispatch:
     inputs:
       tag:
