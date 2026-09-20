@@ -13,7 +13,7 @@ import picocli.CommandLine.Option;
 @Command(
     name = "docswatcher",
     mixinStandardHelpOptions = true,
-    version = "docswatcher 0.1.2",
+    version = "docswatcher 0.1.3",
     description = "Scan a repository for external API contracts and match them against provider deprecations.",
     subcommands = {ScanCommand.class, MatchCommand.class, ValidateCommand.class})
 public final class DocsWatcher implements Callable<Integer> {
