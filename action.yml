@@ -1,0 +1,107 @@
+# DocsWatcher as a GitHub Action.
+#
+# Downloads the native CLI from this repository's latest release and scans the checkout. The
+# knowledge base is compiled into that binary, so the scan is offline: nothing about your code
+# leaves the runner, and no DocsWatcher service needs to be reachable for your build to pass.
+name: DocsWatcher
+description: Find the external APIs your code calls that already have a shutdown date.
+branding:
+  icon: clock
+  color: blue
+
+inputs:
+  path:
+    description: Directory to scan. Point at a subdirectory in a monorepo.
+    required: false
+    default: "."
+  fail-on:
+    description: "breaking fails the build on a dated shutdown; never reports without failing."
+    required: false
+    default: breaking
+  include-low:
+    description: Also report contracts found only in documentation or test files.
+    required: false
+    default: "false"
+  report:
+    description: Write the full JSON findings to this path.
+    required: false
+    default: ""
+  version:
+    description: Release tag to use. Defaults to the latest release.
+    required: false
+    default: latest
+
+outputs:
+  findings:
+    description: Total findings.
+    value: ${{ steps.scan.outputs.findings }}
+  breaking:
+    description: Findings whose shutdown date has passed or is scheduled.
+    value: ${{ steps.scan.outputs.breaking }}
+  report:
+    description: Path to the JSON report, when the report input was set.
+    value: ${{ steps.scan.outputs.report }}
+
+runs:
+  using: composite
+  steps:
+    - name: Fetch the DocsWatcher CLI
+      shell: bash
+      env:
+        VERSION: ${{ inputs.version }}
+      run: |
+        set -euo pipefail
+        base="https://github.com/${{ github.action_repository || 'jameskomo/docswatcher' }}/releases"
+        url="$base/latest/download/docswatcher-linux-x64"
+        if [ "$VERSION" != "latest" ]; then
+          url="$base/download/$VERSION/docswatcher-linux-x64"
+        fi
+        curl -sSL --fail -o "$RUNNER_TEMP/docswatcher" "$url"
+        chmod +x "$RUNNER_TEMP/docswatcher"
+
+    - name: Scan
+      id: scan
+      shell: bash
+      env:
+        DW_PATH: ${{ inputs.path }}
+        DW_FAIL_ON: ${{ inputs.fail-on }}
+        DW_INCLUDE_LOW: ${{ inputs.include-low }}
+        DW_REPORT: ${{ inputs.report }}
+      run: |
+        set -uo pipefail
+        args=("match" "$DW_PATH")
+        [ "$DW_INCLUDE_LOW" = "true" ] && args+=("--include-low")
+
+        out="${DW_REPORT:-$RUNNER_TEMP/docswatcher.json}"
+        # The CLI exits 1 when a breaking finding is open. That is a result, not a failure of
+        # the step, so the exit code is captured rather than allowed to end the shell.
+        "$RUNNER_TEMP/docswatcher" "${args[@]}" --format json > "$out"
+        code=$?
+        if [ "$code" -gt 1 ]; then
+          echo "::error::docswatcher exited $code, which means the scan itself failed"
+          exit "$code"
+        fi
+
+        # The report is a top-level JSON array of findings, not an object wrapping one.
+        findings=$(python3 -c "import json,sys;print(len(json.load(open(sys.argv[1]))))" "$out" 2>/dev/null || echo 0)
+        breaking=$(python3 -c "import json,sys;print(sum(1 for f in json.load(open(sys.argv[1])) if f.get('severity')=='breaking'))" "$out" 2>/dev/null || echo 0)
+        echo "findings=$findings" >> "$GITHUB_OUTPUT"
+        echo "breaking=$breaking" >> "$GITHUB_OUTPUT"
+        [ -n "$DW_REPORT" ] && echo "report=$DW_REPORT" >> "$GITHUB_OUTPUT"
+
+        {
+          echo "## DocsWatcher"
+          if [ "$findings" = "0" ]; then
+            echo "Nothing your code calls has a known shutdown date."
+          else
+            echo "**$findings** findings, **$breaking** breaking."
+            echo
+            "$RUNNER_TEMP/docswatcher" "${args[@]}" --format text 2>/dev/null || true
+          fi
+        } >> "$GITHUB_STEP_SUMMARY"
+
+        if [ "$DW_FAIL_ON" = "breaking" ] && [ "$breaking" != "0" ]; then
+          echo "::error::$breaking breaking API deprecations affect this repository"
+          exit 1
+        fi
+        exit 0

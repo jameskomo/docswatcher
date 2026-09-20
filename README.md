@@ -39,12 +39,12 @@ DocsWatcher provides four distinct interfaces suited for development, continuous
 │ 1. Web Console    │ 2. CI/CD CLI       │ 3. GitHub App   │ 4. Open KB  │
 │ Browser WASM AST  │ GraalVM native binary│ Spring Boot 4 │ Declarative │
 │ Telemetry HUD     │ Sub-second scans   │ Webhooks & PRs  │ YAML rules  │
-│ Zero code uploaded│ SARIF & JSON out   │ Auto-fix loop   │ 10 providers│
+│ Zero code uploaded│ JSON & text out    │ Auto-fix loop   │ 10 providers│
 └───────────────────┴────────────────────┴─────────────────┴─────────────┘
 ```
 
 1. **Web Radar Console (`web/`)**: Nuxt 3 static SPA delivering a high-precision developer telemetry HUD, dynamic dependency graphs, and client-side AST inspection.
-2. **Static Analysis CLI (`cli/`)**: Picocli CLI packaged as a GraalVM native binary or executable JAR for fast pre-commit hooks and CI pipelines (`docswatcher scan --repo . --json`).
+2. **Static Analysis CLI (`cli/`)**: Picocli CLI packaged as a GraalVM native binary or executable JAR for pre-commit hooks and CI pipelines. `docswatcher match . --format json` prints the findings and exits 1 when a breaking deprecation is open — see [`docs/11-ci-integration.md`](./docs/11-ci-integration.md).
 3. **Continuous GitHub App (`app/`)**: Spring Boot 4 service running on Java 25. Ingests GitHub webhooks, scans commits asynchronously, records inventory in PostgreSQL, posts Check Runs, and dispatches automated fix workflows.
 4. **Open Knowledge Base (`knowledge/`)**: Open-source collection of YAML detection rules, change records, and verified test fixtures tracking deprecations across 10 major developer platforms.
 
@@ -158,6 +158,7 @@ For in-depth guides, architectural decision records, and operational manuals:
 | [`docs/08-features.md`](./docs/08-features.md) | Complete inventory of capabilities and detection mechanics |
 | [`docs/09-status.md`](./docs/09-status.md) | Current test coverage, verified repositories, and roadmap |
 | [`docs/10-reference.md`](./docs/10-reference.md) | CLI commands, REST endpoints, and environment variables |
+| [`docs/11-ci-integration.md`](./docs/11-ci-integration.md) | Add DocsWatcher to your CI so a new breaking dependency cannot reach your default branch |
 | `deployment/` *(private)* | Server setup, Cloudflare Tunnel configuration, and systemd ops. Kept out of this repository because it describes one specific deployment; see [`docs/05-deployment.md`](./docs/05-deployment.md) for the architecture. |
 
 ---

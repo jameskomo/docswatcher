@@ -1,0 +1,74 @@
+# Publishes the artefacts the Action and the CI guide depend on.
+#
+# Without this, docs/11-ci-integration.md is a promise: the nightly job built native binaries
+# and discarded them, so there was no way to run DocsWatcher in someone else's CI except to
+# clone it and install GraalVM.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag to build and publish.
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+          persist-credentials: false
+
+      - uses: graalvm/setup-graalvm@aafbedb8d382ed0ca6167d3a051415f20c859274 # v1
+        with:
+          java-version: "25"
+          distribution: graalvm-community
+          cache: maven
+
+      - name: Build the portable jar
+        run: ./mvnw -B -pl cli -am package -DskipTests
+
+      - name: Build the native CLI
+        run: ./mvnw -B -Pnative -pl cli -am package -DskipTests
+
+      - name: Collect the assets
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          cp cli/target/docswatcher cli/target/docswatcher-*-shaded.jar dist/ 2>/dev/null || true
+          # The shaded jar's exact name carries the version; publish it under a stable one so
+          # the documented download URL does not change every release.
+          jar=$(ls cli/target/*.jar | grep -v original | grep -v sources | head -1)
+          cp "$jar" dist/docswatcher.jar
+          mv dist/docswatcher dist/docswatcher-linux-x64
+          ( cd dist && sha256sum * > checksums.txt )
+          ls -la dist
+
+      - name: Smoke test what is about to be published
+        run: |
+          set -euo pipefail
+          chmod +x dist/docswatcher-linux-x64
+          # It must run offline and it must be honest about its own exit codes.
+          ./dist/docswatcher-linux-x64 --version
+          ./dist/docswatcher-linux-x64 match . --format text || [ $? -eq 1 ]
+          java -jar dist/docswatcher.jar --version
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          set -euo pipefail
+          gh release create "$TAG" dist/* \
+            --repo "${{ github.repository }}" \
+            --title "$TAG" \
+            --generate-notes \
+            || gh release upload "$TAG" dist/* --repo "${{ github.repository }}" --clobber
