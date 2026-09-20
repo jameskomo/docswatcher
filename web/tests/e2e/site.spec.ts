@@ -182,3 +182,14 @@ test("theme toggle switches between dark and light mode", async ({ page }) => {
   const restoredTheme = await page.evaluate(() => document.documentElement.getAttribute("data-theme"));
   expect(restoredTheme).toEqual(initialTheme);
 });
+
+test("the CI page explains the integration and offers a copyable snippet", async ({ page }) => {
+  const failed = watchFailures(page);
+  await page.goto("./#/ci");
+  await expect(page.locator("h1")).toHaveCount(1);
+  // Structure and behaviour, not wording: the page has to actually carry a snippet someone
+  // can copy, and it has to name the command the exit code contract rests on.
+  await expect(page.locator(".snippet")).not.toHaveCount(0);
+  await expect(page.locator(".prose")).toContainText("docswatcher match");
+  expect(failed).toEqual([]);
+});
