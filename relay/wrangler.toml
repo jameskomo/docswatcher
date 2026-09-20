@@ -2,7 +2,12 @@ name = "docswatcher-relay"
 main = "src/worker.js"
 compatibility_date = "2026-09-01"
 
-# Optional: set with `npx wrangler secret put GITHUB_TOKEN` to raise the outbound
-# GitHub rate limit from 60 to 5000 requests per hour. Never required for public repos.
+# GITHUB_TOKEN is optional and, if set, must be scoped to public repositories only:
+# the worker attaches it on the branch where the CALLER sent no credential, so a token
+# that can read private repositories would be lent to anonymous callers.
+#   npx wrangler secret put GITHUB_TOKEN
+#
+# ALLOWED_ORIGINS has no default. Unset means no origin is allowed, which is the safe
+# way round: this worker holds a credential, so an unset value must not mean "any page".
 # [vars]
-# ALLOWED_ORIGINS = "*"
+# ALLOWED_ORIGINS = "https://docswatcher.example"

@@ -25,7 +25,11 @@ useHead({
       <div class="section-head">
         <h1>You can pin a package. You can't pin someone else's API.</h1>
         <p class="lede">
-          DocsWatcher parses your codebase in WebAssembly Tree-sitter to find every external API contract: from SDK methods and base URLs to model strings in config and pinned versions. It matches your inventory against {{ totalChanges }} published deprecation records and pins each deadline to the exact file and line.
+          Stripe retires an API version. OpenAI shuts down a model. Shopify drops a release a year
+          after publishing it. Your lockfile cannot help with any of them: the code still compiles,
+          the tests still pass, and one morning a payment fails. DocsWatcher reads your repository,
+          finds every external API it calls, and checks each one against {{ totalChanges }} published
+          shutdown notices &mdash; then shows you the file, the line and the date.
         </p>
       </div>
     </section>
