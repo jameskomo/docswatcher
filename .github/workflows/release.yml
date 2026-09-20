@@ -53,6 +53,8 @@ jobs:
           ls -la dist
 
       - name: Smoke test what is about to be published
+        env:
+          TAG: ${{ inputs.tag || github.ref_name }}
         run: |
           set -euo pipefail
           chmod +x dist/docswatcher-linux-x64
@@ -66,7 +68,14 @@ jobs:
           work=$(mktemp -d)
           cd "$work"
 
-          "$bin" --version
+          # The binary must say which build it is. v0.1.1 shipped reporting 0.1.0, which is the
+          # one thing someone checks to find out whether they have the broken build or the fix.
+          reported=$("$bin" --version)
+          echo "$reported"
+          case "$reported" in
+            *"${TAG#v}"*) : ;;
+            *) echo "::error::--version says '$reported' but this is release $TAG"; exit 1 ;;
+          esac
 
           # A repository with nothing to find must exit 0.
           mkdir -p clean && echo 'console.log("hi")' > clean/app.js
