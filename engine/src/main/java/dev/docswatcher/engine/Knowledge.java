@@ -76,8 +76,17 @@ public final class Knowledge {
         return load(root, readString(root.resolve("version.txt")).trim());
       }
       if ("resource".equals(uri.getScheme())) {
-        // GraalVM native-image resource file system.
-        Path root = Path.of(uri).getParent();
+        // GraalVM native-image resource file system. It is not mounted automatically: calling
+        // Path.of on a resource: URI before this throws "The Native Image Resource File System
+        // is not present", which made the native binary unable to read its own knowledge base
+        // anywhere except a directory that happened to contain a knowledge/ folder.
+        FileSystem fs;
+        try {
+          fs = FileSystems.newFileSystem(URI.create("resource:/"), Map.of());
+        } catch (java.nio.file.FileSystemAlreadyExistsException e) {
+          fs = FileSystems.getFileSystem(URI.create("resource:/"));
+        }
+        Path root = fs.getPath("/" + RESOURCE_ROOT);
         return load(root, readString(root.resolve("version.txt")).trim());
       }
       Path root = Path.of(uri).getParent();

@@ -56,10 +56,38 @@ jobs:
         run: |
           set -euo pipefail
           chmod +x dist/docswatcher-linux-x64
-          # It must run offline and it must be honest about its own exit codes.
-          ./dist/docswatcher-linux-x64 --version
-          ./dist/docswatcher-linux-x64 match . --format text || [ $? -eq 1 ]
-          java -jar dist/docswatcher.jar --version
+          bin="$PWD/dist/docswatcher-linux-x64"
+          jar="$PWD/dist/docswatcher.jar"
+
+          # Run from OUTSIDE the repository. Inside it, loadKnowledge() finds the local
+          # knowledge/ directory and never touches the copy compiled into the binary, so a
+          # binary that cannot read its own knowledge base passes. That is exactly how a
+          # broken v0.1.0 shipped: it worked in the checkout and failed everywhere else.
+          work=$(mktemp -d)
+          cd "$work"
+
+          "$bin" --version
+
+          # A repository with nothing to find must exit 0.
+          mkdir -p clean && echo 'console.log("hi")' > clean/app.js
+          "$bin" match clean --format text
+          echo "clean repo exited 0 as required"
+
+          # A repository calling a retired model must exit exactly 1, which is the contract
+          # every CI integration in docs/11-ci-integration.md depends on.
+          mkdir -p breaking
+          printf 'openai==1.0.0\n' > breaking/requirements.txt
+          printf 'import openai\nopenai.OpenAI().images.generate(model="dall-e-2", prompt="x")\n' > breaking/app.py
+          set +e
+          "$bin" match breaking --format text
+          code=$?
+          set -e
+          [ "$code" -eq 1 ] || { echo "::error::expected exit 1 on a breaking finding, got $code"; exit 1; }
+          echo "breaking repo exited 1 as required"
+
+          java -jar "$jar" --version
+          java -jar "$jar" match clean --format json > /dev/null
+          echo "portable jar runs outside the repository too"
 
       - name: Publish
         env:
