@@ -42,6 +42,10 @@ DocsWatcher is designed for low-overhead, privacy-first deployment. Public scans
 
 ## Operations and Runbooks
 
-Detailed production deployment guides, Docker Compose configurations, and systemd maintenance timers are maintained in:
-- [`deployment/DEPLOYMENT.md`](../deployment/DEPLOYMENT.md): Initial server setup, secret generation, and Cloudflare tunnel configuration.
-- [`deployment/OPERATIONS.md`](../deployment/OPERATIONS.md): Upgrade runbooks, backup procedures, health monitoring, and rollback steps.
+Detailed production deployment guides, Docker Compose configurations, and systemd maintenance
+timers live in a private repository, not here. They describe one specific server, its secrets
+layout and its tunnel, so publishing them would document an attack surface without helping
+anyone run their own copy. This page carries everything that generalises.
+
+- `deployment/DEPLOYMENT.md` *(private)*: initial server setup, secret generation, Cloudflare tunnel configuration.
+- `deployment/OPERATIONS.md` *(private)*: upgrade runbooks, backup procedures, health monitoring, rollback steps.

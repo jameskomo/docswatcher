@@ -158,7 +158,7 @@ For in-depth guides, architectural decision records, and operational manuals:
 | [`docs/08-features.md`](./docs/08-features.md) | Complete inventory of capabilities and detection mechanics |
 | [`docs/09-status.md`](./docs/09-status.md) | Current test coverage, verified repositories, and roadmap |
 | [`docs/10-reference.md`](./docs/10-reference.md) | CLI commands, REST endpoints, and environment variables |
-| [`deployment/DEPLOYMENT.md`](./deployment/DEPLOYMENT.md) | Server setup, Cloudflare Tunnel configuration, and systemd ops |
+| `deployment/` *(private)* | Server setup, Cloudflare Tunnel configuration, and systemd ops. Kept out of this repository because it describes one specific deployment; see [`docs/05-deployment.md`](./docs/05-deployment.md) for the architecture. |
 
 ---
 
