@@ -103,6 +103,12 @@ jobs:
           # reads a checkout and writes files to disk, so the job token is both
           # sufficient and the smaller grant.
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          # The skill reads the tree, runs its own sub-agents and writes a report.
+          # Without this the default policy denies those calls: the first run
+          # finished "successfully" with 15 permission denials and no report.
+          # Read-and-write within the workspace only; no network fetch tools.
+          claude_args: >-
+            --allowed-tools Read,Glob,Grep,Bash,Write,Edit,Task,TodoWrite
           prompt: |
             Run the security-audit skill in full audit mode against this repository.
             Profile: ${{ inputs.profile || 'standard' }}.
