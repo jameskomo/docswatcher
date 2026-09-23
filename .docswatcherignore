@@ -1,0 +1,10 @@
+# DocsWatcher's own exclusions. docs/18-excluding-paths.md.
+#
+# This repository is a deprecation database: it has to contain every retired model name, in its
+# records, its fixtures and the tests that prove the scanner finds them. None of that is product
+# code calling an API, so none of it is scanned.
+/knowledge/
+/study/
+
+# The release smoke test calls a retired model on purpose, to prove the published binary finds it.
+/.github/workflows/release.yml

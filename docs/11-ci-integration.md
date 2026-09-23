@@ -34,6 +34,7 @@ going away.
 | `path` | `.` | Directory to scan. Point it at a subdirectory in a monorepo. |
 | `fail-on` | `breaking` | `breaking` fails on a shutdown that already has a date. `never` reports without failing, which is how to introduce this to an existing codebase. |
 | `include-low` | `false` | Also report contracts found only in documentation or test files. Off by default because those are usually noise. |
+| `exclude` | empty | Paths to skip, one `.gitignore`-style pattern per line. The repository's `.gitignore` files and `.docswatcherignore` already apply without this. |
 | `report` | *(unset)* | Write the full JSON findings to this path, for a later step to upload or post. |
 
 ### Outputs
@@ -60,6 +61,20 @@ mode:
 
 Read the summary for a week, fix or snooze what it found, then drop the `fail-on` line. From
 then on a new breaking dependency cannot reach your default branch.
+
+## Keeping fixtures and sample data out
+
+If the scan flags files that are not your product (fixtures, sample configs, a vendored catalog of
+model names), list them in a `.docswatcherignore` at the repository root, in `.gitignore` syntax:
+
+```
+# Recorded API responses for the tests
+/test-data/
+samples/
+```
+
+Every `.gitignore` in the repository applies too, so build output is never scanned. For one
+workflow only, use the `exclude` input. Details: [`18-excluding-paths.md`](./18-excluding-paths.md).
 
 ## Scanning one service in a monorepo
 
@@ -144,7 +159,7 @@ loading its native library; the scan works without it.
 ## The command underneath
 
 ```
-docswatcher match <path> [--format json|text] [--include-low] [--repo owner/name]
+docswatcher match <path> [--format json|text] [--include-low] [--exclude <pattern>]... [--repo owner/name]
 ```
 
 **Exit codes.** `0` when nothing breaking is open. `1` when at least one breaking finding is

@@ -75,6 +75,12 @@ machine. See [`docs/14-coding-agents.md`](./docs/14-coding-agents.md).
 the file and line, and can open a fix pull request when you add a label. Setup is in
 [`docs/07-getting-started.md`](./docs/07-getting-started.md).
 
+## Keeping test data out
+
+Anything your `.gitignore` excludes is never scanned. For committed files that are not your
+product, such as fixtures or sample configs, add a `.docswatcherignore` at the root in the same
+syntax. See [`docs/18-excluding-paths.md`](./docs/18-excluding-paths.md).
+
 ## What it will not tell you
 
 It only knows about deprecations someone has written down. **A green result means nothing
@@ -153,6 +159,7 @@ cd web && npm test && npm run e2e
 | [`docs/15-feeds-and-sharing.md`](./docs/15-feeds-and-sharing.md) | Calendar, feed, open data, live scan links and badges |
 | [`docs/16-knowledge-watch.md`](./docs/16-knowledge-watch.md) | Keeping the knowledge base true as provider pages change |
 | [`docs/17-open-source-study.md`](./docs/17-open-source-study.md) | Scanning public repositories, and publishing what we find |
+| [`docs/18-excluding-paths.md`](./docs/18-excluding-paths.md) | `.gitignore`, `.docswatcherignore` and `--exclude` |
 
 `deployment/` is intentionally not in this repository: it describes one specific server, its
 secret layout and its tunnel, so publishing it would document an attack surface without helping

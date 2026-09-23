@@ -17,6 +17,7 @@ Every capability DocsWatcher has today, what it does, how to use it, and how it 
 11. [Coding agents](#11-coding-agents)
 12. [Feeds and sharing](#12-feeds-and-sharing)
 13. [Knowledge watch](#13-knowledge-watch)
+14. [Excluding paths](#14-excluding-paths)
 
 ## 1. Detection
 
@@ -401,4 +402,13 @@ gone 30 days without being re-verified. Snapshots live on the `knowledge-watch` 
 `CLAUDE_CODE_OAUTH_TOKEN` secret, an agent drafts change records from the report into a draft pull
 request, with its file access limited to `knowledge/` and a second check in the workflow.
 `docs/16-knowledge-watch.md`.
+
+## 14. Excluding paths
+
+Every scan skips what the repository's `.gitignore` files exclude, what a root `.docswatcherignore`
+lists, and any `--exclude` patterns (the Action's `exclude` input, MCP `scan_repository`'s
+`exclude`). All three use `.gitignore` syntax, later ones win, and an excluded file is never read.
+Both engines share one matcher specification, proven by the same cases, and the site's fetchers
+apply the ignore files before choosing which 300 files to read, so fixtures cannot crowd out real
+code. `docs/18-excluding-paths.md`.
 

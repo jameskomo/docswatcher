@@ -28,6 +28,7 @@ cli/target/docswatcher <command> [options]
 | `--format json\|text` | `match` | Output format. Default `json` |
 | `--today YYYY-MM-DD` | `scan`, `match`, `mcp` | Date used for day counts. Default is today, asked afresh on every `mcp` call |
 | `--include-low` | `scan`, `match` | Include low-confidence contracts |
+| `--exclude <pattern>` | `scan`, `match` | Skip paths matching a `.gitignore`-style pattern, after the repository's `.gitignore` files and `.docswatcherignore`. Repeatable. See `docs/18-excluding-paths.md` |
 | `--repo owner/name` | `scan`, `match` | Repository name recorded in the inventory |
 | `--ref <ref>` | `scan`, `match` | Git ref recorded in the inventory |
 | `--sha <sha>` | `scan`, `match` | Commit SHA recorded in the inventory |
