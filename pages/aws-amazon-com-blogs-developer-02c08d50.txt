@@ -1,0 +1,258 @@
+Skip to Main Content
+Filter: All
+English
+Contact us
+AWS Marketplace
+Support
+My account
+re:Invent
+Discover AWS
+Products
+Solutions
+Pricing
+Resources
+Search
+Filter: All
+Sign in to console
+Create account
+Explore topics
+Event
+Register now for AWS re:Invent 2026
+Data Migration
+On-prem databases weren't built for agentic AI. Amazon RDS is
+Independent Software Vendors
+AI for software & tech: build, scale, and monetize
+AI for Small Businesses
+Solutions designed for your business. Delivered by AWS Partners
+Artificial Intelligence (AI)
+Accelerate AI from experimentation to production with AWS
+AI agents
+AgentCore: One platform to build, connect and optimize agents
+News & announcements
+AWS blog
+About AWS
+AWS is the world's most comprehensive cloud, enabling organizations to accelerate innovation, reduce costs, and scale more efficiently
+Why AWS
+Getting Started
+Security
+Compliance
+Trust Center
+Sustainability
+Global Infrastructure
+Featured Products
+Analytics
+Application Integration
+Artificial Intelligence
+Business Applications
+Compute
+Customer Experience
+Databases
+Developer Tools
+End User Computing
+Game Tech
+Management Tools
+Media Services
+Migration & Modernization
+Multicloud & Hybrid
+Networking & Content Delivery
+Operations
+Security & Identity
+Storage
+Supply Chain
+Browse all products
+Featured Products
+Get started with one of these featured services or browse all
+Browse all products
+Amazon Quick
+AI-powered assistant for work with research, business insights, automation, and no-code app building
+Transform
+Eliminate tech debt with agentic AI to modernize legacy systems and code
+Aurora
+Serverless relational database service for PostgreSQL, MySQL, and DSQL
+Amazon Bedrock
+The end-to-end platform for building generative AI applications and agents
+Amazon Connect Customer
+AI-native solution for delivering exceptional experiences across customer interactions
+EC2
+Secure and resizable compute capacity for virtually any workload
+Nova
+Foundation models delivering frontier intelligence and top price performance
+OpenSearch Service
+Real-time search, observability, and security analytics
+S3
+Virtually unlimited secure object storage for AI, analytics, and archives
+What’s new
+Explore new capabilities and the latest technologies
+Customer success stories
+Learn how customers around the world accelerate their cloud
+By industry
+By organization type
+Solutions Library
+Industry solutions on AWS
+Transform your industry with AWS cloud solutions. Access proven architectures, compliance guides, and success stories of customers using AWS products tailored to your sector. Explore AWS solutions for your industry.
+Go to industry hub
+Advertising and Marketing
+Turn data into customer-winning campaigns
+Aerospace and Satellite
+Cloud solutions to help customers build satellites, conduct space and launch operations, and reimagine space exploration
+Automotive
+Build smarter vehicles and transform mobility with cloud solutions
+Education
+Solutions to help facilitate teaching, learning, student engagement, better learning outcomes and modernize IT operations
+Energy and Utilities
+Revamp legacy operations and accelerate the development of innovative renewable energy business models
+Financial Services
+Develop innovative and secure solutions across banking, capital markets, insurance, and payments
+Games
+Enable game development for every genre and platform, from AAA titles to indie studios
+Government
+Solutions designed to help government agencies modernize, meet mandates, reduce costs, and deliver mission outcomes
+Healthcare and Life Sciences
+Accelerate innovation and improve patient care with healthcare data management and security
+Industrial
+Services and solutions for customers across Manufacturing, Automotive, Energy, Power & Utilities, Transportation & Logistics
+Manufacturing
+Optimize production and speed time-to-market
+Media and Entertainment
+Transform media & entertainment with the most purpose-built capabilities and partner solutions of any cloud
+Nonprofit
+Cloud solutions to help nonprofits and NGOs maximize their mission impact and donor relationships
+Retail and Consumer Goods
+Empower brands to drive market differentiation and growth with cloud solutions
+Semiconductor
+Design and deliver next-generation chip solutions with cloud technology
+Sports
+Fuel innovative fan, broadcast, and athlete experiences
+Sustainability
+Tools and resources to help organizations achieve their sustainability goals with AWS
+Telecommunications
+Accelerate innovation, scale with confidence, and add agility with cloud-based telecom solutions
+Travel and Hospitality
+Elevate travel and hospitality with solutions that boost customer experiences and operational efficiency
+What's new
+Explore new capabilities and the latest technologies
+Customer success stories
+Learn how customers around the world accelerate their cloud
+Pricing overview & tools
+AWS Pricing
+Learn about pricing and plans in one place
+AWS Pricing Calculator
+Estimate the cost for your architecture solution
+AWS Free Tier
+Get free, hands-on experience with AWS products and services
+AWS Offers
+Explore different offer programs to gain hands-on experience
+AWS Savings Plans
+Flexible pricing model offering lower prices
+Single-product pricing
+Amazon S3
+Amazon Bedrock
+Amazon RDS
+Amazon EC2
+Amazon SageMaker
+Browse all product pricing
+Learn
+Documentation
+Get detailed technical guides and references for all AWS services and tools
+Training & Certification
+Build and validate your AWS cloud skills and technical expertise
+Cloud term glossary
+Learn more about key cloud computing concepts
+Whitepapers
+Expand your knowledge of the cloud with expert guides and diagrams
+Cloud fundamentals
+Step-by-step instructions for common AWS tasks
+Tutorials
+Get started with step-by-step instructions
+Connect & Support
+Builder Center
+Learn, build, and connect with builders in the AWS community
+Events and webinars
+Connect, collaborate, and learn from AWS experts in the cloud computing community
+Partner Network
+Collaborate with AWS partners to grow your business
+Marketplace
+Find, test, buy, and deploy third-party software
+Support
+Access proactive guidance, issue resolution, and helpful tools
+Professional services
+Accelerate business transformation with expert guidance and packaged solutions
+AWS Blogs
+Home
+Blogs
+Editions
+AWS Developer Tools Blog
+AWS CRT for JavaScript and AWS IoT Device SDK for JavaScript v2 align with the Node.js release schedule
+by Rakshilkumar Modi on 23 SEP 2026 in Announcements , Developer Tools , JavaScript , Open Source Permalink Share
+The AWS CRT for JavaScript is adopting a policy that aligns with the official Node.js release schedule, providing a predictable timeline for when support for older Node.js versions is dropped. The AWS IoT Device SDK for JavaScript v2 is built on top of AWS CRT for JavaScript, so it shares the same minimum Node.js version. […]
+Generate standalone types with Smithy
+by Jordon Phillips on 08 SEP 2026 in Announcements , Developer Tools Permalink Share
+Without generated standalone types, a service that publishes events ends up with the payload defined manually in several places. The service has its own definition, and every consumer has their own definition. This is tedious, error-prone busywork for consumers. And as the service evolves, changes to events can expose bugs. A missing field or changed […]
+Introducing the S3 PowerShell Drive in AWS Tools for PowerShell
+by Andy Liao on 02 SEP 2026 in Amazon Simple Storage Service (S3) , Announcements , AWS Tools for PowerShell , Developer Tools , PowerShell Permalink Share
+Explore and use Amazon Simple Storage Service (Amazon S3) like a file system with the new S3 PowerShell Drive. You can mount your S3 storage as a drive and navigate it with the same commands that are frequently used for local files: Set-Location, Get-ChildItem, Get-Content, Set-Content, and Remove-Item. Browse buckets and prefixes, read and write […]
+Introducing a standalone SigV4 signer for the AWS SDK for .NET
+by Garrett Beatty on 31 AUG 2026 in .NET , Announcements , AWS .NET Development , AWS SDK for .NET , Developer Tools Permalink Share
+Until now, signing an AWS request that no generated SDK client covered meant reaching into internal SDK types or hand-writing the AWS Signature Version 4 (SigV4) algorithm. The AWS SDK for .NET now includes a public SigV4 signer you can call directly. Use the signer to add SigV4 authentication to an HTTP request, or to […]
+Get started with the Agent Toolkit for AWS in the AWS CLI
+by Andrew Asseily on 26 AUG 2026 in Artificial Intelligence , AWS CLI , Developer Tools Permalink Share
+AI coding agents such as Kiro, Claude Code, Codex, Cursor, and others play an increasingly important role in developer workflows. They write code, fix bugs, scaffold projects, and build infrastructure. By default, these agents have general knowledge of AWS. The Agent Toolkit for AWS gives them specialized, up-to-date expertise, so they’re more likely to pick […]
+Announcing response streaming for .NET on AWS Lambda
+by Norm Johanson on 05 AUG 2026 in .NET , AWS Lambda , AWS SDK for .NET Permalink Share
+Today, we are announcing support for AWS Lambda response streaming for .NET Lambda functions. With response streaming, functions can be more responsive by sending data back to the caller incrementally as it becomes available, rather than buffering the entire response in memory before returning it. Why response streaming? With the traditional Lambda invocation model, the […]
+Building and Deploying .NET AI Agents with Amazon Bedrock AgentCore
+by Philippe El Asmar on 05 AUG 2026 in .NET , Amazon Bedrock AgentCore , Announcements , AWS SDK for .NET Permalink Share
+Amazon Bedrock AgentCore is a managed service for running AI agents in production. You bring your agent code packaged as a container, and Bedrock AgentCore handles the operational concerns: scaling, session routing, health checking, and providing managed capabilities like conversation memory. AWS.AgentCore.Hosting is the .NET library that connects your agent code to this service. It […]
+AWS Tools Installer V2 is Now Generally Available
+by Jonathan Nunn on 04 AUG 2026 in Announcements , AWS Tools for PowerShell , Developer Tools , PowerShell Permalink Share
+If you’ve been managing multiple AWS Tools for PowerShell modules individually, you know how time-consuming installations and updates can be. In this post, we announce the general availability of AWS Tools Installer V2. It minimizes installation time by downloading a single zip file and extracting modules in parallel. In February 2026, we announced the preview […]
+Announcing General Availability of DynamoDB Mapper for Kotlin
+by Ian Botsford on 03 AUG 2026 in Amazon DynamoDB , Announcements , Kotlin Permalink Share
+DynamoDB Mapper for Kotlin is now generally available, giving Kotlin developers a fully idiomatic way to read, write, and query Amazon DynamoDB using natural Kotlin data types without managing low-level API details. Since the Developer Preview launch in October 2024, we’ve added significant new capabilities based on community feedback including the updateItem operation, batch and […]
+AWS Durable Execution SDK for .NET now Generally Available
+by Garrett Beatty on 03 AUG 2026 in .NET , Announcements , AWS .NET Development , AWS SDK for .NET Permalink Share
+The AWS Lambda Durable Execution SDK for .NET is now generally available. AWS Lambda now supports durable executions for .NET, joining the existing Python, TypeScript, and Java SDKs. You install the SDK from NuGet, write your workflows in familiar C#, and deploy them with the AWS Extensions for .NET CLI – the same tools you […]
+← Older posts
+Create an AWS account
+Learn
+What Is AWS?
+What Is Cloud Computing?
+What Is Agentic AI?
+Cloud Computing Concepts Hub
+AWS Cloud Security
+What's New
+Blogs
+Press Releases
+Resources
+Getting Started
+Training
+AWS Trust Center
+AWS Solutions Library
+Architecture Center
+Product and Technical FAQs
+Analyst Reports
+AWS Partners
+Developers
+Builder Center
+SDKs & Tools
+.NET on AWS
+Python on AWS
+Java on AWS
+PHP on AWS
+JavaScript on AWS
+Help
+Contact Us
+File a Support Ticket
+AWS re:Post
+Knowledge Center
+AWS Support Overview
+Get Expert Help
+AWS Accessibility
+Legal
+English
+Back to top
+Amazon is an Equal Opportunity Employer: Minority / Women / Disability / Veteran / Gender Identity / Sexual Orientation / Age.
+Privacy
+Site terms
+Cookie Preferences
+© 2026, Amazon Web Services, Inc. or its affiliates. All rights reserved.

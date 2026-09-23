@@ -1,0 +1,125 @@
+Skip to content
+Sources
+Create account or Sign in
+Search
+/ Ask AI
+Create account Sign in
+Get started
+Payments
+Revenue
+Data
+Platforms and marketplaces
+Money management
+Developer resources
+APIs & SDKs Help
+Overview See all products
+About the APIs
+API tour
+How PaymentIntents and SetupIntents work
+Checkout Sessions API
+Payment Methods API
+Payment Records API
+Products and prices
+Older APIs
+Charges
+Sources
+Migrate to the new APIs
+Compare PaymentIntents to Charges
+Stripe glossary
+Start building
+Create an account
+Quickstarts
+Start developing
+Build with agents
+Use Stripe without code
+Migrate to Stripe
+Common use cases
+Overview Accept simple payments as a startup Sell subscriptions as a SaaS startup Accept payments in person Send invoices to collect payments
+United States
+English (United States)
+Home /
+Get started /
+About the APIs /
+Older APIs
+Deprecated
+The Sources API Deprecated
+Learn about the different payment methods and mechanisms available through the Sources API.
+Ask about this page
+Copy for LLM
+View as Markdown
+Install tools
+Deprecated
+We’ve deprecated the Sources API and plan to remove support. If you currently use the Sources API, you must migrate to the Payment Intents and Payment Methods APIs .
+New integrations can’t use the Sources API. If you’re building a new integration, see Payment method integration options .
+Source objects allow you to accept a variety of payment methods with a single API. A source represents a customer’s payment method, and you can use it with the Stripe API to create payments. You can charge sources directly, or attach them to customers for later reuse.
+Each payment method supported by the Sources API is defined by four key characteristics. The combination of these characteristics determines how a source is made chargeable, and how it’s used in a charge request to complete a payment.
+Pull or push : How the funds for the method of payment are transferred from your customer
+Flow : The type of action your customer must take to authenticate the payment
+Usage : Whether the Source is reusable or not
+Synchronous or asynchronous : Whether the resulting charge can be confirmed immediately, or only after a delay
+For a complete example illustrating how to accept any payment method using the Sources API, check out this sample e-commerce store , and browse its source code on GitHub .
+Supported payment methods
+You can enable any payment method available to you within the Dashboard . Activation is generally instantaneous, and doesn’t require additional contracts nor include a lengthy process. For a detailed listing, see the available payment methods and their supported geographical regions .
+The following table maps the aforementioned key characteristics to the supported payment methods:
+Transfer
+Confirmation
+None
+Redirect
+Code verification
+Receiver
+Pull
+Synchronous
+Cards
+—
+Asynchronous
+SEPA Direct Debit (Deprecated)
+ACH debits with authentication
+ACH debits with microdeposits
+—
+Push
+Synchronous
+Alipay (Deprecated)
+Bancontact (Deprecated)
+giropay (Deprecated)
+iDEAL (Deprecated)
+Przelewy24 (Deprecated)
+WeChat Pay (Deprecated)
+—
+Multibanco (Deprecated)
+Asynchronous
+—
+Sofort with Sources (Deprecated)
+—
+Pull or push of funds
+Each method of payment is categorized as either pull or push, depending on how funds are transferred from the customer’s payment method.
+Using a pull method, you debit the funds from the customer’s account after the customer has provided consent. Card payments are an example of a pull method: your customer’s card is debited when a payment is made, and no customer interaction is required for subsequent debits.
+Using a push method, the customer sends the funds to you. ACH Credit Transfers are an example of a push method: Your customer is provided with bank routing and account numbers to which they should send (push) the correct amount. After confirmation that your customer has sent the funds to you, the source becomes chargeable, and is ready to be used in a charge request. Other push payment methods, such as iDEAL or Sofort, rely on a redirect for your customer to push the money to you directly from their online bank account. Generally, push methods require a customer interaction for each payment.
+Flow for customer action
+Certain payment methods require your customer to complete a particular action (flow) before the source is chargeable. The type of flow that applies to a payment method is stated within the Source object’s flow parameter. Each method is categorized into one of the following flow types.
+No customer action
+Redirect flow
+Code verification flow
+Receiver flow
+No action is required from your customer. Some payment methods (generally pull methods), such as cards (excluding 3D Secure), require no additional authentication beyond collecting the payment information from customers. Sources representing this payment method can be used immediately when making charge requests.
+Once the required flow has been completed and a source becomes chargeable, the source must be used to make a charge request for the payment to be completed. If not, the source is canceled and the customer’s authenticated payment is refunded automatically—no money is moved into your account.
+Single-use or reusable
+Certain payment methods allow for the creation of sources that can be reused for additional payments without your customer needing to complete the payment process again. Sources that can be reused have their usage parameter set to reusable .
+Conversely, if a source can only be used once, this parameter is set to single _ use , and a source must be created each time a customer makes a payment. Such sources shouldn’t be attached to customers—instead, they should be charged directly. They can be charged only once, and their status will change to consumed when charged.
+Reusable sources must be attached to a Customer to be reused. (If charged directly, their status will change to consumed .)
+Synchronous or asynchronous confirmation
+Once you use a payment method to create a Charge object, that charge’s status can be confirmed either immediately (synchronously), or after a certain amount of time (asynchronously).
+With a synchronous payment method, the charge request’s status can be immediately confirmed as either succeeded or failed . If the charge request is successful, the payment is completed—it’s considered guaranteed that the customer has been charged, and that you’ll receive the funds. Card payments are an example of a synchronous payment method: there is real-time confirmation of the payment’s success or failure.
+For asynchronous payment methods , it can take up to several days to confirm whether the payment has been successful. During this time, the payment can’t be guaranteed. The status of the payment’s Charge object is initially set to pending , until the payment has been confirmed as successful or failed. ACH debits are an example of an asynchronous method: with these debits, it takes a few days to confirm that the payment has succeeded.
+Stripe sends a webhook event once a charge’s status has changed. When accepting any payment method that is asynchronous, your integration must be able to receive webhooks, so that it can receive this notification and confirm whether the customer’s payment was successful or has failed.
+See also
+Sources API reference
+Payment methods guide
+Was this page helpful?
+Yes No
+Need help? Contact Support .
+Chat with Stripe developers on Discord .
+Check out our changelog .
+Questions? Contact Sales .
+LLM? Read llms.txt .
+Powered by Markdoc
+On this page

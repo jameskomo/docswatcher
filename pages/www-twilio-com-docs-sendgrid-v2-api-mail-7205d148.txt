@@ -1,0 +1,409 @@
+Skip to content Skip to navigation Skip to topbar
+Twilio SendGrid Docs
+SendGrid Web API v2 Overview
+Getting Started with Twilio SendGrid
+Twilio SendGrid Knowledge Center API Libraries
+Twilio SendGrid v3 API Reference
+SendGrid v3 API Documentation
+Twilio SendGrid v2 API Reference
+SendGrid Web API v2 Overview Using the SendGrid v2 Web API v2 Mail Send Filter Settings Profile Blocks Unsubscribes Timezone Filter Commands Bounces Invalid Emails Spam Reports
+Customer Subuser API
+Customer Subuser API Overview Apps Statistics Subuser Spam Reports Subuser Management Subuser Bounces IP Management Subuser Unsubscribes Account Limits Domain Authentication Authenticate a Subuser Subuser Invalid Emails Parse Settings
+Twilio SendGrid Docs
+Search
+Log in
+Sign up
+Page tools
+Copy as markdown
+Useful for sharing or LLM
+Copy and view
+Copy as markdown View as markdown
+Open in assistant
+Open in ChatGPT Open in Claude Open in Cursor Open in Perplexity
+Build with AI
+Connect your AI agent Install Twilio Skills
+Accelerate development with AI
+On this page
+Parameters
+Sending email
+Send to a single recipient
+Send to multiple recipients
+Sending with a CC and CCname
+Sending with a BCC and BCCname
+cURL Examples
+Raw HTTP Dump
+Looking for more inspiration? Visit the
+Developer Hub
+On this page
+Parameters
+Sending email
+Send to a single recipient
+Send to multiple recipients
+Sending with a CC and CCname
+Sending with a BCC and BCCname
+cURL Examples
+Raw HTTP Dump
+Copy as markdown
+Copy and view
+Copy as markdown View as markdown
+Open in assistant
+Open in ChatGPT Open in Claude Open in Cursor Open in Perplexity
+Build with AI
+Connect your AI agent Install Twilio Skills
+v2 Mail Send
+(warning)
+This documentation is for the SendGrid Web API v2
+To access all the latest features and upcoming developments, please see our v3 API . For assistance with transitioning, refer to our migration guide .
+This endpoint allows you to send email over SendGrid's Web API v2. For information about the latest mail send endpoint, please visit our Web API v3 Mail Send documentation . We encourage our current v2 API customers to migrate to the new endpoint, so they can take advantage of our latest features.
+There are a number of official SendGrid libraries that will help you send email through the Web API v2. We recommend using these if possible. Check our API Libraries page to view a list of supported libraries.
+Parameters
+URI Parameter
+Required
+Requirements
+Description
+to
+Yes
+Must be a valid email address
+Specify a recipient email as a single email with this parameter. To send to multiple emails, use an array to specify each email, for example: to[]=a@mail.com&to[]=b@mail.com . You can also use the To parameter in the x-smtpapi header to add additional recipients. If you use the API to parameter to specify a single recipient, that recipient is visible in the For field of the received header—so if you specify a single address, it should be an address that you are comfortable with your customer seeing. For example, use a generic email address in the to field that your customer is already going to see, like your from address. To completely omit the email showing up in the from header: either specify multiple addresses in the to field as an array, for example, to[]=a@mail.com&to[]=b@mail.com , or use the V3 mail send endpoint.
+toname
+No
+Must be a string. If the to parameter is an array, toname must be an array with the exact number of array elements as the to field
+Give a name to the recipient. This can also be passed as an array if the to parameter above is an array. Example: toname[]=Alpha[]=Beta .
+x-smtpapi
+No
+Must be in valid JSON format
+Please review the SMTP API to view documentation on what you can do with the JSON headers
+subject
+Yes
+Must be a valid string
+The subject of your email
+text
+No
+API call must include at least one of the text or html parameters.
+The plain text content of your email message.
+html
+No
+API call must include at least one of the text or html parameters.
+The HTML content of your email message.
+from
+Yes
+Must be a valid email address from your domain
+This is where the email will appear to originate from for your recipient
+cc
+No
+Must be a valid email address
+This can also be passed in as an array of email addresses for multiple recipients. Example: cc[]=a@mail.com&cc[]=b@mail.com .
+ccname
+No
+Must be a valid email address
+This is the name be appended to the cc field.
+bcc
+No
+Must be a valid email address
+This can also be passed in as an array of email addresses for multiple recipients. Example: bcc[]=a@mail.com&bcc[]=b@mail.com .
+bccname
+No
+Must be a valid email address
+This is the name appended to the bcc field.
+fromname
+No
+Must a valid string
+This is the name appended to the from email field (i.e. your name or company name)
+replyto
+No
+Must be a valid email address
+Append a reply-to field to your email message
+date
+No
+Must be a valid date
+Specify the date header of your email. One example: "Thu, 21 Dec 2000 16:01:07 +0200". PHP developers can use: date('r');
+files
+No
+Must be less than 7MB
+Files to be attached. The file contents must be part of the multipart HTTP POST . Ex: files[file1.jpg]=file1.jpg&files[file2.pdf]=file2.pdf
+content
+No
+Required for sending inline images
+Content IDs of the files to be used as inline images. Content IDs should match the cids used in the HTML markup. Ex: content[file1.jpg]=ii_139db99fdb5c3704 would correspond with the HTML <img src="cid:ii_139db99fdb5c3704"></img> and files[file1.jpg] would contain the contents.
+headers
+No
+Must be in valid JSON format without integers
+A collection of key/value pairs in JSON format. This is specifically for non-SendGrid custom extension headers . Each key represents a header name and the value the header value. Ex: {"X-Accept-Language": "en", "X-Mailer": "MyApp"}
+Sending email
+(information)
+Info
+SendGrid's API keys should be used when sending email over the API. API keys are preferred because you can revoke an API key at any time without changing your username and password. You can also limit the permissions of an API key, which reduces the potential for harm in the event that your API key is compromised.
+When using an API key, pass it in an Authorization header and omit the api_user and api_key parameters from your request. Pass the API key as a Bearer Token: "Authorization: Bearer <Your API Key>"
+For more information, see Upgrading your authentication method to API Keys .
+Send to a single recipient
+JSON XML
+Call
+POST
+https://api.sendgrid.com/api/mail.send.json
+POST Data
+to=destination@example.com&toname=Destination&subject=Example_Subject&text=testingtextbody&from=info@domain.com
+Response
+Copy code block
+1
+{
+2
+"message" : "success"
+3
+}
+Call
+POST
+https://api.sendgrid.com/api/mail.send.xml
+POST Data
+to=destination@example.com&toname=Destination&subject=Example_Subject&text=testingtextbody&from=info@domain.com
+Response
+Copy code block
+1
+< result >
+2
+< message >success</ message >
+3
+</ result >
+(information)
+Info
+You can have up to 1,000 recipients per Web API v2 request.
+Send to multiple recipients
+JSON XML
+Call
+POST
+https://api.sendgrid.com/api/mail.send.json
+POST Data
+to[]=destination@example.com&to[]=destination2@example.com&toname[]=Destination&to[]=example@example.com&toname[]=Destination2&subject=Example_Subject&text=testingtextbody&from=info@domain.com
+Response
+Copy code block
+1
+{
+2
+"message" : "success"
+3
+}
+Call
+POST
+https://api.sendgrid.com/api/mail.send.xml
+POST Data
+to[]=destination@example.com&to[]=destination2@example.com&toname[]=Destination&to[]=example@example.com&toname[]=Destination2&subject=Example_Subject&text=testingtextbody&from=info@domain.com
+Response
+Copy code block
+1
+< result >
+2
+< message >success</ message >
+3
+</ result >
+Sending with a CC and CCname
+JSON XML
+Call
+POST
+https://api.sendgrid.com/api/mail.send.json
+POST Data
+to[]=destination@example.com&toname[]=Destination&cc=ccdestination@mail.com&ccname=CCDestination&subject=Example_Subject&text=testingtextbody&from=info@domain.com
+Response
+Copy code block
+1
+{
+2
+"message" : "success"
+3
+}
+Call
+POST
+https://api.sendgrid.com/api/mail.send.xml
+POST Data
+to[]=destination@example.com&toname[]=Destination&cc=ccdestination@mail.com&ccname=CCDestination&subject=Example_Subject&text=testingtextbody&from=info@domain.com
+Response
+Copy code block
+1
+< result >
+2
+< message >success</ message >
+3
+</ result >
+Sending with a BCC and BCCname
+JSON XML
+Call
+POST
+https://api.sendgrid.com/api/mail.send.json
+POST Data
+to[]=destination@example.com&toname[]=Destination&bcc=bccdestination@mail.com&bccname=BCCDestination&subject=Example_Subject&text=testingtextbody&from=info@domain.com
+Response
+Copy code block
+1
+{
+2
+"message" : "success"
+3
+}
+Call
+POST
+https://api.sendgrid.com/api/mail.send.xml
+POST Data
+to[]=destination@example.com&toname[]=Destination&bcc=bccdestination@mail.com&bccname=BCCDestination&subject=Example_Subject&text=testingtextbody&from=info@domain.com
+Response
+Copy code block
+1
+< result >
+2
+< message >success</ message >
+3
+</ result >
+cURL Examples
+Send to one email recipient
+Copy code block
+1
+curl -X "POST" "https://api.sendgrid.com/api/mail.send.json" \
+2
+-H 'Content-Type: application/x-www-form-urlencoded' \
+3
+-H 'Authorization: Bearer YOUR_API_KEY' \
+4
+--data-urlencode "to=destination@example.com" \
+5
+--data-urlencode "toname=Destination" \
+6
+--data-urlencode "subject=Example Subject" \
+7
+--data-urlencode "text=testingtextbody" \
+8
+--data-urlencode "from=info@domain.com"
+Send to multiple email recipients
+Copy code block
+1
+curl -X "POST" "https://api.sendgrid.com/api/mail.send.json" \
+2
+-H 'Content-Type: application/x-www-form-urlencoded' \
+3
+-H 'Authorization: Bearer YOUR_API_KEY' \
+4
+--data-urlencode "to[]=destination@example.com,example@example.com" \
+5
+--data-urlencode "toname[]=Destination,Destination2" \
+6
+--data-urlencode "subject=Example Subject" \
+7
+--data-urlencode "text=testingtextbody" \
+8
+--data-urlencode "from=info@domain.com"
+(information)
+Info
+To ensure that an attachment uploads from a local file, use \<@filename> .
+Copy code block
+1
+curl https://api.sendgrid.com/api/mail.send.json \
+2
+-H 'Authorization: Bearer YOUR_API_KEY' \
+3
+-F to=recipient@domain.com -F toname=test -F subject="Example Subject" \
+4
+-F text="testing text body" --form-string html="<strong>testing html body</strong>" \
+5
+-F from=test@example.com -F api_user=your_sendgrid_username -F api_key=your_sendgrid_password \
+6
+-F files[attachment.pdf \] =@attachment.pdf ;type = application/pdf
+Send a test with an attachment
+Copy code block
+1
+curl https://api.sendgrid.com/api/mail.send.json \
+2
+-H 'Authorization: Bearer YOUR_API_KEY' \
+3
+-F to=recipient@domain.com -F toname=test -F subject="Example Subject" \
+4
+-F text="testing text body" --form-string html="<strong>testing html body</strong>" \
+5
+-F from=test@example.com \
+6
+-F files[attachment.gz \] =@f.php.gz
+Send a test specifying the file content type by appending ';type=' to the file name
+Copy code block
+1
+curl https://api.sendgrid.com/api/mail.send.json \
+2
+-F to=recipient@domain.com -F toname=test -F subject="Example Subject" \
+3
+-F text="testing text body" --form-string html="<strong>testing html body</strong>" \
+4
+-F from=test@example.com -F api_user=your_sendgrid_username -F api_key=your_sendgrid_password \
+5
+-F files[attachment.pdf \] =@attachment.pdf ;type = application/pdf
+Raw HTTP Dump
+The following is a dump of the HTTP data sent to our server to generate an email via our Web API v2.
+Copy code block
+POST /api/mail.send.json HTTP/1.1
+Copy code block
+1
+Host: sendgrid.com
+2
+Accept: * / *
+3
+Content-Length: 999
+4
+Expect: 100-continue
+5
+Content-Type: multipart/form-data ; boundary = ----------------------------400f182a9360
+6
+Authorization: Bearer YOUR_API_KEY
+7
+HTTP/1.1 100 Continue
+8
+------------------------------400f182a9360
+9
+Content-Disposition: form-data ; name = "to"
+10
+someone@somewhere.com
+11
+------------------------------400f182a9360
+12
+Content-Disposition: form-data ; name = "subject"
+13
+test of file sends
+14
+------------------------------400f182a9360
+15
+Content-Disposition: form-data ; name = "html"
+16
+the HTML
+17
+------------------------------400f182a9360
+18
+Content-Disposition: form-data ; name = "text"
+19
+the plain text
+20
+------------------------------400f182a9360
+21
+Content-Disposition: form-data ; name = "from"
+22
+example@sendgrid.com
+23
+------------------------------400f182a9360
+24
+Content-Disposition: form-data ; name = "files[myfile]" ; filename = "myfile"
+25
+Content-Type: application/octet-stream
+26
+file with stuff in it
+27
+------------------------------400f182a9360--
+28
+HTTP/1.1 200 OK
+29
+Server: nginx/0.7.65
+30
+Date: Fri, 03 Jun 2011 22:30:58 GMT
+31
+Content-Type: application/json
+32
+Transfer-Encoding: chunked
+33
+Connection: keep-alive
+Copy code block
+{ "message" : "success"}
+Need some help?
+We all do sometimes; code is hard. Get help now from our support team , or lean on the wisdom of the crowd by browsing the SendGrid tag on Stack Overflow.
+Terms of service
+Privacy Policy
+Copyright © 2026 Twilio Inc.

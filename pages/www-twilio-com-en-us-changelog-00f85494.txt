@@ -1,0 +1,597 @@
+English
+Support
+Help Center
+Support Plans
+Partner Solutions
+Login
+Log in to
+Twilio Console
+Conversations, Communications and Authentication
+Or log in to access:
+Twilio Segment
+Customer Data Platform
+Twilio SendGrid
+Email and Marketing Campaigns
+Products
+Twilio Platform
+Next gen
+Built for engagement in the agentic era. Twilio connects communication channels, customer context, and AI on one flexible platform.
+Conversations
+Conversation Memory
+New
+Build a persistent memory of customer interactions
+Conversation Orchestrator
+New
+Keep conversations connected across channels
+Conversation Intelligence
+Extract context from real-time conversations
+Conversation Relay
+Build advanced voice AI for natural conversations
+Conversations
+Communications
+Messaging
+SMS
+WhatsApp
+RCS
+Voice
+SIP Trunking
+Email
+SMTP Service
+Phone Numbers
+Toll-free
+10DLC
+Short Codes
+Video API
+Flex
+Communications
+Authentication
+Verify
+Lookup
+Authentication
+Customer Data
+Connections
+Warehouses
+Protocols
+Unify
+Engage
+Audiences
+Journeys
+Customer Data
+See all products
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+See Twilio’s latest innovations and integrations
+Solutions
+Use Cases
+Verification and identity
+Fraud prevention
+Alerts and notifications
+Appointment reminders
+Lead alerts
+Mass texting
+Marketing and promotions
+SMS marketing
+Cross-sell and upsell
+Optimize ad spend
+Support and sales
+Voice AI
+AI agent productivity
+IVR
+Contact center
+Customer data management
+Teams
+Developers
+Data Engineering
+Marketing
+Product
+Customer Experience
+Industry
+Financial services
+Healthcare
+Retail
+Nonprofit
+Hospitality
+Ecommerce
+Public sector
+Education
+Company Size
+Enterprise
+Startup
+See all solutions
+Why Twilio
+Overview
+Why Twilio
+We help you build amazing experiences with contextual data, the right communication channels, and AI to scale personalization and increase efficiency.
+Customer stories
+Differentiators
+One platform
+Privacy and security
+Built for builders
+Enterprise scale
+Extensible by design
+Real-time customer data
+Artificial intelligence
+Infrastructure
+Company
+About us
+Values
+Diversity
+Careers
+Twilio.org
+Investor relations
+Press and media
+Events
+Resources
+Developers
+Documentation
+Code samples
+Developer Hub
+Champions
+Changelog
+Serverless
+Learn
+Blog
+Resource Center
+Guides
+Reports
+Webinars
+Podcasts
+Customer stories
+State of Customer Engagement
+Events
+Customer data recipes
+Support and services
+Help Center
+Find a partner
+Become a partner
+Professional services
+Support plans
+Status
+SendGrid status
+Segment status
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+Test out our voice AI now
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+Demo Conversation Relay to see how it handles real-time customer calls with pauses, interruptions, and routing.
+Try the demo
+Pricing
+Overview
+All Pricing
+Transparent pricing with discounts as you scale. Sign up for a free trial—no credit card required.
+Conversations
+Conversation Memory
+Conversation Orchestrator
+Conversation Intelligence
+Conversation Relay
+Communications
+Messaging
+SMS
+WhatsApp
+Conversations API
+Voice
+SIP Trunking
+Conferencing
+Email API
+Marketing Campaigns
+Video API
+Flex
+Authentication
+Verify
+Lookup
+Customer Data
+Customer Data Platform
+Customer Data Pipeline
+Data is collected based on search terms. Privacy Policy
+Contact sales
+Start for free
+Data is collected based on search terms. Privacy Policy
+Products
+Twilio Platform
+Next gen
+Built for engagement in the agentic era. Twilio connects communication channels, customer context, and AI on one flexible platform.
+Conversations
+Conversation Memory
+New
+Build a persistent memory of customer interactions
+Conversation Orchestrator
+New
+Keep conversations connected across channels
+Conversation Intelligence
+Extract context from real-time conversations
+Conversation Relay
+Build advanced voice AI for natural conversations
+Conversations
+Communications
+Messaging
+SMS
+WhatsApp
+RCS
+Voice
+SIP Trunking
+Email
+SMTP Service
+Phone Numbers
+Toll-free
+10DLC
+Short Codes
+Video API
+Flex
+Communications
+Authentication
+Verify
+Lookup
+Authentication
+Customer Data
+Connections
+Warehouses
+Protocols
+Unify
+Engage
+Audiences
+Journeys
+Customer Data
+See all products
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+See Twilio’s latest innovations and integrations
+Solutions
+Use Cases
+Verification and identity
+Fraud prevention
+Alerts and notifications
+Appointment reminders
+Lead alerts
+Mass texting
+Marketing and promotions
+SMS marketing
+Cross-sell and upsell
+Optimize ad spend
+Support and sales
+Voice AI
+AI agent productivity
+IVR
+Contact center
+Customer data management
+Teams
+Developers
+Data Engineering
+Marketing
+Product
+Customer Experience
+Industry
+Financial services
+Healthcare
+Retail
+Nonprofit
+Hospitality
+Ecommerce
+Public sector
+Education
+Company Size
+Enterprise
+Startup
+See all solutions
+Why Twilio
+Overview
+Why Twilio
+We help you build amazing experiences with contextual data, the right communication channels, and AI to scale personalization and increase efficiency.
+Customer stories
+Differentiators
+One platform
+Privacy and security
+Built for builders
+Enterprise scale
+Extensible by design
+Real-time customer data
+Artificial intelligence
+Infrastructure
+Company
+About us
+Values
+Diversity
+Careers
+Twilio.org
+Investor relations
+Press and media
+Events
+Resources
+Developers
+Documentation
+Code samples
+Developer Hub
+Champions
+Changelog
+Serverless
+Learn
+Blog
+Resource Center
+Guides
+Reports
+Webinars
+Podcasts
+Customer stories
+State of Customer Engagement
+Events
+Customer data recipes
+Support and services
+Help Center
+Find a partner
+Become a partner
+Professional services
+Support plans
+Status
+SendGrid status
+Segment status
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+Test out our voice AI now
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+Demo Conversation Relay to see how it handles real-time customer calls with pauses, interruptions, and routing.
+Try the demo
+Pricing
+Overview
+All Pricing
+Transparent pricing with discounts as you scale. Sign up for a free trial—no credit card required.
+Conversations
+Conversation Memory
+Conversation Orchestrator
+Conversation Intelligence
+Conversation Relay
+Communications
+Messaging
+SMS
+WhatsApp
+Conversations API
+Voice
+SIP Trunking
+Conferencing
+Email API
+Marketing Campaigns
+Video API
+Flex
+Authentication
+Verify
+Lookup
+Customer Data
+Customer Data Platform
+Customer Data Pipeline
+Contact sales
+Start for free
+Product updates
+Latest Innovations
+Twilio Releases
+Changelog
+Resources
+$Twilio update videos
+Product update blog
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+Changelog
+Product changelog and announcements
+See additions and changes to the Twilio platform and Twilio Segment Customer Data Platform. You can also subscribe to our Changelog RSS feed below.
+Explore updates
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+Subscribe to Changelog RSS feed (an RSS feed reader is required)
+Filter
+Filter By:
+Products
+Agent Connect
+Authy
+Autopilot
+Branded Calling
+CLI
+Connections
+Conversation Intelligence
+Conversation Memory
+Conversation Orchestrator
+Conversation Relay
+Conversations API
+Elastic SIP trunking
+SendGrid Email API
+Engage
+Event Streams
+Flex
+Frontline
+Interconnect
+Lookup
+Marketing Campaigns
+Messaging
+Microvisor
+Pay
+Personalized support
+Phone Numbers
+Programmable Chat
+Programmable Fax
+Programmable Messaging API
+Programmable Wireless
+Protocols
+Proxy
+Rich Communication Services
+Segment
+Segment AI
+Serverless
+Short Codes
+Studio
+Super SIM
+Super Network
+TaskRouter
+Trust Onboard
+Twilio Email
+Twilio for Salesforce
+Twilio Platform
+Twilio SendGrid Platform
+Unify
+Verify
+Video API
+Voice API
+Warehouse Activations
+WhatsApp Business API
+Clear all filters
+See results
+Clear all filters
+Sep 23, 2026
+Voice API
+Conference list endpoint will default to in-progress conferences only on September 30, 2026
+Starting September 30, 2026, the Conference list endpoint (GET /2010-04-01/Accounts/{AccountSid}/Conferences.json) will default to returning only in-progress conferences.
+Learn more
+Sep 22, 2026
+Voice API
+Introducing Provider Failover and “Auto” mode Provider selection for Real-Time Transcriptions on October 22, 2026
+Starting October 22, 2026, Twilio Real-Time Transcriptions automatically starts transcription sessions on a second speech provider when a customer’s primary provider doesn’t connect. Failover is enabled for all existing Real-Time Transcriptions accounts on that date, and it routes only within a customer’s existing region. Use of failover is optional and can be opted out of per sub-account in Console.
+Learn more
+Sep 22, 2026
+Verify
+Event Streams
+Verify Events: Verification Attempt DLR event type will be discontinued
+The Attempt DLR event type will be discontinued after September 22, 2026 at 10:00PM UTC. Learn more about using discontinued Event Types in Discontinued Event Types . From this point on, Twilio may stop sending new events for the Attempt DLR event types, even if you have a subscription to them. You will continue receiving events normally from any other Event Types in your subscriptions.
+Learn more
+Sep 17, 2026
+Voice API
+Voice Recording Storage billing updates
+Twilio will begin migrating accounts to an updated Voice Recording Storage billing system.
+Learn more
+Sep 17, 2026
+Messaging
+Twilio Heightened Awareness Period (HAP) – November 19, 2026 - January 4, 2027
+Between Thursday, November 19, 2026 and Monday, January 4 2027, Twilio will enter a Heightened Awareness Period (HAP) to help ensure reliable message delivery during peak traffic times, such as Black Friday and Cyber Monday.
+During this period, message sending rates to U.S. destinations will be monitored and may be limited at the account level for toll-free, short code, and 10DLC numbers.
+Accounts that send high volumes of messages from short codes or toll-free numbers may be temporarily migrated to Market Throughput during the HAP. Customers will be notified via email if their account is affected. Market Throughput doesn’t affect 10DLC numbers, which will continue to live on Account Based Throughput .
+For more information on how throughput limits may be impacted and what actions to take, customers can reach out to their Twilio account team.
+Learn more
+Sep 17, 2026
+Flex
+Twilio integration with Salesforce Service Cloud Voice is now Omnichannel
+We’re excited to announce that Twilio integration with Salesforce Service Cloud Voice now supports WhatsApp and SMS, alongside existing support for Voice and listed on the AppExchange .
+This release comes with the following enhancements:
+Route SMS and WhatsApp conversations through Twilio TaskRouter into the Salesforce Omni-Channel widget, using the same presence, skills, and capacity model as voice
+Handle messaging conversations and voice calls concurrently in a single agent console, with agent presence synchronizing across all channels on work acceptance
+To learn more about setup, please see the setup guide .
+Learn more
+Sep 09, 2026
+Beta
+Voice API
+ElevenLabs Voices for Say is now Public Beta
+ElevenLabs voices are now available in Public Beta for <Say>, powered by the Flash v2 and Flash v2.5 models for fast, natural-sounding text-to-speech. Get started by specifying an ElevenLabs voice via the REST API or in a TwiML Bin.
+Learn more
+Sep 08, 2026
+Webhook Configuration API is now in Public Beta
+Using the Webhook Configuration API, customers can configure how Twilio authenticates and delivers outbound webhooks, per URL. The API consists of two resources: Webhook Settings and Webhook Rules.
+Webhook Settings hold the authentication and connection configuration. Customers can secure endpoints with OAuth 2.0. Twilio fetches an access token from the customer's authorization server using the client credentials flow and sends it as a Bearer token in the Authorization header of every webhook or with Shared Key signatures. Customers can also configure delivery behavior like timeouts and retries.
+Learn more
+Sep 04, 2026
+GA
+Elastic SIP trunking
+Voice API
+International Call Forwarding - Compliance Blocking for Spain & France
+In Spain and France, an incoming call intended for a non-Spanish or non-French destination that is then forwarded internationally while presenting a Spanish or French domestic caller ID is now blocked, in line with local regulatory requirements.
+Learn more
+Sep 02, 2026
+Verify
+Verify Custom Templates are now Generally Available
+Verify Custom Templates give you the flexibility and security to use custom SMS/RCS and Voice message templates beyond standard defaults or pre-approved options .
+To learn more about how to create a custom template for your business needs, check out our support guide .
+Learn more
+Loading
+Error: Unable to load changelog
+1
+2
+3
+4
+5
+6
+7
+Deep dive on recent Twilio product updates
+Twilio Releases webinar
+Hear about the latest product announcements, releases, and updates from Twilio experts.
+Watch Release webinars
+$twilio update
+Get up to speed on new Twilio innovations, developer news, and insights in our YouTube series.
+Watch on YouTube
+Blog - Product News
+Read detailed coverage of new product and feature releases.
+Read the blog
+Docs
+Access our API reference documentation, quickstarts, SDKs, and multi-language code samples.
+View docs
+Get an AI summary:
+Twilio careers
+Twilio.org
+Press and media
+Investor relations
+Legal
+Privacy
+Security
+Impressum
+Sitemap
+LLMS
+Copyright © 2026 Twilio Inc.
+All rights reserved.
+Considering Twilio?
+About Twilio
+Customer Engagement Platform (CEP)
+Communications
+Conversational AI
+User authentication and identity
+Customer Data Platform (CDP)
+AI
+Customer stories
+Events
+Contact sales
+Why Twilio
+Products and Features
+SMTP
+Branded Calling
+Twilio Segment
+Twilio Engage
+Connections
+SendGrid Email API
+RCS messaging
+Latest innovations
+Pre-built solutions
+Support plans
+All products
+Use Cases
+AI agent productivity
+Customer data management
+Audience segmentation
+Contact center
+SMS marketing
+Customer acquisition
+Voice response system (IVR)
+Fraud prevention
+Bulk text messaging
+Mass email sender
+All use cases
+Developers
+Developer resources
+Twilio Essentials
+SDKs
+CDP integrations
+Serverless
+Conversation
+SMTP Email API
+SMS API
+WhatsApp API
+Voice API
+Connections
+All docs

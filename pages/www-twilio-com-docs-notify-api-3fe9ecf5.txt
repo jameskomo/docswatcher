@@ -1,0 +1,76 @@
+Skip to content Skip to navigation Skip to topbar
+Twilio Docs
+Twilio Notify Deprecated feature
+API reference
+Notify API overview Binding resource Credential resource Notification resource Service resource
+Twilio Docs
+Search
+Messaging
+Voice
+Video
+Conversations
+Flex
+Studio
+All docs...
+Build with AI
+SDKs
+Help Center
+Search
+Log in
+Sign up
+Page tools
+Copy as markdown
+Useful for sharing or LLM
+Copy and view
+Copy as markdown View as markdown
+Open in assistant
+Open in ChatGPT Open in Claude Open in Cursor Open in Perplexity
+Build with AI
+Connect your AI agent Install Twilio Skills
+Accelerate development with AI
+On this page
+API Base URL
+Edge locations
+SDKs
+Authentication
+Looking for more inspiration? Visit the
+Developer Hub
+On this page
+API Base URL
+Edge locations
+SDKs
+Authentication
+Copy as markdown
+Copy and view
+Copy as markdown View as markdown
+Open in assistant
+Open in ChatGPT Open in Claude Open in Cursor Open in Perplexity
+Build with AI
+Connect your AI agent Install Twilio Skills
+Notify API
+(error)
+Twilio Notify deprecated
+Twilio stopped supporting Notify in October 2022.
+If you used Notify for push notifications , sign up for the Private Beta .
+If you used Notify for bulk SMS , migrate to the Bulk Messaging API .
+To control your notifications workflow from your server, use the Notify API. You can create bindings, credentials, and services, as well as send notifications using these API resources.
+API Base URL
+All URLs in the reference documentation use the following base URL:
+Copy code block
+https://notify.twilio.com/v1
+Twilio serves all requests to the Notify API over Secure HTTP (HTTPS) only.
+Edge locations
+To control your connectivity to Twilio's platform, include your specific edge location in the subdomain. By bringing Twilio's public or private network connectivity closer to your apps, your app performance improves.
+For example : To use the frankfurt edge location, customers with infrastructure in Germany can change the base URL to the following:
+Copy code block
+https://notify.frankfurt.us1.twilio.com/v1
+SDKs
+All Twilio server-side SDKs support the Notify API.
+Authentication
+To authenticate requests to the Twilio APIs, Twilio supports HTTP Basic authentication . Use your API key SID as the username and your API key secret as the password. You can create an API key in the Twilio Console or using the API .
+Learn more about Twilio API authentication .
+Need some help?
+We all do sometimes; code is hard. Get help now from our support team , or lean on the wisdom of the crowd by browsing the Twilio tag on Stack Overflow.
+Terms of service
+Privacy Policy
+Copyright © 2026 Twilio Inc.

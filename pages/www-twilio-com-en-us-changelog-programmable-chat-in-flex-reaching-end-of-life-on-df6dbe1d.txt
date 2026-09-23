@@ -1,0 +1,461 @@
+English
+Support
+Help Center
+Support Plans
+Partner Solutions
+Login
+Log in to
+Twilio Console
+Conversations, Communications and Authentication
+Or log in to access:
+Twilio Segment
+Customer Data Platform
+Twilio SendGrid
+Email and Marketing Campaigns
+Products
+Twilio Platform
+Next gen
+Built for engagement in the agentic era. Twilio connects communication channels, customer context, and AI on one flexible platform.
+Conversations
+Conversation Memory
+New
+Build a persistent memory of customer interactions
+Conversation Orchestrator
+New
+Keep conversations connected across channels
+Conversation Intelligence
+Extract context from real-time conversations
+Conversation Relay
+Build advanced voice AI for natural conversations
+Conversations
+Communications
+Messaging
+SMS
+WhatsApp
+RCS
+Voice
+SIP Trunking
+Email
+SMTP Service
+Phone Numbers
+Toll-free
+10DLC
+Short Codes
+Video API
+Flex
+Communications
+Authentication
+Verify
+Lookup
+Authentication
+Customer Data
+Connections
+Warehouses
+Protocols
+Unify
+Engage
+Audiences
+Journeys
+Customer Data
+See all products
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+See Twilio’s latest innovations and integrations
+Solutions
+Use Cases
+Verification and identity
+Fraud prevention
+Alerts and notifications
+Appointment reminders
+Lead alerts
+Mass texting
+Marketing and promotions
+SMS marketing
+Cross-sell and upsell
+Optimize ad spend
+Support and sales
+Voice AI
+AI agent productivity
+IVR
+Contact center
+Customer data management
+Teams
+Developers
+Data Engineering
+Marketing
+Product
+Customer Experience
+Industry
+Financial services
+Healthcare
+Retail
+Nonprofit
+Hospitality
+Ecommerce
+Public sector
+Education
+Company Size
+Enterprise
+Startup
+See all solutions
+Why Twilio
+Overview
+Why Twilio
+We help you build amazing experiences with contextual data, the right communication channels, and AI to scale personalization and increase efficiency.
+Customer stories
+Differentiators
+One platform
+Privacy and security
+Built for builders
+Enterprise scale
+Extensible by design
+Real-time customer data
+Artificial intelligence
+Infrastructure
+Company
+About us
+Values
+Diversity
+Careers
+Twilio.org
+Investor relations
+Press and media
+Events
+Resources
+Developers
+Documentation
+Code samples
+Developer Hub
+Champions
+Changelog
+Serverless
+Learn
+Blog
+Resource Center
+Guides
+Reports
+Webinars
+Podcasts
+Customer stories
+State of Customer Engagement
+Events
+Customer data recipes
+Support and services
+Help Center
+Find a partner
+Become a partner
+Professional services
+Support plans
+Status
+SendGrid status
+Segment status
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+Test out our voice AI now
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+Demo Conversation Relay to see how it handles real-time customer calls with pauses, interruptions, and routing.
+Try the demo
+Pricing
+Overview
+All Pricing
+Transparent pricing with discounts as you scale. Sign up for a free trial—no credit card required.
+Conversations
+Conversation Memory
+Conversation Orchestrator
+Conversation Intelligence
+Conversation Relay
+Communications
+Messaging
+SMS
+WhatsApp
+Conversations API
+Voice
+SIP Trunking
+Conferencing
+Email API
+Marketing Campaigns
+Video API
+Flex
+Authentication
+Verify
+Lookup
+Customer Data
+Customer Data Platform
+Customer Data Pipeline
+Data is collected based on search terms. Privacy Policy
+Contact sales
+Start for free
+Data is collected based on search terms. Privacy Policy
+Products
+Twilio Platform
+Next gen
+Built for engagement in the agentic era. Twilio connects communication channels, customer context, and AI on one flexible platform.
+Conversations
+Conversation Memory
+New
+Build a persistent memory of customer interactions
+Conversation Orchestrator
+New
+Keep conversations connected across channels
+Conversation Intelligence
+Extract context from real-time conversations
+Conversation Relay
+Build advanced voice AI for natural conversations
+Conversations
+Communications
+Messaging
+SMS
+WhatsApp
+RCS
+Voice
+SIP Trunking
+Email
+SMTP Service
+Phone Numbers
+Toll-free
+10DLC
+Short Codes
+Video API
+Flex
+Communications
+Authentication
+Verify
+Lookup
+Authentication
+Customer Data
+Connections
+Warehouses
+Protocols
+Unify
+Engage
+Audiences
+Journeys
+Customer Data
+See all products
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+See Twilio’s latest innovations and integrations
+Solutions
+Use Cases
+Verification and identity
+Fraud prevention
+Alerts and notifications
+Appointment reminders
+Lead alerts
+Mass texting
+Marketing and promotions
+SMS marketing
+Cross-sell and upsell
+Optimize ad spend
+Support and sales
+Voice AI
+AI agent productivity
+IVR
+Contact center
+Customer data management
+Teams
+Developers
+Data Engineering
+Marketing
+Product
+Customer Experience
+Industry
+Financial services
+Healthcare
+Retail
+Nonprofit
+Hospitality
+Ecommerce
+Public sector
+Education
+Company Size
+Enterprise
+Startup
+See all solutions
+Why Twilio
+Overview
+Why Twilio
+We help you build amazing experiences with contextual data, the right communication channels, and AI to scale personalization and increase efficiency.
+Customer stories
+Differentiators
+One platform
+Privacy and security
+Built for builders
+Enterprise scale
+Extensible by design
+Real-time customer data
+Artificial intelligence
+Infrastructure
+Company
+About us
+Values
+Diversity
+Careers
+Twilio.org
+Investor relations
+Press and media
+Events
+Resources
+Developers
+Documentation
+Code samples
+Developer Hub
+Champions
+Changelog
+Serverless
+Learn
+Blog
+Resource Center
+Guides
+Reports
+Webinars
+Podcasts
+Customer stories
+State of Customer Engagement
+Events
+Customer data recipes
+Support and services
+Help Center
+Find a partner
+Become a partner
+Professional services
+Support plans
+Status
+SendGrid status
+Segment status
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+Test out our voice AI now
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+Demo Conversation Relay to see how it handles real-time customer calls with pauses, interruptions, and routing.
+Try the demo
+Pricing
+Overview
+All Pricing
+Transparent pricing with discounts as you scale. Sign up for a free trial—no credit card required.
+Conversations
+Conversation Memory
+Conversation Orchestrator
+Conversation Intelligence
+Conversation Relay
+Communications
+Messaging
+SMS
+WhatsApp
+Conversations API
+Voice
+SIP Trunking
+Conferencing
+Email API
+Marketing Campaigns
+Video API
+Flex
+Authentication
+Verify
+Lookup
+Customer Data
+Customer Data Platform
+Customer Data Pipeline
+Contact sales
+Start for free
+Back
+Twilio Changelog | May. 19, 2025
+Programmable Chat in Flex reaching end of life on June 1, 2026
+What’s changing:
+Programmable Chat in Flex is reaching end of life (EOL) on June 1, 2026. After that, it may stop working as expected and won’t receive any more enhancements, bug fixes, or security updates. It's had a good run—but it’s time to pass the baton.
+Customers still using Programmable Chat in Flex will need to migrate to Flex Conversations, Twilio’s supported messaging platform for channels like Webchat, SMS, and WhatsApp. With key feature gaps now closed, like the GA of Webchat 3.x, there’s no reason not to make the switch.
+To support this transition, the following resources are available:
+Flex Conversations Overview
+Migration Guide from Programmable Chat to Conversations
+No surprises here—both Programmable Chat and Conversations use the same billing model.
+For any questions or support during the transition, customers should reach out to their Twilio account team.
+SendGrid Email API
+Twilio SendGrid Platform
+Marketing Campaigns
+GA
+Additional Resources
+Blog
+Read more about our latest product updates, product tutorials, and community projects.
+Read the blog
+Docs
+See API reference documentation, quickstarts, SDKs, and multi-language code samples.
+Read the docs
+Events
+Find upcoming events and join us virtually or in person to learn more about our products.
+View events
+Get an AI summary:
+Twilio careers
+Twilio.org
+Press and media
+Investor relations
+Legal
+Privacy
+Security
+Impressum
+Sitemap
+LLMS
+Copyright © 2026 Twilio Inc.
+All rights reserved.
+Considering Twilio?
+About Twilio
+Customer Engagement Platform (CEP)
+Communications
+Conversational AI
+User authentication and identity
+Customer Data Platform (CDP)
+AI
+Customer stories
+Events
+Contact sales
+Why Twilio
+Products and Features
+SMTP
+Branded Calling
+Twilio Segment
+Twilio Engage
+Connections
+SendGrid Email API
+RCS messaging
+Latest innovations
+Pre-built solutions
+Support plans
+All products
+Use Cases
+AI agent productivity
+Customer data management
+Audience segmentation
+Contact center
+SMS marketing
+Customer acquisition
+Voice response system (IVR)
+Fraud prevention
+Bulk text messaging
+Mass email sender
+All use cases
+Developers
+Developer resources
+Twilio Essentials
+SDKs
+CDP integrations
+Serverless
+Conversation
+SMTP Email API
+SMS API
+WhatsApp API
+Voice API
+Connections
+All docs

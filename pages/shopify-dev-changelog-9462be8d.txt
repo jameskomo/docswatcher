@@ -1,0 +1,453 @@
+Skip to main content
+Apps
+Storefronts
+Agents
+References
+Changelog
+Ask assistant /
+Help
+•
+Log in
+Collapse sidebar
+Changelog
+Search changelog
+Subscribe
+All posts
+Blog & announcements
+Release notes
+Surfaces & APIs
+Apps
+Admin Extensions
+Admin GraphQL API
+Admin REST API
+App Bridge
+App Events API
+App store
+Built for Shopify
+Checkout UI
+Customer Accounts
+Events & webhooks
+Functions
+Metafields & metaobjects
+Payments Apps API
+Polaris
+POS Extensions
+Storefronts
+Customer Account API
+Hydrogen
+Liquid
+Shop Minis
+Shopify Theme Store
+ShopifyQL
+Storefront API
+Themes
+Agents
+Catalog
+UCP
+Dev Platform
+AI Toolkit
+Dev Dashboard
+Platform
+Shopify CLI
+Tools
+Versions
+All versions
+2027-01
+2026-10
+2026-07
+2026-04
+2026-01
+2025-10
+2025-07
+2025-04
+2025-01
+Change type
+Action required
+Breaking change
+Deprecated
+July 21, 2026
+Full-stack capabilities to power app analytics
+Shopify Analytics is now a full-stack platform for apps. Model, query, embed, and enrich analytics on Shopify without managing your own data infrastructure.
+Read the full story
+Changelog
+Search changelog
+Subscribe
+All posts
+Blog & announcements
+Release notes
+Surfaces & APIs
+Apps
+Admin Extensions
+Admin GraphQL API
+Admin REST API
+App Bridge
+App Events API
+App store
+Built for Shopify
+Checkout UI
+Customer Accounts
+Events & webhooks
+Functions
+Metafields & metaobjects
+Payments Apps API
+Polaris
+POS Extensions
+Storefronts
+Customer Account API
+Hydrogen
+Liquid
+Shop Minis
+Shopify Theme Store
+ShopifyQL
+Storefront API
+Themes
+Agents
+Catalog
+UCP
+Dev Platform
+AI Toolkit
+Dev Dashboard
+Platform
+Shopify CLI
+Tools
+Versions
+All versions
+2027-01
+2026-10
+2026-07
+2026-04
+2026-01
+2025-10
+2025-07
+2025-04
+2025-01
+Change type
+Action required
+Breaking change
+Deprecated
+Latest 2026-07
+Release candidate 2026-10
+September 2026
+Surface
+09.23
+Setting includeRestOfWorld to true returns an error in API version 2027-01
+Breaking changes Admin GraphQL API
+09.22
+Events subscription query complexity limit is changing to 100 points
+Breaking changes Events & webhooks
+09.22
+Polaris CDN 1.1 is now stable
+Polaris
+09.22
+Removing marketCurrencySettingsUpdate mutation
+Breaking changes Admin GraphQL API
+09.21
+Unlimited private plans and target stores in Shopify App Pricing
+App store
+09.21
+New translatable boolean field for Metafield GraphQL Object
+Admin GraphQL API
+09.18
+The automaticDiscounts query is removed in API version 2027-01
+Breaking changes Admin GraphQL API
+09.17
+Request a bundle size exception for existing UI extensions
+Admin Extensions
+09.17
+Adding a canceled receive action to the inventory shipments API
+Admin GraphQL API
+09.17
+Removed session.currentSession.staffMemberId from POS UI Extensions (2026-10)
+Breaking changes POS Extensions
+09.17
+Query market hierarchies with the GraphQL Admin API
+Admin GraphQL API
+09.17
+New Pricing audit trail for contextual product variant prices
+Admin GraphQL API
+09.16
+Updates to Events payloads and subscription configuration
+Action required Events & webhooks
+09.15
+Filter Catalog search results by media type
+Catalog
+09.15
+Dynamic complexity cost for metafieldsSet mutation
+Admin GraphQL API
+09.15
+Prepare your app for the Shopify admin's new look
+Polaris
+09.15
+family_name is optional for B2B orders in Payments Apps API requests
+Payments Apps API
+09.15
+Delivery options in Shopify Functions input now expose their metafields
+Functions
+09.10
+Discounts Allocator Function API developer preview has ended
+Action required Admin GraphQL API
+09.09
+Create and delete dev stores in Shopify CLI
+Shopify CLI
+09.08
+Variants now support multiple barcodes
+Action required Admin GraphQL API
+09.08
+Customer Address APIs now support countryCode
+Deprecated Checkout UI
+09.04
+Shopify storefronts now support UCP 2026-08-25
+UCP
+09.03
+Hydrogen developer preview update: September 2, 2026
+Hydrogen
+09.03
+New paymentInstrumentSendAddEmail mutation emails customers a link to add a payment method for a subscription, order, or draft order
+Admin GraphQL API
+August 2026
+Surface
+08.31
+Polaris CDN 1.1 release candidate
+Polaris
+08.31
+The Polaris CDN is adopting semantic versioning
+Polaris
+08.28
+More resilient refreshes for expiring offline access tokens
+Admin GraphQL API
+08.27
+Password Protected Shop Dev flows on Shopify Theme CLI v3.83.x and older to be deprecated
+Action required Themes
+08.26
+Four additional topics are now available for Events
+Events & webhooks
+08.26
+Build Shopify apps in PHP and Python with new official packages
+Tools
+08.26
+GitHub commits now name the last theme editor
+Themes
+08.25
+Oxygen is now available on trial plan stores
+Hydrogen
+08.24
+Script tags are deprecated and will stop running on March 1, 2027
+Action required Admin GraphQL API
+08.19
+App intents on admin.app.intent.link now open as a full-page navigation
+Platform
+08.18
+Hydrogen developer preview update: August 18, 2026
+Hydrogen
+08.10
+Shop Campaigns performance data now available via ShopifyQL
+Admin GraphQL API
+08.06
+Standard storefront events and actions now support cart attributes
+Platform
+08.05
+Draft order and transfer/shipment inventory is moving from reserved to committed
+Admin GraphQL API
+08.05
+WebMCP support for Liquid and Hydrogen storefronts
+Platform
+08.03
+Oxygen is now available on development stores
+Hydrogen
+08.03
+The orderCreate mutation now supports multiple tracking numbers for each fulfillment
+Admin GraphQL API
+08.01
+Updated Built for Shopify requirements for Fulfillment services apps
+Built for Shopify
+July 2026
+Surface
+07.31
+Hydrogen developer preview update: July 30, 2026
+Hydrogen
+07.31
+New fields for cash management activities and drawers in POS
+Admin GraphQL API
+07.30
+Merchants now see partner details on collaborator requests
+Dev Dashboard
+07.30
+The shopify-account component for customer accounts is now a Theme Store requirement
+Themes
+07.30
+createdAt is now available on the Customer object in Shopify Functions
+Functions
+07.30
+Updating an order's shipping address recalculates taxes as of API version 2026-10
+Breaking changes Admin GraphQL API
+07.27
+POS UI extensions can now print directly to hardware receipt printers
+POS Extensions
+07.27
+SubscriptionContractCalculation API now available in early access
+Admin GraphQL API
+07.24
+Invalid metafield queries now return errors in the GraphQL Admin API
+Breaking changes Admin GraphQL API
+07.21
+Metafield triggers and additional topics are now available for Events
+Events & webhooks
+07.21
+Liquid templates can now compose pages with blocks and partials
+Liquid
+07.17
+Physical inventory feature preview
+Admin GraphQL API
+07.16
+Card deposit endpoint now requires mTLS certificate
+API
+07.15
+Updated App Store requirements: 4.1.2 Use a unique name for your app
+App store
+07.15
+Storefront API @inContext supports channelId
+Storefront API
+07.15
+productId , title , variantSku , and variantTitle fields added to ExchangeLineItem
+Admin GraphQL API
+07.15
+POS UI Extensions 2026-07 adds discount allocations to bundle components
+POS Extensions
+07.09
+POS Extensions now supports a background extension target
+POS Extensions
+07.09
+Identity verification for Shopify Partners starts today
+Action required Platform
+07.09
+Hydrogen developer preview update: July 8, 2026
+Hydrogen
+07.09
+App Pricing: more plans, no-charge plan testing, and negative and fractional App Events
+App store
+07.08
+POS UI extensions 2026-07 uses per-unit fixed-amount line item discounts
+Breaking changes POS Extensions
+07.07
+Prepare your app for migration to Shopify App Pricing
+New migration tool lets you generate, edit, and test Shopify App Pricing plans from existing Billing API plans, validate usage pricing, and prepare for upcoming subscription migration.
+07.07
+Shopify Flow: Changes to Action extensions result in fewer breaking changes
+Tools
+07.07
+Shopify Flow: Action runtime URLs now update automatically
+Tools
+07.06
+Updated App Store Requirements: 1.3 Always Use Honest and Transparent Review Practices
+App store
+07.06
+Strengthening trust in App Store reviews
+Shopify is strengthening its App Store enforcement against untrusted and incentivized reviews to ensure merchants can rely on more genuine, trustworthy app feedback.
+07.06
+Customer Account API Customer.lastIncompleteCheckout and Checkout types removed in 2026-10
+Breaking changes Customer Account API
+07.03
+Markets APIs now support MarketRegionSubdivision
+API
+07.03
+OrderDisplayFulfillmentStatus now returns FULFILLMENT_NOT_REQUIRED for orders with no items to fulfill
+Breaking changes Admin GraphQL API
+07.02
+Deprecating the useBuyerJourneyIntercept API on checkout UI extensions
+Action required Polaris
+07.01
+Shop Minis May June 2026 update
+Shop Minis
+07.01
+Market-driven shipping now available in feature preview
+Action required Admin GraphQL API
+07.01
+Draft order deposit fields are now available in the GraphQL Admin API and Customer Account API
+Admin GraphQL API
+07.01
+Deprecation of cumulative marketing engagements
+Action required Admin GraphQL API
+07.01
+lineItem field added to the GiftCard object
+Admin GraphQL API
+07.01
+Discount application information now available for draft orders on the Customer Account API
+Customer Account API
+07.01
+discountedUnitPrice on DraftOrderLineItem Customer Account API deprecation
+Deprecated Customer Account API
+07.01
+BusinessEntity now exposes legalEntityId in the GraphQL Admin API
+Admin GraphQL API
+07.01
+Merchant-owned delivery profile APIs are deprecated for market-driven shipping
+Action required Admin GraphQL API
+07.01
+Market-driven shipping Admin API
+Admin GraphQL API
+07.01
+2026-07: Release notes
+Adds richer merchandising and returns data, expanded extension capabilities, inventory safety updates, and metaobject changes.
+June 2026
+Surface
+06.30
+Hydrogen now deploys to Vercel
+Hydrogen
+06.30
+Configure order attribution for sales channel apps
+Admin Extensions
+06.27
+Payment mandates now expose an id field
+Admin GraphQL API
+06.26
+Carrier services will no longer be automatically added to the default shipping profile
+Breaking changes Admin GraphQL API
+06.24
+Storefront MCP cart tools are being deprecated in favour of UCP Cart MCP
+Action required API
+06.23
+DraftOrderDiscountNotAppliedWarning.priceRule removed in GraphQL Admin API 2026-10
+Breaking changes Admin GraphQL API
+06.19
+Removal of ITEM_NOT_STOCKED_AT_LOCATION error
+Breaking changes Admin GraphQL API
+06.18
+Flow action extensions now support relative paths for endpoint URLs
+Tools
+06.17
+New purchaseType and recurringCycleLimit fields in the discounts API for discount UI extensions
+Admin Extensions
+06.17
+Apps can now open Shopify’s file picker with the Intents API
+Tools
+06.17
+Admin GraphQL API now supports app-owned delivery profiles that cover all shippable items
+Admin GraphQL API
+06.17
+Define and set metafields on inventory transfers in the GraphQL Admin API
+Admin GraphQL API
+06.17
+Purchase-type filtering now enforced for app discounts
+Admin GraphQL API
+06.17
+Hydrogen developer preview
+Hydrogen
+Load more
+Updates
+Developer changelog
+Shopify Editions
+Business growth
+Shopify Partners Program
+Shopify App Store
+Shopify Academy
+Legal
+Terms of service
+API terms of use
+Privacy policy
+Partners Program Agreement
+Shopify
+About Shopify
+Shopify Plus
+Careers
+Investors
+Press and media

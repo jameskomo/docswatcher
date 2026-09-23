@@ -1,0 +1,298 @@
+legacy
+Skip to main content
+Guides Reference Samples Tools
+Changelog Dev Program
+MANAGE APPS
+Welcome!
+Quickstart
+Resources
+Slack platform concepts
+AI in Slack
+APIs
+App management
+App manifests
+Admin resources
+Authentication
+Block Kit
+Enterprise
+Enterprise Search for apps
+GovSlack
+Interactivity
+Messaging
+Slack Marketplace
+Surfaces
+Workflows
+Legacy
+Overview
+Legacy classic app migration
+Legacy authentication
+Legacy bot users
+Legacy custom integrations
+Legacy dialogs
+Legacy messaging
+Legacy RTM API
+Legacy Slack button
+日本語版ページ
+Legacy
+Legacy RTM API
+Copy as markdown
+On this page
+Legacy RTM API
+The legacy Real Time Messaging (RTM) API is a WebSocket-based API that allows you to receive events from Slack in real time and send messages as users, including bot users. It's sometimes referred to as the "RTM API".
+It was once the basis for all Slack clients and once commonly used with bot users to create helper bots for your workspace.
+We recommend having events pushed to you instead, using the HTTP-based Events API . Most of the RTM API's supported event types are also supported by the Events API . If you really like WebSockets, Socket Mode for apps delivers event subscriptions over WebSockets instead.
+Many workspace administrators will not allow apps and integrations using the RTM API due to the overly permissive permission scopes required for their operation. Slack apps allow you to subscribe to events and request permissions for only the data your app truly needs to operate.
+Notices ​
+This API is ancient and the ways to access it have grown more limited over time. Please excuse this litany of warnings and calls to action below.
+Granular permission Slack apps cannot use the RTM API.
+Classic apps can, but be warned that they may no longer be created and are soon to be deprecated.
+For most applications, Socket Mode is a better way to communicate with Slack
+Basics ​
+To begin a RTM session make an authenticated call to the
+rtm.connect API method. This provides an initial set of
+workspace metadata and a message server WebSocket URL. Once you have connected to
+the message server it will provide a stream of events, including both messages
+and updates to the current state of the workspace. This allows a client to easily
+maintain a synchronized local copy of all workspace data and messages.
+The Websocket URLs provided by rtm.connect are single-use and are only valid
+for 30 seconds, so make sure to connect quickly. If you connect successfully
+the first event received will be a hello:
+{
+"type" : "hello"
+}
+This will be followed by any events that occurred between the call to
+rtm.connect and the connection to the message server. If you're reconnecting
+after a network problem this initial set of events may include a response
+to the last message sent on a previous connection (with a reply_to ) so a
+client can confirm that message was received.
+If there was a problem connecting an error will be returned, including a
+descriptive error message:
+{
+"type" : "error" ,
+"error" : {
+"code" : 1 ,
+"msg" : "Socket URL has expired"
+}
+Events ​
+Almost everything that happens in Slack will result in an event being sent to
+all connected clients. A common event is a message sent from a user:
+{
+"type" : "message" ,
+"ts" : "1358878749.000002" ,
+"user" : "U123ABC456" ,
+"text" : "Hello"
+}
+Every event has a type property which describes the type of event.
+Sending messages ​
+You can send a message to Slack by sending JSON over the WebSocket connection.
+Every event should have a unique (for that connection) positive integer
+ID. All replies to that message will include this ID allowing the client to
+correlate responses with the messages sent; replies may be "out of order"
+due to the asynchronous nature of the message servers.
+Also, as with events sent from the server, each event sent by the client has a
+string type specifying what the message does — chat messages are of type message .
+Channel selection ​
+So to post the text "Hello world" to a channel, you can send this JSON:
+{
+"id" : 1 ,
+"type" : "message" ,
+"channel" : "C123ABC456" ,
+"text" : "Hello world"
+}
+You can send a message to a private group or direct message channel in the
+same way, but using a group ID ( C123ABC456 ) or direct message channel ID ( D0123ABC456 ).
+To send a message both as and to the authenticating user, use the correct direct message channel ID for that user. The direct message ID can be found as part of the response to rtm.connect , or by consulting conversations.list .
+Formatting messages ​
+The RTM API only supports posting basic messages formatted using our default message formatting mode . It does not support attachments or other message formatting modes. To post a more complex message as a user clients can call the chat.postMessage Web API method with as_user set to true.
+User mentions over RTM should use the User ID-based <@U123ABC> syntax:
+{
+"id" : 2 ,
+"type" : "message" ,
+"channel" : "C123ABC456" ,
+"text" : "Hello <@U123ABC>"
+}
+Handling responses ​
+Once the JSON has been sent to the server visual clients should immediately
+display the text in the channel, grayed out or otherwise marked to indicate
+that it is "pending". At some point after that, usually a few milliseconds
+later, the server will send a confirmation that the message was received:
+{
+"ok" : true ,
+"reply_to" : 1 ,
+"ts" : "1355517523.000005" ,
+"text" : "Hello world"
+}
+Replies to messages sent by clients will always contain two properties: a
+boolean ok indicating whether they succeeded and an integer reply_to
+indicating which message they are in response to.
+In the case of a reply to a chat message, if successful, the reply will
+contain the canonical recorded timestamp of the message. All messages within
+a single channel are guaranteed to have a unique timestamp which is ASCII
+sortable. Given the precision of the timestamp, clients should treat these
+timestamps as strings, not floats/doubles. Once a successful reply has been
+returned, the message in the chat log should no longer be grayed out - it has
+now been delivered.
+Chat message replies also contain the message text, which may vary from the
+sent message due to URL detection.
+Errors ​
+If there is an error processing an event the message server will reply with an
+error. For example:
+{
+"ok" : false ,
+"reply_to" : 1 ,
+"error" : {
+"code" : 2 ,
+"msg" : "message text is missing"
+}
+Typing indicators ​
+Clients can send a typing indicator to indicate that the user is currently
+writing a message to send to a channel:
+{
+"id" : 1 ,
+"type" : "typing" ,
+"channel" : "C123ABC456"
+}
+This can be sent on every key press in the chat input unless one has been
+sent in the last three seconds. Unless there is an error the server will not
+send a reply, but it will send a "user_typing" event to all workspace members in
+the channel.
+Presence ​
+User and bot user presence on the RTM API is complicated enough to warrant an entire document. Learn all about presence subscriptions and batch presence events here .
+RTM API Presence is now only available via subscription
+As of January 2018, presence_change events are not dispatched without presence subscriptions established with presence_sub . Relatedly, current user presence status is no longer communicated in rtm.start . Learn more .
+Ping and Pong ​
+Clients should try to quickly detect disconnections, even in idle periods, so
+that users can easily tell the difference between being disconnected and
+everyone being quiet. Not all web browsers support the WebSocket ping spec, so
+the RTM protocol also supports ping/pong messages. When there is no other
+activity clients should send a ping every few seconds. To send a ping, send
+the following JSON:
+{
+"id" : 1234 , // ID, see "sending messages" above
+"type" : "ping" ,
+...
+}
+You can supply any number of extra "flat" arguments (that is: only scalar
+values, no arrays or objects). These will be included in the pong message that
+is sent back. For example, a client could include a local timestamp in the
+ping message so it can calculate round-trip latency:
+{
+"id" : 1234 ,
+"type" : "ping" ,
+"time" : 1403299273342
+}
+This will be included in the reply from the server:
+{
+"reply_to" : 1234 ,
+"type" : "pong" ,
+"time" : 1403299273342
+}
+Limits ​
+The message server will disconnect any client that sends a message longer than
+16 kilobytes. This includes all parts of the message, including JSON syntax,
+not just the message text. Clients should limit messages sent to channels to
+4000 characters, which will always be under 16k bytes even with a message
+comprised solely of non-BMP Unicode characters at 4 bytes each. If the message
+is longer a client should prompt to split the message into multiple messages,
+create a snippet or create a post.
+As with all Slack APIs, the RTM API is subject to
+rate limits . Clients should not
+send more than one message per second sustained. If you do you may receive an
+error message or be disconnected.
+What's a WebSocket? ​
+WebSockets are a standard way to open a long-lived bi-directional communication channel with a server over TCP. It's the protocol used when connecting to our RTM API . Many contributions from our community support the particulars of connecting to Slack via a WebSocket.
+Connecting with rtm.connect vs. rtm.start ​
+There are currently two ways to reserve websocket connections.
+rtm.connect concerns itself only with getting your app connected to the RTM API, and only includes limited information about the connecting user and housing workspace.
+rtm.start includes not only an entire kitchen sink but an entire kitchen filled with information about the user, its workspace, its channels, its current state in the universe. rtm.start is naturally more difficult to use with an Enterprise organization and other large workspaces.
+We strongly recommend using rtm.connect to reserve your websocket connections and use the Web API in tandem to collect all the state information your app needs.
+Using the RTM API in an Enterprise organization ​
+There are additional support actions you'll need to take for the RTM API to properly work with an Enterprise organization.
+RTM:
+Support events & messages containing global user IDs
+Support users from other workspaces in shared channels
+Support duplicate message deliveries in shared channels when installed on multiple workspaces
+Connect using rtm.connect instead of rtm.start
+Be careful with messages ​
+If your application is installed by multiple workspaces of an Enterprise organization and then used in a shared channel, it's possible that your bot will receive multiple RTM events for the same message: one for each of the workspaces you're installed on.
+If your bot doesn't de-duplicate the messages by looking at the ts value of each message, you might interpret each one independently and reply to them, adding noise a conversation.
+Look for the source_team message field to identify the Enterprise workspace the message originates from.
+To help you understand the different scenarios in which you'll receive multiple messages, let's imagine the following situation:
+We have 3 workspaces in an organization
+Of the 3 workspaces, your app is installed on Workspace 1 and Workspace 2
+Your app is not installed on Workspace 3
+Your bot has been invited to join a shared channel that exists between users from all 3 workspaces.
+Your app has opened websocket connections for both Workspace 1 and Workspace 2
+Condition
+Result
+User from Workspace 1 sends message
+RTM websocket for Workspace 1 will receive the message as normal.
+User from Workspace 2 sends message
+RTM websocket for Workspace 2 will receive the message as normal.
+User from Workspace 3 sends message
+RTM websocket for Workspace 1 will receive the message with some additional metadata.
+One way to handle duplicate messages is to make one of the workspaces in the shared channel (that your app is installed on) responsible for handling all messages coming from that shared channel.
+To do this, you'll need to listen to the channel_joined event when your bot is added to a shared channel. The metadata included in this event will tell you which workspaces are part of the shared channel.
+Of the workspaces in the channel that your app is installed on, you'll want to pick one and save both the channel ID and team ID in your database. From that point on, you can look up the channel ID for every message you need to respond to and determine which workspace's RTM should respond.
+Alternatively, you can ignore all messages coming from a workspace that is not the same as the workspace your app is installed on. This will prevent users on workspaces that haven't installed your app from being able to interact with your bot.
+Working with direct messages ​
+Direct messages work much like channels: private conversations between two or more individuals spanning multiple workspaces within an Enterprise organization result in RTM API streaming one message for each of your open websocket connections.
+Your app can be the target of a direct message from another workspace across the Enterprise organization. You never know when a user might want to collaborate with your bot.
+These messages will also contain a source_team attribute when perspectively appropriate. The source_team attribute contains the workspace within the Enterprise organization that the message originates from.
+As with channels, when connected to multiple websocket connections on behalf of workspaces in the Enterprise organization, you can receive redundant message deliveries. They will have the same ts value.
+Previous
+Legacy secondary message attachments
+Next
+Legacy Slack button
+Copy as markdown
+Notices
+Basics
+Events
+Sending messages
+Channel selection
+Formatting messages
+Handling responses
+Typing indicators
+Presence
+Ping and Pong
+Limits
+What's a WebSocket?
+Connecting with rtm.connect vs. rtm.start
+Using the RTM API in an Enterprise organization
+Be careful with messages
+Working with direct messages
+.
+Tools
+Slack CLI
+Bolt frameworks
+Slack SDKs
+Block Kit Builder
+Developer program
+Code samples & tutorials
+LLM? Read llms.txt
+All tools
+Learn
+Learning paths
+Workshops
+Slack certifications
+Trailhead
+Resource library
+All learning resources
+Community
+Slack community
+Slack events
+Resources
+Docs
+Blog
+Slack marketplace
+Developer newsletter
+Manage Apps
+Your apps
+Status
+Privacy
+Terms
+Cookie Preferences
+Support
+Changelog
+Your Privacy Choices
+© 2026 Slack Technologies, LLC, a Salesforce company. All rights reserved. Various trademarks held by their respective owners.

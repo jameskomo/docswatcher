@@ -1,0 +1,332 @@
+changelog
+Skip to main content
+Guides Reference Samples Tools
+Changelog Dev Program
+MANAGE APPS
+Slack developer changelog
+🏷️ View all tags
+2026
+Release: Slack CLI v4.8.0
+Updated installation requirement for Slack Marketplace apps
+Release: Slack CLI v4.7.0
+The next wave of Agent messaging experience
+Announcing Slack Code
+Announcing the Slack MCP and Skills Plugin
+Release: Slack CLI v4.6.0
+Release: Slack CLI v4.5.0
+Release: Bolt for JS v5
+Release: Multiple Node Slack SDK package updates
+Desktop notifications now pull text from blocks first
+Agent context has landed
+Introducing the Agent messaging experience
+Release: Python Slack SDK v3.43.0
+Release: Slack CLI v4.4.0
+New Block Kit container block
+Release: Slack CLI v4.3.0
+Announcing the Slackbot MCP Client
+System notifications now delivered by "Slack" instead of Slackbot
+New Block Kit data visualization block
+Release: Java Slack SDK v1.49.0
+Release: Slack CLI v4.2.0
+New Block Kit data table block
+Release: Slack CLI v4.1.0
+Release: Python Slack SDK v3.42.0
+New Slack MCP Server tools released
+New Block Kit blocks and Streaming API method updates
+Release: Slack CLI v4.0.0 and v4.0.1
+PKCE is now generally available!
+Release: Slack CLI v3.15.0
+Optional scopes have landed
+New supported markdown types for rich text in Block Kit
+Set status method scope update
+Release: Slack CLI v3.14.0
+Release: Slack CLI v3.13.0
+Announcing the Slack MCP server and Real-time Search API
+Apps can now display thinking steps to users!
+Retry delayed events feature now available
+Release: Slack CLI v3.12.0
+Release: Slack CLI v3.11.0
+2025
+Classic apps deprecation paused
+Release: Slack CLI v3.10.0
+Release: Slack CLI v3.9.2
+Release: Slack CLI v3.9.1
+Announcing the redesigned OAuth page
+Introducing Work Objects
+Release: Slack CLI v3.9.0
+Slack API Terms of Service updates
+Release: Slack CLI v3.8.1
+New features designed for Slack apps sending AI responses
+Release: Slack CLI v3.8.0
+Release: Slack CLI v3.7.0
+Introducing the Lists API
+Release: Slack CLI v3.6.1
+Welcome to docs.slack.dev!
+Deprecation of the allow_message_deletion field
+Introducing the Block Kit table block!
+Release: Slack CLI v3.6.0
+Release: Slack CLI v3.5.2
+Classic apps deprecation timeline adjustment
+Introducing Slack Web API featured workflows
+Release: Slack CLI v3.5.1
+Installation requirement for Slack Marketplace apps
+Release: Slack CLI v3.5.0
+Release: Slack CLI v3.4.0
+Retiring of api.slack.com timeline adjustment
+Release: Slack CLI v3.3.0
+Clarifying rate limit changes for non-Marketplace apps
+Rate limit changes for non-Marketplace apps
+API Terms of Service updates
+Release: Slack CLI v3.2.0
+Release: Slack CLI v3.1.0
+Release: Slack CLI v3.0.5
+Classic apps deprecation timeline adjustment
+The Slack CLI is now open source!
+Release: Slack CLI v3.0.4
+Retiring of api.slack.com
+Release: Slack CLI v3.0.2
+Release: Slack CLI v3.0.1
+files.upload API method deprecation timeline adjustment
+Slack platform API and tools docs are now in beta
+Release: Slack CLI v3.0.0
+Removing the Slack CLI deno command
+Release: Slack CLI v2.33
+A new Block Kit block is now available for use!
+The Data Access API is here!
+Release: Slack CLI v2.32.1
+2024
+Release: Slack CLI v2.32.0
+Slack App Developer Policy updates
+Slack platform API and tools docs are moving
+Release: Slack CLI v2.31.0
+Classic apps deprecation timeline adjustment
+Release: Slack CLI v2.30.1
+Release: Slack CLI v2.30.0
+Discontinuing support for legacy custom bots and classic apps
+Agents & AI Apps feature is here!
+Release: Slack CLI v2.29.2
+Custom workflow steps for all Slack apps are available today!
+Release: Slack CLI v2.29.1
+Release: Deno Slack API v2.8.0
+Release: Slack CLI v2.28.0
+Release: Slack CLI v2.27.1
+Release: Deno Slack SDK v2.13.0 & v2.14.0
+Release: Deno Slack API v2.7.0
+Release: Deno Slack API v2.6.0
+Release: Deno Slack API v2.5.0
+Release: Slack CLI v2.26.0
+Release: Deno Slack SDK v2.12.0
+Release: version 2.25.0 of the Slack CLI
+The files.upload method is now deprecated
+Release: Slack CLI v2.24.0
+Release: Deno Slack SDK v2.11.0
+The September 2024 retirement of Steps from Apps for our legacy Workflow Builder approaches quickly.
+Release: Slack CLI v2.23.0
+Minor developer policy update
+Coded event trigger improvements are now live!
+Release: Slack CLI v2.22.0
+Release: Deno Slack SDK v2.10.0 & Deno Slack API v2.4.0
+The files.upload method is retiring, to be replaced by sequenced Web API methods
+Release: Slack CLI v2.21.0
+Discontinuing new creation of classic apps and legacy custom integration bots
+Release: Deno Slack SDK v2.9.0
+Release: Slack CLI v2.20.1 & v2.20.1
+Release: Slack CLI v2.19.0
+Release: version 2.7.0 of the Deno Slack SDK
+Release: Slack CLI v2.18.0
+Release: Slack CLI v2.17.1
+Release: Slack CLI v2.17.0
+File upload functionality is now available in Block Kit!
+Securely render your internal images in modals and messages
+Release: Slack CLI v2.16.0
+2023
+Release: Slack CLI v2.15.0
+Release: Slack CLI v2.14.0
+Release: Slack CLI v2.13.0
+SCIM API token restriction by IP address
+Release: Slack CLI v2.12.0
+Release: Slack CLI v2.11.0
+Release: Slack CLI v2.10.0
+Rich text formatting for Block Kit surfaces
+Release: Slack CLI v2.9.1
+Slack CLI v2.8.0 and below is now deprecated
+Release: Slack CLI v2.9.0
+New Admin API methods are now available!
+Release: Slack CLI v2.8.0
+Workflow Steps from Apps step back
+Release: Slack CLI v2.7.0
+Slack Marketplace submissions must now have a minimum of 10 active workspace installations to be reviewed
+It's later already for stars and reminders
+Release: Slack CLI v2.6.0
+Release: Slack CLI v2.5.1
+Release: Slack CLI v2.5.0
+Slack CLI v1.17.0 and below is now deprecated
+Release: Slack CLI v2.4.0
+Release: Slack CLI v2.3.0
+The team.accessLogs method now supports cursor-based pagination
+Release: Slack CLI v2.2.0
+Message attachment field changes
+Introducing the Slack automations platform
+Beta release: Slack CLI v2.1.0
+Beta release: Slack CLI v1.21.0
+Beta release: Slack CLI v1.20.0
+Beta release: Slack CLI v1.19.0
+Beta release: Slack CLI v1.18.0
+2022
+2022 changelog entries
+2021
+2021 shortform changelog entries
+Changes to admin apps requests
+Rolling out a new beta app settings experience
+rtm.start to stop
+Changes to unfurls
+Changes to admin app requests
+Changes to admin apps
+How we broke your Slack app
+Goodbye, workspace apps
+2020
+2020 shortform changelog entries
+App unfurls everywhere
+No more tokens in querystrings for newly created apps
+Events API truncate authed users
+A full state on view submission and block actions
+Minor developer policy update
+Legacy test token creation to retire
+Deprecating antecedents to the conversations API
+2019
+2019 shortform changelog entries
+What you see is what you get and more and less
+Deprecate early TLS versions
+Have SCIM, will paginate
+Wild West no more (for file limits, at least)
+Cemented fate for file comments
+2018
+2018 shortform changelog entries
+A bric a brac of broadcasts built with blocks
+More reasons to be a conversations API convert
+Developer policy updates
+Workspace token rotation
+Conversations APIs and scopes for workspace apps
+App home events for workspace apps
+File threads soon tread
+OAuth flow changes for workspace token preview apps
+Scoping file rights for writes in workspace token apps
+Truncating really long messages
+Great rate limits
+Presence present and future
+Don't let websocket URIs with query strings get you down
+The right chat:write for workspace token apps
+2017
+2017 shortform changelog entries
+Keeping up with the JSONs
+Making RTM presence subscription only
+The members array is being truncated
+Locale locale locale
+The one about usernames
+Batch presence and presence subscriptions
+Rethinking channel entrance and exit events and messages
+Narrowing email access
+Start using RTM connect and stop using RTM start
+Minor field changes
+2016
+2016 shortform changelog entries
+Addressing email addresses
+Response metadata is on the way
+Token lengthening
+User ID format changes
+More event timestamps in the RTM API
+Authorship changing for older tokens
+Changes to errors for incoming webhooks
+RTM API file events payload change
+Reminders API methods
+2015
+2015 shortform changelog entries
+Discontinuing support for legacy custom bots and classic apps
+September 30, 2024
+We want to let you know about some upcoming changes to support for legacy custom bots and classic apps on the Slack platform.
+Beginning March 31, 2025 , we will discontinue support for legacy custom bots. For your integrations to continue working, you must create brand new Slack apps.
+In September 2025 March 2026 May 2026 November 2026 , we will discontinue support for classic apps. For your apps to continue working, you will need to migrate them to Slack apps . Any custom bots or classic apps you have built will no longer work after these dates.
+Classic apps deprecation has been paused
+We have paused any changes relating to classic apps at this time. Classic apps will continue to work, but we recommend migrating them to Slack apps to take advantage of their benefits.
+It has been over 10 years since we originally launched the Slack Platform. As we mentioned back in April 2024 , there are just too many ways to create an app, so we're doing our best to streamline this process.
+What's changing ​
+Beginning March 31, 2025 , legacy custom bots will no longer function. API calls made by legacy custom bots will be rejected.
+Beginning November 16, 2026 , classic apps will no longer function. API calls made by a classic apps will be rejected. Classic apps will no longer receive Events API events.
+How do I prepare? ​
+How do I tell if my app will be impacted? ​
+If you are a developer:
+Legacy custom bots installed on your workspace are listed here , under 'Configuration'.
+Classic apps that you are a collaborator for are listed here . Any app listed as "Classic" here will be impacted.
+If you are an admin:
+You can view a list of impacted apps by heading to your workspace or org's settings page, and then clicking on the "Deprecations" tab.
+Legacy custom bots ​
+If you have a legacy custom bot and want to keep keep that functionality working, you’ll need to create a new Slack app to replace it.
+By default, Slack apps are only available internally within the workspace they were created, just like legacy custom bots.
+If you want to use a Slack app on only one workspace, as how legacy custom bots work, you do not need to implement OAuth. Click Install to Workspace to obtain a bot token, replace the token in your app’s code with this token, and then you'll be good to go.
+Slack apps do not support the legacy RTM API . If your legacy custom bot was using the legacy RTM API, you will need to configure it to use the Events API instead.
+In most cases, any events you received via the RTM API will also available via the Events API. Refer to detailed instructions here , and
+event types for a list of supported event types.
+The Events API supports both HTTP and WebSocket connections . If you prefer to use the same configuration as the legacy RTM API, you can enable socket mode. In that case, you’ll follow the same pattern as with the legacy RTM API (i.e., call the apps.connections.open API method to get a URL, open a WebSocket to that URL, and then listen for events).
+If you own a legacy custom bot and do nothing, it will stop functioning. API calls made from the app will be rejected. Eventually, your app will be removed from channels, your tokens will be revoked, and your access to its configuration pages will be removed.
+Classic apps ​
+Classic apps are not impacted at this time and will continue to work. However, these are considered to be legacy and it is recommended to migrate them to Slack apps.
+To migrate your classic app, follow these instructions . You can do this from your app’s configuration page within the Update to Granular Scopes section.
+The core difference between classic apps and Slack apps is the more granular set of scopes.
+If your app is distributed to other teams using OAuth, you will need to make code changes to support the new OAuth flow . If your app is only used internally, you don’t need to implement OAuth.
+Timeline ​
+November 16, 2026 : We will discontinue support for classic apps
+March 31, 2025 : We will discontinue support for legacy custom bots
+June 2024 : We blocked creation of new legacy apps and classic apps
+May 27th, 2022 : We made it a requirement for apps in the Slack Marketplace to use granular permissions
+December 2020 : We no longer accepted new submissions for classic apps in the Slack Marketplace
+October 2019 : We launched Slack apps to replace both legacy apps and classic apps
+November 2015 : We launched classic apps with OAuth scopes
+Tags:
+Deprecation
+Breaking change
+Newer post
+Release: Slack CLI v2.30.0
+Older post
+Agents & AI Apps feature is here!
+Copy as markdown
+What's changing
+How do I prepare?
+How do I tell if my app will be impacted?
+Legacy custom bots
+Classic apps
+Timeline
+.
+Tools
+Slack CLI
+Bolt frameworks
+Slack SDKs
+Block Kit Builder
+Developer program
+Code samples & tutorials
+LLM? Read llms.txt
+All tools
+Learn
+Learning paths
+Workshops
+Slack certifications
+Trailhead
+Resource library
+All learning resources
+Community
+Slack community
+Slack events
+Resources
+Docs
+Blog
+Slack marketplace
+Developer newsletter
+Manage Apps
+Your apps
+Status
+Privacy
+Terms
+Cookie Preferences
+Support
+Changelog
+Your Privacy Choices
+© 2026 Slack Technologies, LLC, a Salesforce company. All rights reserved. Various trademarks held by their respective owners.

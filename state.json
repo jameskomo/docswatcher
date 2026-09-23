@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "lastRun": "2026-09-23",
+  "urls": {
+    "https://ai.google.dev/gemini-api/docs/deprecations": {
+      "hash": "7aac8f29024b12bbd3f2ca59de896b82e222a9732d8af8355f5ede62c46859ad",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://aws.amazon.com/blogs/developer/": {
+      "hash": "dd3e06c07e37b3becbc7af84ecb4a515402caa1007f35a9ce2853903c6ee4310",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-go-v1-on-july-31-2025/": {
+      "hash": "bc50e0d65377bace6a75c06fbd67d7f7cd6252c9a88fd81de3fabad2e7d2f97e",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-java-v1-x-on-december-31-2025/": {
+      "hash": "e8c785b5385948b8e19e6031138c900aafbd82c229640493c2c881a8c2f1abb4",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-javascript-v2/": {
+      "hash": "d264b84a41c4a459d9b0addf03ea2fec4e442a31c0f72a222e4b2a112e70b850",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://developers.openai.com/api/docs/deprecations": {
+      "hash": "8a961de0b26e70ce4ca542c2bdd027530f3336aba9bccf5d51bda427b6dff4c7",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://docs.github.com/en/rest/about-the-rest-api/api-versions": {
+      "hash": "1b33f4f149b5acad0eeb3b32864574e13e2510f77fa5ef6184423288f203cd4f",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://docs.github.com/en/rest/about-the-rest-api/breaking-changes": {
+      "hash": "3d1c08f7e535c1a104e1a29aa305b63f2a91ad4e17e4770a8aa5d4d90b6ea9d3",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://docs.slack.dev/changelog": {
+      "hash": "cb0cdcdb3ce3e333192450e2f782f35e4883e1ecf6e0d1eb6abe1b47528f4dd9",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://docs.slack.dev/changelog/2024-09-legacy-custom-bots-classic-apps-deprecation/": {
+      "hash": "27cc3c37e9b8adc9a06afb7f66b459aa99f3b2cc223edd3efad9d9e9d6b43495",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://docs.slack.dev/changelog/2025/03/17/files-upload-extension/": {
+      "hash": "bdf4059c2ba2b8247040d4488ce21f3616719a8f655532b559682bf7cbd1355b",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://docs.slack.dev/legacy/legacy-rtm-api": {
+      "hash": "bfc3c8911da9eae48e64f64d87f9370046be4d4b32654e59d75dd0d10a7b37af",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://docs.slack.dev/reference/methods/files.upload": {
+      "hash": "bb2904f50155bbcffa6889a23a12e238f45c5d7683eb5326f112728a29ed33dc",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://docs.stripe.com/changelog": {
+      "hash": "ecf1290fc80b353690b59a3672254a9a3d5dec4bcf6c24a541fd8098aa870b85",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://docs.stripe.com/sources": {
+      "hash": "b8491e5240c8ac00de83b80925238f5bc61c720664c66f0d877b0e258997f506",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://github.blog/changelog/2023-03-10-changes-to-the-code-search-api/": {
+      "hash": "4961003118037e9b75284d620145c643526edc79dd9a7b313a6ad301a7813d8e",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://platform.claude.com/docs/en/about-claude/model-deprecations": {
+      "hash": "e95f40824ff3d658a9ff46a76e377813e6be1b86bfc7c55d5b60f25f4afe65d5",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://shopify.dev/changelog": {
+      "hash": "4954581755db6624205a8ef01fc4d49f6c79aec46067a81453842b8a1d24926f",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://shopify.dev/docs/api/usage/versioning": {
+      "hash": "4ca82f28cd27408e472709e59e428945dadd64cd20fc56d49a42ee3d2762362b",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://www.twilio.com/docs/notify/api": {
+      "hash": "d1254b112fb84d1c7ff6e8b0d9ddc5c9e299e18ad994a3d7e54ab50fb6a395e4",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://www.twilio.com/docs/sendgrid/for-developers/sending-email/migrating-from-v2-to-v3-mail-send": {
+      "hash": "4f7ae7b51789209e1645fc3918043d043d3f414538bc759e80fafa33efd41d7c",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://www.twilio.com/docs/sendgrid/v2-api/mail": {
+      "hash": "5872cf74b217bd525e63742f3d880f6c8d76e6fb90b0721275aa565d4a9190ea",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://www.twilio.com/en-us/changelog": {
+      "hash": "2ae46d14512d40242fbb65ef1b57e40d94d0c6388bfdf044e88f81ee5fea6a4f",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://www.twilio.com/en-us/changelog/notify-api-end-of-life-further-extension-notice": {
+      "hash": "aec5ecc80b8d363103833458459a41858e4320a6f997777ac291e67a58db0fa1",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://www.twilio.com/en-us/changelog/programmable-chat-in-flex-reaching-end-of-life-on-june-1--2026": {
+      "hash": "2a03ddb7f56580a8ff481d671b73bdbf093f63376971a9dd8d7a2e81be36156a",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    },
+    "https://www.twilio.com/en-us/changelog/segmentation-v1-api-deprecation": {
+      "hash": "fdb27df7b398c205f9d12d636fbbb63c237c1322c4b0d342c34c88434507b7d1",
+      "fetched": "2026-09-23",
+      "status": 200,
+      "failures": 0,
+      "readable": true,
+      "unreadableReported": false
+    }
+  },
+  "agedReported": {}
+}

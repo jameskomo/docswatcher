@@ -1,0 +1,320 @@
+Skip to main content
+Skip to content
+GitHub Docs
+Search or ask Copilot /
+Menu
+Collapse sidebar Expand sidebar
+Scroll breadcrumbs left
+Home
+REST API
+About the REST API
+API Versions
+Scroll breadcrumbs right
+REST API
+API Version: 2026-03-10 (latest)
+Quickstart
+About the REST API
+Comparing GitHub's APIs
+API Versions
+Breaking changes
+OpenAPI description
+Using the REST API
+Getting started
+Rate limits
+Pagination
+Libraries
+Best practices
+Troubleshooting
+Timezones
+CORS and JSONP
+Issue event types
+GitHub event types
+Authentication
+Authenticating
+Keeping API credentials secure
+Endpoints for GitHub App installation tokens
+Endpoints for GitHub App user tokens
+Endpoints for fine-grained PATs
+Permissions for GitHub Apps
+Permissions for fine-grained PATs
+Guides
+Script with JavaScript
+Script with Ruby
+Discover resources for a user
+Delivering deployments
+Rendering data as graphs
+Working with comments
+Building a CI server
+Get started - Git database
+Get started - Checks
+Encrypt secrets
+Actions
+Artifacts
+Cache
+Actions concurrency groups
+GitHub-hosted runners
+OIDC
+Permissions
+Actions policies
+Secrets
+Self-hosted runner groups
+Self-hosted runners
+Variables
+Workflow jobs
+Workflow runs
+Workflows
+Activity
+Events
+Feeds
+Notifications
+Starring
+Watching
+Agent tasks
+Agents
+Secrets
+Variables
+Apps
+GitHub Apps
+Installations
+Marketplace
+OAuth authorizations
+Webhooks
+Billing
+Budgets
+Billing usage
+Branches
+Protected branches
+Campaigns
+Security campaigns
+Checks
+Check runs
+Check suites
+Classroom
+Code quality
+Code scanning
+Code security settings
+Configurations
+Codes of conduct
+Codespaces
+Organizations
+Organization secrets
+Machines
+Repository secrets
+User secrets
+Collaborators
+Invitations
+Commits
+Commit comments
+Commit statuses
+Copilot
+Cloud agent repository management
+Copilot cloud agent management
+Copilot content exclusion management
+Copilot usage metrics
+Copilot user management
+Copilot Spaces
+Collaborators
+Copilot Spaces
+Resources
+Credentials
+Revocation
+Dependabot
+Alerts
+Repository access
+Secrets
+Dependency graph
+Dependency review
+Dependency submission
+Software bill of materials (SBOM)
+Deploy keys
+Deployments
+Deployment branch policies
+Deployments
+Environments
+Protection rules
+Deployment statuses
+Emojis
+Enterprise teams
+Enterprise team members
+Enterprise team organizations
+Enterprise teams
+Gists
+Comments
+Git database
+Blobs
+Commits
+References
+Tags
+Trees
+Gitignore
+Interactions
+Organization
+Repository
+User
+Issues
+Assignees
+Comments
+Events
+Issue dependencies
+Issue field values
+Issues
+Labels
+Milestones
+Sub-issues
+Timeline
+Licenses
+Markdown
+Meta
+Metrics
+Community
+Statistics
+Traffic
+Migrations
+Organizations
+Source endpoints
+Users
+Organizations
+API Insights
+Artifact metadata
+Artifact attestations
+Blocking users
+Custom properties
+Issue fields
+Issue types
+Members
+Network configurations
+Organization roles
+Organizations
+Outside collaborators
+Personal access tokens
+Rule suites
+Rules
+Security managers
+Webhooks
+Packages
+Pages
+Private registries
+Organization configurations
+Projects
+Draft Project items
+Project fields
+Project items
+Projects
+Project views
+Pull requests
+Review comments
+Pull requests
+Review requests
+Reviews
+Stacked pull requests
+Rate limit
+Reactions
+Releases
+Release assets
+Repositories
+Attestations
+Autolinks
+Contents
+Custom properties
+Forks
+Issue types
+Repositories
+Rule suites
+Rules
+Webhooks
+Search
+Secret scanning
+Custom patterns
+Push protection
+Secret scanning
+Security advisories
+Global security advisories
+Repository security advisories
+Teams
+Members
+Teams
+Users
+Attestations
+Blocking users
+Emails
+Followers
+GPG keys
+Git SSH keys
+Social accounts
+SSH signing keys
+Users
+In this article
+API Versions
+Learn how to specify which REST API version to use whenever you make a request to the REST API.
+Copy markdown
+In this article
+About API versioning
+Specifying an API version
+Upgrading to a new API version
+API version closing down
+Exceptions to standard versioning
+Supported API versions
+About API versioning
+The GitHub REST API is versioned. The API version name is based on the date when the API version was released. For example, the API version 2026-03-10 was released on Tue, 10 Mar 2026.
+Breaking changes are changes that can potentially break an integration. Breaking changes will be released in a new API version. We will provide advance notice before releasing breaking changes. Breaking changes include:
+Removing an entire operation
+Removing or renaming a parameter
+Removing or renaming a response field
+Adding a new required parameter
+Making a previously optional parameter required
+Changing the type of a parameter or response field
+Removing enum values
+Adding a new validation rule to an existing parameter
+Changing authentication or authorization requirements
+Any additive (non-breaking) changes will be available in all supported API versions. Additive changes are changes that should not break an integration. Additive changes include:
+Adding an operation
+Adding an optional parameter
+Adding an optional request header
+Adding a response field
+Adding a response header
+Adding enum values
+When a new REST API version is released, the previous API version will be supported for at least 24 more months following the release of the new API version.
+Specifying an API version
+You should use the X-GitHub-Api-Version header to specify an API version. For example:
+curl --header "X-GitHub-Api-Version:2026-03-10" https://api.github.com/zen
+Requests without the X-GitHub-Api-Version header will default to use the 2022-11-28 version.
+If you specify an API version that is no longer supported, you will receive a 410 Gone response.
+Upgrading to a new API version
+Before upgrading to a new REST API version, you should read the changelog of breaking changes for the new API version to understand what breaking changes are included and to learn more about how to upgrade to that specific API version. For more information, see Breaking changes .
+When you update your integration to specify the new API version in the X-GitHub-Api-Version header, you'll also need to make any changes required for your integration to work with the new API version.
+Once your integration is updated, test your integration to verify that it works with the new API version.
+API version closing down
+API versions are supported for 24 months after a newer API version is released.
+While a version is within its support window but approaching closing down, GitHub includes the following headers in API responses to help you prepare for migration:
+Deprecation — The date when the API version will be closing down, formatted as an HTTP date per RFC 7231 . For example: Wed, 27 Nov 2019 14:34:29 GMT .
+Sunset — The date when the API version will be completely removed (retired), after which requests will return a 410 Gone response. Follows RFC 8594 . For example: Fri, 27 Nov 2020 14:34:29 GMT .
+After the support window ends:
+Requests that specify a closing down API version receive a 410 Gone response.
+Requests that do not specify an API version default to the next oldest supported version, not the closing down version. If you rely on unversioned requests, you may observe behavioral changes as older versions are removed from support.
+For more information on migrating to a newer API version, see Breaking changes .
+Exceptions to standard versioning
+In rare cases, GitHub may make changes outside the normal API versioning cadence. These are exceptional interventions that do not alter the standard versioning guarantees for most integrators.
+Security, availability, and reliability issues
+Critical security vulnerabilities, data exposure risks, or severe reliability issues may require changes outside the normal release schedule. GitHub may release an unscheduled API version, backport fixes to supported versions, or in rare cases, introduce a breaking change to an existing version to protect users and platform integrity.
+GitHub will communicate such changes through release notes, changelogs, and direct communication explaining what changed and why. Where feasible, advance notice will be provided. Immediate action may be taken without advance notice when required.
+Low-usage services
+For certain services with very low usage, GitHub may deprecate functionality outside the standard versioning process. In these cases, GitHub will communicate the intent and reach out to affected integrators directly.
+Supported API versions
+The following REST API versions are currently supported.
+API version
+End of support date
+2026-03-10
+Not yet scheduled
+2022-11-28
+March 10, 2028
+You can also make an API request to get all of the supported API versions. For more information, see REST API endpoints for meta data .
+Back to top
+Help and support
+Was this Doc helpful?
+Yes No
+Help us make GitHub Docs great!
+All Docs are open source. See something that's wrong or unclear? Submit a pull request.
+Make a contribution
+Still need help?
+Ask the GitHub community Contact support Expert services Blog
+GitHub Inc. © 2026 Terms Privacy Status Pricing

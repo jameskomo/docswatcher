@@ -1,0 +1,108 @@
+Skip to content
+Skip to sidebar
+/
+Blog
+Changelog
+Docs
+Customer stories
+Try GitHub Copilot app
+Attend GitHub Universe
+Search
+Changelog
+Docs
+Customer stories
+Attend GitHub Universe
+Try GitHub Copilot app
+Back to changelog
+Improvement
+March 10, 2023 •
+1 minute read
+Changes to the code search API
+We are preparing to bring powerful new code search capabilities to GitHub. As part of that effort, on April 10, 2023, we will make several changes to the code search API :
+Code search rate limits will be separated from the rate limits for other search types. The separate code search category will have a rate limit of 10 requests per minute.
+We are deprecating support for sorting code search results. Once these changes take effect, all code search results will be sorted by best match.
+All code search API endpoints will require authentication . This change only affects repository scoped queries, because all other query types already require authentication.
+To prepare for these changes, make sure your code handles rate limiting . And if you're using code search to track changes or find security vulnerabilities in your codebase, consider using webhooks or GitHub Advanced Security .
+These changes will take effect in 30 days, on April 10, 2023.
+collaboration tools
+ecosystem & accessibility
+Share
+Copied
+Shared
+Back to changelog
+Related Posts
+Sep.21 Release
+Refreshed repository pull requests page generally available
+collaboration tools
+Sep.15 Retired
+SHA-1 in HTTPS on GitHub sunset
+ecosystem & accessibility
+Sep.10 Release
+Refreshed repository pull requests page in public preview
+collaboration tools
+Sep.08 Release
+GitHub Enterprise Server 3.22 is now generally available
+collaboration tools
+Sep.04 Release
+New API endpoint provides privacy-safe star history data
+collaboration tools
+Sep.01 Improvement
+Block users from discussion comments in personal repositories
+collaboration tools
+Aug.27 Improvement
+Close all open contributions authored by a blocked user
+collaboration tools
+Aug.26 Release
+GitHub Apps can now access enterprise billing data
+account management
+ecosystem & accessibility
+enterprise management tools
+...
++2
+Aug.25 Improvement
+Block users directly from security advisories
+collaboration tools
+Subscribe to our developer newsletter
+Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.
+Enter your email *
+Subscribe
+By submitting, I agree to let GitHub and its affiliates use my information for personalized communications, targeted advertising, and campaign effectiveness. See the GitHub Privacy Statement for more details.
+Back to top
+Site-wide Links
+Product
+Features
+Security
+Enterprise
+Customer Stories
+Pricing
+Resources
+Platform
+Developer API
+Partners
+Atom
+Electron
+GitHub Desktop
+Support
+Docs
+Community Forum
+Training
+Status
+Contact
+Company
+About
+Blog
+Careers
+Press
+Shop
+&copy; 2026 GitHub, Inc.
+Terms
+Privacy
+Manage Cookies
+Do not share my personal information
+GitHub on LinkedIn
+GitHub on Instagram
+GitHub on YouTube
+GitHub on X
+GitHub on TikTok
+GitHub on Twitch
+GitHub’s organization on GitHub

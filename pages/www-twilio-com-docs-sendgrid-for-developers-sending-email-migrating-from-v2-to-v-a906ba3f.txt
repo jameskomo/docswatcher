@@ -1,0 +1,213 @@
+Skip to content Skip to navigation Skip to topbar
+Twilio SendGrid Docs
+For Developers
+Parsing Email
+Inbound Parse
+Inbound Email Parse Webhook Setting Up The Inbound Parse Webhook Securing your Parse Webhooks
+Partners
+Migration
+Migrating from a partner account
+Platform Partners
+Amazon Marketplace Building an iOS App on Windows Azure Google Jelastic Sending Email with Microsoft Azure Microsoft Azure
+Sending Email
+SendGrid v3 API
+Getting started with the SendGrid API Automate Adding Subusers with the SendGrid API Cross Origin Resource Sharing (CORS) cURL Examples for Common Use Cases Getting Started with Transactional Email How to Create a Subuser with the API Personalizations Email API Quickstart for Go Email API Quickstart for Node.js Email API Quickstart for PHP Email API Quickstart: How to Send Email with Python Email API Quickstart for Ruby Sandbox Mode Scheduling Email Send Mime Messages With SendGrid Canceling a scheduled send Stopping an in-progress send Using Handlebars v3 API C# Code Example v3 API Go Code Example v3 API Java Code Example v3 API Kotlin Code Example v3 Mail Send FAQ v3 API PHP Code Example v3 API Python Code Example v3 API Ruby Code Example
+SendGrid Plugins
+Apple Mail Using SendGrid with BriteVerify Drupal SugarCRM Integration
+Sending Email
+Authentication Enforced TLS Getting Started with the Email Activity Feed API Segmentation Query Language Reference Sender Identity Single Sends 2020 Update Upgrade your authentication method to API keys Web API vs. SMTP for Sending Email
+Send SMTP
+Building an X-SMTPAPI Header How to Send an SMTP Email Integrating with the SMTP API SMTP Errors and Troubleshooting
+Frameworks
+CakePHP CodeIgniter Django Send Email in Laravel Ruby on Rails Symfony Zend
+X-SMTPAPI Header
+Working with Categories Sending a Legacy Transactional Template Email over SMTP Scheduling Parameters Section Tags SMTP Filters SMTP Go Code Example SMTP Node.js Code Example SMTP Perl Code Example SMTP PHP Code Example SMTP Python Code Example SMTP Ruby Code Example Substitution Tags Suppression Groups Unique Arguments
+Mail Servers
+Exchange 2010 Exim 4 Microsoft IIS 7.5 Postfix Qmail Sendmail ssmtp
+SendGrid Partners
+Building Serverless Apps with Form.io + SendGrid How to integrate with MailPoet Sending New Emails via SendGrid For New Gravity Forms Submissions Send Emails Through SendGrid For New Caught Webhook Data Sending SendGrid Emails For New PostgreSQL Custom Query Row Matches Sending SendGrid Emails From New Google Sheets Rows Sending Emails From SendGrid to Tagged Infusionsoft Contacts Sending SendGrid Email When New Firebase Child Records Are Added
+Open Source Apps
+Joomla API Libraries MODX phpBB
+SendGrid v2 API
+How To Migrate From v2 to v3 Mail Send v2 API C# Code Example v2 API Go Code Example v2 API Java Code Example v2 API Node.js Code Example v2 API Perl Code Example v2 API PHP Code Example v2 API Python Code Example v2 API Ruby Code Example
+Mail Clients
+Outlook 2013 Outlook 2007 Thunderbird
+Tracking Events
+Getting Started
+Getting started with the Event Webhook Getting Started with the Event Webhook Security Features
+Reference & Troubleshooting
+Event Webhook Reference Twilio SendGrid Event Webhook API Reference Twilio SendGrid Event Webhook Overview
+SendGrid Partners
+SendGrid and Google AMP for Email SendGrid Source
+Code Examples
+Event Webhook C# Code Example Event Webhook Go Code Example Event Webhook Node.js Code Example Event Webhook PHP Code Example Event Webhook Python Code Example
+Migration Guides
+v2 to v3 API
+Twilio SendGrid Docs
+Search
+Log in
+Sign up
+Page tools
+Copy as markdown
+Useful for sharing or LLM
+Copy and view
+Copy as markdown View as markdown
+Open in assistant
+Open in ChatGPT Open in Claude Open in Cursor Open in Perplexity
+Build with AI
+Connect your AI agent Install Twilio Skills
+Accelerate development with AI
+On this page
+Why should you migrate?
+What do you need to migrate?
+JSON Schema
+Requirements and limitations
+Attachments
+More resources
+Looking for more inspiration? Visit the
+Developer Hub
+On this page
+Why should you migrate?
+What do you need to migrate?
+JSON Schema
+Requirements and limitations
+Attachments
+More resources
+Copy as markdown
+Copy and view
+Copy as markdown View as markdown
+Open in assistant
+Open in ChatGPT Open in Claude Open in Cursor Open in Perplexity
+Build with AI
+Connect your AI agent Install Twilio Skills
+How To Migrate From v2 to v3 Mail Send
+(warning)
+This documentation is for the SendGrid Web API v2
+To access all the latest features and upcoming developments, please see our v3 API . For assistance with transitioning, refer to our migration guide .
+Why should you migrate?
+You should migrate to gain a consistent JSON request format, Sandbox Mode for testing, improved error reporting, and extensive code examples across SendGrid's libraries.
+(information)
+Info
+If you are using the Web API v2 mail send endpoint , upgrade to the v3 mail send endpoint .
+To upgrade your authentication credentials from username and password to API keys, please see our authentication update guide .
+With a few changes you will be able to take advantage of the improvements and added features provided by the v3 mail send endpoint, such as:
+Consistent request body format.
+Sandbox Mode allows you to test and validate your email.
+Improved error reporting and documentation.
+Extensive code examples in each of our libraries to help you integrate.
+What do you need to migrate?
+All you need to migrate from the v2 to v3 mail send endpoint is a SendGrid account.
+If you are a new SendGrid user and haven't begun sending email yet, please go straight to our v3 Mail Send documentation to get started.
+JSON Schema
+Some of the biggest improvements made to the mail send endpoint reside in the JSON schema used to format and submit the data payload for your email. While the v2 mail send endpoint relies on a combination of JSON and SendGrid's x-smtpapi headers, all content and metadata sent via the v3 mail send endpoint is defined using JSON within a single request body.
+The following visual comparison of the v2 and v3 JSON schemas highlights equivalent parameters between the two versions and any parameters that have been added or removed. Significant additions include the personalizations , sandbox_mode , and bypass_list_management parameters.
+For a more detailed discussion of these parameters, see the v3 Mail Send Overview .
+Expand image
+One of the more prominent changes you may notice, is that many of the settings that were previously handled by SendGrid's x-smtpapi are now defined explicitly within the JSON schema of the request body to the mail send endpoint.
+Previously, the only way to specify custom handling instructions for your email was to include individual blocks of JSON for each "setting" or "app" that you wanted to use according to the SMTP API .
+For example, if you wanted to schedule an email to be sent at a certain time using the v2 mail send endpoint, your request body would look like:
+Copy code block
+1
+api_user = YOUR_USER_NAME &
+2
+api_key = YOUR_PASSWORD &
+3
+to = john.doeexampexample@example.com &
+4
+toname = John &
+5
+subject = Hello, World! &
+6
+text = Hello, World! &
+7
+from = from_address@example.com
+8
+x-smtpapi = { "send_at":1459728000}
+However, the equivalent API call for the v3 mail send endpoint would look like:
+Copy code block
+1
+{
+2
+"personalizations" : [
+3
+{
+4
+"to" : [
+5
+{
+6
+"email" : "john.doeexampexample@example.com"
+7
+}
+8
+],
+9
+"subject" : "Hello, World!" ,
+10
+"send_at" : 1459728000
+11
+}
+12
+],
+13
+"from" : {
+14
+"email" : "from_address@example.com"
+15
+},
+16
+"content" : {
+17
+"type" : "text/plain" ,
+18
+"value" : "Hello, World!"
+19
+}
+20
+}
+Notice that while the call to the v2 Mail Send endpoint does include JSON, it is only defined from within the x-smtpapi parameter, whereas the entire payload for the v3 Mail Send API Call is formatted in JSON.
+Requirements and limitations
+There are few differences in requirements and limitations between the v2 and v3 mail send endpoints. The main difference is in how each endpoint handles attachments.
+Attachments
+Attachments are handled differently between the v2 and v3 Mail Send endpoints. When attaching files in an email sent over the v2 Mail Send endpoint, you needed to attach your file to the transport and specify the file names and content IDs of those files in your API call. Essentially, you specified which files you were attaching in the API call, but the files were actually sent differently.
+When attaching files to an email sent over the v3 Mail Send endpoint, you must include the BASE64 encoded content of your file, file type, filename, disposition, and content_id for each file you are attaching. These are all defined as separate objects within the attachments array.
+For example, when attaching a single file named "example_file.jpg", the attachments object would look like:
+Copy code block
+1
+{
+2
+"attachments" : [
+3
+{
+4
+"content" : "[BASE64 encoded content block here]" ,
+5
+"type" : "jpg" ,
+6
+"name" : "example_file" ,
+7
+"filename" : "example_file.jpg" ,
+8
+"disposition" : "inline" ,
+9
+"content_id" : "[THE CONTENT ID OF YOUR FILE]"
+10
+}
+11
+]
+12
+}
+More resources
+For additional resources on the v3 Mail Send endpoint, see the following documentation:
+V3 Mail Send Overview
+Upgrading your Authentication to API Keys
+SandBox Mode
+Errors
+Personalizations
+cURL Examples for Common Use Cases
+You may also visit our Support page .
+Need some help?
+We all do sometimes; code is hard. Get help now from our support team , or lean on the wisdom of the crowd by browsing the SendGrid tag on Stack Overflow.
+Terms of service
+Privacy Policy
+Copyright © 2026 Twilio Inc.
