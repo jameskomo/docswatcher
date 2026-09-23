@@ -258,3 +258,41 @@ test("no shell command is ever written to the clipboard by the page", async ({ p
   await expect(page.locator(".snippet.shell pre").first()).not.toContainText("sudo");
 });
 
+
+test("the inventory collapses a long list and expands on request", async ({ page }) => {
+  await page.goto("./");
+  await scanSample(page, "anthropic-model-zoo");
+  const rows = page.locator("#inventory table tbody tr:not(.locations)");
+  const control = page.locator("#inventory .show-all");
+  // Structure, not a row count: whatever the cap is, a capped table hides some and says so.
+  const shown = await rows.count();
+  await expect(control).toBeVisible();
+  await control.click();
+  expect(await rows.count()).toBeGreaterThan(shown);
+  await expect(page.locator("#inventory .show-all")).toContainText(/fewer/i);
+});
+
+test("an inventory row opens its other locations, and each links to the scanned commit", async ({ page }) => {
+  await page.goto("./");
+  // The default sample is a real GitHub repository, so its evidence can be linked.
+  const more = page.locator("#inventory .more").first();
+  await expect(more).toBeVisible();
+  await expect(page.locator("#inventory tr.locations")).toHaveCount(0);
+  await more.click();
+  const opened = page.locator("#inventory tr.locations");
+  await expect(opened).toHaveCount(1);
+  expect(await opened.locator("a").count()).toBeGreaterThan(1);
+
+  // Every link is pinned to a commit, never to a branch that can move under it.
+  for (const href of await page.locator("#inventory a[href]").evaluateAll((a) => a.map((x) => x.getAttribute("href")))) {
+    expect(href).toMatch(/^https:\/\/github\.com\/[^/]+\/[^/]+\/blob\/[0-9a-f]+\/.+#L\d+$/);
+  }
+});
+
+test("a scan with no repository of its own links nothing", async ({ page }) => {
+  await page.goto("./");
+  // A fixture is not a repository anyone can open, so its locations stay plain text.
+  await scanSample(page, "anthropic-model-zoo");
+  await expect(page.locator("#inventory table")).toBeVisible();
+  await expect(page.locator("#inventory a.loc")).toHaveCount(0);
+});

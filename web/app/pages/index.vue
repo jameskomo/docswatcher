@@ -369,7 +369,11 @@ async function copyLink() {
           <h2>Everything this repository calls</h2>
           <p>Every external API contract detected in this codebase, including SDK methods, API keys, and model IDs.</p>
         </div>
-        <InventoryTable :contracts="result?.inventory?.contracts || []" :findings="findings" />
+        <InventoryTable
+          :contracts="result?.inventory?.contracts || []"
+          :findings="findings"
+          :repo="result?.inventory?.repo"
+        />
       </section>
     </template>
 

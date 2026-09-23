@@ -7,6 +7,9 @@
 // snippet selects itself whole on one click, and the visitor copies it themselves.
 //
 // `wrap` is for one long token, like a badge, that is easier to read wrapped than scrolled.
+// It renders as `snippet-wrap`, not `wrap`: `.wrap` is the global page-shell class in
+// main.css (max-width, centred, gutter padding). Emitting it here gave the badge snippet
+// the page's horizontal padding, which pushed the Copy button outside the dark block.
 const props = defineProps<{ code: string; testid?: string; wrap?: boolean; shell?: boolean }>();
 
 const copied = ref(false);
@@ -20,7 +23,7 @@ async function copy() {
 </script>
 
 <template>
-  <div class="snippet" :class="{ wrap, shell }" :data-testid="testid">
+  <div class="snippet" :class="{ 'snippet-wrap': wrap, shell }" :data-testid="testid">
     <button v-if="!shell" type="button" class="snippet-copy" @click="copy">{{ copied ? "Copied" : "Copy" }}</button>
     <span v-else class="snippet-hint" aria-hidden="true">click to select</span>
     <pre>{{ code }}</pre>
@@ -30,7 +33,7 @@ async function copy() {
 <style scoped>
 .snippet { position: relative; }
 .snippet pre { margin: 0; overflow-x: auto; padding-right: 72px; }
-.snippet.wrap pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.snippet.snippet-wrap pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 /* One click selects the whole command; the copy itself is the visitor's own. */
 .snippet.shell pre { user-select: all; -webkit-user-select: all; cursor: text; padding-right: 110px; }
 .snippet-copy, .snippet-hint {
