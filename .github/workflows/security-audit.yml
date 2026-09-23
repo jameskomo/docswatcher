@@ -137,7 +137,7 @@ jobs:
       # this is the only evidence of what it did produce.
       - name: What did the audit write?
         if: always() && steps.gate.outputs.configured == 'true'
-        run: ls -laR security-audit-output 2>&1 | head -60 || echo "no security-audit-output directory"
+        run: ls -laR security-audit-output 2>&1 | head -60
 
       - name: Publish a summary
         if: always() && steps.gate.outputs.configured == 'true' 
