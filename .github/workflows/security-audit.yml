@@ -137,7 +137,11 @@ jobs:
       # this is the only evidence of what it did produce.
       - name: What did the audit write?
         if: always() && steps.gate.outputs.configured == 'true'
-        run: ls -laR security-audit-output 2>&1 | head -60
+        run: |
+          ls -laR security-audit-output 2>&1 | head -60
+          # run_status and incomplete_reason say why a run stopped early. This is
+          # run metadata, not findings: no paths, no evidence, safe in a public log.
+          find security-audit-output -name run-metadata.json -exec cat {} + 2>&1 | head -40
 
       - name: Publish a summary
         if: always() && steps.gate.outputs.configured == 'true' 
