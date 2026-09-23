@@ -12,21 +12,24 @@ for call sites, and a native binary for Linux only.
 
 | Component | State | Evidence |
 |---|---|---|
-| Knowledge base | 10 providers, 77 change records, 33 fixtures | `knowledge/scripts/validate` reports 0 errors |
-| Java engine | 3 detection layers, matcher, validator, `Matcher.lookup` | 174 tests pass |
-| TypeScript engine | Same three layers, runs in the browser | 48 unit tests pass |
+| Knowledge base | 10 providers, 87 change records, 34 fixtures | `knowledge/scripts/validate` reports 0 errors |
+| Java engine | 3 detection layers, exclusion rules, matcher, validator, `Matcher.lookup` | 198 tests pass |
+| TypeScript engine | Same three layers and the same exclusion rules, runs in the browser | Part of the 99 TypeScript unit tests below |
 | Two-engine parity | Byte-identical output on every fixture | `npm run parity` passes |
-| Command line | `scan`, `match`, `validate`, `mcp` | 21 tests pass; release smoke test drives the native binary |
-| MCP server | `check_api`, `upcoming_deprecations`, `scan_repository` | 17 tests; a real Claude Code session used it unprompted |
-| Server app | Webhooks, scan worker, REST API, fix dispatch, runtime observation, org blast radius | 69 tests pass |
-| Web site | Scanner, calendar with subscriptions, dashboard, finding detail, CI and Agents pages, live scan links | 18 browser tests pass |
+| Path exclusion | `.gitignore` files, a root `.docswatcherignore`, and `--exclude` | 21 shared cases replayed by both engines |
+| Command line | `scan`, `match`, `validate`, `mcp`, and `--exclude` | 24 tests pass (6 CLI, 18 MCP); release smoke test drives the native binary |
+| MCP server | `check_api`, `upcoming_deprecations`, `scan_repository` | 18 tests; a real Claude Code session used it unprompted |
+| Server app | Webhooks, scan worker, REST API, fix dispatch, runtime observation, org blast radius | 70 tests, run in CI (they need Postgres) |
+| Web site | Scanner, calendar with subscriptions, dashboard, finding detail with linked evidence, CI and Agents pages, live scan links | 22 browser tests pass |
 | Feeds | iCalendar (all and per provider), Atom, open JSON | 11 tests; parsed by the `icalendar` library; served correctly by nginx 1.27 |
 | Knowledge watch | Daily fetch of 26 cited pages, issue on news, optional agent-drafted pull request | 16 tests; two live runs over every source, the second reporting no change |
 | Open-source study | Cohort runner and aggregate summary | First cohort: `study/2026-09-openai-top50` |
-| Relay worker | Tarball streaming with permissive origins | 9 tests pass |
+| Relay worker | Tarball streaming with permissive origins. Not used by the deployed site; kept for self-hosters | 10 tests pass |
 | Deployment | Live behind a Cloudflare Tunnel, five containers, no inbound ports | Runbooks in the private operations repository |
 
-Total: 264 Java tests (174 engine, 21 CLI, 69 app), 75 TypeScript unit tests, 18 browser tests, 9 relay tests.
+Total: 292 Java tests (198 engine, 24 CLI, 70 app), 99 TypeScript unit tests, 22 browser tests,
+10 relay tests. The app's tests need Postgres and run in CI rather than on a developer's machine;
+every other number here was produced by running that suite.
 
 ### Verified against real repositories
 

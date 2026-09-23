@@ -26,8 +26,12 @@ No component depends on another through code. They depend on each other through 
 | Matcher | Java and TypeScript | Wherever an engine runs | Pure function from inventory plus active changes to findings. |
 | CLI | Java 25, picocli, GraalVM native-image | Developer machines, CI | Wraps engine and matcher. Prints inventory and findings. Exit code reflects breaking findings. |
 | App | Java 25, Spring Boot 4, GraalVM native-image | One container | GitHub App webhooks, scan worker, findings store, API for the dashboard. |
-| Web | Nuxt, static export | Cloudflare Pages or GitHub Pages | Public site with browser scanner and deprecation calendar. Logged-in dashboard. |
-| Relay | Cloudflare Worker | Cloudflare free tier | Streams a repo tarball to the browser with permissive cross-origin headers. See ADR 0003. |
+| Web | Nuxt 4, static export (`ssr: false`) | nginx container behind a Cloudflare Tunnel | Public site with browser scanner, deprecation calendar, subscribable feeds, and the operator dashboard. |
+| Relay | Cloudflare Worker | Cloudflare free tier | Streams a repo tarball to the browser with permissive cross-origin headers. See ADR 0003. **Not used by the deployed site**: `relayUrl` is empty in `web/nuxt.config.ts`, so the browser goes to jsDelivr and then the GitHub API. The worker remains for self-hosters who want it. |
+| MCP server | Java 25, inside the CLI | A developer's machine, over stdio | Answers `check_api`, `upcoming_deprecations` and `scan_repository` for a coding agent, so the agent can check a contract before it writes one. |
+| GitHub Action | Composite action (`action.yml`) | Any CI runner | Downloads the released binary and runs `match`. The five-line way into a pipeline. |
+| Feeds | Generated at build time | Served as static files | `deprecations.ics`, `deprecations.atom` and `deprecations.json` under `/feeds/`, so a calendar or reader can subscribe without scanning anything. |
+| Knowledge watch | Node script plus a workflow | GitHub Actions, daily | Re-fetches every page the knowledge base cites, reports what changed, and can hand the diff to an agent that drafts change records as a draft PR. |
 | Fix handoff | GitHub Actions workflow | The target repository | Runs an automated coding agent action with a prompt assembled from the finding. Opens the PR. |
 
 The fix handoff runs in the target repository's own GitHub Actions environment with repository-scoped secrets. DocsWatcher assembles the remediation context, test coordinates, and instructions, and triggers the workflow. This keeps all source code and execution strictly inside the developer's own CI environment.
@@ -51,55 +55,106 @@ The `engine` module has no Spring dependency on purpose. It is the piece contrib
 
 ## CLI commands
 
-The CLI is the contributor's and CI's view of the engine. Three commands, stable from v1.
+The CLI is the contributor's, CI's and a coding agent's view of the engine. Four commands.
 
 | Command | Does | Exit code |
 |---|---|---|
 | `docswatcher scan <path>` | Runs the engine on a checkout and prints the inventory document | 0 |
 | `docswatcher match <path>` | Runs scan, then the matcher against the bundled knowledge release, and prints findings | 1 if any breaking finding is open, else 0 |
 | `docswatcher validate` | Runs the knowledge base validators on the bundled or a given knowledge directory | 1 on any violation |
+| `docswatcher mcp` | Serves the Model Context Protocol over stdio so a coding agent can query the knowledge base and scan a directory | — |
 
-`scan` accepts `--write-expected` to write `expected-inventory.json` and `expected-findings.json` next to a fixture. CI never uses it. `--knowledge <dir>` on any command points at a local knowledge checkout instead of the bundled release. `--format json` is the default and `--format text` is for humans.
+A scan that fails exits `3`, which is deliberately distinct from `1`. A crash must never read as "clean".
 
-## The three surfaces
+`scan` accepts `--write-expected` to write `expected-inventory.json` and `expected-findings.json` next to a fixture. CI never uses it. `--knowledge <dir>` on any command points at a local knowledge checkout instead of the bundled release. `--format json` is the default and `--format text` is for humans. `--exclude <pattern>` is repeatable and takes `.gitignore` syntax; see [Excluding paths](./18-excluding-paths.md) for how it composes with the repository's own `.gitignore` and `.docswatcherignore`.
 
-**Public site.** Anyone pastes a GitHub URL. The browser fetches the tarball through the relay, runs the TypeScript engine locally, and renders the inventory and findings. The deprecation calendar is generated at build time from the knowledge base. Nothing runs on a server except the relay.
+## The ways to run it
 
-**Logged-in app.** GitHub login. Org overview, the map of every external contract, the horizon of upcoming effective dates, an inventory browser, a finding page with evidence and a fix button, settings for snooze and production flags. Nuxt pages calling the app's API.
+**Public site.** Anyone pastes a GitHub URL or picks a local folder. The browser fetches the tree, runs the TypeScript engine locally, and renders the inventory and findings. No file contents are transmitted. The fetch chain on the deployed site is jsDelivr, then the GitHub API; the relay worker is available for self-hosters but is not wired up in the deployed configuration.
+
+**CLI and the GitHub Action.** `docswatcher match` in any shell, or the composite action in a pipeline. Exit `1` on an open breaking finding, `3` if the scan itself failed.
+
+**MCP server.** `docswatcher mcp` speaks the Model Context Protocol over stdio, so a coding agent can ask whether an API is deprecated *before* it writes the call. Read-only: no network, no process spawn.
 
 **GitHub App.** Installed on an org. Check runs on every push with the inventory summary. One issue per finding with severity label and due date. A fix label that triggers the handoff workflow.
 
+**Feeds.** The deprecation calendar is generated at build time and published as iCalendar, Atom and JSON under `/feeds/`, so a team can subscribe to the dates without running a scan at all.
+
+**Operator dashboard.** Org overview, the map of every external contract, the horizon of upcoming effective dates, an inventory browser, a finding page with evidence and a fix button, snooze and production flags.
+
+> The dashboard is an **operator** surface, not a multi-user product. It is reached with a single
+> deployment-wide credential rather than a per-user login, so it is meant for whoever runs the
+> instance. If you self-host, treat that credential accordingly and put the dashboard behind your
+> own access control.
+
 ## Data flows
+
+Where the engine runs, and who asks it to:
+
+```
+  browser (WASM engine)     CLI / GitHub Action     MCP stdio        GitHub App (server)
+  paste a URL, pick a       exit 1 breaking,        ask before       install, push, label
+  folder; nothing is        exit 3 failed           you write
+  uploaded                          │                    │                   │
+          │                         │                    │                   │
+          └─────────────────────────┴────────┬───────────┴───────────────────┘
+                                             ▼
+                              ┌──────────────────────────┐
+                              │  engine: walk ─► exclude │   .gitignore, .docswatcherignore,
+                              │  ─► manifest ─► literal  │   --exclude  (docs/18)
+                              │  ─► callsite (tree-sitter)│
+                              └────────────┬─────────────┘
+                                           │  inventory.json  (the one seam)
+                                           ▼
+                              ┌──────────────────────────┐
+              knowledge ─────►│         matcher          │─────► findings
+              changes/*.yaml  └──────────────────────────┘
+```
+
+Server-side, what a scan turns into:
 
 ```
                        ┌──────────────┐
-   install / push ───► │  GitHub App  │
+   install / push ───► │  GitHub App  │  HMAC verified, delivery id consumed once
                        │  webhooks    │
                        └──────┬───────┘
                               ▼
-                       ┌──────────────┐    shallow clone    ┌──────────────┐
-                       │  scan_run    │ ──────────────────► │ Java engine  │
-                       │  queued      │                     │ + matcher    │
-                       └──────┬───────┘                     └──────┬───────┘
+                       ┌──────────────┐  shallow clone,     ┌──────────────┐
+                       │  scan_run    │  timeout-bounded,   │ Java engine  │
+                       │  queued      │ ──temp dir────────► │ + matcher    │
+                       └──────┬───────┘  .git removed       └──────┬───────┘
                               │                                    │ inventory + findings
                               ▼                                    ▼
-                       ┌──────────────┐                     ┌──────────────┐
-                       │  Postgres    │ ◄────────────────── │  persist     │
-                       │  contracts   │                     └──────────────┘
-                       │  findings    │
+   OTLP traces ─────►  ┌──────────────┐                     ┌──────────────┐
+   (live call paths)   │  Postgres    │ ◄────────────────── │  persist     │
+                       │  7 tables    │                     └──────────────┘
                        └──────┬───────┘
                               │
               ┌───────────────┼──────────────────┐
               ▼               ▼                  ▼
         check run       finding issue       dashboard API
         on the push     with due date       map, horizon, blast radius
+                        (text fenced and    (single shared bearer token,
+                         escaped)            no per-user identity)
                               │
-                              │  fix label
+                              │  fix label, or the dashboard's fix button
                               ▼
-                       ┌──────────────┐    customer's key    ┌──────────────┐
-                       │ dispatch     │ ───────────────────► │ Claude Code  │
-                       │ workflow     │                      │ action → PR  │
-                       └──────────────┘                      └──────────────┘
+                       ┌──────────────┐  locators only,      ┌──────────────┐
+                       │ repository_  │  never snippets,     │ coding agent │
+                       │ dispatch     │ ──max 50───────────► │ in their CI  │
+                       └──────────────┘  customer's key      │  → draft PR  │
+                                                             └──────────────┘
+```
+
+Alongside the scan path, two things run on a schedule and touch no customer repository:
+
+```
+  knowledge watch (daily)                    feeds (build time)
+  re-fetch every cited page                  knowledge base ──► deprecations.ics
+  ─► diff ─► report issue                                   ──► deprecations.atom
+  ─► optional agent draft PR                                ──► deprecations.json
+     (tools scoped to knowledge/**,             served under /feeds/, subscribe
+      second lock re-checks the diff)           without scanning anything
 ```
 
 ### Install scan
@@ -127,14 +182,14 @@ The CLI is the contributor's and CI's view of the engine. Three commands, stable
 ### Fix label to PR
 
 1. A user adds the fix label to a finding issue, or clicks fix in the dashboard.
-2. The app assembles the context: the finding, every evidence location with a snippet, the change record's migration block, and the migration guide fetched and inlined.
+2. The app assembles the context: the finding, the change record's migration block, and up to 50 evidence locations as **structural locators only** — path, line, column. The verbatim source snippet is deliberately left out, because the payload crosses into another repository's CI and the snippet is attacker-controlled text when the scanned repository is public.
 3. The app dispatches a workflow in the customer's repository. The workflow is a file DocsWatcher offers to add on install. It runs a Claude Code action with the customer's API key from their repository secrets.
 4. The action edits the code, runs the affected tests, and opens a PR. The PR body links back to the finding.
 5. The app records the PR URL on the finding. When the PR merges and the next push rescan no longer observes the contract, the finding closes as `fixed`.
 
 ## Data model
 
-Five tables. The knowledge base is not stored per customer. Change records are read from the released knowledge base at match time.
+Seven tables: `installation`, `repo`, `contract`, `finding`, `scan_run`, `webhook_delivery` (the replay guard) and `runtime_observation`. The knowledge base is not stored per customer. Change records are read from the released knowledge base at match time.
 
 **installation**
 
@@ -203,9 +258,13 @@ The worker polls this table. There is no queue service. A single `SELECT ... FOR
 
 ## Excluded from v1
 
+The runtime layer has since shipped and is no longer on this list: the app accepts OTLP traces at
+`POST /api/runtime/otlp/v1/traces`, keeps only spans that carry a Deprecation or Sunset header or
+match a contract already found by a scan, and uses them to tell a live call path from dead code.
+See [Runtime observation](./13-runtime-observation.md).
+
 | Excluded | Why deferred | Target milestone |
 |---|---|---|
-| Runtime layer, observing Deprecation and Sunset headers in traffic | Requires an in-path telemetry exporter | v2, as an OpenTelemetry processor |
 | Email and Slack alerts | GitHub issues and PRs natively provide notifications | Post-v1 notification plugin system |
 | GitLab, Bitbucket | Focusing on GitHub ecosystem first | Multi-VCS milestone |
 | Proprietary coding agent | Integrates with existing coding agents via CI actions | Plug-and-play agent integration |
