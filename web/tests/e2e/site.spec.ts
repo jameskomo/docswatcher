@@ -211,6 +211,9 @@ test("a scan of a public repository offers a link and a badge that re-run it", a
   await page.locator("[data-testid=share] summary").click();
   await expect(page.getByTestId("share-badge")).toContainText("#/?repo=openai/openai-quickstart-python");
   await expect(page.getByTestId("share-badge")).toContainText("img.shields.io");
+  // The badge is a provenance mark. It must not imply a count or a status it cannot know,
+  // because the scan runs in the reader's browser and nothing here has the result.
+  await expect(page.getByTestId("share-badge")).not.toContainText(/deprecat|passing|failing|\d+\s*(issue|finding)/i);
 });
 
 test("the calendar offers subscriptions, and the feed files are served", async ({ page, request }) => {

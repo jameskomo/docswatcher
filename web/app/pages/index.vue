@@ -144,8 +144,13 @@ const shareable = computed(() => {
 const base = ref("");
 onMounted(() => { base.value = location.href.split("#")[0]; });
 const shareLink = computed(() => (shareable.value ? `${base.value}#/?repo=${shareable.value}` : ""));
+/**
+ * A provenance mark, not a status badge. It cannot report a count: the scan runs in the
+ * reader's browser, so nothing here knows what the repository looks like today. Naming it
+ * "API deprecations" implied a number it never carried.
+ */
 const badge = computed(() =>
-  `[![API deprecations: DocsWatcher](https://img.shields.io/badge/API%20deprecations-DocsWatcher-2563eb)](${shareLink.value})`);
+  `[![Scanned with DocsWatcher](https://img.shields.io/badge/Scanned%20with-DocsWatcher-2563eb)](${shareLink.value})`);
 const linkCopied = ref(false);
 async function copyLink() {
   try {
@@ -348,7 +353,9 @@ async function copyLink() {
         <details style="margin-top: var(--s3)">
           <summary class="t2" style="cursor: pointer">Add a badge to {{ shareable }}'s README</summary>
           <p class="t2 ink-soft" style="margin-block: var(--s2)">
-            Anyone who clicks it gets a fresh scan in their own browser, so it is never out of date.
+            Paste this into <code class="mono">README.md</code> in {{ shareable }}, near the top.
+            It marks the repository as scanned; clicking it runs a fresh scan in the reader's own
+            browser, so it cannot go stale.
           </p>
           <Snippet :code="badge" testid="share-badge" wrap />
         </details>
