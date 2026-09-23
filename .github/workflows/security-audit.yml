@@ -112,6 +112,7 @@ jobs:
           # reads our own source and has no reason to reach outward.
           claude_args: >-
             --allowed-tools Skill,Read,Glob,Grep,Bash,Write,Edit,Task,TodoWrite
+            --model claude-opus-5
           prompt: |
             Run the security-audit skill against this repository in FULL AUDIT
             MODE: all six phases, artifacts written to disk. The skill treats
@@ -149,14 +150,24 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const dir = 'security-audit-output';
-            if (!fs.existsSync(dir)) {
+            const root = 'security-audit-output';
+            if (!fs.existsSync(root)) {
               core.setFailed('The audit produced no artifacts.');
               return;
             }
-            const run = fs.readdirSync(dir).sort().pop();
-            const read = (f) => { try { return fs.readFileSync(`${dir}/${run}/${f}`, 'utf8'); } catch { return ''; } };
-            if (!read('REPORT.md')) { core.setFailed('The audit produced no REPORT.md.'); return; }
+            // The skill writes its artifacts straight into the output directory, not under a run
+            // id. Taking the last directory entry as a run folder read
+            // security-audit-output/run-metadata.json/REPORT.md, found nothing, and failed a
+            // complete audit. Use whichever of the root or its subdirectories holds the report,
+            // so a profile that does nest by run id still works.
+            const candidates = [root, ...fs.readdirSync(root)
+              .map((e) => `${root}/${e}`)
+              .filter((p) => fs.statSync(p).isDirectory())
+              .sort()
+              .reverse()];
+            const dir = candidates.find((d) => fs.existsSync(`${d}/REPORT.md`));
+            if (!dir) { core.setFailed('The audit produced no REPORT.md.'); return; }
+            const read = (f) => { try { return fs.readFileSync(`${dir}/${f}`, 'utf8'); } catch { return ''; } };
 
             // COUNTS ONLY. This repository is public, so an issue body is world-readable the
             // moment it is created. The report carries file paths, traces, line numbers and
