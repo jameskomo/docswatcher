@@ -68,6 +68,7 @@ onMounted(() => {
           <NuxtLink to="/app">Dashboard</NuxtLink>
           <NuxtLink to="/ci">CI</NuxtLink>
           <NuxtLink to="/agents">Agents</NuxtLink>
+          <NuxtLink to="/teams">Teams</NuxtLink>
           <NuxtLink to="/about">About</NuxtLink>
           <button
             type="button"

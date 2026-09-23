@@ -34,6 +34,11 @@ onMounted(() => { base.value = location.href.split("#")[0].replace(/[^/]*$/, "")
 const icsUrl = computed(() => `${base.value}feeds/${feedProvider.value || "deprecations"}.ics`);
 const webcalUrl = computed(() => icsUrl.value.replace(/^https?:/, "webcal:"));
 const googleUrl = computed(() => `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(webcalUrl.value)}`);
+
+// What the chosen calendar will hold. Most dates are in the past, so a subscriber who opens this
+// week sees nothing; saying where the next date is saves them wondering whether it worked.
+const feedDates = computed(() => all.filter((c) => c.effective && (!feedProvider.value || c.provider === feedProvider.value)));
+const feedUpcoming = computed(() => feedDates.value.filter((c) => c.effective! >= todayIso).sort((a, b) => (a.effective! < b.effective! ? -1 : 1)));
 </script>
 
 <template>
@@ -56,6 +61,11 @@ const googleUrl = computed(() => `https://calendar.google.com/calendar/r?cid=${e
           <a class="btn" :href="webcalUrl" data-testid="subscribe-webcal">Apple or Outlook</a>
           <a class="btn" :href="icsUrl" download data-testid="subscribe-ics">.ics file</a>
         </div>
+        <p class="t2" data-testid="feed-summary">
+          {{ feedDates.length }} dates, {{ feedUpcoming.length }} still to come<template v-if="feedUpcoming.length">.
+          Next: <strong>{{ fmtDate(feedUpcoming[0].effective) }}</strong>, {{ providerName(feedUpcoming[0].provider) }} {{ feedUpcoming[0].title }}.</template><template v-else>.</template>
+          Google Calendar can take up to an hour to show a new subscription.
+        </p>
         <p class="t1 ink-faint">
           Updates itself when the knowledge base changes, with reminders 30 and 7 days before each date.
           Also as an <a :href="`${base}feeds/deprecations.atom`" data-testid="feed-atom">Atom feed</a>

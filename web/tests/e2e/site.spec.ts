@@ -125,7 +125,7 @@ test("no horizontal scroll at phone width", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 800 });
   await page.goto("./");
   await expect(page.locator("#results")).toBeVisible();
-  for (const path of ["./", "./#/calendar", "./#/app", "./#/about", "./#/ci", "./#/agents"]) {
+  for (const path of ["./", "./#/calendar", "./#/app", "./#/about", "./#/ci", "./#/agents", "./#/teams"]) {
     await page.goto(path);
     await page.waitForTimeout(300);
     const overflow = await page.evaluate(() => document.scrollingElement!.scrollWidth - window.innerWidth);
@@ -299,3 +299,21 @@ test("a scan with no repository of its own links nothing", async ({ page }) => {
   await expect(page.locator("#inventory table")).toBeVisible();
   await expect(page.locator("#inventory a.loc")).toHaveCount(0);
 });
+
+test("the calendar says how many dates are still to come", async ({ page }) => {
+  await page.goto("./#/calendar");
+  await expect(page.getByTestId("feed-summary")).toHaveText(/\d+ dates, \d+ still to come/);
+  await page.locator("#feed-provider").selectOption("openai");
+  await expect(page.getByTestId("feed-summary")).toHaveText(/\d+ dates, \d+ still to come/);
+});
+
+test("the teams page lists what is free, what teams get, and a way to ask", async ({ page }) => {
+  const failed = watchFailures(page);
+  await page.goto("./#/teams");
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.getByTestId("free-list").locator("li")).not.toHaveCount(0);
+  await expect(page.getByTestId("team-features").locator(".card")).not.toHaveCount(0);
+  await expect(page.getByTestId("early-access-link")).toHaveAttribute("href", /^mailto:/);
+  expect(own(failed)).toEqual([]);
+});
+
