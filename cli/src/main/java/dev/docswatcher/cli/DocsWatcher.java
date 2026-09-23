@@ -19,7 +19,7 @@ import picocli.CommandLine.Option;
 public final class DocsWatcher implements Callable<Integer> {
 
   /** The release this build is. The release workflow refuses to publish a binary that disagrees with its tag. */
-  static final String VERSION = "0.1.3";
+  static final String VERSION = "0.2.0";
 
   /**
    * Exit code for a scan that did not complete. It must differ from 1, which `match` uses to say a
