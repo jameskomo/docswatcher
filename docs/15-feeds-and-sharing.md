@@ -56,15 +56,16 @@ After a GitHub scan, the results show:
 - **Badge**, a Markdown snippet for a README:
 
   ```markdown
-  [![API deprecations: DocsWatcher](https://img.shields.io/badge/API%20deprecations-DocsWatcher-2563eb)](https://docswatcher.vukisha.co.ke/#/?repo=owner/name)
+  [![Scanned with DocsWatcher](https://img.shields.io/badge/Scanned%20with-DocsWatcher-2563eb)](https://docswatcher.vukisha.co.ke/#/?repo=owner/name)
   ```
 
-The badge does not claim a count. It says the repository is watched, and clicking it runs a fresh
+The badge does not claim a count. It says the repository was scanned, and clicking it runs a fresh
 scan. [ADR 0004](./adr/0004-live-links-not-status-badges.md) explains why.
 
 ## Serving
 
-`scripts/build-feeds.mjs` writes `web/public/feeds/` during `npm run bundle`, which every build
+`web/scripts/lib/feeds.mjs`, called from `scripts/bundle-knowledge.mjs`, writes `web/public/feeds/`
+during `npm run bundle`, which every build
 already runs. The directory is generated and ignored by git.
 
 Two nginx changes:

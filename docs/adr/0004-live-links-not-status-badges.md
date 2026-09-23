@@ -35,7 +35,9 @@ A static badge whose link runs a fresh scan in the visitor's browser.
 
 ## Consequences
 
-- The badge says "watched", not "clean". That is weaker social proof, and it is honest.
+- The badge says "Scanned with DocsWatcher": provenance, not a status. It was first labelled
+  "API deprecations", which read as a count it never carried, and was renamed on 2026-09-23.
+  That is weaker social proof, and it is honest.
 - If App installations grow, a status badge for App-installed public repositories can be added
   later from data the app already stores. It would need its own ADR, because it is the app's first
   unauthenticated endpoint.
