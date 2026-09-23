@@ -98,6 +98,11 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Without this the action mints a Claude GitHub App token over OIDC,
+          # which needs `id-token: write` and the app installed. This job only
+          # reads a checkout and writes files to disk, so the job token is both
+          # sufficient and the smaller grant.
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             Run the security-audit skill in full audit mode against this repository.
             Profile: ${{ inputs.profile || 'standard' }}.
