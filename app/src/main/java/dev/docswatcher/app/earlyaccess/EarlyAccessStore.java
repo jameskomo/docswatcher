@@ -20,9 +20,9 @@ public class EarlyAccessStore {
     this.jdbc = jdbc;
   }
 
-  /** Stores a request, or updates the earlier one from the same address. */
-  public void save(String email, String company, String repositories, String providers, String interest, String message) {
-    jdbc.sql(
+  /** Stores a request, or updates the earlier one from the same address. Returns how many it has made. */
+  public int save(String email, String company, String repositories, String providers, String interest, String message) {
+    return jdbc.sql(
             """
             insert into early_access (email, company, repositories, providers, interest, message)
             values (:email, :company, :repositories, :providers, :interest, :message)
@@ -30,6 +30,7 @@ public class EarlyAccessStore {
               company = excluded.company, repositories = excluded.repositories,
               providers = excluded.providers, interest = excluded.interest, message = excluded.message,
               requests = early_access.requests + 1, last_at = now()
+            returning requests
             """)
         .param("email", email)
         .param("company", company)
@@ -37,7 +38,8 @@ public class EarlyAccessStore {
         .param("providers", providers)
         .param("interest", interest)
         .param("message", message)
-        .update();
+        .query(Integer.class)
+        .single();
   }
 
   /** Newest first. */

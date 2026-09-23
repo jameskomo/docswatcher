@@ -1,0 +1,12 @@
+name = "docswatcher-notify"
+main = "src/worker.js"
+compatibility_date = "2026-09-01"
+
+# Sends the owner an email for each early-access request (docs/adr/0005-early-access-requests.md).
+# Cloudflare Email Routing must be on for the sending domain, and TO must be one of its verified
+# destination addresses. Nothing personal lives in this file; set the values as secrets:
+#   npx wrangler secret put TOKEN   # shared with the app, which sends it as a bearer token
+#   npx wrangler secret put FROM    # an address on the Email Routing domain
+#   npx wrangler secret put TO      # a verified destination address
+[[send_email]]
+name = "MAIL"

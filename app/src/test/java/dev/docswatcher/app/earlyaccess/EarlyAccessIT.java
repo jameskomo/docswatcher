@@ -1,6 +1,9 @@
 package dev.docswatcher.app.earlyaccess;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -27,6 +31,7 @@ class EarlyAccessIT extends PostgresTest {
   @Autowired MockMvc mvc;
   @Autowired JdbcClient jdbc;
   @Autowired EarlyAccessStore store;
+  @MockitoBean EarlyAccessNotifier notifier;
 
   private String client;
 
@@ -64,6 +69,7 @@ class EarlyAccessIT extends PostgresTest {
     assertThat(rows()).isEqualTo(1);
     assertThat(store.all().get(0).company()).isEqualTo("Second");
     assertThat(store.all().get(0).requests()).isEqualTo(2);
+    verify(notifier).tell(new EarlyAccessNotifier.Lead("a@b.co", "Second", "", "", "", "", 2));
   }
 
   @Test
@@ -77,6 +83,7 @@ class EarlyAccessIT extends PostgresTest {
   void aFilledHoneypotIsAcknowledgedAndDropped() throws Exception {
     submit("{\"email\":\"bot@spam.example\",\"website\":\"http://spam.example\"}").andExpect(status().isCreated());
     assertThat(rows()).isZero();
+    verify(notifier, never()).tell(any());
   }
 
   @Test

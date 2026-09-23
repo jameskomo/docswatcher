@@ -37,16 +37,18 @@ public class EarlyAccessController {
   private static final Pattern EMAIL = Pattern.compile("^[^\\s@]{1,64}@[^\\s@]{1,188}\\.[^\\s@]{2,63}$");
 
   private final EarlyAccessStore store;
+  private final EarlyAccessNotifier notifier;
   private final Clock clock;
   private final Map<String, Deque<Instant>> recent = new ConcurrentHashMap<>();
 
   @Autowired
-  public EarlyAccessController(EarlyAccessStore store) {
-    this(store, Clock.systemUTC());
+  public EarlyAccessController(EarlyAccessStore store, EarlyAccessNotifier notifier) {
+    this(store, notifier, Clock.systemUTC());
   }
 
-  EarlyAccessController(EarlyAccessStore store, Clock clock) {
+  EarlyAccessController(EarlyAccessStore store, EarlyAccessNotifier notifier, Clock clock) {
     this.store = store;
+    this.notifier = notifier;
     this.clock = clock;
   }
 
@@ -62,8 +64,13 @@ public class EarlyAccessController {
     if (!EMAIL.matcher(email).matches()) {
       return ResponseEntity.badRequest().body(Map.of("ok", false, "error", "Please enter a valid email address."));
     }
-    store.save(email, clean(form.company(), MAX_FIELD), clean(form.repositories(), MAX_FIELD),
-        clean(form.providers(), MAX_FIELD), clean(form.interest(), MAX_FIELD), cleanText(form.message(), MAX_MESSAGE));
+    String company = clean(form.company(), MAX_FIELD);
+    String repositories = clean(form.repositories(), MAX_FIELD);
+    String providers = clean(form.providers(), MAX_FIELD);
+    String interest = clean(form.interest(), MAX_FIELD);
+    String message = cleanText(form.message(), MAX_MESSAGE);
+    int requests = store.save(email, company, repositories, providers, interest, message);
+    notifier.tell(new EarlyAccessNotifier.Lead(email, company, repositories, providers, interest, message, requests));
     return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("ok", true));
   }
 

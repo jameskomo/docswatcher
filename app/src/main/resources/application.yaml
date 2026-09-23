@@ -44,6 +44,10 @@ docswatcher:
     require-token: true
   web:
     origin: ${DOCSWATCHER_WEB_ORIGIN:http://localhost:3000}
+  # Where early-access requests are emailed from (the notify/ worker). Both unset: stored, not sent.
+  notify:
+    url: ${DOCSWATCHER_NOTIFY_URL:}
+    token: ${DOCSWATCHER_NOTIFY_TOKEN:}
   knowledge:
     dir: ${DOCSWATCHER_KNOWLEDGE_DIR:}
   worker:

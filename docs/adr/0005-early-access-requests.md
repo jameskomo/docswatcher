@@ -37,4 +37,7 @@ The endpoint accepts anything from anyone, so it is narrow:
 
 - Leads are stored where the rest of the product's data is, backed up with it, and cost nothing.
 - The site's form falls back to email if the endpoint cannot be reached, so a visitor is never stuck.
-- Notifying the owner of a new request is not part of this decision.
+- The owner is emailed about each stored request by `notify/`, a Cloudflare Worker using Email
+  Routing's `send_email`: free, and on the domain that already receives the site's mail. The app
+  calls it in the background with a shared token and a few retries; if it cannot, the request is
+  still stored and the failure is logged.

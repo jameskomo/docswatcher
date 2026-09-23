@@ -1,0 +1,12 @@
+{
+  "name": "docswatcher-notify",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloudflare Worker that emails the owner when a team requests early access.",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "deploy": "npx wrangler deploy"
+  },
+  "license": "Apache-2.0"
+}
