@@ -6,7 +6,11 @@ changelog: https://www.twilio.com/en-us/changelog
 base_urls:
   - https://api.sendgrid.com
 openapi:
-  url: https://raw.githubusercontent.com/sendgrid/sendgrid-oai/main/oai_stoplight.json
+  # sendgrid/sendgrid-oai is gone: the repository moved to twilio/sendgrid-oai and the single
+  # oai_stoplight.json was replaced by ~20 per-area specs under spec/json, so there is no one
+  # document to point at any more. Null rather than a link to a directory, which is what the
+  # other providers without a single published spec use.
+  url: null
   pinned_sha: null
 sdk_languages: [python, typescript, javascript, java, go, ruby, php, csharp]
 deprecation_policy: >
