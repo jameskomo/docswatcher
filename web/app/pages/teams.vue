@@ -13,7 +13,8 @@ const bodyText = [
   "What we'd use first (dashboard, alerts, private repos, runtime, our own APIs):",
   "",
 ].join("\n");
-const mailto = `mailto:hello@vukisha.co.ke?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+const inbox = "hello@vukisha.co.ke";
+const mailto = `mailto:${inbox}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
 
 const interests = ["Organisation dashboard", "Alerts before the date", "Private repositories", "Runtime observation", "Our own APIs"];
 const form = reactive({ email: "", company: "", repositories: "", providers: "", interest: [] as string[], message: "", website: "" });
@@ -99,7 +100,7 @@ useHead({
         </p>
 
         <div v-if="state === 'sent'" class="callout done" role="status" data-testid="early-access-sent">
-          <strong>Thank you.</strong> We'll be in touch at {{ form.email }}.
+          <strong>Thank you.</strong> We'll reply from {{ inbox }}, so keep an eye out for it.
         </div>
 
         <form v-else class="form" @submit.prevent="submit" data-testid="early-access-form">

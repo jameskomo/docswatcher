@@ -330,7 +330,7 @@ test("the early-access form submits in the page and thanks the visitor", async (
   // The honeypot is off-screen: people never see it, so they never fill it.
   await expect(page.locator("input[name=website]")).not.toBeInViewport();
   await page.getByTestId("early-access-submit").click();
-  await expect(page.getByTestId("early-access-sent")).toBeVisible();
+  await expect(page.getByTestId("early-access-sent")).toContainText("hello@vukisha.co.ke");
   expect(sent).toMatchObject({ email: "lead@example.com", company: "Acme", website: "" });
   expect(typeof sent.interest).toBe("string");
 });
