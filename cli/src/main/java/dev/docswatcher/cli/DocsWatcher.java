@@ -13,10 +13,13 @@ import picocli.CommandLine.Option;
 @Command(
     name = "docswatcher",
     mixinStandardHelpOptions = true,
-    version = "docswatcher 0.1.3",
+    version = "docswatcher " + DocsWatcher.VERSION,
     description = "Scan a repository for external API contracts and match them against provider deprecations.",
-    subcommands = {ScanCommand.class, MatchCommand.class, ValidateCommand.class})
+    subcommands = {ScanCommand.class, MatchCommand.class, ValidateCommand.class, McpCommand.class})
 public final class DocsWatcher implements Callable<Integer> {
+
+  /** The release this build is. The release workflow refuses to publish a binary that disagrees with its tag. */
+  static final String VERSION = "0.1.3";
 
   public static void main(String[] args) {
     System.exit(new CommandLine(new DocsWatcher()).execute(args));

@@ -101,6 +101,18 @@ jobs:
           java -jar "$jar" match clean --format json > /dev/null
           echo "portable jar runs outside the repository too"
 
+          # The MCP server is the same binary talking JSON-RPC on stdio (docs/14-coding-agents.md).
+          # A coding agent gets exactly one JSON line per request on stdout, and nothing else.
+          out=$(printf '%s\n' \
+            '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18"}}' \
+            '{"jsonrpc":"2.0","method":"notifications/initialized"}' \
+            '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"check_api","arguments":{"value":"dall-e-2"}}}' \
+            | "$bin" mcp --today 2026-09-23 2>/dev/null)
+          echo "$out"
+          [ "$(printf '%s\n' "$out" | wc -l)" -eq 2 ] || { echo "::error::mcp should answer two requests with two lines"; exit 1; }
+          printf '%s\n' "$out" | tail -1 | grep -q '"verdict":"RETIRED"' || { echo "::error::mcp check_api did not report dall-e-2 as retired"; exit 1; }
+          echo "the native binary serves MCP"
+
       - name: Publish
         env:
           GH_TOKEN: ${{ github.token }}

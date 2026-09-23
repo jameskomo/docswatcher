@@ -24,6 +24,15 @@ public final class Json {
     return sb.toString();
   }
 
+  /** One line, no whitespace. For line-delimited protocols, where a newline ends the message. */
+  public static String compact(JsonNode node) {
+    try {
+      return MAPPER.writeValueAsString(node);
+    } catch (JsonProcessingException e) {
+      throw new IllegalStateException("A JSON tree failed to serialise: " + e.getOriginalMessage(), e);
+    }
+  }
+
   public static <T> T read(String s, Class<T> t) {
     try {
       return MAPPER.readValue(s, t);

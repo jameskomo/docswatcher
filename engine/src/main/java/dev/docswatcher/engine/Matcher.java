@@ -38,6 +38,39 @@ public final class Matcher {
     return out;
   }
 
+  /** A change record that applies to one contract key, with its day count from {@code today}. */
+  public record Hit(Change change, Integer daysRemaining) {}
+
+  /**
+   * The changes that would produce a finding for a contract of this kind and key, without a scan.
+   * The same rules {@link #match} applies, so an answer here agrees with a scan in CI.
+   *
+   * @param provider limits the search to one provider, or {@code null} for all of them
+   */
+  public static List<Hit> lookup(Knowledge k, String provider, String kind, String key, LocalDate today) {
+    List<Hit> out = new ArrayList<>();
+    for (Change ch : k.changes()) {
+      if (!ch.producesFindings()) continue;
+      if (provider != null && !ch.provider().equals(provider)) continue;
+      boolean hit = false;
+      for (Change.Affect a : ch.affects()) {
+        if (a.kind().equals(kind) && matches(kind, a.match(), key)) {
+          hit = true;
+          break;
+        }
+      }
+      if (!hit) continue;
+      Integer days = ch.effective() == null
+          ? null
+          : (int) ChronoUnit.DAYS.between(today, LocalDate.parse(ch.effective()));
+      out.add(new Hit(ch, days));
+    }
+    out.sort(Comparator
+        .comparing((Hit h) -> h.change().effective() == null ? "9999-99-99" : h.change().effective())
+        .thenComparing(h -> h.change().id()));
+    return out;
+  }
+
   static boolean affects(Change ch, Contract c) {
     for (Change.Affect a : ch.affects()) {
       if (a.kind().equals(c.kind()) && matches(a.kind(), a.match(), c.key())) return true;
