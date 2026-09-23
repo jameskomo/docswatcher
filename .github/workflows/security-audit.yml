@@ -17,7 +17,10 @@ on:
       profile:
         description: "Audit breadth"
         required: false
-        default: standard
+        # quick by default, for the manual button and the weekly schedule alike. Measured:
+        # $0.81 to $1.68 of subscription allowance per quick run on Sonnet. Pick standard or
+        # deep by hand when you want depth; nobody has measured what they cost here yet.
+        default: quick
         type: choice
         options: [quick, standard, deep]
 
@@ -112,7 +115,7 @@ jobs:
           # reads our own source and has no reason to reach outward.
           claude_args: >-
             --allowed-tools Skill,Read,Glob,Grep,Bash,Write,Edit,Task,TodoWrite
-            --model claude-opus-5
+            --model claude-sonnet-5
           prompt: |
             Run the security-audit skill against this repository in FULL AUDIT
             MODE: all six phases, artifacts written to disk. The skill treats
@@ -124,7 +127,12 @@ jobs:
             report. Where the skill says to ask, choose the more conservative
             reading and record the choice in the report.
 
-            Profile: ${{ inputs.profile || 'standard' }}.
+            Profile: ${{ inputs.profile || 'quick' }}.
+
+            Run every sub-agent in the foreground and wait for all of them to
+            finish before you write the report. Do not end your turn while any
+            agent is still working: this session exits when your turn ends, and
+            takes unfinished agents and their findings with it.
 
             Create ./security-audit-output and write the run under it, including
             run-metadata.json, findings.json and REPORT.md. The workflow fails if
