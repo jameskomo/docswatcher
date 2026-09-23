@@ -313,7 +313,36 @@ test("the teams page lists what is free, what teams get, and a way to ask", asyn
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.getByTestId("free-list").locator("li")).not.toHaveCount(0);
   await expect(page.getByTestId("team-features").locator(".card")).not.toHaveCount(0);
-  await expect(page.getByTestId("early-access-link")).toHaveAttribute("href", /^mailto:/);
+  await expect(page.getByTestId("early-access-form")).toBeVisible();
   expect(own(failed)).toEqual([]);
+});
+
+test("the early-access form submits in the page and thanks the visitor", async ({ page }) => {
+  let sent: any = null;
+  await page.route("**/early-access", async (route) => {
+    sent = route.request().postDataJSON();
+    await route.fulfill({ status: 201, contentType: "application/json", body: JSON.stringify({ ok: true }) });
+  });
+  await page.goto("./#/teams");
+  await page.locator("input[name=email]").fill("lead@example.com");
+  await page.locator("input[name=company]").fill("Acme");
+  await page.locator(".form .check input").first().check();
+  // The honeypot is off-screen: people never see it, so they never fill it.
+  await expect(page.locator("input[name=website]")).not.toBeInViewport();
+  await page.getByTestId("early-access-submit").click();
+  await expect(page.getByTestId("early-access-sent")).toBeVisible();
+  expect(sent).toMatchObject({ email: "lead@example.com", company: "Acme", website: "" });
+  expect(typeof sent.interest).toBe("string");
+});
+
+test("if the early-access request fails, the visitor can still email", async ({ page }) => {
+  await page.route("**/early-access", (route) =>
+    route.fulfill({ status: 500, contentType: "application/json", body: "{}" }));
+  await page.goto("./#/teams");
+  await page.locator("input[name=email]").fill("lead@example.com");
+  await page.getByTestId("early-access-submit").click();
+  await expect(page.getByTestId("early-access-error")).toBeVisible();
+  await expect(page.getByTestId("early-access-error").locator("a")).toHaveAttribute("href", /^mailto:/);
+  await expect(page.getByTestId("early-access-form")).toBeVisible();
 });
 
