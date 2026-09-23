@@ -10,6 +10,7 @@ import dev.docswatcher.engine.Matcher;
 import dev.docswatcher.engine.RepoRef;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import picocli.CommandLine.Command;
@@ -40,10 +41,14 @@ final class ScanCommand implements Callable<Integer> {
   @Option(names = "--include-low", description = "Include low-confidence contracts when writing expected findings.")
   boolean includeLow;
 
+  @Option(names = "--exclude", paramLabel = "<pattern>",
+      description = "Skip paths matching this .gitignore-style pattern, after .gitignore files and .docswatcherignore. Repeatable.")
+  List<String> exclude = new ArrayList<>();
+
   @Override
   public Integer call() throws Exception {
     Knowledge k = common.loadKnowledge();
-    Inventory inv = scan(k, path, repo, ref, sha);
+    Inventory inv = scan(k, path, repo, ref, sha, exclude);
     if (writeExpected) {
       Path fixtureDir = path.toAbsolutePath().normalize().getParent();
       Files.writeString(fixtureDir.resolve("expected-inventory.json"), Json.write(inv.contracts()));
@@ -58,6 +63,11 @@ final class ScanCommand implements Callable<Integer> {
   }
 
   static Inventory scan(Knowledge k, Path path, String repo, String ref, String sha) {
+    return scan(k, path, repo, ref, sha, List.of());
+  }
+
+  /** Scans a checkout, honouring its .gitignore files, its .docswatcherignore and {@code exclude}. */
+  static Inventory scan(Knowledge k, Path path, String repo, String ref, String sha, List<String> exclude) {
     if (!Files.isDirectory(path)) throw new IllegalArgumentException("Not a directory: " + path);
     RepoRef r;
     if (repo != null && repo.contains("/")) {
@@ -66,7 +76,7 @@ final class ScanCommand implements Callable<Integer> {
     } else {
       r = new RepoRef("local", null, repo != null ? repo : path.toAbsolutePath().normalize().getFileName().toString(), ref, sha);
     }
-    return new Engine(k).scan(path, r);
+    return new Engine(k).scan(path, r, exclude);
   }
 
   static long countHigh(List<Contract> contracts) {

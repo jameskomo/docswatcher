@@ -1,5 +1,6 @@
 import type { InputFile, RepoRef } from "~~/engine/types";
 import { gunzip, isBinary, pathIsSkipped, untar } from "./tar";
+import { compileIgnore, isIgnoreFile } from "~~/engine/ignore";
 
 export interface RepoTarget { owner: string; name: string; ref: string | null; }
 
@@ -16,6 +17,22 @@ export interface FetchProgress { (msg: string, done?: number, total?: number): v
 export interface FetchResult { files: InputFile[]; repo: RepoRef; binaries: number; skipped: number; truncated: boolean; }
 
 const MAX_FILES = 300;
+
+/**
+ * Reads the repository's ignore files first and drops what they exclude, so excluded fixtures
+ * and generated data cannot fill the MAX_FILES budget and push real code out of the scan
+ * (docs/18-excluding-paths.md). Returns the kept paths and the ignore files, which the scan
+ * needs too.
+ */
+async function applyIgnoreFiles(paths: string[], read: (path: string) => Promise<string | null>): Promise<{ kept: Set<string>; ignoreFiles: InputFile[] }> {
+  const ignoreFiles: InputFile[] = [];
+  for (const path of paths.filter(isIgnoreFile)) {
+    const text = await read(path).catch(() => null);
+    if (text !== null) ignoreFiles.push({ path, text });
+  }
+  const ignore = compileIgnore(ignoreFiles);
+  return { kept: new Set(paths.filter((p) => !ignore.ignored(p))), ignoreFiles };
+}
 const decoder = new TextDecoder("utf-8", { fatal: false });
 
 export async function fetchViaRelay(relay: string, t: RepoTarget, progress: FetchProgress): Promise<FetchResult> {
@@ -56,22 +73,26 @@ export async function fetchViaApi(t: RepoTarget, token: string | undefined, prog
   progress("Listing files");
   const tree = await gh(`https://api.github.com/repos/${t.owner}/${t.name}/git/trees/${encodeURIComponent(ref)}?recursive=1`, token);
   const sha: string = tree.sha;
-  const all: Array<{ path: string; size: number }> = (tree.tree as any[])
+  const listed: Array<{ path: string; size: number }> = (tree.tree as any[])
     .filter((e) => e.type === "blob" && !pathIsSkipped(e.path) && e.size <= 1024 * 1024)
     .map((e) => ({ path: e.path, size: e.size }));
+  const headers: Record<string, string> = {};
+  if (token) headers.Authorization = `Bearer ${token}`;
+  const rawUrl = (path: string) => `https://raw.githubusercontent.com/${t.owner}/${t.name}/${sha}/${path.split("/").map(encodeURIComponent).join("/")}`;
+  const { kept, ignoreFiles } = await applyIgnoreFiles(listed.map((e) => e.path),
+    async (path) => { const r = await fetch(rawUrl(path), { headers }); return r.ok ? r.text() : null; });
+  const all = listed.filter((e) => kept.has(e.path));
   const rank = (p: string) => { for (let i = 0; i < PRIORITY.length; i++) if (PRIORITY[i].test(p)) return i; return PRIORITY.length; };
   all.sort((a, b) => rank(a.path) - rank(b.path) || a.path.localeCompare(b.path));
   const chosen = all.filter((e) => rank(e.path) < PRIORITY.length).slice(0, MAX_FILES);
   const truncated = all.filter((e) => rank(e.path) < PRIORITY.length).length > chosen.length;
-  const files: InputFile[] = [];
+  const files: InputFile[] = [...ignoreFiles];
   let binaries = 0, done = 0;
-  const headers: Record<string, string> = {};
-  if (token) headers.Authorization = `Bearer ${token}`;
   const queue = [...chosen];
   const worker = async () => {
     while (queue.length) {
       const e = queue.shift()!;
-      const res = await fetch(`https://raw.githubusercontent.com/${t.owner}/${t.name}/${sha}/${e.path.split("/").map(encodeURIComponent).join("/")}`, { headers });
+      const res = await fetch(rawUrl(e.path), { headers });
       if (res.ok) {
         const bytes = new Uint8Array(await res.arrayBuffer());
         if (isBinary(bytes)) binaries++; else files.push({ path: e.path, text: decoder.decode(bytes) });
@@ -82,7 +103,7 @@ export async function fetchViaApi(t: RepoTarget, token: string | undefined, prog
   };
   await Promise.all(Array.from({ length: 6 }, worker));
   files.sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0));
-  return { files, binaries, skipped: all.length - chosen.length, truncated, repo: { host: "github", owner: t.owner, name: t.name, ref: `refs/heads/${ref}`, sha } };
+  return { files, binaries, skipped: listed.length - chosen.length, truncated, repo: { host: "github", owner: t.owner, name: t.name, ref: `refs/heads/${ref}`, sha } };
 }
 
 /**
@@ -100,16 +121,19 @@ export async function fetchViaJsDelivr(t: RepoTarget, progress: FetchProgress): 
   if (!res.ok) throw new Error(`jsDelivr listing returned ${res.status}`);
   const data = await res.json();
 
-  const all: string[] = (data.files ?? [])
+  const listed: string[] = (data.files ?? [])
     .map((f: any) => String(f.name ?? "").replace(/^\//, ""))
     .filter((path: string) => path && !pathIsSkipped(path));
+  const base = `https://cdn.jsdelivr.net/gh/${t.owner}/${t.name}@${encodeURIComponent(ref)}`;
+  const { kept, ignoreFiles } = await applyIgnoreFiles(listed,
+    async (path) => { const r = await fetch(`${base}/${path.split("/").map(encodeURIComponent).join("/")}`); return r.ok ? r.text() : null; });
+  const all = listed.filter((p) => kept.has(p));
   const rank = (p: string) => { for (let i = 0; i < PRIORITY.length; i++) if (PRIORITY[i].test(p)) return i; return PRIORITY.length; };
   const relevant = all.filter((p) => rank(p) < PRIORITY.length).sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
   const chosen = relevant.slice(0, MAX_FILES);
   const truncated = relevant.length > chosen.length;
 
-  const base = `https://cdn.jsdelivr.net/gh/${t.owner}/${t.name}@${encodeURIComponent(ref)}`;
-  const files: InputFile[] = [];
+  const files: InputFile[] = [...ignoreFiles];
   let binaries = 0, done = 0;
   const queue = [...chosen];
   const worker = async () => {
@@ -132,7 +156,7 @@ export async function fetchViaJsDelivr(t: RepoTarget, progress: FetchProgress): 
   files.sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0));
   return {
     files, binaries, truncated,
-    skipped: all.length - chosen.length,
+    skipped: listed.length - chosen.length,
     repo: { host: "github", owner: t.owner, name: t.name, ref, sha: String(data.version ?? ref) },
   };
 }
@@ -141,14 +165,17 @@ export async function fetchViaJsDelivr(t: RepoTarget, progress: FetchProgress): 
 export async function readFolder(list: FileList, progress: FetchProgress): Promise<{ files: InputFile[]; binaries: number; skipped: number; root: string }> {
   const entries = Array.from(list);
   const root = entries[0]?.webkitRelativePath.split("/")[0] ?? "folder";
-  const candidates = entries.filter((f) => {
-    const rel = f.webkitRelativePath.split("/").slice(1).join("/");
-    return rel && !pathIsSkipped(rel) && f.size <= 1024 * 1024;
-  });
+  const relOf = (f: File) => f.webkitRelativePath.split("/").slice(1).join("/");
+  const readable = entries.filter((f) => { const rel = relOf(f); return rel && !pathIsSkipped(rel) && f.size <= 1024 * 1024; });
+  // A local folder is where gitignored build output lives: read the ignore files first and never
+  // open what they exclude (docs/18-excluding-paths.md).
+  const byPath = new Map(readable.map((f) => [relOf(f), f]));
+  const { kept } = await applyIgnoreFiles([...byPath.keys()], async (path) => byPath.get(path)!.text());
+  const candidates = readable.filter((f) => kept.has(relOf(f)));
   const files: InputFile[] = [];
   let binaries = 0, done = 0;
   for (const f of candidates) {
-    const rel = f.webkitRelativePath.split("/").slice(1).join("/");
+    const rel = relOf(f);
     const bytes = new Uint8Array(await f.arrayBuffer());
     if (isBinary(bytes)) binaries++; else files.push({ path: rel, text: decoder.decode(bytes) });
     done++;

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "openai:endpoint:POST /v1/chat/completions",
+    "provider": "openai",
+    "kind": "endpoint",
+    "key": "POST /v1/chat/completions",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/summarize.py",
+        "line": 4,
+        "column": 9,
+        "snippet": "reply = client.chat.completions.create(model=\"gpt-4-turbo\", messages=[{\"role\": \"user\", \"content\": \"hi\"}])",
+        "detector": "openai.python.chat-completions-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "openai",
+        "version": "1.51.0"
+      }
+    }
+  },
+  {
+    "id": "openai:model:gpt-4-turbo",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4-turbo",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/summarize.py",
+        "line": 4,
+        "column": 47,
+        "snippet": "reply = client.chat.completions.create(model=\"gpt-4-turbo\", messages=[{\"role\": \"user\", \"content\": \"hi\"}])",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "openai",
+        "version": "1.51.0"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_method:chat.completions.create",
+    "provider": "openai",
+    "kind": "sdk_method",
+    "key": "chat.completions.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/summarize.py",
+        "line": 4,
+        "column": 9,
+        "snippet": "reply = client.chat.completions.create(model=\"gpt-4-turbo\", messages=[{\"role\": \"user\", \"content\": \"hi\"}])",
+        "detector": "openai.python.chat-completions-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "openai",
+        "version": "1.51.0"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_package:openai",
+    "provider": "openai",
+    "kind": "sdk_package",
+    "key": "openai",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "openai==1.51.0",
+        "detector": "openai.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "openai",
+        "version": "1.51.0"
+      }
+    }
+  }
+]

@@ -177,6 +177,19 @@ class McpServerTest {
   }
 
   @Test
+  void scanHonoursTheIgnoreFileAndExcludePatterns() {
+    String fixture = "{\"path\":\"fixtures/openai-python-docswatcherignore/repo\"";
+    List<String> byIgnoreFile = new ArrayList<>();
+    tool("scan_repository", fixture + "}").get("structuredContent").get("findings")
+        .forEach(f -> byIgnoreFile.add(f.get("contract").asText()));
+    // .docswatcherignore excludes samples/, so its dall-e-2 call never appears.
+    assertThat(byIgnoreFile).containsExactly("openai:model:gpt-4-turbo");
+
+    JsonNode excluded = tool("scan_repository", fixture + ",\"exclude\":[\"src/\"]}");
+    assertThat(excluded.get("structuredContent").get("findingCount").asInt()).isZero();
+  }
+
+  @Test
   void scanOfAMissingPathIsAToolError() {
     JsonNode r = tool("scan_repository", "{\"path\":\"does/not/exist\"}");
     assertThat(r.get("isError").asBoolean()).isTrue();

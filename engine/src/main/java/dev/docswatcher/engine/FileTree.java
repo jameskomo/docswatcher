@@ -9,7 +9,9 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /** Deterministic, filtered walk of a repository checkout. */
@@ -22,6 +24,14 @@ final class FileTree {
   int skipped;
 
   static FileTree read(Path root) {
+    return read(root, List.of());
+  }
+
+  /**
+   * Reads every file not excluded by a .gitignore, the root .docswatcherignore or {@code exclude}
+   * (docs/18-excluding-paths.md). Excluded files are counted as skipped and never read.
+   */
+  static FileTree read(Path root, List<String> exclude) {
     FileTree tree = new FileTree();
     List<Path> paths = new ArrayList<>();
     try {
@@ -44,7 +54,25 @@ final class FileTree {
       throw new UncheckedIOException("Cannot walk " + root, e);
     }
     paths.sort((a, b) -> rel(root, a).compareTo(rel(root, b)));
+
+    // Ignore files are small and few: read them first, so nothing they exclude is ever opened.
+    Map<String, String> ignoreFiles = new HashMap<>();
     for (Path p : paths) {
+      String rel = rel(root, p);
+      if (!Ignore.isIgnoreFile(rel)) continue;
+      try {
+        ignoreFiles.put(rel, Files.readString(p, StandardCharsets.UTF_8));
+      } catch (IOException | UncheckedIOException e) {
+        // An unreadable ignore file excludes nothing, as git would treat it.
+      }
+    }
+    Ignore ignore = Ignore.of(ignoreFiles, exclude);
+
+    for (Path p : paths) {
+      if (ignore.ignored(rel(root, p))) {
+        tree.skipped++;
+        continue;
+      }
       try {
         if (Files.size(p) > MAX_BYTES) {
           tree.skipped++;

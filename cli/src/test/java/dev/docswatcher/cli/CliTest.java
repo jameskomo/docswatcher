@@ -57,6 +57,18 @@ class CliTest {
   }
 
   @Test
+  void matchHonoursDocswatcherignoreAndExclude() {
+    String repo = KNOWLEDGE.resolve("fixtures/openai-python-docswatcherignore/repo").toString();
+    Run withIgnoreFile = run("match", repo, "--knowledge", KNOWLEDGE.toString(), "--today", "2026-09-23");
+    assertThat(withIgnoreFile.exit()).isEqualTo(1);
+    assertThat(withIgnoreFile.out()).contains("gpt-4-turbo").doesNotContain("dall-e-2");
+
+    Run excluded = run("match", repo, "--knowledge", KNOWLEDGE.toString(), "--today", "2026-09-23", "--exclude", "src/");
+    assertThat(excluded.exit()).isZero();
+    assertThat(excluded.out().trim()).isEqualTo("[]");
+  }
+
+  @Test
   void aScanThatFailsExitsThreeNotOne() {
     // 1 means "a breaking finding is open". A failure must never be mistaken for that, or for its
     // opposite once the empty output is counted as zero findings.

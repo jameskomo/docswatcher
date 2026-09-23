@@ -1,0 +1,6 @@
+[
+  {
+    "contract": "openai:model:gpt-4-turbo",
+    "change": "openai-gpt-4-turbo-shutdown-2026"
+  }
+]

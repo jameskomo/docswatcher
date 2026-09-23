@@ -22,6 +22,12 @@ inputs:
     description: Also report contracts found only in documentation or test files.
     required: false
     default: "false"
+  exclude:
+    description: >-
+      Paths to skip, one .gitignore-style pattern per line, for example `samples/`. The repository's
+      .gitignore files and .docswatcherignore already apply; this is for one workflow.
+    required: false
+    default: ""
   report:
     description: Write the full JSON findings to this path.
     required: false
@@ -67,10 +73,15 @@ runs:
         DW_FAIL_ON: ${{ inputs.fail-on }}
         DW_INCLUDE_LOW: ${{ inputs.include-low }}
         DW_REPORT: ${{ inputs.report }}
+        DW_EXCLUDE: ${{ inputs.exclude }}
       run: |
         set -uo pipefail
         args=("match" "$DW_PATH")
         [ "$DW_INCLUDE_LOW" = "true" ] && args+=("--include-low")
+        while IFS= read -r pattern; do
+          pattern="${pattern#"${pattern%%[![:space:]]*}"}"; pattern="${pattern%"${pattern##*[![:space:]]}"}"
+          [ -n "$pattern" ] && args+=("--exclude" "$pattern")
+        done <<< "$DW_EXCLUDE"
 
         out="${DW_REPORT:-$RUNNER_TEMP/docswatcher.json}"
         # The CLI exits 1 when a breaking finding is open. That is a result, not a failure of

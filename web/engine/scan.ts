@@ -6,6 +6,7 @@ import { scanManifest, type ManifestHit } from "./manifests";
 import { scanLiterals } from "./literals";
 import { scanCallsites, type TreeSitterApi } from "./callsites";
 import { isDocOrTestPath, isSkippedDir, isTooLarge, languageOf } from "./paths";
+import { compileIgnore, isIgnoreFile } from "./ignore";
 
 export const ENGINE_NAME = "docswatcher-engine-ts";
 export const ENGINE_VERSION = "0.1.0";
@@ -17,6 +18,8 @@ export interface ScanOptions {
   grammars?: { loader: GrammarLoader; api: TreeSitterApi };
   now?: () => Date;
   onProgress?: (done: number, total: number, path: string) => void;
+  /** Patterns in .gitignore syntax excluded for this scan, after the ignore files in `files`. */
+  exclude?: string[];
 }
 
 const CONF_RANK: Record<Confidence, number> = { low: 0, medium: 1, high: 2 };
@@ -42,10 +45,13 @@ export async function scan(files: InputFile[], opts: ScanOptions): Promise<Inven
     if (!a.evidence.has(evKey)) a.evidence.set(evKey, ev);
   };
 
+  // Excluded paths (docs/18-excluding-paths.md) are skipped before anything reads them.
+  const ignore = compileIgnore(files.filter((f) => isIgnoreFile(f.path)), opts.exclude ?? []);
+
   // Pass 1: manifests and literals. Also decide which files are eligible.
   const eligible: InputFile[] = [];
   for (const f of files) {
-    if (isSkippedDir(f.path) || isTooLarge(f.text)) { filesSkipped++; continue; }
+    if (isSkippedDir(f.path) || isTooLarge(f.text) || ignore.ignored(f.path)) { filesSkipped++; continue; }
     filesScanned++;
     eligible.push(f);
     for (const p of providers) {

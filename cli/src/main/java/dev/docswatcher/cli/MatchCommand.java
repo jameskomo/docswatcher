@@ -39,10 +39,14 @@ final class MatchCommand implements Callable<Integer> {
   @Option(names = "--include-low", description = "Include low-confidence contracts.")
   boolean includeLow;
 
+  @Option(names = "--exclude", paramLabel = "<pattern>",
+      description = "Skip paths matching this .gitignore-style pattern, after .gitignore files and .docswatcherignore. Repeatable.")
+  List<String> exclude = new ArrayList<>();
+
   @Override
   public Integer call() {
     Knowledge k = common.loadKnowledge();
-    Inventory inv = ScanCommand.scan(k, path, repo, ref, sha);
+    Inventory inv = ScanCommand.scan(k, path, repo, ref, sha, exclude);
     List<Finding> findings = Matcher.match(inv, k, common.today, includeLow);
     if ("text".equals(format)) {
       System.out.print(render(inv, findings, k));

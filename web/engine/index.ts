@@ -5,5 +5,6 @@ export { toJson } from "./serialize";
 export { createTreeSitter, GRAMMAR_FILES } from "./treesitter";
 export { globToRegExp } from "./glob";
 export { isDocOrTestPath, isSkippedDir, languageOf } from "./paths";
+export { compileIgnore, isIgnoreFile } from "./ignore";
 export { scanManifest } from "./manifests";
 export { scanLiterals } from "./literals";

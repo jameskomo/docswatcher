@@ -190,6 +190,10 @@ final class McpServer {
     sp.putObject("path").put("type", "string").put("description", "Directory to scan. Relative paths resolve from where the server started.");
     sp.putObject("include_low").put("type", "boolean").put("default", false)
         .put("description", "Also report APIs found only in documentation and test files.");
+    ObjectNode ex = sp.putObject("exclude");
+    ex.put("type", "array").put("description",
+        "Optional. Extra paths to skip, in .gitignore syntax. The directory's .gitignore files and .docswatcherignore already apply.");
+    ex.putObject("items").put("type", "string");
     required(scan, "path");
 
     ObjectNode r = F.objectNode();
@@ -453,10 +457,12 @@ final class McpServer {
     Path dir = root.resolve(raw).normalize();
     if (!Files.isDirectory(dir)) throw new BadInput("Not a directory: " + dir);
     boolean includeLow = args.path("include_low").asBoolean(false);
+    List<String> exclude = new ArrayList<>();
+    for (JsonNode e : args.path("exclude")) if (e.isTextual() && !e.asText().isBlank()) exclude.add(e.asText());
 
     Inventory inv;
     try {
-      inv = ScanCommand.scan(k, dir, null, null, null);
+      inv = ScanCommand.scan(k, dir, null, null, null, exclude);
     } catch (RuntimeException e) {
       throw new BadInput("The scan failed: " + e.getMessage());
     }

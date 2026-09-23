@@ -22,8 +22,13 @@ public final class Engine {
   }
 
   public Inventory scan(Path repoRoot, RepoRef repo) {
+    return scan(repoRoot, repo, List.of());
+  }
+
+  /** As {@link #scan(Path, RepoRef)}, also excluding {@code exclude} (.gitignore syntax) for this run. */
+  public Inventory scan(Path repoRoot, RepoRef repo, List<String> exclude) {
     long start = System.nanoTime();
-    FileTree tree = FileTree.read(repoRoot);
+    FileTree tree = FileTree.read(repoRoot, exclude);
     List<Contract> contracts = scanFiles(tree.files);
     long ms = (System.nanoTime() - start) / 1_000_000;
     return new Inventory(

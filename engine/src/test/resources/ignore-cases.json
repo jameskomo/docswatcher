@@ -1,0 +1,245 @@
+{
+  "about": "Path exclusion cases shared by the Java and TypeScript engines. docs/18-excluding-paths.md. Each expect entry is path -> true when the path is excluded.",
+  "cases": [
+    {
+      "name": "an unanchored name matches at any depth, and only whole names",
+      "ignoreFiles": {
+        ".gitignore": "secret.json\n"
+      },
+      "expect": {
+        "secret.json": true,
+        "a/secret.json": true,
+        "a/b/secret.json": true,
+        "a/secret.json.bak": false,
+        "notsecret.json": false
+      }
+    },
+    {
+      "name": "a leading slash anchors to the ignore file's directory",
+      "ignoreFiles": {
+        ".gitignore": "/build.py\n"
+      },
+      "expect": {
+        "build.py": true,
+        "src/build.py": false
+      }
+    },
+    {
+      "name": "a slash in the middle anchors too",
+      "ignoreFiles": {
+        ".gitignore": "src/gen.py\n"
+      },
+      "expect": {
+        "src/gen.py": true,
+        "x/src/gen.py": false
+      }
+    },
+    {
+      "name": "a trailing slash matches directories only",
+      "ignoreFiles": {
+        ".gitignore": "out/\n"
+      },
+      "expect": {
+        "out/a.js": true,
+        "x/out/b.js": true,
+        "outer/c.js": false
+      }
+    },
+    {
+      "name": "a trailing slash does not match a file of that name",
+      "ignoreFiles": {
+        ".gitignore": "out/\n"
+      },
+      "expect": {
+        "out": false,
+        "x/out": false
+      }
+    },
+    {
+      "name": "a star stays within one segment",
+      "ignoreFiles": {
+        ".gitignore": "*.json\n"
+      },
+      "expect": {
+        "a.json": true,
+        "d/b.json": true,
+        "a.yaml": false
+      }
+    },
+    {
+      "name": "a leading double star matches any depth, including none",
+      "ignoreFiles": {
+        ".gitignore": "**/cache/x.py\n"
+      },
+      "expect": {
+        "cache/x.py": true,
+        "a/b/cache/x.py": true,
+        "cache/y.py": false
+      }
+    },
+    {
+      "name": "a trailing double star matches everything inside, and anchors",
+      "ignoreFiles": {
+        ".gitignore": "gen/**\n"
+      },
+      "expect": {
+        "gen/a.py": true,
+        "gen/b/c.py": true,
+        "src/gen/a.py": false
+      }
+    },
+    {
+      "name": "a double star in the middle matches zero or more directories",
+      "ignoreFiles": {
+        ".gitignore": "a/**/b.py\n"
+      },
+      "expect": {
+        "a/b.py": true,
+        "a/x/b.py": true,
+        "a/x/y/b.py": true,
+        "c/a/x/b.py": false
+      }
+    },
+    {
+      "name": "a question mark matches one character",
+      "ignoreFiles": {
+        ".gitignore": "file?.py\n"
+      },
+      "expect": {
+        "file1.py": true,
+        "file10.py": false,
+        "file.py": false
+      }
+    },
+    {
+      "name": "character classes, and their negation",
+      "ignoreFiles": {
+        ".gitignore": "[ab].py\nsrc/[!ab].py\n"
+      },
+      "expect": {
+        "a.py": true,
+        "b.py": true,
+        "c.py": false,
+        "src/c.py": true,
+        "src/a.py": true
+      }
+    },
+    {
+      "name": "a later negation re-includes a file",
+      "ignoreFiles": {
+        ".gitignore": "*.json\n!keep.json\n"
+      },
+      "expect": {
+        "x.json": true,
+        "keep.json": false,
+        "d/keep.json": false
+      }
+    },
+    {
+      "name": "nothing inside an excluded directory can be re-included",
+      "ignoreFiles": {
+        ".gitignore": "data/\n!data/keep.json\n"
+      },
+      "expect": {
+        "data/keep.json": true,
+        "data/other.json": true
+      }
+    },
+    {
+      "name": "a pattern that matches a directory excludes what is under it",
+      "ignoreFiles": {
+        ".gitignore": "logs/*\n"
+      },
+      "expect": {
+        "logs/a": true,
+        "logs/b/c": true,
+        "x/logs/a": false
+      }
+    },
+    {
+      "name": "a nested gitignore applies only below its own directory",
+      "ignoreFiles": {
+        "web/.gitignore": "generated/\npublic/grammars/\n"
+      },
+      "expect": {
+        "web/generated/k.json": true,
+        "generated/k.json": false,
+        "web/public/grammars/x.wasm": true,
+        "public/grammars/x.wasm": false,
+        "web/x/public/grammars/y": false
+      }
+    },
+    {
+      "name": "a deeper gitignore overrides a shallower one",
+      "ignoreFiles": {
+        ".gitignore": "*.yaml\n",
+        "cfg/.gitignore": "!keep.yaml\n"
+      },
+      "expect": {
+        "cfg/keep.yaml": false,
+        "cfg/drop.yaml": true,
+        "other/keep.yaml": true
+      }
+    },
+    {
+      "name": ".docswatcherignore excludes committed paths and overrides gitignore",
+      "ignoreFiles": {
+        ".gitignore": "fixtures/\n",
+        ".docswatcherignore": "!fixtures/\nknowledge/\n"
+      },
+      "expect": {
+        "fixtures/a.py": false,
+        "knowledge/x.yaml": true,
+        "src/knowledge/y.yaml": true,
+        "src/app.py": false
+      }
+    },
+    {
+      "name": "a .docswatcherignore below the root is not read",
+      "ignoreFiles": {
+        "sub/.docswatcherignore": "*.py\n"
+      },
+      "expect": {
+        "sub/a.py": false,
+        "a.py": false
+      }
+    },
+    {
+      "name": "exclude patterns override both files",
+      "ignoreFiles": {
+        ".docswatcherignore": "!docs/\n"
+      },
+      "exclude": [
+        "src/",
+        "docs/"
+      ],
+      "expect": {
+        "src/a.py": true,
+        "docs/b.md": true,
+        "app.py": false
+      }
+    },
+    {
+      "name": "comments, blank lines, escapes and trailing spaces",
+      "ignoreFiles": {
+        ".gitignore": "# a comment\n\n\\#hash.py\n\\!bang.py\ntrail.py   \n"
+      },
+      "expect": {
+        "#hash.py": true,
+        "!bang.py": true,
+        "trail.py": true,
+        "a comment": false
+      }
+    },
+    {
+      "name": "regex characters in a pattern are literal",
+      "ignoreFiles": {
+        ".gitignore": "a+b(1).py\n"
+      },
+      "expect": {
+        "a+b(1).py": true,
+        "aab1.py": false
+      }
+    }
+  ]
+}
