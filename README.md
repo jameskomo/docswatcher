@@ -14,7 +14,7 @@ still pass against their mocks, and one morning a payment fails.
 DocsWatcher reads a repository, finds every external API it actually calls, and tells you which
 ones already have a shutdown date — with the file, the line, and the date.
 
-It currently tracks **77 published shutdowns across 10 providers**. 52 of those are AI model
+It currently tracks **87 published shutdowns across 10 providers**. 61 of those are AI model
 retirements, which is where this hurts most right now.
 
 ## What a scan finds
