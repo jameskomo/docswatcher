@@ -29,3 +29,13 @@ gpt4_0125: gpt-4-0125-preview
 gpt45: gpt-4.5-preview
 base_babbage: babbage-002
 base_davinci: davinci-002
+cyber: gpt-5.4-cyber
+transcribe_mini: gpt-4o-mini-transcribe
+transcribe_diarize: gpt-4o-transcribe-diarize
+transcribe_mini_snapshot: gpt-4o-mini-transcribe-2025-03-20
+audio: gpt-audio
+audio_4o: gpt-4o-audio
+audio_mini: gpt-audio-mini
+audio_4o_mini: gpt-4o-mini-audio
+realtime_mini: gpt-realtime-mini
+realtime_4o_mini: gpt-4o-mini-realtime

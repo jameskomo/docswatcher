@@ -306,6 +306,91 @@
     ]
   },
   {
+    "id": "openai:model:gpt-4o-audio",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o-audio",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 37,
+        "column": 11,
+        "snippet": "audio_4o: gpt-4o-audio",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4o-mini-audio",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o-mini-audio",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 39,
+        "column": 16,
+        "snippet": "audio_4o_mini: gpt-4o-mini-audio",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4o-mini-realtime",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o-mini-realtime",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 41,
+        "column": 19,
+        "snippet": "realtime_4o_mini: gpt-4o-mini-realtime",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4o-mini-transcribe",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o-mini-transcribe",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 33,
+        "column": 18,
+        "snippet": "transcribe_mini: gpt-4o-mini-transcribe",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4o-mini-transcribe-2025-03-20",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o-mini-transcribe-2025-03-20",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 35,
+        "column": 27,
+        "snippet": "transcribe_mini_snapshot: gpt-4o-mini-transcribe-2025-03-20",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
     "id": "openai:model:gpt-4o-realtime",
     "provider": "openai",
     "kind": "model",
@@ -334,6 +419,23 @@
         "line": 23,
         "column": 16,
         "snippet": "transcribe_4o: gpt-4o-transcribe",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4o-transcribe-diarize",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o-transcribe-diarize",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 34,
+        "column": 21,
+        "snippet": "transcribe_diarize: gpt-4o-transcribe-diarize",
         "detector": "openai.literal.model-gpt",
         "layer": "literal"
       }
@@ -391,6 +493,57 @@
     ]
   },
   {
+    "id": "openai:model:gpt-5.4-cyber",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-5.4-cyber",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 32,
+        "column": 8,
+        "snippet": "cyber: gpt-5.4-cyber",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-audio",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-audio",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 36,
+        "column": 8,
+        "snippet": "audio: gpt-audio",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-audio-mini",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-audio-mini",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 38,
+        "column": 13,
+        "snippet": "audio_mini: gpt-audio-mini",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
     "id": "openai:model:gpt-image-1",
     "provider": "openai",
     "kind": "model",
@@ -419,6 +572,23 @@
         "line": 24,
         "column": 11,
         "snippet": "realtime: gpt-realtime",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-realtime-mini",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-realtime-mini",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 40,
+        "column": 16,
+        "snippet": "realtime_mini: gpt-realtime-mini",
         "detector": "openai.literal.model-gpt",
         "layer": "literal"
       }

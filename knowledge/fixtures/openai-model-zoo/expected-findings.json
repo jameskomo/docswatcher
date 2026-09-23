@@ -52,6 +52,10 @@
     "change": "openai-gpt-3-5-turbo-instruct-shutdown-2026"
   },
   {
+    "contract": "openai:model:gpt-5.4-cyber",
+    "change": "openai-gpt-5-4-cyber-shutdown-2026"
+  },
+  {
     "contract": "openai:model:gpt-3.5-turbo-0125",
     "change": "openai-gpt-3-5-turbo-0125-shutdown-2026"
   },
@@ -112,16 +116,52 @@
     "change": "openai-o3-2025-04-16-shutdown-2026"
   },
   {
+    "contract": "openai:model:gpt-4o-audio",
+    "change": "openai-gpt-4o-audio-shutdown-2027"
+  },
+  {
+    "contract": "openai:model:gpt-4o-mini-audio",
+    "change": "openai-gpt-4o-mini-audio-shutdown-2027"
+  },
+  {
+    "contract": "openai:model:gpt-4o-mini-realtime",
+    "change": "openai-gpt-4o-mini-realtime-shutdown-2027"
+  },
+  {
+    "contract": "openai:model:gpt-4o-mini-transcribe-2025-03-20",
+    "change": "openai-gpt-4o-mini-transcribe-2025-03-20-shutdown-2027"
+  },
+  {
     "contract": "openai:model:gpt-4o-realtime",
     "change": "openai-gpt-4o-realtime-shutdown-2027"
+  },
+  {
+    "contract": "openai:model:gpt-audio",
+    "change": "openai-gpt-audio-shutdown-2027"
+  },
+  {
+    "contract": "openai:model:gpt-audio-mini",
+    "change": "openai-gpt-audio-mini-shutdown-2027"
   },
   {
     "contract": "openai:model:gpt-realtime",
     "change": "openai-gpt-realtime-shutdown-2027"
   },
   {
+    "contract": "openai:model:gpt-realtime-mini",
+    "change": "openai-gpt-realtime-mini-shutdown-2027"
+  },
+  {
+    "contract": "openai:model:gpt-4o-mini-transcribe",
+    "change": "openai-gpt-4o-mini-transcribe-shutdown-2027"
+  },
+  {
     "contract": "openai:model:gpt-4o-transcribe",
     "change": "openai-gpt-4o-transcribe-shutdown-2027"
+  },
+  {
+    "contract": "openai:model:gpt-4o-transcribe-diarize",
+    "change": "openai-gpt-4o-transcribe-diarize-shutdown-2027"
   },
   {
     "contract": "openai:model:whisper-1",

@@ -1,0 +1,30 @@
+id: openai-gpt-5-4-cyber-shutdown-2026
+provider: openai
+kind: retired
+severity: breaking
+title: "gpt-5.4-cyber shut down"
+summary: >
+  Requests to the model gpt-5.4-cyber fail after the shutdown date.
+  OpenAI recommends gpt-5.6-cyber as the replacement.
+
+affects:
+  - kind: model
+    match: "gpt-5.4-cyber"
+
+announced: 2026-09-11
+effective: 2026-10-01
+
+sources:
+  - kind: provider_page
+    url: https://developers.openai.com/api/docs/deprecations
+    observed: 2026-09-23
+
+migration:
+  replacement: "gpt-5.6-cyber"
+  guide: https://developers.openai.com/api/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID string. Re-run any evals, because output style and
+    token usage differ between model generations.
+
+status: active

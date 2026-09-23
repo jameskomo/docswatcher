@@ -1,0 +1,30 @@
+id: openai-gpt-4o-mini-transcribe-shutdown-2027
+provider: openai
+kind: retired
+severity: breaking
+title: "gpt-4o-mini-transcribe shut down"
+summary: >
+  Requests to the model gpt-4o-mini-transcribe fail after the shutdown date.
+  OpenAI recommends gpt-transcribe or gpt-live-transcribe as the replacement.
+
+affects:
+  - kind: model
+    match: "gpt-4o-mini-transcribe"
+
+announced: 2026-08-26
+effective: 2027-02-26
+
+sources:
+  - kind: provider_page
+    url: https://developers.openai.com/api/docs/deprecations
+    observed: 2026-09-23
+
+migration:
+  replacement: "gpt-transcribe"
+  guide: https://developers.openai.com/api/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID string. Re-run any evals, because output style and
+    token usage differ between model generations.
+
+status: active
