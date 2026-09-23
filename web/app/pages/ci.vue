@@ -83,7 +83,7 @@ useHead({
         The Action wraps one command, and that command is a single static binary. GitLab CI,
         Jenkins, CircleCI, a git hook, your laptop — anywhere with a shell.
       </p>
-      <Snippet :code="shell" />
+      <Snippet :code="shell" shell />
       <p>
         It exits <code>0</code> when nothing breaking is open and <code>1</code> when something is.
         That exit code is the whole contract; everything above is a wrapper around it.

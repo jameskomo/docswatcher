@@ -11,9 +11,11 @@ const mcpJson = `{
   }
 }`;
 
-const install = `curl -sSL -o docswatcher \\
+// No sudo: a binary in ~/.local/bin is on most Linux PATHs and never needs root.
+const install = `mkdir -p ~/.local/bin
+curl -sSL -o ~/.local/bin/docswatcher \\
   https://github.com/jameskomo/docswatcher/releases/latest/download/docswatcher-linux-x64
-chmod +x docswatcher && sudo mv docswatcher /usr/local/bin/`;
+chmod +x ~/.local/bin/docswatcher`;
 
 // Verbatim from a Claude Code session on 2026-09-23. The prompt never mentioned DocsWatcher.
 const exchange = [
@@ -59,10 +61,14 @@ useHead({
       </p>
 
       <h2>Install</h2>
-      <p>One binary, the same one the CI Action uses. Linux x64:</p>
-      <Snippet :code="install" />
+      <p>
+        One binary, the same one the CI Action uses. Linux x64, no root needed. Or download it from the
+        <a href="https://github.com/jameskomo/docswatcher/releases/latest" target="_blank" rel="noopener">release page</a>
+        and check it against <code>checksums.txt</code> there.
+      </p>
+      <Snippet :code="install" shell />
       <p>Then add it to your agent. Claude Code:</p>
-      <Snippet :code="claudeCode" testid="mcp-claude-code" />
+      <Snippet :code="claudeCode" testid="mcp-claude-code" shell />
       <p>Cursor, Windsurf, Claude Desktop and anything else that reads an <code>mcpServers</code> block:</p>
       <Snippet :code="mcpJson" />
 

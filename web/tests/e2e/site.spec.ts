@@ -242,3 +242,19 @@ test("the agents page shows a real exchange and the install command", async ({ p
   await expect(page.locator(".prose table")).toContainText("check_api");
   expect(own(failed)).toEqual([]);
 });
+
+test("no shell command is ever written to the clipboard by the page", async ({ page }) => {
+  // Writing a shell command to the clipboard from script is what a ClickFix attack does, and
+  // uBlock Origin blocks it with a warning. Shell snippets are selected and copied by the visitor.
+  for (const path of ["./#/agents", "./#/ci"]) {
+    await page.goto(path);
+    await expect(page.locator(".snippet.shell").first()).toBeVisible();
+    await expect(page.locator(".snippet.shell .snippet-copy")).toHaveCount(0);
+    for (const text of await page.locator(".snippet:not(.shell) pre").allTextContents()) {
+      expect(text, path).not.toMatch(/^\s*(curl|wget|chmod|sudo|claude|bash|sh|\.\/)\b/m);
+    }
+  }
+  await page.goto("./#/agents");
+  await expect(page.locator(".snippet.shell pre").first()).not.toContainText("sudo");
+});
+
