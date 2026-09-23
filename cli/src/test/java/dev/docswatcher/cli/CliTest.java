@@ -6,7 +6,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
-import picocli.CommandLine;
 
 class CliTest {
 
@@ -19,7 +18,7 @@ class CliTest {
     ByteArrayOutputStream buf = new ByteArrayOutputStream();
     System.setOut(new PrintStream(buf, true));
     try {
-      int exit = new CommandLine(new DocsWatcher()).execute(args);
+      int exit = DocsWatcher.commandLine().execute(args);
       return new Run(exit, buf.toString());
     } finally {
       System.setOut(original);
@@ -55,5 +54,14 @@ class CliTest {
     Run r = run("validate", KNOWLEDGE.toString(), "--today", "2026-09-18");
     assertThat(r.exit()).isZero();
     assertThat(r.out()).contains("OK · 0 errors");
+  }
+
+  @Test
+  void aScanThatFailsExitsThreeNotOne() {
+    // 1 means "a breaking finding is open". A failure must never be mistaken for that, or for its
+    // opposite once the empty output is counted as zero findings.
+    Run r = run("match", KNOWLEDGE.resolve("does-not-exist").toString(), "--knowledge", KNOWLEDGE.toString());
+    assertThat(r.exit()).isEqualTo(DocsWatcher.FAILED);
+    assertThat(r.out()).isEmpty();
   }
 }

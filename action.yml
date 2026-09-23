@@ -82,9 +82,14 @@ runs:
           exit "$code"
         fi
 
-        # The report is a top-level JSON array of findings, not an object wrapping one.
-        findings=$(python3 -c "import json,sys;print(len(json.load(open(sys.argv[1]))))" "$out" 2>/dev/null || echo 0)
-        breaking=$(python3 -c "import json,sys;print(sum(1 for f in json.load(open(sys.argv[1])) if f.get('severity')=='breaking'))" "$out" 2>/dev/null || echo 0)
+        # The report is a top-level JSON array of findings, not an object wrapping one. Output that
+        # does not parse means the scan did not finish. It must fail the step: counting it as zero
+        # findings would report a clean repository that was never scanned.
+        if ! findings=$(python3 -c "import json,sys;print(len(json.load(open(sys.argv[1]))))" "$out" 2>/dev/null); then
+          echo "::error::docswatcher did not produce a report, so this repository was not checked"
+          exit 3
+        fi
+        breaking=$(python3 -c "import json,sys;print(sum(1 for f in json.load(open(sys.argv[1])) if f.get('severity')=='breaking'))" "$out")
         echo "findings=$findings" >> "$GITHUB_OUTPUT"
         echo "breaking=$breaking" >> "$GITHUB_OUTPUT"
         [ -n "$DW_REPORT" ] && echo "report=$DW_REPORT" >> "$GITHUB_OUTPUT"

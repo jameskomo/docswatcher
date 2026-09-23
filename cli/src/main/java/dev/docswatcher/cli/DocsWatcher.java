@@ -21,8 +21,32 @@ public final class DocsWatcher implements Callable<Integer> {
   /** The release this build is. The release workflow refuses to publish a binary that disagrees with its tag. */
   static final String VERSION = "0.1.3";
 
+  /**
+   * Exit code for a scan that did not complete. It must differ from 1, which `match` uses to say a
+   * breaking finding is open: a crash that exited 1 read as "findings" to a script and, once its
+   * empty output was counted, as "nothing found" to the GitHub Action.
+   */
+  static final int FAILED = 3;
+
   public static void main(String[] args) {
-    System.exit(new CommandLine(new DocsWatcher()).execute(args));
+    int code;
+    try {
+      code = commandLine().execute(args);
+    } catch (Throwable t) {
+      // Errors such as OutOfMemoryError are not Exceptions, so picocli lets them through.
+      System.err.println("docswatcher: " + t);
+      code = FAILED;
+    }
+    System.exit(code);
+  }
+
+  /** The command line as main runs it: any exception from a command exits FAILED, not 1. */
+  static CommandLine commandLine() {
+    return new CommandLine(new DocsWatcher())
+        .setExecutionExceptionHandler((ex, cmd, parseResult) -> {
+          cmd.getErr().println("docswatcher: " + (ex.getMessage() == null ? ex.toString() : ex.getMessage()));
+          return FAILED;
+        });
   }
 
   @Override
