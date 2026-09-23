@@ -335,7 +335,7 @@ Snoozes survive rescans because findings are keyed by repository, contract, and 
 
 ### The fix loop
 
-Adding the fix label dispatches a `repository_dispatch` event into the customer's own repository, carrying the finding, the evidence with snippets, and the migration block. A workflow the app serves at `/api/setup/workflow` runs a coding agent with the customer's own API key, applies the migration, runs the affected tests, and opens a pull request.
+Adding the fix label dispatches a `repository_dispatch` event into the customer's own repository, carrying the finding, the evidence as structural locators only — path, line and column, never the matched source line — and the migration block. A workflow the app serves at `/api/setup/workflow` runs a coding agent with the customer's own API key, applies the migration, runs the affected tests, and opens a pull request.
 
 **We never spend tokens on remediation.** The customer's agent, the customer's key, the customer's CI. We own the trigger and the context, which is the part that is hard.
 
