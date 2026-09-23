@@ -1,6 +1,6 @@
 # Reference
 
-Commands, endpoints, and settings. Verified on 2026-09-18.
+Commands, endpoints, and settings. Verified on 2026-09-23.
 
 ## Command line
 
@@ -18,6 +18,7 @@ cli/target/docswatcher <command> [options]
 | `scan <path>` | Scans a checkout and prints the inventory document | 0 |
 | `match <path>` | Scans, matches against the knowledge base, prints findings | 1 if any breaking finding is open, else 0 |
 | `validate [dir]` | Validates a knowledge directory | 1 on any error, 0 on warnings only |
+| `mcp` | Serves the Model Context Protocol on stdio until the client closes it. See `docs/14-coding-agents.md` | 0 |
 
 ### Options
 
@@ -25,7 +26,7 @@ cli/target/docswatcher <command> [options]
 |---|---|---|
 | `--knowledge <dir>` | all | Use this knowledge directory instead of the bundled release |
 | `--format json\|text` | `match` | Output format. Default `json` |
-| `--today YYYY-MM-DD` | `scan`, `match` | Date used for day counts. Default is today |
+| `--today YYYY-MM-DD` | `scan`, `match`, `mcp` | Date used for day counts. Default is today, asked afresh on every `mcp` call |
 | `--include-low` | `scan`, `match` | Include low-confidence contracts |
 | `--repo owner/name` | `scan`, `match` | Repository name recorded in the inventory |
 | `--ref <ref>` | `scan`, `match` | Git ref recorded in the inventory |
@@ -48,6 +49,9 @@ docswatcher scan /path/to/repo --knowledge knowledge
 
 # Check the knowledge base
 docswatcher validate knowledge
+
+# Let a coding agent ask before it writes a model ID
+claude mcp add docswatcher -- docswatcher mcp
 ```
 
 Output shapes are defined in `docs/02-schemas.md`. They are not repeated here.
@@ -143,10 +147,10 @@ In `web/`:
 | `npm test` | Vitest unit tests for the TypeScript engine |
 | `npm run e2e` | Playwright browser tests |
 | `npm run parity` | Compares the TypeScript engine against the Java engine's expected files |
-| `npm run bundle` | Regenerates `generated/knowledge.json` and `generated/samples.json` |
+| `npm run bundle` | Regenerates `generated/knowledge.json`, `generated/samples.json` and the feeds in `public/feeds/` |
 | `npm run serve-export` | Serves the export, by default under a deep subpath |
 
-Also `node scripts/vendor-repos.mjs --refresh`, which re-downloads the bundled real repositories at their pinned commits.
+Also `node scripts/vendor-repos.mjs --refresh`, which re-downloads the bundled real repositories at their pinned commits, and `node scripts/watch-sources.mjs --state <dir> [--report <file>]`, one knowledge watch run (`docs/16-knowledge-watch.md`).
 
 In `relay/`:
 
@@ -162,6 +166,27 @@ In `relay/`:
 |---|---|
 | `knowledge/scripts/validate` | Schema, dates, regex dialect, fixture coverage |
 | `knowledge/scripts/parity` | Runs the browser engine against every fixture and compares to the Java engine |
+
+## Study scripts
+
+| Script | Does |
+|---|---|
+| `study/run.sh <cohort> <results> [date]` | Clones and scans every repository in a cohort. `DOCSWATCHER` names the command, `JOBS` the parallelism |
+| `node study/summarize.mjs <results> <cohort> [--exclude review.json]` | Writes the cohort's public `summary.json` and `repos.txt`: counts only, no repository named |
+
+See `docs/17-open-source-study.md`.
+
+## Public feeds
+
+Static files served by the site, rebuilt from the knowledge base on every build. `docs/15-feeds-and-sharing.md`.
+
+| Path | Is |
+|---|---|
+| `/feeds/deprecations.ics` | iCalendar of every dated shutdown |
+| `/feeds/<provider>.ics` | One provider's shutdowns |
+| `/feeds/deprecations.atom` | Atom feed, newest announcement first |
+| `/feeds/deprecations.json` | Every live change record, with CORS open |
+| `/#/?repo=owner/name` | Opens the scanner and scans that public repository |
 
 ## Relay endpoints
 
@@ -180,3 +205,4 @@ An `Authorization` header is forwarded to GitHub and never cached, which is how 
 | 0 | Success. For `match`, no breaking finding is open |
 | 1 | For `match`, at least one breaking finding is open. For `validate`, at least one error |
 | 2 | Usage error, such as a missing argument |
+| 3 | The command did not complete: the path is not a directory, the scan threw, or the JVM ran out of memory. Never a result, always a failure |

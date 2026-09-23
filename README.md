@@ -32,7 +32,7 @@ It finds them by parsing, not grepping: a manifest pass to confirm the SDK is re
 a literal pass for versions and model strings, then tree-sitter queries over the syntax tree for
 the actual call sites. That is why it can point at a line and a column instead of a file.
 
-## Three ways to run it
+## Four ways to run it
 
 **In your browser.** Paste a public repository URL, or pick a local folder.
 [docswatcher.vukisha.co.ke](https://docswatcher.vukisha.co.ke). Parsing happens client-side in
@@ -58,6 +58,19 @@ chmod +x docswatcher
 See [`docs/11-ci-integration.md`](./docs/11-ci-integration.md) for GitLab, Jenkins, monorepos,
 and how to introduce it to a codebase that already has findings without blocking your team.
 
+**In your coding agent.** Your agent's training data is older than the deprecation list, so it
+writes model IDs that are already scheduled to die. `docswatcher mcp` runs the same binary as an
+[MCP](https://modelcontextprotocol.io) server, and the agent checks an identifier before it
+writes one:
+
+```bash
+claude mcp add docswatcher -- docswatcher mcp      # Claude Code; Cursor and others take an mcpServers block
+```
+
+Asked for "a script using gpt-4-turbo", Claude Code called `check_api` on its own and warned that
+the model shuts down on 2026-10-23, naming the replacement. Offline, read-only, nothing leaves the
+machine. See [`docs/14-coding-agents.md`](./docs/14-coding-agents.md).
+
 **Watching a repository.** The GitHub App scans on every push, opens an issue per finding with
 the file and line, and can open a fix pull request when you add a label. Setup is in
 [`docs/07-getting-started.md`](./docs/07-getting-started.md).
@@ -79,7 +92,17 @@ the provider's migration notes, and the agent opens a pull request you review li
 OpenAI · Anthropic · Google AI · Shopify · Stripe · AWS SDK · GitHub · Slack · SendGrid · Twilio
 
 The [deprecation calendar](https://docswatcher.vukisha.co.ke/#/calendar) shows every tracked
-shutdown on a timeline, whether or not you have scanned anything.
+shutdown on a timeline, whether or not you have scanned anything. Subscribe to it in Google
+Calendar, Apple Calendar or Outlook ([`deprecations.ics`](https://docswatcher.vukisha.co.ke/feeds/deprecations.ics),
+or one provider at `/feeds/openai.ics`), follow it as an
+[Atom feed](https://docswatcher.vukisha.co.ke/feeds/deprecations.atom), or build on the
+[open JSON](https://docswatcher.vukisha.co.ke/feeds/deprecations.json).
+
+A scan of a public repository has a link that re-runs it for whoever opens it,
+`https://docswatcher.vukisha.co.ke/#/?repo=owner/name`, and a README badge that does the same.
+
+A [scheduled job](./docs/16-knowledge-watch.md) re-reads every page the knowledge base cites each
+day and opens an issue when one announces something new, so the records do not quietly go stale.
 
 ## How it is put together
 
@@ -104,7 +127,7 @@ cd web && npm install && npm run dev
 ./mvnw -pl cli -am package -DskipTests
 java -jar cli/target/docswatcher-cli.jar match /path/to/project --format text
 
-# the tests: 174 Java, 48 TypeScript, 14 end-to-end
+# the tests: 264 Java, 75 TypeScript, 18 end-to-end
 ./mvnw test
 cd web && npm test && npm run e2e
 ```
@@ -126,6 +149,10 @@ cd web && npm test && npm run e2e
 | [`docs/10-reference.md`](./docs/10-reference.md) | CLI commands, REST endpoints, configuration |
 | [`docs/11-ci-integration.md`](./docs/11-ci-integration.md) | Running it in a pipeline |
 | [`docs/13-runtime-observation.md`](./docs/13-runtime-observation.md) | Feeding it live traffic to prioritise findings |
+| [`docs/14-coding-agents.md`](./docs/14-coding-agents.md) | The MCP server for Claude Code, Cursor and other agents |
+| [`docs/15-feeds-and-sharing.md`](./docs/15-feeds-and-sharing.md) | Calendar, feed, open data, live scan links and badges |
+| [`docs/16-knowledge-watch.md`](./docs/16-knowledge-watch.md) | Keeping the knowledge base true as provider pages change |
+| [`docs/17-open-source-study.md`](./docs/17-open-source-study.md) | Scanning public repositories, and publishing what we find |
 
 `deployment/` is intentionally not in this repository: it describes one specific server, its
 secret layout and its tunnel, so publishing it would document an attack surface without helping

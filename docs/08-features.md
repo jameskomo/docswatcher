@@ -1,6 +1,6 @@
 # Features
 
-Every capability DocsWatcher has today, what it does, how to use it, and how it works. Verified on 2026-09-18.
+Every capability DocsWatcher has today, what it does, how to use it, and how it works. Verified on 2026-09-18; sections 11 to 13 on 2026-09-23.
 
 ## Contents
 
@@ -14,6 +14,9 @@ Every capability DocsWatcher has today, what it does, how to use it, and how it 
 8. [The server app](#8-the-server-app)
 9. [The relay](#9-the-relay)
 10. [Cross-cutting properties](#10-cross-cutting-properties)
+11. [Coding agents](#11-coding-agents)
+12. [Feeds and sharing](#12-feeds-and-sharing)
+13. [Knowledge watch](#13-knowledge-watch)
 
 ## 1. Detection
 
@@ -354,3 +357,48 @@ It is optional. The jsDelivr route covers public repositories without it.
 **Everything is data.** Detection rules, deprecations, and fixtures are YAML and JSON in an open repository. Fixing a false positive means editing one line, and both engines pick it up.
 
 **Privacy & client-side performance.** Static hosting, browser-side WebAssembly AST evaluation, and local execution ensure zero proprietary source code exposure.
+
+## 11. Coding agents
+
+`docswatcher mcp` serves the Model Context Protocol on stdio, so Claude Code, Cursor and other
+agents can ask before they write an identifier. Three read-only tools:
+
+| Tool | Answers |
+|---|---|
+| `check_api` | `RETIRED`, `RETIRING` with days left, `CHANGED`, or `NO KNOWN DEPRECATION`, with the replacement |
+| `upcoming_deprecations` | Dated shutdowns in a window, optionally for one provider |
+| `scan_repository` | The same findings as `match`, for a directory |
+
+`check_api` builds the key the scanner would have extracted and runs it through the same
+`Matcher`, so its answer agrees with CI. It accepts loose input (`openai/gpt-4-turbo`, a full API
+URL, `POST /v1/assistants`, `openai==0.28`) and only tries a value as an API version when it is
+date-shaped, because API version rules compare strings. At startup the server tells the agent to
+check identifiers before writing them. Details and the test plan: `docs/14-coding-agents.md`.
+
+## 12. Feeds and sharing
+
+Generated at build time from the knowledge base, served as static files:
+
+- **Calendar.** `/feeds/deprecations.ics` and one per provider. One all-day event per dated record,
+  keyed by change ID so edits update rather than duplicate, marked free rather than busy, with
+  reminders 30 and 7 days before. The calendar page has subscribe links for Google Calendar,
+  Apple Calendar and Outlook.
+- **Feed.** `/feeds/deprecations.atom`, newest announcement first.
+- **Open data.** `/feeds/deprecations.json`, every live record, readable from any origin.
+- **Live scan links.** `/#/?repo=owner/name` scans that repository on arrival, and the address bar
+  becomes this link after any GitHub scan. The results offer the link and a README badge that
+  points to it (`docs/adr/0004-live-links-not-status-badges.md`).
+
+All three files are pure functions of the knowledge base, so an unchanged knowledge base produces
+identical bytes. `docs/15-feeds-and-sharing.md`.
+
+## 13. Knowledge watch
+
+A daily workflow fetches every URL the knowledge base cites, reduces each page to text, and
+compares it with the last run. It opens an issue only when a page gains lines that mention a
+deprecation or a date, a source fails three runs in a row, a page cannot be read, or a record has
+gone 30 days without being re-verified. Snapshots live on the `knowledge-watch` branch. With a
+`CLAUDE_CODE_OAUTH_TOKEN` secret, an agent drafts change records from the report into a draft pull
+request, with its file access limited to `knowledge/` and a second check in the workflow.
+`docs/16-knowledge-watch.md`.
+
