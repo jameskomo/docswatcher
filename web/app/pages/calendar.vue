@@ -26,6 +26,14 @@ const upcoming = computed(() => group(all.filter((c) => !c.effective || c.effect
 const past = computed(() => group(all.filter((c) => c.effective && c.effective < todayIso)).reverse());
 const showPast = ref(false);
 const days = (c: ChangeRecord) => (c.effective ? daysBetween(today, c.effective) : null);
+
+// Subscribe links are resolved against wherever the site is served, so they work at any host or subpath.
+const feedProvider = ref("");
+const base = ref("");
+onMounted(() => { base.value = location.href.split("#")[0].replace(/[^/]*$/, ""); });
+const icsUrl = computed(() => `${base.value}feeds/${feedProvider.value || "deprecations"}.ics`);
+const webcalUrl = computed(() => icsUrl.value.replace(/^https?:/, "webcal:"));
+const googleUrl = computed(() => `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(webcalUrl.value)}`);
 </script>
 
 <template>
@@ -36,6 +44,24 @@ const days = (c: ChangeRecord) => (c.effective ? daysBetween(today, c.effective)
         Continuous timeline of published API deprecations across {{ knowledge.providers.length }} tracked cloud and AI providers.
         {{ all.length }} active and historical records from the open knowledge base.
       </p>
+
+      <div class="subscribe" data-testid="subscribe">
+        <label for="feed-provider" class="t2" style="font-weight: 600; color: var(--ink-max)">Put these dates in your calendar</label>
+        <div class="row" style="gap: var(--s2); align-items: center; flex-wrap: wrap">
+          <select id="feed-provider" class="select" v-model="feedProvider" aria-label="Which provider's shutdowns">
+            <option value="">All providers</option>
+            <option v-for="p in knowledge.providers" :key="p.info.id" :value="p.info.id">{{ p.info.name }}</option>
+          </select>
+          <a class="btn" :href="googleUrl" target="_blank" rel="noopener" data-testid="subscribe-google">Google Calendar</a>
+          <a class="btn" :href="webcalUrl" data-testid="subscribe-webcal">Apple or Outlook</a>
+          <a class="btn" :href="icsUrl" download data-testid="subscribe-ics">.ics file</a>
+        </div>
+        <p class="t1 ink-faint">
+          Updates itself when the knowledge base changes, with reminders 30 and 7 days before each date.
+          Also as an <a :href="`${base}feeds/deprecations.atom`" data-testid="feed-atom">Atom feed</a>
+          and <a :href="`${base}feeds/deprecations.json`" data-testid="feed-json">open JSON</a>.
+        </p>
+      </div>
     </section>
 
     <section class="section" v-for="g in upcoming" :key="g.key" style="margin-top: 0">
@@ -113,3 +139,15 @@ const days = (c: ChangeRecord) => (c.effective ? daysBetween(today, c.effective)
     </section>
   </div>
 </template>
+
+<style scoped>
+.subscribe {
+  display: grid;
+  gap: var(--s2);
+  margin-top: var(--s4);
+  padding: var(--s3);
+  border: 1px solid var(--hair);
+  border-radius: var(--radius-sm);
+}
+.subscribe .select { min-width: 0; max-width: 100%; }
+</style>

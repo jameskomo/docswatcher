@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 const port = Number(process.argv[2] ?? 8080);
 const prefix = (process.argv[3] ?? "/some/deep/prefix").replace(/\/$/, "");
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", ".output", "public");
-const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".mjs": "text/javascript", ".css": "text/css", ".json": "application/json", ".wasm": "application/wasm", ".svg": "image/svg+xml", ".ico": "image/x-icon", ".png": "image/png", ".woff2": "font/woff2" };
+const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".mjs": "text/javascript", ".css": "text/css", ".json": "application/json", ".ics": "text/calendar; charset=utf-8", ".atom": "application/atom+xml", ".wasm": "application/wasm", ".svg": "image/svg+xml", ".ico": "image/x-icon", ".png": "image/png", ".woff2": "font/woff2" };
 
 createServer((req, res) => {
   const url = new URL(req.url, "http://x");

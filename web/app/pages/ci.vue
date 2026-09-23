@@ -4,15 +4,6 @@ const totalChanges = computed(() =>
   knowledge.providers.reduce((n, p) => n + p.changes.length, 0),
 );
 
-const copied = ref("");
-async function copy(id: string, text: string) {
-  try {
-    await navigator.clipboard.writeText(text);
-    copied.value = id;
-    setTimeout(() => { if (copied.value === id) copied.value = ""; }, 2000);
-  } catch { /* clipboard unavailable; the snippet is selectable either way */ }
-}
-
 const quickstart = `name: API contracts
 on: [push, pull_request]
 
@@ -65,12 +56,7 @@ useHead({
     <div class="prose" style="max-width: 900px">
       <h2 style="margin-top: 0">GitHub Actions</h2>
       <p>This is the whole integration.</p>
-      <div class="snippet">
-        <button type="button" class="snippet-copy" @click="copy('qs', quickstart)">
-          {{ copied === 'qs' ? 'Copied' : 'Copy' }}
-        </button>
-        <pre>{{ quickstart }}</pre>
-      </div>
+      <Snippet :code="quickstart" />
       <p>
         The step fails the build if a breaking deprecation is open, writes a summary to the job
         page, and says nothing at all when your code calls nothing that is going away.
@@ -82,12 +68,7 @@ useHead({
         Failing the build on day one blocks your team on work nobody planned, so start by
         reporting.
       </p>
-      <div class="snippet">
-        <button type="button" class="snippet-copy" @click="copy('ro', reportOnly)">
-          {{ copied === 'ro' ? 'Copied' : 'Copy' }}
-        </button>
-        <pre>{{ reportOnly }}</pre>
-      </div>
+      <Snippet :code="reportOnly" />
       <p>
         Read the summary for a week, fix or dismiss what it found, then drop the
         <code>fail-on</code> line. From then on a new breaking dependency cannot reach your default
@@ -95,24 +76,14 @@ useHead({
       </p>
 
       <h2>One service in a monorepo</h2>
-      <div class="snippet">
-        <button type="button" class="snippet-copy" @click="copy('mr', monorepo)">
-          {{ copied === 'mr' ? 'Copied' : 'Copy' }}
-        </button>
-        <pre>{{ monorepo }}</pre>
-      </div>
+      <Snippet :code="monorepo" />
 
       <h2>Anywhere else</h2>
       <p>
         The Action wraps one command, and that command is a single static binary. GitLab CI,
         Jenkins, CircleCI, a git hook, your laptop — anywhere with a shell.
       </p>
-      <div class="snippet">
-        <button type="button" class="snippet-copy" @click="copy('sh', shell)">
-          {{ copied === 'sh' ? 'Copied' : 'Copy' }}
-        </button>
-        <pre>{{ shell }}</pre>
-      </div>
+      <Snippet :code="shell" />
       <p>
         It exits <code>0</code> when nothing breaking is open and <code>1</code> when something is.
         That exit code is the whole contract; everything above is a wrapper around it.
@@ -160,23 +131,3 @@ useHead({
     </div>
   </div>
 </template>
-
-<style scoped>
-.snippet { position: relative; }
-.snippet pre { margin: 0; overflow-x: auto; }
-.snippet-copy {
-  position: absolute;
-  top: var(--s2);
-  right: var(--s2);
-  background: var(--paper);
-  border: 1px solid var(--hair);
-  border-radius: var(--radius-sm);
-  padding: 4px 10px;
-  font: inherit;
-  font-size: var(--t1);
-  color: var(--ink-soft);
-  cursor: pointer;
-}
-.snippet-copy:hover { color: var(--ink); }
-.snippet-copy:focus-visible { outline: 2px solid var(--ink-accent); outline-offset: 2px; }
-</style>

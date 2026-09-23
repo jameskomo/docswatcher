@@ -1,8 +1,10 @@
-// Reads ../knowledge/** into web/generated/{knowledge,samples}.json and copies wasm grammars into public/grammars.
+// Reads ../knowledge/** into web/generated/{knowledge,samples}.json, writes the public feeds into
+// public/feeds/, and copies wasm grammars into public/grammars.
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, existsSync, copyFileSync } from "node:fs";
 import { join, relative, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import YAML from "yaml";
+import { loadKnowledge } from "./lib/knowledge.mjs";
+import { writeFeeds } from "./lib/feeds.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const web = join(here, "..");
@@ -19,32 +21,12 @@ function walk(dir) {
   return out;
 }
 
-const versionFile = join(knowledgeDir, "VERSION");
-const version = existsSync(versionFile) ? readFileSync(versionFile, "utf8").trim() : "0.0.0-dev";
-
-const providers = [];
-for (const id of readdirSync(join(knowledgeDir, "providers")).sort()) {
-  const dir = join(knowledgeDir, "providers", id);
-  if (!statSync(dir).isDirectory()) continue;
-  const info = YAML.parse(readFileSync(join(dir, "provider.yaml"), "utf8"));
-  const detectors = YAML.parse(readFileSync(join(dir, "detectors.yaml"), "utf8"));
-  detectors.manifests ??= []; detectors.literals ??= []; detectors.callsites ??= [];
-  const changes = [];
-  const changesDir = join(dir, "changes");
-  if (existsSync(changesDir)) {
-    for (const f of readdirSync(changesDir).sort()) {
-      if (!f.endsWith(".yaml")) continue;
-      const rec = YAML.parse(readFileSync(join(changesDir, f), "utf8"));
-      for (const k of ["announced", "effective"]) if (rec[k] instanceof Date) rec[k] = rec[k].toISOString().slice(0, 10);
-      for (const s of rec.sources ?? []) if (s.observed instanceof Date) s.observed = s.observed.toISOString().slice(0, 10);
-      if (rec.summary) rec.summary = String(rec.summary).trim();
-      if (rec.migration?.notes) rec.migration.notes = String(rec.migration.notes).trim();
-      changes.push(rec);
-    }
-  }
-  providers.push({ info, detectors, changes });
-}
+const knowledge = loadKnowledge(knowledgeDir);
+const { version, providers } = knowledge;
 writeFileSync(join(outDir, "knowledge.json"), JSON.stringify({ version, providers }, null, 2) + "\n");
+
+// Calendar, feed and open data. Static files the site's nginx serves as they are.
+const feeds = writeFeeds(knowledge, join(web, "public", "feeds"), { siteUrl: process.env.DOCSWATCHER_SITE_URL });
 
 const samples = [];
 const skipped = [];
@@ -100,4 +82,4 @@ const copies = [
 ];
 for (const [src, dst] of copies) copyFileSync(join(nm, src), join(grammarsOut, dst));
 
-console.log(`knowledge ${version}: ${providers.length} providers, ${providers.reduce((n, p) => n + p.changes.length, 0)} changes, ${samples.length} samples, ${copies.length} wasm files`);
+console.log(`knowledge ${version}: ${providers.length} providers, ${providers.reduce((n, p) => n + p.changes.length, 0)} changes, ${samples.length} samples, ${copies.length} wasm files, ${feeds.length} feed files`);

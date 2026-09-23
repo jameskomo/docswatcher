@@ -3,6 +3,8 @@ import type { InputFile, RepoRef } from "~~/engine/types";
 import { fetchViaApi, fetchViaRelay, parseGitHubUrl, readFolder, fetchViaJsDelivr } from "~/utils/fetchRepo";
 
 const config = useRuntimeConfig();
+const route = useRoute();
+const router = useRouter();
 const relay = (config.public.relayUrl as string) || "";
 const { knowledge, samples, realSamples, fixtureSamples, defaultSample } = useKnowledge();
 const scanner = useScanner();
@@ -52,6 +54,8 @@ async function scanSample(targetName?: string) {
       ? { host: "github", owner: s.name.split("/")[0], name: s.name.split("/")[1], ref: s.sha ?? "HEAD", sha: s.sha ?? "0000000" }
       : { host: "fixture", owner: "docswatcher", name: s.name, ref: "fixture", sha: "0000000" };
     await runScan(s.files, ref, { label: s.real ? `${s.name} at ${s.sha}` : `Example ${s.name}`, kind: "sample" });
+    // A link to the previous repository would no longer describe what is on screen.
+    if (route.query.repo) router.replace({ path: "/", query: {} });
   });
 }
 
@@ -89,6 +93,8 @@ async function scanGitHub() {
       + (res.binaries ? `, ${res.binaries} binary files skipped` : "")
       + (res.truncated ? ". Large repository, so only the first 300 relevant files were read." : "");
     await runScan(res.files, res.repo, { label: `${t.owner}/${t.name}`, kind: "github" });
+    // The address bar becomes the share link: opening it runs the same scan again, fresh.
+    router.replace({ path: "/", query: { repo: `${t.owner}/${t.name}` } });
   });
 }
 
@@ -117,7 +123,37 @@ async function guard(fn: () => Promise<void>) {
   try { await fn(); } catch (e: any) { error.value = describe(e); } finally { busy.value = false; status.value = ""; }
 }
 
-onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
+// A live scan link: /#/?repo=owner/name scans that repository on arrival. See docs/15-feeds-and-sharing.md.
+const REPO_PARAM = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
+onMounted(() => {
+  const linked = typeof route.query.repo === "string" ? route.query.repo : "";
+  if (REPO_PARAM.test(linked)) {
+    mode.value = "github";
+    url.value = `https://github.com/${linked}`;
+    scanGitHub();
+    return;
+  }
+  if (!store.current.value && samples.length) scanSample();
+});
+
+/** owner/name when the current result is a public GitHub repository, which is what a link can re-scan. */
+const shareable = computed(() => {
+  const r = result.value?.inventory?.repo;
+  return r && r.host === "github" && r.owner && r.name ? `${r.owner}/${r.name}` : "";
+});
+const base = ref("");
+onMounted(() => { base.value = location.href.split("#")[0]; });
+const shareLink = computed(() => (shareable.value ? `${base.value}#/?repo=${shareable.value}` : ""));
+const badge = computed(() =>
+  `[![API deprecations: DocsWatcher](https://img.shields.io/badge/API%20deprecations-DocsWatcher-2563eb)](${shareLink.value})`);
+const linkCopied = ref(false);
+async function copyLink() {
+  try {
+    await navigator.clipboard.writeText(shareLink.value);
+    linkCopied.value = true;
+    setTimeout(() => { linkCopied.value = false; }, 2000);
+  } catch { /* the link is visible and selectable below */ }
+}
 </script>
 
 <template>
@@ -302,6 +338,22 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
         :percent="percent"
       />
 
+      <section v-if="shareable && !busy" class="section share" data-testid="share">
+        <div class="row" style="gap: var(--s3); align-items: center; flex-wrap: wrap">
+          <button type="button" class="btn solid" @click="copyLink" data-testid="share-copy">
+            {{ linkCopied ? "Link copied" : "Copy link to this scan" }}
+          </button>
+          <a class="t2 mono share-link" :href="shareLink">{{ shareLink }}</a>
+        </div>
+        <details style="margin-top: var(--s3)">
+          <summary class="t2" style="cursor: pointer">Add a badge to {{ shareable }}'s README</summary>
+          <p class="t2 ink-soft" style="margin-block: var(--s2)">
+            Anyone who clicks it gets a fresh scan in their own browser, so it is never out of date.
+          </p>
+          <Snippet :code="badge" testid="share-badge" wrap />
+        </details>
+      </section>
+
       <section class="section">
         <div class="section-head">
           <h2>What is expiring</h2>
@@ -327,3 +379,8 @@ onMounted(() => { if (!store.current.value && samples.length) scanSample(); });
     </section>
   </div>
 </template>
+
+<style scoped>
+.share { padding-block: var(--s3); }
+.share-link { overflow-wrap: anywhere; color: var(--ink-soft); }
+</style>

@@ -125,7 +125,7 @@ test("no horizontal scroll at phone width", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 800 });
   await page.goto("./");
   await expect(page.locator("#results")).toBeVisible();
-  for (const path of ["./", "./#/calendar", "./#/app", "./#/about"]) {
+  for (const path of ["./", "./#/calendar", "./#/app", "./#/about", "./#/ci", "./#/agents"]) {
     await page.goto(path);
     await page.waitForTimeout(300);
     const overflow = await page.evaluate(() => document.scrollingElement!.scrollWidth - window.innerWidth);
@@ -192,4 +192,53 @@ test("the CI page explains the integration and offers a copyable snippet", async
   await expect(page.locator(".snippet")).not.toHaveCount(0);
   await expect(page.locator(".prose")).toContainText("docswatcher match");
   expect(failed).toEqual([]);
+});
+
+// ---- docs/15-feeds-and-sharing.md
+
+test("a live scan link scans the named repository on arrival", async ({ page }) => {
+  // Offline, so the fetch fails; what matters is that the link started a scan of that repository.
+  await offline(page);
+  await page.goto("./#/?repo=openai/openai-quickstart-python");
+  await expect(page.getByRole("alert")).toContainText("openai/openai-quickstart-python");
+});
+
+test("a scan of a public repository offers a link and a badge that re-run it", async ({ page }) => {
+  await page.goto("./");
+  await expect(page.locator("#results")).toBeVisible();
+  await expect(page.getByTestId("share")).toBeVisible();
+  await expect(page.getByTestId("share-copy")).toHaveCount(1);
+  await page.locator("[data-testid=share] summary").click();
+  await expect(page.getByTestId("share-badge")).toContainText("#/?repo=openai/openai-quickstart-python");
+  await expect(page.getByTestId("share-badge")).toContainText("img.shields.io");
+});
+
+test("the calendar offers subscriptions, and the feed files are served", async ({ page, request }) => {
+  const failed = watchFailures(page);
+  await page.goto("./#/calendar");
+  const ics = page.getByTestId("subscribe-ics");
+  await expect(ics).toHaveAttribute("href", /feeds\/deprecations\.ics$/);
+  await expect(page.getByTestId("subscribe-webcal")).toHaveAttribute("href", /^webcal:/);
+  await page.locator("#feed-provider").selectOption("openai");
+  await expect(ics).toHaveAttribute("href", /feeds\/openai\.ics$/);
+
+  for (const [file, starts] of [["deprecations.ics", "BEGIN:VCALENDAR"], ["openai.ics", "BEGIN:VCALENDAR"],
+    ["deprecations.atom", "<?xml"], ["deprecations.json", "{"]]) {
+    const r = await request.get(`./feeds/${file}`);
+    expect(r.status(), file).toBe(200);
+    expect((await r.text()).startsWith(starts), file).toBe(true);
+  }
+  expect(own(failed)).toEqual([]);
+});
+
+// ---- docs/14-coding-agents.md
+
+test("the agents page shows a real exchange and the install command", async ({ page }) => {
+  const failed = watchFailures(page);
+  await page.goto("./#/agents");
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.getByTestId("agent-exchange").locator(".turn")).toHaveCount(4);
+  await expect(page.getByTestId("mcp-claude-code")).toContainText("docswatcher mcp");
+  await expect(page.locator(".prose table")).toContainText("check_api");
+  expect(own(failed)).toEqual([]);
 });
