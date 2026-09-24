@@ -93,6 +93,26 @@
       ]
     },
     {
+      "type": "dev.docswatcher.engine.CallsiteLayer$BoundedInput",
+      "jniAccessible": true,
+      "methods": [
+        {
+          "name": "progress",
+          "parameterTypes": [
+            "org.treesitter.TSParseState"
+          ]
+        },
+        {
+          "name": "read",
+          "parameterTypes": [
+            "byte[]",
+            "int",
+            "org.treesitter.TSPoint"
+          ]
+        }
+      ]
+    },
+    {
       "type": "dev.docswatcher.engine.Context",
       "methods": [
         {
@@ -524,6 +544,32 @@
         },
         {
           "name": "treePtr"
+        }
+      ]
+    },
+    {
+      "type": "org.treesitter.TSParseState",
+      "unsafeAllocated": true,
+      "jniAccessible": true,
+      "fields": [
+        {
+          "name": "currentByteOffset"
+        },
+        {
+          "name": "isError"
+        }
+      ]
+    },
+    {
+      "type": "org.treesitter.TSPoint",
+      "unsafeAllocated": true,
+      "jniAccessible": true,
+      "fields": [
+        {
+          "name": "column"
+        },
+        {
+          "name": "row"
         }
       ]
     },

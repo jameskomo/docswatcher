@@ -1,16 +1,25 @@
 package dev.docswatcher.engine;
 
+import org.treesitter.TSInputEncoding;
 import org.treesitter.TSLanguage;
 import org.treesitter.TSNode;
+import org.treesitter.TSParseState;
 import org.treesitter.TSParser;
+import org.treesitter.TSParserProgress;
+import org.treesitter.TSPoint;
 import org.treesitter.TSQuery;
 import org.treesitter.TSQueryCapture;
 import org.treesitter.TSQueryCursor;
 import org.treesitter.TSQueryMatch;
 import org.treesitter.TSQueryPredicateStep;
 import org.treesitter.TSQueryPredicateStepType;
+import org.treesitter.TSReader;
 import org.treesitter.TSTree;
+import org.treesitter.TSTreeCursor;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +27,36 @@ import java.util.Map;
 /** Tree-sitter query rules, run only for providers whose SDK package appears in a manifest. */
 final class CallsiteLayer {
 
+  /**
+   * Time allowed for parsing and querying one file. A megabyte of ordinary source parses in a
+   * few seconds at most; a file that takes longer is left out of the callsite layer rather than
+   * holding up the scan.
+   */
+  static final Duration FILE_BUDGET = Duration.ofSeconds(10);
+
+  /**
+   * The longest run of anonymous sibling nodes (punctuation, keywords) a tree may contain and
+   * still be queried. The query cursor's work grows with the square of such a run, and real code
+   * has runs of a handful: ten thousand consecutive open brackets is not source.
+   */
+  static final int MAX_ANONYMOUS_RUN = 256;
+
+  /** The deepest tree that is queried. Query time climbs steeply past a few ten thousand levels. */
+  static final int MAX_DEPTH = 10_000;
+
+  private static final int READ_CHUNK = 64 * 1024;
+
   private final Grammars grammars = new Grammars();
   private final Map<String, Compiled> queries = new HashMap<>();
+  private final Duration budget;
+
+  CallsiteLayer() {
+    this(FILE_BUDGET);
+  }
+
+  CallsiteLayer(Duration budget) {
+    this.budget = budget;
+  }
 
   void run(List<Provider> providers, List<SourceFile> files, Accumulator acc) {
     // Group active rules by rule language.
@@ -32,6 +69,7 @@ final class CallsiteLayer {
     }
     if (byLanguage.isEmpty()) return;
 
+    byte[] chunk = new byte[READ_CHUNK];
     try (TSParser parser = new TSParser()) {
       for (SourceFile f : files) {
         String fileLanguage = Paths.language(f.path);
@@ -48,16 +86,25 @@ final class CallsiteLayer {
         }
         if (candidates.isEmpty()) continue;
         parser.setLanguage(lang);
-        try (TSTree tree = parser.parseString(null, f.text)) {
+        BoundedInput input = new BoundedInput(f.text.getBytes(StandardCharsets.UTF_8), System.nanoTime() + budget.toNanos());
+        TSTree parsed = parser.parseWithOptions(chunk, null, input, TSInputEncoding.TSInputEncodingUTF8, input);
+        if (parsed == null) {
+          // Out of time. A cancelled parse resumes on the next call unless the parser is reset.
+          parser.reset();
+          continue;
+        }
+        try (TSTree tree = parsed) {
           TSNode root = tree.getRootNode();
+          if (!queryable(root, input)) continue;
           for (Compiled c : candidates) {
+            if (input.expired()) break;
             Rule r = c.rule;
             TSQuery query = c.query;
             try (TSQueryCursor cursor = new TSQueryCursor()) {
               // The binding evaluates #eq? and friends itself, but only when given the source text.
               cursor.exec(query, root, f.text);
               TSQueryMatch match = new TSQueryMatch();
-              while (cursor.nextMatch(match)) {
+              while (!input.expired() && cursor.nextMatch(match)) {
                 TSNode call = captureNamed(query, match, "call");
                 if (call == null) continue;
                 int at = f.charOffsetForByte(call.getStartByte());
@@ -71,6 +118,81 @@ final class CallsiteLayer {
           }
         }
       }
+    }
+  }
+
+  /**
+   * False when the tree is deeper than {@link #MAX_DEPTH}, has a run of anonymous siblings longer
+   * than {@link #MAX_ANONYMOUS_RUN}, or time ran out. Whether a node is named costs a native round
+   * trip, so it is only asked in sibling lists already longer than the run limit; a run that
+   * straddles that point is caught once it reaches twice the limit.
+   */
+  static boolean queryable(TSNode root, BoundedInput input) {
+    int[] siblings = new int[64];
+    int[] runs = new int[64];
+    int depth = 0;
+    long visited = 0;
+    try (TSTreeCursor cursor = new TSTreeCursor(root)) {
+      boolean down = true;
+      while (true) {
+        if (down) {
+          if ((++visited & 1023) == 0 && input.expired()) return false;
+          if (++siblings[depth] > MAX_ANONYMOUS_RUN) {
+            runs[depth] = cursor.currentNode().isNamed() ? 0 : runs[depth] + 1;
+            if (runs[depth] > MAX_ANONYMOUS_RUN) return false;
+          }
+          if (cursor.gotoFirstChild()) {
+            if (++depth > MAX_DEPTH) return false;
+            if (depth == runs.length) {
+              runs = Arrays.copyOf(runs, depth * 2);
+              siblings = Arrays.copyOf(siblings, depth * 2);
+            }
+            siblings[depth] = 0;
+            runs[depth] = 0;
+            continue;
+          }
+        }
+        if (cursor.gotoNextSibling()) {
+          down = true;
+          continue;
+        }
+        if (!cursor.gotoParent()) return true;
+        depth--;
+        down = false;
+      }
+    }
+  }
+
+  /**
+   * One file's UTF-8, handed to the parser in chunks, with a deadline the parser checks as it
+   * goes. Both methods are called from native code, so neither may throw.
+   */
+  static final class BoundedInput implements TSReader, TSParserProgress {
+
+    private final byte[] bytes;
+    private final long deadline;
+
+    BoundedInput(byte[] bytes, long deadline) {
+      this.bytes = bytes;
+      this.deadline = deadline;
+    }
+
+    @Override
+    public int read(byte[] buf, int offset, TSPoint position) {
+      if (offset < 0 || offset >= bytes.length) return 0;
+      int n = Math.min(buf.length, bytes.length - offset);
+      System.arraycopy(bytes, offset, buf, 0, n);
+      return n;
+    }
+
+    /** Returning true cancels the parse. */
+    @Override
+    public boolean progress(TSParseState state) {
+      return expired();
+    }
+
+    boolean expired() {
+      return System.nanoTime() - deadline > 0;
     }
   }
 
