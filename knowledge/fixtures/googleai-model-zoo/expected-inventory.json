@@ -48,6 +48,30 @@
     }
   },
   {
+    "id": "googleai:model:gemini-2.5-flash",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-2.5-flash",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 4,
+        "column": 12,
+        "snippet": "chat_next: gemini-2.5-flash",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  },
+  {
     "id": "googleai:model:gemini-2.5-flash-image",
     "provider": "googleai",
     "kind": "model",
@@ -56,9 +80,33 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 8,
+        "line": 10,
         "column": 14,
         "snippet": "flash_image: gemini-2.5-flash-image",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "google-genai",
+        "version": "1.12.0"
+      }
+    }
+  },
+  {
+    "id": "googleai:model:gemini-2.5-flash-lite",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-2.5-flash-lite",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 5,
+        "column": 17,
+        "snippet": "chat_next_lite: gemini-2.5-flash-lite",
         "detector": "googleai.literal.model",
         "layer": "literal"
       }
@@ -80,7 +128,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 9,
+        "line": 11,
         "column": 11,
         "snippet": "pro_0325: gemini-2.5-pro-preview-03-25",
         "detector": "googleai.literal.model",
@@ -104,7 +152,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 10,
+        "line": 12,
         "column": 11,
         "snippet": "pro_0506: gemini-2.5-pro-preview-05-06",
         "detector": "googleai.literal.model",
@@ -128,7 +176,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 11,
+        "line": 13,
         "column": 11,
         "snippet": "pro_0605: gemini-2.5-pro-preview-06-05",
         "detector": "googleai.literal.model",
@@ -152,7 +200,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 5,
+        "line": 7,
         "column": 20,
         "snippet": "pro_image_preview: gemini-3-pro-image-preview",
         "detector": "googleai.literal.model",
@@ -176,7 +224,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 4,
+        "line": 6,
         "column": 14,
         "snippet": "pro_preview: gemini-3-pro-preview",
         "detector": "googleai.literal.model",
@@ -200,7 +248,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 7,
+        "line": 9,
         "column": 22,
         "snippet": "flash_image_preview: gemini-3.1-flash-image-preview",
         "detector": "googleai.literal.model",
@@ -224,7 +272,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 6,
+        "line": 8,
         "column": 21,
         "snippet": "flash_lite_preview: gemini-3.1-flash-lite-preview",
         "detector": "googleai.literal.model",

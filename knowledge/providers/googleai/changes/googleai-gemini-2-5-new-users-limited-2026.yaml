@@ -1,0 +1,42 @@
+id: googleai-gemini-2-5-new-users-limited-2026
+provider: googleai
+kind: limit_change
+severity: info
+title: "Gemini 2.5 models limited to users who already used them"
+summary: >
+  Google limits access to gemini-2.5-pro, gemini-2.5-flash and
+  gemini-2.5-flash-lite to users who have actively used them before. They are
+  not deprecated and have no shutdown date, but a new API key or project gets
+  a 404 naming a newer model. Google recommends 3.8 Flash or 3.5 Flash-Lite
+  for new projects.
+
+affects:
+  - kind: model
+    match: "gemini-2.5-pro"
+  - kind: model
+    match: "gemini-2.5-flash"
+  - kind: model
+    match: "gemini-2.5-flash-lite"
+
+# Google gives no date for the limit. It was on the page at the knowledge watch's first
+# snapshot, so this is the earliest date we can vouch for, not the day Google published it.
+announced: 2026-09-23
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://ai.google.dev/gemini-api/docs/deprecations
+    observed: 2026-09-24
+    note: "\"we are limiting access to the 2.5 models to users who have actively used them in the past\""
+
+migration:
+  replacement: "gemini-3.8-flash"
+  guide: https://ai.google.dev/gemini-api/docs/deprecations
+  effort: small
+  notes: >
+    Existing projects keep working. For anything new, and anything that may run
+    under a new key, use gemini-3.8-flash, or gemini-3.5-flash-lite in place of
+    gemini-2.5-flash-lite. Re-run evals: output style and token usage differ
+    between generations.
+
+status: active

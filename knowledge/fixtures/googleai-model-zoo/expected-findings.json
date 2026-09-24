@@ -38,5 +38,13 @@
   {
     "contract": "googleai:model:gemini-2.5-flash-image",
     "change": "googleai-gemini-2-5-flash-image-shutdown-2026"
+  },
+  {
+    "contract": "googleai:model:gemini-2.5-flash",
+    "change": "googleai-gemini-2-5-new-users-limited-2026"
+  },
+  {
+    "contract": "googleai:model:gemini-2.5-flash-lite",
+    "change": "googleai-gemini-2-5-new-users-limited-2026"
   }
 ]
