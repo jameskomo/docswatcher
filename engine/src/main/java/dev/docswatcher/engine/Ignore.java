@@ -1,9 +1,10 @@
 package dev.docswatcher.engine;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 /**
@@ -18,15 +19,28 @@ public final class Ignore {
   public static final String GITIGNORE = ".gitignore";
   public static final String DOCSWATCHERIGNORE = ".docswatcherignore";
 
-  /** One pattern line, scoped to the directory of the file it came from ("" for the root). */
-  private record Rule(String base, Pattern regex, boolean negate, boolean dirOnly, boolean nameOnly) {}
+  /** One pattern line, relative to the directory of the file it came from. */
+  private record Rule(Pattern regex, boolean negate, boolean dirOnly, boolean nameOnly) {}
 
-  private static final Ignore NONE = new Ignore(List.of());
+  private static final Ignore NONE = new Ignore(List.of(), Map.of(), List.of());
 
-  private final List<Rule> rules;
+  // The last matching rule decides, trying the root .gitignore first, then the .gitignore of each
+  // directory above the path from the top down, then .docswatcherignore, then this run's patterns.
+  // Rules are kept by the directory they are scoped to, so a path only meets the rules that can
+  // apply to it: a monorepo with hundreds of .gitignore files would otherwise try every rule of
+  // every one of them against every directory of every path.
+  private final List<Rule> root;
+  /** Directory -> the rules of the .gitignore in it, for every directory but the root. */
+  private final Map<String, List<Rule>> nested;
+  /** .docswatcherignore, then this run's patterns, relative to the root. */
+  private final List<Rule> last;
+  /** Directory -> whether it or a directory above it is excluded. Files share directories. */
+  private final Map<String, Boolean> dirs = new ConcurrentHashMap<>();
 
-  private Ignore(List<Rule> rules) {
-    this.rules = rules;
+  private Ignore(List<Rule> root, Map<String, List<Rule>> nested, List<Rule> last) {
+    this.root = root;
+    this.nested = nested;
+    this.last = last;
   }
 
   public static Ignore none() {
@@ -43,49 +57,68 @@ public final class Ignore {
    * @param exclude patterns for this run, applied last and relative to the root
    */
   public static Ignore of(Map<String, String> ignoreFiles, List<String> exclude) {
-    List<Rule> rules = new ArrayList<>();
-    // Shallower .gitignore files first, so a deeper one can override; then .docswatcherignore;
-    // then this run's patterns. The last matching rule decides.
-    List<String> gitignores = ignoreFiles.keySet().stream()
-        .filter(p -> p.equals(GITIGNORE) || p.endsWith("/" + GITIGNORE))
-        .sorted(Comparator.comparingInt((String p) -> p.split("/").length).thenComparing(p -> p))
-        .toList();
-    for (String p : gitignores) parse(rules, dirOf(p), ignoreFiles.get(p));
-    if (ignoreFiles.containsKey(DOCSWATCHERIGNORE)) parse(rules, "", ignoreFiles.get(DOCSWATCHERIGNORE));
-    if (exclude != null) parse(rules, "", String.join("\n", exclude));
-    return rules.isEmpty() ? NONE : new Ignore(List.copyOf(rules));
+    List<Rule> root = new ArrayList<>();
+    Map<String, List<Rule>> nested = new HashMap<>();
+    for (Map.Entry<String, String> e : ignoreFiles.entrySet()) {
+      String p = e.getKey();
+      if (p.equals(GITIGNORE)) {
+        parse(root, e.getValue());
+      } else if (p.endsWith("/" + GITIGNORE)) {
+        List<Rule> rules = new ArrayList<>();
+        parse(rules, e.getValue());
+        if (!rules.isEmpty()) nested.put(dirOf(p), List.copyOf(rules));
+      }
+    }
+    List<Rule> last = new ArrayList<>();
+    if (ignoreFiles.containsKey(DOCSWATCHERIGNORE)) parse(last, ignoreFiles.get(DOCSWATCHERIGNORE));
+    if (exclude != null) parse(last, String.join("\n", exclude));
+    if (root.isEmpty() && nested.isEmpty() && last.isEmpty()) return NONE;
+    return new Ignore(List.copyOf(root), Map.copyOf(nested), List.copyOf(last));
   }
 
   /** Whether a file is excluded. As in git, nothing inside an excluded directory comes back. */
   public boolean ignored(String path) {
-    if (rules.isEmpty()) return false;
-    int slash = path.indexOf('/');
-    while (slash >= 0) {
-      if (decide(path.substring(0, slash), true)) return true;
-      slash = path.indexOf('/', slash + 1);
-    }
+    if (this == NONE) return false;
+    int slash = path.lastIndexOf('/');
+    if (slash >= 0 && dirExcluded(path.substring(0, slash))) return true;
     return decide(path, false);
   }
 
+  /** Whether a directory, or any directory above it, is excluded. */
+  private boolean dirExcluded(String dir) {
+    Boolean known = dirs.get(dir);
+    if (known != null) return known;
+    int slash = dir.lastIndexOf('/');
+    boolean excluded = (slash >= 0 && dirExcluded(dir.substring(0, slash))) || decide(dir, true);
+    dirs.put(dir, excluded);
+    return excluded;
+  }
+
   private boolean decide(String target, boolean isDir) {
-    boolean excluded = false;
+    boolean excluded = apply(root, target, isDir, false);
+    if (!nested.isEmpty()) {
+      int slash = target.indexOf('/');
+      while (slash >= 0) {
+        List<Rule> rules = nested.get(target.substring(0, slash));
+        if (rules != null) excluded = apply(rules, target.substring(slash + 1), isDir, excluded);
+        slash = target.indexOf('/', slash + 1);
+      }
+    }
+    return apply(last, target, isDir, excluded);
+  }
+
+  /** Tries rules from one ignore file against {@code rel}, the target relative to that file. */
+  private static boolean apply(List<Rule> rules, String rel, boolean isDir, boolean excluded) {
+    if (rules.isEmpty()) return excluded;
+    String name = rel.substring(rel.lastIndexOf('/') + 1);
     for (Rule r : rules) {
       if (r.dirOnly && !isDir) continue;
-      String rel;
-      if (r.base.isEmpty()) {
-        rel = target;
-      } else if (target.startsWith(r.base + "/")) {
-        rel = target.substring(r.base.length() + 1);
-      } else {
-        continue;
-      }
-      String subject = r.nameOnly ? rel.substring(rel.lastIndexOf('/') + 1) : rel;
-      if (r.regex.matcher(subject).matches()) excluded = !r.negate;
+      if (r.regex.matcher(r.nameOnly ? name : rel).matches()) excluded = !r.negate;
     }
     return excluded;
   }
 
-  private static void parse(List<Rule> out, String base, String text) {
+  private static void parse(List<Rule> out, String text) {
     if (text == null) return;
     for (String raw : text.split("\r?\n")) {
       String line = raw.stripTrailing();
@@ -103,7 +136,7 @@ public final class Ignore {
       // A slash anywhere but the end anchors the pattern to its file's directory.
       boolean anchored = line.contains("/");
       if (line.startsWith("/")) line = line.substring(1);
-      out.add(new Rule(base, Pattern.compile(toRegex(line)), negate, dirOnly, !anchored));
+      out.add(new Rule(Pattern.compile(toRegex(line)), negate, dirOnly, !anchored));
     }
   }
 
