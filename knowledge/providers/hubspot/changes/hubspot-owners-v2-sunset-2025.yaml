@@ -1,0 +1,39 @@
+id: hubspot-owners-v2-sunset-2025
+provider: hubspot
+kind: sunset
+severity: breaking
+title: "Owners API v2 sunset"
+summary: >
+  The v2 Owners API was sunset on March 24, 2025, after a planned August 30,
+  2024 date was extended. All endpoints under /owners/v2 return HTTP 404.
+
+affects:
+  - kind: endpoint
+    match: "ANY /owners/v2/owners"
+
+announced: 2024-02-20
+effective: 2025-03-24
+
+sources:
+  - kind: changelog
+    url: https://developers.hubspot.com/changelog/final-reminder-sunset-of-v2-owners-api
+    observed: 2026-09-24
+    note: "The initial sunset was announced on February 20, 2024; final date March 24th, 2025."
+  - kind: changelog
+    url: https://developers.hubspot.com/changelog/reminder-upcoming-sunset-of-v2-owners-api-on-august-30-2024
+    observed: 2026-09-24
+
+migration:
+  replacement: "Owners API v3, /crm/v3/owners"
+  guide: https://developers.hubspot.com/changelog/final-reminder-sunset-of-v2-owners-api
+  effort: small
+  notes: >
+    Replace GET /owners/v2/owners with GET /crm/v3/owners and
+    /owners/v2/owners/{ownerId} with /crm/v3/owners/{ownerId}. ownerId
+    becomes id (same values), the HubSpot user ID is in userId, and remote
+    IDs are gone. v3 returns at most 500 owners per page, so follow
+    paging.next.after; filter by email with the email query parameter. v3
+    itself goes unsupported in September 2027, so prefer the date-based
+    Owners API path where the reference lists one.
+
+status: expired

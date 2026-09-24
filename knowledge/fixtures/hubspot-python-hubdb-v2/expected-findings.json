@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "hubspot:endpoint:ANY /hubdb/api/v2/tables",
+    "change": "hubspot-hubdb-v2-sunset-2024"
+  },
+  {
+    "contract": "hubspot:api_version:v2",
+    "change": "hubspot-v1-v3-apis-unsupported-2027"
+  }
+]

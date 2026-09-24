@@ -1,0 +1,41 @@
+id: hubspot-hubdb-v2-sunset-2024
+provider: hubspot
+kind: sunset
+severity: breaking
+title: "HubDB API v2 sunset"
+summary: >
+  HubDB API v2 is sunset and returns an error. HubSpot's sunsetted APIs page
+  gives December 16, 2024 as the sunset date; the original changelog
+  announcement of October 19, 2023 had set January 31, 2024 for HubDB v1, v2
+  and the HubDB JavaScript client.
+
+affects:
+  - kind: endpoint
+    match: "ANY /hubdb/api/v2/tables"
+
+announced: 2023-10-19
+effective: 2024-12-16
+
+sources:
+  - kind: provider_page
+    url: https://developers.hubspot.com/docs/api-reference/deprecated-apis
+    observed: 2026-09-24
+    note: "Sunsetted APIs table: HubDB v2, December 16, 2024."
+  - kind: changelog
+    url: https://developers.hubspot.com/changelog/upcoming-sunset-hubdb-v1-api-hubdb-v2-api-and-hubdb-javascript-client
+    observed: 2026-09-24
+
+migration:
+  replacement: "HubDB API v3, /cms/v3/hubdb"
+  guide: https://developers.hubspot.com/docs/api-reference/legacy/cms/hubdb/guide
+  effort: medium
+  notes: >
+    Move /hubdb/api/v2/tables calls to /cms/v3/hubdb/tables. In v3 tables
+    need both a name and a label, paths accept a table ID or name, row
+    values are keyed by column name rather than column ID in reads and
+    writes, row PATCH accepts sparse updates, single-cell endpoints are gone
+    (use row PATCH), and edits go to a draft table that must be published.
+    v3 itself goes unsupported in September 2027, so prefer the date-based
+    HubDB path where the reference lists one.
+
+status: expired

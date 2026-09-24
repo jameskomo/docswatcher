@@ -1,0 +1,93 @@
+[
+  {
+    "id": "hubspot:api_version:v2",
+    "provider": "hubspot",
+    "kind": "api_version",
+    "key": "v2",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "site/menu.py",
+        "line": 8,
+        "column": 47,
+        "snippet": "HUBDB = \"https://api-eu1.hubapi.com/hubdb/api/v2/tables\"",
+        "detector": "hubspot.literal.api-version",
+        "layer": "literal"
+      },
+      {
+        "path": "site/menu.py",
+        "line": 17,
+        "column": 69,
+        "snippet": "return client.api_request({\"method\": \"GET\", \"path\": \"/hubdb/api/v2/tables\"}).json()",
+        "detector": "hubspot.literal.api-request-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "hubspot-api-client",
+        "version": "11.1.0"
+      },
+      "apiVersion": "v2"
+    }
+  },
+  {
+    "id": "hubspot:endpoint:ANY /hubdb/api/v2/tables",
+    "provider": "hubspot",
+    "kind": "endpoint",
+    "key": "ANY /hubdb/api/v2/tables",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "site/menu.py",
+        "line": 8,
+        "column": 36,
+        "snippet": "HUBDB = \"https://api-eu1.hubapi.com/hubdb/api/v2/tables\"",
+        "detector": "hubspot.literal.endpoint",
+        "layer": "literal"
+      },
+      {
+        "path": "site/menu.py",
+        "line": 17,
+        "column": 58,
+        "snippet": "return client.api_request({\"method\": \"GET\", \"path\": \"/hubdb/api/v2/tables\"}).json()",
+        "detector": "hubspot.literal.api-request-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "hubspot-api-client",
+        "version": "11.1.0"
+      },
+      "apiVersion": "v2"
+    }
+  },
+  {
+    "id": "hubspot:sdk_package:hubspot-api-client",
+    "provider": "hubspot",
+    "kind": "sdk_package",
+    "key": "hubspot-api-client",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "hubspot-api-client==11.1.0",
+        "detector": "hubspot.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "hubspot-api-client",
+        "version": "11.1.0"
+      },
+      "apiVersion": "v2"
+    }
+  }
+]

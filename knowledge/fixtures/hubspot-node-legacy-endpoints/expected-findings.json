@@ -1,0 +1,50 @@
+[
+  {
+    "contract": "hubspot:endpoint:ANY /owners/v2/owners",
+    "change": "hubspot-owners-v2-sunset-2025"
+  },
+  {
+    "contract": "hubspot:endpoint:ANY /contacts/v1/lists",
+    "change": "hubspot-contact-lists-v1-sunset-2026"
+  },
+  {
+    "contract": "hubspot:endpoint:ANY /contacts/v1/lists/batch",
+    "change": "hubspot-contact-lists-v1-sunset-2026"
+  },
+  {
+    "contract": "hubspot:endpoint:ANY /contacts/v1/lists/dynamic",
+    "change": "hubspot-contact-lists-v1-sunset-2026"
+  },
+  {
+    "contract": "hubspot:endpoint:ANY /contacts/v1/lists/static",
+    "change": "hubspot-contact-lists-v1-sunset-2026"
+  },
+  {
+    "contract": "hubspot:endpoint:ANY /crm-pipelines/v1/pipelines",
+    "change": "hubspot-pipelines-v1-sunset-2026"
+  },
+  {
+    "contract": "hubspot:endpoint:ANY /crm-pipelines/v1/pipelines/deals",
+    "change": "hubspot-pipelines-v1-sunset-2026"
+  },
+  {
+    "contract": "hubspot:endpoint:ANY /crm-pipelines/v1/pipelines/tickets/default",
+    "change": "hubspot-pipelines-v1-sunset-2026"
+  },
+  {
+    "contract": "hubspot:api_version:v4",
+    "change": "hubspot-v4-apis-unsupported-2027"
+  },
+  {
+    "contract": "hubspot:api_version:v1",
+    "change": "hubspot-v1-v3-apis-unsupported-2027"
+  },
+  {
+    "contract": "hubspot:api_version:v2",
+    "change": "hubspot-v1-v3-apis-unsupported-2027"
+  },
+  {
+    "contract": "hubspot:api_version:v3",
+    "change": "hubspot-v1-v3-apis-unsupported-2027"
+  }
+]

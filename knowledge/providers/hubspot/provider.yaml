@@ -1,0 +1,19 @@
+id: hubspot
+name: HubSpot
+homepage: https://www.hubspot.com
+docs: https://developers.hubspot.com/docs
+changelog: https://developers.hubspot.com/changelog
+base_urls:
+  - https://api.hubapi.com
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [typescript, javascript, python, ruby, php]
+deprecation_policy: >
+  Individual APIs are sunset on a date announced in the developer changelog,
+  after which their endpoints return 404; dates are sometimes extended, and the
+  latest changelog post is the one that counts. HubSpot is moving from numbered
+  path versions (/v1/ to /v4/) to date-based versions such as 2026-03: v4 goes
+  unsupported on 2027-03-30 and v1 to v3 in September 2027. Unsupported means no
+  fixes or guarantees rather than an immediate error. The sunsetted and
+  deprecated APIs page lists completed sunsets.

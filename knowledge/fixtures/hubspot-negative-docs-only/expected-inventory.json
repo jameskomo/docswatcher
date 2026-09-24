@@ -1,0 +1,42 @@
+[
+  {
+    "id": "hubspot:api_version:v1",
+    "provider": "hubspot",
+    "kind": "api_version",
+    "key": "v1",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "test/sync.test.js",
+        "line": 5,
+        "column": 48,
+        "snippet": "const url = \"https://api.hubapi.com/contacts/v1/lists\";",
+        "detector": "hubspot.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "apiVersion": "v1"
+    }
+  },
+  {
+    "id": "hubspot:endpoint:ANY /contacts/v1/lists",
+    "provider": "hubspot",
+    "kind": "endpoint",
+    "key": "ANY /contacts/v1/lists",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "test/sync.test.js",
+        "line": 5,
+        "column": 38,
+        "snippet": "const url = \"https://api.hubapi.com/contacts/v1/lists\";",
+        "detector": "hubspot.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "apiVersion": "v1"
+    }
+  }
+]

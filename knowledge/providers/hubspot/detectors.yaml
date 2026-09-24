@@ -1,0 +1,54 @@
+provider: hubspot
+
+manifests:
+  - ecosystem: npm
+    package: "@hubspot/api-client"
+  - ecosystem: pypi
+    package: hubspot-api-client
+  - ecosystem: rubygems
+    package: hubspot-api-client
+
+literals:
+  # HubSpot API URLs on api.hubapi.com, its regional hosts (api-eu1.hubapi.com)
+  # and api.hubspot.com. The key is the path up to the first segment that is
+  # not a word, so IDs and template placeholders are dropped:
+  # /contacts/v1/lists/123/add becomes "ANY /contacts/v1/lists". HubDB's
+  # legacy paths carry an extra /api/ segment (/hubdb/api/v2/tables).
+  - id: hubspot.literal.endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/vendor/**"]
+    pattern: 'https://api(?:-[a-z]{2}[0-9])?\.hub(?:api|spot)\.com(/[a-z-]+(?:/api)?/v[0-9]+(?:/[A-Za-z_-]+)*)'
+    key: "ANY $1"
+    confidence: medium
+
+  # The numbered path version of the same URLs, v1 to v4.
+  - id: hubspot.literal.api-version
+    kind: api_version
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/vendor/**"]
+    pattern: 'https://api(?:-[a-z]{2}[0-9])?\.hub(?:api|spot)\.com/[a-z-]+(?:/api)?/(v[0-9]+)(?![0-9])'
+    key: "$1"
+    confidence: medium
+
+  # The official clients' generic request helper, apiRequest in Node and
+  # api_request in Python, takes a host-less path. The rule requires the helper
+  # name before the path, so a route that merely looks like a HubSpot path in an
+  # application's own web server is not claimed.
+  - id: hubspot.literal.api-request-path
+    kind: endpoint
+    files: ["**/*.{ts,tsx,js,jsx,mjs,cjs,py,rb}"]
+    exclude: ["**/node_modules/**", "**/dist/**"]
+    pattern: '\bapi_?[rR]equest\(\s*\{[^}]*?["'']?path["'']?\s*:\s*["''`](/[a-z-]+(?:/api)?/v[0-9]+(?:/[A-Za-z_-]+)*)'
+    key: "ANY $1"
+    confidence: medium
+
+  - id: hubspot.literal.api-request-version
+    kind: api_version
+    files: ["**/*.{ts,tsx,js,jsx,mjs,cjs,py,rb}"]
+    exclude: ["**/node_modules/**", "**/dist/**"]
+    pattern: '\bapi_?[rR]equest\(\s*\{[^}]*?["'']?path["'']?\s*:\s*["''`]/[a-z-]+(?:/api)?/(v[0-9]+)(?![0-9])'
+    key: "$1"
+    confidence: medium
+
+callsites: []

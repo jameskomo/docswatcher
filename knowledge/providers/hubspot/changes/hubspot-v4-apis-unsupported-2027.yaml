@@ -1,0 +1,38 @@
+id: hubspot-v4-apis-unsupported-2027
+provider: hubspot
+kind: sunset
+severity: warning
+title: "HubSpot v4 APIs unsupported"
+summary: >
+  On March 30, 2027 HubSpot's v4 APIs (for example /crm/v4/) move to an
+  unsupported state, as part of the move to date-based API versioning. They
+  get no further updates, bug fixes or stability guarantees; they may keep
+  working for a while but can degrade or stop. Marketplace apps on
+  unsupported versions risk losing certification.
+
+affects:
+  - kind: api_version
+    match: "v4"
+
+announced: 2026-05-21
+effective: 2027-03-30
+
+sources:
+  - kind: changelog
+    url: https://developers.hubspot.com/changelog/deprecating-support-for-hubspot-v4-apis
+    observed: 2026-09-24
+
+migration:
+  replacement: "a date-based API version (HubSpot recommends 2026-03 or later)"
+  guide: https://developers.hubspot.com/docs/api-reference/legacy/migration-guide
+  effort: medium
+  notes: >
+    Move every /v4/ call to the date-based path for the same API. The
+    version moves into the path after the API name (HubSpot's example:
+    /crm/v3/objects/contacts becomes /crm/objects/2026-09/contacts), and the
+    slug can differ from the legacy one, so copy each new URL from the API
+    reference. Compare request and response per endpoint: many are
+    identical, some are not. Test against a test account before switching
+    production traffic.
+
+status: active

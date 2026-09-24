@@ -1,0 +1,442 @@
+[
+  {
+    "id": "hubspot:api_version:v1",
+    "provider": "hubspot",
+    "kind": "api_version",
+    "key": "v1",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/lists.ts",
+        "line": 6,
+        "column": 74,
+        "snippet": "const res = await hubspot.apiRequest({ method: \"GET\", path: \"/contacts/v1/lists/static\" });",
+        "detector": "hubspot.literal.api-request-version",
+        "layer": "literal"
+      },
+      {
+        "path": "src/lists.ts",
+        "line": 13,
+        "column": 22,
+        "snippet": "path: `/contacts/v1/lists/${listId}/add`,",
+        "detector": "hubspot.literal.api-request-version",
+        "layer": "literal"
+      },
+      {
+        "path": "src/lists.ts",
+        "line": 19,
+        "column": 63,
+        "snippet": "return hubspot.apiRequest({ method: \"GET\", path: \"/contacts/v1/lists/dynamic\" });",
+        "detector": "hubspot.literal.api-request-version",
+        "layer": "literal"
+      },
+      {
+        "path": "src/lists.ts",
+        "line": 24,
+        "column": 63,
+        "snippet": "return hubspot.apiRequest({ method: \"GET\", path: `/contacts/v1/lists/batch?${query}` });",
+        "detector": "hubspot.literal.api-request-version",
+        "layer": "literal"
+      },
+      {
+        "path": "src/lists.ts",
+        "line": 29,
+        "column": 63,
+        "snippet": "return hubspot.apiRequest({ method: \"GET\", path: \"/contacts/v1/lists/all/contacts/all\" });",
+        "detector": "hubspot.literal.api-request-version",
+        "layer": "literal"
+      },
+      {
+        "path": "src/pipelines.ts",
+        "line": 1,
+        "column": 62,
+        "snippet": "const DEAL_PIPELINES = \"https://api.hubapi.com/crm-pipelines/v1/pipelines/deals\";",
+        "detector": "hubspot.literal.api-version",
+        "layer": "literal"
+      },
+      {
+        "path": "src/pipelines.ts",
+        "line": 2,
+        "column": 63,
+        "snippet": "const DEFAULT_TICKETS = \"https://api.hubapi.com/crm-pipelines/v1/pipelines/tickets/default\";",
+        "detector": "hubspot.literal.api-version",
+        "layer": "literal"
+      },
+      {
+        "path": "src/pipelines.ts",
+        "line": 10,
+        "column": 53,
+        "snippet": "const url = `https://api.hubapi.com/crm-pipelines/v1/pipelines/${objectType}`;",
+        "detector": "hubspot.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:api_version:v2",
+    "provider": "hubspot",
+    "kind": "api_version",
+    "key": "v2",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/owners.ts",
+        "line": 2,
+        "column": 58,
+        "snippet": "const res = await fetch(\"https://api.hubapi.com/owners/v2/owners\", {",
+        "detector": "hubspot.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:api_version:v3",
+    "provider": "hubspot",
+    "kind": "api_version",
+    "key": "v3",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/associations.ts",
+        "line": 7,
+        "column": 43,
+        "snippet": "const url = \"https://api.hubapi.com/crm/v3/objects/contacts?limit=100\";",
+        "detector": "hubspot.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:api_version:v4",
+    "provider": "hubspot",
+    "kind": "api_version",
+    "key": "v4",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/associations.ts",
+        "line": 2,
+        "column": 43,
+        "snippet": "const url = `https://api.hubapi.com/crm/v4/objects/deals/${dealId}/associations/contacts`;",
+        "detector": "hubspot.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:endpoint:ANY /contacts/v1/lists",
+    "provider": "hubspot",
+    "kind": "endpoint",
+    "key": "ANY /contacts/v1/lists",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/lists.ts",
+        "line": 13,
+        "column": 12,
+        "snippet": "path: `/contacts/v1/lists/${listId}/add`,",
+        "detector": "hubspot.literal.api-request-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:endpoint:ANY /contacts/v1/lists/all/contacts/all",
+    "provider": "hubspot",
+    "kind": "endpoint",
+    "key": "ANY /contacts/v1/lists/all/contacts/all",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/lists.ts",
+        "line": 29,
+        "column": 53,
+        "snippet": "return hubspot.apiRequest({ method: \"GET\", path: \"/contacts/v1/lists/all/contacts/all\" });",
+        "detector": "hubspot.literal.api-request-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:endpoint:ANY /contacts/v1/lists/batch",
+    "provider": "hubspot",
+    "kind": "endpoint",
+    "key": "ANY /contacts/v1/lists/batch",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/lists.ts",
+        "line": 24,
+        "column": 53,
+        "snippet": "return hubspot.apiRequest({ method: \"GET\", path: `/contacts/v1/lists/batch?${query}` });",
+        "detector": "hubspot.literal.api-request-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:endpoint:ANY /contacts/v1/lists/dynamic",
+    "provider": "hubspot",
+    "kind": "endpoint",
+    "key": "ANY /contacts/v1/lists/dynamic",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/lists.ts",
+        "line": 19,
+        "column": 53,
+        "snippet": "return hubspot.apiRequest({ method: \"GET\", path: \"/contacts/v1/lists/dynamic\" });",
+        "detector": "hubspot.literal.api-request-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:endpoint:ANY /contacts/v1/lists/static",
+    "provider": "hubspot",
+    "kind": "endpoint",
+    "key": "ANY /contacts/v1/lists/static",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/lists.ts",
+        "line": 6,
+        "column": 64,
+        "snippet": "const res = await hubspot.apiRequest({ method: \"GET\", path: \"/contacts/v1/lists/static\" });",
+        "detector": "hubspot.literal.api-request-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:endpoint:ANY /crm-pipelines/v1/pipelines",
+    "provider": "hubspot",
+    "kind": "endpoint",
+    "key": "ANY /crm-pipelines/v1/pipelines",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/pipelines.ts",
+        "line": 10,
+        "column": 38,
+        "snippet": "const url = `https://api.hubapi.com/crm-pipelines/v1/pipelines/${objectType}`;",
+        "detector": "hubspot.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:endpoint:ANY /crm-pipelines/v1/pipelines/deals",
+    "provider": "hubspot",
+    "kind": "endpoint",
+    "key": "ANY /crm-pipelines/v1/pipelines/deals",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/pipelines.ts",
+        "line": 1,
+        "column": 47,
+        "snippet": "const DEAL_PIPELINES = \"https://api.hubapi.com/crm-pipelines/v1/pipelines/deals\";",
+        "detector": "hubspot.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:endpoint:ANY /crm-pipelines/v1/pipelines/tickets/default",
+    "provider": "hubspot",
+    "kind": "endpoint",
+    "key": "ANY /crm-pipelines/v1/pipelines/tickets/default",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/pipelines.ts",
+        "line": 2,
+        "column": 48,
+        "snippet": "const DEFAULT_TICKETS = \"https://api.hubapi.com/crm-pipelines/v1/pipelines/tickets/default\";",
+        "detector": "hubspot.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:endpoint:ANY /crm/v3/objects/contacts",
+    "provider": "hubspot",
+    "kind": "endpoint",
+    "key": "ANY /crm/v3/objects/contacts",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/associations.ts",
+        "line": 7,
+        "column": 38,
+        "snippet": "const url = \"https://api.hubapi.com/crm/v3/objects/contacts?limit=100\";",
+        "detector": "hubspot.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:endpoint:ANY /crm/v4/objects/deals",
+    "provider": "hubspot",
+    "kind": "endpoint",
+    "key": "ANY /crm/v4/objects/deals",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/associations.ts",
+        "line": 2,
+        "column": 38,
+        "snippet": "const url = `https://api.hubapi.com/crm/v4/objects/deals/${dealId}/associations/contacts`;",
+        "detector": "hubspot.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:endpoint:ANY /owners/v2/owners",
+    "provider": "hubspot",
+    "kind": "endpoint",
+    "key": "ANY /owners/v2/owners",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/owners.ts",
+        "line": 2,
+        "column": 50,
+        "snippet": "const res = await fetch(\"https://api.hubapi.com/owners/v2/owners\", {",
+        "detector": "hubspot.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  },
+  {
+    "id": "hubspot:sdk_package:@hubspot/api-client",
+    "provider": "hubspot",
+    "kind": "sdk_package",
+    "key": "@hubspot/api-client",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"@hubspot/api-client\": \"^11.2.0\"",
+        "detector": "hubspot.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@hubspot/api-client",
+        "version": "^11.2.0"
+      }
+    }
+  }
+]

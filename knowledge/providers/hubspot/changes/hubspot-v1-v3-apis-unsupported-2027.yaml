@@ -1,0 +1,45 @@
+id: hubspot-v1-v3-apis-unsupported-2027
+provider: hubspot
+kind: sunset
+severity: warning
+title: "HubSpot v1, v2 and v3 APIs unsupported"
+summary: >
+  HubSpot announced on September 15, 2026 that endpoints with numbered
+  version paths /v1/, /v2/ and /v3/ move to unsupported status, with
+  enforcement in September 2027: no more bug fixes, reliability or security
+  updates. HubSpot gives the month, not a day, so the effective date is left
+  empty. Marketplace apps calling unsupported versions after September 2027
+  lose certification.
+
+affects:
+  - kind: api_version
+    match: "v1"
+  - kind: api_version
+    match: "v2"
+  - kind: api_version
+    match: "v3"
+
+announced: 2026-09-15
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://developers.hubspot.com/changelog/legacy-apis-and-legacy-apps-whats-going-unsupported-and-when
+    observed: 2026-09-24
+    note: "Enforcement: September 2027; no day is published."
+
+migration:
+  replacement: "a date-based API version"
+  guide: https://developers.hubspot.com/docs/api-reference/legacy/migration-guide
+  effort: large
+  notes: >
+    Migrate directly to date-based versions; HubSpot says not to stop at v3
+    or v4 on the way. Work endpoint by endpoint from the migration guide,
+    since some responses change shape. Not every replacement path is final
+    yet: HubSpot's March 2027 release is due to document one for every
+    legacy API, so plan the cut-over after it. For endpoints whose request
+    and response are unchanged, only the URL moves (/crm/v3/objects/contacts
+    to /crm/objects/2026-09/contacts, per HubSpot's guide); copy each new
+    URL from the reference, since slugs can change.
+
+status: active

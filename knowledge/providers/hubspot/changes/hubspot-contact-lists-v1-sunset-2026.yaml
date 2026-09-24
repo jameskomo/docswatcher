@@ -1,0 +1,58 @@
+id: hubspot-contact-lists-v1-sunset-2026
+provider: hubspot
+kind: sunset
+severity: breaking
+title: "Contact Lists API v1 sunset"
+summary: >
+  The Contact Lists API (v1) was sunset on April 30, 2026, after two
+  extensions (from May 30, 2025 and September 30, 2025). Its endpoints under
+  /contacts/v1/lists return HTTP 404, except
+  /contacts/v1/lists/all/contacts/all,
+  /contacts/v1/lists/recently_updated/contacts/recent and
+  /contacts/v1/lists/all/contacts/recent, which keep working without list
+  memberships. The v1 Contacts API reads by VID, email and user token also
+  stopped returning list memberships.
+
+affects:
+  - kind: endpoint
+    match: "ANY /contacts/v1/lists"
+  - kind: endpoint
+    match: "ANY /contacts/v1/lists/batch"
+  - kind: endpoint
+    match: "ANY /contacts/v1/lists/static"
+  - kind: endpoint
+    match: "ANY /contacts/v1/lists/dynamic"
+
+announced: 2024-05-09
+effective: 2026-04-30
+
+sources:
+  - kind: changelog
+    url: https://developers.hubspot.com/changelog/upcoming-sunset-v1-lists-api
+    observed: 2026-09-24
+    note: "Announced May 9, 2024; edited to the April 30, 2026 date."
+  - kind: changelog
+    url: https://developers.hubspot.com/changelog/extension-contact-lists-api-v1-sunset-moved-to-april-30-2026
+    observed: 2026-09-24
+  - kind: provider_page
+    url: https://developers.hubspot.com/docs/api-reference/deprecated-apis
+    observed: 2026-09-24
+
+migration:
+  replacement: "Lists (Segments) API, /crm/lists/2026-09"
+  guide: https://developers.hubspot.com/docs/api-reference/latest/crm/lists/guide
+  effort: medium
+  notes: >
+    HubSpot's announcement names the Lists v3 API, but v3 itself goes
+    unsupported in September 2027 and HubSpot says to migrate straight to
+    date-based versions, so target /crm/lists/2026-09. A list is created
+    with name, objectTypeId (0-1 for contacts) and processingType (MANUAL
+    for a static list, DYNAMIC for an active one) instead of the v1 dynamic
+    flag. Read and change membership through
+    /crm/lists/2026-09/{listId}/memberships (add and remove only work on
+    MANUAL and SNAPSHOT lists), and a contact's lists through
+    /crm/lists/2026-09/records/0-1/{recordId}/memberships. Stored v1 list
+    IDs are legacy IDs: translate them with
+    /crm/lists/2026-09/idmapping?legacyListId=... before use.
+
+status: expired
