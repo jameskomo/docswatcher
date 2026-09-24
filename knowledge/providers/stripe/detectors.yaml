@@ -25,11 +25,17 @@ literals:
     key: "ANY $1"
     confidence: medium
 
+  # Snake case is only Stripe's when it is stripe.api_version (Python) or
+  # Stripe.api_version (Ruby): a bare api_version also names Azure OpenAI's
+  # AzureOpenAI(api_version="2024-10-21") and other providers' dated versions.
+  # The camel case apiVersion stays, since new Stripe(key, { apiVersion }) has
+  # no prefix to require; it still matches new AzureOpenAI({ apiVersion }) with
+  # a GA date. Without lookbehind the constructor cannot be told apart.
   - id: stripe.literal.api-version
     kind: api_version
     files: ["**/*"]
     exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
-    pattern: '(?:Stripe-Version|setStripeVersionOverride\(|apiVersion|api_version)["'']?\s*[:=(]?\s*["'']([0-9]{4}-[0-9]{2}-[0-9]{2}(?:\.[a-z]+)?)["'']'
+    pattern: '(?:Stripe-Version|setStripeVersionOverride\(|apiVersion|[Ss]tripe\.api_version)["'']?\s*[:=(]?\s*["'']([0-9]{4}-[0-9]{2}-[0-9]{2}(?:\.[a-z]+)?)["'']'
     key: "$1"
     confidence: medium
 

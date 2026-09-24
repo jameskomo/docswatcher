@@ -25,10 +25,13 @@ literals:
   # text-embedding-004, so a loose [0-9a-z-]+ tail claimed Gemini embeddings as
   # OpenAI contracts. Anchored to OpenAI's real families instead. Found by
   # scanning a repository that used both providers.
+  #
+  # Bicep is excluded from the model rules: it only ever deploys Azure OpenAI,
+  # whose deployments the azure-openai provider reads as name-version.
   - id: openai.literal.model-gpt
     kind: model
     files: ["**/*"]
-    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json", "**/*.bicep", "**/*.bicepparam"]
     pattern: '\b(gpt-(?:[0-9]|image|realtime|audio|transcribe|live)(?:[0-9a-z.-]*[0-9a-z])?|chatgpt-[0-9a-z.-]*[0-9a-z]|dall-e-[0-9]|whisper-[0-9]+|text-embedding-(?:ada-[0-9]{3}|[0-9]+-(?:small|large))|text-davinci-[0-9]{3}|babbage-002|davinci-002|sora-[0-9](?:[0-9a-z.-]*[0-9a-z])?)\b'
     key: "$1"
     confidence: medium
@@ -36,7 +39,7 @@ literals:
   - id: openai.literal.model-o-series
     kind: model
     files: ["**/*"]
-    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json", "**/*.bicep", "**/*.bicepparam"]
     pattern: '["''](o[134](?:-mini|-pro|-preview|-deep-research)?(?:-[0-9]{4}-[0-9]{2}-[0-9]{2})?)["'']'
     key: "$1"
     confidence: medium
