@@ -97,7 +97,8 @@ async function request(url: string, init: RequestInit, provider: string): Promis
   if (res.ok) return data;
   const detail = (Array.isArray(data) ? data[0] : data)?.error?.message;
   if (res.status === 401 || res.status === 403) throw new Error(`${provider} rejected the key.${detail ? ` ${detail}` : ""}`);
-  throw new Error(`${provider} answered ${res.status}.${detail ? ` ${detail}` : ""}`);
+  const hint = res.status === 404 ? " Pick another model from the list." : "";
+  throw new Error(`${provider} answered ${res.status}.${detail ? ` ${detail}` : ""}${hint}`);
 }
 
 function anthropicHeaders(key: string): Record<string, string> {
@@ -181,6 +182,8 @@ const openai: Assistant = {
 
 /** Gemini through Google's OpenAI-compatible endpoint, which browsers may call. */
 const GEMINI = "https://generativelanguage.googleapis.com/v1beta/openai";
+/** gemini-3.6-flash → 3.6. Unversioned names sort last. */
+const version = (id: string) => Number(/^gemini-(\d+(?:\.\d+)?)/.exec(id)?.[1] ?? 0);
 const gemini: Assistant = {
   id: "gemini",
   name: "Gemini",
@@ -189,9 +192,12 @@ const gemini: Assistant = {
   prefer: [/flash(?!-lite)/, /pro/, /flash/],
   async models(key, signal) {
     const data = await request(`${GEMINI}/models`, { headers: { authorization: `Bearer ${key}` }, signal }, "Google");
+    // Google lists oldest first, and keeps listing models it has closed to new keys: newest first,
+    // so the default is a current model, not gemini-2.5-flash answering 404.
     return (data?.data ?? [])
       .map((m: { id: string }) => m.id.replace(/^models\//, ""))
-      .filter((id: string) => /^gemini/.test(id) && !/(embedding|image|tts|audio|live|vision)/.test(id));
+      .filter((id: string) => /^gemini/.test(id) && !/(embedding|image|tts|audio|live|vision)/.test(id))
+      .sort((a: string, b: string) => version(b) - version(a));
   },
   async run({ key, model, prompt, withDocsWatcher, knowledge, signal }) {
     const calls: ToolCall[] = [];
@@ -216,12 +222,16 @@ const gemini: Assistant = {
 
 export const ASSISTANTS: Assistant[] = [anthropic, openai, gemini];
 
-/** The default model: the first preferred one DocsWatcher does not know to be going away. */
+/** The default model: the first preferred, stable one DocsWatcher does not know to be going away. */
 export function defaultModel(assistant: Assistant, models: string[], knowledge: Knowledge): string {
   const safe = models.filter((m) => checkApi(knowledge, { value: m, kind: "model" }, new Date()).verdict === "NO_KNOWN_DEPRECATION");
-  for (const re of assistant.prefer) {
-    const hit = safe.find((m) => re.test(m));
-    if (hit) return hit;
+  // A stable model before a preview or experimental one, then the provider's own order (newest first).
+  const stable = safe.filter((m) => !/(preview|exp)/.test(m));
+  for (const pool of [stable, safe]) {
+    for (const re of assistant.prefer) {
+      const hit = pool.find((m) => re.test(m));
+      if (hit) return hit;
+    }
   }
   return safe[0] ?? models[0] ?? "";
 }

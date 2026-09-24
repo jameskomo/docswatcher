@@ -89,7 +89,10 @@ test("OpenAI runs the tool loop through the Responses API", async ({ page }) => 
 test("Gemini runs the tool loop through Google's OpenAI-compatible endpoint", async ({ page }) => {
   const hosts = keyHosts(page);
   const G = "https://generativelanguage.googleapis.com/v1beta/openai";
-  await page.route(`${G}/models`, (r) => json(r, { data: [{ id: "models/gemini-test-flash" }, { id: "models/text-embedding-004" }] }));
+  await page.route(`${G}/models`, (r) => json(r, { data: [
+    { id: "models/gemini-2.5-flash" }, { id: "models/gemini-3.6-flash" }, { id: "models/gemini-3.7-flash-preview" },
+    { id: "models/gemini-3.6-flash-lite" }, { id: "models/text-embedding-004" },
+  ] }));
   await page.route(`${G}/chat/completions`, (r) => {
     const body = r.request().postDataJSON();
     if (!body.tools) return json(r, { choices: [{ message: { role: "assistant", content: "bare" } }] });
@@ -106,7 +109,8 @@ test("Gemini runs the tool loop through Google's OpenAI-compatible endpoint", as
   await page.getByTestId("try-provider-gemini").click();
   await page.getByTestId("try-key").fill(KEY);
   await page.getByTestId("try-key").blur();
-  await expect(page.getByTestId("try-model")).toHaveValue("gemini-test-flash");
+  // Newest stable Flash: not the oldest in Google's list, and not a preview.
+  await expect(page.getByTestId("try-model")).toHaveValue("gemini-3.6-flash");
   await page.getByTestId("try-run").click();
   await expect(page.getByTestId("try-with")).toContainText("Use a current Gemini model.");
   await expect(page.getByTestId("try-with").getByTestId("try-calls")).toContainText('check_api("gemini-2.0-flash")');
