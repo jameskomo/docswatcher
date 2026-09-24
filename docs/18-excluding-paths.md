@@ -55,7 +55,7 @@ they agree.
 - **Java engine** (CLI, Action, MCP, GitHub App): after walking the tree and before reading any
   file.
 - **TypeScript engine** (the site): inside `scan`, from the ignore files present in the input.
-- **The site's fetchers.** The GitHub API and jsDelivr routes read at most 300 files. They now
+- **The site's fetchers.** The GitHub API, jsDelivr and GitLab routes read at most 300 files. They now
   fetch the ignore files first and drop excluded paths before choosing the 300, so fixtures cannot
   crowd out real code. The tarball route already has every file.
 

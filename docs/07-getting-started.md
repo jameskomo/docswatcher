@@ -99,7 +99,7 @@ The landing page has three input modes:
 | Mode | What it does | Network |
 |---|---|---|
 | Sample repository | Scans a bundled copy of a real public repo, or a fixture | None |
-| GitHub URL | Fetches any public repo and scans it | jsDelivr, or the GitHub API |
+| GitHub or GitLab URL | Fetches any public GitHub repo or GitLab project and scans it | jsDelivr or the GitHub API; the GitLab API |
 | Local folder | Reads a directory you pick | None |
 
 Every mode runs the same engine in your browser. No code is uploaded.
@@ -161,7 +161,9 @@ cd web && npx playwright install chromium
 
 **GitHub URL mode says every route was blocked.** Some hosts forbid outbound requests entirely, including the published artifact preview. Use a sample or a local folder there, or run the site locally where URL mode works.
 
-**A scan by URL says the rate limit is reached.** That is the GitHub API's 60 per hour per address. Paste a personal access token in the field on the page, or wait. The jsDelivr route has no such limit and is tried first.
+**A scan by URL says the rate limit is reached.** On GitHub that is the API's 60 per hour per address. Paste a personal access token in the field on the page, or wait. The jsDelivr route has no such limit and is tried first. On gitlab.com it is 500 API requests a minute per address: wait a minute, or paste a GitLab token.
+
+**A self-managed GitLab URL says the page's Content-Security-Policy does not allow it.** The deployed site allows gitlab.com only. Run the site yourself (`cd web && npm run dev`) to scan your own instance. See `docs/08-features.md`.
 
 ## Where to go next
 

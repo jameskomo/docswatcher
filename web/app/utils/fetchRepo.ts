@@ -16,7 +16,7 @@ export function parseGitHubUrl(input: string): RepoTarget | null {
 export interface FetchProgress { (msg: string, done?: number, total?: number): void; }
 export interface FetchResult { files: InputFile[]; repo: RepoRef; binaries: number; skipped: number; truncated: boolean; }
 
-const MAX_FILES = 300;
+export const MAX_FILES = 300;
 
 /**
  * Reads the repository's ignore files first and drops what they exclude, so excluded fixtures
@@ -24,7 +24,7 @@ const MAX_FILES = 300;
  * (docs/18-excluding-paths.md). Returns the kept paths and the ignore files, which the scan
  * needs too.
  */
-async function applyIgnoreFiles(paths: string[], read: (path: string) => Promise<string | null>): Promise<{ kept: Set<string>; ignoreFiles: InputFile[] }> {
+export async function applyIgnoreFiles(paths: string[], read: (path: string) => Promise<string | null>): Promise<{ kept: Set<string>; ignoreFiles: InputFile[] }> {
   const ignoreFiles: InputFile[] = [];
   for (const path of paths.filter(isIgnoreFile)) {
     const text = await read(path).catch(() => null);
@@ -71,7 +71,7 @@ async function gh(url: string, token?: string) {
   return res.json();
 }
 
-const PRIORITY = [/(^|\/)(package\.json|requirements[^/]*\.txt|pyproject\.toml|pom\.xml|go\.mod|Gemfile|composer\.json|[^/]+\.csproj)$/, /\.(ya?ml|toml|env|properties|json)$/, /\.(java|kt|ts|tsx|js|jsx|mjs|cjs|py|go|rb|php|cs)$/];
+export const PRIORITY = [/(^|\/)(package\.json|requirements[^/]*\.txt|pyproject\.toml|pom\.xml|go\.mod|Gemfile|composer\.json|[^/]+\.csproj)$/, /\.(ya?ml|toml|env|properties|json)$/, /\.(java|kt|ts|tsx|js|jsx|mjs|cjs|py|go|rb|php|cs)$/];
 
 /** Fallback without a relay: one tree call to the API, then raw file reads (not counted against the API limit). */
 export async function fetchViaApi(t: RepoTarget, token: string | undefined, progress: FetchProgress): Promise<FetchResult> {

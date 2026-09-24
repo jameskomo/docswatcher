@@ -2,6 +2,7 @@
 import type { Contract, Evidence, Finding, RepoRef } from "~~/engine/types";
 import { KIND_LABEL } from "~/utils/format";
 import { safeUrl } from "~/utils/safeUrl";
+import { evidenceUrl } from "~/utils/scanTarget";
 
 const props = defineProps<{ contracts: Contract[]; findings: Finding[]; repo?: RepoRef | null }>();
 const { providerName } = useKnowledge();
@@ -35,21 +36,10 @@ const rows = computed(() =>
 /** Full location list, used as the title so a truncated cell stays inspectable. */
 const allLocations = (c: Contract) => c.evidence.map((e) => `${e.path}:${e.line}`).join("\n");
 
-/**
- * A permanent link to the exact line on GitHub, or null when there is nothing to link to.
- * Only a public GitHub scan has a repo: a local folder or a bundled fixture has none, and
- * linking those would point at a repository the visitor never scanned. The sha pins the
- * line to the commit that was actually read, so the link cannot drift as the branch moves.
- */
+/** A permanent link to the line in the scanned commit, on GitHub or GitLab; see evidenceUrl. */
 function blobUrl(e: Evidence): string | null {
-  const r = props.repo;
-  if (!r || r.host !== "github" || !r.owner || !r.name) return null;
-  const at = r.sha || r.ref?.replace(/^refs\/heads\//, "");
-  if (!at) return null;
-  const path = e.path.split("/").map(encodeURIComponent).join("/");
-  return safeUrl(
-    `https://github.com/${encodeURIComponent(r.owner)}/${encodeURIComponent(r.name)}/blob/${encodeURIComponent(at)}/${path}#L${e.line}`,
-  );
+  const url = evidenceUrl(props.repo, e);
+  return url ? safeUrl(url) : null;
 }
 
 const rowsAfterCollapse = computed(() =>

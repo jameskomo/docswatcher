@@ -10,7 +10,7 @@ test("scans a real repo through jsDelivr with the GitHub API blocked", async ({ 
   await page.route("**://raw.githubusercontent.com/**", (r) => r.abort());
 
   await page.goto("./");
-  await page.getByRole("tab", { name: /GitHub URL/i }).click();
+  await page.getByRole("tab", { name: /GitHub or GitLab URL/i }).click();
   await page.getByPlaceholder(/github\.com/i).fill("https://github.com/openai/openai-quickstart-python");
   await page.getByRole("button", { name: /scan repository/i }).click();
 

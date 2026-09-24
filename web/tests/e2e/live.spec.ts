@@ -24,7 +24,7 @@ test("deployed site renders and scans a bundled repository", async ({ page }) =>
 test("deployed site scans a real repository by URL", async ({ page }) => {
   test.setTimeout(180_000);
   await page.goto(BASE, { waitUntil: "networkidle" });
-  await page.getByRole("tab", { name: /GitHub URL/i }).click();
+  await page.getByRole("tab", { name: /GitHub or GitLab URL/i }).click();
   await page.getByPlaceholder(/github\.com/i).fill("https://github.com/openai/openai-quickstart-python");
   await page.getByRole("button", { name: /scan repository/i }).click();
   await expect(page.locator("#findings")).toContainText("Assistants API", { timeout: 120_000 });

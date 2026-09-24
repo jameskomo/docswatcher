@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { InputFile, RepoRef } from "~~/engine/types";
-import { fetchViaApi, fetchViaRelay, parseGitHubUrl, readFolder, fetchViaJsDelivr } from "~/utils/fetchRepo";
+import { fetchViaApi, fetchViaRelay, readFolder, fetchViaJsDelivr } from "~/utils/fetchRepo";
+import { fetchViaGitLab } from "~/utils/gitlab";
+import { parseScanInput, parseShareParam, shareParam, targetLabel } from "~/utils/scanTarget";
 
 const config = useRuntimeConfig();
 const route = useRoute();
@@ -20,7 +22,7 @@ useHead({
   }],
 });
 
-const mode = ref<"sample" | "github" | "folder">("sample");
+const mode = ref<"sample" | "url" | "folder">("sample");
 const networkBlocked = ref(false);
 const url = ref("");
 const token = ref("");
@@ -30,6 +32,9 @@ const busy = ref(false);
 const status = ref("");
 const error = ref("");
 const fetchNote = ref("");
+/** What the URL field names as typed, so the token field can say where a token would go. */
+const target = computed(() => parseScanInput(url.value));
+const tokenHost = computed(() => (target.value?.host === "gitlab" ? new URL(target.value.project.origin).host : "GitHub"));
 
 const result = computed(() => store.current.value);
 const findings = computed(() => (result.value?.findings ?? []).filter((f) => store.effectiveStatus(f) === "open"));
@@ -38,7 +43,7 @@ const percent = computed(() => {
   return p && p.total ? Math.round((100 * p.done) / p.total) : null;
 });
 
-async function runScan(files: InputFile[], repo: RepoRef, source: { label: string; kind: "sample" | "github" | "folder" }) {
+async function runScan(files: InputFile[], repo: RepoRef, source: { label: string; kind: "sample" | "github" | "gitlab" | "folder" }) {
   status.value = "Scanning AST";
   const r = await scanner.run(files, repo);
   store.save({ inventory: r.inventory, findings: r.findings, source, at: new Date().toISOString() });
@@ -59,18 +64,24 @@ async function scanSample(targetName?: string) {
   });
 }
 
-async function scanGitHub() {
-  const t = parseGitHubUrl(url.value);
+async function scanUrl() {
+  const t = parseScanInput(url.value);
   if (!t) {
-    error.value = "That is not a repository URL. Use the form https://github.com/owner/repo";
+    error.value = "That is not a repository URL. Use https://github.com/owner/repo, or https://gitlab.com/group/project for GitLab. A self-managed GitLab works by its full URL.";
     return;
   }
+  const label = targetLabel(t);
   await guard(async () => {
     const progress = (msg: string, done?: number, total?: number) => { status.value = total ? `${msg} ${done} of ${total}` : msg; };
     const routes: Array<{ name: string; run: () => Promise<any> }> = [];
-    if (relay) routes.push({ name: "relay", run: () => fetchViaRelay(relay, t, progress) });
-    routes.push({ name: "jsDelivr", run: () => fetchViaJsDelivr(t, progress) });
-    routes.push({ name: "GitHub API", run: () => fetchViaApi(t, token.value.trim() || undefined, progress) });
+    if (t.host === "gitlab") {
+      // One route: the GitLab API answers cross-origin reads itself, so no mirror or relay is needed.
+      routes.push({ name: "GitLab API", run: () => fetchViaGitLab(t.project, token.value.trim() || undefined, progress) });
+    } else {
+      if (relay) routes.push({ name: "relay", run: () => fetchViaRelay(relay, t.repo, progress) });
+      routes.push({ name: "jsDelivr", run: () => fetchViaJsDelivr(t.repo, progress) });
+      routes.push({ name: "GitHub API", run: () => fetchViaApi(t.repo, token.value.trim() || undefined, progress) });
+    }
 
     let res: any = null;
     const tried: string[] = [];
@@ -86,15 +97,15 @@ async function scanGitHub() {
       networkBlocked.value = true;
       mode.value = "sample";
       throw new Error(
-        `Could not reach ${t.owner}/${t.name}. ${tried.join(". ")}. Sample repositories and local folders still work here and run the same engine. To scan by URL, run the site locally or deploy it to your own host.`,
+        `Could not reach ${label}. ${tried.join(". ")}. Sample repositories and local folders still work here and run the same engine. To scan by URL, run the site locally or deploy it to your own host.`,
       );
     }
     fetchNote.value = `${res.files.length} text files read`
       + (res.binaries ? `, ${res.binaries} binary files skipped` : "")
       + (res.truncated ? ". Large repository, so only the first 300 relevant files were read." : "");
-    await runScan(res.files, res.repo, { label: `${t.owner}/${t.name}`, kind: "github" });
+    await runScan(res.files, res.repo, { label, kind: t.host });
     // The address bar becomes the share link: opening it runs the same scan again, fresh.
-    router.replace({ path: "/", query: { repo: `${t.owner}/${t.name}` } });
+    router.replace({ path: "/", query: { repo: shareParam(res.repo) } });
   });
 }
 
@@ -123,24 +134,21 @@ async function guard(fn: () => Promise<void>) {
   try { await fn(); } catch (e: any) { error.value = describe(e); } finally { busy.value = false; status.value = ""; }
 }
 
-// A live scan link: /#/?repo=owner/name scans that repository on arrival. See docs/15-feeds-and-sharing.md.
-const REPO_PARAM = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
+// A live scan link: /#/?repo=owner/name scans that GitHub repository on arrival, and
+// /#/?repo=gitlab.com/group/project that GitLab project. See docs/15-feeds-and-sharing.md.
 onMounted(() => {
-  const linked = typeof route.query.repo === "string" ? route.query.repo : "";
-  if (REPO_PARAM.test(linked)) {
-    mode.value = "github";
-    url.value = `https://github.com/${linked}`;
-    scanGitHub();
+  const linked = typeof route.query.repo === "string" ? parseShareParam(route.query.repo) : null;
+  if (linked) {
+    mode.value = "url";
+    url.value = linked.host === "github" ? `https://github.com/${linked.repo.owner}/${linked.repo.name}` : `${linked.project.origin}/${linked.project.path}`;
+    scanUrl();
     return;
   }
   if (!store.current.value && samples.length) scanSample();
 });
 
-/** owner/name when the current result is a public GitHub repository, which is what a link can re-scan. */
-const shareable = computed(() => {
-  const r = result.value?.inventory?.repo;
-  return r && r.host === "github" && r.owner && r.name ? `${r.owner}/${r.name}` : "";
-});
+/** The ?repo= value when the current result is a public GitHub repository or GitLab project, which is what a link can re-scan. */
+const shareable = computed(() => shareParam(result.value?.inventory?.repo));
 const base = ref("");
 onMounted(() => { base.value = location.href.split("#")[0]; });
 const shareLink = computed(() => (shareable.value ? `${base.value}#/?repo=${shareable.value}` : ""));
@@ -178,9 +186,9 @@ async function copyLink() {
             <span>⚡</span>
             <span>Sample repository</span>
           </button>
-          <button role="tab" :aria-selected="mode === 'github'" @click="mode = 'github'">
-            <span>🐙</span>
-            <span>GitHub URL</span>
+          <button role="tab" :aria-selected="mode === 'url'" @click="mode = 'url'">
+            <span>🔗</span>
+            <span>GitHub or GitLab URL</span>
           </button>
           <button role="tab" :aria-selected="mode === 'folder'" @click="mode = 'folder'">
             <span>📁</span>
@@ -188,7 +196,7 @@ async function copyLink() {
           </button>
         </div>
 
-        <p v-if="networkBlocked && mode === 'github'" class="notice" role="status">
+        <p v-if="networkBlocked && mode === 'url'" class="notice" role="status">
           This host blocks outbound requests, so URL scanning is unavailable here. Use a sample or a
           local folder, or run the site yourself.
         </p>
@@ -265,11 +273,11 @@ async function copyLink() {
           </p>
         </div>
 
-        <!-- GitHub URL Mode -->
-        <form v-else-if="mode === 'github'" class="stack" @submit.prevent="scanGitHub">
+        <!-- Repository URL Mode: GitHub, gitlab.com, or a self-managed GitLab -->
+        <form v-else-if="mode === 'url'" class="stack" @submit.prevent="scanUrl">
           <div>
             <label for="repo-url" style="font-size: var(--t2); font-weight: 600; color: var(--ink-max); margin-bottom: 6px; display: block">
-              Public GitHub repository URL
+              Public GitHub repository or GitLab project URL
             </label>
             <div class="row">
               <input
@@ -277,8 +285,8 @@ async function copyLink() {
                 class="input grow"
                 style="flex: 1 1 200px; min-width: 0; max-width: 100%"
                 v-model="url"
-                placeholder="https://github.com/owner/repo"
-                aria-label="GitHub repository URL"
+                placeholder="https://github.com/owner/repo or https://gitlab.com/group/project"
+                aria-label="Repository URL"
                 :disabled="busy"
               />
               <button id="scan-github" class="btn solid" type="submit" :disabled="busy">
@@ -286,7 +294,7 @@ async function copyLink() {
               </button>
             </div>
           </div>
-          <div v-if="!relay" class="stack" style="gap: 4px">
+          <div v-if="!relay || target?.host === 'gitlab'" class="stack" style="gap: 4px">
             <label for="gh-token" style="font-size: var(--t1); font-weight: 600; color: var(--ink-soft); display: block">
               Personal Access Token (optional)
             </label>
@@ -297,11 +305,15 @@ async function copyLink() {
                 style="flex: 1 1 180px; min-width: 0; max-width: 100%"
                 type="password"
                 v-model="token"
-                placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-                aria-label="GitHub token"
+                :placeholder="target?.host === 'gitlab' ? 'glpat-xxxxxxxxxxxxxxxxxxxx' : 'ghp_xxxxxxxxxxxxxxxxxxxx'"
+                :aria-label="`${tokenHost} token`"
                 autocomplete="off"
               />
-              <span class="ink-faint">
+              <span v-if="target?.host === 'gitlab'" class="ink-faint" data-testid="token-hint">
+                Stored only in memory and sent only to {{ tokenHost }}. Needed for a private project
+                (read_api scope); gitlab.com allows 500 API requests a minute without one.
+              </span>
+              <span v-else class="ink-faint" data-testid="token-hint">
                 Stored only in memory. Increases GitHub API rate limit from 60 to 5,000 req/hr.
               </span>
             </div>
@@ -386,7 +398,7 @@ async function copyLink() {
 
     <section v-else-if="!busy" class="section empty">
       <h3>Nothing scanned yet</h3>
-      <p>Choose a sample repository, paste a GitHub URL, or pick a folder from your machine.</p>
+      <p>Choose a sample repository, paste a GitHub or GitLab URL, or pick a folder from your machine.</p>
     </section>
   </div>
 </template>

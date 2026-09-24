@@ -50,7 +50,14 @@ from the same function, so the three can never disagree.
 `https://docswatcher.vukisha.co.ke/#/?repo=owner/name` opens the site and scans that public
 repository immediately. The scan runs in the visitor's browser, as every public scan does.
 
-After a GitHub scan, the results show:
+A GitLab project's link leads with the host and carries the whole group path:
+`/#/?repo=gitlab.com/group/subgroup/project`. A self-managed instance works the same way, for
+example `?repo=gitlab.example.com/team/api`, where the site's policy allows that host (see
+[`08-features.md`](./08-features.md)). A GitHub name never contains a dot, so a first segment with
+one is always a host, and every existing `owner/name` link means what it always did. Only plain
+names are accepted: no scheme, no query and no ref. A GitLab link always means https.
+
+After a GitHub or GitLab scan, the results show:
 
 - **Copy link**, which copies the live scan link.
 - **Badge**, a Markdown snippet for a README:
@@ -88,3 +95,5 @@ Two nginx changes:
 | JSON record count equals the knowledge base change count | Open data is complete |
 | e2e: visiting `/#/?repo=owner/name` fills the URL field and starts a scan | Live links work |
 | e2e: after a scan, the share controls exist and the badge snippet contains the live link | Sharing works |
+| unit: `?repo=` values for GitHub, gitlab.com, nested groups and a self-managed host round-trip, and crafted values are refused | GitLab links work, GitHub links unchanged |
+| e2e: a GitLab scan's address bar and badge carry `?repo=gitlab.com/group/sub/project`, and opening it scans again | GitLab links work |

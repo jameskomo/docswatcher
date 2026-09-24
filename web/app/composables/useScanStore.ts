@@ -3,7 +3,7 @@ import type { Finding, Inventory } from "~~/engine/types";
 export interface StoredScan {
   inventory: Inventory;
   findings: Finding[];
-  source: { label: string; kind: "sample" | "github" | "folder" };
+  source: { label: string; kind: "sample" | "github" | "gitlab" | "folder" };
   at: string;
 }
 export interface LocalState {

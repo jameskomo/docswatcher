@@ -40,7 +40,7 @@ Grammars load lazily, one per language present in the scanned tree, from `./gram
 
 ## Relay
 
-Set `NUXT_PUBLIC_RELAY_URL` to the Cloudflare Worker that streams GitHub tarballs (`<relay>/tarball/<owner>/<repo>[/<ref>]`). Without it, GitHub URL scans fall back to the GitHub API: one tree call, then file reads from `raw.githubusercontent.com`, capped at 300 relevant files, with an optional personal token kept in memory. The API fallback is limited to 60 requests per hour per address without a token.
+Set `NUXT_PUBLIC_RELAY_URL` to the Cloudflare Worker that streams GitHub tarballs (`<relay>/tarball/<owner>/<repo>[/<ref>]`). Without it, GitHub URL scans fall back to the GitHub API: one tree call, then file reads from `raw.githubusercontent.com`, capped at 300 relevant files, with an optional personal token kept in memory. The API fallback is limited to 60 requests per hour per address without a token. GitLab URLs (gitlab.com, or a self-managed instance by its full URL) go straight to that instance's REST API v4, with the same 300-file cap; `https://gitlab.com` must be in the site's `connect-src`, and a self-managed host works only where the policy allows it.
 
 ## Static export and artifact hosting
 

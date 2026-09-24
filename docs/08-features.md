@@ -285,6 +285,35 @@ Refresh them with `node web/scripts/vendor-repos.mjs --refresh`.
 
 jsDelivr leads because it has no hourly ceiling. If every route is blocked, the page names each one rather than showing a bare fetch error.
 
+**GitLab URL.** The same field takes a GitLab project, on gitlab.com or a self-managed instance
+named by its full URL. Nested groups work: `https://gitlab.com/group/subgroup/project`, optionally
+followed by `/-/tree/<ref>`. There is one route, the GitLab REST API v4, which answers any origin
+with `Access-Control-Allow-Origin: *`:
+
+| Step | Request |
+|---|---|
+| Resolve the project and its default branch | `GET /api/v4/projects/<url-encoded path>` |
+| Pin the ref to a commit | `GET /projects/:id/repository/commits/<ref>` |
+| List files | `GET /projects/:id/repository/tree?recursive=true&per_page=100`, following the `Link` header (keyset pagination), at most 50 pages |
+| Read files | `GET /projects/:id/repository/files/<path>/raw?ref=<sha>` |
+
+The same budget applies as on GitHub: the ignore files are read first, excluded paths are
+dropped, and at most 300 relevant files are read. A scan costs at most about 360 requests, inside
+gitlab.com's 500 a minute per address without a token. The rate limit headers are not exposed to
+the page, so a 429 ends the scan with a message. It never returns a partial scan. A token, sent
+as `PRIVATE-TOKEN` and only to the instance named in the URL, raises the limit and reads private
+projects (`read_api` scope). The archive endpoint also allows cross-origin reads, but its size has
+no bound, and gitlab.com limits archive downloads far more tightly, so it is not used.
+
+**Which GitLab hosts work.** The browser can only reach a host that the site's
+Content-Security-Policy `connect-src` allows. The deployed site allows `https://gitlab.com`. It
+cannot list self-managed instances in advance, and it does not allow every origin. A self-managed
+GitLab therefore works where the site's policy allows its host. That means a copy you run
+yourself, including `npm run dev`, or a deployment whose policy adds the host. Elsewhere the page
+catches the policy violation and says so. It names the host and how to get a copy that allows it,
+instead of a bare "Failed to fetch". A host that is unreachable for any other reason (a private
+network, no CORS) gets its own message.
+
 **Local folder.** Reads a directory you pick. Nothing leaves the browser.
 
 ### The calendar
