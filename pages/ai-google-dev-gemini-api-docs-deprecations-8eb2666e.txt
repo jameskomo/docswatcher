@@ -1,4 +1,4 @@
-メイン コンテンツにスキップ
+Ir para o conteúdo principal
 /
 English
 Deutsch
@@ -22,537 +22,556 @@ Türkçe
 中文 – 繁體
 日本語
 한국어
-API キーを取得する
-クックブック
-コミュニティ
-ログイン
-ドキュメント
-API リファレンス
+Conferir a chave de API
+Manual
+Comunidade
+Fazer login
+Documentos
+Referência da API
 Gemini API
-ドキュメント
-API リファレンス
-API キーを取得する
-クックブック
-コミュニティ
-使ってみる
-概要
-使ってみる
-API キー
-料金
-コーディング エージェントの設定
-モデル
-すべてのモデル
-最新の Gemini モデル
+Documentos
+Referência da API
+Conferir a chave de API
+Manual
+Comunidade
+Começar
+Visão geral
+Começar
+Chaves de API
+Preço
+Configuração do agente de programação
+Modelos
+Todos os modelos
+Modelos mais recentes do Gemini
 Nano Banana
 Veo
 Gemini Omni Flash
-Lyria 3.5 と Lyria Clip
-概要
+Lyria 3.5 e Lyria Clip
+Visão geral
 Lyria RealTime
-Lyria プロンプト ガイド
-テキスト読み上げ
-音声文字変換
-ライブ
-リアルタイム翻訳
-エンベディング
-ロボット工学
-概要
-空間推論
-エージェントのビジョン
-タスク オーケストレーション
-ストリーミングによるロボット工学
-動画理解
-中核となる機能
-テキスト
-画像
-画像生成 🍌
-画像の理解
-動画
-概要を説明した動画
-動画理解
-ドキュメント
-音声
-音声生成
-音声の理解
-音声文字変換
-思考モード
-思考シグネチャ
-構造化出力
-関数呼び出し
-長いコンテキスト
-エージェント
-概要
-クイックスタート
-Antigravity エージェント
-マネージド エージェントの構築
-環境
-認証情報
+Guia de comandos do Lyria
+Conversão texto em voz
+Visão geral
+Design de voz
+Replicação de voz
+Transcrever
+Agora
+Tradução instantânea
+Embeddings
+Robótica
+Visão geral
+Raciocínio espacial
+Visão agêntica
+Orquestração de tarefas
+Robótica com streaming
+Compreensão do vídeo
+Recursos principais
+Texto
+Imagem
+Geração de imagens 🍌
+Compreensão de imagens
+Vídeos
+Visão geral do vídeo
+Compreensão do vídeo
+Documentos
+Fala e áudio
+Geração de voz
+Compreensão de áudio
+Transcrição de áudio
+Pensando
+Assinaturas de raciocínio
+Respostas estruturadas
+Chamadas de função
+Contexto longo
+Agentes
+Visão geral
+Início rápido
+Agente do Antigravity
+Como criar agentes gerenciados
+Ambientes
+Credenciais
 Hooks
-Deep Research エージェント
-ツール
-概要
+Agente Deep Research
+Ferramentas
+Visão geral
 Google Search
 Google Maps
-コードの実行
-URL コンテキスト
-パソコンの使用
-ファイル検索
-ツールと関数呼び出しを組み合わせる
-Live API
-概要
-使ってみる
-GenAI SDK の使用を開始する
-生の WebSocket の使用を開始する
-機能
-思考モード
-音声文字変換
-ライブ翻訳
-ツールの使用
-セッション管理
-エフェメラル トークン
-おすすめの方法
-最適化
-概要
-バッチ API
-Webhook
-Flex 推論
-優先度推論
-コンテキストのキャッシュ保存
-ガイド
-Interactions API
-ストリーミング
-バックグラウンド実行
-ファイル入力
-入力方法
-Files API
-OpenAI の互換性
-メディアの解像度
-トークンのカウント
-プロンプト エンジニアリング
-ログとデータセット
-ログを使ってみる
-データロギングと共有
-安全性
-安全性設定
-安全に関するガイダンス
-フレームワーク
-LangChain と LangGraph
+Execução de código
+Contexto do URL
+Uso do computador
+Pesquisa de arquivos
+Combinar ferramentas e chamada de função
+API em tempo real
+Visão geral
+Começar
+Começar a usar o SDK da IA generativa
+Começar a usar WebSockets brutos
+Recursos
+Pensando
+Transcrição em tempo real
+Tradução em tempo real
+Uso da ferramenta
+Gerenciamento de sessões
+Tokens temporários
+Práticas recomendadas
+Otimização
+Visão geral
+API Batch
+Webhooks
+Inferência flexível
+Inferência de prioridade
+O armazenamento em cache de contexto
+Guias
+API Interactions
+Streaming
+Execução em segundo plano
+Entrada de arquivo
+Métodos de entrada
+API Files
+Compatibilidade com a OpenAI
+Resolução da mídia
+Contagem de tokens
+Engenharia de comando
+Registros e conjuntos de dados
+Começar a usar os registros
+Registro e compartilhamento de dados
+Segurança
+Configurações de segurança
+Orientações de segurança
+Frameworks
+LangChain e LangGraph
 CrewAI
 LlamaIndex
-Vercel AI SDK
-時間の経過
-リソース
-リリースノート
-非推奨のサービスと機能
-ライブラリ
-移行
-Gen AI SDK に移行する
-Interactions API に移行する
-インタラクションの互換性を損なう変更（2026 年 5 月）
-レート制限
-お支払い情報
-API のトラブルシューティング
-API エラー
-ステータス
-パートナーとライブラリの統合
+SDK de IA da Vercel
+Temporais
+Recursos
+Notas da versão
+Descontinuações
+Bibliotecas
+Migração
+Migrar para o SDK de IA generativa
+Migrar para a API Interactions
+Mudanças incompatíveis com versões anteriores nas interações (maio de 2026)
+Limites de taxas
+Informações de faturamento
+Solução de problemas com APIs
+Erros da API
+Status
+Integrações de parceiros e bibliotecas
 Google AI Studio
-クイックスタート
-Google AI プラン
-ビルドモードでのバイブ コーディング
-フルスタック アプリの開発
-Android アプリをビルドする
-アプリのデプロイ
-AI Studio Playground のエージェント
-LearnLM を試す
-トラブルシューティング
-Workspace ユーザーのアクセス
+Início rápido
+Planos com IA do Google
+Vibe coding no modo criador
+Desenvolvimento de apps full stack
+Criar apps Android
+Como implantar o app
+Agentes no playground do AI Studio
+Teste o LearnLM
+Solução de problemas
+Acesso para usuários do Workspace
 Google Cloud Platform
-Gemini Enterprise Agent Platform Gemini API
-OAuth 認証
-ポリシー
-利用規約
-利用可能なリージョン
-不正行為の監視
-フィードバック情報
-Interactions API の一般提供を開始しました。この API を使用して、最新の機能とモデルにアクセスすることをおすすめします。
-Google は AI 技術を使用して、コンテンツをご希望の言語に翻訳しています。AI 翻訳には誤りが含まれる場合があります。
-ホーム
+Plataforma de agentes do Gemini Enterprise e API Gemini
+Autenticação OAuth
+Políticas
+Termos de Serviço
+Regiões disponíveis
+Monitoramento de abuso
+Informações de feedback
+O Gemini 3.8 Flash já está disponível. Faça um teste .
+O Google usa tecnologia de IA na tradução de conteúdos para seu idioma de preferência. As traduções com IA podem ter erros.
+Página inicial
 Gemini API
-ドキュメント
-フィードバックを送信
-Gemini の非推奨
-このページでは、Gemini API の 安定版（一般提供） モデルと プレビュー版 モデル、マネージド エージェントの既知の非推奨スケジュールを示します。「 サポート終了 」とは、モデルのサポートを終了し、近い将来に「 シャットダウン 」することを発表することです。モデルが「 シャットダウン 」されると、完全にオフになり、エンドポイントは使用できなくなります。
-非推奨の発表は リリースノート のページで行われ、発表された最も早いシャットダウン日はこのページで追跡されます。すでにシャットダウンされているモデルは、背景がグレーで示されます。
-注: 表に記載されている シャットダウン日は、モデルが廃止される可能性のある 最も早い日付 を示しています。 後継モデルへのスムーズな移行を確保するため、終了日は事前にユーザーに通知します。
-Gemini 3 モデル
-モデル
-リリース日
-提供終了日
-推奨される交換
+Documentos
+Envie comentários
+Descontinuações do Gemini
+Esta página lista os cronogramas de descontinuação conhecidos para modelos estáveis (GA) e em prévia e para agentes gerenciados na API Gemini. Uma descontinuação é o anúncio de que não oferecemos mais suporte a um modelo e que ele será desativado em breve. Quando um modelo é " desativado ", ele é
+completamente desligado, e o endpoint não fica mais disponível.
+Os anúncios de suspensão de uso são feitos na página Notas da versão , e as datas de encerramento mais antigas anunciadas são rastreadas nesta página.
+Os modelos já desativados são indicados com planos de fundo cinza.
+Observação : as datas de desativação listadas na tabela indicam as datas mais próximas possíveis em que um modelo pode ser desativado . Vamos comunicar a data exata de desativação aos usuários com antecedência para garantir uma transição tranquila para um modelo substituto.
+Modelos do Gemini 3
+Modelo
+Data da versão
+Data de desativação
+Substituição recomendada
+gemini-3.8-flash-tts
+22 de setembro de 2026
+Nenhuma data de encerramento anunciada
+gemini-3.8-flash-lite-tts
+22 de setembro de 2026
+Nenhuma data de encerramento anunciada
 gemini-3.8-live
-2026 年 9 月 15 日
-提供終了日は未発表
+15 de setembro de 2026
+Nenhuma data de encerramento anunciada
 gemini-3.8-live-extended-thinking
-2026 年 9 月 15 日
-提供終了日は未発表
+15 de setembro de 2026
+Nenhuma data de encerramento anunciada
 gemini-3.8-flash
-2026 年 9 月 2 日
-提供終了日は未発表
+2 de setembro de 2026
+Nenhuma data de encerramento anunciada
 gemini-3.7-flash
-2026 年 8 月 13 日
-提供終了日は未発表
+13 de agosto de 2026
+Nenhuma data de encerramento anunciada
 gemini-3.6-flash
-2026 年 7 月 21 日
-提供終了日は未発表
+21 de julho de 2026
+Nenhuma data de encerramento anunciada
 gemini-3.5-flash-lite
-2026 年 7 月 21 日
-提供終了日は未発表
+21 de julho de 2026
+Nenhuma data de encerramento anunciada
 gemini-3.5-flash
-2026 年 5 月 19 日
-提供終了日は未発表
+19 de maio de 2026
+Nenhuma data de encerramento anunciada
 gemini-3.1-flash-image
-2026 年 5 月 28 日
-提供終了日は未発表
+28 de maio de 2026
+Nenhuma data de encerramento anunciada
 gemini-3-pro-image
-2026 年 5 月 28 日
-提供終了日は未発表
+28 de maio de 2026
+Nenhuma data de encerramento anunciada
 gemini-3.1-flash-lite
-2026 年 5 月 7 日
-2027 年 5 月 7 日
+7 de maio de 2026
+7 de maio de 2027
 gemini-3.5-flash-lite
-モデルをプレビュー
+Modelos de visualização
+gemini-3.1-flash-tts-preview
+26 de fevereiro de 2026
+Nenhuma data de encerramento anunciada
+gemini-3.8-flash-tts ou gemini-3.8-flash-lite-tts
 gemini-3.1-flash-image-preview
-2026 年 2 月 26 日
-2026 年 6 月 25 日
+26 de fevereiro de 2026
+25 de junho de 2026
 gemini-3.1-flash-image
 gemini-3.1-pro-preview
-2026 年 2 月 19 日
-提供終了日は未発表
+19 de fevereiro de 2026
+Nenhuma data de encerramento anunciada
 gemini-3-pro-image-preview
-2025 年 11 月 20 日
-2026 年 6 月 25 日
+20 de novembro de 2025
+25 de junho de 2026
 gemini-3-pro-image
 gemini-3-flash-preview
-2025 年 12 月 17 日
-提供終了日は未発表
+17 de dezembro de 2025
+Nenhuma data de encerramento anunciada
 gemini-3.6-flash
 gemini-3-pro-preview
-2025 年 11 月 18 日
-2026 年 3 月 9 日
+18 de novembro de 2025
+9 de março de 2026
 gemini-3.1-pro-preview
 gemini-3.1-flash-lite-preview
-2026 年 3 月 3 日
-2026 年 5 月 25 日
+3 de março de 2026
+25 de maio de 2026
 gemini-3.1-flash-lite
-Gemini 2.5 Pro モデル
-注: すべてのユーザーに安定したパフォーマンスを提供するため、2.5 モデルへのアクセスは、過去に積極的に使用したユーザーに制限されています。これらのモデルは非推奨ではなく、API を通じて別途通知があるまで引き続き提供されます。新しいプロジェクトでは、最新のモデル（3.5 Flash-Lite または 3.8 Flash）を使用してください。これにより、進行中のレガシー ワークフローと新しいアプリケーションの両方に十分な容量を維持できます。
-モデル
-リリース日
-提供終了日
-推奨される交換
+Modelos do Gemini 2.5 Pro
+Observação :para garantir uma performance confiável para todos, estamos limitando
+o acesso aos modelos 2.5 a usuários que os usaram ativamente no passado.
+Esses modelos não foram descontinuados e vão continuar sendo veiculados até novo aviso pela API. Para novos projetos, use nossos modelos mais recentes: 3.5 Flash-Lite ou 3.8 Flash. Isso nos ajuda a manter capacidade suficiente para fluxos de trabalho legados em andamento e novos aplicativos.
+Modelo
+Data da versão
+Data de desativação
+Substituição recomendada
 gemini-2.5-pro
-2025 年 6 月 17 日
-提供終了日は未発表
-モデルをプレビュー
+17 de junho de 2025
+Nenhuma data de encerramento anunciada
+Modelos de visualização
 gemini-2.5-pro-preview-03-25
-2025 年 3 月 3 日
-2025 年 12 月 2 日
+3 de março de 2025
+2 de dezembro de 2025
 gemini-3.1-pro-preview
 gemini-2.5-pro-preview-05-06
-2025 年 5 月 6 日
-2025 年 12 月 2 日
+6 de maio de 2025
+2 de dezembro de 2025
 gemini-3.1-pro-preview
 gemini-2.5-pro-preview-06-05
-2025 年 6 月 5 日
-2025 年 12 月 2 日
+5 de junho de 2025
+2 de dezembro de 2025
 gemini-3.1-pro-preview
-Gemini 2.5 Flash モデル
-注: すべてのユーザーに安定したパフォーマンスを提供するため、2.5 モデルへのアクセスは、過去に積極的に使用したユーザーに制限されています。これらのモデルは非推奨ではなく、API を通じて別途通知があるまで引き続き提供されます。新しいプロジェクトでは、最新のモデル（3.5 Flash-Lite または 3.8 Flash）を使用してください。これにより、進行中のレガシー ワークフローと新しいアプリケーションの両方に十分な容量を維持できます。
-モデル
-リリース日
-提供終了日
-推奨される交換
+Modelos do Gemini 2.5 Flash
+Observação :para garantir uma performance confiável para todos, estamos limitando
+o acesso aos modelos 2.5 a usuários que os usaram ativamente no passado.
+Esses modelos não foram descontinuados e vão continuar sendo veiculados até novo aviso pela API. Para novos projetos, use nossos modelos mais recentes: 3.5 Flash-Lite ou 3.8 Flash. Isso nos ajuda a manter capacidade suficiente para fluxos de trabalho legados em andamento e novos aplicativos.
+Modelo
+Data da versão
+Data de desativação
+Substituição recomendada
 gemini-2.5-flash
-2025 年 6 月 17 日
-提供終了日は未発表
+17 de junho de 2025
+Nenhuma data de encerramento anunciada
 gemini-2.5-flash-image
-2025 年 10 月 2 日
-2026 年 10 月 2 日
+2 de outubro de 2025
+2 de outubro de 2026
 gemini-3.1-flash-image-preview
 gemini-2.5-flash-lite
-2025 年 7 月 22 日
-提供終了日は未発表
-モデルをプレビュー
+22 de julho de 2025
+Nenhuma data de encerramento anunciada
+Modelos de visualização
 gemini-2.5-flash-lite-preview-09-2025
-2025 年 9 月 25 日
-2026 年 3 月 31 日
+25 de setembro de 2025
+31 de março de 2026
 gemini-3.1-flash-lite
 gemini-2.5-flash-preview-05-20
-2025 年 5 月 20 日
-2025 年 11 月 18 日
+20 de maio de 2025
+18 de novembro de 2025
 gemini-3.6-flash
 gemini-2.5-flash-image-preview
-2025 年 5 月 7 日
-2026 年 1 月 15 日
+7 de maio de 2025
+15 de janeiro de 2026
 gemini-2.5-flash-image
 gemini-2.5-flash-preview-09-25
-2025 年 9 月 25 日
-2026 年 2 月 17 日
+25 de setembro de 2025
+17 de fevereiro de 2026
 gemini-3.6-flash
-Gemini 2.0 モデル
-モデル
-リリース日
-提供終了日
-推奨される交換
+Modelos do Gemini 2.0
+Modelo
+Data da versão
+Data de desativação
+Substituição recomendada
 gemini-2.0-flash
-2025 年 2 月 5 日
-2026 年 6 月 1 日
+5 de fevereiro de 2025
+1º de junho de 2026
 gemini-3.6-flash
 gemini-2.0-flash-001
-2025 年 2 月 5 日
-2026 年 6 月 1 日
+5 de fevereiro de 2025
+1º de junho de 2026
 gemini-3.6-flash
 gemini-2.0-flash-lite
-2025 年 2 月 25 日
-2026 年 6 月 1 日
+25 de fevereiro de 2025
+1º de junho de 2026
 gemini-3.1-flash-lite
 gemini-2.0-flash-lite-001
-2025 年 2 月 25 日
-2026 年 6 月 1 日
+25 de fevereiro de 2025
+1º de junho de 2026
 gemini-3.1-flash-lite
-モデルをプレビュー
+Modelos de visualização
 gemini-2.0-flash-preview-image-generation
-2025 年 5 月 7 日
-2025 年 11 月 14 日
+7 de maio de 2025
+14 de novembro de 2025
 gemini-2.5-flash-image
 gemini-2.0-flash-lite-preview
-2025 年 2 月 5 日
-2025 年 12 月 9 日
+5 de fevereiro de 2025
+9 de dezembro de 2025
 gemini-2.5-flash-lite
 gemini-2.0-flash-lite-preview-02-05
-2025 年 2 月 5 日
-2025 年 12 月 9 日
+5 de fevereiro de 2025
+9 de dezembro de 2025
 gemini-2.5-flash-lite
-Live API モデル
-モデル
-リリース日
-提供終了日
-推奨される交換
+Modelos de API em tempo real
+Modelo
+Data da versão
+Data de desativação
+Substituição recomendada
 gemini-3.8-live
-2026 年 9 月 15 日
-提供終了日は未発表
+15 de setembro de 2026
+Nenhuma data de encerramento anunciada
 gemini-3.8-live-extended-thinking
-2026 年 9 月 15 日
-提供終了日は未発表
+15 de setembro de 2026
+Nenhuma data de encerramento anunciada
 gemini-3.5-transcribe-live
-2026 年 8 月
-提供終了日は未発表
+Agosto de 2026
+Nenhuma data de encerramento anunciada
 gemini-2.0-flash-live-001
-2025 年 4 月 9 日
-2025 年 12 月 9 日
+9 de abril de 2025
+9 de dezembro de 2025
 gemini-3.8-live
-モデルをプレビュー
+Modelos de visualização
 gemini-3.5-live-translate-preview
-2026 年 6 月
-提供終了日は未発表
+Junho de 2026
+Nenhuma data de encerramento anunciada
 gemini-3.1-flash-live-preview
-2026 年 3 月 11 日
-提供終了日は未発表
+11 de março de 2026
+Nenhuma data de encerramento anunciada
 gemini-3.8-live
 gemini-2.5-flash-native-audio-preview-12-2025
-2025 年 12 月 12 日
-提供終了日は未発表
+12 de dezembro de 2025
+Nenhuma data de encerramento anunciada
 gemini-3.8-live
 gemini-live-2.5-flash-preview
-2025 年 6 月 17 日
-2025 年 12 月 9 日
+17 de junho de 2025
+9 de dezembro de 2025
 gemini-3.8-live
-音声モデル
-モデル
-リリース日
-提供終了日
-推奨される交換
+Modelos de áudio
+Modelo
+Data da versão
+Data de desativação
+Substituição recomendada
 gemini-3.5-transcribe
-2026 年 8 月
-提供終了日は未発表
-モデルをプレビュー
+Agosto de 2026
+Nenhuma data de encerramento anunciada
+Modelos de visualização
 gemini-3.1-flash-tts-preview
-2026 年 4 月 13 日
-提供終了日は未発表
+13 de abril de 2026
+Nenhuma data de encerramento anunciada
 gemini-2.5-flash-preview-tts
-2025 年 5 月 20 日
-提供終了日は未発表
+20 de maio de 2025
+Nenhuma data de encerramento anunciada
 gemini-3.1-flash-tts-preview
 gemini-2.5-pro-preview-tts
-2025 年 5 月 20 日
-提供終了日は未発表
+20 de maio de 2025
+Nenhuma data de encerramento anunciada
 gemini-3.1-flash-tts-preview
-エンベディング モデル
-モデル
-リリース日
-提供終了日
-推奨される交換
+Modelos de embeddings
+Modelo
+Data da versão
+Data de desativação
+Substituição recomendada
 gemini-embedding-2
-2026 年 4 月 22 日
-提供終了日は未発表
+22 abril de 2026
+Nenhuma data de encerramento anunciada
 gemini-embedding-001
-2025 年 7 月 14 日
-2028 年 5 月 14 日
+14 de julho de 2025
+14 de maio de 2028
 gemini-embedding-2
 text-embedding-004
-2024 年 4 月 9 日
-2026 年 1 月 14 日
+9 de abril de 2024
+14 de janeiro de 2026
 gemini-embedding-2
-モデルをプレビュー
+Modelos de visualização
 embedding-2-preview
-2026 年 3 月 10 日
-2026 年 8 月 10 日
+10 de março de 2026
+10 de agosto de 2026
 gemini-embedding-2
 embedding-001
-2024 年 4 月 9 日
-2025 年 10 月 30 日
+9 de abril de 2024
+30 de outubro de 2025
 gemini-embedding-2
 embedding-gecko-001
-2025 年 10 月 30 日
+30 de outubro de 2025
 gemini-embedding-2
 gemini-embedding-exp
-2025 年 10 月 30 日
+30 de outubro de 2025
 gemini-embedding-2
 gemini-embedding-exp-03-07
-2025 年 10 月 30 日
+30 de outubro de 2025
 gemini-embedding-2
-Imagen モデル
-モデル
-リリース日
-提供終了日
-推奨される交換
+Modelos do Imagen
+Modelo
+Data da versão
+Data de desativação
+Substituição recomendada
 imagen-4.0-generate-001
-2025 年 6 月 24 日
-2026 年 8 月 17 日
+24 de junho de 2025
+17 de agosto de 2026
 gemini-3.1-flash-image
 imagen-4.0-ultra-generate-001
-2025 年 6 月 24 日
-2026 年 8 月 17 日
+24 de junho de 2025
+17 de agosto de 2026
 gemini-3.1-flash-image
 imagen-4.0-fast-generate-001
-2025 年 6 月 24 日
-2026 年 8 月 17 日
+24 de junho de 2025
+17 de agosto de 2026
 gemini-3.1-flash-image
 imagen-3.0-generate-002
-2025 年 2 月 6 日
-2025 年 11 月 10 日
+6 de fevereiro de 2025
+10 de novembro de 2025
 imagen-4.0-generate-001
-モデルをプレビュー
+Modelos de visualização
 imagen-4.0-generate-preview-06-06
-2025 年 6 月 24 日
-2026 年 2 月 17 日
+24 de junho de 2025
+17 de fevereiro de 2026
 imagen-4.0-generate-001
 imagen-4.0-ultra-generate-preview-06-06
-2025 年 6 月 24 日
-2026 年 2 月 17 日
+24 de junho de 2025
+17 de fevereiro de 2026
 imagen-4.0-ultra-generate-001
-Veo モデル
-モデル
-リリース日
-提供終了日
-推奨される交換
+Modelos do Veo
+Modelo
+Data da versão
+Data de desativação
+Substituição recomendada
 veo-3.0-generate-001
-2025 年 9 月 9 日
-2026 年 6 月 30 日
+9 de setembro de 2025
+30 de junho de 2026
 veo-3.1-generate-preview
-または Gemini Enterprise Agent Platform の一般提供版モデル
+ou os modelos em disponibilidade geral na Gemini Enterprise Agent Platform
 veo-3.0-fast-generate-001
-2025 年 9 月 9 日
-2026 年 6 月 30 日
+9 de setembro de 2025
+30 de junho de 2026
 veo-3.1-fast-generate-preview
-または Gemini Enterprise Agent Platform の一般提供版モデル
+ou os modelos em disponibilidade geral na Gemini Enterprise Agent Platform
 veo-2.0-generate-001
-2025 年 4 月 9 日
-2026 年 6 月 30 日
+9 de abril de 2025
+30 de junho de 2026
 veo-3.1-generate-preview
-または Gemini Enterprise Agent Platform の一般提供版モデル
-モデルをプレビュー
+ou os modelos em disponibilidade geral na Gemini Enterprise Agent Platform
+Modelos de visualização
 veo-3.1-lite-generate-preview
-2026 年 3 月 31 日
-提供終了日は未発表
+31 de março de 2026
+Nenhuma data de encerramento anunciada
 veo-3.1-generate-preview
-2025 年 10 月 15 日
-提供終了日は未発表
+15 de outubro de 2025
+Nenhuma data de encerramento anunciada
 veo-3.1-fast-generate-preview
-2025 年 10 月 15 日
-提供終了日は未発表
+15 de outubro de 2025
+Nenhuma data de encerramento anunciada
 veo-3.0-generate-preview
-2025 年 7 月 31 日
-2025 年 11 月 12 日
+31 de julho de 2025
+12 de novembro de 2025
 veo-3.1-generate-preview
 veo-3.0-fast-generate-preview
-2025 年 7 月 31 日
-2025 年 11 月 12 日
+31 de julho de 2025
+12 de novembro de 2025
 veo-3.1-fast-generate-preview
-Gemini Omni Flash モデル
-モデル
-リリース日
-提供終了日
-推奨される交換
+Modelos do Gemini Omni Flash
+Modelo
+Data da versão
+Data de desativação
+Substituição recomendada
 gemini-omni-1.1-flash
-2026 年 8 月 27 日
-提供終了日は未発表
-サポートが終了したモデル
+27 de agosto de 2026
+Nenhuma data de encerramento anunciada
+Modelos descontinuados
 gemini-omni-flash-preview
-2026 年 6 月 30 日
-2026 年 9 月 30 日
+30 de junho de 2026
+30 de setembro de 2026
 gemini-omni-1.1-flash
-Lyria モデル
-モデル
-リリース日
-提供終了日
-推奨される交換
+Modelos do Lyria
+Modelo
+Data da versão
+Data de desativação
+Substituição recomendada
 lyria-3.5
-2026 年 9 月 3 日
-提供終了日は未発表
-モデルをプレビュー
+3 de setembro de 2026
+Nenhuma data de encerramento anunciada
+Modelos de visualização
 lyria-3-clip-preview
-2026 年 3 月 25 日
-提供終了日は未発表
+25 de março de 2026
+Nenhuma data de encerramento anunciada
 lyria-3-pro-preview
-2026 年 3 月 25 日
-提供終了日は未発表
+25 de março de 2026
+Nenhuma data de encerramento anunciada
 lyria-3.5
 lyria-realtime-exp
-2025 年 5 月 20 日
-提供終了日は未発表
-ロボット工学モデル
-モデル
-リリース日
-提供終了日
-推奨される交換
-モデルをプレビュー
+20 de maio de 2025
+Nenhuma data de encerramento anunciada
+Modelos de robótica
+Modelo
+Data da versão
+Data de desativação
+Substituição recomendada
+Modelos de visualização
 gemini-robotics-er-1.6-preview
-2026 年 4 月 14 日
-2026 年 8 月 31 日
+14 de abril de 2026
+31 de agosto de 2026
 gemini-robotics-er-2-preview
 gemini-robotics-er-1.5-preview
-2025 年 9 月 25 日
-2026 年 4 月 30 日
+25 de setembro de 2025
+30 de abril de 2026
 gemini-robotics-er-1.6-preview
-マネージド エージェント
-エージェント
-リリース日
-提供終了日
-推奨される交換
-エージェントのプレビュー
+Agentes gerenciados
+Agente
+Data da versão
+Data de desativação
+Substituição recomendada
+Agentes de prévia
 antigravity-preview-09-2026
-2026 年 9 月 17 日
-提供終了日は未発表
+17 de setembro de 2026
+Nenhuma data de encerramento anunciada
 antigravity-preview-05-2026
-2026 年 5 月 19 日
-2026 年 10 月 5 日
+19 de maio de 2026
+5 de outubro de 2026
 antigravity-preview-09-2026
-フィードバックを送信
-特に記載のない限り、このページのコンテンツは クリエイティブ・コモンズの表示 4.0 ライセンス により使用許諾されます。コードサンプルは Apache 2.0 ライセンス により使用許諾されます。詳しくは、 Google Developers サイトのポリシー をご覧ください。Java は Oracle および関連会社の登録商標です。
-最終更新日 2026-09-22 UTC。
-利用規約
-プライバシー
+Envie comentários
+Exceto em caso de indicação contrária, o conteúdo desta página é licenciado de acordo com a Licença de atribuição 4.0 do Creative Commons , e as amostras de código são licenciadas de acordo com a Licença Apache 2.0 . Para mais detalhes, consulte as políticas do site do Google Developers . Java é uma marca registrada da Oracle e/ou afiliadas.
+Última atualização 2026-09-24 UTC.
+Termos de Serviço
+Privacidade
 Manage cookies
 English
 Deutsch
