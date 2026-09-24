@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "googlemaps:sdk_method:google.maps.visualization.HeatmapLayer",
+    "change": "googlemaps-js-heatmap-layer-decommissioned-2026"
+  },
+  {
+    "contract": "googlemaps:sdk_method:google.maps.drawing.DrawingManager",
+    "change": "googlemaps-js-drawing-library-decommissioned-2026"
+  }
+]

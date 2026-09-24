@@ -1,0 +1,37 @@
+id: googlemaps-js-add-dom-listener-deprecated-2022
+provider: googlemaps
+kind: sunset
+severity: info
+title: "google.maps.event.addDomListener deprecated"
+summary: >
+  google.maps.event.addDomListener() and addDomListenerOnce() are deprecated
+  as of April 7, 2022. They continue to work and Google has no plan to
+  decommission them.
+
+affects:
+  - kind: sdk_method
+    match: "google.maps.event.addDomListener"
+  - kind: sdk_method
+    match: "google.maps.event.addDomListenerOnce"
+
+announced: 2022-04-07
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://developers.google.com/maps/deprecations
+    observed: 2026-09-24
+
+migration:
+  replacement: "addEventListener"
+  guide: https://developers.google.com/maps/deprecations
+  effort: small
+  notes: >
+    Replace google.maps.event.addDomListener(element, event, handler) with
+    element.addEventListener(event, handler), and addDomListenerOnce with
+    addEventListener(event, handler, {once: true}). Keep the returned
+    listener reference if the code later calls
+    google.maps.event.removeListener, and switch that to
+    removeEventListener.
+
+status: active

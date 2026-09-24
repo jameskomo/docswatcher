@@ -1,0 +1,304 @@
+provider: googlemaps
+
+manifests:
+  - ecosystem: npm
+    package: "@googlemaps/js-api-loader"
+  - ecosystem: npm
+    package: "@googlemaps/google-maps-services-js"
+  - ecosystem: npm
+    package: "@types/google.maps"
+  - ecosystem: pypi
+    package: googlemaps
+  - ecosystem: maven
+    package: com.google.maps:google-maps-services
+  - ecosystem: go
+    package: googlemaps.github.io/maps
+
+literals:
+  # Maps web services. The host is Maps-only, so any path under it belongs to
+  # this provider. The key keeps the output format segment, for example
+  # "ANY /maps/api/place/nearbysearch/json". Places API (New) and the Routes API
+  # live on places.googleapis.com and routes.googleapis.com and are not matched.
+  - id: googlemaps.literal.web-service-endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,swift,dart,html,htm,vue,svelte,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://maps\.googleapis\.com(/maps/api/[a-z]+(?:/[a-z]+)*)'
+    key: "ANY $1"
+    confidence: medium
+
+  # Maps JavaScript API classes that a change record names, constructed through
+  # the global google.maps namespace, which is how the script-tag loader and
+  # @googlemaps/js-api-loader expose them. Only the listed names are matched, so
+  # the inventory is not filled with every Map and LatLng. Classes obtained
+  # through importLibrary() and constructed by a bare name are not seen.
+  # Add a name here in the same change that adds its record.
+  - id: googlemaps.literal.js-class
+    kind: sdk_method
+    files: ["**/*.{js,jsx,mjs,cjs,ts,tsx,html,htm,vue,svelte}"]
+    exclude: ["**/node_modules/**", "**/dist/**", "**/*.d.ts"]
+    pattern: '\bnew\s+google\.maps\.(Marker|DirectionsService|DirectionsRenderer|DistanceMatrixService|KmlLayer|places\.PlacesService|visualization\.HeatmapLayer|drawing\.DrawingManager)\s*\('
+    key: "google.maps.$1"
+    confidence: medium
+
+  - id: googlemaps.literal.js-dom-listener
+    kind: sdk_method
+    files: ["**/*.{js,jsx,mjs,cjs,ts,tsx,html,htm,vue,svelte}"]
+    exclude: ["**/node_modules/**", "**/dist/**", "**/*.d.ts"]
+    pattern: '\bgoogle\.maps\.event\.(addDomListener(?:Once)?)\s*\('
+    key: "google.maps.event.$1"
+    confidence: medium
+
+# Web service clients. The Node client always takes one object with a params
+# member, which the TypeScript and JavaScript rules require.
+callsites:
+
+  - id: googlemaps.python.directions
+    language: python
+    kind: sdk_method
+    requires: googlemaps
+    query: |
+      (call
+        function: (attribute attribute: (identifier) @m)
+        (#eq? @m "directions")) @call
+    key: "Client.directions"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/directions/json"
+    confidence: high
+
+  - id: googlemaps.python.distance-matrix
+    language: python
+    kind: sdk_method
+    requires: googlemaps
+    query: |
+      (call
+        function: (attribute attribute: (identifier) @m)
+        (#eq? @m "distance_matrix")) @call
+    key: "Client.distance_matrix"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/distancematrix/json"
+    confidence: high
+
+  - id: googlemaps.python.places-nearby
+    language: python
+    kind: sdk_method
+    requires: googlemaps
+    query: |
+      (call
+        function: (attribute attribute: (identifier) @m)
+        (#eq? @m "places_nearby")) @call
+    key: "Client.places_nearby"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/place/nearbysearch/json"
+    confidence: high
+
+  - id: googlemaps.python.find-place
+    language: python
+    kind: sdk_method
+    requires: googlemaps
+    query: |
+      (call
+        function: (attribute attribute: (identifier) @m)
+        (#eq? @m "find_place")) @call
+    key: "Client.find_place"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/place/findplacefromtext/json"
+    confidence: high
+
+  - id: googlemaps.python.places-autocomplete
+    language: python
+    kind: sdk_method
+    requires: googlemaps
+    query: |
+      (call
+        function: (attribute attribute: (identifier) @m)
+        (#eq? @m "places_autocomplete")) @call
+    key: "Client.places_autocomplete"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/place/autocomplete/json"
+    confidence: high
+
+  - id: googlemaps.typescript.directions
+    language: typescript
+    kind: sdk_method
+    requires: "@googlemaps/google-maps-services-js"
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object (pair key: (property_identifier) @k)))
+        (#eq? @m "directions") (#eq? @k "params")) @call
+    key: "Client.directions"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/directions/json"
+    confidence: high
+
+  - id: googlemaps.typescript.distancematrix
+    language: typescript
+    kind: sdk_method
+    requires: "@googlemaps/google-maps-services-js"
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object (pair key: (property_identifier) @k)))
+        (#eq? @m "distancematrix") (#eq? @k "params")) @call
+    key: "Client.distancematrix"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/distancematrix/json"
+    confidence: high
+
+  - id: googlemaps.typescript.places-nearby
+    language: typescript
+    kind: sdk_method
+    requires: "@googlemaps/google-maps-services-js"
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object (pair key: (property_identifier) @k)))
+        (#eq? @m "placesNearby") (#eq? @k "params")) @call
+    key: "Client.placesNearby"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/place/nearbysearch/json"
+    confidence: high
+
+  - id: googlemaps.typescript.place-details
+    language: typescript
+    kind: sdk_method
+    requires: "@googlemaps/google-maps-services-js"
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object (pair key: (property_identifier) @k)))
+        (#eq? @m "placeDetails") (#eq? @k "params")) @call
+    key: "Client.placeDetails"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/place/details/json"
+    confidence: high
+
+  - id: googlemaps.typescript.text-search
+    language: typescript
+    kind: sdk_method
+    requires: "@googlemaps/google-maps-services-js"
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object (pair key: (property_identifier) @k)))
+        (#eq? @m "textSearch") (#eq? @k "params")) @call
+    key: "Client.textSearch"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/place/textsearch/json"
+    confidence: high
+
+  - id: googlemaps.typescript.find-place-from-text
+    language: typescript
+    kind: sdk_method
+    requires: "@googlemaps/google-maps-services-js"
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object (pair key: (property_identifier) @k)))
+        (#eq? @m "findPlaceFromText") (#eq? @k "params")) @call
+    key: "Client.findPlaceFromText"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/place/findplacefromtext/json"
+    confidence: high
+
+  - id: googlemaps.javascript.directions
+    language: javascript
+    kind: sdk_method
+    requires: "@googlemaps/google-maps-services-js"
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object (pair key: (property_identifier) @k)))
+        (#eq? @m "directions") (#eq? @k "params")) @call
+    key: "Client.directions"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/directions/json"
+    confidence: high
+
+  - id: googlemaps.javascript.distancematrix
+    language: javascript
+    kind: sdk_method
+    requires: "@googlemaps/google-maps-services-js"
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object (pair key: (property_identifier) @k)))
+        (#eq? @m "distancematrix") (#eq? @k "params")) @call
+    key: "Client.distancematrix"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/distancematrix/json"
+    confidence: high
+
+  - id: googlemaps.javascript.places-nearby
+    language: javascript
+    kind: sdk_method
+    requires: "@googlemaps/google-maps-services-js"
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object (pair key: (property_identifier) @k)))
+        (#eq? @m "placesNearby") (#eq? @k "params")) @call
+    key: "Client.placesNearby"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/place/nearbysearch/json"
+    confidence: high
+
+  - id: googlemaps.javascript.place-details
+    language: javascript
+    kind: sdk_method
+    requires: "@googlemaps/google-maps-services-js"
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object (pair key: (property_identifier) @k)))
+        (#eq? @m "placeDetails") (#eq? @k "params")) @call
+    key: "Client.placeDetails"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/place/details/json"
+    confidence: high
+
+  - id: googlemaps.javascript.text-search
+    language: javascript
+    kind: sdk_method
+    requires: "@googlemaps/google-maps-services-js"
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object (pair key: (property_identifier) @k)))
+        (#eq? @m "textSearch") (#eq? @k "params")) @call
+    key: "Client.textSearch"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/place/textsearch/json"
+    confidence: high
+
+  - id: googlemaps.javascript.find-place-from-text
+    language: javascript
+    kind: sdk_method
+    requires: "@googlemaps/google-maps-services-js"
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object (pair key: (property_identifier) @k)))
+        (#eq? @m "findPlaceFromText") (#eq? @k "params")) @call
+    key: "Client.findPlaceFromText"
+    maps_to:
+      kind: endpoint
+      key: "GET /maps/api/place/findplacefromtext/json"
+    confidence: high

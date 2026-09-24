@@ -1,0 +1,19 @@
+[
+  {
+    "id": "googlemaps:sdk_method:google.maps.Marker",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "google.maps.Marker",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "src/__tests__/map.test.ts",
+        "line": 5,
+        "column": 29,
+        "snippet": "const m = new google.maps.Marker({ position: { lat: 0, lng: 0 } });",
+        "detector": "googlemaps.literal.js-class",
+        "layer": "literal"
+      }
+    ]
+  }
+]

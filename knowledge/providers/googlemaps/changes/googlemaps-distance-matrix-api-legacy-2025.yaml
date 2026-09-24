@@ -1,0 +1,45 @@
+id: googlemaps-distance-matrix-api-legacy-2025
+provider: googlemaps
+kind: sunset
+severity: info
+title: "Distance Matrix API (Legacy) web service is Legacy"
+summary: >
+  On March 1, 2025 Google moved the Distance Matrix API to Legacy status.
+  Legacy services are feature frozen and cannot be enabled in new Cloud
+  projects, but keep full support for existing projects. Google envisions
+  turning them down in the coming years, has set no date, and will give at
+  least 12 months' notice before decommissioning. The successor is the
+  Routes API computeRouteMatrix method.
+
+affects:
+  - kind: endpoint
+    match: "ANY /maps/api/distancematrix/*"
+  - kind: sdk_method
+    match: "Client.distance_matrix"
+  - kind: sdk_method
+    match: "Client.distancematrix"
+
+announced: 2025-03-01
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://developers.google.com/maps/legacy
+    observed: 2026-09-24
+    note: "The legacy page lists March 1, 2025 as the Legacy date and no decommission date; Google commits to at least 12 months' notice before decommissioning."
+
+migration:
+  replacement: "Routes API, POST https://routes.googleapis.com/distanceMatrix/v2:computeRouteMatrix"
+  guide: https://developers.google.com/maps/documentation/routes/migrate-routes
+  effort: medium
+  notes: >
+    Replace GET /maps/api/distancematrix/json with POST
+    routes.googleapis.com/distanceMatrix/v2:computeRouteMatrix. Origins and
+    destinations become arrays of waypoint objects in a JSON body, and an
+    X-Goog-FieldMask header is required. The response is a stream of
+    elements, each with originIndex and destinationIndex, instead of
+    rows[].elements[], so any code that indexes rows by position must be
+    rewritten. Durations are strings such as 123s. Enable the Routes API on
+    the project.
+
+status: active

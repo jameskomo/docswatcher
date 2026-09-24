@@ -1,0 +1,37 @@
+id: googlemaps-js-kml-layer-deprecated-2026
+provider: googlemaps
+kind: sunset
+severity: warning
+title: "Maps JavaScript API KmlLayer deprecated"
+summary: >
+  The KmlLayer class is deprecated as of April 30, 2026. Google's
+  deprecation period is typically 12 months before decommissioning, but no
+  decommission date is published. For new projects Google recommends
+  datasets with data-driven styling or a third-party KML parser.
+
+affects:
+  - kind: sdk_method
+    match: "google.maps.KmlLayer"
+
+announced: 2026-04-30
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://developers.google.com/maps/deprecations
+    observed: 2026-09-24
+    note: "KML Layer (Deprecated as of April 30, 2026); no decommission date."
+
+migration:
+  replacement: "datasets with data-driven styling, or a KML parser feeding the Data layer"
+  guide: https://developers.google.com/maps/comms/kml-layer-migration
+  effort: medium
+  notes: >
+    Stop constructing google.maps.KmlLayer. Either upload the KML as a
+    dataset and style it with data-driven styling (the map needs a mapId and
+    the dataset ID in its style), or parse the KML in the browser with a
+    third-party library and add the features to map.data or as overlays.
+    Click handling moves from KmlMouseEvent to the Data layer or dataset
+    feature events.
+
+status: active

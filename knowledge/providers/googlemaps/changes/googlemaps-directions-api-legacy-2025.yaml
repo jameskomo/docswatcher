@@ -1,0 +1,44 @@
+id: googlemaps-directions-api-legacy-2025
+provider: googlemaps
+kind: sunset
+severity: info
+title: "Directions API (Legacy) web service is Legacy"
+summary: >
+  On March 1, 2025 Google moved the Directions API to Legacy status. Legacy
+  services are feature frozen and cannot be enabled in new Cloud projects,
+  but keep full support for existing projects. Google envisions turning them
+  down in the coming years, has set no date, and will give at least 12
+  months' notice before decommissioning. The successor is the Routes API
+  computeRoutes method.
+
+affects:
+  - kind: endpoint
+    match: "ANY /maps/api/directions/*"
+  - kind: sdk_method
+    match: "Client.directions"
+
+announced: 2025-03-01
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://developers.google.com/maps/legacy
+    observed: 2026-09-24
+    note: "The legacy page lists March 1, 2025 as the Legacy date and no decommission date; Google commits to at least 12 months' notice before decommissioning."
+
+migration:
+  replacement: "Routes API, POST https://routes.googleapis.com/directions/v2:computeRoutes"
+  guide: https://developers.google.com/maps/documentation/routes/migrate-routes
+  effort: medium
+  notes: >
+    Replace GET /maps/api/directions/json with POST
+    routes.googleapis.com/directions/v2:computeRoutes. The request becomes a
+    JSON body with origin, destination and intermediates as waypoints,
+    travelMode in upper case (DRIVE, WALK), and a required X-Goog-FieldMask
+    header naming the response fields. Responses use routes[].legs[] with
+    durations as strings such as 123s and distanceMeters, and polylines
+    under polyline.encodedPolyline. Update parsing, error handling (HTTP
+    status codes rather than a status field) and tests. Enable the Routes
+    API on the project.
+
+status: active

@@ -1,0 +1,50 @@
+[
+  {
+    "contract": "googlemaps:endpoint:ANY /maps/api/place/details/json",
+    "change": "googlemaps-places-api-legacy-2025"
+  },
+  {
+    "contract": "googlemaps:endpoint:ANY /maps/api/place/photo",
+    "change": "googlemaps-places-api-legacy-2025"
+  },
+  {
+    "contract": "googlemaps:endpoint:GET /maps/api/directions/json",
+    "change": "googlemaps-directions-api-legacy-2025"
+  },
+  {
+    "contract": "googlemaps:endpoint:GET /maps/api/distancematrix/json",
+    "change": "googlemaps-distance-matrix-api-legacy-2025"
+  },
+  {
+    "contract": "googlemaps:endpoint:GET /maps/api/place/autocomplete/json",
+    "change": "googlemaps-places-api-legacy-2025"
+  },
+  {
+    "contract": "googlemaps:endpoint:GET /maps/api/place/findplacefromtext/json",
+    "change": "googlemaps-places-api-legacy-2025"
+  },
+  {
+    "contract": "googlemaps:endpoint:GET /maps/api/place/nearbysearch/json",
+    "change": "googlemaps-places-api-legacy-2025"
+  },
+  {
+    "contract": "googlemaps:sdk_method:Client.directions",
+    "change": "googlemaps-directions-api-legacy-2025"
+  },
+  {
+    "contract": "googlemaps:sdk_method:Client.distance_matrix",
+    "change": "googlemaps-distance-matrix-api-legacy-2025"
+  },
+  {
+    "contract": "googlemaps:sdk_method:Client.find_place",
+    "change": "googlemaps-places-api-legacy-2025"
+  },
+  {
+    "contract": "googlemaps:sdk_method:Client.places_autocomplete",
+    "change": "googlemaps-places-api-legacy-2025"
+  },
+  {
+    "contract": "googlemaps:sdk_method:Client.places_nearby",
+    "change": "googlemaps-places-api-legacy-2025"
+  }
+]

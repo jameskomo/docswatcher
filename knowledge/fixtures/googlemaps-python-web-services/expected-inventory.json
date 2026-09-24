@@ -1,0 +1,314 @@
+[
+  {
+    "id": "googlemaps:endpoint:ANY /maps/api/place/details/json",
+    "provider": "googlemaps",
+    "kind": "endpoint",
+    "key": "ANY /maps/api/place/details/json",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "dispatch/places.py",
+        "line": 7,
+        "column": 43,
+        "snippet": "DETAILS_URL = \"https://maps.googleapis.com/maps/api/place/details/json\"",
+        "detector": "googlemaps.literal.web-service-endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "googlemaps",
+        "version": "4.10.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:endpoint:ANY /maps/api/place/photo",
+    "provider": "googlemaps",
+    "kind": "endpoint",
+    "key": "ANY /maps/api/place/photo",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "dispatch/places.py",
+        "line": 8,
+        "column": 41,
+        "snippet": "PHOTO_URL = \"https://maps.googleapis.com/maps/api/place/photo\"",
+        "detector": "googlemaps.literal.web-service-endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "googlemaps",
+        "version": "4.10.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:endpoint:GET /maps/api/directions/json",
+    "provider": "googlemaps",
+    "kind": "endpoint",
+    "key": "GET /maps/api/directions/json",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "dispatch/routing.py",
+        "line": 9,
+        "column": 12,
+        "snippet": "legs = gmaps.directions(origin, destination, mode=\"driving\")[0][\"legs\"]",
+        "detector": "googlemaps.python.directions",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "googlemaps",
+        "version": "4.10.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:endpoint:GET /maps/api/distancematrix/json",
+    "provider": "googlemaps",
+    "kind": "endpoint",
+    "key": "GET /maps/api/distancematrix/json",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "dispatch/routing.py",
+        "line": 14,
+        "column": 12,
+        "snippet": "return gmaps.distance_matrix(origins, destinations, mode=\"driving\")",
+        "detector": "googlemaps.python.distance-matrix",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "googlemaps",
+        "version": "4.10.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:endpoint:GET /maps/api/place/autocomplete/json",
+    "provider": "googlemaps",
+    "kind": "endpoint",
+    "key": "GET /maps/api/place/autocomplete/json",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "dispatch/places.py",
+        "line": 20,
+        "column": 12,
+        "snippet": "return gmaps.places_autocomplete(prefix, components={\"country\": [\"ke\"]})",
+        "detector": "googlemaps.python.places-autocomplete",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "googlemaps",
+        "version": "4.10.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:endpoint:GET /maps/api/place/findplacefromtext/json",
+    "provider": "googlemaps",
+    "kind": "endpoint",
+    "key": "GET /maps/api/place/findplacefromtext/json",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "dispatch/places.py",
+        "line": 16,
+        "column": 12,
+        "snippet": "return gmaps.find_place(name, \"textquery\", fields=[\"place_id\", \"name\"])",
+        "detector": "googlemaps.python.find-place",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "googlemaps",
+        "version": "4.10.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:endpoint:GET /maps/api/place/nearbysearch/json",
+    "provider": "googlemaps",
+    "kind": "endpoint",
+    "key": "GET /maps/api/place/nearbysearch/json",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "dispatch/places.py",
+        "line": 12,
+        "column": 12,
+        "snippet": "return gmaps.places_nearby(location=(lat, lng), radius=1500, type=\"pharmacy\")",
+        "detector": "googlemaps.python.places-nearby",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "googlemaps",
+        "version": "4.10.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:Client.directions",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "Client.directions",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "dispatch/routing.py",
+        "line": 9,
+        "column": 12,
+        "snippet": "legs = gmaps.directions(origin, destination, mode=\"driving\")[0][\"legs\"]",
+        "detector": "googlemaps.python.directions",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "googlemaps",
+        "version": "4.10.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:Client.distance_matrix",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "Client.distance_matrix",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "dispatch/routing.py",
+        "line": 14,
+        "column": 12,
+        "snippet": "return gmaps.distance_matrix(origins, destinations, mode=\"driving\")",
+        "detector": "googlemaps.python.distance-matrix",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "googlemaps",
+        "version": "4.10.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:Client.find_place",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "Client.find_place",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "dispatch/places.py",
+        "line": 16,
+        "column": 12,
+        "snippet": "return gmaps.find_place(name, \"textquery\", fields=[\"place_id\", \"name\"])",
+        "detector": "googlemaps.python.find-place",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "googlemaps",
+        "version": "4.10.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:Client.places_autocomplete",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "Client.places_autocomplete",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "dispatch/places.py",
+        "line": 20,
+        "column": 12,
+        "snippet": "return gmaps.places_autocomplete(prefix, components={\"country\": [\"ke\"]})",
+        "detector": "googlemaps.python.places-autocomplete",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "googlemaps",
+        "version": "4.10.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:Client.places_nearby",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "Client.places_nearby",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "dispatch/places.py",
+        "line": 12,
+        "column": 12,
+        "snippet": "return gmaps.places_nearby(location=(lat, lng), radius=1500, type=\"pharmacy\")",
+        "detector": "googlemaps.python.places-nearby",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "googlemaps",
+        "version": "4.10.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_package:googlemaps",
+    "provider": "googlemaps",
+    "kind": "sdk_package",
+    "key": "googlemaps",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "googlemaps==4.10.0",
+        "detector": "googlemaps.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "googlemaps",
+        "version": "4.10.0"
+      }
+    }
+  }
+]

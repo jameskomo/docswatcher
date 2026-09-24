@@ -1,0 +1,218 @@
+[
+  {
+    "id": "googlemaps:sdk_method:google.maps.DirectionsRenderer",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "google.maps.DirectionsRenderer",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/routing.js",
+        "line": 3,
+        "column": 36,
+        "snippet": "const renderer = new google.maps.DirectionsRenderer({ map });",
+        "detector": "googlemaps.literal.js-class",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/js-api-loader",
+        "version": "^1.16.8"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:google.maps.DirectionsService",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "google.maps.DirectionsService",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/routing.js",
+        "line": 2,
+        "column": 35,
+        "snippet": "const service = new google.maps.DirectionsService();",
+        "detector": "googlemaps.literal.js-class",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/js-api-loader",
+        "version": "^1.16.8"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:google.maps.DistanceMatrixService",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "google.maps.DistanceMatrixService",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/routing.js",
+        "line": 13,
+        "column": 34,
+        "snippet": "const matrix = new google.maps.DistanceMatrixService();",
+        "detector": "googlemaps.literal.js-class",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/js-api-loader",
+        "version": "^1.16.8"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:google.maps.KmlLayer",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "google.maps.KmlLayer",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/storeMap.js",
+        "line": 13,
+        "column": 35,
+        "snippet": "const regions = new google.maps.KmlLayer({ url: \"https://example.com/delivery-zones.kml\", map });",
+        "detector": "googlemaps.literal.js-class",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/js-api-loader",
+        "version": "^1.16.8"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:google.maps.Marker",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "google.maps.Marker",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/storeMap.js",
+        "line": 10,
+        "column": 32,
+        "snippet": "(store) => new google.maps.Marker({ position: store.position, map, title: store.name })",
+        "detector": "googlemaps.literal.js-class",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/js-api-loader",
+        "version": "^1.16.8"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:google.maps.event.addDomListener",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "google.maps.event.addDomListener",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/storeMap.js",
+        "line": 15,
+        "column": 21,
+        "snippet": "google.maps.event.addDomListener(window, \"resize\", () => map.panTo(stores[0].position));",
+        "detector": "googlemaps.literal.js-dom-listener",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/js-api-loader",
+        "version": "^1.16.8"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:google.maps.event.addDomListenerOnce",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "google.maps.event.addDomListenerOnce",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/storeMap.js",
+        "line": 16,
+        "column": 21,
+        "snippet": "google.maps.event.addDomListenerOnce(el, \"click\", () => markers[0].setAnimation(null));",
+        "detector": "googlemaps.literal.js-dom-listener",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/js-api-loader",
+        "version": "^1.16.8"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:google.maps.places.PlacesService",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "google.maps.places.PlacesService",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/routing.js",
+        "line": 21,
+        "column": 34,
+        "snippet": "const places = new google.maps.places.PlacesService(map);",
+        "detector": "googlemaps.literal.js-class",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/js-api-loader",
+        "version": "^1.16.8"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_package:@googlemaps/js-api-loader",
+    "provider": "googlemaps",
+    "kind": "sdk_package",
+    "key": "@googlemaps/js-api-loader",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"@googlemaps/js-api-loader\": \"^1.16.8\"",
+        "detector": "googlemaps.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/js-api-loader",
+        "version": "^1.16.8"
+      }
+    }
+  }
+]

@@ -1,0 +1,41 @@
+id: googlemaps-js-distance-matrix-service-deprecated-2026
+provider: googlemaps
+kind: sunset
+severity: warning
+title: "Maps JavaScript API DistanceMatrixService deprecated"
+summary: >
+  google.maps.DistanceMatrixService is deprecated as of February 25, 2026,
+  after the JavaScript Distance Matrix Service moved to Legacy status on
+  March 1, 2025. It is not scheduled to be discontinued and still receives
+  fixes for major regressions; Google will give at least 12 months' notice
+  before support ends.
+
+affects:
+  - kind: sdk_method
+    match: "google.maps.DistanceMatrixService"
+
+announced: 2026-02-25
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://developers.google.com/maps/documentation/javascript/releases
+    observed: 2026-09-24
+    note: "Release 3.64.2b (26 February 2026): deprecated as of February 25th, 2026, not scheduled to be discontinued, at least 12 months notice before support is discontinued."
+  - kind: provider_page
+    url: https://developers.google.com/maps/legacy
+    observed: 2026-09-24
+
+migration:
+  replacement: "google.maps.routes.RouteMatrix"
+  guide: https://developers.google.com/maps/documentation/javascript/routes/route-matrix-js-migration
+  effort: medium
+  notes: >
+    Replace DistanceMatrixService.getDistanceMatrix() with
+    RouteMatrix.computeRouteMatrix() from the routes library. It returns a
+    promise, takes origins, destinations and a fields list, and the result
+    is indexed differently from rows[].elements[], so rewrite code that
+    walks the matrix by position and update tests that mock the callback
+    API.
+
+status: active

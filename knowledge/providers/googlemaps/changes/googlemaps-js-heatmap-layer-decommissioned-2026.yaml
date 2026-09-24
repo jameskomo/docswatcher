@@ -1,0 +1,41 @@
+id: googlemaps-js-heatmap-layer-decommissioned-2026
+provider: googlemaps
+kind: retired
+severity: breaking
+title: "Maps JavaScript API HeatmapLayer decommissioned"
+summary: >
+  The Heatmap Layer (google.maps.visualization.HeatmapLayer) was deprecated
+  on May 27, 2025 and is decommissioned in version 3.65, whose first release
+  on 20 May 2026 says the functionality is now decommissioned. Heatmaps
+  built with it no longer render.
+
+affects:
+  - kind: sdk_method
+    match: "google.maps.visualization.HeatmapLayer"
+
+announced: 2025-05-27
+effective: 2026-05-20
+
+sources:
+  - kind: provider_page
+    url: https://developers.google.com/maps/deprecations
+    observed: 2026-09-24
+  - kind: changelog
+    url: https://developers.google.com/maps/documentation/javascript/releases
+    observed: 2026-09-24
+    note: "Release 3.65.1c, 20 May 2026: The Heatmap Layer functionality in the Maps JavaScript API is now decommissioned."
+
+migration:
+  replacement: "deck.gl HeatmapLayer"
+  guide: https://developers.google.com/maps/deprecations
+  effort: medium
+  notes: >
+    Remove google.maps.visualization.HeatmapLayer and the visualization
+    library from the loader. Render the heatmap with deck.gl's HeatmapLayer
+    through @deck.gl/google-maps (GoogleMapsOverlay), passing the same
+    points as data with getPosition and getWeight accessors. Radius,
+    gradient and opacity options map onto radiusPixels, colorRange and
+    opacity. Pinning an older JS API version only works until that version
+    is itself decommissioned.
+
+status: expired

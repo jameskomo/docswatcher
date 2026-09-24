@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Incident density</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&libraries=visualization,drawing"></script>
+  </head>
+  <body>
+    <div id="map" style="height: 100vh"></div>
+    <script>
+      function initMap(points) {
+        const map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: -1.2921, lng: 36.8219 },
+          zoom: 12,
+        });
+        const heatmap = new google.maps.visualization.HeatmapLayer({
+          data: points.map((p) => new google.maps.LatLng(p.lat, p.lng)),
+          radius: 20,
+        });
+        heatmap.setMap(map);
+
+        const drawing = new google.maps.drawing.DrawingManager({
+          drawingMode: google.maps.drawing.OverlayType.POLYGON,
+        });
+        drawing.setMap(map);
+      }
+    </script>
+  </body>
+</html>

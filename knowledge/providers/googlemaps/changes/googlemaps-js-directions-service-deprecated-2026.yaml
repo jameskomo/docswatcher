@@ -1,0 +1,43 @@
+id: googlemaps-js-directions-service-deprecated-2026
+provider: googlemaps
+kind: sunset
+severity: warning
+title: "Maps JavaScript API DirectionsService and DirectionsRenderer deprecated"
+summary: >
+  google.maps.DirectionsService and google.maps.DirectionsRenderer are
+  deprecated as of February 25, 2026, after the JavaScript Directions
+  Service moved to Legacy status on March 1, 2025. They are not scheduled to
+  be discontinued and still receive fixes for major regressions; Google will
+  give at least 12 months' notice before support ends.
+
+affects:
+  - kind: sdk_method
+    match: "google.maps.DirectionsService"
+  - kind: sdk_method
+    match: "google.maps.DirectionsRenderer"
+
+announced: 2026-02-25
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://developers.google.com/maps/documentation/javascript/releases
+    observed: 2026-09-24
+    note: "Release 3.64.2b (26 February 2026): deprecated as of February 25th, 2026, not scheduled to be discontinued, at least 12 months notice before support is discontinued."
+  - kind: provider_page
+    url: https://developers.google.com/maps/legacy
+    observed: 2026-09-24
+
+migration:
+  replacement: "google.maps.routes.Route"
+  guide: https://developers.google.com/maps/documentation/javascript/routes/routes-js-migration
+  effort: medium
+  notes: >
+    Replace DirectionsService.route() with Route.computeRoutes() from the
+    routes library (importLibrary("routes")). The request takes origin,
+    destination and travelMode plus a fields list, and returns a promise of
+    routes. DirectionsRenderer has no drop-in replacement: draw the route
+    with the path from the result (for example as a Polyline) and render
+    steps yourself. Update tests that mock the callback-style route() API.
+
+status: active

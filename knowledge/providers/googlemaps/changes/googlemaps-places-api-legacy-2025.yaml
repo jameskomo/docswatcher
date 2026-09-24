@@ -1,0 +1,58 @@
+id: googlemaps-places-api-legacy-2025
+provider: googlemaps
+kind: sunset
+severity: info
+title: "Places API (Legacy) web service is Legacy"
+summary: >
+  On March 1, 2025 Google moved the Places API web service to Legacy status.
+  Legacy services are feature frozen and cannot be enabled in new Cloud
+  projects, but keep full support for existing projects. Google envisions
+  turning them down in the coming years, has set no date, and will give at
+  least 12 months' notice before decommissioning. The successor is Places
+  API (New) on places.googleapis.com.
+
+affects:
+  - kind: endpoint
+    match: "ANY /maps/api/place/*"
+  - kind: endpoint
+    match: "ANY /maps/api/place/*/*"
+  - kind: sdk_method
+    match: "Client.places_nearby"
+  - kind: sdk_method
+    match: "Client.find_place"
+  - kind: sdk_method
+    match: "Client.places_autocomplete"
+  - kind: sdk_method
+    match: "Client.placesNearby"
+  - kind: sdk_method
+    match: "Client.placeDetails"
+  - kind: sdk_method
+    match: "Client.textSearch"
+  - kind: sdk_method
+    match: "Client.findPlaceFromText"
+
+announced: 2025-03-01
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://developers.google.com/maps/legacy
+    observed: 2026-09-24
+    note: "The legacy page lists March 1, 2025 as the Legacy date and no decommission date; Google commits to at least 12 months' notice before decommissioning."
+
+migration:
+  replacement: "Places API (New), https://places.googleapis.com/v1/places"
+  guide: https://developers.google.com/maps/documentation/places/web-service/migrate-overview
+  effort: medium
+  notes: >
+    Move each call to its Places API (New) equivalent: Nearby Search to POST
+    places.googleapis.com/v1/places:searchNearby, Text Search to
+    places:searchText, Place Details to GET /v1/places/{place_id},
+    Autocomplete to places:autocomplete. The new API needs a field mask
+    (X-Goog-FieldMask header or fields parameter) on every request, takes
+    JSON request bodies instead of query parameters, and returns camelCase
+    fields with a different shape (displayName.text rather than name, for
+    example), so update response parsing and tests. Enable Places API (New)
+    on the project and check the key's API restrictions.
+
+status: active

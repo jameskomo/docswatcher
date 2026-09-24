@@ -1,0 +1,39 @@
+id: googlemaps-js-drawing-library-decommissioned-2026
+provider: googlemaps
+kind: retired
+severity: breaking
+title: "Maps JavaScript API Drawing Library decommissioned"
+summary: >
+  The Drawing Library (google.maps.drawing.DrawingManager) was deprecated in
+  release 3.62.2c on 28 August 2025. Release 3.65.3b on 4 June 2026 says
+  DrawingManager functionality is no longer available.
+
+affects:
+  - kind: sdk_method
+    match: "google.maps.drawing.DrawingManager"
+
+announced: 2025-08-28
+effective: 2026-06-04
+
+sources:
+  - kind: provider_page
+    url: https://developers.google.com/maps/deprecations
+    observed: 2026-09-24
+  - kind: changelog
+    url: https://developers.google.com/maps/documentation/javascript/releases
+    observed: 2026-09-24
+    note: "Release 3.62.2c, 28 August 2025: The Drawing Library is deprecated. Release 3.65.3b, 4 June 2026: The DrawingManager functionality in the Maps JavaScript API is no longer available."
+
+migration:
+  replacement: "Terra Draw"
+  guide: https://developers.google.com/maps/documentation/javascript/examples/map-drawing-terradraw
+  effort: medium
+  notes: >
+    Remove google.maps.drawing.DrawingManager and the drawing library from
+    the loader. Use Terra Draw with its Google Maps adapter: create
+    TerraDraw with the drawing modes you need (polygon, linestring, point,
+    circle, rectangle) and listen to its change and finish events instead of
+    overlaycomplete. Shapes come back as GeoJSON features rather than
+    google.maps overlays, so update the code that reads paths and radii.
+
+status: expired

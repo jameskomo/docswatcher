@@ -1,0 +1,43 @@
+id: googlemaps-js-marker-deprecated-2024
+provider: googlemaps
+kind: sunset
+severity: info
+title: "Maps JavaScript API google.maps.Marker deprecated"
+summary: >
+  google.maps.Marker is deprecated as of version 3.56 (February 2024) in
+  favour of google.maps.marker.AdvancedMarkerElement. It is not scheduled to
+  be discontinued and still receives fixes for major regressions, but
+  existing bugs will not be addressed. Google will give at least 12 months'
+  notice before support ends.
+
+affects:
+  - kind: sdk_method
+    match: "google.maps.Marker"
+
+announced: 2024-02-22
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://developers.google.com/maps/deprecations
+    observed: 2026-09-24
+  - kind: changelog
+    url: https://developers.google.com/maps/documentation/javascript/releases
+    observed: 2026-09-24
+    note: "Release 3.56.1, 22 February 2024: Deprecate google.maps.Marker."
+
+migration:
+  replacement: "google.maps.marker.AdvancedMarkerElement"
+  guide: https://developers.google.com/maps/documentation/javascript/advanced-markers/migration
+  effort: medium
+  notes: >
+    Replace new google.maps.Marker({position, map, title}) with new
+    google.maps.marker.AdvancedMarkerElement({position, map, title}) from
+    the marker library. The map must be created with a mapId. icon and label
+    become a content element (a PinElement or any DOM node); setMap(null)
+    becomes marker.map = null; click handlers use
+    marker.addEventListener("gmp-click", ...), since the addListener and
+    click events on AdvancedMarkerElement are themselves deprecated.
+    AdvancedMarkerElement needs version 3.53.2 or later.
+
+status: active

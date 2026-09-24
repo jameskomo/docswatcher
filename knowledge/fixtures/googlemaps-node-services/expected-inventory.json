@@ -1,0 +1,314 @@
+[
+  {
+    "id": "googlemaps:endpoint:GET /maps/api/directions/json",
+    "provider": "googlemaps",
+    "kind": "endpoint",
+    "key": "GET /maps/api/directions/json",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/quotes.ts",
+        "line": 7,
+        "column": 23,
+        "snippet": "const route = await client.directions({ params: { origin, destination, key } });",
+        "detector": "googlemaps.typescript.directions",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:endpoint:GET /maps/api/distancematrix/json",
+    "provider": "googlemaps",
+    "kind": "endpoint",
+    "key": "GET /maps/api/distancematrix/json",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/quotes.ts",
+        "line": 8,
+        "column": 24,
+        "snippet": "const matrix = await client.distancematrix({",
+        "detector": "googlemaps.typescript.distancematrix",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:endpoint:GET /maps/api/place/details/json",
+    "provider": "googlemaps",
+    "kind": "endpoint",
+    "key": "GET /maps/api/place/details/json",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/quotes.ts",
+        "line": 17,
+        "column": 25,
+        "snippet": "const details = await client.placeDetails({ params: { place_id: first.place_id!, key } });",
+        "detector": "googlemaps.typescript.place-details",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:endpoint:GET /maps/api/place/findplacefromtext/json",
+    "provider": "googlemaps",
+    "kind": "endpoint",
+    "key": "GET /maps/api/place/findplacefromtext/json",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/quotes.ts",
+        "line": 23,
+        "column": 23,
+        "snippet": "const exact = await client.findPlaceFromText({",
+        "detector": "googlemaps.typescript.find-place-from-text",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:endpoint:GET /maps/api/place/nearbysearch/json",
+    "provider": "googlemaps",
+    "kind": "endpoint",
+    "key": "GET /maps/api/place/nearbysearch/json",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/quotes.ts",
+        "line": 15,
+        "column": 24,
+        "snippet": "const nearby = await client.placesNearby({ params: { location, radius: 800, key } });",
+        "detector": "googlemaps.typescript.places-nearby",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:endpoint:GET /maps/api/place/textsearch/json",
+    "provider": "googlemaps",
+    "kind": "endpoint",
+    "key": "GET /maps/api/place/textsearch/json",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/quotes.ts",
+        "line": 22,
+        "column": 22,
+        "snippet": "const text = await client.textSearch({ params: { query, key } });",
+        "detector": "googlemaps.typescript.text-search",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:Client.directions",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "Client.directions",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/quotes.ts",
+        "line": 7,
+        "column": 23,
+        "snippet": "const route = await client.directions({ params: { origin, destination, key } });",
+        "detector": "googlemaps.typescript.directions",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:Client.distancematrix",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "Client.distancematrix",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/quotes.ts",
+        "line": 8,
+        "column": 24,
+        "snippet": "const matrix = await client.distancematrix({",
+        "detector": "googlemaps.typescript.distancematrix",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:Client.findPlaceFromText",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "Client.findPlaceFromText",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/quotes.ts",
+        "line": 23,
+        "column": 23,
+        "snippet": "const exact = await client.findPlaceFromText({",
+        "detector": "googlemaps.typescript.find-place-from-text",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:Client.placeDetails",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "Client.placeDetails",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/quotes.ts",
+        "line": 17,
+        "column": 25,
+        "snippet": "const details = await client.placeDetails({ params: { place_id: first.place_id!, key } });",
+        "detector": "googlemaps.typescript.place-details",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:Client.placesNearby",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "Client.placesNearby",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/quotes.ts",
+        "line": 15,
+        "column": 24,
+        "snippet": "const nearby = await client.placesNearby({ params: { location, radius: 800, key } });",
+        "detector": "googlemaps.typescript.places-nearby",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_method:Client.textSearch",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "Client.textSearch",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/quotes.ts",
+        "line": 22,
+        "column": 22,
+        "snippet": "const text = await client.textSearch({ params: { query, key } });",
+        "detector": "googlemaps.typescript.text-search",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.0"
+      }
+    }
+  },
+  {
+    "id": "googlemaps:sdk_package:@googlemaps/google-maps-services-js",
+    "provider": "googlemaps",
+    "kind": "sdk_package",
+    "key": "@googlemaps/google-maps-services-js",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"@googlemaps/google-maps-services-js\": \"^3.4.0\",",
+        "detector": "googlemaps.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.0"
+      }
+    }
+  }
+]

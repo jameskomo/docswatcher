@@ -1,0 +1,40 @@
+id: googlemaps-js-places-service-legacy-2025
+provider: googlemaps
+kind: sunset
+severity: info
+title: "Maps JavaScript API PlacesService is Legacy"
+summary: >
+  On March 1, 2025 Google moved the JavaScript Places Service
+  (google.maps.places.PlacesService) to Legacy status. Legacy services are
+  feature frozen and cannot be enabled in new Cloud projects, but keep full
+  support for existing projects. Google envisions turning them down in the
+  coming years, has set no date, and will give at least 12 months' notice
+  before decommissioning. The successor is the Place class.
+
+affects:
+  - kind: sdk_method
+    match: "google.maps.places.PlacesService"
+
+announced: 2025-03-01
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://developers.google.com/maps/legacy
+    observed: 2026-09-24
+    note: "The legacy page lists March 1, 2025 as the Legacy date and no decommission date; Google commits to at least 12 months' notice before decommissioning."
+
+migration:
+  replacement: "google.maps.places.Place"
+  guide: https://developers.google.com/maps/documentation/javascript/places-migration-overview
+  effort: medium
+  notes: >
+    Replace PlacesService calls with the Place class: nearbySearch becomes
+    Place.searchNearby, textSearch becomes Place.searchByText, getDetails
+    becomes new Place({id}).fetchFields({fields}). The new methods return
+    promises instead of taking callbacks, require an explicit fields list,
+    and use camelCase field names (displayName, formattedAddress, location).
+    Load the places library with importLibrary("places") and enable Places
+    API (New) on the project.
+
+status: active

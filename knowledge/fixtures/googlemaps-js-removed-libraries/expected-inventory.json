@@ -1,0 +1,53 @@
+[
+  {
+    "id": "googlemaps:endpoint:ANY /maps/api/js",
+    "provider": "googlemaps",
+    "kind": "endpoint",
+    "key": "ANY /maps/api/js",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "index.html",
+        "line": 5,
+        "column": 45,
+        "snippet": "<script src=\"https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&libraries=visualization,drawing\"></script>",
+        "detector": "googlemaps.literal.web-service-endpoint",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "googlemaps:sdk_method:google.maps.drawing.DrawingManager",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "google.maps.drawing.DrawingManager",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "index.html",
+        "line": 21,
+        "column": 41,
+        "snippet": "const drawing = new google.maps.drawing.DrawingManager({",
+        "detector": "googlemaps.literal.js-class",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "googlemaps:sdk_method:google.maps.visualization.HeatmapLayer",
+    "provider": "googlemaps",
+    "kind": "sdk_method",
+    "key": "google.maps.visualization.HeatmapLayer",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "index.html",
+        "line": 15,
+        "column": 41,
+        "snippet": "const heatmap = new google.maps.visualization.HeatmapLayer({",
+        "detector": "googlemaps.literal.js-class",
+        "layer": "literal"
+      }
+    ]
+  }
+]

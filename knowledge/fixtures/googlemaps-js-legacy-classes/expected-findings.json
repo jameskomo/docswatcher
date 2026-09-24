@@ -1,0 +1,34 @@
+[
+  {
+    "contract": "googlemaps:sdk_method:google.maps.DirectionsRenderer",
+    "change": "googlemaps-js-directions-service-deprecated-2026"
+  },
+  {
+    "contract": "googlemaps:sdk_method:google.maps.DirectionsService",
+    "change": "googlemaps-js-directions-service-deprecated-2026"
+  },
+  {
+    "contract": "googlemaps:sdk_method:google.maps.DistanceMatrixService",
+    "change": "googlemaps-js-distance-matrix-service-deprecated-2026"
+  },
+  {
+    "contract": "googlemaps:sdk_method:google.maps.KmlLayer",
+    "change": "googlemaps-js-kml-layer-deprecated-2026"
+  },
+  {
+    "contract": "googlemaps:sdk_method:google.maps.Marker",
+    "change": "googlemaps-js-marker-deprecated-2024"
+  },
+  {
+    "contract": "googlemaps:sdk_method:google.maps.event.addDomListener",
+    "change": "googlemaps-js-add-dom-listener-deprecated-2022"
+  },
+  {
+    "contract": "googlemaps:sdk_method:google.maps.event.addDomListenerOnce",
+    "change": "googlemaps-js-add-dom-listener-deprecated-2022"
+  },
+  {
+    "contract": "googlemaps:sdk_method:google.maps.places.PlacesService",
+    "change": "googlemaps-js-places-service-legacy-2025"
+  }
+]
