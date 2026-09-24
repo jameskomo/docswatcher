@@ -1,0 +1,45 @@
+id: square-v1-payments-api-retired-2023
+provider: square
+kind: sunset
+severity: breaking
+title: Connect V1 Payments API retired
+summary: >
+  The Connect V1 Payments API, V1 ListPayments and V1 RetrievePayment, was
+  deprecated on 2021-05-13 and retired on 2023-07-17 after one extension.
+  Retired Square endpoints return 410 GONE to every application.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v1/{location_id}/payments"
+
+announced: 2021-05-13
+effective: 2023-07-17
+
+sources:
+  - kind: provider_page
+    url: https://developer.squareup.com/docs/migrate-from-v1/guides/v1-payments
+    observed: 2026-09-24
+    note: "Important dates: Deprecation: 2021-05-13, Retirement: 2023-07-17. Lists V1 RetrievePayment and V1 ListPayments."
+  - kind: changelog
+    url: https://developer.squareup.com/docs/changelog/connect-logs/2023-07-06
+    observed: 2026-09-24
+    note: "The retirement date for the V1 Payments API is extended to July 17, 2023."
+  - kind: openapi_diff
+    url: https://github.com/square/connect-api-specification/blob/dda6f5bbbaebe9e1c9b851bdd28114de62390209/api.json
+    observed: 2026-09-24
+    note: "Square's own spec gives the V1 paths GET /v1/{location_id}/payments (ListPayments) and GET /v1/{location_id}/payments/{payment_id} (RetrievePayment)."
+
+migration:
+  replacement: "GET /v2/payments"
+  guide: https://developer.squareup.com/docs/migrate-from-v1/guides/v1-payments
+  effort: medium
+  notes: >
+    V1 ListPayments becomes ListPayments (GET /v2/payments) and V1
+    RetrievePayment becomes GetPayment (GET /v2/payments/{payment_id}). The
+    V2 calls are not scoped by a location in the path: pass location_id as a
+    query parameter to ListPayments instead. Response fields differ; map them
+    with the field tables in the migration guide rather than renaming
+    properties one to one. Money amounts are Money objects with amount and
+    currency. Paginate with the cursor returned by ListPayments.
+
+status: expired

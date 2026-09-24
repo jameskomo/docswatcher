@@ -1,0 +1,50 @@
+id: square-oauth-renew-token-retired-2024
+provider: square
+kind: sunset
+severity: breaking
+title: OAuth RenewToken endpoint retired
+summary: >
+  RenewToken was deprecated in Square API version 2019-03-13 and retired on
+  2024-04-17. Applications that still renew OAuth access tokens with it can no
+  longer keep seller authorizations alive; Square's guide says users will not
+  be able to authorize an application that has not moved to refresh tokens.
+
+affects:
+  - kind: endpoint
+    match: "POST /oauth2/clients/{client_id}/access-token/renew"
+  - kind: sdk_method
+    match: "oAuthApi.renewToken"
+
+announced: 2019-03-13
+effective: 2024-04-17
+
+sources:
+  - kind: provider_page
+    url: https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens
+    observed: 2026-09-24
+    note: "RenewToken is deprecated in Square API version 2019-03-13. RenewToken is retired on 2024-04-17."
+  - kind: changelog
+    url: https://developer.squareup.com/docs/changelog/connect-logs/2024-04-17
+    observed: 2026-09-24
+    note: "Release notes mark the OAuth API RenewToken endpoint RETIRED."
+  - kind: openapi_diff
+    url: https://github.com/square/connect-api-specification/blob/dda6f5bbbaebe9e1c9b851bdd28114de62390209/api.json
+    observed: 2026-09-24
+    note: "Square's own spec gives the path POST /oauth2/clients/{client_id}/access-token/renew for RenewToken."
+
+migration:
+  replacement: "POST /oauth2/token"
+  guide: https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens
+  effort: medium
+  notes: >
+    Replace RenewToken with ObtainToken (POST /oauth2/token). For each stored
+    renewable token that has not expired, call ObtainToken once with
+    grant_type=migration_token and migration_token set to that token, then
+    store both the access token and the refresh token from the response.
+    From then on, refresh before expiry by calling ObtainToken with
+    grant_type=refresh_token, client_id, client_secret and the stored
+    refresh_token. In the legacy Node SDK this is oAuthApi.obtainToken in
+    place of oAuthApi.renewToken. Store refresh tokens as securely as access
+    tokens.
+
+status: expired

@@ -1,0 +1,9 @@
+{
+  "name": "pos-sync",
+  "version": "2.3.0",
+  "private": true,
+  "dependencies": {
+    "square": "^39.1.0",
+    "node-fetch": "^3.3.2"
+  }
+}

@@ -1,0 +1,85 @@
+[
+  {
+    "id": "square:api_version:2021-12-15",
+    "provider": "square",
+    "kind": "api_version",
+    "key": "2021-12-15",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/customers.py",
+        "line": 8,
+        "column": 21,
+        "snippet": "square_version=\"2021-12-15\",",
+        "detector": "square.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "squareup",
+        "version": "17.0.0.20211215"
+      },
+      "apiVersion": "2021-12-15"
+    }
+  },
+  {
+    "id": "square:endpoint:ANY /v1/{location_id}/payments",
+    "provider": "square",
+    "kind": "endpoint",
+    "key": "ANY /v1/{location_id}/payments",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/reconcile.py",
+        "line": 5,
+        "column": 16,
+        "snippet": "V1_PAYMENTS = \"https://connect.squareup.com/v1/{location_id}/payments\"",
+        "detector": "square.literal.endpoint-v1-payments",
+        "layer": "literal"
+      },
+      {
+        "path": "app/reconcile.py",
+        "line": 18,
+        "column": 13,
+        "snippet": "url = f\"https://connect.squareup.com/v1/{location_id}/payments/{payment_id}\"",
+        "detector": "square.literal.endpoint-v1-payments",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "squareup",
+        "version": "17.0.0.20211215"
+      },
+      "apiVersion": "2021-12-15"
+    }
+  },
+  {
+    "id": "square:sdk_package:squareup",
+    "provider": "square",
+    "kind": "sdk_package",
+    "key": "squareup",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "squareup==17.0.0.20211215",
+        "detector": "square.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "squareup",
+        "version": "17.0.0.20211215"
+      },
+      "apiVersion": "2021-12-15"
+    }
+  }
+]

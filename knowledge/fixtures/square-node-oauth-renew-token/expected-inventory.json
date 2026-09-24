@@ -1,0 +1,74 @@
+[
+  {
+    "id": "square:endpoint:POST /oauth2/clients/{client_id}/access-token/renew",
+    "provider": "square",
+    "kind": "endpoint",
+    "key": "POST /oauth2/clients/{client_id}/access-token/renew",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/tokens.ts",
+        "line": 14,
+        "column": 28,
+        "snippet": "const { result } = await client.oAuthApi.renewToken(CLIENT_ID, {",
+        "detector": "square.typescript.renew-token",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^35.0.0"
+      }
+    }
+  },
+  {
+    "id": "square:sdk_method:oAuthApi.renewToken",
+    "provider": "square",
+    "kind": "sdk_method",
+    "key": "oAuthApi.renewToken",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/tokens.ts",
+        "line": 14,
+        "column": 28,
+        "snippet": "const { result } = await client.oAuthApi.renewToken(CLIENT_ID, {",
+        "detector": "square.typescript.renew-token",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^35.0.0"
+      }
+    }
+  },
+  {
+    "id": "square:sdk_package:square",
+    "provider": "square",
+    "kind": "sdk_package",
+    "key": "square",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"square\": \"^35.0.0\"",
+        "detector": "square.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^35.0.0"
+      }
+    }
+  }
+]

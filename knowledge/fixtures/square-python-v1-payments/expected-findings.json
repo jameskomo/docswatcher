@@ -1,0 +1,6 @@
+[
+  {
+    "contract": "square:endpoint:ANY /v1/{location_id}/payments",
+    "change": "square-v1-payments-api-retired-2023"
+  }
+]

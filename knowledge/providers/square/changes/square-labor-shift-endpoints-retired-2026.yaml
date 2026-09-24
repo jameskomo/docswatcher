@@ -1,0 +1,60 @@
+id: square-labor-shift-endpoints-retired-2026
+provider: square
+kind: sunset
+severity: breaking
+title: Labor API Shift endpoints retired
+summary: >
+  All Shift endpoints, data types and webhook events of the Labor API were
+  deprecated in Square API version 2025-05-21 and replaced by Timecard
+  equivalents. Square's Labor API guide gives 2026-05-21 as the retirement
+  version and says that at retirement Shift endpoints return 410 GONE to all
+  applications regardless of the Square-Version header. Square's published
+  OpenAPI spec of 2026-09-16 still lists the Shift endpoints, marked
+  deprecated.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v2/labor/shifts"
+  - kind: endpoint
+    match: "ANY /v2/labor/shifts/search"
+  - kind: sdk_method
+    match: "laborApi.createShift"
+  - kind: sdk_method
+    match: "laborApi.searchShifts"
+  - kind: sdk_method
+    match: "labor.shifts.create"
+  - kind: sdk_method
+    match: "labor.shifts.search"
+
+announced: 2025-05-21
+effective: 2026-05-21
+
+sources:
+  - kind: provider_page
+    url: https://developer.squareup.com/docs/labor-api/what-it-does
+    observed: 2026-09-24
+    note: "Deprecated Shift endpoints, data types, and webhooks. Deprecated in version: 2025-05-21. Retired in version: 2026-05-21."
+  - kind: changelog
+    url: https://developer.squareup.com/docs/changelog/connect-logs/2025-05-21
+    observed: 2026-09-24
+    note: "All Shift-related endpoints, data types, and webhook events are deprecated and replaced by new Timecard equivalents."
+
+migration:
+  replacement: "POST /v2/labor/timecards"
+  guide: https://developer.squareup.com/docs/labor-api/what-it-does
+  effort: medium
+  notes: >
+    Move each Shift call to its Timecard equivalent: CreateShift to
+    CreateTimecard (POST /v2/labor/timecards), SearchShifts to SearchTimecards
+    (POST /v2/labor/timecards/search), GetShift to RetrieveTimecard,
+    UpdateShift to UpdateTimecard and DeleteShift to DeleteTimecard
+    (GET, PUT and DELETE /v2/labor/timecards/{id}). The request and response
+    wrap a timecard object where they wrapped a shift. In the Node SDK 43 and
+    later, client.labor.shifts.create becomes client.labor.createTimecard and
+    client.labor.shifts.search becomes client.labor.searchTimecards; code on
+    the legacy laborApi client has to upgrade the SDK first, because Timecard
+    endpoints need Square API version 2025-05-21 or later. Webhook
+    subscribers should unsubscribe from labor.shift.* events and subscribe to
+    labor.timecard.* events.
+
+status: expired

@@ -1,0 +1,243 @@
+[
+  {
+    "id": "square:api_version:2019-08-14",
+    "provider": "square",
+    "kind": "api_version",
+    "key": "2019-08-14",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/charge.js",
+        "line": 6,
+        "column": 22,
+        "snippet": "\"Square-Version\": \"2019-08-14\",",
+        "detector": "square.literal.api-version",
+        "layer": "literal"
+      },
+      {
+        "path": "src/client.js",
+        "line": 6,
+        "column": 19,
+        "snippet": "squareVersion: \"2019-08-14\",",
+        "detector": "square.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^39.1.0"
+      },
+      "apiVersion": "2019-08-14"
+    }
+  },
+  {
+    "id": "square:endpoint:ANY /v2/locations",
+    "provider": "square",
+    "kind": "endpoint",
+    "key": "ANY /v2/locations",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/charge.js",
+        "line": 10,
+        "column": 56,
+        "snippet": "const res = await fetch(`https://connect.squareup.com/v2/locations/${locationId}/transactions`, {",
+        "detector": "square.literal.endpoint",
+        "layer": "literal"
+      },
+      {
+        "path": "src/charge.js",
+        "line": 24,
+        "column": 44,
+        "snippet": "const url = `https://connect.squareup.com/v2/locations/${locationId}/transactions/${transactionId}/refund`;",
+        "detector": "square.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^39.1.0"
+      },
+      "apiVersion": "2019-08-14"
+    }
+  },
+  {
+    "id": "square:endpoint:ANY /v2/locations/{location_id}/transactions",
+    "provider": "square",
+    "kind": "endpoint",
+    "key": "ANY /v2/locations/{location_id}/transactions",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/charge.js",
+        "line": 10,
+        "column": 28,
+        "snippet": "const res = await fetch(`https://connect.squareup.com/v2/locations/${locationId}/transactions`, {",
+        "detector": "square.literal.endpoint-transactions",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^39.1.0"
+      },
+      "apiVersion": "2019-08-14"
+    }
+  },
+  {
+    "id": "square:endpoint:POST /v2/locations/{location_id}/transactions/{transaction_id}/capture",
+    "provider": "square",
+    "kind": "endpoint",
+    "key": "POST /v2/locations/{location_id}/transactions/{transaction_id}/capture",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/delayedCapture.js",
+        "line": 5,
+        "column": 28,
+        "snippet": "const { result } = await client.transactionsApi.captureTransaction(locationId, transactionId);",
+        "detector": "square.javascript.capture-transaction",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^39.1.0"
+      },
+      "apiVersion": "2019-08-14"
+    }
+  },
+  {
+    "id": "square:endpoint:POST /v2/locations/{location_id}/transactions/{transaction_id}/refund",
+    "provider": "square",
+    "kind": "endpoint",
+    "key": "POST /v2/locations/{location_id}/transactions/{transaction_id}/refund",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/charge.js",
+        "line": 24,
+        "column": 102,
+        "snippet": "const url = `https://connect.squareup.com/v2/locations/${locationId}/transactions/${transactionId}/refund`;",
+        "detector": "square.literal.endpoint-transaction-action",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^39.1.0"
+      },
+      "apiVersion": "2019-08-14"
+    }
+  },
+  {
+    "id": "square:endpoint:POST /v2/locations/{location_id}/transactions/{transaction_id}/void",
+    "provider": "square",
+    "kind": "endpoint",
+    "key": "POST /v2/locations/{location_id}/transactions/{transaction_id}/void",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/delayedCapture.js",
+        "line": 10,
+        "column": 28,
+        "snippet": "const { result } = await client.transactionsApi.voidTransaction(locationId, transactionId);",
+        "detector": "square.javascript.void-transaction",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^39.1.0"
+      },
+      "apiVersion": "2019-08-14"
+    }
+  },
+  {
+    "id": "square:sdk_method:transactionsApi.captureTransaction",
+    "provider": "square",
+    "kind": "sdk_method",
+    "key": "transactionsApi.captureTransaction",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/delayedCapture.js",
+        "line": 5,
+        "column": 28,
+        "snippet": "const { result } = await client.transactionsApi.captureTransaction(locationId, transactionId);",
+        "detector": "square.javascript.capture-transaction",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^39.1.0"
+      },
+      "apiVersion": "2019-08-14"
+    }
+  },
+  {
+    "id": "square:sdk_method:transactionsApi.voidTransaction",
+    "provider": "square",
+    "kind": "sdk_method",
+    "key": "transactionsApi.voidTransaction",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/delayedCapture.js",
+        "line": 10,
+        "column": 28,
+        "snippet": "const { result } = await client.transactionsApi.voidTransaction(locationId, transactionId);",
+        "detector": "square.javascript.void-transaction",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^39.1.0"
+      },
+      "apiVersion": "2019-08-14"
+    }
+  },
+  {
+    "id": "square:sdk_package:square",
+    "provider": "square",
+    "kind": "sdk_package",
+    "key": "square",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"square\": \"^39.1.0\",",
+        "detector": "square.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^39.1.0"
+      },
+      "apiVersion": "2019-08-14"
+    }
+  }
+]

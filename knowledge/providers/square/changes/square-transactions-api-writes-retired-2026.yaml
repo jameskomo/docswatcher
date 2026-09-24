@@ -1,0 +1,67 @@
+id: square-transactions-api-writes-retired-2026
+provider: square
+kind: sunset
+severity: breaking
+title: Transactions API write operations retired
+summary: >
+  The Transactions API has been deprecated since 2019-08-15, when the Payments
+  and Refunds APIs replaced it. As of 16 September 2026 its write operations,
+  Charge, CreateRefund, CaptureTransaction and VoidTransaction, are retired.
+  Read operations (ListTransactions, RetrieveTransaction) remain available for
+  historical data. Charge and ListTransactions share one path, so a URL
+  literal for it is flagged whichever method the code sends; a GET to it still
+  works.
+
+affects:
+  - kind: endpoint
+    match: "POST /v2/locations/{location_id}/transactions"
+  - kind: endpoint
+    match: "POST /v2/locations/{location_id}/transactions/{transaction_id}/refund"
+  - kind: endpoint
+    match: "POST /v2/locations/{location_id}/transactions/{transaction_id}/capture"
+  - kind: endpoint
+    match: "POST /v2/locations/{location_id}/transactions/{transaction_id}/void"
+  - kind: sdk_method
+    match: "transactionsApi.captureTransaction"
+  - kind: sdk_method
+    match: "transactionsApi.voidTransaction"
+
+announced: 2019-08-15
+effective: 2026-09-16
+
+sources:
+  - kind: changelog
+    url: https://developer.squareup.com/docs/changelog/connect-logs/2026-09-16
+    observed: 2026-09-24
+    note: "The Charge, CreateRefund, CaptureTransaction, and VoidTransaction write operations are retired. Read operations remain available for historical transaction data."
+  - kind: provider_page
+    url: https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api
+    observed: 2026-09-24
+    note: "The Transactions API is deprecated. As of September 16, 2026, its write operations (Charge, CreateRefund, CaptureTransaction, and VoidTransaction) are retired."
+  - kind: provider_page
+    url: https://developer.squareup.com/docs/migrate-from-v1
+    observed: 2026-09-24
+    note: "Deprecated APIs table lists Transactions with deprecation 2019-08-15 and the Payments API as replacement."
+  - kind: openapi_diff
+    url: https://github.com/square/connect-api-specification/blob/dda6f5bbbaebe9e1c9b851bdd28114de62390209/api.json
+    observed: 2026-09-24
+    note: "Square's own spec at release 2.20190814 gives the paths: Charge is POST /v2/locations/{location_id}/transactions, CreateRefund, CaptureTransaction and VoidTransaction are POST .../transactions/{transaction_id}/refund, /capture and /void."
+
+migration:
+  replacement: "POST /v2/payments"
+  guide: https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api
+  effort: large
+  notes: >
+    Charge becomes CreatePayment (POST /v2/payments). CreateRefund becomes
+    RefundPayment (POST /v2/refunds), which takes a payment_id rather than a
+    transaction and tender pair. A delayed-capture charge becomes a payment
+    created with autocomplete=false, then CompletePayment
+    (POST /v2/payments/{payment_id}/complete) replaces CaptureTransaction and
+    CancelPayment (POST /v2/payments/{payment_id}/cancel) replaces
+    VoidTransaction. Handlers that read the Transaction and Tender objects
+    from responses must read the Payment and Refund objects instead. Use
+    Square SDK 2.20190814.0 or later (2.22.0 or later for .NET).
+    Leave ListTransactions and RetrieveTransaction calls for historical data
+    in place.
+
+status: expired

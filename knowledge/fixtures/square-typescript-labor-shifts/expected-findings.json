@@ -1,0 +1,30 @@
+[
+  {
+    "contract": "square:endpoint:ANY /v2/labor/shifts",
+    "change": "square-labor-shift-endpoints-retired-2026"
+  },
+  {
+    "contract": "square:endpoint:POST /v2/labor/shifts",
+    "change": "square-labor-shift-endpoints-retired-2026"
+  },
+  {
+    "contract": "square:endpoint:POST /v2/labor/shifts/search",
+    "change": "square-labor-shift-endpoints-retired-2026"
+  },
+  {
+    "contract": "square:sdk_method:labor.shifts.create",
+    "change": "square-labor-shift-endpoints-retired-2026"
+  },
+  {
+    "contract": "square:sdk_method:labor.shifts.search",
+    "change": "square-labor-shift-endpoints-retired-2026"
+  },
+  {
+    "contract": "square:sdk_method:laborApi.createShift",
+    "change": "square-labor-shift-endpoints-retired-2026"
+  },
+  {
+    "contract": "square:sdk_method:laborApi.searchShifts",
+    "change": "square-labor-shift-endpoints-retired-2026"
+  }
+]

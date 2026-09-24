@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "square:endpoint:POST /oauth2/clients/{client_id}/access-token/renew",
+    "change": "square-oauth-renew-token-retired-2024"
+  },
+  {
+    "contract": "square:sdk_method:oAuthApi.renewToken",
+    "change": "square-oauth-renew-token-retired-2024"
+  }
+]

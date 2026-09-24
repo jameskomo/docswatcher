@@ -1,0 +1,20 @@
+id: square
+name: Square
+homepage: https://squareup.com
+docs: https://developer.squareup.com/reference/square
+changelog: https://developer.squareup.com/docs/changelog/connect
+base_urls:
+  - https://connect.squareup.com
+  - https://connect.squareupsandbox.com
+openapi:
+  url: https://raw.githubusercontent.com/square/connect-api-specification/master/api.json
+  pinned_sha: null
+sdk_languages: [typescript, javascript, python, java, go, ruby, php, csharp]
+deprecation_policy: >
+  Versioned by a date sent in the Square-Version header, but a version date is
+  never retired on its own: what retires is an endpoint. Square's API lifecycle
+  page says APIs are typically deprecated at least 12 months before
+  retirement, and that retired endpoints return 410 GONE to every application
+  whatever Square-Version the request sends. Each migration guide carries an
+  "Important dates" block with the deprecation and retirement dates, and the
+  release notes mark an API RETIRED on the release that removes it.

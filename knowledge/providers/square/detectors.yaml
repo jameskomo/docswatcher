@@ -1,0 +1,315 @@
+provider: square
+
+manifests:
+  - ecosystem: npm
+    package: square
+  - ecosystem: pypi
+    package: squareup
+  - ecosystem: maven
+    package: com.squareup:square
+  - ecosystem: rubygems
+    package: square.rb
+  - ecosystem: go
+    package: github.com/square/square-go-sdk
+  - ecosystem: go
+    package: github.com/square/square-go-sdk/v2
+  - ecosystem: go
+    package: github.com/square/square-go-sdk/v3
+
+literals:
+  # Paths made only of fixed segments. A path with an ID in it stops at the ID,
+  # so https://connect.squareup.com/v2/labor/shifts/${id} is keyed
+  # "ANY /v2/labor/shifts", the same convention as Stripe's endpoint rule.
+  - id: square.literal.endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://connect\.squareup(?:sandbox)?\.com(/v2/[a-z_-]+(?:/[a-z_-]+)*)'
+    key: "ANY $1"
+    confidence: medium
+
+  # The Transactions API puts a location ID in the middle of the path, which the
+  # fixed-segment rule cannot see past. The ID segment is whatever sits between
+  # the slashes: ${locationId}, {location_id}, or a literal ID. A URL cannot say
+  # whether it is a Charge (POST) or a ListTransactions (GET), so the key is ANY.
+  - id: square.literal.endpoint-transactions
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://connect\.squareup(?:sandbox)?\.com/v2/locations/[^/\s"''`]+/transactions(?![\w/-])'
+    key: "ANY /v2/locations/{location_id}/transactions"
+    confidence: medium
+
+  # Capture, void and refund on a transaction exist only as POST.
+  - id: square.literal.endpoint-transaction-action
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://connect\.squareup(?:sandbox)?\.com/v2/locations/[^/\s"''`]+/transactions/[^/\s"''`]+/(capture|void|refund)\b'
+    key: "POST /v2/locations/{location_id}/transactions/{transaction_id}/$1"
+    confidence: medium
+
+  # Connect V1 paths start with the location ID. Only payments is listed: it is
+  # the V1 API with a published retirement date.
+  - id: square.literal.endpoint-v1-payments
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://connect\.squareup\.com/v1/[^/\s"''`]+/payments\b'
+    key: "ANY /v1/{location_id}/payments"
+    confidence: medium
+
+  - id: square.literal.endpoint-renew-token
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://connect\.squareup(?:sandbox)?\.com/oauth2/clients/[^/\s"''`]+/access-token/renew\b'
+    key: "POST /oauth2/clients/{client_id}/access-token/renew"
+    confidence: medium
+
+  # The Square-Version header, and the SDK options that set it: squareVersion in
+  # the legacy Node SDK, square_version in Python. The name is required, so a
+  # bare apiVersion date stays Stripe's, and a full date never matches
+  # Shopify's YYYY-MM rules.
+  - id: square.literal.api-version
+    kind: api_version
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env,json}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/package-lock.json"]
+    pattern: '(?:Square-Version|squareVersion|square_version|SQUARE_VERSION)["'']?\s*[:=,]\s*["'']([0-9]{4}-[0-9]{2}-[0-9]{2})["'']'
+    key: "$1"
+    confidence: medium
+
+callsites:
+  # Legacy Node SDK (square 39 and earlier): client.<name>Api.<operation>(...).
+  - id: square.javascript.capture-transaction
+    language: javascript
+    kind: sdk_method
+    requires: square
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @api)
+          property: (property_identifier) @m)
+        (#eq? @api "transactionsApi") (#eq? @m "captureTransaction")) @call
+    key: "transactionsApi.captureTransaction"
+    maps_to:
+      kind: endpoint
+      key: "POST /v2/locations/{location_id}/transactions/{transaction_id}/capture"
+    confidence: high
+
+  - id: square.typescript.capture-transaction
+    language: typescript
+    kind: sdk_method
+    requires: square
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @api)
+          property: (property_identifier) @m)
+        (#eq? @api "transactionsApi") (#eq? @m "captureTransaction")) @call
+    key: "transactionsApi.captureTransaction"
+    maps_to:
+      kind: endpoint
+      key: "POST /v2/locations/{location_id}/transactions/{transaction_id}/capture"
+    confidence: high
+
+  - id: square.javascript.void-transaction
+    language: javascript
+    kind: sdk_method
+    requires: square
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @api)
+          property: (property_identifier) @m)
+        (#eq? @api "transactionsApi") (#eq? @m "voidTransaction")) @call
+    key: "transactionsApi.voidTransaction"
+    maps_to:
+      kind: endpoint
+      key: "POST /v2/locations/{location_id}/transactions/{transaction_id}/void"
+    confidence: high
+
+  - id: square.typescript.void-transaction
+    language: typescript
+    kind: sdk_method
+    requires: square
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @api)
+          property: (property_identifier) @m)
+        (#eq? @api "transactionsApi") (#eq? @m "voidTransaction")) @call
+    key: "transactionsApi.voidTransaction"
+    maps_to:
+      kind: endpoint
+      key: "POST /v2/locations/{location_id}/transactions/{transaction_id}/void"
+    confidence: high
+
+  - id: square.javascript.renew-token
+    language: javascript
+    kind: sdk_method
+    requires: square
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @api)
+          property: (property_identifier) @m)
+        (#eq? @api "oAuthApi") (#eq? @m "renewToken")) @call
+    key: "oAuthApi.renewToken"
+    maps_to:
+      kind: endpoint
+      key: "POST /oauth2/clients/{client_id}/access-token/renew"
+    confidence: high
+
+  - id: square.typescript.renew-token
+    language: typescript
+    kind: sdk_method
+    requires: square
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @api)
+          property: (property_identifier) @m)
+        (#eq? @api "oAuthApi") (#eq? @m "renewToken")) @call
+    key: "oAuthApi.renewToken"
+    maps_to:
+      kind: endpoint
+      key: "POST /oauth2/clients/{client_id}/access-token/renew"
+    confidence: high
+
+  - id: square.javascript.create-shift
+    language: javascript
+    kind: sdk_method
+    requires: square
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @api)
+          property: (property_identifier) @m)
+        (#eq? @api "laborApi") (#eq? @m "createShift")) @call
+    key: "laborApi.createShift"
+    maps_to:
+      kind: endpoint
+      key: "POST /v2/labor/shifts"
+    confidence: high
+
+  - id: square.typescript.create-shift
+    language: typescript
+    kind: sdk_method
+    requires: square
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @api)
+          property: (property_identifier) @m)
+        (#eq? @api "laborApi") (#eq? @m "createShift")) @call
+    key: "laborApi.createShift"
+    maps_to:
+      kind: endpoint
+      key: "POST /v2/labor/shifts"
+    confidence: high
+
+  - id: square.javascript.search-shifts
+    language: javascript
+    kind: sdk_method
+    requires: square
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @api)
+          property: (property_identifier) @m)
+        (#eq? @api "laborApi") (#eq? @m "searchShifts")) @call
+    key: "laborApi.searchShifts"
+    maps_to:
+      kind: endpoint
+      key: "POST /v2/labor/shifts/search"
+    confidence: high
+
+  - id: square.typescript.search-shifts
+    language: typescript
+    kind: sdk_method
+    requires: square
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @api)
+          property: (property_identifier) @m)
+        (#eq? @api "laborApi") (#eq? @m "searchShifts")) @call
+    key: "laborApi.searchShifts"
+    maps_to:
+      kind: endpoint
+      key: "POST /v2/labor/shifts/search"
+    confidence: high
+
+  # Node SDK 40 and later: client.labor.shifts.<operation>(...).
+  - id: square.javascript.labor-shifts-create
+    language: javascript
+    kind: sdk_method
+    requires: square
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression
+            object: (member_expression property: (property_identifier) @api)
+            property: (property_identifier) @res)
+          property: (property_identifier) @m)
+        (#eq? @api "labor") (#eq? @res "shifts") (#eq? @m "create")) @call
+    key: "labor.shifts.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v2/labor/shifts"
+    confidence: high
+
+  - id: square.typescript.labor-shifts-create
+    language: typescript
+    kind: sdk_method
+    requires: square
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression
+            object: (member_expression property: (property_identifier) @api)
+            property: (property_identifier) @res)
+          property: (property_identifier) @m)
+        (#eq? @api "labor") (#eq? @res "shifts") (#eq? @m "create")) @call
+    key: "labor.shifts.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v2/labor/shifts"
+    confidence: high
+
+  - id: square.javascript.labor-shifts-search
+    language: javascript
+    kind: sdk_method
+    requires: square
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression
+            object: (member_expression property: (property_identifier) @api)
+            property: (property_identifier) @res)
+          property: (property_identifier) @m)
+        (#eq? @api "labor") (#eq? @res "shifts") (#eq? @m "search")) @call
+    key: "labor.shifts.search"
+    maps_to:
+      kind: endpoint
+      key: "POST /v2/labor/shifts/search"
+    confidence: high
+
+  - id: square.typescript.labor-shifts-search
+    language: typescript
+    kind: sdk_method
+    requires: square
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression
+            object: (member_expression property: (property_identifier) @api)
+            property: (property_identifier) @res)
+          property: (property_identifier) @m)
+        (#eq? @api "labor") (#eq? @res "shifts") (#eq? @m "search")) @call
+    key: "labor.shifts.search"
+    maps_to:
+      kind: endpoint
+      key: "POST /v2/labor/shifts/search"
+    confidence: high

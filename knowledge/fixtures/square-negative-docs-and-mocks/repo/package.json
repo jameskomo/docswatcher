@@ -1,0 +1,11 @@
+{
+  "name": "checkout-web",
+  "version": "3.1.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

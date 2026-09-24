@@ -1,0 +1,26 @@
+[
+  {
+    "contract": "square:endpoint:ANY /v2/locations/{location_id}/transactions",
+    "change": "square-transactions-api-writes-retired-2026"
+  },
+  {
+    "contract": "square:endpoint:POST /v2/locations/{location_id}/transactions/{transaction_id}/capture",
+    "change": "square-transactions-api-writes-retired-2026"
+  },
+  {
+    "contract": "square:endpoint:POST /v2/locations/{location_id}/transactions/{transaction_id}/refund",
+    "change": "square-transactions-api-writes-retired-2026"
+  },
+  {
+    "contract": "square:endpoint:POST /v2/locations/{location_id}/transactions/{transaction_id}/void",
+    "change": "square-transactions-api-writes-retired-2026"
+  },
+  {
+    "contract": "square:sdk_method:transactionsApi.captureTransaction",
+    "change": "square-transactions-api-writes-retired-2026"
+  },
+  {
+    "contract": "square:sdk_method:transactionsApi.voidTransaction",
+    "change": "square-transactions-api-writes-retired-2026"
+  }
+]

@@ -1,0 +1,243 @@
+[
+  {
+    "id": "square:api_version:2025-04-16",
+    "provider": "square",
+    "kind": "api_version",
+    "key": "2025-04-16",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/payroll.ts",
+        "line": 7,
+        "column": 69,
+        "snippet": "headers: { Authorization: `Bearer ${token}`, \"Square-Version\": \"2025-04-16\" },",
+        "detector": "square.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^42.0.0"
+      },
+      "apiVersion": "2025-04-16"
+    }
+  },
+  {
+    "id": "square:endpoint:ANY /v2/labor/shifts",
+    "provider": "square",
+    "kind": "endpoint",
+    "key": "ANY /v2/labor/shifts",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/payroll.ts",
+        "line": 3,
+        "column": 48,
+        "snippet": "const SHIFT_URL = \"https://connect.squareup.com/v2/labor/shifts\";",
+        "detector": "square.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^42.0.0"
+      },
+      "apiVersion": "2025-04-16"
+    }
+  },
+  {
+    "id": "square:endpoint:POST /v2/labor/shifts",
+    "provider": "square",
+    "kind": "endpoint",
+    "key": "POST /v2/labor/shifts",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/legacyKiosk.ts",
+        "line": 11,
+        "column": 28,
+        "snippet": "const { result } = await legacy.laborApi.createShift({",
+        "detector": "square.typescript.create-shift",
+        "layer": "callsite"
+      },
+      {
+        "path": "src/timeclock.ts",
+        "line": 10,
+        "column": 26,
+        "snippet": "const response = await client.labor.shifts.create({",
+        "detector": "square.typescript.labor-shifts-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^42.0.0"
+      },
+      "apiVersion": "2025-04-16"
+    }
+  },
+  {
+    "id": "square:endpoint:POST /v2/labor/shifts/search",
+    "provider": "square",
+    "kind": "endpoint",
+    "key": "POST /v2/labor/shifts/search",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/legacyKiosk.ts",
+        "line": 19,
+        "column": 28,
+        "snippet": "const { result } = await legacy.laborApi.searchShifts({",
+        "detector": "square.typescript.search-shifts",
+        "layer": "callsite"
+      },
+      {
+        "path": "src/timeclock.ts",
+        "line": 22,
+        "column": 26,
+        "snippet": "const response = await client.labor.shifts.search({",
+        "detector": "square.typescript.labor-shifts-search",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^42.0.0"
+      },
+      "apiVersion": "2025-04-16"
+    }
+  },
+  {
+    "id": "square:sdk_method:labor.shifts.create",
+    "provider": "square",
+    "kind": "sdk_method",
+    "key": "labor.shifts.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/timeclock.ts",
+        "line": 10,
+        "column": 26,
+        "snippet": "const response = await client.labor.shifts.create({",
+        "detector": "square.typescript.labor-shifts-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^42.0.0"
+      },
+      "apiVersion": "2025-04-16"
+    }
+  },
+  {
+    "id": "square:sdk_method:labor.shifts.search",
+    "provider": "square",
+    "kind": "sdk_method",
+    "key": "labor.shifts.search",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/timeclock.ts",
+        "line": 22,
+        "column": 26,
+        "snippet": "const response = await client.labor.shifts.search({",
+        "detector": "square.typescript.labor-shifts-search",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^42.0.0"
+      },
+      "apiVersion": "2025-04-16"
+    }
+  },
+  {
+    "id": "square:sdk_method:laborApi.createShift",
+    "provider": "square",
+    "kind": "sdk_method",
+    "key": "laborApi.createShift",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/legacyKiosk.ts",
+        "line": 11,
+        "column": 28,
+        "snippet": "const { result } = await legacy.laborApi.createShift({",
+        "detector": "square.typescript.create-shift",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^42.0.0"
+      },
+      "apiVersion": "2025-04-16"
+    }
+  },
+  {
+    "id": "square:sdk_method:laborApi.searchShifts",
+    "provider": "square",
+    "kind": "sdk_method",
+    "key": "laborApi.searchShifts",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/legacyKiosk.ts",
+        "line": 19,
+        "column": 28,
+        "snippet": "const { result } = await legacy.laborApi.searchShifts({",
+        "detector": "square.typescript.search-shifts",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^42.0.0"
+      },
+      "apiVersion": "2025-04-16"
+    }
+  },
+  {
+    "id": "square:sdk_package:square",
+    "provider": "square",
+    "kind": "sdk_package",
+    "key": "square",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"square\": \"^42.0.0\"",
+        "detector": "square.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "square",
+        "version": "^42.0.0"
+      },
+      "apiVersion": "2025-04-16"
+    }
+  }
+]

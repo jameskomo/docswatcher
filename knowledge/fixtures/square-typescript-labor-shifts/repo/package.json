@@ -1,0 +1,11 @@
+{
+  "name": "timeclock",
+  "version": "0.9.4",
+  "private": true,
+  "dependencies": {
+    "square": "^42.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}
