@@ -61,7 +61,7 @@ useHead({
       </div>
     </section>
 
-    <div class="prose" style="max-width: 900px">
+    <div class="prose">
       <div class="callout" style="margin-block: 0 var(--s4)" role="note" data-testid="upgrade-notice">
         <strong>Used the Action or the native binary before 24 September 2026? Upgrade.</strong>
         Releases up to v0.2.1 reported every finding as empty, so the Action never failed a build.

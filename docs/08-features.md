@@ -226,7 +226,7 @@ Warnings: an individual `affects` entry that no fixture exercises.
 
 ```
 $ knowledge/scripts/validate
-Knowledge 2026.09.24: 15 providers, 202 change records, 55 fixtures
+Knowledge 2026.09.24: 15 providers, 202 change records, 68 fixtures
 OK · 0 errors, 1 warnings
 ```
 
@@ -380,6 +380,8 @@ Every page ends with links to every feature: the pages, the three feeds, the sou
 release, the documentation and the knowledge base.
 
 ### Presentation
+
+Every page spans the header's width, so its edges line up with the navigation; only running text keeps a reading measure. Icons are Google's Material icons, drawn in the text colour (`web/app/components/Icon.vue`), never emoji. The scan choices are separate bordered buttons that wrap on a phone.
 
 Light and dark themes from CSS custom properties, a phone-width layout with no horizontal scroll at 375 pixels, hash routing, and relative asset URLs so the export works at any path on any static host.
 

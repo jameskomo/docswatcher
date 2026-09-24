@@ -1759,7 +1759,12 @@ pre {
    Prose (About Page)
    ============================================================================ */
 
+/* A page spans the header's width, so its edges line up with the navigation. Only running text
+   keeps a reading measure; cards, tables, code and forms use the full width. */
 .prose {
+  max-width: none;
+}
+.prose > p, .prose > ul, .prose > ol, .prose > dl, .prose > blockquote {
   max-width: var(--measure);
 }
 .prose > * + * { margin-top: var(--s4); }

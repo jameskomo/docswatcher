@@ -170,8 +170,7 @@ useHead({
 
 <style scoped>
 /* One column for everything: headline, intro and body share both edges. */
-.agents { max-width: 760px; }
-.agents .prose, .agents .lede { max-width: none; }
+/* Full width, like every page; running text keeps its measure from .prose. */
 .agents h1 { font-size: clamp(1.75rem, 3.4vw, 2.5rem); line-height: 1.15; text-wrap: balance; }
 .agents .lede { margin-top: var(--s3); }
 .agents .prose { margin-top: var(--s5); }

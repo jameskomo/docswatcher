@@ -159,8 +159,7 @@ useHead({
 </template>
 
 <style scoped>
-.teams { max-width: 760px; }
-.teams .prose, .teams .lede { max-width: none; }
+/* Full width, like every page; running text keeps its measure from .prose. */
 .teams h1 { font-size: clamp(1.75rem, 3.4vw, 2.5rem); line-height: 1.15; text-wrap: balance; }
 .teams .lede { margin-top: var(--s3); }
 .teams .prose { margin-top: var(--s5); }

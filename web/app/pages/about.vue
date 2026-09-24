@@ -34,7 +34,7 @@ useHead({
       </div>
     </section>
 
-    <div class="prose" style="max-width: 900px">
+    <div class="prose">
       <h2 style="margin-top: 0">The Problem</h2>
       <p>
         Traditional package managers keep your installed dependencies up to date. Dependabot and Renovate alert you
