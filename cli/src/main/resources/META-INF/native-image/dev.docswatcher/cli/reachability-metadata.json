@@ -185,6 +185,51 @@
       ]
     },
     {
+      "type": "dev.docswatcher.engine.Finding",
+      "methods": [
+        {
+          "name": "change",
+          "parameterTypes": []
+        },
+        {
+          "name": "contract",
+          "parameterTypes": []
+        },
+        {
+          "name": "daysRemaining",
+          "parameterTypes": []
+        },
+        {
+          "name": "effective",
+          "parameterTypes": []
+        },
+        {
+          "name": "evidence",
+          "parameterTypes": []
+        },
+        {
+          "name": "fixPr",
+          "parameterTypes": []
+        },
+        {
+          "name": "id",
+          "parameterTypes": []
+        },
+        {
+          "name": "severity",
+          "parameterTypes": []
+        },
+        {
+          "name": "snoozedUntil",
+          "parameterTypes": []
+        },
+        {
+          "name": "status",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "dev.docswatcher.engine.Finding$Pair",
       "methods": [
         {
