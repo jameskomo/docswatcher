@@ -14,7 +14,9 @@
   <properties>
     <!-- The tree-sitter binding ships a prebuilt library per platform in lib/ and loads the one
          matching the running OS and arch. The native image only needs this platform's. -->
-    <native.treesitter.libs>lib/.*\.so</native.treesitter.libs>
+    <!-- [.] rather than \. : on Windows the build passes arguments through a file that escapes
+         backslashes, and the Windows DLLs were silently left out of the image. -->
+    <native.treesitter.libs>lib/.*[.]so</native.treesitter.libs>
     <!-- Lets a local build link against a libz.so placed in native-link/ (gitignored). -->
     <native.linker.libpath>-L${project.basedir}/native-link</native.linker.libpath>
   </properties>
@@ -96,14 +98,14 @@
       <id>macos</id>
       <activation><os><family>mac</family></os></activation>
       <properties>
-        <native.treesitter.libs>lib/.*-macos-.*\.dylib</native.treesitter.libs>
+        <native.treesitter.libs>lib/.*-macos-.*[.]dylib</native.treesitter.libs>
       </properties>
     </profile>
     <profile>
       <id>windows</id>
       <activation><os><family>windows</family></os></activation>
       <properties>
-        <native.treesitter.libs>lib/.*-windows-.*\.dll</native.treesitter.libs>
+        <native.treesitter.libs>lib/.*-windows-.*[.]dll</native.treesitter.libs>
         <!-- MSVC's linker spells -L as /LIBPATH: -->
         <native.linker.libpath>/LIBPATH:${project.basedir}/native-link</native.linker.libpath>
       </properties>

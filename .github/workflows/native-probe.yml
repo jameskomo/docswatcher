@@ -1,0 +1,60 @@
+# Builds and checks the native CLI on one platform, publishing nothing. For trying a native-image
+# change on a platform the release does not build yet, without cutting a release.
+name: Native probe
+
+on:
+  workflow_dispatch:
+    inputs:
+      runner:
+        description: Runner to build on
+        required: true
+        default: windows-latest
+        type: choice
+        options: [windows-latest, macos-latest, ubuntu-latest]
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ${{ inputs.runner }}
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: graalvm/setup-graalvm@0426e2e191540e8514dff98dc52a5f5146a2a276 # v1.6.6
+        with:
+          java-version: "25"
+          distribution: graalvm-community
+          cache: maven
+
+      - name: Fetch Maven
+        run: for _ in 1 2 3; do ./mvnw -q -v && exit 0; sleep 30; done; exit 1
+
+      - name: Build the native CLI
+        run: ./mvnw -B -Pnative -pl cli -am package -DskipTests
+
+      - name: Check it
+        env:
+          DOCSWATCHER_DEBUG: "1"
+        run: |
+          set -euo pipefail
+          bin=cli/target/docswatcher
+          [ -f cli/target/docswatcher.exe ] && bin=cli/target/docswatcher.exe
+          "$bin" --version
+          # validate loads every grammar and runs every bundled fixture.
+          "$bin" validate
+          set +e
+          "$bin" match knowledge/fixtures/openai-python-assistants/repo --format json > findings.json
+          code=$?
+          set -e
+          [ "$code" = 1 ] || { echo "::error::expected exit 1 for a breaking fixture, got $code"; exit 1; }
+          grep -q '"severity" : "breaking"\|"severity": "breaking"' findings.json \
+            || { echo "::error::the findings carry no severity"; cat findings.json; exit 1; }
+          "$bin" scan . > /dev/null
+          echo "native CLI works on $RUNNER_OS $RUNNER_ARCH"
