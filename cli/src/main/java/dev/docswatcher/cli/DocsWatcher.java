@@ -1,9 +1,12 @@
 package dev.docswatcher.cli;
 
 import dev.docswatcher.engine.Knowledge;
+import dev.docswatcher.engine.OwnKnowledge;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -85,6 +88,11 @@ public final class DocsWatcher implements Callable<Integer> {
     @Option(names = "--today", paramLabel = "YYYY-MM-DD", description = "Date used for day counts and validation. Default: today.")
     LocalDate today = LocalDate.now();
 
+    @Option(names = "--knowledge-extra", paramLabel = "<dir>",
+        description = "A directory of your own API records (providers/<id>/...) to add, such as a checkout of your "
+            + "organisation's .docswatcher repository. Repeatable. A scanned repository's own .docswatcher/ is always read.")
+    List<Path> knowledgeExtra = new ArrayList<>();
+
     Knowledge loadKnowledge() {
       if (knowledge != null) return Knowledge.load(knowledge);
       Path local = Path.of("knowledge");
@@ -92,6 +100,35 @@ public final class DocsWatcher implements Callable<Integer> {
         return Knowledge.load(local);
       }
       return Knowledge.bundled();
+    }
+
+    /** The --knowledge-extra directories, each labelled as it was typed. */
+    List<OwnKnowledge.Source> shared() {
+      return knowledgeExtra.stream().map(p -> new OwnKnowledge.Source(p.toString().replace('\\', '/'), p)).toList();
+    }
+
+    /** The knowledge plus the own records of {@code repo} (its .docswatcher/) and of every --knowledge-extra. */
+    OwnKnowledge.Result own(Knowledge base, Path repo) {
+      return OwnKnowledge.merge(base, OwnKnowledge.sources(repo, shared()), today);
+    }
+
+    /**
+     * The knowledge a scan of {@code repo} uses. Invalid own records stop the command: a scan without
+     * them would report a clean repository that was never checked against them. Warnings go to stderr.
+     */
+    Knowledge loadKnowledge(Path repo) {
+      OwnKnowledge.Result r = own(loadKnowledge(), repo);
+      for (String w : r.warnings()) System.err.println("docswatcher: warning: " + w);
+      if (!r.ok()) throw new InvalidOwnRecords(r.errors());
+      return r.knowledge();
+    }
+  }
+
+  /** Own API records that failed validation. The message lists every error, one per line. */
+  static final class InvalidOwnRecords extends RuntimeException {
+    InvalidOwnRecords(List<String> errors) {
+      super("your own API records have " + errors.size() + (errors.size() == 1 ? " error" : " errors")
+          + ", so nothing was scanned (docs/19-your-own-apis.md):\n  " + String.join("\n  ", errors));
     }
   }
 }

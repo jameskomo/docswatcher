@@ -12,6 +12,7 @@ import dev.docswatcher.engine.Inventory;
 import dev.docswatcher.engine.Json;
 import dev.docswatcher.engine.Knowledge;
 import dev.docswatcher.engine.Matcher;
+import dev.docswatcher.engine.OwnKnowledge;
 import dev.docswatcher.engine.Provider;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -58,18 +59,41 @@ final class McpServer {
   /** Router-style prefixes ({@code google/gemini-2.5-flash}) that are not provider IDs themselves. */
   private static final Map<String, String> PROVIDER_ALIASES = Map.of("google", "googleai", "gemini", "googleai", "claude", "anthropic");
 
+  /** The knowledge without own records, for a scan of a directory other than root. */
+  private final Knowledge base;
+  /** Shared own-record directories (--knowledge-extra), read for every scan. */
+  private final List<OwnKnowledge.Source> shared;
+  /** base plus the own records of root and of shared, when they are valid. */
   private final Knowledge k;
+  private final OwnKnowledge.Result own;
   private final Supplier<LocalDate> today;
   private final Path root;
   private final String version;
   private final Map<String, Provider> providers;
 
   McpServer(Knowledge k, Supplier<LocalDate> today, Path root, String version) {
-    this.k = k;
+    this(k, List.of(), today, root, version);
+  }
+
+  /**
+   * Answers from {@code base} plus the own API records of {@code root}'s .docswatcher/ and of
+   * {@code shared} (docs/19-your-own-apis.md). Records that fail validation are left out, and every
+   * answer says so, rather than the server refusing to start.
+   */
+  McpServer(Knowledge base, List<OwnKnowledge.Source> shared, Supplier<LocalDate> today, Path root, String version) {
+    this.base = base;
+    this.shared = List.copyOf(shared);
+    this.own = OwnKnowledge.merge(base, OwnKnowledge.sources(root, shared), today.get());
+    this.k = own.knowledge();
     this.today = today;
     this.root = root;
     this.version = version;
     this.providers = k.providers().stream().collect(Collectors.toMap(Provider::id, p -> p, (a, b) -> a, LinkedHashMap::new));
+  }
+
+  /** What the server added from own records, or why it added nothing. For its startup line. */
+  OwnKnowledge.Result own() {
+    return own;
   }
 
   /** Answers requests until the client closes the stream. */
@@ -251,6 +275,9 @@ final class McpServer {
           .append("). That means nothing known is scheduled, not that nothing is.");
     } else {
       for (Matcher.Hit h : sorted) text.append(line(h)).append('\n');
+    }
+    if (!own.ok()) {
+      text.append(sorted.isEmpty() ? " " : "").append(ownNotLoaded());
     }
 
     ObjectNode data = F.objectNode();
@@ -461,13 +488,25 @@ final class McpServer {
     List<String> exclude = new ArrayList<>();
     for (JsonNode e : args.path("exclude")) if (e.isTextual() && !e.asText().isBlank()) exclude.add(e.asText());
 
+    // The scanned directory's own records, not only the ones of the directory the server started in.
+    Knowledge scanK = k;
+    if (!dir.equals(root.normalize())) {
+      OwnKnowledge.Result r = OwnKnowledge.merge(base, OwnKnowledge.sources(dir, shared), today.get());
+      if (!r.ok()) {
+        throw new BadInput("Nothing was scanned: the own API records for " + dir + " have " + r.errors().size()
+            + (r.errors().size() == 1 ? " error" : " errors") + ":\n  " + String.join("\n  ", r.errors()));
+      }
+      scanK = r.knowledge();
+    } else if (!own.ok()) {
+      throw new BadInput("Nothing was scanned: " + ownNotLoaded());
+    }
     Inventory inv;
     try {
-      inv = ScanCommand.scan(k, dir, null, null, null, exclude);
+      inv = ScanCommand.scan(scanK, dir, null, null, null, exclude);
     } catch (RuntimeException e) {
       throw new BadInput("The scan failed: " + e.getMessage());
     }
-    List<Finding> findings = Matcher.match(inv, k, today.get(), includeLow);
+    List<Finding> findings = Matcher.match(inv, scanK, today.get(), includeLow);
 
     ObjectNode data = F.objectNode();
     data.put("path", dir.toString());
@@ -487,7 +526,7 @@ final class McpServer {
       for (Evidence e : f.evidence().stream().limit(5).toList()) at.add(e.path() + ":" + e.line());
     }
     data.set("knowledgeBase", kbNode());
-    return toolResult(cap(MatchCommand.render(inv, findings, k).stripTrailing()), data, false);
+    return toolResult(cap(MatchCommand.render(inv, findings, scanK).stripTrailing()), data, false);
   }
 
   // ---------------------------------------------------------------------------------------------
@@ -521,7 +560,22 @@ final class McpServer {
     n.put("changes", k.changes().size());
     n.put("providers", k.providers().size());
     n.put("lastVerified", newestObserved());
+    if (!own.providers().isEmpty() || !own.errors().isEmpty()) {
+      ObjectNode o = n.putObject("ownRecords");
+      o.put("loaded", own.ok());
+      o.put("providers", own.providers().size());
+      o.put("changes", own.changes().size());
+      ArrayNode errors = o.putArray("errors");
+      own.errors().forEach(errors::add);
+    }
     return n;
+  }
+
+  /** Said in every answer while own records fail validation, so an agent never takes their absence for a clean bill. */
+  private String ownNotLoaded() {
+    return "Note: your own API records were not loaded: " + own.errors().size()
+        + (own.errors().size() == 1 ? " error" : " errors") + ", the first being \"" + own.errors().getFirst()
+        + "\". Run docswatcher validate to see them all.";
   }
 
   /** The newest date a person confirmed any source. What "known" means in every answer. */

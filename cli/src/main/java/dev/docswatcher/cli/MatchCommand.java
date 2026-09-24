@@ -56,7 +56,7 @@ final class MatchCommand implements Callable<Integer> {
 
   @Override
   public Integer call() throws IOException {
-    Knowledge k = common.loadKnowledge();
+    Knowledge k = common.loadKnowledge(path);
     Inventory inv = ScanCommand.scan(k, path, repo, ref, sha, exclude, limits.limits());
     boolean incomplete = ScanLimitOptions.warnIfIncomplete(inv, System.err);
     List<Finding> findings = Matcher.match(inv, k, common.today, includeLow);

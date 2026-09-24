@@ -33,9 +33,13 @@ final class McpCommand implements Callable<Integer> {
     Supplier<LocalDate> today = spec.commandLine().getParseResult().hasMatchedOption("--today")
         ? () -> common.today
         : LocalDate::now;
-    McpServer server = new McpServer(k, today, Path.of("").toAbsolutePath(), DocsWatcher.VERSION);
+    McpServer server = new McpServer(k, common.shared(), today, Path.of("").toAbsolutePath(), DocsWatcher.VERSION);
     System.err.println("docswatcher mcp " + DocsWatcher.VERSION + " ready: " + k.changes().size()
         + " deprecation records, " + k.providers().size() + " providers");
+    var own = server.own();
+    if (!own.providers().isEmpty() || !own.ok()) System.err.println("docswatcher mcp: " + own.summary());
+    for (String e : own.errors()) System.err.println("docswatcher mcp: error: " + e);
+    for (String w : own.warnings()) System.err.println("docswatcher mcp: warning: " + w);
     server.serve(new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8)), protocol);
     return 0;
   }

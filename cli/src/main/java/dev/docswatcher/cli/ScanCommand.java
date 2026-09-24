@@ -50,7 +50,7 @@ final class ScanCommand implements Callable<Integer> {
 
   @Override
   public Integer call() throws Exception {
-    Knowledge k = common.loadKnowledge();
+    Knowledge k = common.loadKnowledge(path);
     Inventory inv = scan(k, path, repo, ref, sha, exclude, limits.limits());
     boolean incomplete = ScanLimitOptions.warnIfIncomplete(inv, System.err);
     if (writeExpected) {
