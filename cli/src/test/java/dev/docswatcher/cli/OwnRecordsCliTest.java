@@ -126,6 +126,9 @@ class OwnRecordsCliTest {
         + "\"arguments\":{\"value\":\"gpt-9-imaginary\"}}}").get("result");
     assertThat(r.get("content").get(0).get("text").asText())
         .contains("Note: your own API records were not loaded: 1 error, the first being \"provider id orders must start with internal-");
+    JsonNode upcoming = server.handle("{\"jsonrpc\":\"2.0\",\"id\":3,\"method\":\"tools/call\",\"params\":{\"name\":\"upcoming_deprecations\","
+        + "\"arguments\":{}}}").get("result");
+    assertThat(upcoming.get("content").get(0).get("text").asText()).contains("Note: your own API records were not loaded");
     JsonNode scan = server.handle("{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/call\",\"params\":{\"name\":\"scan_repository\","
         + "\"arguments\":{\"path\":\".\"}}}").get("result");
     assertThat(scan.get("isError").asBoolean()).isTrue();

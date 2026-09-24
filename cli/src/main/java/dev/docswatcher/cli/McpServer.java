@@ -466,6 +466,7 @@ final class McpServer {
         text.append('\n');
       }
     }
+    if (!own.ok()) text.append(text.charAt(text.length() - 1) == '\n' ? "" : " ").append(ownNotLoaded());
 
     ObjectNode data = F.objectNode();
     data.put("withinDays", within);
