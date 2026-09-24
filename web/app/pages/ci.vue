@@ -51,16 +51,17 @@ useHead({
           for your build to pass.
         </p>
       </div>
-      <div class="notice upgrade" role="note" data-testid="upgrade-notice">
-        <strong>Used the Action or the native binary before 24 September 2026? Upgrade to v0.3.0.</strong>
-        Releases up to v0.2.1 reported every finding as empty, so the Action never failed a build.
-        <code>@v0</code> now points at the fix, so most pipelines need no change: just run the
-        pipeline again once. If you pinned <code>version: v0.2.1</code> or earlier, remove the pin.
-        <a href="https://github.com/jameskomo/docswatcher/blob/main/CHANGELOG.md" target="_blank" rel="noopener">What changed</a>
-      </div>
     </section>
 
     <div class="prose" style="max-width: 900px">
+      <div class="callout" style="margin-block: 0 var(--s4)" role="note" data-testid="upgrade-notice">
+        <strong>Used the Action or the native binary before 24 September 2026? Upgrade.</strong>
+        Releases up to v0.2.1 reported every finding as empty, so the Action never failed a build.
+        <code>@v0</code> now points at the fix (v0.3.1), so most pipelines need no change: run yours
+        once more. If you pinned <code>version: v0.2.1</code> or earlier, remove the pin.
+        <a href="https://github.com/jameskomo/docswatcher/blob/main/CHANGELOG.md" target="_blank" rel="noopener">What changed</a>
+      </div>
+
       <h2 style="margin-top: 0">GitHub Actions</h2>
       <p>This is the whole integration.</p>
       <Snippet :code="quickstart" />
@@ -144,7 +145,3 @@ useHead({
   </div>
 </template>
 
-<style scoped>
-.upgrade { margin-top: var(--s4); max-width: 900px; border-left-color: var(--soon); }
-.upgrade strong { display: block; color: var(--ink-max); margin-bottom: 4px; }
-</style>
