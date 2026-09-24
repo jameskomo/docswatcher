@@ -34,7 +34,7 @@ public final class DocsWatcher implements Callable<Integer> {
       code = commandLine().execute(args);
     } catch (Throwable t) {
       // Errors such as OutOfMemoryError are not Exceptions, so picocli lets them through.
-      System.err.println("docswatcher: " + t);
+      report(new java.io.PrintWriter(System.err, true), t);
       code = FAILED;
     }
     System.exit(code);
@@ -44,15 +44,23 @@ public final class DocsWatcher implements Callable<Integer> {
   static CommandLine commandLine() {
     return new CommandLine(new DocsWatcher())
         .setExecutionExceptionHandler((ex, cmd, parseResult) -> {
-          cmd.getErr().println("docswatcher: " + (ex.getMessage() == null ? ex.toString() : ex.getMessage()));
-          // A wrapper with no message of its own (ExceptionInInitializerError, for one) says
-          // nothing useful; name every cause so a failure on a machine we cannot reach is readable.
-          for (Throwable c = ex.getCause(); c != null && c != c.getCause(); c = c.getCause()) {
-            cmd.getErr().println("  caused by: " + c);
-          }
-          if (System.getenv("DOCSWATCHER_DEBUG") != null) ex.printStackTrace(cmd.getErr());
+          report(cmd.getErr(), ex);
           return FAILED;
         });
+  }
+
+  /**
+   * One line for the failure, then every cause: a wrapper with no message of its own
+   * (ExceptionInInitializerError, for one) says nothing useful on a machine we cannot reach.
+   * DOCSWATCHER_DEBUG adds the stack trace.
+   */
+  static void report(java.io.PrintWriter err, Throwable ex) {
+    err.println("docswatcher: " + (ex.getMessage() == null ? ex.toString() : ex.getMessage()));
+    for (Throwable c = ex.getCause(); c != null && c != ex; c = c.getCause() == c ? null : c.getCause()) {
+      err.println("  caused by: " + c);
+    }
+    if (System.getenv("DOCSWATCHER_DEBUG") != null) ex.printStackTrace(err);
+    err.flush();
   }
 
   @Override
