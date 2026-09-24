@@ -140,8 +140,17 @@ runs:
         out="${DW_REPORT:-$RUNNER_TEMP/docswatcher.json}"
         # The CLI exits 1 when a breaking finding is open. That is a result, not a failure of
         # the step, so the exit code is captured rather than allowed to end the shell.
-        "$DW_BIN" "${args[@]}" --format json > "$out"
-        code=$?
+        # One scan gives both outputs on releases that have --report; older ones (a pinned
+        # `version`) are scanned a second time for the text summary, as before.
+        text="$RUNNER_TEMP/docswatcher.txt"
+        if "$DW_BIN" match --help 2>/dev/null | grep -q -- '--report'; then
+          "$DW_BIN" "${args[@]}" --format text --report "$out" > "$text"
+          code=$?
+        else
+          "$DW_BIN" "${args[@]}" --format json > "$out"
+          code=$?
+          text=""
+        fi
         if [ "$code" -gt 1 ]; then
           echo "::error::docswatcher exited $code, which means the scan itself failed"
           exit "$code"
@@ -165,6 +174,12 @@ runs:
           echo "::error::docswatcher did not produce a report, so this repository was not checked"
           exit 3
         fi
+        # Every finding carries a severity. One without it is an unreadable report (the v0.2.1
+        # native binary printed {} per finding), and counting it would never fail a build.
+        if ! "$py" -c "import json,sys;sys.exit(0 if all(f.get('severity') for f in json.load(open(sys.argv[1]))) else 1)" "$out"; then
+          echo "::error::the report's findings carry no severity, so they cannot be counted. Use a release after v0.2.1"
+          exit 3
+        fi
         breaking=$("$py" -c "import json,sys;sys.stdout.write(str(sum(1 for f in json.load(open(sys.argv[1])) if f.get('severity')=='breaking')))" "$out")
         echo "findings=$findings" >> "$GITHUB_OUTPUT"
         echo "breaking=$breaking" >> "$GITHUB_OUTPUT"
@@ -177,7 +192,7 @@ runs:
           else
             echo "**$findings** findings, **$breaking** breaking."
             echo
-            "$DW_BIN" "${args[@]}" --format text 2>/dev/null || true
+            if [ -n "$text" ]; then cat "$text"; else "$DW_BIN" "${args[@]}" --format text 2>/dev/null || true; fi
           fi
         } >> "$GITHUB_STEP_SUMMARY"
 
