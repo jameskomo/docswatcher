@@ -109,6 +109,16 @@ async function scanUrl() {
   });
 }
 
+const folderChosen = ref("");
+function onFolderChosen(ev: Event) {
+  const files = (ev.target as HTMLInputElement).files;
+  if (files && files.length) {
+    const name = (files[0] as File & { webkitRelativePath?: string }).webkitRelativePath?.split("/")[0] || "Folder";
+    folderChosen.value = `${name}: ${files.length} ${files.length === 1 ? "file" : "files"}`;
+  }
+  return scanFolder(ev);
+}
+
 async function scanFolder(ev: Event) {
   const list = (ev.target as HTMLInputElement).files;
   if (!list?.length) return;
@@ -326,16 +336,24 @@ async function copyLink() {
             Select a project directory on your local machine. Files are parsed via Tree-sitter in WebAssembly inside this tab.
             No code or file contents ever leave your browser.
           </p>
-          <input
-            id="folder-input"
-            type="file"
-            webkitdirectory
-            multiple
-            @change="scanFolder"
-            :disabled="busy"
-            aria-label="Choose a folder"
-            style="color: var(--ink-soft); font-family: var(--face-mono); font-size: var(--t2)"
-          />
+          <!-- The browser's own file button cannot be styled; this label is the button, and the real
+               input stays in the page (visually hidden) for the keyboard and screen readers. -->
+          <div class="folder-pick">
+            <label class="btn solid" :class="{ disabled: busy }">
+              <Icon name="folder" />
+              <span>Choose a folder</span>
+              <input
+                id="folder-input"
+                class="visually-hidden"
+                type="file"
+                webkitdirectory
+                multiple
+                @change="onFolderChosen"
+                :disabled="busy"
+              />
+            </label>
+            <span class="t2 ink-faint" data-testid="folder-chosen">{{ folderChosen || "No folder chosen yet" }}</span>
+          </div>
         </div>
 
         <p v-if="error" class="notice bad" role="alert" style="margin-top: var(--s3)">{{ error }}</p>

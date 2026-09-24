@@ -926,22 +926,21 @@ main {
   margin-top: var(--s4);
 }
 
+/* Each choice is its own button: separate, bordered, and the chosen one unmistakable. They wrap
+   on a narrow screen rather than widen the page. */
 .tabs {
-  display: inline-flex;
-  gap: 4px;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 4px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--hair);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-bottom: var(--s4);
 }
 .tabs button {
   font: inherit;
   font-size: var(--t2);
   font-weight: 600;
-  background: none;
-  border: none;
-  padding: 8px 16px;
+  background: var(--bg-surface-raised);
+  border: 1px solid var(--hair-strong);
+  padding: 9px 16px;
   border-radius: var(--radius-sm);
   color: var(--ink-soft);
   cursor: pointer;
@@ -956,9 +955,9 @@ main {
 }
 .tabs button[aria-selected="true"] {
   color: var(--ink-max);
-  background: var(--bg-surface-raised);
-  border: 1px solid var(--hair-strong);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  background: rgba(56, 189, 248, 0.12);
+  border: 2px solid var(--ink-accent);
+  padding: 8px 15px;
 }
 
 /* Quick preset pills */
@@ -1067,13 +1066,10 @@ main {
   color: #0f172a;
 }
 
-[data-theme="light"] .tabs {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
-}
-
 [data-theme="light"] .tabs button {
   color: #475569;
+  background: #ffffff;
+  border-color: #cbd5e1;
 }
 
 [data-theme="light"] .tabs button:hover {
@@ -1082,10 +1078,9 @@ main {
 }
 
 [data-theme="light"] .tabs button[aria-selected="true"] {
-  background: #ffffff;
-  color: #0f172a;
-  border-color: #cbd5e1;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+  background: #e0f2fe;
+  color: #0c4a6e;
+  border-color: #0284c7;
 }
 
 [data-theme="light"] .preset-pill {
@@ -1930,3 +1925,17 @@ pre {
 }
 .linkish:hover { opacity: 0.8; }
 .linkish:focus-visible { outline: 2px solid var(--ink-accent); outline-offset: 2px; border-radius: 2px; }
+
+/* Hidden from sight, still there for the keyboard and screen readers. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+.folder-pick { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3); }
+.folder-pick .btn { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+.folder-pick .btn.disabled { opacity: 0.4; cursor: not-allowed; }
+/* The label is the visible control, so it shows the focus ring of the input inside it. */
+.folder-pick .btn:focus-within { outline: 2px solid var(--ink-accent); outline-offset: 2px; }
