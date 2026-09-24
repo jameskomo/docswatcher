@@ -1,6 +1,6 @@
 # DocsWatcher as a GitHub Action.
 #
-# Downloads the native CLI for the runner's platform (Linux x64, macOS arm64 or Windows x64) from
+# Downloads the native CLI for the runner's platform (Linux x64 or macOS arm64) from
 # this repository's latest release, checks it against the release's checksums.txt, and scans the
 # checkout. The knowledge base is compiled into that binary, so the scan is offline: nothing about
 # your code leaves the runner, and no DocsWatcher service needs to be reachable for your build to
@@ -64,9 +64,8 @@ runs:
         case "$RUNNER_OS/$RUNNER_ARCH" in
           Linux/X64) asset=docswatcher-linux-x64 ;;
           macOS/ARM64) asset=docswatcher-macos-arm64 ;;
-          Windows/X64) asset=docswatcher-windows-x64.exe ;;
           *)
-            echo "::error::DocsWatcher has no native build for $RUNNER_OS $RUNNER_ARCH. It runs on Linux x64, macOS arm64 and Windows x64 runners."
+            echo "::error::DocsWatcher has no native build for $RUNNER_OS $RUNNER_ARCH. It runs on Linux x64 and macOS arm64 runners; a Windows build is not released yet."
             exit 1 ;;
         esac
 
