@@ -1,0 +1,49 @@
+id: firebase-fcm-legacy-apis-shutdown-2024
+provider: firebase
+kind: sunset
+severity: breaking
+title: "Legacy FCM HTTP and batch send APIs discontinued"
+summary: >
+  Firebase announced on June 22, 2023 that starting June 20, 2024 the legacy
+  Firebase Cloud Messaging APIs are discontinued: the legacy HTTP protocol
+  (https://fcm.googleapis.com/fcm/send), the XMPP protocol, the batch send
+  API (https://fcm.googleapis.com/batch), and server-key authentication, all
+  replaced by the HTTP v1 API.
+
+affects:
+  - kind: endpoint
+    match: "ANY /fcm/send"
+  - kind: endpoint
+    match: "ANY /batch"
+
+announced: 2023-06-22
+effective: 2024-06-20
+
+sources:
+  - kind: email
+    url: https://groups.google.com/g/firebase-talk/c/LgY3wx6ehS4
+    observed: 2026-09-24
+    note: "Firebase team announcement '[Action Required] Update your apps to the latest Firebase Cloud Messaging APIs and SDKs', posted June 22, 2023: starting June 20, 2024 the legacy FCM APIs will be discontinued. The docs page that later carried the migration timeline (docs/cloud-messaging/migrate-v1) no longer exists."
+  - kind: changelog
+    url: https://firebase.google.com/support/release-notes/android
+    observed: 2026-09-24
+    note: "Cloud Messaging 23.2.0 release note links the FAQ about FCM features deprecated in June 2023."
+
+migration:
+  replacement: "POST https://fcm.googleapis.com/v1/projects/{project_id}/messages:send"
+  guide: https://firebase.google.com/docs/cloud-messaging/send/v1-api
+  effort: medium
+  notes: >
+    Replace POST /fcm/send with POST
+    /v1/projects/{project_id}/messages:send. Authenticate with a short-lived
+    OAuth 2.0 access token from a service account (scope
+    https://www.googleapis.com/auth/firebase.messaging) instead of the
+    Authorization: key= server key. The body wraps everything in a message
+    object: to or registration_ids become token, topic or condition;
+    notification and data stay, with data values as strings; platform
+    options move to android, apns and webpush blocks. v1 sends one message
+    per request, so replace registration_ids and /batch with one request per
+    token (the Admin SDK's sendEach does this). Error handling changes from
+    per-result error strings to HTTP status codes with FcmError details.
+
+status: expired

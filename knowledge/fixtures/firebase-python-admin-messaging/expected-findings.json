@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "firebase:sdk_method:messaging.send_all",
+    "change": "firebase-admin-python-send-all-removed-2025"
+  },
+  {
+    "contract": "firebase:sdk_method:messaging.send_multicast",
+    "change": "firebase-admin-python-send-all-removed-2025"
+  }
+]

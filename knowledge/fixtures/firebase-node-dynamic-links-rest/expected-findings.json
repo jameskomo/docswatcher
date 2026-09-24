@@ -1,0 +1,14 @@
+[
+  {
+    "contract": "firebase:endpoint:ANY /v1/shortLinks",
+    "change": "firebase-dynamic-links-shutdown-2025"
+  },
+  {
+    "contract": "firebase:endpoint:ANY /v1/{link}/linkStats",
+    "change": "firebase-dynamic-links-shutdown-2025"
+  },
+  {
+    "contract": "firebase:sdk_package:@react-native-firebase/dynamic-links",
+    "change": "firebase-dynamic-links-shutdown-2025"
+  }
+]

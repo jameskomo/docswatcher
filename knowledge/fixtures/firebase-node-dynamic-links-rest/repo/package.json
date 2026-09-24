@@ -1,0 +1,9 @@
+{
+  "name": "share-links",
+  "version": "1.1.0",
+  "private": true,
+  "dependencies": {
+    "@react-native-firebase/app": "^19.0.0",
+    "@react-native-firebase/dynamic-links": "^19.0.0"
+  }
+}

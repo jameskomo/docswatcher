@@ -1,0 +1,170 @@
+[
+  {
+    "id": "firebase:sdk_method:messaging.sendAll",
+    "provider": "firebase",
+    "kind": "sdk_method",
+    "key": "messaging.sendAll",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/push.ts",
+        "line": 13,
+        "column": 10,
+        "snippet": "return messaging.sendAll(queue.map((q) => ({ token: q.token, notification: { body: q.body } })));",
+        "detector": "firebase.typescript.messaging-send-all",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "firebase-admin",
+        "version": "^12.7.0"
+      }
+    }
+  },
+  {
+    "id": "firebase:sdk_method:messaging.sendMulticast",
+    "provider": "firebase",
+    "kind": "sdk_method",
+    "key": "messaging.sendMulticast",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/push.ts",
+        "line": 8,
+        "column": 21,
+        "snippet": "const res = await messaging.sendMulticast({ tokens, notification: { title, body } });",
+        "detector": "firebase.typescript.messaging-send-multicast",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "firebase-admin",
+        "version": "^12.7.0"
+      }
+    }
+  },
+  {
+    "id": "firebase:sdk_method:messaging.sendToCondition",
+    "provider": "firebase",
+    "kind": "sdk_method",
+    "key": "messaging.sendToCondition",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/push.ts",
+        "line": 18,
+        "column": 9,
+        "snippet": "await messaging.sendToCondition(\"'news' in topics && 'ke' in topics\", { data: { headline } });",
+        "detector": "firebase.typescript.messaging-send-to-condition",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "firebase-admin",
+        "version": "^12.7.0"
+      }
+    }
+  },
+  {
+    "id": "firebase:sdk_method:messaging.sendToDevice",
+    "provider": "firebase",
+    "kind": "sdk_method",
+    "key": "messaging.sendToDevice",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/push.ts",
+        "line": 22,
+        "column": 9,
+        "snippet": "await messaging.sendToDevice(token, { data: { ping: \"1\" } }, { priority: \"high\" });",
+        "detector": "firebase.typescript.messaging-send-to-device",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "firebase-admin",
+        "version": "^12.7.0"
+      }
+    }
+  },
+  {
+    "id": "firebase:sdk_method:messaging.sendToDeviceGroup",
+    "provider": "firebase",
+    "kind": "sdk_method",
+    "key": "messaging.sendToDeviceGroup",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/push.ts",
+        "line": 23,
+        "column": 9,
+        "snippet": "await messaging.sendToDeviceGroup(group, { data: { ping: \"1\" } });",
+        "detector": "firebase.typescript.messaging-send-to-device-group",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "firebase-admin",
+        "version": "^12.7.0"
+      }
+    }
+  },
+  {
+    "id": "firebase:sdk_method:messaging.sendToTopic",
+    "provider": "firebase",
+    "kind": "sdk_method",
+    "key": "messaging.sendToTopic",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/push.ts",
+        "line": 17,
+        "column": 9,
+        "snippet": "await messaging.sendToTopic(\"news\", { notification: { title: \"Breaking\", body: headline } });",
+        "detector": "firebase.typescript.messaging-send-to-topic",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "firebase-admin",
+        "version": "^12.7.0"
+      }
+    }
+  },
+  {
+    "id": "firebase:sdk_package:firebase-admin",
+    "provider": "firebase",
+    "kind": "sdk_package",
+    "key": "firebase-admin",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"firebase-admin\": \"^12.7.0\"",
+        "detector": "firebase.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "firebase-admin",
+        "version": "^12.7.0"
+      }
+    }
+  }
+]

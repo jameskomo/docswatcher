@@ -1,0 +1,26 @@
+[
+  {
+    "contract": "firebase:sdk_method:messaging.sendAll",
+    "change": "firebase-admin-node-legacy-messaging-removed-2024"
+  },
+  {
+    "contract": "firebase:sdk_method:messaging.sendMulticast",
+    "change": "firebase-admin-node-legacy-messaging-removed-2024"
+  },
+  {
+    "contract": "firebase:sdk_method:messaging.sendToCondition",
+    "change": "firebase-admin-node-legacy-messaging-removed-2024"
+  },
+  {
+    "contract": "firebase:sdk_method:messaging.sendToDevice",
+    "change": "firebase-admin-node-legacy-messaging-removed-2024"
+  },
+  {
+    "contract": "firebase:sdk_method:messaging.sendToDeviceGroup",
+    "change": "firebase-admin-node-legacy-messaging-removed-2024"
+  },
+  {
+    "contract": "firebase:sdk_method:messaging.sendToTopic",
+    "change": "firebase-admin-node-legacy-messaging-removed-2024"
+  }
+]

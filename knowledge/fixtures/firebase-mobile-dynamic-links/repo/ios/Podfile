@@ -1,0 +1,13 @@
+platform :ios, '14.0'
+
+target 'Shop' do
+  use_frameworks!
+  pod 'FirebaseAnalytics'
+  pod 'FirebaseDynamicLinks'
+end
+
+# The App Clip target was never moved off the umbrella pod.
+target 'ShopClip' do
+  use_frameworks!
+  pod 'Firebase/DynamicLinks'
+end

@@ -1,0 +1,38 @@
+id: firebase-admin-python-send-all-removed-2025
+provider: firebase
+kind: sunset
+severity: breaking
+title: "send_all and send_multicast removed from firebase-admin for Python"
+summary: >
+  Firebase Admin Python SDK 7.0.0 (17 July 2025) dropped support for
+  send_all() and send_multicast(), which 6.2.0 (22 June 2023) had deprecated
+  in favour of send_each() and send_each_for_multicast().
+
+affects:
+  - kind: sdk_method
+    match: "messaging.send_all"
+  - kind: sdk_method
+    match: "messaging.send_multicast"
+
+announced: 2023-06-22
+effective: 2025-07-17
+
+sources:
+  - kind: changelog
+    url: https://firebase.google.com/support/release-notes/admin/python
+    observed: 2026-09-24
+    note: "Version 7.0.0 - 17 July, 2025: Dropped support for send_all() and send_multicast() APIs."
+
+migration:
+  replacement: "messaging.send_each and messaging.send_each_for_multicast"
+  guide: https://firebase.google.com/docs/cloud-messaging/send/admin-sdk
+  effort: small
+  notes: >
+    Replace messaging.send_all(messages) with messaging.send_each(messages)
+    and messaging.send_multicast(multicast) with
+    messaging.send_each_for_multicast(multicast). The BatchResponse return
+    type is unchanged. Async code can use send_each_async and
+    send_each_for_multicast_async. Check test doubles that patch the old
+    names.
+
+status: expired

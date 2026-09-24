@@ -1,0 +1,53 @@
+[
+  {
+    "id": "firebase:endpoint:ANY /batch",
+    "provider": "firebase",
+    "kind": "endpoint",
+    "key": "ANY /batch",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "push/legacy.py",
+        "line": 6,
+        "column": 44,
+        "snippet": "FCM_BATCH_URL = \"https://fcm.googleapis.com/batch\"",
+        "detector": "firebase.literal.fcm-endpoint",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "firebase:endpoint:ANY /fcm/send",
+    "provider": "firebase",
+    "kind": "endpoint",
+    "key": "ANY /fcm/send",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "push/legacy.py",
+        "line": 5,
+        "column": 38,
+        "snippet": "FCM_URL = \"https://fcm.googleapis.com/fcm/send\"",
+        "detector": "firebase.literal.fcm-endpoint",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "firebase:endpoint:ANY /v1/projects",
+    "provider": "firebase",
+    "kind": "endpoint",
+    "key": "ANY /v1/projects",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "push/v1.py",
+        "line": 5,
+        "column": 38,
+        "snippet": "V1_URL = f\"https://fcm.googleapis.com/v1/projects/{PROJECT_ID}/messages:send\"",
+        "detector": "firebase.literal.fcm-endpoint",
+        "layer": "literal"
+      }
+    ]
+  }
+]

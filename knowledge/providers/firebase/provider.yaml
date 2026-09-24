@@ -1,0 +1,18 @@
+id: firebase
+name: Firebase
+homepage: https://firebase.google.com
+docs: https://firebase.google.com/docs
+changelog: https://firebase.google.com/support/releases
+base_urls:
+  - https://fcm.googleapis.com
+  - https://firebasedynamiclinks.googleapis.com
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [javascript, typescript, python, java, go, kotlin, swift, dart]
+deprecation_policy: >
+  Services are deprecated with a shutdown date announced in advance, usually a
+  year or more out, and described in a product FAQ. SDK methods are deprecated
+  in a minor release and removed in the next major release of each SDK, so a
+  removal lands on a different date per language. The per-SDK release notes
+  are the dated record of both.

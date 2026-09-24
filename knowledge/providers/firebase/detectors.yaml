@@ -1,0 +1,242 @@
+provider: firebase
+
+manifests:
+  - ecosystem: npm
+    package: firebase
+  - ecosystem: npm
+    package: firebase-admin
+  - ecosystem: npm
+    package: "@react-native-firebase/app"
+  - ecosystem: npm
+    package: "@react-native-firebase/dynamic-links"
+  - ecosystem: pypi
+    package: firebase-admin
+  - ecosystem: maven
+    package: com.google.firebase:firebase-admin
+  - ecosystem: go
+    package: firebase.google.com/go/v4
+
+literals:
+  # Firebase Dynamic Links REST API. The two documented endpoints are matched
+  # by name; the link in the Link Stats path is written {link}.
+  - id: firebase.literal.dynamic-links-endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,swift,dart,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/build/**"]
+    pattern: 'https://firebasedynamiclinks\.googleapis\.com/v1/(shortLinks)\b'
+    key: "ANY /v1/$1"
+    confidence: medium
+
+  - id: firebase.literal.dynamic-links-stats-endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,swift,dart,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/build/**"]
+    pattern: 'https://firebasedynamiclinks\.googleapis\.com/v1/[^\s"''`]*/(linkStats)\b'
+    key: "ANY /v1/{link}/$1"
+    confidence: medium
+
+  # The Dynamic Links client SDKs for Android, Apple platforms and Flutter are
+  # declared in build files the manifest layer does not read (Gradle, CocoaPods,
+  # pubspec), so they are literal rules of kind sdk_package keyed by the package
+  # name as the build file writes it.
+  - id: firebase.literal.gradle-dynamic-links
+    kind: sdk_package
+    files: ["**/*.gradle", "**/*.gradle.kts", "**/libs.versions.toml"]
+    exclude: ["**/build/**"]
+    pattern: '(com\.google\.firebase:firebase-dynamic-links(?:-ktx)?)(?![\w-])'
+    key: "$1"
+    confidence: high
+
+  - id: firebase.literal.podfile-dynamic-links
+    kind: sdk_package
+    files: ["**/Podfile"]
+    pattern: '\bpod\s+["''](Firebase/DynamicLinks|FirebaseDynamicLinks)["'']'
+    key: "$1"
+    confidence: high
+
+  - id: firebase.literal.pubspec-dynamic-links
+    kind: sdk_package
+    files: ["**/pubspec.yaml"]
+    pattern: '(?:^|\n)[ \t]+(firebase_dynamic_links)[ \t]*:'
+    key: "$1"
+    confidence: high
+
+  # Entry points of the Dynamic Links client SDKs in Kotlin, Java, Swift,
+  # Objective-C and Dart source.
+  - id: firebase.literal.dynamic-links-client
+    kind: sdk_method
+    files: ["**/*.{kt,java,swift,m,mm,dart}"]
+    exclude: ["**/build/**"]
+    pattern: '\b(FirebaseDynamicLinks\.getInstance|FirebaseDynamicLinks\.instance|Firebase\.dynamicLinks|DynamicLinks\.dynamicLinks)\b'
+    key: "$1"
+    confidence: medium
+
+  # Cloud Messaging. The legacy HTTP send endpoint and the batch endpoint are
+  # listed by name next to the HTTP v1 path, so the inventory shows which
+  # protocol a service speaks.
+  - id: firebase.literal.fcm-endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,swift,dart,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/build/**"]
+    pattern: 'https://fcm\.googleapis\.com(/fcm/send|/batch|/v1/projects)\b'
+    key: "ANY $1"
+    confidence: medium
+
+# Admin SDK messaging methods removed in a major release. The method names are
+# specific to the Admin SDK, and the rules only run when firebase-admin is a
+# dependency.
+callsites:
+
+  - id: firebase.javascript.messaging-send-all
+    language: javascript
+    kind: sdk_method
+    requires: firebase-admin
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        (#eq? @m "sendAll")) @call
+    key: "messaging.sendAll"
+    confidence: high
+
+  - id: firebase.javascript.messaging-send-multicast
+    language: javascript
+    kind: sdk_method
+    requires: firebase-admin
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        (#eq? @m "sendMulticast")) @call
+    key: "messaging.sendMulticast"
+    confidence: high
+
+  - id: firebase.javascript.messaging-send-to-device
+    language: javascript
+    kind: sdk_method
+    requires: firebase-admin
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        (#eq? @m "sendToDevice")) @call
+    key: "messaging.sendToDevice"
+    confidence: high
+
+  - id: firebase.javascript.messaging-send-to-device-group
+    language: javascript
+    kind: sdk_method
+    requires: firebase-admin
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        (#eq? @m "sendToDeviceGroup")) @call
+    key: "messaging.sendToDeviceGroup"
+    confidence: high
+
+  - id: firebase.javascript.messaging-send-to-topic
+    language: javascript
+    kind: sdk_method
+    requires: firebase-admin
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        (#eq? @m "sendToTopic")) @call
+    key: "messaging.sendToTopic"
+    confidence: high
+
+  - id: firebase.javascript.messaging-send-to-condition
+    language: javascript
+    kind: sdk_method
+    requires: firebase-admin
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        (#eq? @m "sendToCondition")) @call
+    key: "messaging.sendToCondition"
+    confidence: high
+
+  - id: firebase.typescript.messaging-send-all
+    language: typescript
+    kind: sdk_method
+    requires: firebase-admin
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        (#eq? @m "sendAll")) @call
+    key: "messaging.sendAll"
+    confidence: high
+
+  - id: firebase.typescript.messaging-send-multicast
+    language: typescript
+    kind: sdk_method
+    requires: firebase-admin
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        (#eq? @m "sendMulticast")) @call
+    key: "messaging.sendMulticast"
+    confidence: high
+
+  - id: firebase.typescript.messaging-send-to-device
+    language: typescript
+    kind: sdk_method
+    requires: firebase-admin
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        (#eq? @m "sendToDevice")) @call
+    key: "messaging.sendToDevice"
+    confidence: high
+
+  - id: firebase.typescript.messaging-send-to-device-group
+    language: typescript
+    kind: sdk_method
+    requires: firebase-admin
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        (#eq? @m "sendToDeviceGroup")) @call
+    key: "messaging.sendToDeviceGroup"
+    confidence: high
+
+  - id: firebase.typescript.messaging-send-to-topic
+    language: typescript
+    kind: sdk_method
+    requires: firebase-admin
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        (#eq? @m "sendToTopic")) @call
+    key: "messaging.sendToTopic"
+    confidence: high
+
+  - id: firebase.typescript.messaging-send-to-condition
+    language: typescript
+    kind: sdk_method
+    requires: firebase-admin
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        (#eq? @m "sendToCondition")) @call
+    key: "messaging.sendToCondition"
+    confidence: high
+
+  - id: firebase.python.messaging-send-all
+    language: python
+    kind: sdk_method
+    requires: firebase-admin
+    query: |
+      (call
+        function: (attribute object: (identifier) @o attribute: (identifier) @m)
+        (#eq? @o "messaging") (#eq? @m "send_all")) @call
+    key: "messaging.send_all"
+    confidence: high
+
+  - id: firebase.python.messaging-send-multicast
+    language: python
+    kind: sdk_method
+    requires: firebase-admin
+    query: |
+      (call
+        function: (attribute object: (identifier) @o attribute: (identifier) @m)
+        (#eq? @o "messaging") (#eq? @m "send_multicast")) @call
+    key: "messaging.send_multicast"
+    confidence: high

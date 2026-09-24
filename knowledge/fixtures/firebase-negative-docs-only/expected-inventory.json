@@ -1,0 +1,50 @@
+[
+  {
+    "id": "firebase:sdk_method:messaging.sendMulticast",
+    "provider": "firebase",
+    "kind": "sdk_method",
+    "key": "messaging.sendMulticast",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "test/push.test.js",
+        "line": 4,
+        "column": 9,
+        "snippet": "await messaging.sendMulticast({ tokens: [\"t\"] });",
+        "detector": "firebase.javascript.messaging-send-multicast",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "firebase-admin",
+        "version": "^13.5.0"
+      }
+    }
+  },
+  {
+    "id": "firebase:sdk_package:firebase-admin",
+    "provider": "firebase",
+    "kind": "sdk_package",
+    "key": "firebase-admin",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"firebase-admin\": \"^13.5.0\"",
+        "detector": "firebase.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "firebase-admin",
+        "version": "^13.5.0"
+      }
+    }
+  }
+]

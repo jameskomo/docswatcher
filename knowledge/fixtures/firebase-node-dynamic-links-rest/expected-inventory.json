@@ -1,0 +1,70 @@
+[
+  {
+    "id": "firebase:endpoint:ANY /v1/shortLinks",
+    "provider": "firebase",
+    "kind": "endpoint",
+    "key": "ANY /v1/shortLinks",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "server/shorten.js",
+        "line": 1,
+        "column": 61,
+        "snippet": "const API = \"https://firebasedynamiclinks.googleapis.com/v1/shortLinks\";",
+        "detector": "firebase.literal.dynamic-links-endpoint",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "firebase:endpoint:ANY /v1/{link}/linkStats",
+    "provider": "firebase",
+    "kind": "endpoint",
+    "key": "ANY /v1/{link}/linkStats",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "server/shorten.js",
+        "line": 13,
+        "column": 96,
+        "snippet": "const url = `https://firebasedynamiclinks.googleapis.com/v1/${encodeURIComponent(shortLink)}/linkStats?durationDays=7&key=${apiKey}`;",
+        "detector": "firebase.literal.dynamic-links-stats-endpoint",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "firebase:sdk_package:@react-native-firebase/app",
+    "provider": "firebase",
+    "kind": "sdk_package",
+    "key": "@react-native-firebase/app",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"@react-native-firebase/app\": \"^19.0.0\",",
+        "detector": "firebase.manifest.npm",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "firebase:sdk_package:@react-native-firebase/dynamic-links",
+    "provider": "firebase",
+    "kind": "sdk_package",
+    "key": "@react-native-firebase/dynamic-links",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 7,
+        "column": 6,
+        "snippet": "\"@react-native-firebase/dynamic-links\": \"^19.0.0\"",
+        "detector": "firebase.manifest.npm",
+        "layer": "manifest"
+      }
+    ]
+  }
+]

@@ -1,0 +1,54 @@
+id: firebase-admin-node-legacy-messaging-removed-2024
+provider: firebase
+kind: sunset
+severity: breaking
+title: "Legacy messaging methods removed from firebase-admin for Node.js"
+summary: >
+  Firebase Admin Node.js SDK 13.0.0 (12 November 2024) removed sendAll(),
+  sendMulticast(), sendToDevice(), sendToDeviceGroup(), sendToTopic() and
+  sendToCondition(). They were deprecated from 11.6.0 (06 April 2023, which
+  deprecated the legacy FCM APIs) through 12.4.0. Upgrading to 13 or later
+  breaks every call; staying below 13 keeps methods that call the legacy
+  APIs.
+
+affects:
+  - kind: sdk_method
+    match: "messaging.sendAll"
+  - kind: sdk_method
+    match: "messaging.sendMulticast"
+  - kind: sdk_method
+    match: "messaging.sendToDevice"
+  - kind: sdk_method
+    match: "messaging.sendToDeviceGroup"
+  - kind: sdk_method
+    match: "messaging.sendToTopic"
+  - kind: sdk_method
+    match: "messaging.sendToCondition"
+
+announced: 2023-04-06
+effective: 2024-11-12
+
+sources:
+  - kind: changelog
+    url: https://firebase.google.com/support/release-notes/admin/node
+    observed: 2026-09-24
+    note: "Version 13.0.0 - 12 November, 2024: Removed deprecated sendAll(), sendMulticast(), sendToDevice(), sendToDeviceGroup(), sendToTopic(), and sendToCondition() APIs."
+
+migration:
+  replacement: "messaging.send, sendEach and sendEachForMulticast"
+  guide: https://firebase.google.com/docs/cloud-messaging/send/admin-sdk
+  effort: medium
+  notes: >
+    Replace sendAll(messages) with sendEach(messages) and
+    sendMulticast(message) with sendEachForMulticast(message); the
+    BatchResponse shape is the same. Replace sendToDevice(token, payload),
+    sendToTopic(topic, payload) and sendToCondition(condition, payload) with
+    send({token | topic | condition, notification, data, android, apns});
+    the legacy payload and options objects (MessagingPayload,
+    MessagingOptions) no longer exist, so map priority, timeToLive and
+    collapseKey into the android and apns blocks. sendToDeviceGroup has no
+    direct replacement; send to each token or move the group to a topic.
+    Response fields change from results[] to responses[] with success and
+    error per message.
+
+status: expired

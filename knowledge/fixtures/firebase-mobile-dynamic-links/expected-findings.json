@@ -1,0 +1,38 @@
+[
+  {
+    "contract": "firebase:sdk_method:DynamicLinks.dynamicLinks",
+    "change": "firebase-dynamic-links-shutdown-2025"
+  },
+  {
+    "contract": "firebase:sdk_method:Firebase.dynamicLinks",
+    "change": "firebase-dynamic-links-shutdown-2025"
+  },
+  {
+    "contract": "firebase:sdk_method:FirebaseDynamicLinks.getInstance",
+    "change": "firebase-dynamic-links-shutdown-2025"
+  },
+  {
+    "contract": "firebase:sdk_method:FirebaseDynamicLinks.instance",
+    "change": "firebase-dynamic-links-shutdown-2025"
+  },
+  {
+    "contract": "firebase:sdk_package:Firebase/DynamicLinks",
+    "change": "firebase-dynamic-links-shutdown-2025"
+  },
+  {
+    "contract": "firebase:sdk_package:FirebaseDynamicLinks",
+    "change": "firebase-dynamic-links-shutdown-2025"
+  },
+  {
+    "contract": "firebase:sdk_package:com.google.firebase:firebase-dynamic-links",
+    "change": "firebase-dynamic-links-shutdown-2025"
+  },
+  {
+    "contract": "firebase:sdk_package:com.google.firebase:firebase-dynamic-links-ktx",
+    "change": "firebase-dynamic-links-shutdown-2025"
+  },
+  {
+    "contract": "firebase:sdk_package:firebase_dynamic_links",
+    "change": "firebase-dynamic-links-shutdown-2025"
+  }
+]

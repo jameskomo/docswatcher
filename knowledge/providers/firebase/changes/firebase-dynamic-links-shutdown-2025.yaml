@@ -1,0 +1,70 @@
+id: firebase-dynamic-links-shutdown-2025
+provider: firebase
+kind: sunset
+severity: breaking
+title: "Firebase Dynamic Links shut down"
+summary: >
+  Firebase Dynamic Links shut down on August 25, 2025. Links on custom
+  domains and page.link subdomains stop working and return HTTP 404, new
+  links cannot be created, and requests to the Short Links API
+  (/v1/shortLinks) and Link Stats API (/v1/{link}/linkStats) return 400 or
+  403. The page.link domains are not transferable, and link metadata was
+  marked for deletion on the shutdown date.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v1/shortLinks"
+  - kind: endpoint
+    match: "ANY /v1/{link}/linkStats"
+  - kind: sdk_package
+    match: "@react-native-firebase/dynamic-links"
+  - kind: sdk_package
+    match: "com.google.firebase:firebase-dynamic-links"
+  - kind: sdk_package
+    match: "com.google.firebase:firebase-dynamic-links-ktx"
+  - kind: sdk_package
+    match: "Firebase/DynamicLinks"
+  - kind: sdk_package
+    match: "FirebaseDynamicLinks"
+  - kind: sdk_package
+    match: "firebase_dynamic_links"
+  - kind: sdk_method
+    match: "FirebaseDynamicLinks.getInstance"
+  - kind: sdk_method
+    match: "FirebaseDynamicLinks.instance"
+  - kind: sdk_method
+    match: "Firebase.dynamicLinks"
+  - kind: sdk_method
+    match: "DynamicLinks.dynamicLinks"
+
+announced: 2024-05-29
+effective: 2025-08-25
+
+sources:
+  - kind: provider_page
+    url: https://firebase.google.com/support/dynamic-links-faq
+    observed: 2026-09-24
+    note: "The FAQ gives the August 25th, 2025 shutdown and carries no announcement date."
+  - kind: changelog
+    url: https://firebase.google.com/support/release-notes/ios
+    observed: 2026-09-24
+    note: "Firebase Apple SDK 10.27.0 (May 29, 2024): Dynamic Links is deprecated. The earliest dated Firebase release note found, used as the announcement date."
+
+migration:
+  replacement: "App Links and Universal Links, or another deep-linking provider"
+  guide: https://firebase.google.com/support/dynamic-links-faq
+  effort: large
+  notes: >
+    Remove the Dynamic Links SDK (Gradle firebase-dynamic-links, the
+    FirebaseDynamicLinks pod or Swift package, firebase_dynamic_links in
+    pubspec, @react-native-firebase/dynamic-links) and every call to it, and
+    stop calling the Short Links and Link Stats REST endpoints. Serve links
+    from a domain you own and handle them with Android App Links
+    (assetlinks.json) and iOS Universal Links (apple-app-site-association),
+    or move to a third-party deep-linking service if deferred deep linking
+    after install is needed. Links minted on page.link cannot be migrated;
+    replace them wherever they are stored or printed. Firebase
+    Authentication email links that relied on Dynamic Links need the
+    migration described in the FAQ.
+
+status: expired

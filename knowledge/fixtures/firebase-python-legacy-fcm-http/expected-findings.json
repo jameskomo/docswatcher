@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "firebase:endpoint:ANY /batch",
+    "change": "firebase-fcm-legacy-apis-shutdown-2024"
+  },
+  {
+    "contract": "firebase:endpoint:ANY /fcm/send",
+    "change": "firebase-fcm-legacy-apis-shutdown-2024"
+  }
+]

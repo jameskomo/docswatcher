@@ -1,0 +1,74 @@
+[
+  {
+    "id": "firebase:sdk_method:messaging.send_all",
+    "provider": "firebase",
+    "kind": "sdk_method",
+    "key": "messaging.send_all",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "notify/fanout.py",
+        "line": 17,
+        "column": 12,
+        "snippet": "return messaging.send_all(messages)",
+        "detector": "firebase.python.messaging-send-all",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "firebase-admin",
+        "version": "6.5.0"
+      }
+    }
+  },
+  {
+    "id": "firebase:sdk_method:messaging.send_multicast",
+    "provider": "firebase",
+    "kind": "sdk_method",
+    "key": "messaging.send_multicast",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "notify/fanout.py",
+        "line": 12,
+        "column": 12,
+        "snippet": "return messaging.send_multicast(message)",
+        "detector": "firebase.python.messaging-send-multicast",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "firebase-admin",
+        "version": "6.5.0"
+      }
+    }
+  },
+  {
+    "id": "firebase:sdk_package:firebase-admin",
+    "provider": "firebase",
+    "kind": "sdk_package",
+    "key": "firebase-admin",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "firebase-admin==6.5.0",
+        "detector": "firebase.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "firebase-admin",
+        "version": "6.5.0"
+      }
+    }
+  }
+]

@@ -1,0 +1,155 @@
+[
+  {
+    "id": "firebase:sdk_method:DynamicLinks.dynamicLinks",
+    "provider": "firebase",
+    "kind": "sdk_method",
+    "key": "DynamicLinks.dynamicLinks",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "ios/Shop/LinkHandler.swift",
+        "line": 6,
+        "column": 16,
+        "snippet": "return DynamicLinks.dynamicLinks().handleUniversalLink(url) { link, _ in",
+        "detector": "firebase.literal.dynamic-links-client",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "firebase:sdk_method:Firebase.dynamicLinks",
+    "provider": "firebase",
+    "kind": "sdk_method",
+    "key": "Firebase.dynamicLinks",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "android/app/src/main/java/com/acme/shop/DeepLinkActivity.kt",
+        "line": 11,
+        "column": 9,
+        "snippet": "Firebase.dynamicLinks",
+        "detector": "firebase.literal.dynamic-links-client",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "firebase:sdk_method:FirebaseDynamicLinks.getInstance",
+    "provider": "firebase",
+    "kind": "sdk_method",
+    "key": "FirebaseDynamicLinks.getInstance",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "android/referrals/src/main/java/com/acme/referrals/InviteLinks.java",
+        "line": 10,
+        "column": 16,
+        "snippet": "return FirebaseDynamicLinks.getInstance()",
+        "detector": "firebase.literal.dynamic-links-client",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "firebase:sdk_method:FirebaseDynamicLinks.instance",
+    "provider": "firebase",
+    "kind": "sdk_method",
+    "key": "FirebaseDynamicLinks.instance",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "flutter_app/lib/links.dart",
+        "line": 4,
+        "column": 22,
+        "snippet": "final data = await FirebaseDynamicLinks.instance.getInitialLink();",
+        "detector": "firebase.literal.dynamic-links-client",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "firebase:sdk_package:Firebase/DynamicLinks",
+    "provider": "firebase",
+    "kind": "sdk_package",
+    "key": "Firebase/DynamicLinks",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "ios/Podfile",
+        "line": 12,
+        "column": 8,
+        "snippet": "pod 'Firebase/DynamicLinks'",
+        "detector": "firebase.literal.podfile-dynamic-links",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "firebase:sdk_package:FirebaseDynamicLinks",
+    "provider": "firebase",
+    "kind": "sdk_package",
+    "key": "FirebaseDynamicLinks",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "ios/Podfile",
+        "line": 6,
+        "column": 8,
+        "snippet": "pod 'FirebaseDynamicLinks'",
+        "detector": "firebase.literal.podfile-dynamic-links",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "firebase:sdk_package:com.google.firebase:firebase-dynamic-links",
+    "provider": "firebase",
+    "kind": "sdk_package",
+    "key": "com.google.firebase:firebase-dynamic-links",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "android/referrals/build.gradle.kts",
+        "line": 6,
+        "column": 21,
+        "snippet": "implementation(\"com.google.firebase:firebase-dynamic-links:21.2.0\")",
+        "detector": "firebase.literal.gradle-dynamic-links",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "firebase:sdk_package:com.google.firebase:firebase-dynamic-links-ktx",
+    "provider": "firebase",
+    "kind": "sdk_package",
+    "key": "com.google.firebase:firebase-dynamic-links-ktx",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "android/app/build.gradle",
+        "line": 9,
+        "column": 21,
+        "snippet": "implementation 'com.google.firebase:firebase-dynamic-links-ktx'",
+        "detector": "firebase.literal.gradle-dynamic-links",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "firebase:sdk_package:firebase_dynamic_links",
+    "provider": "firebase",
+    "kind": "sdk_package",
+    "key": "firebase_dynamic_links",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "flutter_app/pubspec.yaml",
+        "line": 8,
+        "column": 3,
+        "snippet": "firebase_dynamic_links: ^5.4.17",
+        "detector": "firebase.literal.pubspec-dynamic-links",
+        "layer": "literal"
+      }
+    ]
+  }
+]
