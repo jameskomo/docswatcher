@@ -46,6 +46,7 @@ test("streams tarball with gzip content type and relay headers", async () => {
   assert.equal(await res.text(), "gzipbytes");
   assert.equal(f.last.url, "https://api.github.com/repos/stripe/stripe-java/tarball/master");
   assert.equal(f.last.init.redirect, "follow");
+  assert.equal(f.last.init.headers.get("X-GitHub-Api-Version"), "2026-03-10");
 });
 
 test("forwards client Authorization and skips cache", async () => {

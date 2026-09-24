@@ -11,6 +11,9 @@ const MAX_BYTES = 60 * 1024 * 1024;
 const OWNER_RE = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$/;
 const REPO_RE = /^[A-Za-z0-9._-]{1,100}$/;
 const REF_RE = /^[A-Za-z0-9._/-]{1,200}$/;
+// The REST API version, the same one the GitHub App and the browser pin. None of 2026-03-10's
+// breaking changes touch the tarball endpoint.
+export const GITHUB_API_VERSION = "2026-03-10";
 
 export default {
   async fetch(request, env, ctx) {
@@ -49,6 +52,7 @@ export async function handle(request, env, ctx, upstreamFetch, cache) {
   const headers = new Headers({
     "User-Agent": "docswatcher-relay/0.1 (+https://github.com)",
     Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": GITHUB_API_VERSION,
   });
   const clientAuth = request.headers.get("Authorization");
   // Which credential actually reached GitHub. null means none did.

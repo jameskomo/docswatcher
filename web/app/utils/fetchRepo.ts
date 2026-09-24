@@ -49,8 +49,16 @@ export async function fetchViaRelay(relay: string, t: RepoTarget, progress: Fetc
   return { files, binaries, skipped, truncated: false, repo: { host: "github", owner: t.owner, name: t.name, ref, sha } };
 }
 
+/**
+ * The REST API version the browser pins, the same one the GitHub App uses. An unpinned request
+ * gets GitHub's default, which is 2022-11-28 until that version stops being served on 2028-03-10.
+ * 2026-03-10 changes nothing read here: default_branch, and the tree's sha, path, type and size.
+ * GitHub's CORS policy allows the header, so an anonymous call now costs a preflight, cached a day.
+ */
+export const GITHUB_API_VERSION = "2026-03-10";
+
 async function gh(url: string, token?: string) {
-  const headers: Record<string, string> = { Accept: "application/vnd.github+json" };
+  const headers: Record<string, string> = { Accept: "application/vnd.github+json", "X-GitHub-Api-Version": GITHUB_API_VERSION };
   if (token) headers.Authorization = `Bearer ${token}`;
   const res = await fetch(url, { headers });
   if (res.status === 403 || res.status === 429) {
