@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
  */
 class GitHubAppJwtTest {
 
-  private static final String PKCS1 =
+  static final String PKCS1 =
       ""
           + "-----BEGIN RSA PRIVATE KEY-----\n"
           + "MIIEogIBAAKCAQEA4t5b6AebMTP/na1/4EV9J3RYb9X1uBvyhLHyEn5GHZlj0M3x\n"

@@ -6,6 +6,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,15 @@ import org.springframework.web.client.RestClient;
 @ConditionalOnExpression("'${docswatcher.github.app-id:}' != '' and '${docswatcher.github.private-key:}' != ''")
 public class RestGitHubClient implements GitHubClient {
 
+  /**
+   * The REST API version every request pins. 2022-11-28 stops being served on 2028-03-10.
+   * 2026-03-10's breaking changes were checked against every endpoint and field this class uses;
+   * none of them apply (docs/10-reference.md, "GitHub REST API version").
+   */
+  static final String API_VERSION = "2026-03-10";
+
+  private static final Set<String> PERMISSIONS = Set.of("admin", "maintain", "write", "triage", "read", "none");
+
   private record Token(String value, Instant expiresAt) {}
 
   private final RestClient rest;
@@ -27,7 +37,7 @@ public class RestGitHubClient implements GitHubClient {
 
   public RestGitHubClient(AppProperties properties, RestClient.Builder builder) {
     AppProperties.GitHub gh = properties.github();
-    this.rest = builder.baseUrl(gh.apiBase()).defaultHeader("Accept", "application/vnd.github+json").defaultHeader("X-GitHub-Api-Version", "2022-11-28").build();
+    this.rest = builder.baseUrl(gh.apiBase()).defaultHeader("Accept", "application/vnd.github+json").defaultHeader("X-GitHub-Api-Version", API_VERSION).build();
     this.jwt = new GitHubAppJwt(gh.appId(), gh.privateKey());
   }
 
@@ -49,6 +59,24 @@ public class RestGitHubClient implements GitHubClient {
 
   private RestClient.RequestBodySpec post(long installationId, String uri, Object... vars) {
     return rest.post().uri(uri, vars).header("Authorization", "Bearer " + installationToken(installationId));
+  }
+
+  /**
+   * URI variables for a "/repos/{owner}/{repo}/..." template, followed by {@code more}.
+   *
+   * <p>The full name cannot be one variable. RestClient encodes a variable's value strictly, so
+   * "owner/repo" went out as "owner%2Frepo", and GitHub answers that path with a 404.
+   */
+  static Object[] repo(String fullName, Object... more) {
+    int slash = fullName.indexOf('/');
+    if (slash <= 0 || slash == fullName.length() - 1 || fullName.indexOf('/', slash + 1) >= 0) {
+      throw new IllegalArgumentException("Not an owner/repo name: " + fullName);
+    }
+    Object[] vars = new Object[2 + more.length];
+    vars[0] = fullName.substring(0, slash);
+    vars[1] = fullName.substring(slash + 1);
+    System.arraycopy(more, 0, vars, 2, more.length);
+    return vars;
   }
 
   @Override
@@ -79,7 +107,7 @@ public class RestGitHubClient implements GitHubClient {
 
   @Override
   public void createCheckRun(long installationId, String fullName, String headSha, String name, String conclusion, String title, String summary) {
-    post(installationId, "/repos/{repo}/check-runs", fullName)
+    post(installationId, "/repos/{owner}/{repo}/check-runs", repo(fullName))
         .body(Map.of("name", name, "head_sha", headSha, "status", "completed", "conclusion", conclusion, "output", Map.of("title", title, "summary", summary)))
         .retrieve()
         .toBodilessEntity();
@@ -88,7 +116,7 @@ public class RestGitHubClient implements GitHubClient {
   @Override
   public int createIssue(long installationId, String fullName, String title, String body, List<String> labels) {
     Map<?, ?> created =
-        post(installationId, "/repos/{repo}/issues", fullName)
+        post(installationId, "/repos/{owner}/{repo}/issues", repo(fullName))
             .body(Map.of("title", title, "body", body, "labels", labels))
             .retrieve()
             .body(Map.class);
@@ -97,9 +125,9 @@ public class RestGitHubClient implements GitHubClient {
 
   @Override
   public void closeIssue(long installationId, String fullName, int issueNumber, String comment) {
-    post(installationId, "/repos/{repo}/issues/{n}/comments", fullName, issueNumber).body(Map.of("body", comment)).retrieve().toBodilessEntity();
+    post(installationId, "/repos/{owner}/{repo}/issues/{n}/comments", repo(fullName, issueNumber)).body(Map.of("body", comment)).retrieve().toBodilessEntity();
     rest.patch()
-        .uri("/repos/{repo}/issues/{n}", fullName, issueNumber)
+        .uri("/repos/{owner}/{repo}/issues/{n}", repo(fullName, issueNumber))
         .header("Authorization", "Bearer " + installationToken(installationId))
         .body(Map.of("state", "closed", "state_reason", "completed"))
         .retrieve()
@@ -108,12 +136,12 @@ public class RestGitHubClient implements GitHubClient {
 
   @Override
   public void addLabels(long installationId, String fullName, int issueNumber, List<String> labels) {
-    post(installationId, "/repos/{repo}/issues/{n}/labels", fullName, issueNumber).body(Map.of("labels", labels)).retrieve().toBodilessEntity();
+    post(installationId, "/repos/{owner}/{repo}/issues/{n}/labels", repo(fullName, issueNumber)).body(Map.of("labels", labels)).retrieve().toBodilessEntity();
   }
 
   @Override
   public void repositoryDispatch(long installationId, String fullName, String eventType, Map<String, Object> clientPayload) {
-    post(installationId, "/repos/{repo}/dispatches", fullName).body(Map.of("event_type", eventType, "client_payload", clientPayload)).retrieve().toBodilessEntity();
+    post(installationId, "/repos/{owner}/{repo}/dispatches", repo(fullName)).body(Map.of("event_type", eventType, "client_payload", clientPayload)).retrieve().toBodilessEntity();
   }
 
   @Override
@@ -121,12 +149,14 @@ public class RestGitHubClient implements GitHubClient {
     try {
       Map<?, ?> body =
           rest.get()
-              .uri("/repos/{repo}/collaborators/{login}/permission", fullName, login)
+              .uri("/repos/{owner}/{repo}/collaborators/{login}/permission", repo(fullName, login))
               .header("Authorization", "Bearer " + installationToken(installationId))
               .retrieve()
               .body(Map.class);
       Object permission = body == null ? null : body.get("permission");
-      return permission == null ? "none" : permission.toString();
+      // Only a value from the documented set counts. A renamed field, a null or a shape we
+      // do not know is an answer we did not get.
+      return permission instanceof String p && PERMISSIONS.contains(p) ? p : "none";
     } catch (RuntimeException e) {
       // Fail closed. An answer we could not get is not authority.
       return "none";
