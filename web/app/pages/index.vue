@@ -183,15 +183,15 @@ async function copyLink() {
       <div class="scan-box">
         <div class="tabs" role="tablist" aria-label="What to scan">
           <button role="tab" :aria-selected="mode === 'sample'" @click="mode = 'sample'">
-            <span>⚡</span>
+            <Icon name="bolt" />
             <span>Sample repository</span>
           </button>
           <button role="tab" :aria-selected="mode === 'url'" @click="mode = 'url'">
-            <span>🔗</span>
+            <Icon name="link" />
             <span>GitHub or GitLab URL</span>
           </button>
           <button role="tab" :aria-selected="mode === 'folder'" @click="mode = 'folder'">
-            <span>📁</span>
+            <Icon name="folder" />
             <span>Local folder</span>
           </button>
         </div>
@@ -213,7 +213,7 @@ async function copyLink() {
               @click="scanSample('openai/openai-quickstart-python')"
               :disabled="busy"
             >
-              <span>⚡</span>
+              <Icon name="bolt" :size="14" />
               <span>OpenAI Quickstart</span>
             </button>
             <button
@@ -223,7 +223,7 @@ async function copyLink() {
               @click="scanSample('Shopify/shopify-app-template-node')"
               :disabled="busy"
             >
-              <span>🛍️</span>
+              <Icon name="bag" :size="14" />
               <span>Shopify App Template</span>
             </button>
             <button
@@ -233,7 +233,7 @@ async function copyLink() {
               @click="scanSample('stripe-java-sources')"
               :disabled="busy"
             >
-              <span>💳</span>
+              <Icon name="card" :size="14" />
               <span>Stripe Java SDK</span>
             </button>
           </div>

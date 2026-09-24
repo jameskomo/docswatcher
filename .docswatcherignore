@@ -26,3 +26,5 @@
 /README.md
 /CHANGELOG.md
 /web/engine/checkApi.ts
+# The GitLab template's tests feed it made-up reports naming retired models.
+/ci/gitlab/test_template.py

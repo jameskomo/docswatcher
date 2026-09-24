@@ -105,8 +105,8 @@ onMounted(() => {
             :title="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`"
             @click="toggleTheme"
           >
-            <span v-if="theme === 'dark'" aria-hidden="true">☀️</span>
-            <span v-else aria-hidden="true">🌙</span>
+            <Icon v-if="theme === 'dark'" name="sun" />
+            <Icon v-else name="moon" />
           </button>
         </nav>
       </div>
@@ -135,7 +135,7 @@ onMounted(() => {
           <NuxtLink to="/about">How this works</NuxtLink>
         </span>
         <span>
-          <span class="mono">🔒</span> Scans run in your browser. No code leaves it.
+          <Icon name="lock" :size="14" /> Scans run in your browser. No code leaves it.
         </span>
       </div>
     </footer>

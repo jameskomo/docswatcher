@@ -143,7 +143,7 @@ const second = computed(() => {
 
       <div class="hud-card">
         <div class="hud-label">
-          <span>⚡</span>
+          <Icon name="bolt" :size="13" />
           <span>Engine Performance</span>
         </div>
         <div class="hud-val num" style="font-size: 1.875rem">
@@ -178,8 +178,8 @@ const second = computed(() => {
 
     <!-- Telemetry Footnote -->
     <p class="board-note" v-if="!busy && inventory">
-      <span class="meta-pill">⚡ {{ inventory.stats.filesScanned }} files read in {{ inventory.stats.durationMs }} ms</span>
-      <span class="meta-pill">📦 {{ contracts.length }} external {{ contracts.length === 1 ? "contract" : "contracts" }} across {{ providers }} {{ providers === 1 ? "provider" : "providers" }}</span>
+      <span class="meta-pill"><Icon name="bolt" :size="13" /> {{ inventory.stats.filesScanned }} files read in {{ inventory.stats.durationMs }} ms</span>
+      <span class="meta-pill"><Icon name="box" :size="13" /> {{ contracts.length }} external {{ contracts.length === 1 ? "contract" : "contracts" }} across {{ providers }} {{ providers === 1 ? "provider" : "providers" }}</span>
       <span class="meta-pill" v-if="second">{{ second }}.</span>
     </p>
   </section>

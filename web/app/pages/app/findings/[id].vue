@@ -85,7 +85,7 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
         <div style="margin-top: var(--s5); border-top: 1px solid var(--hair); padding-top: var(--s4)">
           <div class="row" style="gap: var(--s3)">
             <button id="fix-pr" class="btn solid" @click="copy">
-              <span>⚡</span>
+              <Icon name="bolt" />
               <span>{{ copied ? "Copied" : "Copy fix prompt for a coding agent" }}</span>
             </button>
             <button class="btn" @click="status === 'snoozed' ? store.unsnooze(finding.id) : store.snooze(finding.id, 30)">
