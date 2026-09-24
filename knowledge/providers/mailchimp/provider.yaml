@@ -1,0 +1,21 @@
+id: mailchimp
+name: Mailchimp
+homepage: https://mailchimp.com/developer
+docs: https://mailchimp.com/developer/marketing/api/
+changelog: https://mailchimp.com/developer/release-notes/
+base_urls:
+  - https://{dc}.api.mailchimp.com/3.0
+  - https://mandrillapp.com/api/1.0
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [python, typescript, javascript, php, ruby]
+deprecation_policy: >
+  The Marketing API version is a path segment after the data-center host
+  (https://us6.api.mailchimp.com/3.0/). Versions 1.x are gone and 2.0 and the
+  Export API 1.0 were retired on 2023-06-01, when they started returning HTTP
+  410. Changes are announced in the developer release notes, marked "Action
+  Required" when code must change. The fundamentals page still describes 2.0
+  as deprecated but not shut off; the dated release note is the newer source.
+  Mailchimp Transactional (Mandrill) is versioned separately under
+  mandrillapp.com/api/1.0.

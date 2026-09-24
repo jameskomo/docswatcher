@@ -1,0 +1,49 @@
+id: mailchimp-api-2-0-and-export-1-0-retired-2023
+provider: mailchimp
+kind: sunset
+severity: breaking
+title: Marketing API 2.0 and Export API 1.0 retired
+summary: >
+  Mailchimp retired API 2.0 and the Export API 1.0 on 2023-06-01. Calls to
+  either now return HTTP 410. Both had been deprecated since 2016-12-31, and
+  Marketing API 3.0 is the replacement.
+
+affects:
+  - kind: api_version
+    match: "2.0"
+  - kind: api_version
+    match: "export-1.0"
+
+announced: 2016-12-31
+effective: 2023-06-01
+
+sources:
+  - kind: changelog
+    url: https://mailchimp.com/developer/release-notes/export-api-1-0-and-api-2-0-no-longer-supported/
+    observed: 2026-09-24
+    note: "June 1, 2023, Action Required: \"We retired API Export 1.0 and API 2.0 on June 1, 2023. We won't support calls to these endpoints after the retirement date and will return an HTTP 410 status message.\" and \"We deprecated API Export 1.0 and API 2.0 on December 31, 2016\"."
+  - kind: provider_page
+    url: https://mailchimp.com/developer/marketing/docs/fundamentals/
+    observed: 2026-09-24
+    note: "Still reads \"The previous version 2.0 has not been shut off, but is deprecated and unsupported\"; the dated release note above supersedes it."
+
+migration:
+  replacement: "https://{dc}.api.mailchimp.com/3.0"
+  guide: https://mailchimp.com/developer/marketing/docs/fundamentals/
+  effort: large
+  notes: >
+    API 2.0 is method-style (POST /2.0/lists/subscribe.json with the apikey in
+    the body); 3.0 is REST on resources with HTTP Basic auth (any user name,
+    API key as password) or an OAuth token. Common mappings:
+    lists/subscribe becomes PUT /3.0/lists/{list_id}/members/{subscriber_hash}
+    (subscriber_hash is the MD5 of the lowercased email, status or
+    status_if_new set to subscribed or pending); lists/unsubscribe becomes a
+    PATCH of that member with status unsubscribed; lists/list becomes
+    GET /3.0/lists; campaigns/create and campaigns/send become POST
+    /3.0/campaigns and POST /3.0/campaigns/{id}/actions/send. Merge fields move
+    under merge_fields. Export API 1.0 list and campaign exports become paged
+    GET /3.0 collection reads (count and offset) or batch operations. Replace
+    the mailchimp (PyPI) and mailchimp-api (npm) 2.0 clients with
+    mailchimp-marketing and @mailchimp/mailchimp_marketing.
+
+status: expired

@@ -1,0 +1,40 @@
+provider: mailchimp
+
+manifests:
+  - ecosystem: npm
+    package: "@mailchimp/mailchimp_marketing"
+  - ecosystem: pypi
+    package: mailchimp-marketing
+  - ecosystem: npm
+    package: "@mailchimp/mailchimp_transactional"
+  - ecosystem: pypi
+    package: mailchimp-transactional
+  # Mailchimp's own clients for API 2.0, still installed in old projects.
+  - ecosystem: npm
+    package: mailchimp-api
+  - ecosystem: pypi
+    package: mailchimp
+
+literals:
+  # The Marketing API version follows the data-center host, which code usually
+  # builds from a variable (https://${dc}.api.mailchimp.com/3.0/), so the rule
+  # anchors on the fixed .api.mailchimp.com/ part only.
+  - id: mailchimp.literal.api-version
+    kind: api_version
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/vendor/**"]
+    pattern: '\.api\.mailchimp\.com/([0-9]\.[0-9])(?![0-9])'
+    key: "$1"
+    confidence: medium
+
+  # The Export API has its own version under /export/. Its key names the API so
+  # it cannot be mistaken for Marketing API 1.0.
+  - id: mailchimp.literal.export-api-version
+    kind: api_version
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/vendor/**"]
+    pattern: '\.api\.mailchimp\.com/export/([0-9]\.[0-9])(?![0-9])'
+    key: "export-$1"
+    confidence: medium
+
+callsites: []

@@ -1,0 +1,36 @@
+[
+  {
+    "id": "mailchimp:sdk_package:@mailchimp/mailchimp_marketing",
+    "provider": "mailchimp",
+    "kind": "sdk_package",
+    "key": "@mailchimp/mailchimp_marketing",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"@mailchimp/mailchimp_marketing\": \"^3.0.80\",",
+        "detector": "mailchimp.manifest.npm",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "mailchimp:sdk_package:@mailchimp/mailchimp_transactional",
+    "provider": "mailchimp",
+    "kind": "sdk_package",
+    "key": "@mailchimp/mailchimp_transactional",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"@mailchimp/mailchimp_transactional\": \"^1.4.1\"",
+        "detector": "mailchimp.manifest.npm",
+        "layer": "manifest"
+      }
+    ]
+  }
+]

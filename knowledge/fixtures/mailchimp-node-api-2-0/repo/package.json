@@ -1,0 +1,8 @@
+{
+  "name": "newsletter-signup",
+  "version": "0.9.3",
+  "dependencies": {
+    "mailchimp-api": "^2.0.7",
+    "node-fetch": "^2.7.0"
+  }
+}

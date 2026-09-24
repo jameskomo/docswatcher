@@ -1,0 +1,74 @@
+[
+  {
+    "id": "mailchimp:api_version:2.0",
+    "provider": "mailchimp",
+    "kind": "api_version",
+    "key": "2.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "lib/subscribe.js",
+        "line": 7,
+        "column": 60,
+        "snippet": "const res = await fetch(`https://${dc}.api.mailchimp.com/2.0/lists/subscribe.json`, {",
+        "detector": "mailchimp.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "mailchimp-api",
+        "version": "^2.0.7"
+      }
+    }
+  },
+  {
+    "id": "mailchimp:api_version:export-1.0",
+    "provider": "mailchimp",
+    "kind": "api_version",
+    "key": "export-1.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "lib/subscribe.js",
+        "line": 16,
+        "column": 67,
+        "snippet": "const res = await fetch(`https://${dc}.api.mailchimp.com/export/1.0/list/?apikey=${apiKey}&id=${listId}`);",
+        "detector": "mailchimp.literal.export-api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "mailchimp-api",
+        "version": "^2.0.7"
+      }
+    }
+  },
+  {
+    "id": "mailchimp:sdk_package:mailchimp-api",
+    "provider": "mailchimp",
+    "kind": "sdk_package",
+    "key": "mailchimp-api",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"mailchimp-api\": \"^2.0.7\",",
+        "detector": "mailchimp.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "mailchimp-api",
+        "version": "^2.0.7"
+      }
+    }
+  }
+]

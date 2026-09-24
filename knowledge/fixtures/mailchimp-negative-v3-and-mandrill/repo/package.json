@@ -1,0 +1,8 @@
+{
+  "name": "lifecycle-email",
+  "version": "2.1.0",
+  "dependencies": {
+    "@mailchimp/mailchimp_marketing": "^3.0.80",
+    "@mailchimp/mailchimp_transactional": "^1.4.1"
+  }
+}
