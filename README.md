@@ -59,8 +59,8 @@ chmod +x docswatcher
 ./docswatcher match . --format text     # exits 1 if anything breaking is open
 ```
 
-That is Linux x64. On a Mac with Apple silicon, download `docswatcher-macos-arm64` instead.
-On Windows, or anywhere else with Java 25, use `docswatcher.jar`. Every
+That is Linux x64. On a Mac with Apple silicon, download `docswatcher-macos-arm64` instead; on
+Windows, `docswatcher-windows-x64.exe`. Anywhere else with Java 25, use `docswatcher.jar`. Every
 release lists the sha256 of each file in `checksums.txt`, and the Action checks it before running.
 
 See [`docs/11-ci-integration.md`](./docs/11-ci-integration.md) for GitLab, Jenkins, monorepos,

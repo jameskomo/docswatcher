@@ -92,8 +92,8 @@ useHead({
       </p>
       <Snippet :code="shell" shell />
       <p>
-        That is Linux x64. On macOS arm64 the file is <code>docswatcher-macos-arm64</code>; on
-        Windows, use <code>docswatcher.jar</code> with Java 25. The Action picks the right one for
+        That is Linux x64. On macOS arm64 the file is <code>docswatcher-macos-arm64</code>, on
+        Windows x64 <code>docswatcher-windows-x64.exe</code>. The Action picks the right one for
         its runner and checks it against the release's <code>checksums.txt</code> before it runs.
       </p>
       <p>

@@ -78,7 +78,7 @@ useHead({
             <p><strong>Install DocsWatcher.</strong> One file, no account, no root. This is for Linux x64; on a Mac with Apple silicon, change <code>linux-x64</code> to <code>macos-arm64</code>.</p>
             <Snippet :code="install" shell />
             <p class="t1 ink-faint">
-              To download it yourself, get it from the
+              On Windows, or to download it yourself, get it from the
               <a href="https://github.com/jameskomo/docswatcher/releases/latest" target="_blank" rel="noopener">release page</a>
               and check it against <code>checksums.txt</code> there.
             </p>
@@ -156,11 +156,12 @@ useHead({
 
         <dt>macOS or Windows?</dt>
         <dd>
-          A Mac with Apple silicon takes <code>docswatcher-macos-arm64</code>, a single file on the
-          release page. If the folder you put it in is not on your <code>PATH</code>, give your
-          assistant the full path to the file instead of <code>docswatcher</code>. Windows and Intel
-          Macs have no single file yet: the portable <code>docswatcher.jar</code> runs anywhere with
-          Java 25, as <code>java -jar docswatcher.jar mcp</code>.
+          Both. A Mac with Apple silicon takes <code>docswatcher-macos-arm64</code> and Windows takes
+          <code>docswatcher-windows-x64.exe</code>, each a single file on the release page. If the
+          folder you put it in is not on your <code>PATH</code>, give your assistant the full path
+          to the file instead of <code>docswatcher</code>. An Intel Mac has no single file yet: the
+          portable <code>docswatcher.jar</code> runs anywhere with Java 25, as
+          <code>java -jar docswatcher.jar mcp</code>.
         </dd>
       </dl>
     </div>

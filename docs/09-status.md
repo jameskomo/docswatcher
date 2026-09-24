@@ -17,7 +17,7 @@ for call sites, and no native binary for Intel Macs.
 | TypeScript engine | Same three layers and the same exclusion rules, runs in the browser | Part of the 99 TypeScript unit tests below |
 | Two-engine parity | Byte-identical output on every fixture | `npm run parity` passes |
 | Path exclusion | `.gitignore` files, a root `.docswatcherignore`, and `--exclude` | 21 shared cases replayed by both engines |
-| Command line | `scan`, `match` (with `--report` and `--inventory` from one scan), `validate`, `mcp`, and `--exclude` | 28 tests pass; the release smoke-tests the native binary on Linux and macOS |
+| Command line | `scan`, `match` (with `--report` and `--inventory` from one scan), `validate`, `mcp`, and `--exclude` | 28 tests pass; the release smoke-tests the native binary on Linux, macOS and Windows |
 | MCP server | `check_api`, `upcoming_deprecations`, `scan_repository` | Covered by the CLI tests above, including the shared `check_api` cases; a real Claude Code session used it unprompted |
 | Server app | Webhooks, scan worker, REST API, fix dispatch, runtime observation, org blast radius | 108 tests, run in CI (they need Postgres); fix pull requests run an agent that can only edit the files a finding names |
 | Web site | Scanner, calendar with subscriptions, dashboard, finding detail with linked evidence, CI, Agents and Teams pages, live scan links | 30 browser tests pass |
@@ -48,7 +48,7 @@ The two zero-finding repositories are as important as the others. They are evide
 
 Ordered by what is most likely to cost a user today.
 
-1. **Native binaries for Windows and Intel Macs.** Releases ship native binaries for Linux x64 and macOS arm64, and a portable jar. The Windows build compiles but does not yet carry its grammar libraries; GraalVM Community no longer builds for macOS x64. Both need the jar and Java 25, which is a poor first step for someone adding an MCP server to their editor.
+1. **Native binary for Intel Macs.** Releases ship native binaries for Linux x64, macOS arm64 and Windows x64, and a portable jar. GraalVM Community no longer builds for macOS x64, so an Intel Mac needs the jar and Java 25, which is a poor first step for someone adding an MCP server to their editor.
 2. **Call-site languages.** Java, Python, TypeScript, JavaScript and Go. Ruby, PHP and C# are found through manifests and literals only.
 3. **Providers.** Ten. Azure OpenAI, Mistral, Twitch, Meta Graph and PayPal are the obvious next ones; each is a `provider.yaml`, a detector table and change records.
 4. **Knowledge watch coverage.** It watches pages already cited. A provider's brand-new deprecation page is found only if its changelog, which is watched, links to it.

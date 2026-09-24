@@ -36,9 +36,8 @@ jobs:
             asset: docswatcher-linux-x64
           - runner: macos-latest
             asset: docswatcher-macos-arm64
-          # Windows x64 is not built yet: the native image does not carry the grammar DLLs, so
-          # the binary fails at its first parse ("Can't open lib/x86_64-windows-...dll"). Windows
-          # uses the jar until that is fixed.
+          - runner: windows-latest
+            asset: docswatcher-windows-x64.exe
           # No macOS x64: GraalVM Community stopped publishing macOS x64 builds after
           # JDK 25.0.1, so there is no current GraalVM to build it with. Intel Macs use the jar.
     defaults:
@@ -189,7 +188,7 @@ jobs:
         run: |
           set -euo pipefail
           cd dist
-          for asset in docswatcher-linux-x64 docswatcher-macos-arm64 docswatcher.jar; do
+          for asset in docswatcher-linux-x64 docswatcher-macos-arm64 docswatcher-windows-x64.exe docswatcher.jar; do
             [ -f "$asset" ] || { echo "::error::$asset is missing from the build"; exit 1; }
           done
           sha256sum -- * > checksums.txt

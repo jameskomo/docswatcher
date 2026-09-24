@@ -41,7 +41,7 @@ See the status section at the bottom of this file for the current state of the n
 
 Builds and runs on Linux x64 with GraalVM Community 25.0.0. `cli/target/docswatcher` is about 46 MB and runs `scan`, `match`, and `validate` against the fixtures.
 
-The release workflow also builds it on macOS arm64. A Windows x64 profile exists (`cli/target/docswatcher.exe`), but that build is not released yet: its image does not carry the grammar DLLs. The `macos` and `windows` profiles switch on by OS and include only that platform's tree-sitter libraries in the image. There is no macOS x64 build: GraalVM Community stopped publishing macOS x64 after JDK 25.0.1.
+The release workflow also builds it on macOS arm64 and Windows x64 runners (`cli/target/docswatcher.exe` there). The `macos` and `windows` profiles switch on by OS and include only that platform's tree-sitter libraries in the image. There is no macOS x64 build: GraalVM Community stopped publishing macOS x64 after JDK 25.0.1.
 
 Two things were needed:
 

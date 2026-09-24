@@ -33,8 +33,8 @@ That is the whole integration. The step fails the build if any **breaking** find
 writes a summary to the job page, and says nothing at all when your code calls nothing that is
 going away.
 
-It runs on Linux x64 (`ubuntu-latest`) and macOS arm64 (`macos-latest`) runners. A Windows
-build is not released yet; on a Windows runner, run `docswatcher.jar` with Java 25. The step downloads the DocsWatcher binary for the runner from the
+It runs on Linux x64 (`ubuntu-latest`), macOS arm64 (`macos-latest`) and Windows x64
+(`windows-latest`) runners. The step downloads the DocsWatcher binary for the runner from the
 release, checks its sha256 against that release's `checksums.txt`, and fails without running it
 if the two do not match.
 
@@ -152,8 +152,8 @@ chmod +x docswatcher
 ./docswatcher match . --format text
 ```
 
-On a macOS arm64 machine the file is `docswatcher-macos-arm64`. There is no native build for
-Windows or Intel Macs yet; use the jar below.
+On a macOS arm64 machine the file is `docswatcher-macos-arm64`, and on Windows x64
+`docswatcher-windows-x64.exe`. There is no native build for Intel Macs; use the jar below.
 
 To check a download against the release before running it, keep the published file name and
 let `sha256sum` (`shasum -a 256` on macOS) compare it with `checksums.txt`:
