@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.1 (2026-09-24)
+
+- Native download for Windows x64 (`docswatcher-windows-x64.exe`). The Action runs on Windows
+  runners too, and checks the download against `checksums.txt` like the others. The 0.3.0 Windows
+  build left its grammar libraries out of the image; the resource patterns no longer use a
+  backslash, which the Windows build mangled.
+- Intel Macs still use `docswatcher.jar` with Java 25: GraalVM Community no longer builds for
+  macOS x64.
+
 ## 0.3.0 (2026-09-24)
 
 ### Upgrade if you use the GitHub Action or the native binary

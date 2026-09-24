@@ -47,7 +47,7 @@ if the two do not match.
 | `include-low` | `false` | Also report contracts found only in documentation or test files. Off by default because those are usually noise. |
 | `exclude` | empty | Paths to skip, one `.gitignore`-style pattern per line. The repository's `.gitignore` files and `.docswatcherignore` already apply without this. |
 | `report` | *(unset)* | Write the full JSON findings to this path, for a later step to upload or post. |
-| `version` | `latest` | Release tag of the CLI to download, for example `v0.3.0`. |
+| `version` | `latest` | Release tag of the CLI to download, for example `v0.3.1`. |
 
 ### Outputs
 
