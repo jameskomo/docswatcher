@@ -1,8 +1,10 @@
 # DocsWatcher as a GitHub Action.
 #
-# Downloads the native CLI from this repository's latest release and scans the checkout. The
-# knowledge base is compiled into that binary, so the scan is offline: nothing about your code
-# leaves the runner, and no DocsWatcher service needs to be reachable for your build to pass.
+# Downloads the native CLI for the runner's platform (Linux x64, macOS arm64 or Windows x64) from
+# this repository's latest release, checks it against the release's checksums.txt, and scans the
+# checkout. The knowledge base is compiled into that binary, so the scan is offline: nothing about
+# your code leaves the runner, and no DocsWatcher service needs to be reachable for your build to
+# pass.
 name: DocsWatcher
 description: Find the external APIs your code calls that already have a shutdown date.
 branding:
@@ -52,18 +54,69 @@ runs:
   using: composite
   steps:
     - name: Fetch the DocsWatcher CLI
+      id: fetch
       shell: bash
       env:
         VERSION: ${{ inputs.version }}
+        ACTION_REPO: ${{ github.action_repository || 'jameskomo/docswatcher' }}
       run: |
         set -euo pipefail
-        base="https://github.com/${{ github.action_repository || 'jameskomo/docswatcher' }}/releases"
-        url="$base/latest/download/docswatcher-linux-x64"
-        if [ "$VERSION" != "latest" ]; then
-          url="$base/download/$VERSION/docswatcher-linux-x64"
+        case "$RUNNER_OS/$RUNNER_ARCH" in
+          Linux/X64) asset=docswatcher-linux-x64 ;;
+          macOS/ARM64) asset=docswatcher-macos-arm64 ;;
+          Windows/X64) asset=docswatcher-windows-x64.exe ;;
+          *)
+            echo "::error::DocsWatcher has no native build for $RUNNER_OS $RUNNER_ARCH. It runs on Linux x64, macOS arm64 and Windows x64 runners."
+            exit 1 ;;
+        esac
+
+        # Resolve "latest" to a tag first, so the binary and checksums.txt come from the same
+        # release even if a new one is published between the two downloads.
+        base="https://github.com/$ACTION_REPO/releases"
+        tag="$VERSION"
+        if [ "$tag" = "latest" ]; then
+          resolved=$(curl -sSL --fail --retry 3 -o /dev/null -w '%{url_effective}' "$base/latest")
+          tag="${resolved##*/}"
         fi
-        curl -sSL --fail -o "$RUNNER_TEMP/docswatcher" "$url"
-        chmod +x "$RUNNER_TEMP/docswatcher"
+        case "$tag" in
+          "" | latest | releases | *[!A-Za-z0-9._-]*)
+            echo "::error::could not resolve DocsWatcher release '$VERSION'"
+            exit 1 ;;
+        esac
+        echo "DocsWatcher $tag, $asset"
+
+        # Fail closed: the download becomes the binary the scan runs only once checksums.txt lists
+        # exactly one sha256 for it and the bytes match. Any other exit deletes it.
+        dir="$RUNNER_TEMP/docswatcher-cli"
+        mkdir -p "$dir"
+        download="$dir/$asset.unverified"
+        trap 'rm -f "$download"' EXIT
+        curl -sSL --fail --retry 3 -o "$dir/checksums.txt" "$base/download/$tag/checksums.txt"
+        curl -sSL --fail --retry 3 -o "$download" "$base/download/$tag/$asset"
+
+        expected=$(awk -v f="$asset" '$2 == f || $2 == "*" f { print tolower($1) }' "$dir/checksums.txt")
+        if ! [[ "$expected" =~ ^[0-9a-f]{64}$ ]]; then
+          echo "::error::checksums.txt in release $tag has no single sha256 for $asset"
+          exit 1
+        fi
+        # Hash from stdin: sha256sum escapes a file name containing a backslash, as Windows paths
+        # do. macOS has shasum rather than sha256sum.
+        if command -v sha256sum > /dev/null; then
+          actual=$(sha256sum < "$download" | awk '{ print $1 }')
+        else
+          actual=$(shasum -a 256 < "$download" | awk '{ print $1 }')
+        fi
+        if [ "$actual" != "$expected" ]; then
+          echo "::error::$asset from release $tag does not match checksums.txt (expected $expected, got $actual)"
+          exit 1
+        fi
+        echo "sha256 $actual matches checksums.txt"
+
+        bin="$dir/docswatcher"
+        [ "$RUNNER_OS" = "Windows" ] && bin="$dir/docswatcher.exe"
+        mv "$download" "$bin"
+        chmod +x "$bin"
+        echo "bin=$bin" >> "$GITHUB_OUTPUT"
 
     - name: Scan
       id: scan
@@ -74,6 +127,7 @@ runs:
         DW_INCLUDE_LOW: ${{ inputs.include-low }}
         DW_REPORT: ${{ inputs.report }}
         DW_EXCLUDE: ${{ inputs.exclude }}
+        DW_BIN: ${{ steps.fetch.outputs.bin }}
       run: |
         set -uo pipefail
         args=("match" "$DW_PATH")
@@ -86,21 +140,32 @@ runs:
         out="${DW_REPORT:-$RUNNER_TEMP/docswatcher.json}"
         # The CLI exits 1 when a breaking finding is open. That is a result, not a failure of
         # the step, so the exit code is captured rather than allowed to end the shell.
-        "$RUNNER_TEMP/docswatcher" "${args[@]}" --format json > "$out"
+        "$DW_BIN" "${args[@]}" --format json > "$out"
         code=$?
         if [ "$code" -gt 1 ]; then
           echo "::error::docswatcher exited $code, which means the scan itself failed"
           exit "$code"
         fi
 
+        # Windows runners have Python but not always a working python3, so try both. The counts
+        # are written without a newline: Python on Windows would end a printed line with \r.
+        py=""
+        for candidate in python3 python; do
+          if "$candidate" -c "import json" > /dev/null 2>&1; then py="$candidate"; break; fi
+        done
+        if [ -z "$py" ]; then
+          echo "::error::this runner has no Python, which the Action uses to read the report"
+          exit 3
+        fi
+
         # The report is a top-level JSON array of findings, not an object wrapping one. Output that
         # does not parse means the scan did not finish. It must fail the step: counting it as zero
         # findings would report a clean repository that was never scanned.
-        if ! findings=$(python3 -c "import json,sys;print(len(json.load(open(sys.argv[1]))))" "$out" 2>/dev/null); then
+        if ! findings=$("$py" -c "import json,sys;sys.stdout.write(str(len(json.load(open(sys.argv[1])))))" "$out" 2>/dev/null); then
           echo "::error::docswatcher did not produce a report, so this repository was not checked"
           exit 3
         fi
-        breaking=$(python3 -c "import json,sys;print(sum(1 for f in json.load(open(sys.argv[1])) if f.get('severity')=='breaking'))" "$out")
+        breaking=$("$py" -c "import json,sys;sys.stdout.write(str(sum(1 for f in json.load(open(sys.argv[1])) if f.get('severity')=='breaking')))" "$out")
         echo "findings=$findings" >> "$GITHUB_OUTPUT"
         echo "breaking=$breaking" >> "$GITHUB_OUTPUT"
         [ -n "$DW_REPORT" ] && echo "report=$DW_REPORT" >> "$GITHUB_OUTPUT"
@@ -112,7 +177,7 @@ runs:
           else
             echo "**$findings** findings, **$breaking** breaking."
             echo
-            "$RUNNER_TEMP/docswatcher" "${args[@]}" --format text 2>/dev/null || true
+            "$DW_BIN" "${args[@]}" --format text 2>/dev/null || true
           fi
         } >> "$GITHUB_STEP_SUMMARY"
 
