@@ -1,0 +1,122 @@
+[
+  {
+    "id": "discord:api_version:6",
+    "provider": "discord",
+    "kind": "api_version",
+    "key": "6",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "bot/raw_gateway.py",
+        "line": 7,
+        "column": 44,
+        "snippet": "GATEWAY_URL = \"wss://gateway.discord.gg/?v=6&encoding=json\"",
+        "detector": "discord.literal.gateway-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "discord.py",
+        "version": "2.3.2"
+      }
+    }
+  },
+  {
+    "id": "discord:api_version:7",
+    "provider": "discord",
+    "kind": "api_version",
+    "key": "7",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "bot/raw_gateway.py",
+        "line": 8,
+        "column": 39,
+        "snippet": "REST_BASE = \"https://discord.com/api/v7\"",
+        "detector": "discord.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "discord.py",
+        "version": "2.3.2"
+      }
+    }
+  },
+  {
+    "id": "discord:endpoint:POST /guilds",
+    "provider": "discord",
+    "kind": "endpoint",
+    "key": "POST /guilds",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "bot/provision.py",
+        "line": 8,
+        "column": 19,
+        "snippet": "guild = await client.create_guild(name=f\"{team_name} workspace\")",
+        "detector": "discord.python.create-guild",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "discord.py",
+        "version": "2.3.2"
+      }
+    }
+  },
+  {
+    "id": "discord:sdk_method:Client.create_guild",
+    "provider": "discord",
+    "kind": "sdk_method",
+    "key": "Client.create_guild",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "bot/provision.py",
+        "line": 8,
+        "column": 19,
+        "snippet": "guild = await client.create_guild(name=f\"{team_name} workspace\")",
+        "detector": "discord.python.create-guild",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "discord.py",
+        "version": "2.3.2"
+      }
+    }
+  },
+  {
+    "id": "discord:sdk_package:discord.py",
+    "provider": "discord",
+    "kind": "sdk_package",
+    "key": "discord.py",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "discord.py==2.3.2",
+        "detector": "discord.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "discord.py",
+        "version": "2.3.2"
+      }
+    }
+  }
+]

@@ -1,0 +1,41 @@
+id: discord-api-v8-deprecated-2022
+provider: discord
+kind: sunset
+severity: warning
+title: API and Gateway v8 deprecated
+summary: >
+  API version 8 was deprecated with the release of v10 on 2022-02-14 and is
+  still listed as deprecated. Discord has published no decommission date for
+  it, so this record carries no effective date.
+
+affects:
+  - kind: api_version
+    match: "8"
+
+announced: 2022-02-14
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://docs.discord.com/developers/change-log
+    observed: 2026-09-24
+    note: "February 14, 2022, API v10: \"API v8 is now deprecated.\""
+  - kind: provider_page
+    url: https://docs.discord.com/developers/reference
+    observed: 2026-09-24
+    note: "API Versions table lists 8 as Deprecated."
+
+migration:
+  replacement: "10"
+  guide: https://docs.discord.com/developers/change-log
+  effort: medium
+  notes: >
+    Change /api/v8/ to /api/v10/ in REST URLs and ?v=8 to ?v=10 on the Gateway
+    URL. v9 added threads, so handle the thread channel types and thread
+    Gateway events. v10 requires the MESSAGE_CONTENT intent to receive message
+    content, uses embeds (an array) instead of embed on message routes, takes
+    audit log reasons only from the X-Audit-Log-Reason header, requires
+    existing attachments to be listed when editing a message with new ones, and
+    is not served on discordapp.com.
+
+status: active

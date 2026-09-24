@@ -1,0 +1,43 @@
+id: discord-create-guild-restricted-2025
+provider: discord
+kind: sunset
+severity: breaking
+title: Create Guild no longer available to apps
+summary: >
+  Applications lost the ability to create guilds with POST /guilds on
+  2025-07-15. Guilds owned by bots had their ownership transferred to a real
+  user, and the endpoint was later removed from the documentation and the
+  OpenAPI specification.
+
+affects:
+  - kind: endpoint
+    match: "POST /guilds"
+  - kind: sdk_method
+    match: "guilds.create"
+  - kind: sdk_method
+    match: "Client.create_guild"
+
+announced: 2025-04-15
+effective: 2025-07-15
+
+sources:
+  - kind: changelog
+    url: https://docs.discord.com/developers/change-log
+    observed: 2026-09-24
+    note: "April 15, 2025, Deprecating Guild Creation by Apps: \"The Create Guild endpoint (POST /guilds) will be restricted for applications starting July 15, 2025 ... After the deprecation date, the endpoint will no longer be available.\" Timeline: \"July 15, 2025: Create Guild endpoint will no longer be available\"."
+
+migration:
+  replacement: null
+  guide: https://docs.discord.com/developers/change-log
+  effort: medium
+  notes: >
+    Remove bot-driven guild creation (discord.js client.guilds.create,
+    discord.py Client.create_guild, or a raw POST /guilds). Discord publishes no
+    replacement endpoint; affected apps were sent a migration plan by System DM.
+    The usual pattern is to have a user create the server and install the app
+    into it through the OAuth2 bot authorization flow, then configure channels
+    and roles with the guild endpoints the bot can still call. Code that assumed
+    the bot owns the guild (transferring ownership, deleting the guild) must
+    also change, since bot-owned guilds were transferred to users.
+
+status: expired

@@ -1,0 +1,18 @@
+[
+  {
+    "contract": "discord:endpoint:POST /guilds",
+    "change": "discord-create-guild-restricted-2025"
+  },
+  {
+    "contract": "discord:sdk_method:Client.create_guild",
+    "change": "discord-create-guild-restricted-2025"
+  },
+  {
+    "contract": "discord:api_version:6",
+    "change": "discord-api-v6-v7-decommission-announced-2022"
+  },
+  {
+    "contract": "discord:api_version:7",
+    "change": "discord-api-v6-v7-decommission-announced-2022"
+  }
+]

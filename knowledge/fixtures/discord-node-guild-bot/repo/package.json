@@ -1,0 +1,8 @@
+{
+  "name": "event-guild-bot",
+  "version": "3.2.0",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "node-fetch": "^3.3.2"
+  }
+}

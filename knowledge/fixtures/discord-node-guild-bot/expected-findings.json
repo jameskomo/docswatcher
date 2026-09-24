@@ -1,0 +1,22 @@
+[
+  {
+    "contract": "discord:endpoint:POST /guilds",
+    "change": "discord-create-guild-restricted-2025"
+  },
+  {
+    "contract": "discord:sdk_method:guilds.create",
+    "change": "discord-create-guild-restricted-2025"
+  },
+  {
+    "contract": "discord:api_version:8",
+    "change": "discord-api-v8-deprecated-2022"
+  },
+  {
+    "contract": "discord:endpoint:ANY /channels/{channel.id}/pins",
+    "change": "discord-legacy-pin-endpoints-deprecated-2025"
+  },
+  {
+    "contract": "discord:endpoint:ANY /channels/{channel.id}/pins/{message.id}",
+    "change": "discord-legacy-pin-endpoints-deprecated-2025"
+  }
+]

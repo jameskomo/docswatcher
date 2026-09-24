@@ -1,0 +1,113 @@
+provider: discord
+
+manifests:
+  - ecosystem: npm
+    package: discord.js
+  - ecosystem: npm
+    package: "@discordjs/rest"
+  - ecosystem: pypi
+    package: discord.py
+  - ecosystem: maven
+    package: net.dv8tion:JDA
+  - ecosystem: go
+    package: github.com/bwmarrin/discordgo
+
+literals:
+  # The REST version segment. discordapp.com is the old host, still accepted for
+  # versions below 10.
+  - id: discord.literal.api-version
+    kind: api_version
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: 'https://discord(?:app)?\.com/api/v([0-9]+)(?![0-9])'
+    key: "$1"
+    confidence: medium
+
+  # The Gateway takes the same version as a v query parameter.
+  - id: discord.literal.gateway-version
+    kind: api_version
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: 'wss://gateway\.discord\.gg/?\?(?:[a-z_]+=[^&"''`\s]*&)*v=([0-9]+)(?![0-9])'
+    key: "$1"
+    confidence: medium
+
+  # POST /guilds is the whole route: the lookahead refuses /guilds/{id}/...,
+  # which is every other guild endpoint.
+  - id: discord.literal.endpoint-guilds-root
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://discord(?:app)?\.com/api(?:/v[0-9]+)?(/guilds)(?![\w/.{$-])'
+    key: "ANY $1"
+    confidence: medium
+
+  # The pre-2025 pin routes hang off the channel directly: /channels/{id}/pins.
+  # The current routes are /channels/{id}/messages/pins, which these do not
+  # match because the id segment cannot span a slash.
+  - id: discord.literal.endpoint-channel-pins
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://discord(?:app)?\.com/api(?:/v[0-9]+)?/channels/[^/\s"''`]+/pins(?![\w/])'
+    key: "ANY /channels/{channel.id}/pins"
+    confidence: medium
+
+  - id: discord.literal.endpoint-channel-pin-message
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://discord(?:app)?\.com/api(?:/v[0-9]+)?/channels/[^/\s"''`]+/pins/[^/\s"''`]+'
+    key: "ANY /channels/{channel.id}/pins/{message.id}"
+    confidence: medium
+
+callsites:
+  # discord.js GuildManager.create is Create Guild.
+  - id: discord.javascript.guilds-create
+    language: javascript
+    kind: sdk_method
+    requires: discord.js
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @a1)
+          property: (property_identifier) @m)
+        (#eq? @a1 "guilds") (#eq? @m "create")) @call
+    key: "guilds.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /guilds"
+    confidence: high
+
+  - id: discord.typescript.guilds-create
+    language: typescript
+    kind: sdk_method
+    requires: discord.js
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @a1)
+          property: (property_identifier) @m)
+        (#eq? @a1 "guilds") (#eq? @m "create")) @call
+    key: "guilds.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /guilds"
+    confidence: high
+
+  # discord.py Client.create_guild is Create Guild.
+  - id: discord.python.create-guild
+    language: python
+    kind: sdk_method
+    requires: discord.py
+    query: |
+      (call
+        function: (attribute
+          object: (_)
+          attribute: (identifier) @m)
+        (#eq? @m "create_guild")) @call
+    key: "Client.create_guild"
+    maps_to:
+      kind: endpoint
+      key: "POST /guilds"
+    confidence: high

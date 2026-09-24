@@ -1,0 +1,19 @@
+id: discord
+name: Discord API
+homepage: https://discord.com/developers
+docs: https://docs.discord.com/developers/reference
+changelog: https://docs.discord.com/developers/change-log
+base_urls:
+  - https://discord.com/api
+  - https://discordapp.com/api
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [javascript, typescript, python, java, go]
+deprecation_policy: >
+  The API version is a path segment (https://discord.com/api/v10) and the v
+  query parameter of the Gateway URL. The reference page lists each version as
+  Available, Deprecated or Discontinued; a discontinued version returns 400 Bad
+  Request. Omitting the version routes to the default, which is still the
+  deprecated v6. Endpoint deprecations and removals are announced in the change
+  log, with a removal date when one is set.

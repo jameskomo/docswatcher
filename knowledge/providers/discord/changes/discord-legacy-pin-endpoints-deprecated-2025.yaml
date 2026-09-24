@@ -1,0 +1,39 @@
+id: discord-legacy-pin-endpoints-deprecated-2025
+provider: discord
+kind: sunset
+severity: warning
+title: Channel pin endpoints deprecated for paginated routes
+summary: >
+  The pin routes under /channels/{channel.id}/pins (Get Pinned Messages, Pin
+  Message, Unpin Message) were deprecated on 2025-06-25 in favour of paginated
+  routes under /channels/{channel.id}/messages/pins. Discord has published no
+  removal date, so this record carries no effective date.
+
+affects:
+  - kind: endpoint
+    match: "ANY /channels/{channel.id}/pins"
+  - kind: endpoint
+    match: "ANY /channels/{channel.id}/pins/{message.id}"
+
+announced: 2025-06-25
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://docs.discord.com/developers/change-log
+    observed: 2026-09-24
+    note: "June 25, 2025, Paginated Pin Endpoints: \"As part of this change we have deprecated the old endpoints for pinned messages.\" Deprecated: GET /channels/{channel.id}/pins, PUT and DELETE /channels/{channel.id}/pins/{message.id}. New: GET /channels/{channel.id}/messages/pins, PUT and DELETE /channels/{channel.id}/messages/pins/{message.id}."
+
+migration:
+  replacement: "GET /channels/{channel.id}/messages/pins"
+  guide: https://docs.discord.com/developers/resources/message#get-channel-pins
+  effort: small
+  notes: >
+    Insert /messages before /pins in every pin route: GET
+    /channels/{channel.id}/messages/pins lists pins, and PUT or DELETE
+    /channels/{channel.id}/messages/pins/{message.id} pins or unpins. The list
+    endpoint is paginated, so code that read one array of messages must follow
+    the pagination described on the Get Channel Pins reference until it has
+    every pin it needs. Pin and unpin behave as before.
+
+status: active

@@ -1,0 +1,160 @@
+[
+  {
+    "id": "discord:api_version:8",
+    "provider": "discord",
+    "kind": "api_version",
+    "key": "8",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/pins.js",
+        "line": 6,
+        "column": 53,
+        "snippet": "const res = await fetch(`https://discord.com/api/v8/channels/${channelId}/pins`, { headers });",
+        "detector": "discord.literal.api-version",
+        "layer": "literal"
+      },
+      {
+        "path": "src/pins.js",
+        "line": 11,
+        "column": 42,
+        "snippet": "return fetch(`https://discord.com/api/v8/channels/${channelId}/pins/${messageId}`, { method: \"PUT\", headers });",
+        "detector": "discord.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "discord.js",
+        "version": "^14.14.1"
+      },
+      "apiVersion": "8"
+    }
+  },
+  {
+    "id": "discord:endpoint:ANY /channels/{channel.id}/pins",
+    "provider": "discord",
+    "kind": "endpoint",
+    "key": "ANY /channels/{channel.id}/pins",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/pins.js",
+        "line": 6,
+        "column": 28,
+        "snippet": "const res = await fetch(`https://discord.com/api/v8/channels/${channelId}/pins`, { headers });",
+        "detector": "discord.literal.endpoint-channel-pins",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "discord.js",
+        "version": "^14.14.1"
+      },
+      "apiVersion": "8"
+    }
+  },
+  {
+    "id": "discord:endpoint:ANY /channels/{channel.id}/pins/{message.id}",
+    "provider": "discord",
+    "kind": "endpoint",
+    "key": "ANY /channels/{channel.id}/pins/{message.id}",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/pins.js",
+        "line": 11,
+        "column": 17,
+        "snippet": "return fetch(`https://discord.com/api/v8/channels/${channelId}/pins/${messageId}`, { method: \"PUT\", headers });",
+        "detector": "discord.literal.endpoint-channel-pin-message",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "discord.js",
+        "version": "^14.14.1"
+      },
+      "apiVersion": "8"
+    }
+  },
+  {
+    "id": "discord:endpoint:POST /guilds",
+    "provider": "discord",
+    "kind": "endpoint",
+    "key": "POST /guilds",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/events.js",
+        "line": 7,
+        "column": 23,
+        "snippet": "const guild = await client.guilds.create({",
+        "detector": "discord.javascript.guilds-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "discord.js",
+        "version": "^14.14.1"
+      },
+      "apiVersion": "8"
+    }
+  },
+  {
+    "id": "discord:sdk_method:guilds.create",
+    "provider": "discord",
+    "kind": "sdk_method",
+    "key": "guilds.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/events.js",
+        "line": 7,
+        "column": 23,
+        "snippet": "const guild = await client.guilds.create({",
+        "detector": "discord.javascript.guilds-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "discord.js",
+        "version": "^14.14.1"
+      },
+      "apiVersion": "8"
+    }
+  },
+  {
+    "id": "discord:sdk_package:discord.js",
+    "provider": "discord",
+    "kind": "sdk_package",
+    "key": "discord.js",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"discord.js\": \"^14.14.1\",",
+        "detector": "discord.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "discord.js",
+        "version": "^14.14.1"
+      },
+      "apiVersion": "8"
+    }
+  }
+]

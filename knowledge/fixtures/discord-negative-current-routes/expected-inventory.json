@@ -1,0 +1,52 @@
+[
+  {
+    "id": "discord:api_version:10",
+    "provider": "discord",
+    "kind": "api_version",
+    "key": "10",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "archiver/pins.py",
+        "line": 5,
+        "column": 33,
+        "snippet": "API = \"https://discord.com/api/v10\"",
+        "detector": "discord.literal.api-version",
+        "layer": "literal"
+      },
+      {
+        "path": "archiver/pins.py",
+        "line": 9,
+        "column": 38,
+        "snippet": "url = f\"https://discord.com/api/v10/channels/{channel_id}/messages/pins\"",
+        "detector": "discord.literal.api-version",
+        "layer": "literal"
+      },
+      {
+        "path": "archiver/pins.py",
+        "line": 17,
+        "column": 52,
+        "snippet": "return requests.get(f\"https://discord.com/api/v10/guilds/{guild_id}\", headers={\"Authorization\": f\"Bot {os.environ['DISCORD_TOKEN']}\"}).json()",
+        "detector": "discord.literal.api-version",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "discord:api_version:6",
+    "provider": "discord",
+    "kind": "api_version",
+    "key": "6",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "README.md",
+        "line": 5,
+        "column": 50,
+        "snippet": "The first version used `https://discord.com/api/v6/channels/{id}/pins`; it now",
+        "detector": "discord.literal.api-version",
+        "layer": "literal"
+      }
+    ]
+  }
+]

@@ -1,0 +1,47 @@
+id: discord-api-v6-v7-decommission-announced-2022
+provider: discord
+kind: sunset
+severity: warning
+title: API and Gateway v6 and v7 deprecated, decommission announced
+summary: >
+  API versions 6 and 7 are listed as deprecated. The API v10 release notes of
+  2022-02-14 announced that they "will be decommissioned in early 2023"; no
+  exact date was published and the reference still lists both as deprecated
+  rather than discontinued, so this record carries no effective date. A
+  discontinued version returns 400 Bad Request.
+
+affects:
+  - kind: api_version
+    match: "6"
+  - kind: api_version
+    match: "7"
+
+announced: 2022-02-14
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://docs.discord.com/developers/reference
+    observed: 2026-09-24
+    note: "API Versions table: 10 Available, 9 Available, 8 Deprecated, 7 Deprecated, 6 Deprecated (default), 5, 4 and 3 Discontinued. \"Trying to use these versions will fail and return 400 Bad Request.\""
+  - kind: changelog
+    url: https://docs.discord.com/developers/change-log
+    observed: 2026-09-24
+    note: "February 14, 2022, API v10, upcoming changes: \"API v6 and v7 will be decommissioned in early 2023\"."
+
+migration:
+  replacement: "10"
+  guide: https://docs.discord.com/developers/change-log
+  effort: large
+  notes: >
+    Change the version segment in REST URLs (/api/v6/ or /api/v7/ to /api/v10/)
+    and the v query parameter of the Gateway URL (?v=6 to ?v=10), and pin a
+    version explicitly, because omitting it routes to v6. Upgrading crosses the
+    v8, v9 and v10 changes: Gateway intents are required when identifying,
+    message content needs the MESSAGE_CONTENT intent, threads exist from v9,
+    message routes take embeds (an array) instead of embed, audit log reasons
+    move to the X-Audit-Log-Reason header, and v10 is not served on
+    discordapp.com. Library users upgrade the library major version instead of
+    editing URLs.
+
+status: active
