@@ -61,6 +61,14 @@ useHead({
         working in 30 days before shipping it, not the morning it fails.
       </p>
 
+      <h2>Try it with your own assistant</h2>
+      <p>
+        Ask Claude, GPT and Codex, or Gemini to write something, and see the answer with DocsWatcher
+        next to the answer without it. Bring your own API key; it stays between your browser and the
+        provider.
+      </p>
+      <TryAssistant />
+
       <h2>Set it up in two steps</h2>
       <div class="steps">
         <div class="step">
@@ -123,6 +131,13 @@ useHead({
         <dd>
           No. DocsWatcher runs on your machine, and the list of shutdown dates is built into it. It
           makes no network calls, writes no files and runs nothing else.
+        </dd>
+
+        <dt>Is my API key safe in "Try it"?</dt>
+        <dd>
+          It is sent only from your browser to the provider you pick, never to DocsWatcher: there is
+          no DocsWatcher server in between. It is kept in memory and forgotten when you leave the
+          page, unless you tick "Remember the key on this device".
         </dd>
 
         <dt>What does it know about?</dt>

@@ -251,6 +251,24 @@ class McpServerTest {
     assertThat(out.toString(StandardCharsets.UTF_8)).isEqualTo("{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{}}\n");
   }
 
+  /** The browser's check_api (web/engine/checkApi.ts) is held to the same file. */
+  @Test
+  void answersTheSharedCasesExactly() throws Exception {
+    JsonNode shared = new com.fasterxml.jackson.databind.ObjectMapper()
+        .readTree(McpServerTest.class.getResourceAsStream("/check-api-cases.json"));
+    assertThat(LocalDate.parse(shared.get("today").asText())).isEqualTo(TODAY);
+    for (JsonNode c : shared.get("cases")) {
+      JsonNode r = tool("check_api", c.get("input").toString()).get("structuredContent");
+      List<String> ids = new ArrayList<>();
+      r.get("matches").forEach(m -> ids.add(m.get("id").asText()));
+      List<String> expected = new ArrayList<>();
+      c.get("matches").forEach(m -> expected.add(m.asText()));
+      assertThat(r.get("verdict").asText()).as("verdict for %s", c.get("input")).isEqualTo(c.get("verdict").asText());
+      assertThat(ids).as("matches for %s", c.get("input")).isEqualTo(expected);
+      assertThat(r.get("answer").asText()).as("answer for %s", c.get("input")).isEqualTo(c.get("answer").asText().replace("{version}", K.version()));
+    }
+  }
+
   private static String firstMatchId(JsonNode result) {
     JsonNode matches = result.get("structuredContent").get("matches");
     assertThat(matches.size()).as("expected a match in %s", result).isGreaterThan(0);

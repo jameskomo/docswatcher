@@ -8,3 +8,4 @@ export { isDocOrTestPath, isSkippedDir, languageOf } from "./paths";
 export { compileIgnore, isIgnoreFile } from "./ignore";
 export { scanManifest } from "./manifests";
 export { scanLiterals } from "./literals";
+export { checkApi, CHECK_KINDS, type CheckResult, type CheckMatch, type Verdict } from "./checkApi";

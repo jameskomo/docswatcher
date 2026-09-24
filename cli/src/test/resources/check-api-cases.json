@@ -1,0 +1,208 @@
+{
+  "today": "2026-09-23",
+  "cases": [
+    {
+      "input": {
+        "value": "dall-e-2"
+      },
+      "verdict": "RETIRED",
+      "matches": [
+        "openai-dall-e-2-shutdown-2026"
+      ],
+      "answer": "RETIRED 134 days ago (2026-05-12): dall-e-2 shut down [OpenAI]. Replacement: gpt-image-2.\n  Guide: https://developers.openai.com/api/docs/deprecations"
+    },
+    {
+      "input": {
+        "value": "gpt-4-turbo"
+      },
+      "verdict": "RETIRING",
+      "matches": [
+        "openai-gpt-4-turbo-shutdown-2026"
+      ],
+      "answer": "RETIRING in 30 days (2026-10-23): gpt-4-turbo shut down [OpenAI]. Replacement: gpt-5.6-sol.\n  Guide: https://developers.openai.com/api/docs/deprecations"
+    },
+    {
+      "input": {
+        "value": "openai/gpt-4-turbo"
+      },
+      "verdict": "RETIRING",
+      "matches": [
+        "openai-gpt-4-turbo-shutdown-2026"
+      ],
+      "answer": "RETIRING in 30 days (2026-10-23): gpt-4-turbo shut down [OpenAI]. Replacement: gpt-5.6-sol.\n  Guide: https://developers.openai.com/api/docs/deprecations"
+    },
+    {
+      "input": {
+        "value": "GPT-4-Turbo"
+      },
+      "verdict": "RETIRING",
+      "matches": [
+        "openai-gpt-4-turbo-shutdown-2026"
+      ],
+      "answer": "RETIRING in 30 days (2026-10-23): gpt-4-turbo shut down [OpenAI]. Replacement: gpt-5.6-sol.\n  Guide: https://developers.openai.com/api/docs/deprecations"
+    },
+    {
+      "input": {
+        "value": "POST /v1/assistants"
+      },
+      "verdict": "RETIRED",
+      "matches": [
+        "openai-assistants-api-shutdown-2026"
+      ],
+      "answer": "RETIRED 28 days ago (2026-08-26): Assistants API shut down [OpenAI]. Replacement: POST /v1/responses.\n  Guide: https://developers.openai.com/api/docs/deprecations"
+    },
+    {
+      "input": {
+        "value": "/v1/assistants"
+      },
+      "verdict": "RETIRED",
+      "matches": [
+        "openai-assistants-api-shutdown-2026"
+      ],
+      "answer": "RETIRED 28 days ago (2026-08-26): Assistants API shut down [OpenAI]. Replacement: POST /v1/responses.\n  Guide: https://developers.openai.com/api/docs/deprecations"
+    },
+    {
+      "input": {
+        "value": "https://api.openai.com/v1/assistants"
+      },
+      "verdict": "RETIRED",
+      "matches": [
+        "openai-assistants-api-shutdown-2026"
+      ],
+      "answer": "RETIRED 28 days ago (2026-08-26): Assistants API shut down [OpenAI]. Replacement: POST /v1/responses.\n  Guide: https://developers.openai.com/api/docs/deprecations"
+    },
+    {
+      "input": {
+        "value": "gpt-9-imaginary"
+      },
+      "verdict": "NO_KNOWN_DEPRECATION",
+      "matches": [],
+      "answer": "NO KNOWN DEPRECATION: \"gpt-9-imaginary\" matches none of DocsWatcher's 87 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-23). That means nothing known is scheduled, not that nothing is."
+    },
+    {
+      "input": {
+        "value": "0.28"
+      },
+      "verdict": "NO_KNOWN_DEPRECATION",
+      "matches": [],
+      "answer": "NO KNOWN DEPRECATION: \"0.28\" matches none of DocsWatcher's 87 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-23). That means nothing known is scheduled, not that nothing is."
+    },
+    {
+      "input": {
+        "value": "2024-04"
+      },
+      "verdict": "RETIRED",
+      "matches": [
+        "shopify-api-version-2024-04-unsupported-2025"
+      ],
+      "answer": "RETIRED 525 days ago (2025-04-16): Admin API version 2024-04 unsupported [Shopify]. Replacement: 2026-07.\n  Guide: https://shopify.dev/docs/api/usage/versioning"
+    },
+    {
+      "input": {
+        "value": "2024-04",
+        "provider": "shopify"
+      },
+      "verdict": "RETIRED",
+      "matches": [
+        "shopify-api-version-2024-04-unsupported-2025"
+      ],
+      "answer": "RETIRED 525 days ago (2025-04-16): Admin API version 2024-04 unsupported [Shopify]. Replacement: 2026-07.\n  Guide: https://shopify.dev/docs/api/usage/versioning"
+    },
+    {
+      "input": {
+        "value": "gemini-2.0-flash"
+      },
+      "verdict": "RETIRED",
+      "matches": [
+        "googleai-gemini-2-0-flash-shutdown-2026"
+      ],
+      "answer": "RETIRED 114 days ago (2026-06-01): gemini-2.0-flash shut down [Google AI]. Replacement: gemini-3.6-flash.\n  Guide: https://ai.google.dev/gemini-api/docs/deprecations"
+    },
+    {
+      "input": {
+        "value": "google/gemini-2.0-flash"
+      },
+      "verdict": "RETIRED",
+      "matches": [
+        "googleai-gemini-2-0-flash-shutdown-2026"
+      ],
+      "answer": "RETIRED 114 days ago (2026-06-01): gemini-2.0-flash shut down [Google AI]. Replacement: gemini-3.6-flash.\n  Guide: https://ai.google.dev/gemini-api/docs/deprecations"
+    },
+    {
+      "input": {
+        "value": "models/gemini-2.0-flash"
+      },
+      "verdict": "RETIRED",
+      "matches": [
+        "googleai-gemini-2-0-flash-shutdown-2026"
+      ],
+      "answer": "RETIRED 114 days ago (2026-06-01): gemini-2.0-flash shut down [Google AI]. Replacement: gemini-3.6-flash.\n  Guide: https://ai.google.dev/gemini-api/docs/deprecations"
+    },
+    {
+      "input": {
+        "value": "openai==0.28"
+      },
+      "verdict": "NO_KNOWN_DEPRECATION",
+      "matches": [],
+      "answer": "NO KNOWN DEPRECATION: \"openai==0.28\" matches none of DocsWatcher's 87 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-23). That means nothing known is scheduled, not that nothing is."
+    },
+    {
+      "input": {
+        "value": "claude-3-opus-20240229"
+      },
+      "verdict": "RETIRED",
+      "matches": [
+        "anthropic-claude-3-opus-retired-2026"
+      ],
+      "answer": "RETIRED 261 days ago (2026-01-05): Claude Opus 3 retired [Anthropic]. Replacement: claude-opus-4-8.\n  Guide: https://platform.claude.com/docs/en/about-claude/models/migration-guide"
+    },
+    {
+      "input": {
+        "value": "claude/claude-3-opus-20240229"
+      },
+      "verdict": "RETIRED",
+      "matches": [
+        "anthropic-claude-3-opus-retired-2026"
+      ],
+      "answer": "RETIRED 261 days ago (2026-01-05): Claude Opus 3 retired [Anthropic]. Replacement: claude-opus-4-8.\n  Guide: https://platform.claude.com/docs/en/about-claude/models/migration-guide"
+    },
+    {
+      "input": {
+        "value": "gpt-4-turbo",
+        "kind": "model"
+      },
+      "verdict": "RETIRING",
+      "matches": [
+        "openai-gpt-4-turbo-shutdown-2026"
+      ],
+      "answer": "RETIRING in 30 days (2026-10-23): gpt-4-turbo shut down [OpenAI]. Replacement: gpt-5.6-sol.\n  Guide: https://developers.openai.com/api/docs/deprecations"
+    },
+    {
+      "input": {
+        "value": "gpt-4-turbo",
+        "provider": "anthropic"
+      },
+      "verdict": "NO_KNOWN_DEPRECATION",
+      "matches": [],
+      "answer": "NO KNOWN DEPRECATION: \"gpt-4-turbo\" matches none of DocsWatcher's 87 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-23). That means nothing known is scheduled, not that nothing is."
+    },
+    {
+      "input": {
+        "value": "text-embedding-004"
+      },
+      "verdict": "RETIRED",
+      "matches": [
+        "googleai-text-embedding-004-shutdown-2026"
+      ],
+      "answer": "RETIRED 252 days ago (2026-01-14): text-embedding-004 shut down [Google AI]. Replacement: gemini-embedding-2.\n  Guide: https://ai.google.dev/gemini-api/docs/deprecations"
+    },
+    {
+      "input": {
+        "value": "stripe"
+      },
+      "verdict": "NO_KNOWN_DEPRECATION",
+      "matches": [],
+      "answer": "NO KNOWN DEPRECATION: \"stripe\" matches none of DocsWatcher's 87 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-23). That means nothing known is scheduled, not that nothing is."
+    }
+  ]
+}
