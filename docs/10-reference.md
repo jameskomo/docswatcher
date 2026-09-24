@@ -122,6 +122,16 @@ Label names are configurable and default to `docswatcher:fix`, `docswatcher:snoo
 
 The web site reads `NUXT_PUBLIC_RELAY_URL`. Leave it empty to use jsDelivr and the GitHub API instead of a relay.
 
+## GitHub REST API version
+
+Every call to the GitHub REST API sends `X-GitHub-Api-Version: 2026-03-10`: the GitHub App (`RestGitHubClient.API_VERSION`), the browser's API fallback (`GITHUB_API_VERSION` in `web/app/utils/fetchRepo.ts`) and the tarball relay (`relay/src/worker.js`). The previous pin, 2022-11-28, stops being served on 2028-03-10, and GitHub answers a retired version with `410 Gone`.
+
+None of 2026-03-10's breaking changes touch what DocsWatcher reads. The app reads `token` and `expires_at` from installation tokens, `id`, `full_name` and `default_branch` from installation repositories, `number` from a created issue, and `permission` from a collaborator's permission. The browser reads `default_branch`, and a tree's `sha`, `path`, `type` and `size`. The relay only follows the tarball redirect. The removed fields (`assignee`, `has_downloads`, `use_squash_pr_title_as_default` and the rest) are not read anywhere. A `permission` outside `admin`, `maintain`, `write`, `triage`, `read` and `none` counts as `none`.
+
+GitHub Enterprise Server only accepts versions it knows. A server that predates 2026-03-10 rejects the header with `400`, so `GITHUB_API_BASE` needs a release that supports it.
+
+To move to a newer version, read GitHub's [breaking changes](https://docs.github.com/en/rest/about-the-rest-api/breaking-changes) against the fields above, change the three constants, and update the tests that assert them.
+
 ## Maven commands
 
 Always `source build-env.sh` first.

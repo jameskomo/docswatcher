@@ -27,7 +27,7 @@ To run the JVM image in compose instead: `../mvnw -pl app spring-boot:build-imag
 | `GITHUB_APP_ID` | The GitHub App's numeric ID. When blank, the real GitHub client is not created and webhooks cannot resolve repositories. | blank |
 | `GITHUB_APP_PRIVATE_KEY` | The App's private key as a PKCS8 PEM. Convert GitHub's PKCS1 download with `openssl pkcs8 -topk8 -nocrypt -in key.pem`. | blank |
 | `GITHUB_WEBHOOK_SECRET` | Shared secret GitHub signs webhook bodies with | blank, which rejects every webhook |
-| `GITHUB_API_BASE` | GitHub API base URL, for GitHub Enterprise | `https://api.github.com` |
+| `GITHUB_API_BASE` | GitHub API base URL, for GitHub Enterprise. Requests pin REST API version `2026-03-10`, so an Enterprise Server must support it (see `docs/10-reference.md`). | `https://api.github.com` |
 | `DOCSWATCHER_API_TOKEN` | Bearer token for `/api/**` | blank |
 | `DOCSWATCHER_WEB_ORIGIN` | CORS origin for the dashboard | `http://localhost:3000` |
 | `DOCSWATCHER_KNOWLEDGE_DIR` | A local knowledge checkout instead of the bundled release | bundled |
