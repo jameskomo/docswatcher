@@ -32,7 +32,9 @@ No component depends on another through code. They depend on each other through 
 | GitHub Action | Composite action (`action.yml`) | Any CI runner | Downloads the released binary and runs `match`. The five-line way into a pipeline. |
 | Feeds | Generated at build time | Served as static files | `deprecations.ics`, `deprecations.atom` and `deprecations.json` under `/feeds/`, so a calendar or reader can subscribe without scanning anything. |
 | Knowledge watch | Node script plus a workflow | GitHub Actions, daily | Re-fetches every page the knowledge base cites, reports what changed, and can hand the diff to an agent that drafts change records as a draft PR. |
-| Fix handoff | GitHub Actions workflow | The target repository | Runs an automated coding agent action with a prompt assembled from the finding. Opens the PR. |
+| Fix handoff | GitHub Actions workflow | The target repository | Runs a coding agent that can edit only the files the finding names, cannot run commands, and cannot push; a second job without the agent opens the PR. |
+| Try it | Browser, `web/app/utils/assistants.ts` | The visitor's browser | Calls Claude, OpenAI or Gemini directly with the visitor's own key, answering `check_api` in the page. No server of ours in between (ADR 0006). |
+| Early access | App endpoint plus the `notify/` Worker | App container, Cloudflare | `POST /early-access` stores a Teams page request; the Worker emails it to the owner through Email Routing (ADR 0005). |
 
 The fix handoff runs in the target repository's own GitHub Actions environment with repository-scoped secrets. DocsWatcher assembles the remediation context, test coordinates, and instructions, and triggers the workflow. This keeps all source code and execution strictly inside the developer's own CI environment.
 

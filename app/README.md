@@ -30,6 +30,7 @@ To run the JVM image in compose instead: `../mvnw -pl app spring-boot:build-imag
 | `GITHUB_API_BASE` | GitHub API base URL, for GitHub Enterprise. Requests pin REST API version `2026-03-10`, so an Enterprise Server must support it (see `docs/10-reference.md`). | `https://api.github.com` |
 | `DOCSWATCHER_API_TOKEN` | Bearer token for `/api/**` | blank |
 | `DOCSWATCHER_WEB_ORIGIN` | CORS origin for the dashboard | `http://localhost:3000` |
+| `DOCSWATCHER_NOTIFY_URL`, `DOCSWATCHER_NOTIFY_TOKEN` | Where early-access requests are emailed from (`notify/`), and its token. Unset: stored only | blank |
 | `DOCSWATCHER_KNOWLEDGE_DIR` | A local knowledge checkout instead of the bundled release | bundled |
 | `PORT` | HTTP port | `8080` |
 
@@ -93,6 +94,11 @@ All under `/api`, JSON, bearer token.
 | `POST /findings/{repoId}/{contractId}/{changeId}/fix` | dispatches the fix workflow, returns the payload |
 | `POST /repos/{id}/rescan` | queues a manual scan |
 | `GET /setup/workflow` | the fix workflow YAML |
+| `GET /early-access` | early-access requests, newest first |
+
+Outside `/api`, `POST /early-access` takes the Teams page form without a token: validated,
+length-limited, a honeypot, 5 requests per client per hour, one row per email. See
+`docs/adr/0005-early-access-requests.md`.
 
 Health: `GET /actuator/health`, no token.
 

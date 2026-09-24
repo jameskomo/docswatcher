@@ -7,7 +7,7 @@
 [Add it to CI](./docs/11-ci-integration.md) ·
 Apache-2.0
 
-> **Using the GitHub Action or the native binary from v0.2.1 or earlier? Upgrade to v0.3.0.**
+> **Using the GitHub Action or the native binary from v0.2.1 or earlier? Upgrade to v0.3.1.**
 > Those releases reported every finding as empty, so the Action never failed a build. `@v0` now
 > points at the fix. Re-run it once: see [the changelog](./CHANGELOG.md).
 

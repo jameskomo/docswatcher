@@ -9,8 +9,8 @@ request leaves your runner and no service needs to be reachable.
 ---
 
 > **v0.2.1 and earlier never failed a build.** Their native binary printed every finding as `{}`,
-> so the Action counted zero breaking findings. v0.3.0 fixes it and `@v0` points there; a
-> `version:` pinned to `v0.2.1` or earlier should be removed or set to `v0.3.0`. The Action now
+> so the Action counted zero breaking findings. v0.3.0 fixed it and `@v0` points at the latest release; a
+> `version:` pinned to `v0.2.1` or earlier should be removed or set to `v0.3.1`. The Action now
 > stops with an error on a report whose findings carry no severity rather than passing it. If your
 > pipeline ran an affected release, run it again once. Details in `CHANGELOG.md`.
 

@@ -301,6 +301,25 @@ jsDelivr leads because it has no hourly ceiling. If every route is blocked, the 
 
 Snooze and the production flag are per-browser here. The server app stores them properly.
 
+### The Agents page and Try it
+
+`/agents` explains the MCP server and lets a visitor try it with their own assistant: pick Claude,
+OpenAI (GPT and Codex) or Gemini, paste a key, and ask for code. The same model answers twice,
+with and without `check_api`, side by side, with every check it made. The browser calls the
+provider directly and answers `check_api` itself; the key never reaches DocsWatcher. The model
+list is the key's own, with retiring models marked and never chosen by default. ADR 0006.
+
+### The CI and Teams pages
+
+`/ci` is the GitHub Action and plain-shell guide, with the upgrade notice for releases up to
+v0.2.1. `/teams` lists what stays free and what teams get, with an in-page early-access form
+that posts to the app (ADR 0005).
+
+### The footer
+
+Every page ends with links to every feature: the pages, the three feeds, the source, the latest
+release, the documentation and the knowledge base.
+
 ### Presentation
 
 Light and dark themes from CSS custom properties, a phone-width layout with no horizontal scroll at 375 pixels, hash routing, and relative asset URLs so the export works at any path on any static host.

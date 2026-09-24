@@ -90,12 +90,14 @@ curl -H "Authorization: Bearer $DOCSWATCHER_API_TOKEN" localhost:8080/api/orgs/a
 | POST | `/api/findings/{repoId}/{contractId}/{changeId}/fix` | Dispatches the fix workflow |
 | GET | `/api/setup/workflow` | The GitHub Actions workflow a customer installs |
 | GET | `/api/setup/workflow.txt` | The same, as plain text |
+| GET | `/api/early-access` | Early-access requests from the Teams page, newest first |
 
 ### Not under `/api`
 
 | Method | Path | Purpose |
 |---|---|---|
 | POST | `/webhooks/github` | GitHub App events. Verifies `X-Hub-Signature-256`, responds 202 |
+| POST | `/early-access` | The Teams page form. Public: validated, rate-limited per client, honeypot-checked; one row per email (ADR 0005) |
 | GET | `/actuator/health` | Liveness |
 
 Findings are keyed by the triple of repository, contract, and change, which is why the action endpoints take three path segments. A snooze survives a rescan because of that key.
@@ -116,6 +118,8 @@ Read by the app module. Defaults come from `app/src/main/resources/application.y
 | `GITHUB_APP_PRIVATE_KEY` | empty | App private key, PKCS8 PEM |
 | `GITHUB_WEBHOOK_SECRET` | empty | Shared secret for signature verification |
 | `GITHUB_API_BASE` | `https://api.github.com` | Override for GitHub Enterprise |
+| `DOCSWATCHER_NOTIFY_URL` | empty | The `notify/` Worker that emails each early-access request. Empty: stored, not emailed |
+| `DOCSWATCHER_NOTIFY_TOKEN` | empty | Bearer token for that Worker. In production it is a file secret, `docswatcher.notify.token` |
 | `PORT` | `8080` | HTTP port |
 
 Worker settings live under `docswatcher.worker` in the YAML: `enabled` true, `threads` 2, `poll-ms` 2000, `clone-timeout-seconds` 120. The worker runs on virtual threads.
