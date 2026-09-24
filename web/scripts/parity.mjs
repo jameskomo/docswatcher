@@ -3,7 +3,7 @@
 import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import { join, relative, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { scan, match, toJson, createTreeSitter } from "../engine/index.ts";
+import { scan, match, toJson, createTreeSitter, mergeOwn } from "../engine/index.ts";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const web = join(here, "..");
@@ -49,9 +49,15 @@ for (const name of readdirSync(fixturesDir).sort()) {
   const repo = join(dir, "repo");
   const files = walk(repo).map((p) => ({ path: relative(repo, p).split("\\").join("/"), text: readFileSync(p, "utf8") }))
     .sort((a, b) => (a.path < b.path ? -1 : 1));
+  // A fixture with its own .docswatcher/ records is scanned with them, as FixtureTest does.
+  const own = mergeOwn(knowledge, files, today);
+  if (!own.ok) {
+    failed++;
+    console.error(`\n--- ${name}: own records rejected ---\n  ${own.errors.join("\n  ")}`);
+  }
   const inv = await scan(files, {
     repo: { host: "fixture", owner: "docswatcher", name, ref: "fixture", sha: "0000000" },
-    knowledge, grammars, now: () => today,
+    knowledge: own.knowledge, grammars, now: () => today,
   });
   const invPath = join(dir, "expected-inventory.json");
   let invResult = "SKIP";
@@ -68,7 +74,7 @@ for (const name of readdirSync(fixturesDir).sort()) {
       printDiff(expected, actualInv);
     }
   }
-  const findings = match(inv, knowledge, { today });
+  const findings = match(inv, own.knowledge, { today });
   const actualF = findings.map((f) => ({ contract: f.contract, change: f.change }))
     .sort((a, b) => (a.contract === b.contract ? (a.change < b.change ? -1 : a.change > b.change ? 1 : 0) : a.contract < b.contract ? -1 : 1));
   const expectedF = JSON.parse(readFileSync(join(dir, "expected-findings.json"), "utf8"))

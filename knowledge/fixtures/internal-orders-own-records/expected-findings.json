@@ -1,0 +1,14 @@
+[
+  {
+    "contract": "internal-orders:endpoint:ANY /v1/orders",
+    "change": "internal-orders-v1-sunset-2027"
+  },
+  {
+    "contract": "internal-orders:endpoint:POST /v1/orders",
+    "change": "internal-orders-v1-sunset-2027"
+  },
+  {
+    "contract": "internal-orders:sdk_method:OrdersClient.createOrder",
+    "change": "internal-orders-v1-sunset-2027"
+  }
+]

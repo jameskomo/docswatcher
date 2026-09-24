@@ -18,7 +18,8 @@ import java.util.function.BooleanSupplier;
 /** Deterministic, filtered walk of a repository checkout. */
 final class FileTree {
 
-  static final Set<String> SKIPPED_DIRS = Set.of("node_modules", "target", "dist", "build", ".git", "vendor", ".venv");
+  // .docswatcher holds a repository's own API records (OwnKnowledge): knowledge, not code to scan.
+  static final Set<String> SKIPPED_DIRS = Set.of("node_modules", "target", "dist", "build", ".git", "vendor", ".venv", ".docswatcher");
   static final long MAX_BYTES = 1024 * 1024;
 
   final List<SourceFile> files = new ArrayList<>();

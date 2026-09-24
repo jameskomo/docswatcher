@@ -1,0 +1,36 @@
+id: internal-orders-v1-sunset-2027
+provider: internal-orders
+kind: sunset
+severity: breaking
+title: Orders API v1 is switched off
+summary: >
+  The Orders service stops serving /v1 on 31 March 2027. Every v1 endpoint has a v2 equivalent
+  with the same fields, apart from amounts, which are integers in minor units.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v1/orders"
+  - kind: endpoint
+    match: "POST /v1/orders"
+  - kind: endpoint
+    match: "ANY /v1/orders/*"
+  - kind: sdk_method
+    match: "OrdersClient.createOrder"
+
+announced: 2026-09-01
+effective: 2027-03-31
+
+sources:
+  - kind: changelog
+    url: https://docs.acme.dev/orders/changelog#v1-sunset
+    observed: 2026-09-01
+
+migration:
+  replacement: "OrdersClient.placeOrder (POST /v2/orders)"
+  guide: https://docs.acme.dev/orders/migrate-to-v2
+  effort: small
+  notes: >
+    Upgrade @acme/orders-client to 2.x, call placeOrder instead of createOrder, and send the
+    amount in minor units.
+
+status: active

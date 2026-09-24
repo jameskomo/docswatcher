@@ -8,4 +8,5 @@ export { isDocOrTestPath, isSkippedDir, languageOf } from "./paths";
 export { compileIgnore, isIgnoreFile } from "./ignore";
 export { scanManifest } from "./manifests";
 export { scanLiterals } from "./literals";
+export { mergeOwn, ownSources, ownSummary, ownQueryErrors, validateOwn, OWN_DIR, OWN_PREFIX, type OwnResult, type OwnSource } from "./own";
 export { checkApi, CHECK_KINDS, type CheckResult, type CheckMatch, type Verdict } from "./checkApi";

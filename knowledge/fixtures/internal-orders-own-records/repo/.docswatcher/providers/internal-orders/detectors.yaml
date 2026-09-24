@@ -1,0 +1,27 @@
+provider: internal-orders
+
+manifests:
+  - ecosystem: npm
+    package: "@acme/orders-client"
+
+literals:
+  - id: internal-orders.literal.endpoint
+    kind: endpoint
+    files: ["**/*.{ts,tsx,js,mjs,py,go,java,yaml,yml,env}"]
+    pattern: 'orders\.internal\.acme\.dev(/v[0-9]+/[a-z_-]+(?:/[a-z_-]+)*)'
+    key: "ANY $1"
+    confidence: medium
+
+callsites:
+  - id: internal-orders.ts.create-order
+    language: typescript
+    kind: sdk_method
+    requires: "@acme/orders-client"
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        (#eq? @m "createOrder")) @call
+    key: "OrdersClient.createOrder"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/orders"

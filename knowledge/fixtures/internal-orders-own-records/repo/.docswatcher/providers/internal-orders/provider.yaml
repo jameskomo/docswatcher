@@ -1,0 +1,11 @@
+id: internal-orders
+name: Orders service
+homepage: https://orders.internal.acme.dev
+docs: https://docs.acme.dev/orders
+changelog: https://docs.acme.dev/orders/changelog
+base_urls:
+  - https://orders.internal.acme.dev
+sdk_languages: [typescript]
+deprecation_policy: >
+  The platform team supports each major version of the Orders API for six months after its
+  successor ships, and announces removals in #orders-announce.

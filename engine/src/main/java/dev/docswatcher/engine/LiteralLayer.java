@@ -24,7 +24,10 @@ final class LiteralLayer {
         for (SourceFile f : files) {
           if (!Glob.anyMatch(include, f.path) || Glob.anyMatch(exclude, f.path)) continue;
           if (anchors != null && !containsAny(f.text, anchors)) continue;
-          Matcher m = pattern.matcher(f.text);
+          // A team's own pattern has not been reviewed the way the knowledge base's have, and on a
+          // server one repository's pattern must not hold the scan worker: it gets a time budget.
+          boolean own = p.id().startsWith(OwnKnowledge.PREFIX);
+          Matcher m = pattern.matcher(own ? new Budgeted(f.text, rule.id(), f.path) : f.text);
           while (m.find()) {
             int at = m.groupCount() >= 1 && m.start(1) >= 0 ? m.start(1) : m.start();
             String key = expand(rule.key(), m);
@@ -33,6 +36,56 @@ final class LiteralLayer {
           }
         }
       }
+    }
+  }
+
+  /** How long one of a team's own patterns may run over one file. */
+  static final long OWN_PATTERN_BUDGET_NANOS = 2_000_000_000L;
+
+  /**
+   * File text that stops a regex which has run past its budget. The regex engine reads its input
+   * only through charAt, so a pattern that backtracks without end stops here, with its name.
+   */
+  static final class Budgeted implements CharSequence {
+    private final String text;
+    private final String rule;
+    private final String path;
+    private final long deadline;
+    private int reads;
+
+    Budgeted(String text, String rule, String path) {
+      this(text, rule, path, System.nanoTime() + OWN_PATTERN_BUDGET_NANOS);
+    }
+
+    Budgeted(String text, String rule, String path, long deadline) {
+      this.text = text;
+      this.rule = rule;
+      this.path = path;
+      this.deadline = deadline;
+    }
+
+    @Override
+    public char charAt(int index) {
+      if ((++reads & 0xFFF) == 0 && System.nanoTime() > deadline) {
+        throw new IllegalStateException(rule + ": pattern ran longer than " + OWN_PATTERN_BUDGET_NANOS / 1_000_000_000L
+            + " seconds on " + path + "; simplify it (docs/19-your-own-apis.md)");
+      }
+      return text.charAt(index);
+    }
+
+    @Override
+    public int length() {
+      return text.length();
+    }
+
+    @Override
+    public CharSequence subSequence(int start, int end) {
+      return text.subSequence(start, end);
+    }
+
+    @Override
+    public String toString() {
+      return text;
     }
   }
 

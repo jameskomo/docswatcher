@@ -1,0 +1,22 @@
+id: internal-orders-refunds-draft
+provider: internal-orders
+kind: behavior_change
+severity: warning
+title: Refunds become asynchronous
+summary: >
+  Still being designed. A draft record produces no findings, so a team can write it before the
+  date is agreed.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v2/refunds"
+
+announced: 2026-09-10
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://docs.acme.dev/orders/rfcs/async-refunds
+    observed: 2026-09-10
+
+status: draft

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "internal-orders:endpoint:ANY /v1/orders",
+    "provider": "internal-orders",
+    "kind": "endpoint",
+    "key": "ANY /v1/orders",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/checkout.ts",
+        "line": 11,
+        "column": 60,
+        "snippet": "const res = await fetch(`https://orders.internal.acme.dev/v1/orders/${id}`);",
+        "detector": "internal-orders.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@acme/orders-client",
+        "version": "^1.4.0"
+      }
+    }
+  },
+  {
+    "id": "internal-orders:endpoint:ANY /v2/refunds",
+    "provider": "internal-orders",
+    "kind": "endpoint",
+    "key": "ANY /v2/refunds",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/checkout.ts",
+        "line": 16,
+        "column": 48,
+        "snippet": "await fetch(\"https://orders.internal.acme.dev/v2/refunds\", { method: \"POST\", body: JSON.stringify({ id }) });",
+        "detector": "internal-orders.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@acme/orders-client",
+        "version": "^1.4.0"
+      }
+    }
+  },
+  {
+    "id": "internal-orders:endpoint:POST /v1/orders",
+    "provider": "internal-orders",
+    "kind": "endpoint",
+    "key": "POST /v1/orders",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/checkout.ts",
+        "line": 6,
+        "column": 23,
+        "snippet": "const order = await orders.createOrder({ items: cart.items, amount: cart.total });",
+        "detector": "internal-orders.ts.create-order",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@acme/orders-client",
+        "version": "^1.4.0"
+      }
+    }
+  },
+  {
+    "id": "internal-orders:sdk_method:OrdersClient.createOrder",
+    "provider": "internal-orders",
+    "kind": "sdk_method",
+    "key": "OrdersClient.createOrder",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/checkout.ts",
+        "line": 6,
+        "column": 23,
+        "snippet": "const order = await orders.createOrder({ items: cart.items, amount: cart.total });",
+        "detector": "internal-orders.ts.create-order",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@acme/orders-client",
+        "version": "^1.4.0"
+      }
+    }
+  },
+  {
+    "id": "internal-orders:sdk_package:@acme/orders-client",
+    "provider": "internal-orders",
+    "kind": "sdk_package",
+    "key": "@acme/orders-client",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"@acme/orders-client\": \"^1.4.0\"",
+        "detector": "internal-orders.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@acme/orders-client",
+        "version": "^1.4.0"
+      }
+    }
+  }
+]

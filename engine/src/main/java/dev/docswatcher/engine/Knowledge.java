@@ -152,6 +152,21 @@ public final class Knowledge {
     return new Knowledge(version, providers, changes, fixtures, root);
   }
 
+  /**
+   * This knowledge with a team's own providers and change records added (docs/19-your-own-apis.md).
+   * The version stays the bundled one: it names the knowledge base release, which own records do not
+   * change. Callers validate first; {@link OwnKnowledge#merge} is the way in.
+   */
+  Knowledge with(List<Provider> ownProviders, List<Change> ownChanges) {
+    List<Provider> ps = new ArrayList<>(providers);
+    ps.addAll(ownProviders);
+    ps.sort(Comparator.comparing(Provider::id));
+    List<Change> cs = new ArrayList<>(changes);
+    cs.addAll(ownChanges);
+    cs.sort(Comparator.comparing(Change::id));
+    return new Knowledge(version, ps, cs, fixtures, root);
+  }
+
   public String version() {
     return version;
   }

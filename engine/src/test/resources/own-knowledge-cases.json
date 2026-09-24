@@ -1,0 +1,135 @@
+{
+  "comment": "A repository's own API records (docs/19-your-own-apis.md) and what reading and validating them must report. Both engines are held to these exact messages: OwnKnowledgeTest.java and web/tests/unit/own.test.ts. The base is the knowledge/ directory of this repository.",
+  "today": "2026-09-18",
+  "cases": [
+    {
+      "name": "a valid record with a literal rule and no manifest",
+      "files": {
+        ".docswatcher/providers/internal-billing/provider.yaml": "id: internal-billing\nname: Billing service\n",
+        ".docswatcher/providers/internal-billing/detectors.yaml": "provider: internal-billing\nliterals:\n  - id: internal-billing.literal.endpoint\n    kind: endpoint\n    files: [\"**/*.py\"]\n    pattern: 'billing\\.acme\\.dev(/v[0-9]+/[a-z]+)'\n    key: \"ANY $1\"\n",
+        ".docswatcher/providers/internal-billing/changes/internal-billing-v1-sunset.yaml": "id: internal-billing-v1-sunset\nprovider: internal-billing\nkind: sunset\nseverity: breaking\ntitle: Billing v1 is switched off\nsummary: Use v2.\naffects:\n  - kind: endpoint\n    match: \"ANY /v1/invoices\"\nannounced: 2026-09-01\neffective: 2027-01-31\nsources:\n  - kind: changelog\n    url: https://docs.acme.dev/billing/changelog\n    observed: 2026-09-01\nmigration:\n  replacement: \"ANY /v2/invoices\"\n  guide: https://docs.acme.dev/billing/v2\n  effort: small\nstatus: active\n",
+        "src/app.py": "requests.get('https://billing.acme.dev/v1/invoices')\n"
+      },
+      "providers": ["internal-billing"],
+      "changes": ["internal-billing-v1-sunset"],
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "name": "no records at all is not an error",
+      "files": {
+        "src/app.py": "print('hello')\n"
+      },
+      "providers": [],
+      "changes": [],
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "name": "a .docswatcher directory without providers/",
+      "files": {
+        ".docswatcher/README.md": "records go here\n"
+      },
+      "providers": [],
+      "changes": [],
+      "errors": [".docswatcher: no providers/ directory"],
+      "warnings": []
+    },
+    {
+      "name": "a provider id that is bundled or not namespaced",
+      "files": {
+        ".docswatcher/providers/stripe/provider.yaml": "id: stripe\nname: Our Stripe\n",
+        ".docswatcher/providers/orders/provider.yaml": "id: orders\nname: Orders\n"
+      },
+      "providers": ["orders", "stripe"],
+      "changes": [],
+      "errors": [
+        "provider id orders must start with internal- and name your service",
+        "provider id stripe must start with internal- and name your service",
+        "duplicate provider id stripe"
+      ],
+      "warnings": []
+    },
+    {
+      "name": "files that cannot be read as records",
+      "files": {
+        ".docswatcher/providers/internal-a/detectors.yaml": "provider: internal-a\n",
+        ".docswatcher/providers/internal-b/provider.yaml": "- id: internal-b\n",
+        ".docswatcher/providers/internal-c/provider.yaml": "id: internal-d\nname: C\n",
+        ".docswatcher/providers/internal-c/changes/internal-d-x.yml": "id: internal-d-x\n",
+        ".docswatcher/providers/internal-c/changes/notes.md": "not a record\n"
+      },
+      "providers": ["internal-d"],
+      "changes": [],
+      "errors": [
+        ".docswatcher/providers/internal-a: provider.yaml missing",
+        ".docswatcher/providers/internal-b/provider.yaml: expected a mapping of fields",
+        ".docswatcher/providers/internal-c/provider.yaml: id internal-d does not match its directory internal-c",
+        ".docswatcher/providers/internal-c/changes/internal-d-x.yml: name it .yaml, the only extension that is read"
+      ],
+      "warnings": []
+    },
+    {
+      "name": "detector rules",
+      "files": {
+        ".docswatcher/providers/internal-search/provider.yaml": "id: internal-search\nname: Search\n",
+        ".docswatcher/providers/internal-search/detectors.yaml": "provider: internal-search\nmanifests:\n  - ecosystem: cargo\n    package: search-client\nliterals:\n  - id: stripe.literal.endpoint\n    kind: endpoint\n    files: [\"**/*\"]\n    pattern: 'a'\n    key: \"x\"\n  - id: internal-search.literal.bad\n    kind: query\n    confidence: certain\n    files: []\n    pattern: 'a*+b(?<=c)'\ncallsites:\n  - id: internal-search.py.find\n    language: python\n    kind: sdk_method\n    requires: search-sdk\n    query: '(call function: (attribute attribute: (identifier) @m) (#eq? @m \"find\")) @call'\n    key: \"Search.find\"\n"
+      },
+      "providers": ["internal-search"],
+      "changes": [],
+      "errors": [
+        "internal-search: unknown ecosystem cargo",
+        "duplicate detector id stripe.literal.endpoint",
+        "internal-search.literal.bad: unknown kind query",
+        "internal-search.literal.bad: unknown confidence certain",
+        "internal-search.literal.bad: files must not be empty",
+        "internal-search.literal.bad: key template missing",
+        "internal-search.literal.bad: pattern possessive quantifier",
+        "internal-search.literal.bad: pattern lookbehind is not allowed",
+        "internal-search.py.find: requires search-sdk which is not a manifest rule of internal-search",
+        "stripe.literal.endpoint: detector id must start with internal-search."
+      ],
+      "warnings": []
+    },
+    {
+      "name": "change records",
+      "files": {
+        ".docswatcher/providers/internal-pay/provider.yaml": "id: internal-pay\nname: Payments\n",
+        ".docswatcher/providers/internal-pay/changes/a.yaml": "id: pay-v1-off\nprovider: internal-pay\nkind: sunset\nseverity: urgent\ntitle: v1 off\naffects:\n  - kind: endpoint\n    match: \"ANY /v1/pay\"\nannounced: 2026-01-01\neffective: 2026-06-30\nsources:\n  - kind: slack\n    url: slack://channel/pay\n    observed: 2026-01-01\nmigration:\n  guide: javascript:alert(1)\n  effort: tiny\nstatus: active\n",
+        ".docswatcher/providers/internal-pay/changes/b.yaml": "id: openai-gpt-4-turbo-shutdown-2026\nprovider: openai\nkind: retired\nseverity: breaking\ntitle: Borrowed\naffects: []\nannounced: someday\nsources: []\nstatus: active\n",
+        ".docswatcher/providers/internal-pay/changes/c.yaml": "id: internal-pay-expired-early\nprovider: internal-pay\nkind: sunset\nseverity: warning\ntitle: Not yet\naffects:\n  - kind: endpoint\n    match: \"ANY /v2/pay\"\nannounced: 2026-01-01\neffective: 2027-01-01\nsources:\n  - kind: email\n    observed: 2026-01-01\nstatus: expired\n"
+      },
+      "providers": ["internal-pay"],
+      "changes": ["internal-pay-expired-early", "openai-gpt-4-turbo-shutdown-2026", "pay-v1-off"],
+      "errors": [
+        ".docswatcher/providers/internal-pay/changes/b.yaml: duplicate change id openai-gpt-4-turbo-shutdown-2026",
+        ".docswatcher/providers/internal-pay/changes/b.yaml: provider openai is bundled; your own records describe your own internal- providers",
+        ".docswatcher/providers/internal-pay/changes/b.yaml: affects must not be empty",
+        ".docswatcher/providers/internal-pay/changes/b.yaml: sources must not be empty",
+        ".docswatcher/providers/internal-pay/changes/b.yaml: announced date invalid or missing",
+        ".docswatcher/providers/internal-pay/changes/a.yaml: id must start with internal-pay-",
+        ".docswatcher/providers/internal-pay/changes/a.yaml: unknown severity urgent",
+        ".docswatcher/providers/internal-pay/changes/a.yaml: source kind unknown slack",
+        ".docswatcher/providers/internal-pay/changes/a.yaml: migration effort unknown tiny",
+        ".docswatcher/providers/internal-pay/changes/a.yaml: source url must start with https:// or http://",
+        ".docswatcher/providers/internal-pay/changes/a.yaml: migration guide must start with https:// or http://"
+      ],
+      "warnings": [
+        ".docswatcher/providers/internal-pay/changes/c.yaml: status expired but effective 2027-01-01 is not in the past",
+        ".docswatcher/providers/internal-pay/changes/a.yaml: status active but effective 2026-06-30 is in the past; set status expired"
+      ]
+    },
+    {
+      "name": "the same provider from two places",
+      "files": {
+        ".docswatcher/providers/internal-orders/provider.yaml": "id: internal-orders\nname: Orders\n",
+        "shared/providers/internal-orders/provider.yaml": "id: internal-orders\nname: Orders\n"
+      },
+      "shared": ["shared"],
+      "providers": ["internal-orders", "internal-orders"],
+      "changes": [],
+      "errors": ["duplicate provider id internal-orders"],
+      "warnings": []
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import type { Language } from "./types";
 
-const SKIP_DIRS = new Set(["node_modules", "target", "dist", "build", ".git", "vendor", ".venv"]);
+// .docswatcher holds a repository's own API records (own.ts): knowledge, not code to scan.
+const SKIP_DIRS = new Set(["node_modules", "target", "dist", "build", ".git", "vendor", ".venv", ".docswatcher"]);
 const MAX_BYTES = 1024 * 1024;
 
 export function isSkippedDir(path: string): boolean {
