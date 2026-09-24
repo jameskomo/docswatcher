@@ -11,6 +11,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "parity": "npm run bundle && tsx scripts/parity.mjs",
+    "check-api-cases": "npm run bundle && tsx scripts/regen-check-api-cases.mts",
     "test": "npm run bundle && vitest run",
     "e2e": "npm run generate && playwright test",
     "serve-export": "node scripts/serve-export.mjs"

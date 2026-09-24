@@ -20,7 +20,7 @@ can ask it three questions before writing code:
 
 | Tool | Question it answers | Typical call |
 |---|---|---|
-| `check_api` | Is this model ID, endpoint, API version or SDK still safe to use? | `{"value": "gpt-4-turbo"}` |
+| `check_api` | Is this model ID, endpoint, API version, SDK or GraphQL field still safe to use? | `{"value": "gpt-4-turbo"}` |
 | `upcoming_deprecations` | What shuts down soon, optionally for one provider? | `{"provider": "openai", "within_days": 60}` |
 | `scan_repository` | Which calls in this directory have a shutdown date? | `{"path": "."}` |
 

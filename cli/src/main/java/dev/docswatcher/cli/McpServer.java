@@ -48,7 +48,7 @@ final class McpServer {
   /** Caps a tool's text answer so a large repository cannot flood the agent's context. */
   static final int TEXT_LIMIT = 12_000;
 
-  static final List<String> KINDS = List.of("model", "endpoint", "api_version", "sdk_package", "sdk_method");
+  static final List<String> KINDS = List.of("model", "endpoint", "api_version", "sdk_package", "sdk_method", "graphql_operation");
 
   private static final JsonNodeFactory F = JsonNodeFactory.instance;
   private static final Pattern METHOD_AND_PATH = Pattern.compile("^(GET|POST|PUT|PATCH|DELETE|ANY)\\s+(/\\S*)$", Pattern.CASE_INSENSITIVE);
@@ -156,10 +156,10 @@ final class McpServer {
     ArrayNode tools = F.arrayNode();
 
     ObjectNode check = tool(tools, "check_api", "Check an API identifier",
-        "Is this model ID, API endpoint, API version or SDK still safe to use? Returns RETIRED, RETIRING (with the "
+        "Is this model ID, API endpoint, API version, SDK or GraphQL field still safe to use? Returns RETIRED, RETIRING (with the "
             + "date and days left), CHANGED, or NO KNOWN DEPRECATION, plus the provider's replacement and migration "
             + "guide. Accepts loose input: 'gpt-4-turbo', 'openai/gpt-4-turbo', 'POST /v1/assistants', a full API "
-            + "URL, '2024-04', or 'openai==0.28'.");
+            + "URL, '2024-04', 'openai==0.28', or a GraphQL field such as 'automaticDiscounts'.");
     ObjectNode cp = schema(check);
     cp.putObject("value").put("type", "string").put("description", "The identifier as it would appear in code.");
     ObjectNode kind = cp.putObject("kind");
@@ -339,6 +339,7 @@ final class McpServer {
     if (!lower.equals(bare)) out.add(new Query(p, "model", lower));
     out.add(new Query(p, "sdk_package", pkg));
     out.add(new Query(p, "sdk_method", bare));
+    out.add(new Query(p, "graphql_operation", bare));
     return List.copyOf(out);
   }
 

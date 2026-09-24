@@ -47,9 +47,10 @@ const MAX_TOKENS = 2048;
 const TOOL = {
   name: "check_api",
   description:
-    "Is this model ID, API endpoint, API version or SDK still safe to use? Returns RETIRED, RETIRING (with the " +
+    "Is this model ID, API endpoint, API version, SDK or GraphQL field still safe to use? Returns RETIRED, RETIRING (with the " +
     "date and days left), CHANGED, or NO KNOWN DEPRECATION, plus the provider's replacement. Accepts loose input: " +
-    "'gpt-4-turbo', 'openai/gpt-4-turbo', 'POST /v1/assistants', a full API URL, '2024-04', or 'openai==0.28'.",
+    "'gpt-4-turbo', 'openai/gpt-4-turbo', 'POST /v1/assistants', a full API URL, '2024-04', 'openai==0.28', or a GraphQL field such as " +
+    "'automaticDiscounts'.",
   parameters: {
     type: "object",
     properties: { value: { type: "string", description: "The identifier as it would appear in code." } },

@@ -4,7 +4,7 @@
 import { affectsMatches, daysBetween } from "./matcher";
 import type { ChangeRecord, ContractKind, Knowledge } from "./types";
 
-export const CHECK_KINDS: ContractKind[] = ["model", "endpoint", "api_version", "sdk_package", "sdk_method"];
+export const CHECK_KINDS: ContractKind[] = ["model", "endpoint", "api_version", "sdk_package", "sdk_method", "graphql_operation"];
 
 export type Verdict = "RETIRED" | "RETIRING" | "CHANGED" | "NO_KNOWN_DEPRECATION";
 
@@ -107,6 +107,7 @@ function interpret(value: string, kind: ContractKind | null, provider: string | 
   if (bare.toLowerCase() !== bare) add({ provider: p, kind: "model", key: bare.toLowerCase() });
   add({ provider: p, kind: "sdk_package", key: pinned ? pinned[1] : bare });
   add({ provider: p, kind: "sdk_method", key: bare });
+  add({ provider: p, kind: "graphql_operation", key: bare });
   return out;
 }
 
