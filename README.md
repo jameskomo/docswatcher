@@ -41,7 +41,7 @@ read from `package.json`, `requirements*.txt`, `pyproject.toml`, `pom.xml`, `go.
 
 ## Four ways to run it
 
-**In your browser.** Paste a public repository URL, or pick a local folder.
+**In your browser.** Paste a public GitHub repository or GitLab project URL, or pick a local folder.
 [docswatcher.vukisha.co.ke](https://docswatcher.vukisha.co.ke). Parsing happens client-side in
 WebAssembly, so no file contents are transmitted. The most recent scan is kept in your browser's
 local storage so a reload does not lose it, and there is a control to clear it.
@@ -66,8 +66,17 @@ That is Linux x64. On a Mac with Apple silicon, download `docswatcher-macos-arm6
 Windows, `docswatcher-windows-x64.exe`. Anywhere else with Java 25, use `docswatcher.jar`. Every
 release lists the sha256 of each file in `checksums.txt`, and the Action checks it before running.
 
-See [`docs/11-ci-integration.md`](./docs/11-ci-integration.md) for GitLab, Jenkins, monorepos,
-and how to introduce it to a codebase that already has findings without blocking your team.
+On GitLab, include the template from a release tag. The job checks the binary the same way, and
+shows findings in the merge request's Code Quality widget:
+
+```yaml
+include:
+  - remote: https://raw.githubusercontent.com/jameskomo/docswatcher/vX.Y.Z/ci/gitlab/docswatcher.gitlab-ci.yml
+```
+
+See [`docs/11-ci-integration.md`](./docs/11-ci-integration.md) for the GitLab variables, Jenkins,
+monorepos, and how to introduce it to a codebase that already has findings without blocking your
+team.
 
 **In your coding agent.** Your agent's training data is older than the deprecation list, so it
 writes model IDs that are already scheduled to die. `docswatcher mcp` runs the same binary as an

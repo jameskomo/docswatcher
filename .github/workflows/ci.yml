@@ -64,6 +64,16 @@ jobs:
       - run: npm test
         working-directory: notify
 
+  gitlab-template:
+    name: GitLab CI template
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # Runs the template's script under dash and bash against a fake release: good, tampered,
+      # missing entry, and every way a report can be unreadable.
+      - run: python3 -c "import yaml" 2>/dev/null || pip install pyyaml
+      - run: python3 ci/gitlab/test_template.py
+
   nightly:
     name: Nightly native builds and performance budget
     if: github.event_name == 'schedule'

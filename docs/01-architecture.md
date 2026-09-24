@@ -268,7 +268,7 @@ See [Runtime observation](./13-runtime-observation.md).
 | Excluded | Why deferred | Target milestone |
 |---|---|---|
 | Email and Slack alerts | GitHub issues and PRs natively provide notifications | Post-v1 notification plugin system |
-| GitLab, Bitbucket | Focusing on GitHub ecosystem first | Multi-VCS milestone |
+| A GitLab app (watching, issues, fix merge requests); Bitbucket | Focusing on GitHub ecosystem first. GitLab CI (a template with Code Quality reports) and scanning a GitLab project in the browser need no server and are supported | Multi-VCS milestone |
 | Proprietary coding agent | Integrates with existing coding agents via CI actions | Plug-and-play agent integration |
 | Incremental scanning on push | Full rescans are fast enough on shallow clones | Optimized diff scanning for monorepos |
 

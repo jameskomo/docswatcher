@@ -1,0 +1,248 @@
+# DocsWatcher for GitLab CI.
+#
+# Include it from a release tag, in .gitlab-ci.yml:
+#
+#   include:
+#     - remote: https://raw.githubusercontent.com/jameskomo/docswatcher/vX.Y.Z/ci/gitlab/docswatcher.gitlab-ci.yml
+#
+# with vX.Y.Z replaced by a release tag (the first release after v0.3.1 is the first that has this
+# file). A tag never changes, so neither does your pipeline until you move it.
+#
+# That adds one job, `docswatcher`, to the `test` stage. It downloads the native CLI from the
+# release, checks it against the release's checksums.txt, scans the checkout and fails the pipeline
+# when a breaking finding is open. Findings show in the merge request's Code Quality widget, and
+# the full JSON report is kept as an artifact. The knowledge base is compiled into the binary, so
+# the scan is offline: nothing about your code leaves the runner.
+#
+# Settings are variables. Override them in your own top-level `variables:`, or on the job:
+#
+#   docswatcher:
+#     variables:
+#       DOCSWATCHER_PATH: services/checkout
+#       DOCSWATCHER_FAIL_ON: never
+#
+# Every other key of the job can be overridden the same way, for example `stage:` when your
+# pipeline has no `test` stage. Set DOCSWATCHER_DISABLED to any value to skip the job.
+#
+# Needs a Linux x64 runner (GitLab.com's default) and an image with glibc and python3; the default
+# python:3.13-slim has both. The binary does not run on Alpine (musl).
+
+variables:
+  # Directory to scan. Point it at a subdirectory in a monorepo.
+  DOCSWATCHER_PATH: "."
+  # "breaking" fails the job on a dated shutdown; "never" reports without failing.
+  DOCSWATCHER_FAIL_ON: "breaking"
+  # Paths to skip, one .gitignore-style pattern per line. .gitignore files and
+  # .docswatcherignore already apply; this is for this pipeline only.
+  DOCSWATCHER_EXCLUDE: ""
+  # "true" also reports contracts found only in documentation or test files.
+  DOCSWATCHER_INCLUDE_LOW: "false"
+  # Release tag of the CLI. "latest" is the newest release; set the tag you include this file from
+  # to keep the pipeline and the binary in step.
+  DOCSWATCHER_VERSION: "latest"
+  # Where releases are downloaded from. Change it only to point at a mirror of the release assets.
+  DOCSWATCHER_RELEASES: "https://github.com/jameskomo/docswatcher/releases"
+  DOCSWATCHER_IMAGE: "python:3.13-slim"
+
+docswatcher:
+  stage: test
+  image: $DOCSWATCHER_IMAGE
+  needs: []
+  rules:
+    - if: $DOCSWATCHER_DISABLED
+      when: never
+    - when: on_success
+  script:
+    # Fetch the CLI. POSIX sh throughout: the runner uses sh when an image has no bash.
+    - |
+      set -e
+      if ! command -v python3 > /dev/null 2>&1; then
+        echo "ERROR: the image $DOCSWATCHER_IMAGE has no python3, which this job uses to download the CLI and read its report"
+        exit 3
+      fi
+      case "$(uname -s)/$(uname -m)" in
+        Linux/x86_64 | Linux/amd64) dw_asset=docswatcher-linux-x64 ;;
+        *)
+          echo "ERROR: DocsWatcher has no native build for $(uname -s) $(uname -m). This job needs a Linux x64 runner; elsewhere, run docswatcher.jar with Java 25."
+          exit 1 ;;
+      esac
+
+      # Downloads $1 to $2 with a few retries. With "-" it prints where $1 redirects instead.
+      dw_get() {
+        python3 - "$1" "$2" <<'PY'
+      import sys, time, urllib.error, urllib.request
+      url, out = sys.argv[1], sys.argv[2]
+      err = None
+      for attempt in range(4):
+          if attempt:
+              time.sleep(2 ** attempt)
+          try:
+              req = urllib.request.Request(url, method="HEAD" if out == "-" else "GET", headers={"User-Agent": "docswatcher-gitlab-ci"})
+              with urllib.request.urlopen(req, timeout=120) as res:
+                  if out == "-":
+                      print(res.geturl())
+                  else:
+                      with open(out, "wb") as f:
+                          f.write(res.read())
+              sys.exit(0)
+          except urllib.error.HTTPError as e:
+              err = e
+              if e.code < 500 and e.code != 429:
+                  break
+          except OSError as e:
+              err = e
+      sys.stderr.write("ERROR: could not download %s: %s\n" % (url, err))
+      sys.exit(1)
+      PY
+      }
+
+      # Resolve "latest" to a tag first, so the binary and checksums.txt come from the same
+      # release even if a new one is published between the two downloads.
+      dw_tag="$DOCSWATCHER_VERSION"
+      if [ "$dw_tag" = "latest" ]; then
+        dw_resolved=$(dw_get "$DOCSWATCHER_RELEASES/latest" -)
+        dw_tag="${dw_resolved##*/}"
+      fi
+      case "$dw_tag" in
+        "" | latest | releases | *[!A-Za-z0-9._-]*)
+          echo "ERROR: could not resolve DocsWatcher release '$DOCSWATCHER_VERSION'"
+          exit 1 ;;
+      esac
+      echo "DocsWatcher $dw_tag, $dw_asset"
+
+      # Fail closed: the download becomes the binary the scan runs only once checksums.txt lists
+      # exactly one sha256 for it and the bytes match. Any other outcome deletes it and stops.
+      dw_dir=$(mktemp -d)
+      dw_download="$dw_dir/$dw_asset.unverified"
+      dw_get "$DOCSWATCHER_RELEASES/download/$dw_tag/checksums.txt" "$dw_dir/checksums.txt"
+      dw_get "$DOCSWATCHER_RELEASES/download/$dw_tag/$dw_asset" "$dw_download"
+      dw_expected=$(awk -v f="$dw_asset" '$2 == f || $2 == "*" f { n++; h = tolower($1) } END { if (n == 1 && length(h) == 64 && h !~ /[^0-9a-f]/) print h }' "$dw_dir/checksums.txt")
+      if [ -z "$dw_expected" ]; then
+        rm -f "$dw_download"
+        echo "ERROR: checksums.txt in release $dw_tag has no single sha256 for $dw_asset"
+        exit 1
+      fi
+      if command -v sha256sum > /dev/null 2>&1; then
+        dw_actual=$(sha256sum < "$dw_download" | awk '{ print $1 }')
+      else
+        dw_actual=$(python3 -c 'import hashlib, sys; print(hashlib.sha256(sys.stdin.buffer.read()).hexdigest())' < "$dw_download")
+      fi
+      if [ "$dw_actual" != "$dw_expected" ]; then
+        rm -f "$dw_download"
+        echo "ERROR: $dw_asset from release $dw_tag does not match checksums.txt (expected $dw_expected, got $dw_actual)"
+        exit 1
+      fi
+      echo "sha256 $dw_actual matches checksums.txt"
+      dw_bin="$dw_dir/docswatcher"
+      mv "$dw_download" "$dw_bin"
+      chmod +x "$dw_bin"
+
+    # Scan once: the text summary goes to the job log, the JSON findings to docswatcher.json.
+    - |
+      case "$DOCSWATCHER_FAIL_ON" in
+        breaking | never) ;;
+        *) echo "ERROR: DOCSWATCHER_FAIL_ON is '$DOCSWATCHER_FAIL_ON'; use breaking or never"; exit 3 ;;
+      esac
+      # Read into a variable, not piped: `match --help` exits non-zero, which pipefail would count.
+      dw_help=$("$dw_bin" match --help 2>&1 || true)
+      case "$dw_help" in
+        *--report*) ;;
+        *) echo "ERROR: DocsWatcher $dw_tag cannot write a report. Use v0.3.0 or later."; exit 3 ;;
+      esac
+      set -- match "$DOCSWATCHER_PATH" --format text --report docswatcher.json
+      if [ "$DOCSWATCHER_INCLUDE_LOW" = "true" ]; then set -- "$@" --include-low; fi
+      while IFS= read -r dw_pattern; do
+        dw_pattern=$(printf '%s' "$dw_pattern" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')
+        if [ -n "$dw_pattern" ]; then set -- "$@" --exclude "$dw_pattern"; fi
+      done <<EOF
+      $DOCSWATCHER_EXCLUDE
+      EOF
+      rm -f docswatcher.json gl-code-quality-report.json
+
+      # The CLI exits 1 when a breaking finding is open. That is a result, not a failure of the
+      # job, and is judged below against DOCSWATCHER_FAIL_ON. Anything above 1 is the scan failing.
+      dw_code=0
+      "$dw_bin" "$@" || dw_code=$?
+      if [ "$dw_code" -gt 1 ]; then
+        echo "ERROR: docswatcher exited $dw_code, which means the scan itself failed"
+        exit "$dw_code"
+      fi
+
+    # Read the report: count it, and write GitLab's Code Quality report from it.
+    - |
+      dw_counts=$(python3 - "$DOCSWATCHER_PATH" <<'PY'
+      import hashlib, json, os, sys
+
+      # The report is a top-level JSON array of findings. One that does not parse means the scan
+      # did not finish, and counting it as zero would pass a repository that was never checked.
+      try:
+          with open("docswatcher.json") as f:
+              findings = json.load(f)
+          if not isinstance(findings, list) or not all(isinstance(x, dict) for x in findings):
+              raise ValueError
+      except (OSError, ValueError):
+          sys.stderr.write("ERROR: docswatcher did not produce a report, so this repository was not checked\n")
+          sys.exit(3)
+      # Every finding carries a severity. One without it is an unreadable report (the v0.2.1 native
+      # binary printed {} per finding), and counting it would never fail a build.
+      if not all(x.get("severity") for x in findings):
+          sys.stderr.write("ERROR: the report's findings carry no severity, so they cannot be counted. Use a release after v0.2.1\n")
+          sys.exit(3)
+
+      # Evidence paths are relative to the scanned directory; Code Quality wants them relative to
+      # the repository root, which is the job's working directory.
+      prefix = os.path.relpath(os.path.abspath(sys.argv[1]), os.getcwd())
+      severity = {"breaking": "critical", "warning": "major", "info": "info"}
+      issues, seen = [], set()
+      for x in findings:
+          contract, change = str(x.get("contract", "")), str(x.get("change", ""))
+          description = "%s is affected by %s" % (contract, change)
+          days = x.get("daysRemaining")
+          if x.get("effective"):
+              if isinstance(days, int) and days < 0:
+                  description += ": shut down %s (%d days ago)" % (x["effective"], -days)
+              elif isinstance(days, int):
+                  description += ": shuts down %s (in %d days)" % (x["effective"], days)
+              else:
+                  description += ": shuts down %s" % x["effective"]
+          for e in x.get("evidence") or []:
+              path = os.path.normpath(os.path.join(prefix, str(e.get("path", "")))).replace(os.sep, "/")
+              line = e.get("line") if isinstance(e.get("line"), int) and e.get("line") > 0 else 1
+              # Keyed on the code, not the line number, so a finding keeps its identity when
+              # lines move and the merge request widget reports it as neither new nor fixed.
+              key = "\0".join([contract, change, path, str(e.get("snippet") or "").strip()])
+              fingerprint, n = hashlib.md5(key.encode()).hexdigest(), 1
+              while fingerprint in seen:
+                  fingerprint, n = hashlib.md5(("%s\0%d" % (key, n)).encode()).hexdigest(), n + 1
+              seen.add(fingerprint)
+              issues.append({
+                  "type": "issue",
+                  "check_name": "docswatcher/" + change,
+                  "description": description,
+                  "categories": ["Compatibility"],
+                  "severity": severity.get(x["severity"], "info"),
+                  "fingerprint": fingerprint,
+                  "location": {"path": path, "lines": {"begin": line}},
+              })
+      with open("gl-code-quality-report.json", "w") as f:
+          json.dump(issues, f, indent=2)
+      print(len(findings), sum(1 for x in findings if x["severity"] == "breaking"))
+      PY
+      ) || exit $?
+      set -- $dw_counts
+      if [ "$1" = "0" ]; then
+        echo "DocsWatcher: nothing your code calls has a known shutdown date."
+      else
+        echo "DocsWatcher: $1 findings, $2 breaking. The merge request's Code Quality widget lists each one."
+      fi
+      if [ "$DOCSWATCHER_FAIL_ON" = "breaking" ] && [ "$2" != "0" ]; then
+        echo "ERROR: $2 breaking API deprecations affect this repository"
+        exit 1
+      fi
+  artifacts:
+    when: always
+    paths:
+      - docswatcher.json
+      - gl-code-quality-report.json
+    reports:
+      codequality: gl-code-quality-report.json

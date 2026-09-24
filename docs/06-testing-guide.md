@@ -32,6 +32,8 @@ Refresh or add to them with `node web/scripts/vendor-repos.mjs --refresh`.
 
 jsDelivr is tried before the GitHub API because it has no per-hour ceiling. The whole scan, including the tree-sitter call-site layer, runs in your browser either way.
 
+A GitLab URL (gitlab.com, or a self-managed instance by its full URL) has one route, the GitLab API at that host, 500 requests a minute per address on gitlab.com without a token. `tests/unit/gitlab.test.ts` covers it against a mocked API. `tests/e2e/gitlab.spec.ts` scans mocked gitlab.com and self-managed projects through the page, checks the message when the page's policy refuses a host, and checks that a GitHub scan sends nothing to GitLab.
+
 ### GitHub URL mode needs a host that permits outbound requests
 
 The published artifact page blocks every outbound origin, verified: both jsDelivr and the GitHub API are refused there. That is why the real repositories are bundled. Some embedding hosts block requests to other origins. The page tries every route before giving up, and if all are blocked it names each one and falls back to the sample tab rather than showing a bare "Failed to fetch". Samples and folders are unaffected, and they exercise exactly the same engine.
@@ -149,6 +151,14 @@ cd web && DOCSWATCHER_LIVE=1 npx playwright test github-live
 ```
 
 Two tests run there. One scans a real public repository through the browser and asserts the findings. The other blocks `api.github.com` and `raw.githubusercontent.com` outright, so only the jsDelivr route can succeed, which is what makes it a real test of that route instead of the fallback.
+
+The e2e server applies the production Content-Security-Policy when the private deployment checkout is next to `web/`. To try a policy change first, point `DOCSWATCHER_SECURITY_HEADERS` at a copy of `security-headers.conf`. When the policy's `connect-src` does not allow `https://gitlab.com`, the server says so as it starts, and the two gitlab.com tests fail, as the live site would.
+
+The GitLab CI template has its own test. It runs the job's script under dash and bash against a fake release: a good one, a tampered binary, a missing or duplicated checksum entry, and every way a report can be unreadable:
+
+```
+python3 ci/gitlab/test_template.py          # needs PyYAML
+```
 
 ## What to look at first
 

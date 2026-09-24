@@ -126,22 +126,71 @@ repository root works too, and reports every service at once.
 
 ---
 
-## Other CI systems
+## GitLab CI
 
-The Action is a thin wrapper around one command. Anywhere else, download the binary and run it.
-
-### GitLab CI
+Include the template from a release tag in `.gitlab-ci.yml`:
 
 ```yaml
-docswatcher:
-  image: alpine:3
-  before_script:
-    - apk add --no-cache curl
-    - curl -sSL -o /usr/local/bin/docswatcher https://github.com/jameskomo/docswatcher/releases/latest/download/docswatcher-linux-x64
-    - chmod +x /usr/local/bin/docswatcher
-  script:
-    - docswatcher match . --format text
+include:
+  - remote: https://raw.githubusercontent.com/jameskomo/docswatcher/vX.Y.Z/ci/gitlab/docswatcher.gitlab-ci.yml
 ```
+
+Replace `vX.Y.Z` with a release tag. The first release after v0.3.1 is the first one that has the
+template. A tag never changes, so your pipeline changes only when you move the tag.
+
+This adds one job, `docswatcher`, to the `test` stage. It does what the Action does:
+
+- Downloads `docswatcher-linux-x64` from the release and checks its sha256 against that release's
+  `checksums.txt`. The file becomes the binary only when `checksums.txt` lists exactly one sha256
+  for it and the bytes match. Any other result deletes it and fails the job before it runs.
+- Scans the checkout once. The text summary goes to the job log and the JSON findings to
+  `docswatcher.json`, which is kept as an artifact.
+- Fails the job when a **breaking** finding is open. When the report is missing or cannot be
+  read, the job exits 3. It never passes a repository it did not check.
+- Writes `gl-code-quality-report.json` as a [Code Quality](https://docs.gitlab.com/ci/testing/code_quality/)
+  report. Each place a finding was seen becomes one entry with its file and line, so the merge
+  request widget shows what the change introduced and what it fixed. Severity maps
+  breaking → critical, warning → major, info → info. The fingerprint is built from the code, not
+  the line number, so moving a line does not make a finding look new.
+
+### Variables
+
+Override them in your own top-level `variables:`, or on the job:
+
+```yaml
+include:
+  - remote: https://raw.githubusercontent.com/jameskomo/docswatcher/vX.Y.Z/ci/gitlab/docswatcher.gitlab-ci.yml
+
+docswatcher:
+  variables:
+    DOCSWATCHER_PATH: services/checkout
+    DOCSWATCHER_FAIL_ON: never
+    DOCSWATCHER_EXCLUDE: |
+      samples/
+      test-data/
+```
+
+| Variable | Default | What it does |
+|---|---|---|
+| `DOCSWATCHER_PATH` | `.` | Directory to scan. Point it at a subdirectory in a monorepo. Code Quality paths stay relative to the repository root. |
+| `DOCSWATCHER_FAIL_ON` | `breaking` | `breaking` fails on a shutdown that already has a date. `never` reports without failing. |
+| `DOCSWATCHER_EXCLUDE` | empty | Paths to skip, one `.gitignore`-style pattern per line. `.gitignore` files and `.docswatcherignore` already apply. |
+| `DOCSWATCHER_INCLUDE_LOW` | `false` | Also report contracts found only in documentation or test files. |
+| `DOCSWATCHER_VERSION` | `latest` | Release tag of the CLI, for example `v0.3.1`. Set it to the tag you include, to keep both in step. `latest` resolves to a tag once, so the binary and `checksums.txt` always come from the same release. |
+| `DOCSWATCHER_IMAGE` | `python:3.13-slim` | The job's image. It needs glibc and `python3`, which reads the report. Alpine (musl) cannot run the binary. |
+| `DOCSWATCHER_RELEASES` | this repository's releases | Base URL of the release downloads. Change it only for a mirror that has the same layout, including `checksums.txt`. |
+| `DOCSWATCHER_DISABLED` | unset | Set to any value to skip the job. |
+
+Any other key of the job can be overridden the same way. For example, set `stage:` when your
+pipeline has no `test` stage. The job needs a Linux x64 runner, which is GitLab.com's default. On
+an arm64 runner it stops and says so. Use the jar below there.
+
+---
+
+## Other CI systems
+
+The Action and the GitLab template are thin wrappers around one command. Anywhere else, download
+the binary and run it. The Linux binary links against glibc, so it does not run on Alpine.
 
 ### Jenkins, CircleCI, anything with a shell
 

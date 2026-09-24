@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+- **GitLab CI template.** `include:` `ci/gitlab/docswatcher.gitlab-ci.yml` from a release tag.
+  The job downloads the Linux binary, checks it against the release's `checksums.txt` and fails
+  closed like the Action does. It fails the pipeline on a breaking finding and writes a Code
+  Quality report, so findings show in merge requests with their file and line. Variables:
+  `DOCSWATCHER_PATH`, `DOCSWATCHER_FAIL_ON`, `DOCSWATCHER_EXCLUDE`, `DOCSWATCHER_VERSION` and more
+  (`docs/11-ci-integration.md`). The old GitLab snippet used `alpine:3`, where the glibc binary
+  cannot run.
+- **The site scans GitLab projects.** Paste a gitlab.com project URL, nested groups included, or a
+  self-managed instance's full URL where the site's policy allows that host. Share links are
+  `?repo=gitlab.com/group/project`, and GitHub links are unchanged.
+
 ## 0.3.1 (2026-09-24)
 
 - Native download for Windows x64 (`docswatcher-windows-x64.exe`). The Action runs on Windows

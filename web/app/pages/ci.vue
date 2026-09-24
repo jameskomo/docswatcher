@@ -22,6 +22,14 @@ const monorepo = `      - uses: jameskomo/docswatcher@v0
         with:
           path: services/checkout`;
 
+const gitlab = `include:
+  - remote: https://raw.githubusercontent.com/jameskomo/docswatcher/vX.Y.Z/ci/gitlab/docswatcher.gitlab-ci.yml`;
+
+const gitlabSettings = `docswatcher:
+  variables:
+    DOCSWATCHER_PATH: services/checkout
+    DOCSWATCHER_FAIL_ON: never`;
+
 const shell = `curl -sSL -o docswatcher \\
   https://github.com/jameskomo/docswatcher/releases/latest/download/docswatcher-linux-x64
 chmod +x docswatcher
@@ -70,6 +78,26 @@ useHead({
         page, and says nothing at all when your code calls nothing that is going away.
       </p>
 
+      <h2 id="gitlab">GitLab CI</h2>
+      <p>
+        Include the template from a release tag, with <code>vX.Y.Z</code> replaced by one. The
+        first release after v0.3.1 is the first that has it.
+      </p>
+      <Snippet :code="gitlab" testid="gitlab-include" />
+      <p>
+        That adds a <code>docswatcher</code> job to the <code>test</code> stage. It checks the
+        binary against the release's <code>checksums.txt</code> before running it, fails the
+        pipeline on a breaking finding, and writes a Code Quality report, so each finding shows in
+        the merge request with its file and line. The settings are variables:
+      </p>
+      <Snippet :code="gitlabSettings" />
+      <p>
+        <code>DOCSWATCHER_EXCLUDE</code> and <code>DOCSWATCHER_VERSION</code> work like the
+        Action's <code>exclude</code> and <code>version</code>. The job needs a Linux x64 runner,
+        which is GitLab.com's default.
+        <a href="https://github.com/jameskomo/docswatcher/blob/main/docs/11-ci-integration.md#gitlab-ci" target="_blank" rel="noopener">Every variable</a>
+      </p>
+
       <h2>Turning it on where findings already exist</h2>
       <p>
         Switching this on for the first time on a mature service usually surfaces something.
@@ -88,14 +116,15 @@ useHead({
 
       <h2>Anywhere else</h2>
       <p>
-        The Action wraps one command, and that command is a single static binary. GitLab CI,
-        Jenkins, CircleCI, a git hook, your laptop — anywhere with a shell.
+        The Action and the GitLab template wrap one command, and that command is a single
+        self-contained binary. Jenkins, CircleCI, a git hook, your laptop — anywhere with a shell.
       </p>
       <Snippet :code="shell" shell />
       <p>
-        That is Linux x64. On macOS arm64 the file is <code>docswatcher-macos-arm64</code>, on
-        Windows x64 <code>docswatcher-windows-x64.exe</code>. The Action picks the right one for
-        its runner and checks it against the release's <code>checksums.txt</code> before it runs.
+        That is Linux x64, for glibc, so not Alpine. On macOS arm64 the file is
+        <code>docswatcher-macos-arm64</code>, on Windows x64 <code>docswatcher-windows-x64.exe</code>.
+        The Action picks the right one for its runner and checks it against the release's
+        <code>checksums.txt</code> before it runs.
       </p>
       <p>
         The command exits <code>0</code> when nothing breaking is open and <code>1</code> when something is.
@@ -112,7 +141,7 @@ useHead({
       <h2>Options</h2>
       <table>
         <thead>
-          <tr><th>Input</th><th>Default</th><th>What it does</th></tr>
+          <tr><th>Action input</th><th>Default</th><th>What it does</th></tr>
         </thead>
         <tbody>
           <tr>
@@ -133,6 +162,11 @@ useHead({
           </tr>
         </tbody>
       </table>
+      <p>
+        On GitLab the same settings are <code>DOCSWATCHER_PATH</code>,
+        <code>DOCSWATCHER_FAIL_ON</code> and <code>DOCSWATCHER_INCLUDE_LOW</code>. The report is
+        always written, to <code>docswatcher.json</code>, and kept as an artifact.
+      </p>
 
       <h2>Or let it watch instead</h2>
       <p>

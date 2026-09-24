@@ -54,7 +54,7 @@ Two things changed the base rate of breaking API changes.
 
 - The runtime traffic layer. Passively observing Deprecation and Sunset headers from production traffic arrives in v2 as an OpenTelemetry processor.
 - Email digests and Slack notifications.
-- GitLab and Bitbucket integrations (focused on GitHub first).
+- GitLab and Bitbucket server integrations (focused on GitHub first). GitLab CI and scanning a GitLab project in the browser need no server and already work.
 - Proprietary coding agent. Remediation integrates cleanly with coding agents (like Claude Code, GitHub Copilot, or Cursor) in the repository's own CI environment.
 
 ## Verification & Corpus
