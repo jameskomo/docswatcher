@@ -9,6 +9,8 @@ import dev.docswatcher.engine.Json;
 import dev.docswatcher.engine.Knowledge;
 import dev.docswatcher.engine.Matcher;
 import dev.docswatcher.engine.Provider;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -43,11 +45,20 @@ final class MatchCommand implements Callable<Integer> {
       description = "Skip paths matching this .gitignore-style pattern, after .gitignore files and .docswatcherignore. Repeatable.")
   List<String> exclude = new ArrayList<>();
 
+  // A caller that wants more than one output asks for them all at once, so it scans once.
+  @Option(names = "--report", paramLabel = "<file>", description = "Also write the findings as JSON to this file, whatever --format prints.")
+  Path report;
+
+  @Option(names = "--inventory", paramLabel = "<file>", description = "Also write the inventory document, as scan prints it, to this file.")
+  Path inventory;
+
   @Override
-  public Integer call() {
+  public Integer call() throws IOException {
     Knowledge k = common.loadKnowledge();
     Inventory inv = ScanCommand.scan(k, path, repo, ref, sha, exclude);
     List<Finding> findings = Matcher.match(inv, k, common.today, includeLow);
+    if (report != null) Files.writeString(report, Json.write(findings));
+    if (inventory != null) Files.writeString(inventory, Json.write(inv));
     if ("text".equals(format)) {
       System.out.print(render(inv, findings, k));
     } else {

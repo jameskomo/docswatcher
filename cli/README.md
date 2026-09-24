@@ -2,7 +2,7 @@
 
 ```
 docswatcher scan <path> [--repo owner/name] [--ref ..] [--sha ..] [--knowledge <dir>] [--write-expected]
-docswatcher match <path> [--format json|text] [--include-low] [--today YYYY-MM-DD] [--knowledge <dir>]
+docswatcher match <path> [--format json|text] [--report <file>] [--inventory <file>] [--include-low] [--today YYYY-MM-DD] [--knowledge <dir>]
 docswatcher validate [<dir>] [--today YYYY-MM-DD]
 ```
 

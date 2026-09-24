@@ -26,6 +26,8 @@ cli/target/docswatcher <command> [options]
 |---|---|---|
 | `--knowledge <dir>` | all | Use this knowledge directory instead of the bundled release |
 | `--format json\|text` | `match` | Output format. Default `json` |
+| `--report <file>` | `match` | Also write the findings as JSON to this file, whatever `--format` prints. Text and JSON from one scan |
+| `--inventory <file>` | `match` | Also write the inventory document, as `scan` prints it, to this file |
 | `--today YYYY-MM-DD` | `scan`, `match`, `mcp` | Date used for day counts. Default is today, asked afresh on every `mcp` call |
 | `--include-low` | `scan`, `match` | Include low-confidence contracts |
 | `--exclude <pattern>` | `scan`, `match` | Skip paths matching a `.gitignore`-style pattern, after the repository's `.gitignore` files and `.docswatcherignore`. Repeatable. See `docs/18-excluding-paths.md` |

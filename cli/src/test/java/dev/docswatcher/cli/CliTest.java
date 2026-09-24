@@ -4,8 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 class CliTest {
 
@@ -47,6 +49,21 @@ class CliTest {
         "--knowledge", KNOWLEDGE.toString(), "--today", "2026-09-18");
     assertThat(r.exit()).isZero();
     assertThat(r.out().trim()).isEqualTo("[]");
+  }
+
+  @Test
+  void matchWritesJsonAndInventoryBesideTheTextFromOneScan(@TempDir Path out) throws Exception {
+    String repo = KNOWLEDGE.resolve("fixtures/openai-python-model-config/repo").toString();
+    Path report = out.resolve("findings.json");
+    Path inventory = out.resolve("inventory.json");
+    Run text = run("match", repo, "--knowledge", KNOWLEDGE.toString(), "--format", "text", "--today", "2026-09-18",
+        "--report", report.toString(), "--inventory", inventory.toString());
+    assertThat(text.exit()).isEqualTo(1);
+    assertThat(text.out()).contains("External API drift");
+
+    Run json = run("match", repo, "--knowledge", KNOWLEDGE.toString(), "--today", "2026-09-18");
+    assertThat(Files.readString(report)).isEqualTo(json.out());
+    assertThat(Files.readString(inventory)).startsWith("{\n  \"schemaVersion\": \"1\"").contains("\"openai:model:gpt-4-turbo\"");
   }
 
   @Test

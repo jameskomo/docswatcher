@@ -178,7 +178,7 @@ loading its native library; the scan works without it.
 ## The command underneath
 
 ```
-docswatcher match <path> [--format json|text] [--include-low] [--exclude <pattern>]... [--repo owner/name]
+docswatcher match <path> [--format json|text] [--report <file>] [--include-low] [--exclude <pattern>]... [--repo owner/name]
 ```
 
 **Exit codes.** `0` when nothing breaking is open. `1` when at least one breaking finding is
@@ -189,6 +189,9 @@ should be treated as a broken step rather than a finding.
 what to parse: a top-level array of findings, each carrying `severity`, `effective`,
 `daysRemaining`, `contract`, `change`, `status`, and an `evidence` array of
 `{path, line, column, snippet, detector, layer}`.
+
+To keep both, scan once: `--format text --report findings.json` prints the text and writes the
+JSON beside it. Running `match` twice, once per format, scans the repository twice.
 
 ## What it will and will not catch
 
