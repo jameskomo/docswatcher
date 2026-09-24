@@ -49,7 +49,7 @@ const TOOL = {
   description:
     "Is this model ID, API endpoint, API version, SDK or GraphQL field still safe to use? Returns RETIRED, RETIRING (with the " +
     "date and days left), CHANGED, or NO KNOWN DEPRECATION, plus the provider's replacement. Accepts loose input: " +
-    "'gpt-4-turbo', 'openai/gpt-4-turbo', 'POST /v1/assistants', a full API URL, '2024-04', 'openai==0.28', or a GraphQL field such as " +
+    "a model ID alone or as 'openai/<model>', 'POST /v1/assistants', a full API URL, '2024-04', 'openai==0.28', or a GraphQL field such as " +
     "'automaticDiscounts'.",
   parameters: {
     type: "object",
@@ -194,7 +194,7 @@ const gemini: Assistant = {
   async models(key, signal) {
     const data = await request(`${GEMINI}/models`, { headers: { authorization: `Bearer ${key}` }, signal }, "Google");
     // Google lists oldest first, and keeps listing models it has closed to new keys: newest first,
-    // so the default is a current model, not gemini-2.5-flash answering 404.
+    // so the default is a current model, not a closed 2.5 model answering 404.
     return (data?.data ?? [])
       .map((m: { id: string }) => m.id.replace(/^models\//, ""))
       .filter((id: string) => /^gemini/.test(id) && !/(embedding|image|tts|audio|live|vision)/.test(id))

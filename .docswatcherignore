@@ -8,3 +8,21 @@
 
 # The release smoke test calls a retired model on purpose, to prove the published binary finds it.
 /.github/workflows/release.yml
+
+# Tests and demo text name retired models on purpose: to prove they are found, and to show a
+# visitor what happens. They call nothing.
+/app/src/test/
+/cli/src/test/
+/engine/src/test/
+/web/tests/
+/relay/test/
+/notify/test/
+/web/app/components/TryAssistant.vue
+/web/app/pages/agents.vue
+# The MCP server's tool description and input examples name models; it calls no API.
+/cli/src/main/java/dev/docswatcher/cli/McpServer.java
+# Documentation, and check_api's own messages, name models as examples.
+/docs/
+/README.md
+/CHANGELOG.md
+/web/engine/checkApi.ts
