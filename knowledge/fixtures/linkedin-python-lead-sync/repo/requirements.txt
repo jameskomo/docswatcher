@@ -1,0 +1,2 @@
+linkedin-api-client==0.3.0
+requests==2.32.3

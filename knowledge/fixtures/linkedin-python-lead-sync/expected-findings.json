@@ -1,0 +1,18 @@
+[
+  {
+    "contract": "linkedin:api_version:202405",
+    "change": "linkedin-version-202405-sunset-2025"
+  },
+  {
+    "contract": "linkedin:endpoint:ANY /rest/adFormResponses",
+    "change": "linkedin-legacy-lead-sync-sunset-2025"
+  },
+  {
+    "contract": "linkedin:endpoint:ANY /rest/leadNotificationUrls",
+    "change": "linkedin-legacy-lead-sync-sunset-2025"
+  },
+  {
+    "contract": "linkedin:api_version:202510",
+    "change": "linkedin-version-202510-sunset-2026"
+  }
+]

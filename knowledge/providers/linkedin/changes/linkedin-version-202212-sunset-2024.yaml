@@ -1,0 +1,41 @@
+id: linkedin-version-202212-sunset-2024
+provider: linkedin
+kind: sunset
+severity: breaking
+title: "Marketing API version 202212 sunset"
+summary: >
+  Marketing API version 202212 (December 2022) was sunset on 2024-01-16. LinkedIn
+  returns an error response to a request whose Linkedin-Version header names a
+  sunset version, so every call pinned to 202212 fails from that date.
+
+affects:
+  - kind: api_version
+    match: "202212"
+
+announced: 2022-12-01
+effective: 2024-01-16
+
+sources:
+  - kind: provider_page
+    url: https://learn.microsoft.com/en-us/linkedin/marketing/integrations/migrations
+    observed: 2026-09-24
+    note: "API Migration Status: \"Developers using LinkedIn Marketing APIs version 202212 (December 2022) to migrate to the latest versions.\" Sunset date January 16, 2024. announced is the version's release month; LinkedIn publishes versions by month, not by day."
+  - kind: provider_page
+    url: https://learn.microsoft.com/en-us/linkedin/marketing/versioning
+    observed: 2026-09-24
+    note: "\"An error response is returned when the version header is deprecated\"; versions \"are supported and stable for a minimum of one year before sunset.\""
+
+migration:
+  replacement: "202609"
+  guide: https://learn.microsoft.com/en-us/linkedin/marketing/versioning
+  effort: medium
+  notes: >
+    Change the Linkedin-Version header value from 202212 to a supported
+    version, ideally the latest, wherever it is set: request headers, client
+    configuration and environment variables. Read the recent-changes page for
+    every version between 202212 and the target, since resources, fields and
+    pagination changed between versions. Do not remove the header to escape
+    the pin: LinkedIn applies no default version and rejects a request that
+    names none.
+
+status: expired

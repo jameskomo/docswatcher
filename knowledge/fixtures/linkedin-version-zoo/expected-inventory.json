@@ -1,0 +1,835 @@
+[
+  {
+    "id": "linkedin:api_version:202206",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202206",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 6,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202206\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202207",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202207",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 9,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202207\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202208",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202208",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 12,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202208\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202209",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202209",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 15,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202209\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202210",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202210",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 18,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202210\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202211",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202211",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 21,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202211\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202212",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202212",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 24,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202212\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202301",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202301",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 27,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202301\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202302",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202302",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 30,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202302\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202303",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202303",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 33,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202303\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202304",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202304",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 36,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202304\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202305",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202305",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 39,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202305\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202306",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202306",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 42,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202306\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202307",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202307",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 45,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202307\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202308",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202308",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 48,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202308\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202309",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202309",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 51,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202309\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202310",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202310",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 54,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202310\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202311",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202311",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 57,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202311\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202401",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202401",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 60,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202401\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202402",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202402",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 63,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202402\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202403",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202403",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 66,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202403\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202404",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202404",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 69,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202404\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202405",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202405",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 72,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202405\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202406",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202406",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 75,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202406\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202407",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202407",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 78,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202407\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202408",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202408",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 81,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202408\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202409",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202409",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 84,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202409\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202410",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202410",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 87,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202410\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202411",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202411",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 90,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202411\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202501",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202501",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 93,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202501\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202502",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202502",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 96,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202502\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202503",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202503",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 99,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202503\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202504",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202504",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 102,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202504\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202505",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202505",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 105,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202505\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202506",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202506",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 108,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202506\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202507",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202507",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 111,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202507\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202508",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202508",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 114,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202508\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202509",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202509",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 117,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202509\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202510",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202510",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 120,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202510\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202511",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202511",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 123,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202511\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202601",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202601",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 126,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202601\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202602",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202602",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 129,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202602\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202603",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202603",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 132,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202603\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202604",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202604",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 135,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202604\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202605",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202605",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 138,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202605\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202606",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202606",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 141,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202606\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202607",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202607",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 144,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202607\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202608",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202608",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 147,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202608\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "linkedin:api_version:202609",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202609",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/ad-accounts.yaml",
+        "line": 150,
+        "column": 26,
+        "snippet": "Linkedin-Version: \"202609\"",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ]
+  }
+]

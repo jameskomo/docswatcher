@@ -1,0 +1,70 @@
+id: linkedin-legacy-lead-sync-sunset-2025
+provider: linkedin
+kind: sunset
+severity: breaking
+title: Legacy Ads and Events Lead Sync APIs sunset
+summary: >
+  The legacy Ads Lead Sync and Events Lead Generation endpoints (adForms,
+  adFormResponses, leadNotificationUrls and the event lead gen resources)
+  stopped working on 2025-07-31. Leads are synced through the Lead Sync API:
+  leadForms, leadFormResponses and leadNotifications.
+
+affects:
+  - kind: endpoint
+    match: "ANY /*/adForms"
+  - kind: endpoint
+    match: "ANY /*/adFormResponses"
+  - kind: endpoint
+    match: "ANY /*/adFormQuestions"
+  - kind: endpoint
+    match: "ANY /*/leadNotificationUrls"
+  - kind: endpoint
+    match: "ANY /*/leadGenForms"
+  - kind: endpoint
+    match: "ANY /*/leadGenFormQuestions"
+  - kind: endpoint
+    match: "ANY /*/leadGenFormLegalInfo"
+  - kind: endpoint
+    match: "ANY /*/leadGenFormVersions"
+  - kind: endpoint
+    match: "ANY /*/eventFormResponses"
+  - kind: endpoint
+    match: "ANY /*/eventLeadNotifications"
+
+announced: 2023-07-01
+effective: 2025-07-31
+
+sources:
+  - kind: provider_page
+    url: https://learn.microsoft.com/en-us/linkedin/marketing/lead-sync/lead-sync-api-migration-guide
+    observed: 2026-09-24
+    note: "Permissions table lists /adFormQuestions, /adForms, /adFormResponses, /adForms/Consents, /leadNotificationUrls, /leadGenFormQuestions, /leadGenForms, /eventFormResponses, /leadGenFormLegalInfo, /eventLeadNotifications and /leadGenFormVersions with \"Last Supported Version will stop working on\" July 31, 2025."
+  - kind: changelog
+    url: https://learn.microsoft.com/en-us/linkedin/marketing/integrations/archived-recent-changes/2023/marketing-api-changes
+    observed: 2026-09-24
+    note: "July 2023 - Version 202307: \"The Ads Lead Sync and Events Lead Sync APIs will be deprecated and replaced with the new Lead Sync API.\" LinkedIn dates release notes by month, so announced is the first of that month."
+  - kind: changelog
+    url: https://learn.microsoft.com/en-us/linkedin/marketing/integrations/recent-changes
+    observed: 2026-09-24
+    note: "Reminder in the 2025 release notes: \"LinkedIn's legacy Lead Sync APIs will be fully sunset on July 31, 2025. Legacy endpoints that will be sunset include: /adForms, /adFormResponses, /leadNotificationUrls.\""
+
+migration:
+  replacement: "/rest/leadForms, /rest/leadFormResponses, /rest/leadNotifications"
+  guide: https://learn.microsoft.com/en-us/linkedin/marketing/lead-sync/lead-sync-api-migration-guide
+  effort: large
+  notes: >
+    adForms becomes leadForms: account becomes owner, a union of
+    sponsoredAccount and organization; status becomes state (SUBMITTED maps to
+    PUBLISHED); form becomes content, and headline, description, question and
+    consent text become multi-locale objects ({"localized": {"en_US": ...}}).
+    adFormResponses becomes leadFormResponses: adFormUrn becomes
+    versionedLeadGenFormUrn, the creative moves to associatedEntity, and the
+    owner is a union as above. leadNotificationUrls becomes leadNotifications:
+    the webhook payload changes shape (createdTime becomes occurredAt,
+    formUrn becomes leadGenForm, adFormResponseUrn becomes leadGenFormResponse,
+    new type, leadType and leadAction fields), so webhook handlers must parse
+    the new payload. GET /leadFormResponses/{id} takes the bare id, not the
+    urn:li:adFormResponse URN. Use field projection to get fields that the
+    old response decoration returned.
+
+status: expired

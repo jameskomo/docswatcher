@@ -1,0 +1,150 @@
+# Each ad account's reporting sync pins the Marketing API version it was
+# built against. Nobody upgraded the old ones.
+accounts:
+  - account: urn:li:sponsoredAccount:510000
+    headers:
+      Linkedin-Version: "202206"
+  - account: urn:li:sponsoredAccount:510001
+    headers:
+      Linkedin-Version: "202207"
+  - account: urn:li:sponsoredAccount:510002
+    headers:
+      Linkedin-Version: "202208"
+  - account: urn:li:sponsoredAccount:510003
+    headers:
+      Linkedin-Version: "202209"
+  - account: urn:li:sponsoredAccount:510004
+    headers:
+      Linkedin-Version: "202210"
+  - account: urn:li:sponsoredAccount:510005
+    headers:
+      Linkedin-Version: "202211"
+  - account: urn:li:sponsoredAccount:510006
+    headers:
+      Linkedin-Version: "202212"
+  - account: urn:li:sponsoredAccount:510007
+    headers:
+      Linkedin-Version: "202301"
+  - account: urn:li:sponsoredAccount:510008
+    headers:
+      Linkedin-Version: "202302"
+  - account: urn:li:sponsoredAccount:510009
+    headers:
+      Linkedin-Version: "202303"
+  - account: urn:li:sponsoredAccount:510010
+    headers:
+      Linkedin-Version: "202304"
+  - account: urn:li:sponsoredAccount:510011
+    headers:
+      Linkedin-Version: "202305"
+  - account: urn:li:sponsoredAccount:510012
+    headers:
+      Linkedin-Version: "202306"
+  - account: urn:li:sponsoredAccount:510013
+    headers:
+      Linkedin-Version: "202307"
+  - account: urn:li:sponsoredAccount:510014
+    headers:
+      Linkedin-Version: "202308"
+  - account: urn:li:sponsoredAccount:510015
+    headers:
+      Linkedin-Version: "202309"
+  - account: urn:li:sponsoredAccount:510016
+    headers:
+      Linkedin-Version: "202310"
+  - account: urn:li:sponsoredAccount:510017
+    headers:
+      Linkedin-Version: "202311"
+  - account: urn:li:sponsoredAccount:510018
+    headers:
+      Linkedin-Version: "202401"
+  - account: urn:li:sponsoredAccount:510019
+    headers:
+      Linkedin-Version: "202402"
+  - account: urn:li:sponsoredAccount:510020
+    headers:
+      Linkedin-Version: "202403"
+  - account: urn:li:sponsoredAccount:510021
+    headers:
+      Linkedin-Version: "202404"
+  - account: urn:li:sponsoredAccount:510022
+    headers:
+      Linkedin-Version: "202405"
+  - account: urn:li:sponsoredAccount:510023
+    headers:
+      Linkedin-Version: "202406"
+  - account: urn:li:sponsoredAccount:510024
+    headers:
+      Linkedin-Version: "202407"
+  - account: urn:li:sponsoredAccount:510025
+    headers:
+      Linkedin-Version: "202408"
+  - account: urn:li:sponsoredAccount:510026
+    headers:
+      Linkedin-Version: "202409"
+  - account: urn:li:sponsoredAccount:510027
+    headers:
+      Linkedin-Version: "202410"
+  - account: urn:li:sponsoredAccount:510028
+    headers:
+      Linkedin-Version: "202411"
+  - account: urn:li:sponsoredAccount:510029
+    headers:
+      Linkedin-Version: "202501"
+  - account: urn:li:sponsoredAccount:510030
+    headers:
+      Linkedin-Version: "202502"
+  - account: urn:li:sponsoredAccount:510031
+    headers:
+      Linkedin-Version: "202503"
+  - account: urn:li:sponsoredAccount:510032
+    headers:
+      Linkedin-Version: "202504"
+  - account: urn:li:sponsoredAccount:510033
+    headers:
+      Linkedin-Version: "202505"
+  - account: urn:li:sponsoredAccount:510034
+    headers:
+      Linkedin-Version: "202506"
+  - account: urn:li:sponsoredAccount:510035
+    headers:
+      Linkedin-Version: "202507"
+  - account: urn:li:sponsoredAccount:510036
+    headers:
+      Linkedin-Version: "202508"
+  - account: urn:li:sponsoredAccount:510037
+    headers:
+      Linkedin-Version: "202509"
+  - account: urn:li:sponsoredAccount:510038
+    headers:
+      Linkedin-Version: "202510"
+  - account: urn:li:sponsoredAccount:510039
+    headers:
+      Linkedin-Version: "202511"
+  - account: urn:li:sponsoredAccount:510040
+    headers:
+      Linkedin-Version: "202601"
+  - account: urn:li:sponsoredAccount:510041
+    headers:
+      Linkedin-Version: "202602"
+  - account: urn:li:sponsoredAccount:510042
+    headers:
+      Linkedin-Version: "202603"
+  - account: urn:li:sponsoredAccount:510043
+    headers:
+      Linkedin-Version: "202604"
+  - account: urn:li:sponsoredAccount:510044
+    headers:
+      Linkedin-Version: "202605"
+  - account: urn:li:sponsoredAccount:510045
+    headers:
+      Linkedin-Version: "202606"
+  - account: urn:li:sponsoredAccount:510046
+    headers:
+      Linkedin-Version: "202607"
+  - account: urn:li:sponsoredAccount:510047
+    headers:
+      Linkedin-Version: "202608"
+  - account: urn:li:sponsoredAccount:510048
+    headers:
+      Linkedin-Version: "202609"

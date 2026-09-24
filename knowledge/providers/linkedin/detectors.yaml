@@ -1,0 +1,44 @@
+provider: linkedin
+
+manifests:
+  # LinkedIn's own REST clients (linkedin-developers on GitHub).
+  - ecosystem: pypi
+    package: linkedin-api-client
+  - ecosystem: npm
+    package: linkedin-api-client
+
+literals:
+  # The version header. LinkedIn's docs spell it Linkedin-Version and code often
+  # writes LinkedIn-Version, so both casings of each letter that varies are
+  # accepted. The header name keeps this LinkedIn's: Stripe and Shopify pin
+  # dashed dates, and a bare six-digit number is never read as a version. The
+  # month is checked so a build number such as 202413 is not taken for one.
+  - id: linkedin.literal.version-header
+    kind: api_version
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: '[Ll]inked[Ii]n-[Vv]ersion["'']?\s*[:=,]\s*["'']?(20[0-9]{2}(?:0[1-9]|1[0-2]))(?![0-9])'
+    key: "$1"
+    confidence: medium
+
+  # The same pin kept in configuration under a LinkedIn-specific name.
+  - id: linkedin.literal.version-config
+    kind: api_version
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: '\bLINKEDIN_(?:API_)?VERSION["'']?\s*[:=]\s*["'']?(20[0-9]{2}(?:0[1-9]|1[0-2]))(?![0-9])'
+    key: "$1"
+    confidence: medium
+
+  # One resource segment under /rest/ or /v2/. Deeper segments are ids, finders
+  # or sub-resources, so the key stays at the resource: /rest/adForms/123 and
+  # /rest/adForms?q=account are both ANY /rest/adForms.
+  - id: linkedin.literal.endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://api\.linkedin\.com(/(?:rest|v2)/[a-zA-Z]+)'
+    key: "ANY $1"
+    confidence: medium
+
+callsites: []

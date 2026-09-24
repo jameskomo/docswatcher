@@ -1,0 +1,30 @@
+[
+  {
+    "id": "linkedin:api_version:202405",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202405",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "README.md",
+        "line": 5,
+        "column": 28,
+        "snippet": "such as `Linkedin-Version: 202405`; the social team's service owns that.",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      },
+      {
+        "path": "test/release.test.js",
+        "line": 4,
+        "column": 48,
+        "snippet": "const linkedinHeaders = { \"Linkedin-Version\": \"202405\" };",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "apiVersion": "202405"
+    }
+  }
+]

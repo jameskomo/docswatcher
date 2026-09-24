@@ -1,0 +1,20 @@
+id: linkedin
+name: LinkedIn Marketing API
+homepage: https://developer.linkedin.com
+docs: https://learn.microsoft.com/en-us/linkedin/marketing/
+changelog: https://learn.microsoft.com/en-us/linkedin/marketing/integrations/recent-changes
+base_urls:
+  - https://api.linkedin.com/rest
+  - https://api.linkedin.com/v2
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [python, typescript, javascript]
+deprecation_policy: >
+  Marketing and Community Management APIs under /rest/ are versioned monthly
+  by a Linkedin-Version header in YYYYMM form. Each version is supported for at
+  least one year, then sunset on the date the migrations page lists, after
+  which a request naming it returns an error. There is no default: a request
+  without the header also fails. The migrations page is the source of truth for
+  sunset dates; the monthly release notes repeat them and have differed from it
+  by a few days.

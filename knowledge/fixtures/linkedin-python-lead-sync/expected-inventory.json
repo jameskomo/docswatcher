@@ -1,0 +1,146 @@
+[
+  {
+    "id": "linkedin:api_version:202405",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202405",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "crm/linkedin_leads.py",
+        "line": 8,
+        "column": 26,
+        "snippet": "\"LinkedIn-Version\": \"202405\",",
+        "detector": "linkedin.literal.version-header",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "linkedin-api-client",
+        "version": "0.3.0"
+      }
+    }
+  },
+  {
+    "id": "linkedin:api_version:202510",
+    "provider": "linkedin",
+    "kind": "api_version",
+    "key": "202510",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "deploy/app.env",
+        "line": 1,
+        "column": 22,
+        "snippet": "LINKEDIN_API_VERSION=202510",
+        "detector": "linkedin.literal.version-config",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "linkedin-api-client",
+        "version": "0.3.0"
+      }
+    }
+  },
+  {
+    "id": "linkedin:endpoint:ANY /rest/adAccounts",
+    "provider": "linkedin",
+    "kind": "endpoint",
+    "key": "ANY /rest/adAccounts",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "crm/linkedin_leads.py",
+        "line": 30,
+        "column": 35,
+        "snippet": "f\"https://api.linkedin.com/rest/adAccounts/{account_id}/adCampaigns\",",
+        "detector": "linkedin.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "linkedin-api-client",
+        "version": "0.3.0"
+      }
+    }
+  },
+  {
+    "id": "linkedin:endpoint:ANY /rest/adFormResponses",
+    "provider": "linkedin",
+    "kind": "endpoint",
+    "key": "ANY /rest/adFormResponses",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "crm/linkedin_leads.py",
+        "line": 15,
+        "column": 34,
+        "snippet": "\"https://api.linkedin.com/rest/adFormResponses\",",
+        "detector": "linkedin.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "linkedin-api-client",
+        "version": "0.3.0"
+      }
+    }
+  },
+  {
+    "id": "linkedin:endpoint:ANY /rest/leadNotificationUrls",
+    "provider": "linkedin",
+    "kind": "endpoint",
+    "key": "ANY /rest/leadNotificationUrls",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "crm/linkedin_leads.py",
+        "line": 25,
+        "column": 51,
+        "snippet": "return requests.post(\"https://api.linkedin.com/rest/leadNotificationUrls\", json=body, headers=HEADERS)",
+        "detector": "linkedin.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "linkedin-api-client",
+        "version": "0.3.0"
+      }
+    }
+  },
+  {
+    "id": "linkedin:sdk_package:linkedin-api-client",
+    "provider": "linkedin",
+    "kind": "sdk_package",
+    "key": "linkedin-api-client",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "linkedin-api-client==0.3.0",
+        "detector": "linkedin.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "linkedin-api-client",
+        "version": "0.3.0"
+      }
+    }
+  }
+]

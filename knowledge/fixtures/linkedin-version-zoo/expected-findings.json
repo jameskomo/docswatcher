@@ -1,0 +1,198 @@
+[
+  {
+    "contract": "linkedin:api_version:202206",
+    "change": "linkedin-version-202206-sunset-2023"
+  },
+  {
+    "contract": "linkedin:api_version:202207",
+    "change": "linkedin-version-202207-sunset-2023"
+  },
+  {
+    "contract": "linkedin:api_version:202208",
+    "change": "linkedin-version-202208-sunset-2023"
+  },
+  {
+    "contract": "linkedin:api_version:202209",
+    "change": "linkedin-version-202209-sunset-2023"
+  },
+  {
+    "contract": "linkedin:api_version:202210",
+    "change": "linkedin-version-202210-sunset-2024"
+  },
+  {
+    "contract": "linkedin:api_version:202211",
+    "change": "linkedin-version-202211-sunset-2024"
+  },
+  {
+    "contract": "linkedin:api_version:202212",
+    "change": "linkedin-version-202212-sunset-2024"
+  },
+  {
+    "contract": "linkedin:api_version:202301",
+    "change": "linkedin-version-202301-sunset-2024"
+  },
+  {
+    "contract": "linkedin:api_version:202302",
+    "change": "linkedin-version-202302-sunset-2024"
+  },
+  {
+    "contract": "linkedin:api_version:202303",
+    "change": "linkedin-version-202303-sunset-2024"
+  },
+  {
+    "contract": "linkedin:api_version:202304",
+    "change": "linkedin-version-202304-sunset-2024"
+  },
+  {
+    "contract": "linkedin:api_version:202305",
+    "change": "linkedin-version-202305-sunset-2024"
+  },
+  {
+    "contract": "linkedin:api_version:202308",
+    "change": "linkedin-version-202308-sunset-2024"
+  },
+  {
+    "contract": "linkedin:api_version:202309",
+    "change": "linkedin-version-202309-sunset-2024"
+  },
+  {
+    "contract": "linkedin:api_version:202310",
+    "change": "linkedin-version-202310-sunset-2024"
+  },
+  {
+    "contract": "linkedin:api_version:202311",
+    "change": "linkedin-version-202311-sunset-2024"
+  },
+  {
+    "contract": "linkedin:api_version:202306",
+    "change": "linkedin-version-202306-sunset-2024"
+  },
+  {
+    "contract": "linkedin:api_version:202307",
+    "change": "linkedin-version-202307-sunset-2024"
+  },
+  {
+    "contract": "linkedin:api_version:202401",
+    "change": "linkedin-version-202401-sunset-2025"
+  },
+  {
+    "contract": "linkedin:api_version:202402",
+    "change": "linkedin-version-202402-sunset-2025"
+  },
+  {
+    "contract": "linkedin:api_version:202403",
+    "change": "linkedin-version-202403-sunset-2025"
+  },
+  {
+    "contract": "linkedin:api_version:202404",
+    "change": "linkedin-version-202404-sunset-2025"
+  },
+  {
+    "contract": "linkedin:api_version:202405",
+    "change": "linkedin-version-202405-sunset-2025"
+  },
+  {
+    "contract": "linkedin:api_version:202406",
+    "change": "linkedin-version-202406-sunset-2025"
+  },
+  {
+    "contract": "linkedin:api_version:202407",
+    "change": "linkedin-version-202407-sunset-2025"
+  },
+  {
+    "contract": "linkedin:api_version:202408",
+    "change": "linkedin-version-202408-sunset-2025"
+  },
+  {
+    "contract": "linkedin:api_version:202409",
+    "change": "linkedin-version-202409-sunset-2025"
+  },
+  {
+    "contract": "linkedin:api_version:202410",
+    "change": "linkedin-version-202410-sunset-2025"
+  },
+  {
+    "contract": "linkedin:api_version:202411",
+    "change": "linkedin-version-202411-sunset-2025"
+  },
+  {
+    "contract": "linkedin:api_version:202501",
+    "change": "linkedin-version-202501-sunset-2026"
+  },
+  {
+    "contract": "linkedin:api_version:202502",
+    "change": "linkedin-version-202502-sunset-2026"
+  },
+  {
+    "contract": "linkedin:api_version:202503",
+    "change": "linkedin-version-202503-sunset-2026"
+  },
+  {
+    "contract": "linkedin:api_version:202504",
+    "change": "linkedin-version-202504-sunset-2026"
+  },
+  {
+    "contract": "linkedin:api_version:202505",
+    "change": "linkedin-version-202505-sunset-2026"
+  },
+  {
+    "contract": "linkedin:api_version:202506",
+    "change": "linkedin-version-202506-sunset-2026"
+  },
+  {
+    "contract": "linkedin:api_version:202507",
+    "change": "linkedin-version-202507-sunset-2026"
+  },
+  {
+    "contract": "linkedin:api_version:202508",
+    "change": "linkedin-version-202508-sunset-2026"
+  },
+  {
+    "contract": "linkedin:api_version:202509",
+    "change": "linkedin-version-202509-sunset-2026"
+  },
+  {
+    "contract": "linkedin:api_version:202510",
+    "change": "linkedin-version-202510-sunset-2026"
+  },
+  {
+    "contract": "linkedin:api_version:202511",
+    "change": "linkedin-version-202511-sunset-2026"
+  },
+  {
+    "contract": "linkedin:api_version:202601",
+    "change": "linkedin-version-202601-sunset-2027"
+  },
+  {
+    "contract": "linkedin:api_version:202602",
+    "change": "linkedin-version-202602-sunset-2027"
+  },
+  {
+    "contract": "linkedin:api_version:202603",
+    "change": "linkedin-version-202603-sunset-2027"
+  },
+  {
+    "contract": "linkedin:api_version:202604",
+    "change": "linkedin-version-202604-sunset-2027"
+  },
+  {
+    "contract": "linkedin:api_version:202605",
+    "change": "linkedin-version-202605-sunset-2027"
+  },
+  {
+    "contract": "linkedin:api_version:202606",
+    "change": "linkedin-version-202606-sunset-2027"
+  },
+  {
+    "contract": "linkedin:api_version:202607",
+    "change": "linkedin-version-202607-sunset-2027"
+  },
+  {
+    "contract": "linkedin:api_version:202608",
+    "change": "linkedin-version-202608-sunset-2027"
+  },
+  {
+    "contract": "linkedin:api_version:202609",
+    "change": "linkedin-version-202609-sunset-2027"
+  }
+]
