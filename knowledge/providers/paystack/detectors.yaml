@@ -1,0 +1,76 @@
+provider: paystack
+
+# Paystack publishes client libraries generated from its OpenAPI spec
+# (PaystackOSS/paystack-node, PaystackOSS/paystack-python) and the browser
+# checkout library. Most server integrations call the REST API directly, so the
+# base URL rule does most of the work.
+manifests:
+  - ecosystem: npm
+    package: "@paystack/paystack-sdk"
+  - ecosystem: npm
+    package: "@paystack/inline-js"
+  - ecosystem: pypi
+    package: paystack-sdk
+
+literals:
+  # Paths are lower case with underscores. A path with an ID or reference in it
+  # stops at that segment: /transaction/verify/${ref} is "ANY /transaction/verify".
+  - id: paystack.literal.endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,dart,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/vendor/**"]
+    pattern: 'https://api\.paystack\.co(/[a-z_]+(?:/[a-z_]+)*)'
+    key: "ANY $1"
+    confidence: medium
+
+callsites:
+  # @paystack/paystack-sdk: new Paystack(key).transaction.checkAuthorization({...}).
+  - id: paystack.javascript.check-authorization
+    language: javascript
+    kind: sdk_method
+    requires: "@paystack/paystack-sdk"
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @api)
+          property: (property_identifier) @m)
+        (#eq? @api "transaction") (#eq? @m "checkAuthorization")) @call
+    key: "transaction.checkAuthorization"
+    maps_to:
+      kind: endpoint
+      key: "POST /transaction/check_authorization"
+    confidence: high
+
+  - id: paystack.typescript.check-authorization
+    language: typescript
+    kind: sdk_method
+    requires: "@paystack/paystack-sdk"
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @api)
+          property: (property_identifier) @m)
+        (#eq? @api "transaction") (#eq? @m "checkAuthorization")) @call
+    key: "transaction.checkAuthorization"
+    maps_to:
+      kind: endpoint
+      key: "POST /transaction/check_authorization"
+    confidence: high
+
+  # paystack-sdk: paystack.Transaction.check_authorization(email=..., amount=...),
+  # a class method on the generated Transaction class.
+  - id: paystack.python.check-authorization
+    language: python
+    kind: sdk_method
+    requires: paystack-sdk
+    query: |
+      (call
+        function: (attribute
+          object: (attribute object: (identifier) @mod attribute: (identifier) @cls)
+          attribute: (identifier) @m)
+        (#eq? @mod "paystack") (#eq? @cls "Transaction") (#eq? @m "check_authorization")) @call
+    key: "Transaction.check_authorization"
+    maps_to:
+      kind: endpoint
+      key: "POST /transaction/check_authorization"
+    confidence: high

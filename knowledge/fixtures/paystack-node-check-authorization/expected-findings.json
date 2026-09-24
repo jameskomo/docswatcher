@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "paystack:endpoint:POST /transaction/check_authorization",
+    "change": "paystack-check-authorization-deprecated"
+  },
+  {
+    "contract": "paystack:sdk_method:transaction.checkAuthorization",
+    "change": "paystack-check-authorization-deprecated"
+  }
+]

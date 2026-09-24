@@ -1,0 +1,17 @@
+id: paystack
+name: Paystack
+homepage: https://paystack.com
+docs: https://paystack.com/docs/api
+changelog: https://paystack.com/docs/changelog/api
+base_urls:
+  - https://api.paystack.co
+openapi:
+  url: https://raw.githubusercontent.com/PaystackHQ/openapi/main/dist/paystack.yaml
+  pinned_sha: null
+sdk_languages: [javascript, typescript, python]
+deprecation_policy: >
+  The API is unversioned: there is one base URL and no version header or path
+  segment, so a change applies to every integration at once. Deprecations are
+  announced in the API changelog, which dates entries by month only and has not
+  published removal dates. Records here without an effective date reflect that
+  absence.

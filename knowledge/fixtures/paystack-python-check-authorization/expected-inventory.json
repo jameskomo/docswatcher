@@ -1,0 +1,98 @@
+[
+  {
+    "id": "paystack:endpoint:ANY /transaction/check_authorization",
+    "provider": "paystack",
+    "kind": "endpoint",
+    "key": "ANY /transaction/check_authorization",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "billing/dunning.py",
+        "line": 5,
+        "column": 37,
+        "snippet": "CHECK_URL = \"https://api.paystack.co/transaction/check_authorization\"",
+        "detector": "paystack.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "paystack-sdk",
+        "version": "1.0.1"
+      }
+    }
+  },
+  {
+    "id": "paystack:endpoint:POST /transaction/check_authorization",
+    "provider": "paystack",
+    "kind": "endpoint",
+    "key": "POST /transaction/check_authorization",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "billing/renewals.py",
+        "line": 10,
+        "column": 16,
+        "snippet": "response = paystack.Transaction.check_authorization(",
+        "detector": "paystack.python.check-authorization",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "paystack-sdk",
+        "version": "1.0.1"
+      }
+    }
+  },
+  {
+    "id": "paystack:sdk_method:Transaction.check_authorization",
+    "provider": "paystack",
+    "kind": "sdk_method",
+    "key": "Transaction.check_authorization",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "billing/renewals.py",
+        "line": 10,
+        "column": 16,
+        "snippet": "response = paystack.Transaction.check_authorization(",
+        "detector": "paystack.python.check-authorization",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "paystack-sdk",
+        "version": "1.0.1"
+      }
+    }
+  },
+  {
+    "id": "paystack:sdk_package:paystack-sdk",
+    "provider": "paystack",
+    "kind": "sdk_package",
+    "key": "paystack-sdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "paystack-sdk==1.0.1",
+        "detector": "paystack.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "paystack-sdk",
+        "version": "1.0.1"
+      }
+    }
+  }
+]

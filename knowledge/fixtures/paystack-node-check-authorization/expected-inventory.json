@@ -1,0 +1,98 @@
+[
+  {
+    "id": "paystack:endpoint:ANY /transaction/verify",
+    "provider": "paystack",
+    "kind": "endpoint",
+    "key": "ANY /transaction/verify",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/verify.js",
+        "line": 8,
+        "column": 66,
+        "snippet": "const { data } = await paystackApi.get(`https://api.paystack.co/transaction/verify/${reference}`);",
+        "detector": "paystack.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paystack/paystack-sdk",
+        "version": "^1.2.1"
+      }
+    }
+  },
+  {
+    "id": "paystack:endpoint:POST /transaction/check_authorization",
+    "provider": "paystack",
+    "kind": "endpoint",
+    "key": "POST /transaction/check_authorization",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/renewals.js",
+        "line": 8,
+        "column": 23,
+        "snippet": "const check = await paystack.transaction.checkAuthorization({",
+        "detector": "paystack.javascript.check-authorization",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paystack/paystack-sdk",
+        "version": "^1.2.1"
+      }
+    }
+  },
+  {
+    "id": "paystack:sdk_method:transaction.checkAuthorization",
+    "provider": "paystack",
+    "kind": "sdk_method",
+    "key": "transaction.checkAuthorization",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/renewals.js",
+        "line": 8,
+        "column": 23,
+        "snippet": "const check = await paystack.transaction.checkAuthorization({",
+        "detector": "paystack.javascript.check-authorization",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paystack/paystack-sdk",
+        "version": "^1.2.1"
+      }
+    }
+  },
+  {
+    "id": "paystack:sdk_package:@paystack/paystack-sdk",
+    "provider": "paystack",
+    "kind": "sdk_package",
+    "key": "@paystack/paystack-sdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"@paystack/paystack-sdk\": \"^1.2.1\",",
+        "detector": "paystack.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paystack/paystack-sdk",
+        "version": "^1.2.1"
+      }
+    }
+  }
+]

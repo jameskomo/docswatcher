@@ -1,0 +1,8 @@
+{
+  "name": "donations-site",
+  "version": "0.4.0",
+  "private": true,
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

@@ -1,0 +1,50 @@
+id: paystack-check-authorization-deprecated
+provider: paystack
+kind: sunset
+severity: warning
+title: Check Authorization endpoint deprecated
+summary: >
+  Paystack sunset a legacy integration rail that has no 3DS 2.0 support, and
+  deprecated the Check Authorization endpoint because that rail powers it. The
+  API changelog dates the notice March 2023 without a day, so announced is the
+  first of that month. No removal date and no replacement endpoint are
+  published, so this carries no effective date. The endpoint no longer appears
+  in Paystack's API reference.
+
+affects:
+  - kind: endpoint
+    match: "ANY /transaction/check_authorization"
+  - kind: sdk_method
+    match: "transaction.checkAuthorization"
+  - kind: sdk_method
+    match: "Transaction.check_authorization"
+
+announced: 2023-03-01
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://docs-v2.paystack.com/docs/changelog/api/
+    observed: 2026-09-24
+    note: "March 2023: In order to remain compliant with our product offerings, we sunsetted one of our legacy integration rails that has no support for 3DS 2.0. The check authorization endpoint is powered by this rail and as a result, we deprecated the endpoint."
+  - kind: openapi_diff
+    url: https://github.com/PaystackHQ/openapi/blob/main/main/resources/transaction/check-authorization.yaml
+    observed: 2026-09-24
+    note: "Paystack's own spec gives the path POST /transaction/check_authorization, operationId transaction_checkAuthorization, which the generated Node and Python libraries expose as transaction.checkAuthorization and Transaction.check_authorization."
+
+migration:
+  replacement: null
+  guide: https://docs-v2.paystack.com/docs/changelog/api/
+  effort: small
+  notes: >
+    Paystack names no replacement. Remove the call to
+    POST /transaction/check_authorization (transaction.checkAuthorization in
+    @paystack/paystack-sdk, Transaction.check_authorization in paystack-sdk)
+    and any logic that gates a charge on its result, such as skipping a
+    recurring charge when the check reports insufficient funds. Charge the
+    saved authorization with POST /transaction/charge_authorization as before
+    and handle a failed charge from its response and the charge.success
+    webhook instead of a pre-check. Delete test doubles for the check
+    endpoint along with the call.
+
+status: active
