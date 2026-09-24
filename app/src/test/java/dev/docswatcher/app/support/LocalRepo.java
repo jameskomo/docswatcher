@@ -22,6 +22,7 @@ public final class LocalRepo implements AutoCloseable {
   }
 
   public String commitFile(String name, String content, String message) throws Exception {
+    Files.createDirectories(dir.resolve(name).getParent());
     Files.writeString(dir.resolve(name), content);
     git.add().addFilepattern(name).call();
     return git.commit().setMessage(message).setAuthor("test", "test@example.com").setCommitter("test", "test@example.com").call().getName();

@@ -12,6 +12,8 @@ import dev.docswatcher.engine.Inventory;
 import dev.docswatcher.engine.Json;
 import dev.docswatcher.engine.Knowledge;
 import dev.docswatcher.engine.Matcher;
+import dev.docswatcher.engine.OwnKnowledge;
+import dev.docswatcher.engine.Provider;
 import dev.docswatcher.engine.RepoRef;
 import dev.docswatcher.engine.ScanLimits;
 import java.nio.file.Path;
@@ -69,6 +71,24 @@ public class EngineScanEngine implements ScanEngine {
     Inventory engineInventory = Json.read(mapper.writeValueAsString(inventory), Inventory.class);
     var findings = Matcher.match(engineInventory, knowledge, LocalDate.now(), false);
     return List.of(mapper.readValue(Json.write(findings), FindingDoc[].class));
+  }
+
+  @Override
+  public OwnScan scanWithOwnRecords(Path repoRoot, RepoRefDoc repo, List<OwnRecords> shared) {
+    LocalDate today = LocalDate.now();
+    List<OwnKnowledge.Source> sources = OwnKnowledge.sources(repoRoot,
+        shared.stream().map(s -> new OwnKnowledge.Source(s.label(), s.dir())).toList());
+    OwnKnowledge.Result own = OwnKnowledge.merge(knowledge, sources, today);
+    Knowledge k = own.knowledge();
+    RepoRef ref = new RepoRef(repo.host(), repo.owner(), repo.name(), repo.ref(), repo.sha());
+    Inventory inventory = new Engine(k).scan(repoRoot, ref);
+    var findings = Matcher.match(inventory, k, today, false);
+    List<ChangeDoc> ownChanges = own.ok() ? List.of(mapper.readValue(Json.write(own.changes()), ChangeDoc[].class)) : List.of();
+    List<String> ownProviders = own.ok() ? own.providers().stream().map(Provider::id).toList() : List.of();
+    return new OwnScan(
+        mapper.readValue(Json.write(inventory), InventoryDoc.class),
+        List.of(mapper.readValue(Json.write(findings), FindingDoc[].class)),
+        ownProviders, ownChanges, own.errors(), own.warnings());
   }
 
   @Override

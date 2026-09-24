@@ -29,6 +29,17 @@ class FindingReconcilerTest {
   }
 
   @Test
+  void aProviderTheMatchDidNotKnowIsNeitherClosedNorKept() {
+    var plan = FindingReconciler.plan(
+        List.of(derived("openai:model:gpt-4", "c1")),
+        List.of(stored("openai:model:gpt-3", "c0"), stored("internal-orders:endpoint:ANY /v1/orders", "internal-orders-v1")),
+        p -> !p.startsWith("internal-"));
+    assertThat(plan.close()).extracting(StoredFinding::contractId).containsExactly("openai:model:gpt-3");
+    assertThat(plan.unchanged()).isEmpty();
+    assertThat(plan.open()).extracting(FindingDoc::contract).containsExactly("openai:model:gpt-4");
+  }
+
+  @Test
   void sameContractDifferentChangeIsANewFinding() {
     var plan = FindingReconciler.plan(List.of(derived("a", "c2")), List.of(stored("a", "c1")));
     assertThat(plan.open()).hasSize(1);

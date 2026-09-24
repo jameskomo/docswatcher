@@ -59,6 +59,53 @@ public class FakeScanEngine implements ScanEngine {
     return out;
   }
 
+  public static final String OWN_CHANGE_ID = "internal-orders-v1-sunset-2027";
+  public static final String OWN_CONTRACT_ID = "internal-orders:endpoint:ANY /v1/orders";
+
+  /** The labels of the shared record directories each scan was given, and whether each existed. */
+  public final List<String> sharedSeen = new ArrayList<>();
+
+  /**
+   * Own API records, faked: a record directory holding providers/internal-orders teaches it an
+   * Orders endpoint found in orders.ts, and one holding a file named INVALID fails validation.
+   */
+  @Override
+  public OwnScan scanWithOwnRecords(Path repoRoot, RepoRefDoc repo, List<OwnRecords> shared) {
+    List<Path> dirs = new ArrayList<>();
+    dirs.add(repoRoot.resolve(".docswatcher"));
+    for (OwnRecords s : shared) {
+      sharedSeen.add(s.label() + (Files.isDirectory(s.dir()) ? "" : " (missing)"));
+      dirs.add(s.dir());
+    }
+    boolean invalid = dirs.stream().anyMatch(d -> Files.exists(d.resolve("INVALID")));
+    boolean records = !invalid && dirs.stream().anyMatch(d -> Files.isDirectory(d.resolve("providers/internal-orders")));
+
+    InventoryDoc base = scan(repoRoot, repo);
+    List<ContractDoc> contracts = new ArrayList<>(base.contracts());
+    List<FindingDoc> findings = new ArrayList<>(match(base));
+    try {
+      Path orders = repoRoot.resolve("orders.ts");
+      if (records && Files.exists(orders) && Files.readString(orders).contains("/v1/orders")) {
+        List<EvidenceDoc> ev = List.of(new EvidenceDoc("orders.ts", 1, 1, "fetch('/v1/orders')", "internal-orders.literal.endpoint", "literal"));
+        contracts.add(new ContractDoc(OWN_CONTRACT_ID, "internal-orders", "endpoint", "ANY /v1/orders", "medium", ev, null));
+        findings.add(new FindingDoc(repo.owner() + "/" + repo.name() + ":" + OWN_CHANGE_ID + ":" + OWN_CONTRACT_ID,
+            OWN_CONTRACT_ID, OWN_CHANGE_ID, "breaking", LocalDate.of(2027, 3, 31),
+            (int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.of(2027, 3, 31)), ev, "open", null, null));
+      }
+    } catch (Exception e) {
+      throw new IllegalStateException(e);
+    }
+    InventoryDoc inventory = new InventoryDoc(base.schemaVersion(), base.repo(), base.scannedAt(), base.engine(), base.stats(), contracts);
+    ChangeDoc ownChange = new ChangeDoc(OWN_CHANGE_ID, "internal-orders", "sunset", "breaking", "Orders API v1 is switched off",
+        "The Orders service stops serving /v1.", LocalDate.of(2026, 9, 1), LocalDate.of(2027, 3, 31),
+        new ChangeDoc.Migration("POST /v2/orders", "https://docs.acme.dev/orders/v2", "small", null), "active");
+    return new OwnScan(inventory, findings,
+        records ? List.of("internal-orders") : List.of(),
+        records ? List.of(ownChange) : List.of(),
+        invalid ? List.of(".docswatcher/providers/internal-orders/provider.yaml: name missing") : List.of(),
+        List.of());
+  }
+
   @Override
   public String engineVersion() {
     return "0-test";

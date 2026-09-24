@@ -2,6 +2,7 @@ package dev.docswatcher.app.github;
 
 import dev.docswatcher.app.config.AppProperties;
 import dev.docswatcher.app.scan.FixDispatcher;
+import dev.docswatcher.app.scan.ScanRunner;
 import dev.docswatcher.app.store.InstallationStore;
 import dev.docswatcher.app.store.Repo;
 import dev.docswatcher.app.store.RepoStore;
@@ -120,6 +121,15 @@ public class WebhookService {
       return;
     }
     runs.enqueue(repo.get().id(), after, ScanRun.TRIGGER_PUSH);
+    // The organisation's shared API records changed: every other repository hears about it now,
+    // not at its own next push (docs/19-your-own-apis.md).
+    if (ScanRunner.isOrgRecordsRepo(repo.get())) {
+      for (Repo other : repos.forInstallation(repo.get().installationId())) {
+        if (other.id() != repo.get().id() && other.owner().equalsIgnoreCase(repo.get().owner())) {
+          runs.enqueue(other.id(), null, ScanRun.TRIGGER_ORG_RECORDS);
+        }
+      }
+    }
   }
 
   private void issues(JsonNode payload) {

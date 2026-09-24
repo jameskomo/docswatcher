@@ -115,6 +115,38 @@ class EngineScanEngineIT {
   }
 
   @Test
+  void own_records_of_the_checkout_and_of_the_organisation_are_used(@org.junit.jupiter.api.io.TempDir Path tmp) throws Exception {
+    Path fixture = KNOWLEDGE.resolve("fixtures/internal-orders-own-records/repo");
+    RepoRefDoc ref = new RepoRefDoc("github", "acme", "checkout-web", "refs/heads/main", "abc");
+
+    var own = subject.scanWithOwnRecords(fixture, ref, List.of());
+    assertThat(own.problems()).isEmpty();
+    assertThat(own.providers()).containsExactly("internal-orders");
+    assertThat(own.findings()).extracting(f -> f.change()).containsOnly("internal-orders-v1-sunset-2027").hasSize(3);
+    assertThat(own.change("internal-orders-v1-sunset-2027").orElseThrow().migration().guide())
+        .isEqualTo("https://docs.acme.dev/orders/migrate-to-v2");
+
+    // A consumer without records of its own hears about them from the organisation's repository.
+    Path consumer = tmp.resolve("consumer");
+    Files.createDirectories(consumer.resolve("src"));
+    Files.copy(fixture.resolve("src/checkout.ts"), consumer.resolve("src/checkout.ts"));
+    Files.copy(fixture.resolve("package.json"), consumer.resolve("package.json"));
+    assertThat(subject.scanWithOwnRecords(consumer, ref, List.of()).findings()).isEmpty();
+    var shared = subject.scanWithOwnRecords(consumer, ref,
+        List.of(new ScanEngine.OwnRecords("acme/.docswatcher/.docswatcher", fixture.resolve(".docswatcher"))));
+    assertThat(shared.findings()).hasSize(3);
+
+    // Invalid records are reported, and the scan runs on the bundled knowledge alone.
+    Path broken = tmp.resolve("broken");
+    Files.createDirectories(broken.resolve(".docswatcher/providers/orders"));
+    Files.writeString(broken.resolve(".docswatcher/providers/orders/provider.yaml"), "id: orders\nname: Orders\n");
+    var bad = subject.scanWithOwnRecords(broken, ref, List.of());
+    assertThat(bad.problems()).containsExactly("provider id orders must start with internal- and name your service");
+    assertThat(bad.providers()).isEmpty();
+    assertThat(bad.inventory().schemaVersion()).isEqualTo("1");
+  }
+
+  @Test
   void every_fixture_scans_and_matches_without_throwing() throws Exception {
     List<Path> repos;
     try (var s = Files.list(KNOWLEDGE.resolve("fixtures"))) {

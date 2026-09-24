@@ -67,6 +67,23 @@ class WebhookReplayTest extends PostgresTest {
   }
 
   @Test
+  void pushToTheOrganisationsRecordsRepositoryRescansEveryRepository() throws Exception {
+    github.installationRepos = List.of(
+        new GitHubClient.InstallationRepo(9001, "acme/checkout-service", "main"),
+        new GitHubClient.InstallationRepo(9004, "acme/.docswatcher", "main"));
+    Webhooks.post(mvc, "installation", Webhooks.payload("installation.created.json"));
+    Webhooks.post(mvc, "push", Webhooks.utf8("""
+        {"ref": "refs/heads/main", "after": "3333333333333333333333333333333333333333",
+         "repository": {"id": 9004, "name": ".docswatcher", "full_name": "acme/.docswatcher", "default_branch": "main"},
+         "installation": {"id": 5001}}
+        """)).andExpect(status().isAccepted());
+
+    assertThat(runs.forRepo(9004).getFirst().trigger()).isEqualTo(ScanRun.TRIGGER_PUSH);
+    assertThat(runs.forRepo(9001).getFirst().trigger()).isEqualTo(ScanRun.TRIGGER_ORG_RECORDS);
+    assertThat(runs.forRepo(9001)).hasSize(2);
+  }
+
+  @Test
   void pushToOtherBranchQueuesNothing() throws Exception {
     Webhooks.post(mvc, "installation", Webhooks.payload("installation.created.json"));
     Webhooks.post(mvc, "push", Webhooks.payload("push.feature.json")).andExpect(status().isAccepted());

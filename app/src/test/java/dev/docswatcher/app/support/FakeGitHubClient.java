@@ -13,6 +13,8 @@ public class FakeGitHubClient implements GitHubClient {
   public final List<Call> calls = new ArrayList<>();
   public List<InstallationRepo> installationRepos = List.of();
   public CloneSource cloneSource = new CloneSource("file:///nowhere", null, null);
+  /** Clone sources by repository full name; any other repository gets cloneSource. */
+  public final Map<String, CloneSource> cloneSources = new java.util.HashMap<>();
   private final AtomicInteger issueCounter = new AtomicInteger(100);
 
   public void reset() {
@@ -20,6 +22,7 @@ public class FakeGitHubClient implements GitHubClient {
     installationRepos = List.of();
     issueCounter.set(100);
     permission = "write";
+    cloneSources.clear();
   }
 
   public List<Call> calls(String method) {
@@ -35,7 +38,7 @@ public class FakeGitHubClient implements GitHubClient {
   @Override
   public CloneSource cloneSource(long installationId, String fullName) {
     calls.add(new Call("cloneSource", installationId, fullName));
-    return cloneSource;
+    return cloneSources.getOrDefault(fullName, cloneSource);
   }
 
   @Override

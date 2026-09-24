@@ -25,4 +25,6 @@ public record ScanRun(
   public static final String TRIGGER_PUSH = "push";
   public static final String TRIGGER_REMATCH = "rematch";
   public static final String TRIGGER_MANUAL = "manual";
+  /** A push to the organisation's .docswatcher repository, whose API records every repository shares. */
+  public static final String TRIGGER_ORG_RECORDS = "org-records";
 }

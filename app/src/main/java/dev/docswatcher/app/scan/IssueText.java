@@ -126,6 +126,50 @@ public final class IssueText {
         + " not scanned, so anything in them is not reported. Exclude paths that need no scan (.docswatcherignore), or raise `docswatcher.scan` limits.";
   }
 
+  /**
+   * The check run's title when the repository's or organisation's own API records could not be used
+   * (docs/19-your-own-apis.md). Said first, so it is not mistaken for a clean result.
+   */
+  public static String checkTitle(int contracts, List<FindingDoc> findings, InventoryDoc.Incomplete incomplete, List<String> ownProblems) {
+    String title = checkTitle(contracts, findings, incomplete);
+    if (ownProblems.isEmpty()) {
+      return title;
+    }
+    return "Your own API records were not used (" + ownProblems.size() + (ownProblems.size() == 1 ? " error" : " errors") + ") · " + title;
+  }
+
+  /** The summary, followed by what is wrong with the own API records and what might be. */
+  public static String checkSummary(List<FindingDoc> findings, InventoryDoc.Incomplete incomplete, List<String> ownProblems, List<String> ownWarnings) {
+    StringBuilder b = new StringBuilder(checkSummary(findings, incomplete));
+    if (!ownProblems.isEmpty()) {
+      b.append("\n**Your own API records were not used.** This scan matched the bundled knowledge base only. Fix these, "
+          + "or run `docswatcher validate` on the records:\n");
+      appendLines(b, ownProblems);
+    }
+    if (!ownWarnings.isEmpty()) {
+      b.append("\n**Warnings about your own API records**\n");
+      appendLines(b, ownWarnings);
+    }
+    return b.toString();
+  }
+
+  /** A check that would pass is neutral while the own records are broken: it did not check what they describe. */
+  public static String checkConclusion(List<FindingDoc> findings, boolean production, InventoryDoc.Incomplete incomplete, List<String> ownProblems) {
+    String conclusion = checkConclusion(findings, production, incomplete);
+    return "success".equals(conclusion) && !ownProblems.isEmpty() ? "neutral" : conclusion;
+  }
+
+  private static void appendLines(StringBuilder b, List<String> lines) {
+    int shown = 0;
+    for (String line : lines) {
+      if (shown++ == MAX_EVIDENCE_ROWS) {
+        b.append("- ...and ").append(lines.size() - MAX_EVIDENCE_ROWS).append(" more\n");
+        break;
+      }
+      b.append("- ").append(codeSpan(line)).append("\n");
+    }
+  }
+
   static String contractKey(String contractId) {
     int i = contractId.indexOf(':');
     int j = contractId.indexOf(':', i + 1);

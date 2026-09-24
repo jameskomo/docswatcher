@@ -32,4 +32,36 @@ public interface ScanEngine {
   default Optional<ChangeDoc> change(String id) {
     return changes().stream().filter(c -> c.id().equals(id)).findFirst();
   }
+
+  /**
+   * A directory of a team's own API records (docs/19-your-own-apis.md), such as a checkout of the
+   * organisation's .docswatcher repository, and how problems with it are named.
+   */
+  record OwnRecords(String label, Path dir) {}
+
+  /**
+   * A scan and its findings with own API records added.
+   *
+   * @param providers the own provider ids used; empty when there were none or they were invalid
+   * @param changes the own change records used, for issue text
+   * @param problems every error that kept the own records out of this scan; the scan then used the
+   *     bundled knowledge alone, and callers must report these
+   * @param warnings problems that did not keep them out
+   */
+  record OwnScan(InventoryDoc inventory, List<FindingDoc> findings, List<String> providers, List<ChangeDoc> changes,
+      List<String> problems, List<String> warnings) {
+
+    public Optional<ChangeDoc> change(String id) {
+      return changes.stream().filter(c -> c.id().equals(id)).findFirst();
+    }
+  }
+
+  /**
+   * Scans with the checkout's own .docswatcher/ records and {@code shared} added. Invalid records
+   * are left out and returned as problems; the scan itself still happens.
+   */
+  default OwnScan scanWithOwnRecords(Path repoRoot, RepoRefDoc repo, List<OwnRecords> shared) {
+    InventoryDoc inventory = scan(repoRoot, repo);
+    return new OwnScan(inventory, match(inventory), List.of(), List.of(), List.of(), List.of());
+  }
 }
