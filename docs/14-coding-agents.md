@@ -111,6 +111,22 @@ The knowledge base is compiled into the binary, so an agent's question does not 
 `scan_repository` reads the directory the agent names, which is the same access the agent already
 has, and caps its text answer so a large repository cannot flood the agent's context.
 
+## Try it in the browser
+
+The Agents page lets a visitor see the difference with their own assistant: pick Claude, OpenAI
+(GPT and Codex) or Gemini, paste an API key, and ask for some code. The page asks the same model
+twice, with and without a `check_api` tool, and shows both answers side by side with every check
+the model made.
+
+- The browser calls the provider directly. The key never reaches DocsWatcher, and nothing runs on
+  our side, so it costs us nothing. See `docs/adr/0006-try-it-with-your-own-key.md`.
+- `check_api` is answered in the page by `web/engine/checkApi.ts`. It gives the same answers as
+  the MCP server: both are tested against `cli/src/test/resources/check-api-cases.json`.
+- The model list comes from the visitor's own key. Models DocsWatcher knows are retiring are
+  marked, and the default is the newest stable model with no known deprecation.
+- Tested in `web/tests/e2e/try-assistant.spec.ts` against mocked provider APIs, including that the
+  key is sent to the chosen provider and nowhere else.
+
 ## Rejected alternatives
 
 - **A hosted MCP server.** Costs money per call and sends the agent's code context to us.
@@ -137,3 +153,4 @@ has, and caps its text answer so a large repository cannot flood the agent's con
 | Notifications get no response | Stream stays in step |
 | Nothing but JSON-RPC is written to stdout | Transport is not corrupted |
 | Release smoke test pipes `initialize` + `tools/call` into the native binary | The shipped artefact works, not just the JVM build |
+| `check_api` answers every case in `check-api-cases.json` exactly, in Java and in TypeScript | The browser's Try it and the MCP server agree |
