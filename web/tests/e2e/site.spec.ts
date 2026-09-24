@@ -47,6 +47,19 @@ test("a different sample can be scanned from the picker", async ({ page }) => {
   await expect(page.getByText("Sources API deprecated").first()).toBeVisible();
 });
 
+test("a repository's own API records are read, matched and named, and survive a reload", async ({ page }) => {
+  const failed = watchFailures(page);
+  await page.goto("./");
+  await scanSample(page, "internal-orders-own-records");
+  await expect(page.getByTestId("own-records")).toContainText("Your own API records: 1 provider, 2 change records");
+  await expect(page.locator("#findings")).toContainText("Orders API v1 is switched off");
+  await expect(page.locator("#findings")).toContainText("Orders service");
+  await expect(page.locator("#inventory")).toContainText("OrdersClient.createOrder");
+  await page.reload();
+  await expect(page.locator("#findings")).toContainText("Orders API v1 is switched off");
+  expect(own(failed)).toEqual([]);
+});
+
 test("calendar renders months and records", async ({ page }) => {
   const failed = watchFailures(page);
   await page.goto("./#/calendar");

@@ -1,6 +1,6 @@
 // The browser's GitHub API fallback pins the REST API version, like the GitHub App does.
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { fetchViaApi, GITHUB_API_VERSION } from "../../app/utils/fetchRepo";
+import { fetchViaApi, GITHUB_API_VERSION, isOwnRecord } from "../../app/utils/fetchRepo";
 
 afterEach(() => vi.unstubAllGlobals());
 
@@ -37,5 +37,31 @@ describe("fetchViaApi", () => {
     }
     expect(calls.some((c) => c.url.startsWith("https://raw.githubusercontent.com/"))).toBe(true);
     expect(result.repo).toMatchObject({ ref: "refs/heads/main", sha: "abc123" });
+  });
+
+  it("reads the repository's own API records even when its ignore file excludes them and the budget is spent", async () => {
+    const tree = [
+      { path: ".docswatcherignore", type: "blob", size: 14 },
+      { path: ".docswatcher/providers/internal-a/provider.yaml", type: "blob", size: 30 },
+      ...Array.from({ length: 310 }, (_, i) => ({ path: `src/f${String(i).padStart(3, "0")}.ts`, type: "blob", size: 5 })),
+    ];
+    vi.stubGlobal("fetch", async (url: string) => {
+      if (url === "https://api.github.com/repos/o/r") return Response.json({ default_branch: "main" });
+      if (url.startsWith("https://api.github.com/repos/o/r/git/trees/main")) return Response.json({ sha: "abc123", tree });
+      if (url.endsWith("/.docswatcherignore")) return new Response(".docswatcher/\n");
+      return new Response("id: internal-a\n");
+    });
+    const result = await fetchViaApi({ owner: "o", name: "r", ref: null }, undefined, () => {});
+    expect(result.truncated).toBe(true);
+    expect(result.files.map((f) => f.path)).toContain(".docswatcher/providers/internal-a/provider.yaml");
+  });
+});
+
+describe("isOwnRecord", () => {
+  it("is a YAML file under the root .docswatcher/", () => {
+    expect(isOwnRecord(".docswatcher/providers/internal-a/changes/x.yaml")).toBe(true);
+    expect(isOwnRecord(".docswatcher/providers/internal-a/changes/x.yml")).toBe(true);
+    expect(isOwnRecord("sub/.docswatcher/providers/a/provider.yaml")).toBe(false);
+    expect(isOwnRecord(".docswatcherignore")).toBe(false);
   });
 });

@@ -46,7 +46,7 @@ const percent = computed(() => {
 async function runScan(files: InputFile[], repo: RepoRef, source: { label: string; kind: "sample" | "github" | "gitlab" | "folder" }) {
   status.value = "Scanning AST";
   const r = await scanner.run(files, repo);
-  store.save({ inventory: r.inventory, findings: r.findings, source, at: new Date().toISOString() });
+  store.save({ inventory: r.inventory, findings: r.findings, source, own: r.own, at: new Date().toISOString() });
 }
 
 async function scanSample(targetName?: string) {
@@ -354,6 +354,24 @@ async function copyLink() {
         :phase="scanner.phase.value || status"
         :percent="percent"
       />
+
+      <section v-if="result?.own && !busy" class="section" data-testid="own-records">
+        <div v-if="result.own.errors.length" class="notice bad" role="alert">
+          <strong>{{ result.own.summary }}.</strong>
+          This scan matched the bundled knowledge base only. Fix these in <code class="mono">.docswatcher/</code>,
+          or run <code class="mono">docswatcher validate</code> there
+          (<NuxtLink to="/teams">your own APIs</NuxtLink>):
+          <ul class="mono t2" style="margin-block: var(--s2) 0">
+            <li v-for="e in result.own.errors.slice(0, 20)" :key="e">{{ e }}</li>
+          </ul>
+          <p v-if="result.own.errors.length > 20" class="t2">…and {{ result.own.errors.length - 20 }} more.</p>
+        </div>
+        <p v-else class="notice">
+          {{ result.own.summary }}, read from this repository's <code class="mono">.docswatcher/</code> and matched
+          with the rest.
+          <template v-if="result.own.warnings.length"> Warnings: {{ result.own.warnings.join("; ") }}</template>
+        </p>
+      </section>
 
       <section v-if="shareable && !busy" class="section share" data-testid="share">
         <div class="row" style="gap: var(--s3); align-items: center; flex-wrap: wrap">

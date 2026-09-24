@@ -1,9 +1,12 @@
 import type { Finding, Inventory } from "~~/engine/types";
+import type { OwnRecords } from "./useScanner";
 
 export interface StoredScan {
   inventory: Inventory;
   findings: Finding[];
   source: { label: string; kind: "sample" | "github" | "gitlab" | "folder" };
+  /** The scanned repository's own API records, so their findings keep their titles after a reload. */
+  own?: OwnRecords | null;
   at: string;
 }
 export interface LocalState {

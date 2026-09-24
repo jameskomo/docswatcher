@@ -1,6 +1,7 @@
 import knowledgeJson from "~~/generated/knowledge.json";
 import samplesJson from "~~/generated/samples.json";
 import type { ChangeRecord, InputFile, Knowledge, Provider } from "~~/engine/types";
+import { useScanStore } from "./useScanStore";
 
 export interface Sample {
   name: string;
@@ -29,6 +30,19 @@ const defaultSample =
 const realSamples = samples.filter((s) => s.real);
 const fixtureSamples = samples.filter((s) => !s.real);
 
+/**
+ * The providers of the scan on screen's own API records (docs/19-your-own-apis.md), which the
+ * bundled knowledge does not have. Read through the store, so a finding from them keeps its title.
+ */
+function ownProviders(): Provider[] {
+  return useScanStore().current.value?.own?.providers ?? [];
+}
+const ownProvider = (id: string) => ownProviders().find((p) => p.info.id === id);
+const ownChange = (id: string) => {
+  for (const p of ownProviders()) for (const c of p.changes) if (c.id === id) return c;
+  return undefined;
+};
+
 export function useKnowledge() {
   return {
     knowledge,
@@ -36,8 +50,8 @@ export function useKnowledge() {
     realSamples,
     fixtureSamples,
     defaultSample,
-    change: (id: string) => changeIndex.get(id),
-    provider: (id: string) => providerIndex.get(id),
-    providerName: (id: string) => providerIndex.get(id)?.info.name ?? id,
+    change: (id: string) => changeIndex.get(id) ?? ownChange(id),
+    provider: (id: string) => providerIndex.get(id) ?? ownProvider(id),
+    providerName: (id: string) => (providerIndex.get(id) ?? ownProvider(id))?.info.name ?? id,
   };
 }

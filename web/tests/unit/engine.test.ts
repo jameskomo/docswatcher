@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { scan, match, toJson, createTreeSitter, globToRegExp, isDocOrTestPath, scanManifest, scanLiterals, affectsMatches, daysBetween } from "../../engine";
+import { scan, match, toJson, createTreeSitter, globToRegExp, isDocOrTestPath, scanManifest, scanLiterals, affectsMatches, daysBetween, mergeOwn } from "../../engine";
 import type { Knowledge, LiteralRule, Contract } from "../../engine";
 
 const web = join(__dirname, "..", "..");
@@ -139,8 +139,11 @@ describe("fixtures end to end", () => {
   // by the browser tests instead.
   for (const s of samples.filter((x: any) => !x.real)) {
     it(`${s.name} yields the expected findings`, async () => {
-      const inv = await scan(s.files, { repo: { ...repo, name: s.name }, knowledge, grammars, now: () => today });
-      const findings = match(inv, knowledge, { today }).map((f) => ({ contract: f.contract, change: f.change }));
+      // A fixture with its own .docswatcher/ records is scanned with them, as every surface does.
+      const own = mergeOwn(knowledge, s.files, today);
+      expect(own.errors).toEqual([]);
+      const inv = await scan(s.files, { repo: { ...repo, name: s.name }, knowledge: own.knowledge, grammars, now: () => today });
+      const findings = match(inv, own.knowledge, { today }).map((f) => ({ contract: f.contract, change: f.change }));
       const norm = (a: any[]) => [...a].sort((x, y) => (x.contract + x.change < y.contract + y.change ? -1 : 1));
       expect(norm(findings)).toEqual(norm(s.expectedFindings));
       if (s.expectedInventory) expect(toJson(inv.contracts)).toBe(toJson(s.expectedInventory));
@@ -150,7 +153,10 @@ describe("fixtures end to end", () => {
     const real = samples.filter((x: any) => x.real);
     expect(real.length).toBeGreaterThan(0);
     for (const s of real) {
-      const inv = await scan(s.files, { repo: { ...repo, name: s.name }, knowledge, grammars, now: () => today });
+      // A fixture with its own .docswatcher/ records is scanned with them, as every surface does.
+      const own = mergeOwn(knowledge, s.files, today);
+      expect(own.errors).toEqual([]);
+      const inv = await scan(s.files, { repo: { ...repo, name: s.name }, knowledge: own.knowledge, grammars, now: () => today });
       expect(inv.schemaVersion).toBe("1");
       expect(inv.contracts.length).toBeGreaterThan(0);
       match(inv, knowledge, { today });

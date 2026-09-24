@@ -19,6 +19,13 @@ export interface FetchResult { files: InputFile[]; repo: RepoRef; binaries: numb
 export const MAX_FILES = 300;
 
 /**
+ * A repository's own API records (docs/19-your-own-apis.md). They are configuration, like the
+ * ignore files: read whatever the file budget or the ignore files say, so a large repository never
+ * loses them.
+ */
+export const isOwnRecord = (path: string) => path.startsWith(".docswatcher/") && /\.ya?ml$/.test(path);
+
+/**
  * Reads the repository's ignore files first and drops what they exclude, so excluded fixtures
  * and generated data cannot fill the MAX_FILES budget and push real code out of the scan
  * (docs/18-excluding-paths.md). Returns the kept paths and the ignore files, which the scan
@@ -94,6 +101,7 @@ export async function fetchViaApi(t: RepoTarget, token: string | undefined, prog
   all.sort((a, b) => rank(a.path) - rank(b.path) || a.path.localeCompare(b.path));
   const chosen = all.filter((e) => rank(e.path) < PRIORITY.length).slice(0, MAX_FILES);
   const truncated = all.filter((e) => rank(e.path) < PRIORITY.length).length > chosen.length;
+  for (const e of listed) if (isOwnRecord(e.path) && !chosen.includes(e)) chosen.push(e);
   const files: InputFile[] = [...ignoreFiles];
   let binaries = 0, done = 0;
   const queue = [...chosen];
@@ -140,6 +148,7 @@ export async function fetchViaJsDelivr(t: RepoTarget, progress: FetchProgress): 
   const relevant = all.filter((p) => rank(p) < PRIORITY.length).sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
   const chosen = relevant.slice(0, MAX_FILES);
   const truncated = relevant.length > chosen.length;
+  for (const p of listed) if (isOwnRecord(p) && !chosen.includes(p)) chosen.push(p);
 
   const files: InputFile[] = [...ignoreFiles];
   let binaries = 0, done = 0;
@@ -179,7 +188,8 @@ export async function readFolder(list: FileList, progress: FetchProgress): Promi
   // open what they exclude (docs/18-excluding-paths.md).
   const byPath = new Map(readable.map((f) => [relOf(f), f]));
   const { kept } = await applyIgnoreFiles([...byPath.keys()], async (path) => byPath.get(path)!.text());
-  const candidates = readable.filter((f) => kept.has(relOf(f)));
+  // A repository's own API records are read whatever its ignore files say, like the ignore files.
+  const candidates = readable.filter((f) => kept.has(relOf(f)) || isOwnRecord(relOf(f)));
   const files: InputFile[] = [];
   let binaries = 0, done = 0;
   for (const f of candidates) {

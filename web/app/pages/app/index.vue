@@ -67,6 +67,7 @@ async function prepareExample() {
     store.save({
       inventory: r.inventory,
       findings: r.findings,
+      own: r.own,
       source: { label: s.real ? `${s.name} at ${s.sha}` : `Example ${s.name}`, kind: "sample" },
       at: new Date().toISOString(),
     });
