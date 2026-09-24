@@ -85,7 +85,12 @@ useHead({
       </p>
       <Snippet :code="shell" shell />
       <p>
-        It exits <code>0</code> when nothing breaking is open and <code>1</code> when something is.
+        That is Linux x64. On macOS arm64 the file is <code>docswatcher-macos-arm64</code>, on
+        Windows x64 <code>docswatcher-windows-x64.exe</code>. The Action picks the right one for
+        its runner and checks it against the release's <code>checksums.txt</code> before it runs.
+      </p>
+      <p>
+        The command exits <code>0</code> when nothing breaking is open and <code>1</code> when something is.
         That exit code is the whole contract; everything above is a wrapper around it.
       </p>
 

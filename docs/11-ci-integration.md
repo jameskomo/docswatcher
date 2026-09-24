@@ -27,6 +27,11 @@ That is the whole integration. The step fails the build if any **breaking** find
 writes a summary to the job page, and says nothing at all when your code calls nothing that is
 going away.
 
+It runs on Linux x64 (`ubuntu-latest`), macOS arm64 (`macos-latest`) and Windows x64
+(`windows-latest`) runners. The step downloads the DocsWatcher binary for the runner from the
+release, checks its sha256 against that release's `checksums.txt`, and fails without running it
+if the two do not match.
+
 ### Inputs
 
 | Input | Default | What it does |
@@ -36,6 +41,7 @@ going away.
 | `include-low` | `false` | Also report contracts found only in documentation or test files. Off by default because those are usually noise. |
 | `exclude` | empty | Paths to skip, one `.gitignore`-style pattern per line. The repository's `.gitignore` files and `.docswatcherignore` already apply without this. |
 | `report` | *(unset)* | Write the full JSON findings to this path, for a later step to upload or post. |
+| `version` | `latest` | Release tag of the CLI to download, for example `v0.2.1`. |
 
 ### Outputs
 
@@ -138,6 +144,19 @@ curl -sSL -o docswatcher \
   https://github.com/jameskomo/docswatcher/releases/latest/download/docswatcher-linux-x64
 chmod +x docswatcher
 ./docswatcher match . --format text
+```
+
+On a macOS arm64 machine the file is `docswatcher-macos-arm64`, and on Windows x64
+`docswatcher-windows-x64.exe`. There is no native build for Intel Macs; use the jar below.
+
+To check a download against the release before running it, keep the published file name and
+let `sha256sum` (`shasum -a 256` on macOS) compare it with `checksums.txt`:
+
+```bash
+base=https://github.com/jameskomo/docswatcher/releases/latest/download
+curl -sSLO "$base/docswatcher-linux-x64"
+curl -sSLO "$base/checksums.txt"
+sha256sum --check --ignore-missing checksums.txt
 ```
 
 ### On a JVM, with no native binary

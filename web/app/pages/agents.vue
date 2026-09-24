@@ -3,7 +3,8 @@ const { knowledge } = useKnowledge();
 const totalChanges = knowledge.providers.reduce((n, p) => n + p.changes.length, 0);
 const providerNames = knowledge.providers.map((p) => p.info.name).join(", ");
 
-// No sudo: a binary in ~/.local/bin is on most Linux PATHs and never needs root.
+// No sudo: a binary in ~/.local/bin is on most Linux PATHs and never needs root. The page tells
+// Mac users which part of the URL to change rather than showing a second snippet.
 const install = `mkdir -p ~/.local/bin
 curl -sSL -o ~/.local/bin/docswatcher \\
   https://github.com/jameskomo/docswatcher/releases/latest/download/docswatcher-linux-x64
@@ -74,10 +75,10 @@ useHead({
         <div class="step">
           <span class="step-n" aria-hidden="true">1</span>
           <div class="step-body">
-            <p><strong>Install DocsWatcher.</strong> One file, no account, no root. Linux x64 for now.</p>
+            <p><strong>Install DocsWatcher.</strong> One file, no account, no root. This is for Linux x64; on a Mac with Apple silicon, change <code>linux-x64</code> to <code>macos-arm64</code>.</p>
             <Snippet :code="install" shell />
             <p class="t1 ink-faint">
-              Prefer to download it yourself? Get it from the
+              On Windows, or to download it yourself, get it from the
               <a href="https://github.com/jameskomo/docswatcher/releases/latest" target="_blank" rel="noopener">release page</a>
               and check it against <code>checksums.txt</code> there.
             </p>
@@ -155,8 +156,12 @@ useHead({
 
         <dt>macOS or Windows?</dt>
         <dd>
-          Not yet as a single file. The portable <code>docswatcher.jar</code> on the release page runs
-          anywhere with Java 25, as <code>java -jar docswatcher.jar mcp</code>.
+          Both. A Mac with Apple silicon takes <code>docswatcher-macos-arm64</code> and Windows takes
+          <code>docswatcher-windows-x64.exe</code>, each a single file on the release page. If the
+          folder you put it in is not on your <code>PATH</code>, give your assistant the full path
+          to the file instead of <code>docswatcher</code>. An Intel Mac has no single file yet: the
+          portable <code>docswatcher.jar</code> runs anywhere with Java 25, as
+          <code>java -jar docswatcher.jar mcp</code>.
         </dd>
       </dl>
     </div>

@@ -46,7 +46,7 @@ The two zero-finding repositories are as important as the others. They are evide
 
 Ordered by what is most likely to cost a user today.
 
-1. **Native binaries for macOS and Windows.** Releases ship `docswatcher-linux-x64` and a portable jar. On a Mac the jar needs Java 25, which is a poor first step for someone adding an MCP server to their editor.
+1. **Native binary for Intel Macs.** Releases ship native binaries for Linux x64, macOS arm64 and Windows x64, and a portable jar. GraalVM Community no longer builds for macOS x64, so an Intel Mac needs the jar and Java 25, which is a poor first step for someone adding an MCP server to their editor.
 2. **Scan speed on large repositories.** A repository of a few hundred megabytes takes minutes in the JVM. Fine in CI, slow for an agent's `scan_repository` call.
 3. **Call-site languages.** Java, Python, TypeScript, JavaScript and Go. Ruby, PHP and C# are found through manifests and literals only.
 4. **Providers.** Ten. Azure OpenAI, Mistral, Twitch, Meta Graph and PayPal are the obvious next ones; each is a `provider.yaml`, a detector table and change records.
