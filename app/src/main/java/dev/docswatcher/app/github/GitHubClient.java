@@ -30,4 +30,10 @@ public interface GitHubClient {
    * triggers here spend the installation's write authority.
    */
   String collaboratorPermission(long installationId, String fullName, String login);
+
+  /**
+   * Drops anything cached for the installation, such as its access token, so the next call
+   * authenticates afresh. Called when the installation, its permissions or its repositories change.
+   */
+  default void forgetInstallation(long installationId) {}
 }

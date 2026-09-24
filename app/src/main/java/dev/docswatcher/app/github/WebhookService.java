@@ -58,6 +58,9 @@ public class WebhookService {
     String action = payload.path("action").asString();
     long id = payload.path("installation").path("id").asLong();
     String login = payload.path("installation").path("account").path("login").asString();
+    // Every installation event can change what a cached token may reach: an uninstall or a
+    // suspension ends it, new permissions or an unsuspension make it stale. Mint afresh.
+    client.forgetInstallation(id);
     switch (action) {
       case "created", "unsuspend", "new_permissions_accepted" -> {
         installations.upsert(id, login);
@@ -79,6 +82,8 @@ public class WebhookService {
   private void installationRepositories(JsonNode payload) {
     long id = payload.path("installation").path("id").asLong();
     String login = payload.path("installation").path("account").path("login").asString();
+    // A token is scoped to the repositories the installation could reach when it was minted.
+    client.forgetInstallation(id);
     installations.upsert(id, login);
     for (JsonNode removed : payload.path("repositories_removed")) {
       repos.delete(removed.path("id").asLong());

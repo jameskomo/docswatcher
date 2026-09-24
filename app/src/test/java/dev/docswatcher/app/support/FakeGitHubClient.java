@@ -72,4 +72,9 @@ public class FakeGitHubClient implements GitHubClient {
     calls.add(new Call("collaboratorPermission", installationId, fullName, login, null));
     return permission;
   }
+
+  @Override
+  public void forgetInstallation(long installationId) {
+    calls.add(new Call("forgetInstallation", installationId));
+  }
 }

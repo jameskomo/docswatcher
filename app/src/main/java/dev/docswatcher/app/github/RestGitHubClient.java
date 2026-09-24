@@ -29,11 +29,20 @@ public class RestGitHubClient implements GitHubClient {
 
   private static final Set<String> PERMISSIONS = Set.of("admin", "maintain", "write", "triage", "read", "none");
 
+  /**
+   * How long before {@code expires_at} a cached token is replaced. A token handed to a clone has
+   * to outlive the clone, so the margin is longer than a clone is allowed to take.
+   */
+  static final Duration REFRESH_MARGIN = Duration.ofMinutes(5);
+
   private record Token(String value, Instant expiresAt) {}
 
   private final RestClient rest;
   private final GitHubAppJwt jwt;
   private final Map<Long, Token> tokens = new ConcurrentHashMap<>();
+  // Bumped by every eviction. A token minted while an eviction happened is used but not cached,
+  // so a request that was already in flight cannot put back what the eviction removed.
+  private long evictions;
 
   public RestGitHubClient(AppProperties properties, RestClient.Builder builder) {
     AppProperties.GitHub gh = properties.github();
@@ -43,9 +52,10 @@ public class RestGitHubClient implements GitHubClient {
 
   private String installationToken(long installationId) {
     Token cached = tokens.get(installationId);
-    if (cached != null && cached.expiresAt().isAfter(Instant.now().plus(Duration.ofMinutes(2)))) {
+    if (cached != null && cached.expiresAt().isAfter(Instant.now().plus(REFRESH_MARGIN))) {
       return cached.value();
     }
+    long generation = generation();
     Map<?, ?> body =
         rest.post()
             .uri("/app/installations/{id}/access_tokens", installationId)
@@ -53,8 +63,27 @@ public class RestGitHubClient implements GitHubClient {
             .retrieve()
             .body(Map.class);
     String token = (String) body.get("token");
-    tokens.put(installationId, new Token(token, Instant.parse((String) body.get("expires_at"))));
+    Object expiresAt = body.get("expires_at");
+    if (expiresAt instanceof String s) {
+      cache(installationId, new Token(token, Instant.parse(s)), generation);
+    }
     return token;
+  }
+
+  private synchronized long generation() {
+    return evictions;
+  }
+
+  private synchronized void cache(long installationId, Token token, long generation) {
+    if (generation == evictions) {
+      tokens.put(installationId, token);
+    }
+  }
+
+  @Override
+  public synchronized void forgetInstallation(long installationId) {
+    evictions++;
+    tokens.remove(installationId);
   }
 
   private RestClient.RequestBodySpec post(long installationId, String uri, Object... vars) {

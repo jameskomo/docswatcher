@@ -1,0 +1,10 @@
+{
+  "action": "new_permissions_accepted",
+  "installation": {
+    "id": 5001,
+    "account": { "login": "acme", "type": "Organization" },
+    "repository_selection": "selected",
+    "permissions": { "checks": "write", "contents": "read", "issues": "write", "metadata": "read" }
+  },
+  "sender": { "login": "octocat" }
+}

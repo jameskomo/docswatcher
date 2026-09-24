@@ -82,6 +82,50 @@ class WebhookReplayTest extends PostgresTest {
   }
 
   @Test
+  void installationDeletedForgetsTheInstallationToken() throws Exception {
+    Webhooks.post(mvc, "installation", Webhooks.payload("installation.created.json"));
+    github.calls.clear();
+    Webhooks.post(mvc, "installation", Webhooks.payload("installation.deleted.json")).andExpect(status().isAccepted());
+    assertThat(github.calls("forgetInstallation")).singleElement().extracting(c -> c.args()[0]).isEqualTo(5001L);
+  }
+
+  @Test
+  void installationSuspendedIsMarkedAndForgetsTheInstallationToken() throws Exception {
+    Webhooks.post(mvc, "installation", Webhooks.payload("installation.created.json"));
+    github.calls.clear();
+    Webhooks.post(mvc, "installation", Webhooks.payload("installation.suspend.json")).andExpect(status().isAccepted());
+    assertThat(installations.find(5001)).isPresent().get().extracting("suspendedAt").isNotNull();
+    assertThat(github.calls("forgetInstallation")).singleElement().extracting(c -> c.args()[0]).isEqualTo(5001L);
+  }
+
+  /** The repository listing that follows must not run on a token minted under the old permissions. */
+  @Test
+  void newPermissionsForgetTheTokenBeforeListingRepositories() throws Exception {
+    Webhooks.post(mvc, "installation", Webhooks.payload("installation.created.json"));
+    github.calls.clear();
+    Webhooks.post(mvc, "installation", Webhooks.payload("installation.new_permissions_accepted.json")).andExpect(status().isAccepted());
+    assertThat(github.calls).extracting(FakeGitHubClient.Call::method).containsSubsequence("forgetInstallation", "listInstallationRepos");
+  }
+
+  @Test
+  void repositoriesRemovedAreDroppedAndForgetTheInstallationToken() throws Exception {
+    Webhooks.post(mvc, "installation", Webhooks.payload("installation.created.json"));
+    github.calls.clear();
+    Webhooks.post(mvc, "installation_repositories", Webhooks.payload("installation_repositories.removed.json")).andExpect(status().isAccepted());
+    assertThat(repos.find(9002)).isEmpty();
+    assertThat(repos.find(9001)).isPresent();
+    assertThat(github.calls("forgetInstallation")).singleElement().extracting(c -> c.args()[0]).isEqualTo(5001L);
+  }
+
+  @Test
+  void repositoriesAddedForgetTheTokenBeforeListingRepositories() throws Exception {
+    Webhooks.post(mvc, "installation", Webhooks.payload("installation.created.json"));
+    github.calls.clear();
+    Webhooks.post(mvc, "installation_repositories", Webhooks.payload("installation_repositories.added.json")).andExpect(status().isAccepted());
+    assertThat(github.calls).extracting(FakeGitHubClient.Call::method).containsSubsequence("forgetInstallation", "listInstallationRepos");
+  }
+
+  @Test
   void repositoriesAddedAreRegisteredAndQueued() throws Exception {
     Webhooks.post(mvc, "installation", Webhooks.payload("installation.created.json"));
     jdbc.sql("delete from repo where id = 9003").update();
