@@ -68,6 +68,24 @@ class CallsiteLayerTest {
   }
 
   @Test
+  void aFileIsParsedOnlyWhenItHoldsEveryEqStringOfSomePattern() {
+    Provider openai = k.providers().stream().filter(p -> p.id().equals("openai")).findFirst().orElseThrow();
+    Provider.Callsite rule = openai.detectors().callsites().stream()
+        .filter(c -> c.id().equals("openai.python.chat-completions-create")).findFirst().orElseThrow();
+    CallsiteLayer.Compiled c = CallsiteLayer.Compiled.of(new CallsiteLayer.Rule(openai, rule), new Grammars().get("python"));
+    assertThat(c.needs()).containsExactly(List.of("chat", "completions", "create"));
+    assertThat(c.mayMatch("client.chat.completions.create()")).isTrue();
+    assertThat(c.mayMatch("client.chat.completions.list()")).isFalse();
+
+    // A pattern without #eq? needs nothing, and a second pattern is a second way in.
+    Provider.Callsite loose = new Provider.Callsite(rule.id(), rule.language(), rule.kind(), rule.requires(),
+        "((call) @call) ((identifier) @a (#eq? @a \"never\"))", rule.key(), rule.mapsTo(), rule.confidence());
+    CallsiteLayer.Compiled l = CallsiteLayer.Compiled.of(new CallsiteLayer.Rule(openai, loose), new Grammars().get("python"));
+    assertThat(l.needs()).containsExactly(List.of(), List.of("never"));
+    assertThat(l.mayMatch("x = 1")).isTrue();
+  }
+
+  @Test
   void everyQueryInTheKnowledgeBaseCompiles() {
     assertThat(CallsiteLayer.compileAll(k.providers())).isEmpty();
   }
