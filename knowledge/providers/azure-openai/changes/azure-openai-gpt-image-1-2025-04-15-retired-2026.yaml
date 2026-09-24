@@ -1,0 +1,39 @@
+id: azure-openai-gpt-image-1-2025-04-15-retired-2026
+provider: azure-openai
+kind: retired
+severity: breaking
+title: "gpt-image-1 version 2025-04-15 retired"
+summary: >
+  Azure OpenAI retires gpt-image-1 version 2025-04-15 (lifecycle stage:
+  Preview) on 2026-10-23. After that date inference requests to a deployment
+  of that version return 410 Gone. Microsoft lists no replacement.
+
+affects:
+  - kind: model
+    match: "gpt-image-1-2025-04-15"
+
+announced: 2025-04-15
+effective: 2026-10-23
+
+sources:
+  - kind: provider_page
+    url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule
+    observed: 2026-09-24
+    note: "Azure OpenAI table: gpt-image-1 | 2025-04-15 | Preview | 2026-10-23 | —. announced is the version date: Microsoft sets a model's retirement date when it launches."
+  - kind: provider_page
+    url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirements
+    observed: 2026-09-24
+    note: "Retired: Removed from service. All inference requests return 410 Gone. A GA model's retirement date is set when it launches."
+
+migration:
+  replacement: null
+  guide: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule
+  effort: small
+  notes: >
+    Pick a current model from the Azure OpenAI model list, deploy it, and
+    update the name and version in the deployment template. Check
+    versionUpgradeOption on Standard deployments; provisioned deployments
+    must be redeployed by hand. Re-run evals, because output and token
+    usage differ between models.
+
+status: active

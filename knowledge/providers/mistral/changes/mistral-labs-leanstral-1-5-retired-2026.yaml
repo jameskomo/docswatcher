@@ -1,0 +1,38 @@
+id: mistral-labs-leanstral-1-5-retired-2026
+provider: mistral
+kind: retired
+severity: breaking
+title: "labs-leanstral-1-5 retired"
+summary: >
+  Leanstral 1.5 was released on 2026-06-30 as a Labs model with a fixed
+  retirement date of 2026-09-30. After that date requests naming
+  labs-leanstral-1-5 fail. Mistral has not named a successor.
+
+affects:
+  - kind: model
+    match: "labs-leanstral-1-5"
+
+announced: 2026-06-30
+effective: 2026-09-30
+
+sources:
+  - kind: changelog
+    url: https://docs.mistral.ai/resources/changelogs
+    observed: 2026-09-24
+    note: "June 30 entry: We released Leanstral 1.5 (labs-leanstral-1-5) ... This model will be retired on September 30, 2026."
+  - kind: provider_page
+    url: https://docs.mistral.ai/inference/model-lifecycle
+    observed: 2026-09-24
+    note: "Labs models may be deprecated or removed with 1 month's notice."
+
+migration:
+  replacement: null
+  guide: https://docs.mistral.ai/resources/changelogs
+  effort: medium
+  notes: >
+    No replacement is published. Remove the dependency on
+    labs-leanstral-1-5 or move the workload to a generally available
+    model, and make the calling code handle a 404 from the model
+    gracefully until then.
+
+status: active

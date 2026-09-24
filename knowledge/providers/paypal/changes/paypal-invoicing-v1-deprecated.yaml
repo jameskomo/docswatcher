@@ -1,0 +1,44 @@
+id: paypal-invoicing-v1-deprecated
+provider: paypal
+kind: sunset
+severity: warning
+title: "Invoicing v1 deprecated"
+summary: >
+  The Invoicing v1 API (/v1/invoicing/invoices, /v1/invoicing/search and
+  /v1/invoicing/templates) is deprecated in favour of Invoicing v2. No
+  removal date is published.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v1/invoicing/invoices"
+  - kind: endpoint
+    match: "ANY /v1/invoicing/search"
+  - kind: endpoint
+    match: "ANY /v1/invoicing/templates"
+
+announced: 2026-06-29
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://developer.paypal.com/api/rest/deprecated-resources/
+    observed: 2026-09-24
+    note: "Lists it under Deprecated resources. announced is the page's last-updated date, June 29, 2026: PayPal publishes no announcement date."
+  - kind: provider_page
+    url: https://developer.paypal.com/api/deprecated/invoicing/v1
+    observed: 2026-09-24
+    note: "Deprecation notice: The /v1/invoices endpoint is deprecated. Use the /v2/invoices endpoint instead. (The reference's paths are /v1/invoicing/...; v2's are /v2/invoicing/....)"
+
+migration:
+  replacement: "ANY /v2/invoicing/invoices"
+  guide: https://developer.paypal.com/docs/api/invoicing/v2/
+  effort: medium
+  notes: >
+    Move invoice calls from /v1/invoicing/... to /v2/invoicing/..., for
+    example POST /v2/invoicing/invoices, POST
+    /v2/invoicing/invoices/{id}/send and POST
+    /v2/invoicing/search-invoices. The v2 invoice body is restructured
+    (detail, invoicer, primary_recipients, items), so rebuild request
+    construction and response parsing rather than renaming fields.
+
+status: active

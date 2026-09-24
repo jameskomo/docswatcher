@@ -1,0 +1,50 @@
+[
+  {
+    "id": "twitch:endpoint:ANY /helix/channels/followers",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /helix/channels/followers",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/panel.js",
+        "line": 6,
+        "column": 69,
+        "snippet": "export const followers = (id, token) => fetch(`https://api.twitch.tv/helix/channels/followers?broadcaster_id=${id}`, {",
+        "detector": "twitch.literal.endpoint-helix",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@twurple/api",
+        "version": "^8.2.0"
+      }
+    }
+  },
+  {
+    "id": "twitch:sdk_package:@twurple/api",
+    "provider": "twitch",
+    "kind": "sdk_package",
+    "key": "@twurple/api",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"@twurple/api\": \"^8.2.0\"",
+        "detector": "twitch.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@twurple/api",
+        "version": "^8.2.0"
+      }
+    }
+  }
+]

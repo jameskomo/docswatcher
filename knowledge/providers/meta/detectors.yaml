@@ -1,0 +1,92 @@
+provider: meta
+
+# The business SDKs are Meta's own; PyPI names are matched normalised, so
+# facebook-business also covers facebook_business. fb (npm) and facebook-sdk
+# (PyPI) are third-party Graph API clients, listed because they are how many
+# codebases call the Graph API.
+manifests:
+  - ecosystem: npm
+    package: facebook-nodejs-business-sdk
+  - ecosystem: npm
+    package: fb
+  - ecosystem: pypi
+    package: facebook-business
+  - ecosystem: pypi
+    package: facebook-sdk
+  - ecosystem: maven
+    package: com.facebook.business.sdk:facebook-java-business-sdk
+  - ecosystem: rubygems
+    package: facebookbusiness
+
+literals:
+  # The version in a Graph API URL. Anchored on Meta's hosts: graph.microsoft.com
+  # also puts a vN.N segment first, and a bare /v20.0/ proves nothing.
+  - id: meta.literal.api-version-url
+    kind: api_version
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: 'graph(?:-video)?\.(?:facebook|instagram)\.com/(v[0-9]+\.[0-9]+)(?![0-9])'
+    key: "$1"
+    confidence: medium
+
+  # A version pinned in configuration or passed to an SDK. Names are Meta's own
+  # (default_graph_version is the PHP Graph SDK option) or unmistakably about
+  # the Graph API; a generic api_version = "v1.0" belongs to many providers.
+  - id: meta.literal.api-version-config
+    kind: api_version
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: '\b(?:default_graph_version|GRAPH_API_VERSION|graph_api_version|graphApiVersion|FACEBOOK_API_VERSION|FACEBOOK_GRAPH_VERSION|FB_API_VERSION|FB_GRAPH_VERSION|META_API_VERSION|META_GRAPH_API_VERSION)["'']?\s*(?:=>|[:=])\s*["'']?(v[0-9]+\.[0-9]+)(?![0-9])'
+    key: "$1"
+    confidence: medium
+
+  # The JavaScript SDK loads a version through FB.init({ version: 'vNN.0' }).
+  - id: meta.literal.api-version-js-sdk
+    kind: api_version
+    files: ["**/*.{js,jsx,mjs,cjs,ts,tsx,html,htm,vue,svelte,php,erb}"]
+    exclude: ["**/node_modules/**", "**/dist/**"]
+    pattern: 'FB\.init\(\s*\{[^}]*?\bversion\s*:\s*["''](v[0-9]+\.[0-9]+)["'']'
+    key: "$1"
+    confidence: medium
+
+  # The Marketing API shares version numbers with the Graph API but expires
+  # them earlier, so its versions are keyed marketing/vNN.0. Two signals mark a
+  # Marketing API call: an ad account node (act_<id>) straight after the
+  # version, and the Python business SDK's FacebookAdsApi.init(api_version=...).
+  - id: meta.literal.marketing-api-version-url
+    kind: api_version
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: 'graph(?:-video)?\.facebook\.com/(v[0-9]+\.[0-9]+)/act_'
+    key: "marketing/$1"
+    confidence: medium
+
+  - id: meta.literal.marketing-api-version-sdk
+    kind: api_version
+    files: ["**/*.py"]
+    exclude: ["**/.venv/**", "**/site-packages/**"]
+    pattern: 'FacebookAdsApi\.init\([^)]*?\bapi_version\s*=\s*["''](v[0-9]+\.[0-9]+)["'']'
+    key: "marketing/$1"
+    confidence: medium
+
+  # Root multi-object lookup, GET /?ids=a,b, with or without a version segment.
+  - id: meta.literal.endpoint-root-ids
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'graph\.facebook\.com/(?:v[0-9]+\.[0-9]+/?)?\?ids='
+    key: "GET /?ids"
+    confidence: medium
+
+  # A Page's orders edge in the Commerce Order Management API. The edge name is
+  # specific enough to match as a path segment, which also catches URLs built
+  # from a base constant and a page ID.
+  - id: meta.literal.endpoint-commerce-orders
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: '/commerce_orders(?![0-9A-Za-z_])'
+    key: "GET /{page-id}/commerce_orders"
+    confidence: medium
+
+callsites: []

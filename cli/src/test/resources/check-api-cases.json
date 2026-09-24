@@ -77,7 +77,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"gpt-9-imaginary\" matches none of DocsWatcher's 93 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"gpt-9-imaginary\" matches none of DocsWatcher's 202 deprecation records across 15 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
@@ -85,7 +85,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"0.28\" matches none of DocsWatcher's 93 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"0.28\" matches none of DocsWatcher's 202 deprecation records across 15 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
@@ -144,7 +144,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"openai==0.28\" matches none of DocsWatcher's 93 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"openai==0.28\" matches none of DocsWatcher's 202 deprecation records across 15 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
@@ -184,7 +184,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"gpt-4-turbo\" matches none of DocsWatcher's 93 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"gpt-4-turbo\" matches none of DocsWatcher's 202 deprecation records across 15 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
@@ -202,7 +202,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"stripe\" matches none of DocsWatcher's 93 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"stripe\" matches none of DocsWatcher's 202 deprecation records across 15 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
@@ -254,7 +254,50 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"discountNodes\" matches none of DocsWatcher's 93 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"discountNodes\" matches none of DocsWatcher's 202 deprecation records across 15 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+    },
+    {
+      "input": {
+        "value": "mistral-large-2402"
+      },
+      "verdict": "RETIRED",
+      "matches": [
+        "mistral-large-2402-retired-2025"
+      ],
+      "answer": "RETIRED 464 days ago (2025-06-16): mistral-large-2402 retired [Mistral AI]. Replacement: mistral-large-2512.\n  Guide: https://docs.mistral.ai/models"
+    },
+    {
+      "input": {
+        "value": "https://api.twitch.tv/helix/users/follows"
+      },
+      "verdict": "RETIRED",
+      "matches": [
+        "twitch-get-users-follows-removed-2023"
+      ],
+      "answer": "RETIRED 1107 days ago (2023-09-12): Get Users Follows removed [Twitch]. Replacement: GET /helix/channels/followers.\n  Guide: https://dev.twitch.tv/docs/api/reference/#get-channel-followers"
+    },
+    {
+      "input": {
+        "value": "v20.0",
+        "kind": "api_version",
+        "provider": "meta"
+      },
+      "verdict": "RETIRING",
+      "matches": [
+        "meta-graph-api-v20-0-expires-2026"
+      ],
+      "answer": "RETIRING in 1 day (2026-09-24): Graph API v20.0 expires [Meta Graph API]. Replacement: v26.0.\n  Guide: https://developers.facebook.com/docs/graph-api/changelog"
+    },
+    {
+      "input": {
+        "value": "gpt-4o-2024-05-13"
+      },
+      "verdict": "RETIRING",
+      "matches": [
+        "openai-gpt-4o-2024-05-13-shutdown-2026",
+        "azure-openai-gpt-4o-2024-05-13-retired-2026"
+      ],
+      "answer": "RETIRING in 30 days (2026-10-23): gpt-4o-2024-05-13 shut down [OpenAI]. Replacement: gpt-5.6-sol.\n  Guide: https://developers.openai.com/api/docs/deprecations\nRETIRING in 77 days (2026-12-09): gpt-4o version 2024-05-13 retired [Azure OpenAI]. Replacement: gpt-5.6-sol.\n  Guide: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule"
     }
   ]
 }

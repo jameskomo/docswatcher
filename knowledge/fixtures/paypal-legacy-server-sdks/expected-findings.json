@@ -1,0 +1,26 @@
+[
+  {
+    "contract": "paypal:sdk_package:@paypal/checkout-server-sdk",
+    "change": "paypal-legacy-server-sdks-deprecated"
+  },
+  {
+    "contract": "paypal:sdk_package:paypal-checkout-sdk",
+    "change": "paypal-legacy-server-sdks-deprecated"
+  },
+  {
+    "contract": "paypal:sdk_package:paypal-checkout-serversdk",
+    "change": "paypal-legacy-server-sdks-deprecated"
+  },
+  {
+    "contract": "paypal:sdk_package:paypal-rest-sdk",
+    "change": "paypal-legacy-server-sdks-deprecated"
+  },
+  {
+    "contract": "paypal:sdk_package:paypal-sdk-rest",
+    "change": "paypal-legacy-server-sdks-deprecated"
+  },
+  {
+    "contract": "paypal:sdk_package:paypalrestsdk",
+    "change": "paypal-legacy-server-sdks-deprecated"
+  }
+]

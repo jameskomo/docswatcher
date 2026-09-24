@@ -1,0 +1,39 @@
+id: mistral-labs-leanstral-2603-retired-2026
+provider: mistral
+kind: retired
+severity: breaking
+title: "labs-leanstral-2603 retired"
+summary: >
+  Mistral deprecated labs-leanstral-2603 on 2026-05-22 and retired it on
+  2026-06-30. Requests naming it now fail with 404. Mistral names Leanstral
+  1.5 (labs-leanstral-1-5) as the alternative.
+
+affects:
+  - kind: model
+    match: "labs-leanstral-2603"
+
+announced: 2026-05-22
+effective: 2026-06-30
+
+sources:
+  - kind: provider_page
+    url: https://docs.mistral.ai/models
+    observed: 2026-09-24
+    note: "Deprecated & retired models table: labs-leanstral-2603, deprecation 5/22/2026, retirement 6/30/2026, alternative Leanstral 1.5."
+  - kind: provider_page
+    url: https://docs.mistral.ai/inference/model-lifecycle
+    observed: 2026-09-24
+    note: "Once retired, requests to its identifiers fail with a 404 error."
+
+migration:
+  replacement: "labs-leanstral-1-5"
+  guide: https://docs.mistral.ai/models
+  effort: small
+  notes: >
+    Replace the model ID string labs-leanstral-2603 with
+    labs-leanstral-1-5, or with that family's -latest alias if the code
+    should follow future releases. Re-run evals and any tests that assert
+    on output, because output style, context length and token usage differ
+    between model generations.
+
+status: expired

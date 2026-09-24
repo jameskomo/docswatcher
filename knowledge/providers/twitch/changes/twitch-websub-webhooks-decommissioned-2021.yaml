@@ -1,0 +1,42 @@
+id: twitch-websub-webhooks-decommissioned-2021
+provider: twitch
+kind: sunset
+severity: breaking
+title: "WebSub webhooks decommissioned"
+summary: >
+  The WebSub-based webhooks (POST /helix/webhooks/hub, GET
+  /helix/webhooks/subscriptions) were decommissioned on or soon after
+  2021-09-16. EventSub replaces them.
+
+affects:
+  - kind: endpoint
+    match: "ANY /helix/webhooks/hub"
+  - kind: endpoint
+    match: "ANY /helix/webhooks/subscriptions"
+
+announced: 2021-06-16
+effective: 2021-09-16
+
+sources:
+  - kind: provider_page
+    url: https://discuss.dev.twitch.com/t/deprecation-of-websub-based-webhooks/32152
+    observed: 2026-09-24
+    note: "Client IDs that currently use WebSub can continue to use WebSub until it is decommissioned on or soon after September 16, 2021."
+  - kind: changelog
+    url: https://dev.twitch.tv/docs/change-log/
+    observed: 2026-09-24
+    note: "2021-09-16: Decommissioned WebSub-based webhooks."
+
+migration:
+  replacement: "POST /helix/eventsub/subscriptions"
+  guide: https://dev.twitch.tv/docs/eventsub/
+  effort: large
+  notes: >
+    Create subscriptions with POST /helix/eventsub/subscriptions using an
+    app token, a subscription type and version, and a webhook transport
+    with a callback and secret. Handle the webhook_callback_verification
+    challenge and verify the Twitch-Eventsub-Message-Signature header on
+    every notification; the WebSub hub.challenge flow and topic URLs no
+    longer exist.
+
+status: expired

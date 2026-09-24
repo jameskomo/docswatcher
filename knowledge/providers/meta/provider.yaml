@@ -1,0 +1,21 @@
+id: meta
+name: Meta Graph API
+homepage: https://developers.facebook.com
+docs: https://developers.facebook.com/docs/graph-api
+changelog: https://developers.facebook.com/docs/graph-api/changelog/versions/
+base_urls:
+  - https://graph.facebook.com
+  - https://graph-video.facebook.com
+  - https://graph.instagram.com
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [javascript, python, java, ruby, php]
+deprecation_policy: >
+  The Graph API is versioned as vNN.0 in the URL path. Each version is usable
+  for at least two years, and stops being usable two years after the following
+  version is released. A call to an expired version is served by the next
+  oldest usable version, so it does not fail but its responses can change.
+  The Marketing API shares the version numbers but expires them on its own,
+  shorter schedule. Individual endpoints and fields are removed from new
+  versions first and from all versions on a date given in the changelog.

@@ -1,0 +1,38 @@
+[
+  {
+    "contract": "meta:api_version:v17.0",
+    "change": "meta-graph-api-v17-0-expires-2025"
+  },
+  {
+    "contract": "meta:api_version:v18.0",
+    "change": "meta-graph-api-v18-0-expires-2026"
+  },
+  {
+    "contract": "meta:api_version:v19.0",
+    "change": "meta-graph-api-v19-0-expires-2026"
+  },
+  {
+    "contract": "meta:api_version:v20.0",
+    "change": "meta-graph-api-v20-0-expires-2026"
+  },
+  {
+    "contract": "meta:api_version:v21.0",
+    "change": "meta-graph-api-v21-0-expires-2027"
+  },
+  {
+    "contract": "meta:api_version:v22.0",
+    "change": "meta-graph-api-v22-0-expires-2027"
+  },
+  {
+    "contract": "meta:api_version:v23.0",
+    "change": "meta-graph-api-v23-0-expires-2027"
+  },
+  {
+    "contract": "meta:api_version:v24.0",
+    "change": "meta-graph-api-v24-0-expires-2028"
+  },
+  {
+    "contract": "meta:api_version:v25.0",
+    "change": "meta-graph-api-v25-0-expires-2028"
+  }
+]

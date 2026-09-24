@@ -1,0 +1,22 @@
+[
+  {
+    "id": "meta:api_version:v19.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v19.0",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "README.md",
+        "line": 4,
+        "column": 33,
+        "snippet": "from https://graph.facebook.com/v19.0/ but it was removed in 2024.",
+        "detector": "meta.literal.api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "apiVersion": "v19.0"
+    }
+  }
+]

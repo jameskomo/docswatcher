@@ -1,0 +1,38 @@
+id: twitch-api-v5-kraken-decommissioned-2022
+provider: twitch
+kind: sunset
+severity: breaking
+title: "Twitch API v5 (Kraken) decommissioned"
+summary: >
+  Every endpoint under https://api.twitch.tv/kraken/ was shut down on
+  2022-02-28. Requests fail; the Helix API replaces it.
+
+affects:
+  - kind: endpoint
+    match: "ANY /kraken"
+
+announced: 2021-07-15
+effective: 2022-02-28
+
+sources:
+  - kind: provider_page
+    url: https://discuss.dev.twitch.com/t/legacy-twitch-api-v5-shutdown-details-and-timeline/32649
+    observed: 2026-09-24
+    note: "Today we are announcing the timeline to decommission the Legacy Twitch API v5 with the shutdown to be completed on February 28, 2022."
+  - kind: changelog
+    url: https://dev.twitch.tv/docs/change-log/
+    observed: 2026-09-24
+    note: "2022-02-28: Twitch API v5 endpoints (i.e. kraken) are no longer available."
+
+migration:
+  replacement: "ANY /helix"
+  guide: https://dev.twitch.tv/docs/api/reference/
+  effort: large
+  notes: >
+    Move every call from https://api.twitch.tv/kraken/... to the matching
+    Helix endpoint under https://api.twitch.tv/helix/. Helix identifies
+    users and channels by ID, requires an OAuth token and the Client-Id
+    header on every request, uses cursor pagination, and removes the
+    Accept: application/vnd.twitchtv.v5+json header.
+
+status: expired

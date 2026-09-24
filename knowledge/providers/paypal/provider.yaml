@@ -1,0 +1,21 @@
+id: paypal
+name: PayPal
+homepage: https://www.paypal.com
+docs: https://developer.paypal.com/api/rest/
+changelog: https://developer.paypal.com/api/rest/deprecated-resources/
+base_urls:
+  - https://api-m.paypal.com
+  - https://api-m.sandbox.paypal.com
+  - https://api.paypal.com
+  - https://api.sandbox.paypal.com
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [typescript, javascript, python, java, ruby, php, csharp]
+deprecation_policy: >
+  REST resources are versioned in the path (/v1/, /v2/). A superseded resource
+  moves to the deprecated resources page, which keeps its reference for
+  existing integrations and names the current replacement. PayPal publishes no
+  removal dates for deprecated REST resources, the NVP/SOAP APIs or the legacy
+  JavaScript SDK, so most records here carry no effective date. The
+  pre-2024 server SDKs were deprecated in favour of the PayPal Server SDK.

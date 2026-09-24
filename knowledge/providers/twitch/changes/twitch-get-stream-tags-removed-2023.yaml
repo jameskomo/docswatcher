@@ -1,0 +1,40 @@
+id: twitch-get-stream-tags-removed-2023
+provider: twitch
+kind: sunset
+severity: breaking
+title: "Get Stream Tags and Get All Stream Tags removed"
+summary: >
+  GET /helix/streams/tags and GET /helix/tags/streams return empty arrays
+  since 2023-02-28 and a 410 response from 2023-07-13. Tags are read from
+  the tags field of Get Channel Information and Get Streams.
+
+affects:
+  - kind: endpoint
+    match: "GET /helix/streams/tags"
+  - kind: endpoint
+    match: "GET /helix/tags/streams"
+
+announced: 2023-01-21
+effective: 2023-07-13
+
+sources:
+  - kind: provider_page
+    url: https://discuss.dev.twitch.com/t/adding-customizable-tags-to-the-twitch-api/42921
+    observed: 2026-09-24
+    note: "July 13, 2023 — 'Get Stream Tags' and 'Get All Stream Tags' will return at 410 response."
+  - kind: provider_page
+    url: https://dev.twitch.tv/docs/api/reference/
+    observed: 2026-09-24
+    note: "As of February 28, 2023, this endpoint returns an empty array. On July 13, 2023, it will return a 410 response."
+
+migration:
+  replacement: "GET /helix/channels"
+  guide: https://dev.twitch.tv/docs/api/reference/#get-channel-information
+  effort: small
+  notes: >
+    Read a channel's tags from the tags array of GET
+    /helix/channels?broadcaster_id=X or of GET /helix/streams, instead of
+    GET /helix/streams/tags. There is no list of all tags any more: tags
+    are free-form strings, so drop code that resolves tag IDs to names.
+
+status: expired

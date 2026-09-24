@@ -1,0 +1,19 @@
+[
+  {
+    "id": "mistral:model:mistral-large-2402",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-large-2402",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "README.md",
+        "line": 4,
+        "column": 1,
+        "snippet": "mistral-large-2402 on the hosted API in 2024 and chose to self-host instead.",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ]
+  }
+]

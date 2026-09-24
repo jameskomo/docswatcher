@@ -1,0 +1,50 @@
+[
+  {
+    "id": "mistral:endpoint:ANY /v1/audio/voices",
+    "provider": "mistral",
+    "kind": "endpoint",
+    "key": "ANY /v1/audio/voices",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/voices.ts",
+        "line": 1,
+        "column": 43,
+        "snippet": "const VOICES_URL = \"https://api.mistral.ai/v1/audio/voices\";",
+        "detector": "mistral.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@mistralai/mistralai",
+        "version": "^2.7.0"
+      }
+    }
+  },
+  {
+    "id": "mistral:sdk_package:@mistralai/mistralai",
+    "provider": "mistral",
+    "kind": "sdk_package",
+    "key": "@mistralai/mistralai",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"@mistralai/mistralai\": \"^2.7.0\"",
+        "detector": "mistral.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@mistralai/mistralai",
+        "version": "^2.7.0"
+      }
+    }
+  }
+]

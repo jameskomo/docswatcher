@@ -1,0 +1,52 @@
+id: paypal-legacy-server-sdks-deprecated
+provider: paypal
+kind: retired
+severity: warning
+title: "Legacy PayPal server SDKs deprecated"
+summary: >
+  PayPal's pre-2024 server SDKs (the REST SDKs and the Checkout SDKs) are
+  deprecated and their repositories were made private. The registries point
+  to the PayPal Server SDK. The packages still install, but receive no
+  fixes. No end of support date is published.
+
+affects:
+  - kind: sdk_package
+    match: "paypal-rest-sdk"
+  - kind: sdk_package
+    match: "@paypal/checkout-server-sdk"
+  - kind: sdk_package
+    match: "paypalrestsdk"
+  - kind: sdk_package
+    match: "paypal-checkout-serversdk"
+  - kind: sdk_package
+    match: "paypal-sdk-rest"
+  - kind: sdk_package
+    match: "paypal-checkout-sdk"
+
+announced: 2024-01-29
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://developer.paypal.com/community/blog/navigating-paypal-server-sdks/
+    observed: 2026-09-24
+    note: "Jan 29, 2024: PayPal will be transitioning deprecated server-side SDKs to private, restricted access."
+  - kind: provider_page
+    url: https://registry.npmjs.org/@paypal/checkout-server-sdk
+    observed: 2026-09-24
+    note: "npm: Package no longer supported. The author suggests using the @paypal/paypal-server-sdk package instead."
+
+migration:
+  replacement: "@paypal/paypal-server-sdk"
+  guide: https://developer.paypal.com/serversdk/
+  effort: medium
+  notes: >
+    Replace the legacy package with the PayPal Server SDK for the same
+    language: @paypal/paypal-server-sdk (npm), paypal-server-sdk (PyPI and
+    RubyGems), com.paypal.sdk:paypal-server-sdk (Maven). The client is
+    configured once with client credentials and exposes controllers
+    (ordersController.createOrder) instead of request objects
+    (OrdersCreateRequest), and it targets Orders v2 and Payments v2, so v1
+    payment calls must be migrated at the same time.
+
+status: active

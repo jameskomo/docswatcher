@@ -1,0 +1,37 @@
+id: paypal-billing-plans-v1-deprecated
+provider: paypal
+kind: sunset
+severity: warning
+title: "Billing Plans v1 deprecated"
+summary: >
+  The /v1/payments/billing-plans endpoints are deprecated in favour of
+  /v1/billing/plans. No removal date is published.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v1/payments/billing-plans"
+
+announced: 2026-06-29
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://developer.paypal.com/api/rest/deprecated-resources/
+    observed: 2026-09-24
+    note: "Lists it under Deprecated resources. announced is the page's last-updated date, June 29, 2026: PayPal publishes no announcement date."
+  - kind: provider_page
+    url: https://developer.paypal.com/api/deprecated/payments.billing-plans/v1
+    observed: 2026-09-24
+    note: "Deprecation notice: The /v1/payments/billing-plans endpoints are deprecated. Use the /v1/billing/plans endpoints instead."
+
+migration:
+  replacement: "ANY /v1/billing/plans"
+  guide: https://developer.paypal.com/docs/subscriptions/
+  effort: medium
+  notes: >
+    Create plans with POST /v1/billing/plans, which requires a catalog
+    product (POST /v1/catalogs/products) first. Plan definitions use
+    billing_cycles instead of payment_definitions, and plans are activated
+    with the plan's activate action rather than a PATCH of state.
+
+status: active

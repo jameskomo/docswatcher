@@ -1,0 +1,242 @@
+[
+  {
+    "id": "meta:api_version:v17.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v17.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/graph.py",
+        "line": 4,
+        "column": 43,
+        "snippet": "CATALOG_URL = \"https://graph.facebook.com/v17.0/me/accounts\"",
+        "detector": "meta.literal.api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-sdk",
+        "version": "3.1.0"
+      }
+    }
+  },
+  {
+    "id": "meta:api_version:v18.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v18.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/graph.py",
+        "line": 5,
+        "column": 41,
+        "snippet": "LEADS_URL = \"https://graph.facebook.com/v18.0/me/accounts\"",
+        "detector": "meta.literal.api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-sdk",
+        "version": "3.1.0"
+      }
+    }
+  },
+  {
+    "id": "meta:api_version:v19.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v19.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/graph.py",
+        "line": 6,
+        "column": 46,
+        "snippet": "PAGE_POSTS_URL = \"https://graph.facebook.com/v19.0/me/accounts\"",
+        "detector": "meta.literal.api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-sdk",
+        "version": "3.1.0"
+      }
+    }
+  },
+  {
+    "id": "meta:api_version:v20.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v20.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/graph.py",
+        "line": 7,
+        "column": 44,
+        "snippet": "COMMENTS_URL = \"https://graph.facebook.com/v20.0/me/accounts\"",
+        "detector": "meta.literal.api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-sdk",
+        "version": "3.1.0"
+      }
+    }
+  },
+  {
+    "id": "meta:api_version:v21.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v21.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": ".env.example",
+        "line": 1,
+        "column": 19,
+        "snippet": "GRAPH_API_VERSION=v21.0",
+        "detector": "meta.literal.api-version-config",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-sdk",
+        "version": "3.1.0"
+      }
+    }
+  },
+  {
+    "id": "meta:api_version:v22.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v22.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/graph.py",
+        "line": 8,
+        "column": 46,
+        "snippet": "INSTAGRAM_URL = \"https://graph.instagram.com/v22.0/me/media\"",
+        "detector": "meta.literal.api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-sdk",
+        "version": "3.1.0"
+      }
+    }
+  },
+  {
+    "id": "meta:api_version:v23.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v23.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/settings.php",
+        "line": 5,
+        "column": 33,
+        "snippet": "'default_graph_version' => 'v23.0',",
+        "detector": "meta.literal.api-version-config",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-sdk",
+        "version": "3.1.0"
+      }
+    }
+  },
+  {
+    "id": "meta:api_version:v24.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v24.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "web/login.js",
+        "line": 6,
+        "column": 15,
+        "snippet": "version: \"v24.0\",",
+        "detector": "meta.literal.api-version-js-sdk",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-sdk",
+        "version": "3.1.0"
+      }
+    }
+  },
+  {
+    "id": "meta:api_version:v25.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v25.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "web/share.ts",
+        "line": 1,
+        "column": 62,
+        "snippet": "export const GRAPH_VIDEO = \"https://graph-video.facebook.com/v25.0\";",
+        "detector": "meta.literal.api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-sdk",
+        "version": "3.1.0"
+      }
+    }
+  },
+  {
+    "id": "meta:sdk_package:facebook-sdk",
+    "provider": "meta",
+    "kind": "sdk_package",
+    "key": "facebook-sdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 2,
+        "column": 1,
+        "snippet": "facebook-sdk==3.1.0",
+        "detector": "meta.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-sdk",
+        "version": "3.1.0"
+      }
+    }
+  }
+]

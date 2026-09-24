@@ -1,0 +1,50 @@
+[
+  {
+    "contract": "paypal:endpoint:ANY /v1/customer/partner-referrals",
+    "change": "paypal-partner-referrals-v1-deprecated"
+  },
+  {
+    "contract": "paypal:endpoint:ANY /v1/invoicing/invoices",
+    "change": "paypal-invoicing-v1-deprecated"
+  },
+  {
+    "contract": "paypal:endpoint:ANY /v1/invoicing/search",
+    "change": "paypal-invoicing-v1-deprecated"
+  },
+  {
+    "contract": "paypal:endpoint:ANY /v1/invoicing/templates",
+    "change": "paypal-invoicing-v1-deprecated"
+  },
+  {
+    "contract": "paypal:endpoint:ANY /v1/payments/authorization",
+    "change": "paypal-payments-v1-deprecated"
+  },
+  {
+    "contract": "paypal:endpoint:ANY /v1/payments/billing-agreements",
+    "change": "paypal-billing-agreements-v1-deprecated"
+  },
+  {
+    "contract": "paypal:endpoint:ANY /v1/payments/billing-plans",
+    "change": "paypal-billing-plans-v1-deprecated"
+  },
+  {
+    "contract": "paypal:endpoint:ANY /v1/payments/capture",
+    "change": "paypal-payments-v1-deprecated"
+  },
+  {
+    "contract": "paypal:endpoint:ANY /v1/payments/orders",
+    "change": "paypal-payments-v1-deprecated"
+  },
+  {
+    "contract": "paypal:endpoint:ANY /v1/payments/payment",
+    "change": "paypal-payments-v1-deprecated"
+  },
+  {
+    "contract": "paypal:endpoint:ANY /v1/payments/refund",
+    "change": "paypal-payments-v1-deprecated"
+  },
+  {
+    "contract": "paypal:endpoint:ANY /v1/payments/sale",
+    "change": "paypal-payments-v1-deprecated"
+  }
+]

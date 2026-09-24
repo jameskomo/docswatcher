@@ -1,0 +1,194 @@
+[
+  {
+    "id": "meta:api_version:marketing/v21.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "marketing/v21.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacy_export.py",
+        "line": 4,
+        "column": 41,
+        "snippet": "CAMPAIGNS = \"https://graph.facebook.com/v21.0/act_{account}/campaigns\"",
+        "detector": "meta.literal.marketing-api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-business",
+        "version": "23.0.1"
+      }
+    }
+  },
+  {
+    "id": "meta:api_version:marketing/v22.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "marketing/v22.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacy_export.py",
+        "line": 5,
+        "column": 38,
+        "snippet": "ADSETS = \"https://graph.facebook.com/v22.0/act_{account}/adsets\"",
+        "detector": "meta.literal.marketing-api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-business",
+        "version": "23.0.1"
+      }
+    }
+  },
+  {
+    "id": "meta:api_version:marketing/v23.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "marketing/v23.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/reporting.py",
+        "line": 4,
+        "column": 98,
+        "snippet": "FacebookAdsApi.init(app_id=\"1234567890\", app_secret=\"secret\", access_token=\"token\", api_version=\"v23.0\")",
+        "detector": "meta.literal.marketing-api-version-sdk",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-business",
+        "version": "23.0.1"
+      }
+    }
+  },
+  {
+    "id": "meta:api_version:marketing/v24.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "marketing/v24.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacy_export.py",
+        "line": 6,
+        "column": 40,
+        "snippet": "INSIGHTS = \"https://graph.facebook.com/v24.0/act_{account}/insights\"",
+        "detector": "meta.literal.marketing-api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-business",
+        "version": "23.0.1"
+      }
+    }
+  },
+  {
+    "id": "meta:api_version:v21.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v21.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacy_export.py",
+        "line": 4,
+        "column": 41,
+        "snippet": "CAMPAIGNS = \"https://graph.facebook.com/v21.0/act_{account}/campaigns\"",
+        "detector": "meta.literal.api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-business",
+        "version": "23.0.1"
+      }
+    }
+  },
+  {
+    "id": "meta:api_version:v22.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v22.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacy_export.py",
+        "line": 5,
+        "column": 38,
+        "snippet": "ADSETS = \"https://graph.facebook.com/v22.0/act_{account}/adsets\"",
+        "detector": "meta.literal.api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-business",
+        "version": "23.0.1"
+      }
+    }
+  },
+  {
+    "id": "meta:api_version:v24.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v24.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacy_export.py",
+        "line": 6,
+        "column": 40,
+        "snippet": "INSIGHTS = \"https://graph.facebook.com/v24.0/act_{account}/insights\"",
+        "detector": "meta.literal.api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-business",
+        "version": "23.0.1"
+      }
+    }
+  },
+  {
+    "id": "meta:sdk_package:facebook-business",
+    "provider": "meta",
+    "kind": "sdk_package",
+    "key": "facebook-business",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "facebook-business==23.0.1",
+        "detector": "meta.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "facebook-business",
+        "version": "23.0.1"
+      }
+    }
+  }
+]

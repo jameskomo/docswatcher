@@ -1,0 +1,40 @@
+id: twitch-soundtrack-api-removed-2023
+provider: twitch
+kind: sunset
+severity: breaking
+title: "Soundtrack endpoints removed"
+summary: >
+  The Soundtrack endpoints (current track, playlist and playlists) return
+  410 since 2023-07-17, when Twitch withdrew the Soundtrack feature. There
+  is no replacement.
+
+affects:
+  - kind: endpoint
+    match: "ANY /helix/soundtrack/current_track"
+  - kind: endpoint
+    match: "ANY /helix/soundtrack/playlist"
+  - kind: endpoint
+    match: "ANY /helix/soundtrack/playlists"
+
+announced: 2023-06-10
+effective: 2023-07-17
+
+sources:
+  - kind: provider_page
+    url: https://discuss.dev.twitch.com/t/withdrawal-of-twitch-api-endpoints-for-soundtrack/46021
+    observed: 2026-09-24
+    note: "On or soon after July 17, 2023, the following Twitch API endpoints will no longer be available. Update (2023-07-17): now returning a 410 response code."
+  - kind: changelog
+    url: https://dev.twitch.tv/docs/change-log/
+    observed: 2026-09-24
+    note: "2023-07-17: Soundtrack endpoints removed."
+
+migration:
+  replacement: null
+  guide: https://discuss.dev.twitch.com/t/withdrawal-of-twitch-api-endpoints-for-soundtrack/46021
+  effort: small
+  notes: >
+    Remove the calls to /helix/soundtrack/... and any now-playing overlay
+    or command built on them. There is no replacement endpoint.
+
+status: expired

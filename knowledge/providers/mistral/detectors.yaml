@@ -1,0 +1,35 @@
+provider: mistral
+
+# Mistral publishes official SDKs for Python and TypeScript only; the Java and
+# Go clients on its SDK page are third-party and unmaintained.
+manifests:
+  - ecosystem: pypi
+    package: mistralai
+  - ecosystem: npm
+    package: "@mistralai/mistralai"
+
+literals:
+  # Every Mistral API model ID starts with a family name, optionally prefixed
+  # with open- (the 2024 open-weight names) or labs- (Labs models). The family
+  # list is closed on purpose: a loose mistral-[a-z]+ would claim far more than
+  # the API's IDs. The rule is case-sensitive, so Hugging Face repository names
+  # (mistralai/Mistral-7B-Instruct-v0.3) do not match, and Ollama tags use a
+  # colon (mistral:7b). Manifests are excluded because package names such as
+  # mistral-common are not models.
+  - id: mistral.literal.model
+    kind: model
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json", "**/package.json", "**/requirements*.txt", "**/pyproject.toml"]
+    pattern: '\b((?:open-|labs-)?(?:mistral|mixtral|codestral|pixtral|ministral|magistral|devstral|voxtral|leanstral)-[0-9a-z][0-9a-z.-]*[0-9a-z])\b'
+    key: "$1"
+    confidence: medium
+
+  - id: mistral.literal.endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://api\.mistral\.ai(/v[0-9]+/[a-z_]+(?:/[a-z_]+)*)'
+    key: "ANY $1"
+    confidence: medium
+
+callsites: []

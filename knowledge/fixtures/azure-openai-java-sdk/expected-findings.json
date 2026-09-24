@@ -1,0 +1,6 @@
+[
+  {
+    "contract": "azure-openai:sdk_package:com.azure:azure-ai-openai",
+    "change": "azure-openai-java-sdk-no-updates-2025"
+  }
+]

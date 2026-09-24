@@ -1,0 +1,571 @@
+[
+  {
+    "id": "azure-openai:model:codex-mini-2025-05-16",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "codex-mini-2025-05-16",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 17,
+        "column": 14,
+        "snippet": "name: 'codex-mini'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-4.1-2025-04-14",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-4.1-2025-04-14",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 34,
+        "column": 14,
+        "snippet": "name: 'gpt-4.1'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-4.1-mini-2025-04-14",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-4.1-mini-2025-04-14",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 51,
+        "column": 14,
+        "snippet": "name: 'gpt-4.1-mini'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-4.1-nano-2025-04-14",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-4.1-nano-2025-04-14",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 68,
+        "column": 14,
+        "snippet": "name: 'gpt-4.1-nano'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-4o-2024-05-13",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-4o-2024-05-13",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 85,
+        "column": 14,
+        "snippet": "name: 'gpt-4o'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-4o-2024-08-06",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-4o-2024-08-06",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 102,
+        "column": 14,
+        "snippet": "name: 'gpt-4o'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-4o-2024-11-20",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-4o-2024-11-20",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 119,
+        "column": 14,
+        "snippet": "name: 'gpt-4o'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      },
+      {
+        "path": "scripts/add-deployment.sh",
+        "line": 7,
+        "column": 16,
+        "snippet": "--model-name gpt-4o --model-version \"2024-11-20\" \\",
+        "detector": "azure-openai.literal.model-deployment-cli",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-4o-mini-2024-07-18",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-4o-mini-2024-07-18",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 136,
+        "column": 14,
+        "snippet": "name: 'gpt-4o-mini'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-4o-mini-transcribe-2025-03-20",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-4o-mini-transcribe-2025-03-20",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 272,
+        "column": 14,
+        "snippet": "name: 'gpt-4o-mini-transcribe'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-4o-mini-tts-2025-03-20",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-4o-mini-tts-2025-03-20",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 289,
+        "column": 14,
+        "snippet": "name: 'gpt-4o-mini-tts'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-4o-transcribe-2025-03-20",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-4o-transcribe-2025-03-20",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 306,
+        "column": 14,
+        "snippet": "name: 'gpt-4o-transcribe'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-5-chat-2025-08-07",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-5-chat-2025-08-07",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 459,
+        "column": 14,
+        "snippet": "name: 'gpt-5-chat'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-5-chat-2025-10-03",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-5-chat-2025-10-03",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 476,
+        "column": 14,
+        "snippet": "name: 'gpt-5-chat'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-5.1-chat-2025-11-13",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-5.1-chat-2025-11-13",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 493,
+        "column": 14,
+        "snippet": "name: 'gpt-5.1-chat'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-5.2-chat-2025-12-11",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-5.2-chat-2025-12-11",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 510,
+        "column": 14,
+        "snippet": "name: 'gpt-5.2-chat'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-5.2-chat-2026-02-10",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-5.2-chat-2026-02-10",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 527,
+        "column": 14,
+        "snippet": "name: 'gpt-5.2-chat'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-5.3-chat-2026-03-03",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-5.3-chat-2026-03-03",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 544,
+        "column": 14,
+        "snippet": "name: 'gpt-5.3-chat'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-chat-latest-2026-06-24",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-chat-latest-2026-06-24",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 374,
+        "column": 14,
+        "snippet": "name: 'gpt-chat-latest'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-chat-latest-2026-08-06",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-chat-latest-2026-08-06",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 391,
+        "column": 14,
+        "snippet": "name: 'gpt-chat-latest'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-image-1-2025-04-15",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-image-1-2025-04-15",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 323,
+        "column": 14,
+        "snippet": "name: 'gpt-image-1'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:gpt-image-1.5-2025-12-16",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "gpt-image-1.5-2025-12-16",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 357,
+        "column": 14,
+        "snippet": "name: 'gpt-image-1.5'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:o1-2024-12-17",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "o1-2024-12-17",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 153,
+        "column": 14,
+        "snippet": "name: 'o1'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:o1-pro-2025-03-19",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "o1-pro-2025-03-19",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 170,
+        "column": 14,
+        "snippet": "name: 'o1-pro'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:o3-2025-04-16",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "o3-2025-04-16",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 187,
+        "column": 14,
+        "snippet": "name: 'o3'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:o3-deep-research-2025-06-26",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "o3-deep-research-2025-06-26",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 204,
+        "column": 14,
+        "snippet": "name: 'o3-deep-research'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:o3-mini-2025-01-31",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "o3-mini-2025-01-31",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 221,
+        "column": 14,
+        "snippet": "name: 'o3-mini'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:o3-pro-2025-06-10",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "o3-pro-2025-06-10",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 238,
+        "column": 14,
+        "snippet": "name: 'o3-pro'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:o4-mini-2025-04-16",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "o4-mini-2025-04-16",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 255,
+        "column": 14,
+        "snippet": "name: 'o4-mini'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:sora-2-2025-12-08",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "sora-2-2025-12-08",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 340,
+        "column": 14,
+        "snippet": "name: 'sora-2'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:tts-001",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "tts-001",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 408,
+        "column": 14,
+        "snippet": "name: 'tts'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:tts-hd-001",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "tts-hd-001",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 425,
+        "column": 14,
+        "snippet": "name: 'tts-hd'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:model:whisper-001",
+    "provider": "azure-openai",
+    "kind": "model",
+    "key": "whisper-001",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "infra/deployments.bicep",
+        "line": 442,
+        "column": 14,
+        "snippet": "name: 'whisper'",
+        "detector": "azure-openai.literal.model-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4o",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "scripts/add-deployment.sh",
+        "line": 7,
+        "column": 16,
+        "snippet": "--model-name gpt-4o --model-version \"2024-11-20\" \\",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  }
+]

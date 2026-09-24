@@ -1,0 +1,66 @@
+[
+  {
+    "contract": "twitch:endpoint:ANY /helix/webhooks/hub",
+    "change": "twitch-websub-webhooks-decommissioned-2021"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /helix/webhooks/subscriptions",
+    "change": "twitch-websub-webhooks-decommissioned-2021"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /kraken",
+    "change": "twitch-api-v5-kraken-decommissioned-2022"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /helix/moderation/banned/events",
+    "change": "twitch-websub-event-endpoints-removed-2022"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /helix/moderation/moderators/events",
+    "change": "twitch-websub-event-endpoints-removed-2022"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /helix/subscriptions/events",
+    "change": "twitch-websub-event-endpoints-removed-2022"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /helix/streams/tags",
+    "change": "twitch-replace-stream-tags-removed-2023"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /tmi/group/user",
+    "change": "twitch-legacy-tmi-chatters-shutdown-2023"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /badges/v1/badges",
+    "change": "twitch-legacy-badges-endpoint-shutdown-2023"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /helix/streams/tags",
+    "change": "twitch-get-stream-tags-removed-2023"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /helix/tags/streams",
+    "change": "twitch-get-stream-tags-removed-2023"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /helix/soundtrack/current_track",
+    "change": "twitch-soundtrack-api-removed-2023"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /helix/soundtrack/playlist",
+    "change": "twitch-soundtrack-api-removed-2023"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /helix/soundtrack/playlists",
+    "change": "twitch-soundtrack-api-removed-2023"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /helix/users/follows",
+    "change": "twitch-get-users-follows-removed-2023"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /helix/hypetrain/events",
+    "change": "twitch-get-hype-train-events-removed-2026"
+  }
+]

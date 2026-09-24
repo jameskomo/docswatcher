@@ -1,0 +1,39 @@
+id: meta-marketing-api-v21-0-expires-2025
+provider: meta
+kind: sunset
+severity: breaking
+title: "Marketing API v21.0 expires"
+summary: >
+  The Marketing API expires v21.0 on 2025-09-09, earlier than the Graph API
+  does. Ads calls that still name v21.0 after that date are no longer served
+  by that version.
+
+affects:
+  - kind: api_version
+    match: "marketing/v21.0"
+
+announced: 2024-10-02
+effective: 2025-09-09
+
+sources:
+  - kind: provider_page
+    url: https://developers.facebook.com/docs/graph-api/changelog/versions/
+    observed: 2026-09-24
+    note: "Marketing API table: v21.0 | October 2, 2024 | September 9, 2025. announced is the release date."
+  - kind: provider_page
+    url: https://developers.facebook.com/docs/marketing-api/marketing-api-changelog/versions
+    observed: 2026-09-24
+
+migration:
+  replacement: "v25.0"
+  guide: https://developers.facebook.com/docs/marketing-api/marketing-api-changelog
+  effort: medium
+  notes: >
+    Move ad account calls (/act_<id>/...) and
+    FacebookAdsApi.init(api_version=...) from v21.0 to a current Marketing
+    API version, and upgrade the business SDK to the matching major
+    version, since each SDK major tracks one API version. Read the
+    Marketing API changelog for removed insights metrics, targeting
+    options and ad creative fields between the two versions.
+
+status: expired

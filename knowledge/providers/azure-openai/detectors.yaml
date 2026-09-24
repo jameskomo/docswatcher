@@ -1,0 +1,89 @@
+provider: azure-openai
+
+# Azure OpenAI is called through the openai package's AzureOpenAI client in
+# Python and TypeScript, and that package belongs to the openai provider. The
+# manifests here are the Azure-only libraries.
+manifests:
+  - ecosystem: npm
+    package: "@azure/openai"
+  - ecosystem: maven
+    package: com.azure:azure-ai-openai
+  - ecosystem: go
+    package: github.com/Azure/azure-sdk-for-go/sdk/ai/azopenai
+
+literals:
+  # A model deployment: Bicep, Terraform, ARM JSON and the REST body all
+  # describe the model as format OpenAI, a name and a version, in that order in
+  # Microsoft's own templates. Azure retires a model per version, so the key is
+  # name-version (gpt-4o-2024-05-13), the same spelling as a dated OpenAI
+  # snapshot. The OpenAI provider's model rules skip Bicep, which is
+  # Azure-only, so a deployment there is not also claimed as an OpenAI model.
+  - id: azure-openai.literal.model-deployment
+    kind: model
+    files: ["**/*.{bicep,bicepparam,tf,json,jsonc,yaml,yml}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/package-lock.json", "**/package.json", "**/.terraform/**"]
+    pattern: '\bformat["'']?\s*[:=]\s*["'']OpenAI["''][\s,]*["'']?name["'']?\s*[:=]\s*["'']([a-z0-9][a-z0-9.-]*)["''][\s,]*["'']?version["'']?\s*[:=]\s*["'']([0-9a-z][0-9a-z.-]*)["'']'
+    key: "$1-$2"
+    confidence: medium
+
+  # The same deployment made with the Azure CLI.
+  - id: azure-openai.literal.model-deployment-cli
+    kind: model
+    files: ["**/*.{sh,bash,ps1,yml,yaml,md}"]
+    exclude: ["**/node_modules/**"]
+    pattern: '--model-name[= ]["'']?([a-z0-9][a-z0-9.-]*)["'']?\s+(?:\\\s+)?--model-version[= ]["'']?([0-9a-z][0-9a-z.-]*)'
+    key: "$1-$2"
+    confidence: medium
+
+  # Data-plane URLs on the three host forms. A deployment call carries a
+  # user-chosen deployment name, which the key replaces with {deployment-id}
+  # so every deployment is one contract.
+  - id: azure-openai.literal.endpoint-deployment
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env,sh,http}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: '\.(?:openai\.azure|cognitiveservices\.azure|services\.ai\.azure)\.com/openai/deployments/[^/\s"''`?]+(/[a-z_]+(?:/[a-z_]+)*)'
+    key: "ANY /openai/deployments/{deployment-id}$1"
+    confidence: medium
+
+  - id: azure-openai.literal.endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env,sh,http}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: '\.(?:openai\.azure|cognitiveservices\.azure|services\.ai\.azure)\.com(/openai/(?!deployments)[a-z0-9_]+(?:/[a-z_]+)*)'
+    key: "ANY $1"
+    confidence: medium
+
+  # The api-version query parameter. Every Azure REST API has one, so the rule
+  # only reads it on an Azure OpenAI data-plane URL; management.azure.com and
+  # storage versions are someone else's.
+  - id: azure-openai.literal.api-version-query
+    kind: api_version
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env,sh,http}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: '\.(?:openai\.azure|cognitiveservices\.azure|services\.ai\.azure)\.com/openai/[^\s"''`]*?[?&]api-version=([0-9]{4}-[0-9]{2}-[0-9]{2}(?:-preview)?)(?![0-9A-Za-z-])'
+    key: "$1"
+    confidence: medium
+
+  # The version given to an Azure client constructor. Stripe and Shopify also
+  # take an api_version, so the constructor name is required, and the argument
+  # list is not allowed to close before the version is reached.
+  - id: azure-openai.literal.api-version-client
+    kind: api_version
+    files: ["**/*.{py,ts,tsx,js,jsx,mjs,cjs}"]
+    exclude: ["**/node_modules/**", "**/dist/**"]
+    pattern: '(?:AzureOpenAI|AzureChatOpenAI|AzureOpenAIEmbeddings)\([^)]*?\b(?:api_version|apiVersion|openai_api_version)\s*[:=]\s*["'']([0-9]{4}-[0-9]{2}-[0-9]{2}(?:-preview)?)["'']'
+    key: "$1"
+    confidence: medium
+
+  # OPENAI_API_VERSION is the variable the openai SDKs read for Azure;
+  # AZURE_OPENAI_API_VERSION is the name Azure samples use.
+  - id: azure-openai.literal.api-version-env
+    kind: api_version
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: '\b(?:AZURE_OPENAI_API_VERSION|OPENAI_API_VERSION)["'']?\s*[:=]\s*["'']?([0-9]{4}-[0-9]{2}-[0-9]{2}(?:-preview)?)(?![0-9A-Za-z-])'
+    key: "$1"
+    confidence: medium
+
+callsites: []

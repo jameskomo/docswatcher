@@ -1,0 +1,35 @@
+id: twitch-legacy-tmi-chatters-shutdown-2023
+provider: twitch
+kind: sunset
+severity: breaking
+title: "Legacy tmi.twitch.tv chatters endpoint shut down"
+summary: >
+  The undocumented https://tmi.twitch.tv chatters list
+  (/group/user/<login>/chatters) was shut down on 2023-04-03. Get Chatters
+  in the Helix API replaces it and needs a moderator's token.
+
+affects:
+  - kind: endpoint
+    match: "ANY /tmi/group/user"
+
+announced: 2023-01-31
+effective: 2023-04-03
+
+sources:
+  - kind: provider_page
+    url: https://discuss.dev.twitch.com/t/legacy-chatters-endpoint-shutdown-details-and-timeline-april-2023/43161
+    observed: 2026-09-24
+    note: "The legacy and unsupported Chatters endpoint that begins with 'https://tmi.twitch.tv/' is the resource that will be shut down."
+
+migration:
+  replacement: "GET /helix/chat/chatters"
+  guide: https://dev.twitch.tv/docs/api/reference/#get-chatters
+  effort: medium
+  notes: >
+    Call GET /helix/chat/chatters?broadcaster_id=X&moderator_id=Y with a
+    user token that has moderator:read:chatters for a moderator of the
+    channel. The response is a paginated flat list of users, not the old
+    object grouped by role, so drop code that reads chatters.moderators
+    and chatters.viewers.
+
+status: expired

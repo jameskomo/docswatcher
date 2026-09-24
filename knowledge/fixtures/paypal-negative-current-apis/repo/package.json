@@ -1,0 +1,7 @@
+{
+  "name": "payouts",
+  "private": true,
+  "dependencies": {
+    "@paypal/paypal-server-sdk": "^2.5.0"
+  }
+}

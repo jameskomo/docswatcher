@@ -1,0 +1,37 @@
+id: azure-openai-java-sdk-no-updates-2025
+provider: azure-openai
+kind: retired
+severity: warning
+title: "azure-ai-openai for Java receives no further updates"
+summary: >
+  Microsoft's com.azure:azure-ai-openai library (last release 1.0.0-beta.16)
+  will not receive updates in its current form. Newer Azure OpenAI features
+  are available only through the official OpenAI Java library. No end of
+  support date is published.
+
+affects:
+  - kind: sdk_package
+    match: "com.azure:azure-ai-openai"
+
+announced: 2025-04-17
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/openai/azure-ai-openai
+    observed: 2026-09-24
+    note: "README, since 2025-04-17: This client library won't receive updates in its current form. To use newer OpenAI features, please use the official OpenAI Java library."
+
+migration:
+  replacement: "com.openai:openai-java"
+  guide: https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/openai/azure-ai-openai
+  effort: medium
+  notes: >
+    Replace com.azure:azure-ai-openai with com.openai:openai-java. Build
+    the client with the Azure endpoint and credential as the openai-java
+    README describes for Azure, and rewrite OpenAIClient calls such as
+    getChatCompletions(deployment, options) as
+    client.chat().completions().create(params) with the deployment name as
+    the model.
+
+status: active

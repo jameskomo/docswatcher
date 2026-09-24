@@ -1,0 +1,37 @@
+id: mistral-v1-audio-voices-sunset-2027
+provider: mistral
+kind: sunset
+severity: breaking
+title: "GET /v1/audio/voices sunset"
+summary: >
+  The offset-paginated voice list GET /v1/audio/voices is deprecated since
+  2026-09-07 and has a sunset date of 2027-03-31. Mistral's API
+  specification names GET /v2/audio/voices as the replacement.
+
+affects:
+  - kind: endpoint
+    match: "GET /v1/audio/voices"
+  - kind: endpoint
+    match: "ANY /v1/audio/voices"
+
+announced: 2026-09-07
+effective: 2027-03-31
+
+sources:
+  - kind: openapi_diff
+    url: https://docs.mistral.ai/openapi.yaml
+    observed: 2026-09-24
+    note: "GET /v1/audio/voices: deprecated true, x-deprecation-date 2026-09-07, x-sunset-date 2027-03-31, x-deprecated-replacement /v2/audio/voices. Offset pagination will not be supported anymore."
+
+migration:
+  replacement: "GET /v2/audio/voices"
+  guide: https://docs.mistral.ai/openapi.yaml
+  effort: small
+  notes: >
+    Call GET /v2/audio/voices instead of GET /v1/audio/voices. The v2
+    endpoint drops offset pagination, so replace offset and page
+    parameters with the cursor it returns and loop until no cursor is
+    returned. In the SDKs, move from audio.voices.list to the v2 listing
+    method.
+
+status: active

@@ -1,0 +1,39 @@
+id: mistral-ministral-3b-2410-retired-2025
+provider: mistral
+kind: retired
+severity: breaking
+title: "ministral-3b-2410 retired"
+summary: >
+  Mistral deprecated ministral-3b-2410 on 2025-12-02 and retired it on
+  2025-12-31. Requests naming it now fail with 404. Mistral names Ministral
+  3 3B (ministral-3b-2512) as the alternative.
+
+affects:
+  - kind: model
+    match: "ministral-3b-2410"
+
+announced: 2025-12-02
+effective: 2025-12-31
+
+sources:
+  - kind: provider_page
+    url: https://docs.mistral.ai/models
+    observed: 2026-09-24
+    note: "Deprecated & retired models table: ministral-3b-2410, deprecation 12/2/2025, retirement 12/31/2025, alternative Ministral 3 3B."
+  - kind: provider_page
+    url: https://docs.mistral.ai/inference/model-lifecycle
+    observed: 2026-09-24
+    note: "Once retired, requests to its identifiers fail with a 404 error."
+
+migration:
+  replacement: "ministral-3b-2512"
+  guide: https://docs.mistral.ai/models
+  effort: small
+  notes: >
+    Replace the model ID string ministral-3b-2410 with ministral-3b-2512,
+    or with that family's -latest alias if the code should follow future
+    releases. Re-run evals and any tests that assert on output, because
+    output style, context length and token usage differ between model
+    generations.
+
+status: expired

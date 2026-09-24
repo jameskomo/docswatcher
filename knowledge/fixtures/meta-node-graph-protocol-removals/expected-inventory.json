@@ -1,0 +1,110 @@
+[
+  {
+    "id": "meta:api_version:v26.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v26.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/pages.js",
+        "line": 1,
+        "column": 43,
+        "snippet": "const GRAPH = \"https://graph.facebook.com/v26.0\";",
+        "detector": "meta.literal.api-version-url",
+        "layer": "literal"
+      },
+      {
+        "path": "src/pages.js",
+        "line": 4,
+        "column": 55,
+        "snippet": "const res = await fetch(`https://graph.facebook.com/v26.0/?ids=${pageIds.join(\",\")}&access_token=${token}`);",
+        "detector": "meta.literal.api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "fb",
+        "version": "^2.0.0"
+      },
+      "apiVersion": "v26.0"
+    }
+  },
+  {
+    "id": "meta:endpoint:GET /?ids",
+    "provider": "meta",
+    "kind": "endpoint",
+    "key": "GET /?ids",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/pages.js",
+        "line": 4,
+        "column": 36,
+        "snippet": "const res = await fetch(`https://graph.facebook.com/v26.0/?ids=${pageIds.join(\",\")}&access_token=${token}`);",
+        "detector": "meta.literal.endpoint-root-ids",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "fb",
+        "version": "^2.0.0"
+      },
+      "apiVersion": "v26.0"
+    }
+  },
+  {
+    "id": "meta:endpoint:GET /{page-id}/commerce_orders",
+    "provider": "meta",
+    "kind": "endpoint",
+    "key": "GET /{page-id}/commerce_orders",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/pages.js",
+        "line": 9,
+        "column": 46,
+        "snippet": "const res = await fetch(`${GRAPH}/${pageId}/commerce_orders?state=CREATED&access_token=${token}`);",
+        "detector": "meta.literal.endpoint-commerce-orders",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "fb",
+        "version": "^2.0.0"
+      },
+      "apiVersion": "v26.0"
+    }
+  },
+  {
+    "id": "meta:sdk_package:fb",
+    "provider": "meta",
+    "kind": "sdk_package",
+    "key": "fb",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"fb\": \"^2.0.0\"",
+        "detector": "meta.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "fb",
+        "version": "^2.0.0"
+      },
+      "apiVersion": "v26.0"
+    }
+  }
+]

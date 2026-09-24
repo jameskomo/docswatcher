@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "meta:endpoint:GET /?ids",
+    "change": "meta-graph-api-root-ids-lookup-removed-2026"
+  },
+  {
+    "contract": "meta:endpoint:GET /{page-id}/commerce_orders",
+    "change": "meta-commerce-order-management-api-removed-2026"
+  }
+]

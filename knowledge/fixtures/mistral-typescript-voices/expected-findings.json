@@ -1,0 +1,6 @@
+[
+  {
+    "contract": "mistral:endpoint:ANY /v1/audio/voices",
+    "change": "mistral-v1-audio-voices-sunset-2027"
+  }
+]

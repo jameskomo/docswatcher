@@ -1,0 +1,69 @@
+[
+  {
+    "id": "openai:model:gpt-4o",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "README.md",
+        "line": 4,
+        "column": 27,
+        "snippet": "the chatbot team owns the gpt-4o deployments in a separate subscription.",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "stripe:api_version:2024-06-20",
+    "provider": "stripe",
+    "kind": "api_version",
+    "key": "2024-06-20",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/billing.py",
+        "line": 4,
+        "column": 23,
+        "snippet": "stripe.api_version = \"2024-06-20\"",
+        "detector": "stripe.literal.api-version",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "stripe",
+        "version": "12.5.0"
+      },
+      "apiVersion": "2024-06-20"
+    }
+  },
+  {
+    "id": "stripe:sdk_package:stripe",
+    "provider": "stripe",
+    "kind": "sdk_package",
+    "key": "stripe",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 2,
+        "column": 1,
+        "snippet": "stripe==12.5.0",
+        "detector": "stripe.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "stripe",
+        "version": "12.5.0"
+      },
+      "apiVersion": "2024-06-20"
+    }
+  }
+]

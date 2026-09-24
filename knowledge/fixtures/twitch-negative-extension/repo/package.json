@@ -1,0 +1,7 @@
+{
+  "name": "poll-panel",
+  "private": true,
+  "dependencies": {
+    "@twurple/api": "^8.2.0"
+  }
+}

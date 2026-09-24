@@ -1,0 +1,104 @@
+[
+  {
+    "id": "twitch:endpoint:ANY /pubsub-edge",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /pubsub-edge",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "alerts/src/socket.js",
+        "line": 3,
+        "column": 37,
+        "snippet": "const socket = new WebSocket(\"wss://pubsub-edge.twitch.tv\");",
+        "detector": "twitch.literal.endpoint-legacy-host",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "twitch:endpoint:ANY /pubsub-edge/v1",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /pubsub-edge/v1",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "moderation/src/main/java/tv/example/ModWatcher.java",
+        "line": 4,
+        "column": 43,
+        "snippet": "static final String PUBSUB_URL = \"wss://pubsub-edge.twitch.tv/v1\";",
+        "detector": "twitch.literal.endpoint-legacy-host",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "twitch:sdk_package:@twurple/auth",
+    "provider": "twitch",
+    "kind": "sdk_package",
+    "key": "@twurple/auth",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "bot/package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"@twurple/auth\": \"^7.4.0\",",
+        "detector": "twitch.manifest.npm",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "twitch:sdk_package:@twurple/pubsub",
+    "provider": "twitch",
+    "kind": "sdk_package",
+    "key": "@twurple/pubsub",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "bot/package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"@twurple/pubsub\": \"^7.4.0\"",
+        "detector": "twitch.manifest.npm",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "twitch:sdk_package:com.github.twitch4j:twitch4j-pubsub",
+    "provider": "twitch",
+    "kind": "sdk_package",
+    "key": "com.github.twitch4j:twitch4j-pubsub",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "moderation/pom.xml",
+        "line": 9,
+        "column": 19,
+        "snippet": "<artifactId>twitch4j-pubsub</artifactId>",
+        "detector": "twitch.manifest.maven",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "twitch:sdk_package:twitch-pubsub-client",
+    "provider": "twitch",
+    "kind": "sdk_package",
+    "key": "twitch-pubsub-client",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "alerts/package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"twitch-pubsub-client\": \"^4.6.7\",",
+        "detector": "twitch.manifest.npm",
+        "layer": "manifest"
+      }
+    ]
+  }
+]

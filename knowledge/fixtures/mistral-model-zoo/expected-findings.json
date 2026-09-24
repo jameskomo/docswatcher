@@ -1,0 +1,162 @@
+[
+  {
+    "contract": "mistral:model:mistral-large-2407",
+    "change": "mistral-large-2407-retired-2025"
+  },
+  {
+    "contract": "mistral:model:open-mistral-7b",
+    "change": "mistral-open-mistral-7b-retired-2025"
+  },
+  {
+    "contract": "mistral:model:open-mixtral-8x22b",
+    "change": "mistral-open-mixtral-8x22b-retired-2025"
+  },
+  {
+    "contract": "mistral:model:open-mixtral-8x7b",
+    "change": "mistral-open-mixtral-8x7b-retired-2025"
+  },
+  {
+    "contract": "mistral:model:codestral-2405",
+    "change": "mistral-codestral-2405-retired-2025"
+  },
+  {
+    "contract": "mistral:model:mistral-large-2402",
+    "change": "mistral-large-2402-retired-2025"
+  },
+  {
+    "contract": "mistral:model:mistral-medium-2312",
+    "change": "mistral-medium-2312-retired-2025"
+  },
+  {
+    "contract": "mistral:model:mistral-small-2402",
+    "change": "mistral-small-2402-retired-2025"
+  },
+  {
+    "contract": "mistral:model:mistral-saba-2502",
+    "change": "mistral-saba-2502-retired-2025"
+  },
+  {
+    "contract": "mistral:model:codestral-2501",
+    "change": "mistral-codestral-2501-retired-2025"
+  },
+  {
+    "contract": "mistral:model:devstral-small-2505",
+    "change": "mistral-devstral-small-2505-retired-2025"
+  },
+  {
+    "contract": "mistral:model:magistral-medium-2506",
+    "change": "mistral-magistral-medium-2506-retired-2025"
+  },
+  {
+    "contract": "mistral:model:magistral-medium-2507",
+    "change": "mistral-magistral-medium-2507-retired-2025"
+  },
+  {
+    "contract": "mistral:model:magistral-small-2506",
+    "change": "mistral-magistral-small-2506-retired-2025"
+  },
+  {
+    "contract": "mistral:model:magistral-small-2507",
+    "change": "mistral-magistral-small-2507-retired-2025"
+  },
+  {
+    "contract": "mistral:model:mistral-small-2409",
+    "change": "mistral-small-2409-retired-2025"
+  },
+  {
+    "contract": "mistral:model:mistral-small-2501",
+    "change": "mistral-small-2501-retired-2025"
+  },
+  {
+    "contract": "mistral:model:mistral-small-2503",
+    "change": "mistral-small-2503-retired-2025"
+  },
+  {
+    "contract": "mistral:model:ministral-3b-2410",
+    "change": "mistral-ministral-3b-2410-retired-2025"
+  },
+  {
+    "contract": "mistral:model:ministral-8b-2410",
+    "change": "mistral-ministral-8b-2410-retired-2025"
+  },
+  {
+    "contract": "mistral:model:mistral-ocr-2503",
+    "change": "mistral-ocr-2503-retired-2025"
+  },
+  {
+    "contract": "mistral:model:pixtral-12b-2409",
+    "change": "mistral-pixtral-12b-2409-retired-2025"
+  },
+  {
+    "contract": "mistral:model:labs-devstral-small-2512",
+    "change": "mistral-labs-devstral-small-2512-retired-2026"
+  },
+  {
+    "contract": "mistral:model:labs-mistral-small-creative",
+    "change": "mistral-labs-mistral-small-creative-retired-2026"
+  },
+  {
+    "contract": "mistral:model:devstral-medium-2507",
+    "change": "mistral-devstral-medium-2507-retired-2026"
+  },
+  {
+    "contract": "mistral:model:devstral-small-2507",
+    "change": "mistral-devstral-small-2507-retired-2026"
+  },
+  {
+    "contract": "mistral:model:mistral-large-2411",
+    "change": "mistral-large-2411-retired-2026"
+  },
+  {
+    "contract": "mistral:model:mistral-ocr-2505",
+    "change": "mistral-ocr-2505-retired-2026"
+  },
+  {
+    "contract": "mistral:model:pixtral-large-2411",
+    "change": "mistral-pixtral-large-2411-retired-2026"
+  },
+  {
+    "contract": "mistral:model:voxtral-mini-2507",
+    "change": "mistral-voxtral-mini-2507-retired-2026"
+  },
+  {
+    "contract": "mistral:model:labs-leanstral-2603",
+    "change": "mistral-labs-leanstral-2603-retired-2026"
+  },
+  {
+    "contract": "mistral:model:mistral-moderation-2411",
+    "change": "mistral-moderation-2411-retired-2026"
+  },
+  {
+    "contract": "mistral:model:devstral-2512",
+    "change": "mistral-devstral-2512-retired-2026"
+  },
+  {
+    "contract": "mistral:model:magistral-medium-2509",
+    "change": "mistral-magistral-medium-2509-retired-2026"
+  },
+  {
+    "contract": "mistral:model:magistral-small-2509",
+    "change": "mistral-magistral-small-2509-retired-2026"
+  },
+  {
+    "contract": "mistral:model:mistral-small-2506",
+    "change": "mistral-small-2506-retired-2026"
+  },
+  {
+    "contract": "mistral:model:open-mistral-nemo-2407",
+    "change": "mistral-open-mistral-nemo-2407-retired-2026"
+  },
+  {
+    "contract": "mistral:model:mistral-medium-2505",
+    "change": "mistral-medium-2505-retired-2026"
+  },
+  {
+    "contract": "mistral:model:mistral-medium-2508",
+    "change": "mistral-medium-2508-retired-2026"
+  },
+  {
+    "contract": "mistral:model:labs-leanstral-1-5",
+    "change": "mistral-labs-leanstral-1-5-retired-2026"
+  }
+]

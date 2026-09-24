@@ -1,0 +1,42 @@
+id: azure-openai-o1-pro-2025-03-19-retired-2026
+provider: azure-openai
+kind: retired
+severity: breaking
+title: "o1-pro version 2025-03-19 retired"
+summary: >
+  Azure OpenAI retires o1-pro version 2025-03-19 (lifecycle stage:
+  Deprecated) on 2026-11-19. After that date inference requests to a
+  deployment of that version return 410 Gone. Standard deployments set to
+  upgrade automatically move to gpt-5.6-sol; provisioned deployments are
+  never upgraded and stop working.
+
+affects:
+  - kind: model
+    match: "o1-pro-2025-03-19"
+
+announced: 2025-03-19
+effective: 2026-11-19
+
+sources:
+  - kind: provider_page
+    url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule
+    observed: 2026-09-24
+    note: "Azure OpenAI table: o1-pro | 2025-03-19 | Deprecated | 2026-11-19 | gpt-5.6-sol. announced is the version date: Microsoft sets a model's retirement date when it launches."
+  - kind: provider_page
+    url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirements
+    observed: 2026-09-24
+    note: "Retired: Removed from service. All inference requests return 410 Gone. A GA model's retirement date is set when it launches."
+
+migration:
+  replacement: "gpt-5.6-sol"
+  guide: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule
+  effort: small
+  notes: >
+    Redeploy with model gpt-5.6-sol and update the model name and version
+    in the deployment template (format OpenAI, name gpt-5.6-sol), then
+    point the deployment name the code uses at it. Check
+    versionUpgradeOption on Standard deployments; provisioned deployments
+    must be redeployed by hand. Re-run evals, because output and token
+    usage differ between models.
+
+status: active

@@ -1,0 +1,41 @@
+id: meta-graph-api-v24-0-expires-2028
+provider: meta
+kind: sunset
+severity: breaking
+title: "Graph API v24.0 expires"
+summary: >
+  Graph API v24.0 stops being usable on 2028-02-18. Calls that still name
+  v24.0 are then served by the oldest version still available, so they do
+  not fail, but fields and edges removed since then disappear from responses
+  without an error.
+
+affects:
+  - kind: api_version
+    match: "v24.0"
+
+announced: 2025-10-08
+effective: 2028-02-18
+
+sources:
+  - kind: provider_page
+    url: https://developers.facebook.com/docs/graph-api/changelog/versions/
+    observed: 2026-09-24
+    note: "Graph API table: v24.0 | October 8, 2025 | February 18, 2028. announced is the release date."
+  - kind: provider_page
+    url: https://developers.facebook.com/docs/graph-api/guides/versioning
+    observed: 2026-09-24
+    note: "Once a version is no longer usable, any calls made to it will be defaulted to the next oldest, usable version."
+
+migration:
+  replacement: "v26.0"
+  guide: https://developers.facebook.com/docs/graph-api/changelog
+  effort: medium
+  notes: >
+    Change the version segment of every graph.facebook.com URL from v24.0
+    to a current version, along with any FB.init({ version }) and SDK
+    api_version setting. Read the changelog of every version in between
+    for removed fields, edges and permissions, and update response parsing
+    that relies on them. The app dashboard's default API version governs
+    unversioned calls, so upgrade it too.
+
+status: active

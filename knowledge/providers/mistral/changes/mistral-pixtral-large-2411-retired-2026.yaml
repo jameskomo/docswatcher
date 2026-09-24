@@ -1,0 +1,39 @@
+id: mistral-pixtral-large-2411-retired-2026
+provider: mistral
+kind: retired
+severity: breaking
+title: "pixtral-large-2411 retired"
+summary: >
+  Mistral deprecated pixtral-large-2411 on 2026-02-27 and retired it on
+  2026-05-31. Requests naming it now fail with 404. Mistral names Mistral
+  Medium 3.5 (mistral-medium-3-5) as the alternative.
+
+affects:
+  - kind: model
+    match: "pixtral-large-2411"
+
+announced: 2026-02-27
+effective: 2026-05-31
+
+sources:
+  - kind: provider_page
+    url: https://docs.mistral.ai/models
+    observed: 2026-09-24
+    note: "Deprecated & retired models table: pixtral-large-2411, deprecation 2/27/2026, retirement 5/31/2026, alternative Mistral Medium 3.5."
+  - kind: provider_page
+    url: https://docs.mistral.ai/inference/model-lifecycle
+    observed: 2026-09-24
+    note: "Once retired, requests to its identifiers fail with a 404 error."
+
+migration:
+  replacement: "mistral-medium-3-5"
+  guide: https://docs.mistral.ai/models
+  effort: small
+  notes: >
+    Replace the model ID string pixtral-large-2411 with
+    mistral-medium-3-5, or with that family's -latest alias if the code
+    should follow future releases. Re-run evals and any tests that assert
+    on output, because output style, context length and token usage differ
+    between model generations.
+
+status: expired

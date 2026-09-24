@@ -1,0 +1,42 @@
+id: azure-openai-assistants-api-retired-2026
+provider: azure-openai
+kind: sunset
+severity: breaking
+title: "Azure OpenAI Assistants API retired"
+summary: >
+  The Assistants API on Azure OpenAI (assistants, threads and runs under
+  /openai/) was deprecated and retired on 2026-08-26. Microsoft points to
+  the Foundry Agent Service.
+
+affects:
+  - kind: endpoint
+    match: "ANY /openai/assistants"
+  - kind: endpoint
+    match: "ANY /openai/threads"
+
+announced: 2026-02-13
+effective: 2026-08-26
+
+sources:
+  - kind: provider_page
+    url: https://learn.microsoft.com/en-us/previous-versions/azure/foundry-classic/openai/how-to/assistant
+    observed: 2026-09-24
+    note: "The Assistants API is retired. Use the generally available Microsoft Foundry Agents service."
+  - kind: provider_page
+    url: https://github.com/MicrosoftDocs/azure-ai-docs/blob/b4c180e1/articles/ai-foundry/openai/includes/agent-service.md
+    observed: 2026-09-24
+    note: "Earliest published revision naming the date (2026-02-13): The Assistants API is deprecated and will be retired on August 26, 2026."
+
+migration:
+  replacement: "Foundry Agent Service"
+  guide: https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/migrate
+  effort: large
+  notes: >
+    Assistants, threads and runs have no drop-in equivalent on Azure
+    OpenAI. Move agent definitions to the Foundry Agent Service
+    (azure-ai-projects, client.agents) following the migration guide, or
+    to the Responses API on /openai/v1/responses if no hosted agent state
+    is needed. Thread history is not migrated, so export anything that
+    must be kept.
+
+status: expired

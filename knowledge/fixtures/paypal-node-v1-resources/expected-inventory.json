@@ -1,0 +1,322 @@
+[
+  {
+    "id": "paypal:endpoint:ANY /v1/customer/partner-referrals",
+    "provider": "paypal",
+    "kind": "endpoint",
+    "key": "ANY /v1/customer/partner-referrals",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/onboarding.js",
+        "line": 3,
+        "column": 65,
+        "snippet": "export const referMerchant = (token, referral) => call(\"POST\", \"/v1/customer/partner-referrals\", token, referral);",
+        "detector": "paypal.literal.endpoint-deprecated-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  },
+  {
+    "id": "paypal:endpoint:ANY /v1/invoicing/invoices",
+    "provider": "paypal",
+    "kind": "endpoint",
+    "key": "ANY /v1/invoicing/invoices",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/invoices.js",
+        "line": 3,
+        "column": 64,
+        "snippet": "export const createInvoice = (token, invoice) => call(\"POST\", \"/v1/invoicing/invoices\", token, invoice);",
+        "detector": "paypal.literal.endpoint-deprecated-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  },
+  {
+    "id": "paypal:endpoint:ANY /v1/invoicing/search",
+    "provider": "paypal",
+    "kind": "endpoint",
+    "key": "ANY /v1/invoicing/search",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/invoices.js",
+        "line": 4,
+        "column": 63,
+        "snippet": "export const searchInvoices = (token, query) => call(\"POST\", \"/v1/invoicing/search\", token, query);",
+        "detector": "paypal.literal.endpoint-deprecated-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  },
+  {
+    "id": "paypal:endpoint:ANY /v1/invoicing/templates",
+    "provider": "paypal",
+    "kind": "endpoint",
+    "key": "ANY /v1/invoicing/templates",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/invoices.js",
+        "line": 5,
+        "column": 54,
+        "snippet": "export const listTemplates = (token) => call(\"GET\", \"/v1/invoicing/templates\", token);",
+        "detector": "paypal.literal.endpoint-deprecated-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  },
+  {
+    "id": "paypal:endpoint:ANY /v1/payments/authorization",
+    "provider": "paypal",
+    "kind": "endpoint",
+    "key": "ANY /v1/payments/authorization",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/paypal.js",
+        "line": 16,
+        "column": 79,
+        "snippet": "export const getAuthorization = (token, id) => fetch(`https://api-m.paypal.com/v1/payments/authorization/${id}`, {",
+        "detector": "paypal.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  },
+  {
+    "id": "paypal:endpoint:ANY /v1/payments/billing-agreements",
+    "provider": "paypal",
+    "kind": "endpoint",
+    "key": "ANY /v1/payments/billing-agreements",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/billing.js",
+        "line": 4,
+        "column": 68,
+        "snippet": "export const createAgreement = (token, agreement) => call(\"POST\", \"/v1/payments/billing-agreements\", token, agreement);",
+        "detector": "paypal.literal.endpoint-deprecated-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  },
+  {
+    "id": "paypal:endpoint:ANY /v1/payments/billing-plans",
+    "provider": "paypal",
+    "kind": "endpoint",
+    "key": "ANY /v1/payments/billing-plans",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/billing.js",
+        "line": 3,
+        "column": 58,
+        "snippet": "export const createPlan = (token, plan) => call(\"POST\", \"/v1/payments/billing-plans\", token, plan);",
+        "detector": "paypal.literal.endpoint-deprecated-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  },
+  {
+    "id": "paypal:endpoint:ANY /v1/payments/capture",
+    "provider": "paypal",
+    "kind": "endpoint",
+    "key": "ANY /v1/payments/capture",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/paypal.js",
+        "line": 20,
+        "column": 55,
+        "snippet": "export const getCapture = (token, id) => call(\"GET\", `/v1/payments/capture/${id}`, token);",
+        "detector": "paypal.literal.endpoint-deprecated-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  },
+  {
+    "id": "paypal:endpoint:ANY /v1/payments/orders",
+    "provider": "paypal",
+    "kind": "endpoint",
+    "key": "ANY /v1/payments/orders",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/paypal.js",
+        "line": 19,
+        "column": 53,
+        "snippet": "export const getOrder = (token, id) => call(\"GET\", `/v1/payments/orders/${id}`, token);",
+        "detector": "paypal.literal.endpoint-deprecated-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  },
+  {
+    "id": "paypal:endpoint:ANY /v1/payments/payment",
+    "provider": "paypal",
+    "kind": "endpoint",
+    "key": "ANY /v1/payments/payment",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/paypal.js",
+        "line": 12,
+        "column": 61,
+        "snippet": "export const createPayment = (token, body) => call(\"POST\", \"/v1/payments/payment\", token, body);",
+        "detector": "paypal.literal.endpoint-deprecated-path",
+        "layer": "literal"
+      },
+      {
+        "path": "src/paypal.js",
+        "line": 14,
+        "column": 17,
+        "snippet": "call(\"POST\", `/v1/payments/payment/${id}/execute`, token, { payer_id: payerId });",
+        "detector": "paypal.literal.endpoint-deprecated-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  },
+  {
+    "id": "paypal:endpoint:ANY /v1/payments/refund",
+    "provider": "paypal",
+    "kind": "endpoint",
+    "key": "ANY /v1/payments/refund",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/paypal.js",
+        "line": 21,
+        "column": 54,
+        "snippet": "export const getRefund = (token, id) => call(\"GET\", `/v1/payments/refund/${id}`, token);",
+        "detector": "paypal.literal.endpoint-deprecated-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  },
+  {
+    "id": "paypal:endpoint:ANY /v1/payments/sale",
+    "provider": "paypal",
+    "kind": "endpoint",
+    "key": "ANY /v1/payments/sale",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/paypal.js",
+        "line": 15,
+        "column": 60,
+        "snippet": "export const refundSale = (token, saleId) => call(\"POST\", `/v1/payments/sale/${saleId}/refund`, token, {});",
+        "detector": "paypal.literal.endpoint-deprecated-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  },
+  {
+    "id": "paypal:sdk_package:@paypal/paypal-server-sdk",
+    "provider": "paypal",
+    "kind": "sdk_package",
+    "key": "@paypal/paypal-server-sdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"@paypal/paypal-server-sdk\": \"^2.5.0\",",
+        "detector": "paypal.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  }
+]

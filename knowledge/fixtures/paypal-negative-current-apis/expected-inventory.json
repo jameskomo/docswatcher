@@ -1,0 +1,74 @@
+[
+  {
+    "id": "paypal:endpoint:ANY /v1/billing/subscriptions",
+    "provider": "paypal",
+    "kind": "endpoint",
+    "key": "ANY /v1/billing/subscriptions",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/payouts.js",
+        "line": 6,
+        "column": 71,
+        "snippet": "export const subscription = (t, id) => fetch(`https://api-m.paypal.com/v1/billing/subscriptions/${id}`, { headers: { Authorization: `Bearer ${t}` } });",
+        "detector": "paypal.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  },
+  {
+    "id": "paypal:endpoint:ANY /v2/checkout/orders",
+    "provider": "paypal",
+    "kind": "endpoint",
+    "key": "ANY /v2/checkout/orders",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/payouts.js",
+        "line": 7,
+        "column": 66,
+        "snippet": "export const order = (t, body) => fetch(\"https://api-m.paypal.com/v2/checkout/orders\", { method: \"POST\", headers: { Authorization: `Bearer ${t}` }, body: JSON.stringify(body) });",
+        "detector": "paypal.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  },
+  {
+    "id": "paypal:sdk_package:@paypal/paypal-server-sdk",
+    "provider": "paypal",
+    "kind": "sdk_package",
+    "key": "@paypal/paypal-server-sdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"@paypal/paypal-server-sdk\": \"^2.5.0\"",
+        "detector": "paypal.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@paypal/paypal-server-sdk",
+        "version": "^2.5.0"
+      }
+    }
+  }
+]

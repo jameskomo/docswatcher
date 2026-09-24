@@ -1,0 +1,217 @@
+[
+  {
+    "id": "azure-openai:api_version:2024-05-01-preview",
+    "provider": "azure-openai",
+    "kind": "api_version",
+    "key": "2024-05-01-preview",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/tutor.py",
+        "line": 11,
+        "column": 73,
+        "snippet": "\"https://contoso.openai.azure.com/openai/assistants?api-version=2024-05-01-preview\",",
+        "detector": "azure-openai.literal.api-version-query",
+        "layer": "literal"
+      },
+      {
+        "path": "src/tutor.py",
+        "line": 19,
+        "column": 84,
+        "snippet": "r = requests.post(\"https://contoso.openai.azure.com/openai/threads?api-version=2024-05-01-preview\", headers=HEADERS)",
+        "detector": "azure-openai.literal.api-version-query",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:api_version:2024-10-21",
+    "provider": "azure-openai",
+    "kind": "api_version",
+    "key": "2024-10-21",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/client.py",
+        "line": 7,
+        "column": 18,
+        "snippet": "api_version=\"2024-10-21\",",
+        "detector": "azure-openai.literal.api-version-client",
+        "layer": "literal"
+      },
+      {
+        "path": "src/deployments.py",
+        "line": 5,
+        "column": 105,
+        "snippet": "ENDPOINT = \"https://contoso.openai.azure.com/openai/deployments/summarizer/chat/completions?api-version=2024-10-21\"",
+        "detector": "azure-openai.literal.api-version-query",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:api_version:2025-04-01-preview",
+    "provider": "azure-openai",
+    "kind": "api_version",
+    "key": "2025-04-01-preview",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": ".env.example",
+        "line": 2,
+        "column": 20,
+        "snippet": "OPENAI_API_VERSION=2025-04-01-preview",
+        "detector": "azure-openai.literal.api-version-env",
+        "layer": "literal"
+      },
+      {
+        "path": "src/voice.py",
+        "line": 3,
+        "column": 76,
+        "snippet": "REALTIME_URL = \"wss://contoso.openai.azure.com/openai/realtime?api-version=2025-04-01-preview&deployment=voice\"",
+        "detector": "azure-openai.literal.api-version-query",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:endpoint:ANY /openai/assistants",
+    "provider": "azure-openai",
+    "kind": "endpoint",
+    "key": "ANY /openai/assistants",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/tutor.py",
+        "line": 11,
+        "column": 42,
+        "snippet": "\"https://contoso.openai.azure.com/openai/assistants?api-version=2024-05-01-preview\",",
+        "detector": "azure-openai.literal.endpoint",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:endpoint:ANY /openai/deployments/{deployment-id}/chat/completions",
+    "provider": "azure-openai",
+    "kind": "endpoint",
+    "key": "ANY /openai/deployments/{deployment-id}/chat/completions",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/deployments.py",
+        "line": 5,
+        "column": 75,
+        "snippet": "ENDPOINT = \"https://contoso.openai.azure.com/openai/deployments/summarizer/chat/completions?api-version=2024-10-21\"",
+        "detector": "azure-openai.literal.endpoint-deployment",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:endpoint:ANY /openai/realtime",
+    "provider": "azure-openai",
+    "kind": "endpoint",
+    "key": "ANY /openai/realtime",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/voice.py",
+        "line": 3,
+        "column": 47,
+        "snippet": "REALTIME_URL = \"wss://contoso.openai.azure.com/openai/realtime?api-version=2025-04-01-preview&deployment=voice\"",
+        "detector": "azure-openai.literal.endpoint",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "azure-openai:endpoint:ANY /openai/threads",
+    "provider": "azure-openai",
+    "kind": "endpoint",
+    "key": "ANY /openai/threads",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/tutor.py",
+        "line": 19,
+        "column": 56,
+        "snippet": "r = requests.post(\"https://contoso.openai.azure.com/openai/threads?api-version=2024-05-01-preview\", headers=HEADERS)",
+        "detector": "azure-openai.literal.endpoint",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:endpoint:POST /v1/chat/completions",
+    "provider": "openai",
+    "kind": "endpoint",
+    "key": "POST /v1/chat/completions",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/client.py",
+        "line": 12,
+        "column": 16,
+        "snippet": "response = client.chat.completions.create(",
+        "detector": "openai.python.chat-completions-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "openai",
+        "version": "1.109.1"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_method:chat.completions.create",
+    "provider": "openai",
+    "kind": "sdk_method",
+    "key": "chat.completions.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/client.py",
+        "line": 12,
+        "column": 16,
+        "snippet": "response = client.chat.completions.create(",
+        "detector": "openai.python.chat-completions-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "openai",
+        "version": "1.109.1"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_package:openai",
+    "provider": "openai",
+    "kind": "sdk_package",
+    "key": "openai",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "openai==1.109.1",
+        "detector": "openai.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "openai",
+        "version": "1.109.1"
+      }
+    }
+  }
+]

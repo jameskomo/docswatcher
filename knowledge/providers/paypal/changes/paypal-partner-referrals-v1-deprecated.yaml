@@ -1,0 +1,40 @@
+id: paypal-partner-referrals-v1-deprecated
+provider: paypal
+kind: sunset
+severity: warning
+title: "Partner Referrals v1 deprecated"
+summary: >
+  Partner Referrals v1 (/v1/customer/partner-referrals) is deprecated.
+  Existing merchants keep working but receive no new features; Partner
+  Referrals v2 replaces it. No removal date is published.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v1/customer/partner-referrals"
+
+announced: 2026-06-29
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://developer.paypal.com/api/rest/deprecated-resources/
+    observed: 2026-09-24
+    note: "Lists it under Deprecated resources. announced is the page's last-updated date, June 29, 2026: PayPal publishes no announcement date."
+  - kind: provider_page
+    url: https://developer.paypal.com/api/deprecated/partner-referrals/v1
+    observed: 2026-09-24
+    note: "Deprecation notice: This integration method is deprecated. PayPal continues to support existing merchants using this method, but be advised that new features and enhancements will not be applied to these integrations."
+
+migration:
+  replacement: "ANY /v2/customer/partner-referrals"
+  guide: https://developer.paypal.com/docs/api/partner-referrals/v2/
+  effort: medium
+  notes: >
+    Create referrals with POST /v2/customer/partner-referrals. The v2 body
+    describes operations and products
+    (operations[].api_integration_preference, products such as
+    EXPRESS_CHECKOUT) instead of v1's customer_data and
+    requested_capabilities, so rebuild the request and read the action_url
+    link from the response.
+
+status: active

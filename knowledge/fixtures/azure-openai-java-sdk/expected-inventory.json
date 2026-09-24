@@ -1,0 +1,26 @@
+[
+  {
+    "id": "azure-openai:sdk_package:com.azure:azure-ai-openai",
+    "provider": "azure-openai",
+    "kind": "sdk_package",
+    "key": "com.azure:azure-ai-openai",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "pom.xml",
+        "line": 9,
+        "column": 19,
+        "snippet": "<artifactId>azure-ai-openai</artifactId>",
+        "detector": "azure-openai.manifest.maven",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "maven",
+        "package": "com.azure:azure-ai-openai",
+        "version": "1.0.0-beta.16"
+      }
+    }
+  }
+]

@@ -1,0 +1,39 @@
+id: azure-openai-whisper-001-retired-2026
+provider: azure-openai
+kind: retired
+severity: breaking
+title: "whisper version 001 retired"
+summary: >
+  Azure OpenAI retires whisper version 001 (lifecycle stage: GA) on
+  2026-12-15. After that date inference requests to a deployment of that
+  version return 410 Gone. Microsoft lists no replacement.
+
+affects:
+  - kind: model
+    match: "whisper-001"
+
+announced: 2026-09-21
+effective: 2026-12-15
+
+sources:
+  - kind: provider_page
+    url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule
+    observed: 2026-09-24
+    note: "Azure OpenAI table: whisper | 001 | GA | 2026-12-15 | —. announced is the schedule page's last update, 2026-09-21: no launch date is published for version 001."
+  - kind: provider_page
+    url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirements
+    observed: 2026-09-24
+    note: "Retired: Removed from service. All inference requests return 410 Gone. A GA model's retirement date is set when it launches."
+
+migration:
+  replacement: null
+  guide: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule
+  effort: small
+  notes: >
+    Pick a current model from the Azure OpenAI model list, deploy it, and
+    update the name and version in the deployment template. Check
+    versionUpgradeOption on Standard deployments; provisioned deployments
+    must be redeployed by hand. Re-run evals, because output and token
+    usage differ between models.
+
+status: active

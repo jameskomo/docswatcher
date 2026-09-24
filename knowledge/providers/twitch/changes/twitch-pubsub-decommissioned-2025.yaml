@@ -1,0 +1,51 @@
+id: twitch-pubsub-decommissioned-2025
+provider: twitch
+kind: sunset
+severity: breaking
+title: "Legacy PubSub decommissioned"
+summary: >
+  Twitch's legacy PubSub (wss://pubsub-edge.twitch.tv) was shut down for
+  third-party development on 2025-04-14. LISTEN requests no longer deliver
+  events. Extension PubSub is not affected. EventSub replaces it.
+
+affects:
+  - kind: endpoint
+    match: "ANY /pubsub-edge/v1"
+  - kind: endpoint
+    match: "ANY /pubsub-edge"
+  - kind: sdk_package
+    match: "@twurple/pubsub"
+  - kind: sdk_package
+    match: "twitch-pubsub-client"
+  - kind: sdk_package
+    match: "com.github.twitch4j:twitch4j-pubsub"
+
+announced: 2024-04-12
+effective: 2025-04-14
+
+sources:
+  - kind: provider_page
+    url: https://discuss.dev.twitch.com/t/legacy-pubsub-deprecation-and-shutdown-timeline/58043
+    observed: 2026-09-24
+    note: "Today we are announcing the timeline to decommission our legacy PubSub system for third-party development with a shutdown to be completed on or soon after April 14, 2025. ... Will this deprecation affect Extension PubSub? No."
+  - kind: provider_page
+    url: https://dev.twitch.tv/docs/product-lifecycle/
+    observed: 2026-09-24
+    note: "2025-04-14: Permanent shutdown of legacy PubSub."
+
+migration:
+  replacement: "EventSub"
+  guide: https://dev.twitch.tv/docs/eventsub/
+  effort: large
+  notes: >
+    Replace the PubSub WebSocket and its LISTEN topics with EventSub:
+    connect to wss://eventsub.wss.twitch.tv/ws and create subscriptions
+    with POST /helix/eventsub/subscriptions using the session ID, or use
+    webhooks or conduits server side. Each topic maps to a subscription
+    type, for example channel-points-channel-v1 to
+    channel.channel_points_custom_reward_redemption.add and
+    chat_moderator_actions to channel.moderate. In twurple, move from
+    @twurple/pubsub to @twurple/eventsub-ws; in Twitch4J, from the PubSub
+    module to EventSocket.
+
+status: expired

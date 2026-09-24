@@ -1,0 +1,30 @@
+[
+  {
+    "contract": "meta:api_version:marketing/v21.0",
+    "change": "meta-marketing-api-v21-0-expires-2025"
+  },
+  {
+    "contract": "meta:api_version:marketing/v22.0",
+    "change": "meta-marketing-api-v22-0-expires-2026"
+  },
+  {
+    "contract": "meta:api_version:marketing/v23.0",
+    "change": "meta-marketing-api-v23-0-expires-2026"
+  },
+  {
+    "contract": "meta:api_version:marketing/v24.0",
+    "change": "meta-marketing-api-v24-0-expires-2026"
+  },
+  {
+    "contract": "meta:api_version:v21.0",
+    "change": "meta-graph-api-v21-0-expires-2027"
+  },
+  {
+    "contract": "meta:api_version:v22.0",
+    "change": "meta-graph-api-v22-0-expires-2027"
+  },
+  {
+    "contract": "meta:api_version:v24.0",
+    "change": "meta-graph-api-v24-0-expires-2028"
+  }
+]

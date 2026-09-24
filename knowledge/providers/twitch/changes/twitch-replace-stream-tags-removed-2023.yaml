@@ -1,0 +1,37 @@
+id: twitch-replace-stream-tags-removed-2023
+provider: twitch
+kind: sunset
+severity: breaking
+title: "Replace Stream Tags removed"
+summary: >
+  PUT /helix/streams/tags returns 410 Gone since 2023-02-28. Stream tags
+  were replaced by free-form custom tags set through Modify Channel
+  Information.
+
+affects:
+  - kind: endpoint
+    match: "PUT /helix/streams/tags"
+
+announced: 2023-01-21
+effective: 2023-02-28
+
+sources:
+  - kind: provider_page
+    url: https://discuss.dev.twitch.com/t/adding-customizable-tags-to-the-twitch-api/42921
+    observed: 2026-09-24
+    note: "February 28, 2023 ... 'Replace Stream Tags' will return at 410 response."
+  - kind: changelog
+    url: https://dev.twitch.tv/docs/change-log/
+    observed: 2026-09-24
+    note: "2023-02-28: removed the Replace Stream Tags endpoint."
+
+migration:
+  replacement: "PATCH /helix/channels"
+  guide: https://dev.twitch.tv/docs/api/reference/#modify-channel-information
+  effort: small
+  notes: >
+    Set tags with PATCH /helix/channels?broadcaster_id=X and a tags array
+    of up to ten free-form strings, instead of PUT /helix/streams/tags
+    with tag_ids. The token needs channel:manage:broadcast.
+
+status: expired

@@ -1,0 +1,39 @@
+id: twitch-get-hype-train-events-removed-2026
+provider: twitch
+kind: sunset
+severity: breaking
+title: "Get Hype Train Events removed"
+summary: >
+  GET /helix/hypetrain/events and the version 1 Hype Train EventSub
+  subscriptions were shut down on 2026-01-15; the endpoint returns 410. Get
+  Hype Train Status and version 2 subscriptions replace them.
+
+affects:
+  - kind: endpoint
+    match: "ANY /helix/hypetrain/events"
+
+announced: 2025-09-04
+effective: 2026-01-15
+
+sources:
+  - kind: provider_page
+    url: https://discuss.dev.twitch.com/t/legacy-get-hype-train-events-api-and-eventsub-hype-train-v1-subscription-types-deprecation-and-withdrawal-timeline/64299
+    observed: 2026-09-24
+    note: "Update (2025-12-04): adjusting the shutdown date to Thursday, January 15, 2026. Update (2026-01-22): The Get Hype Train Events API now returns a 410 response and EventSub Hype Train v1 events are no longer available."
+  - kind: changelog
+    url: https://dev.twitch.tv/docs/change-log/
+    observed: 2026-09-24
+    note: "2026-02-05: Get Hype Train Events removed from the documentation."
+
+migration:
+  replacement: "GET /helix/hypetrain/status"
+  guide: https://dev.twitch.tv/docs/api/reference/#get-hype-train-status
+  effort: small
+  notes: >
+    Replace GET /helix/hypetrain/events with GET
+    /helix/hypetrain/status?broadcaster_id=X (scope
+    channel:read:hype_train), which returns the current train and the
+    all-time and shared records instead of an event list. Subscribe to
+    channel.hype_train.begin, progress and end with version 2.
+
+status: expired

@@ -1,0 +1,22 @@
+id: azure-openai
+name: Azure OpenAI
+homepage: https://azure.microsoft.com/products/ai-foundry/models/openai
+docs: https://learn.microsoft.com/en-us/azure/foundry/openai/reference
+changelog: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule
+base_urls:
+  - https://{resource}.openai.azure.com/openai
+  - https://{resource}.cognitiveservices.azure.com/openai
+  - https://{resource}.services.ai.azure.com/openai
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [python, typescript, javascript, java, go, csharp]
+deprecation_policy: >
+  A model is deployed by name and version, and each version has its own
+  retirement date, set when it launches: 18 months out for generally available
+  models, typically 90 days for previews. It is deprecated (closed to new
+  customers) before it retires; after retirement every inference request
+  returns 410 Gone. Standard deployments may be upgraded automatically,
+  provisioned deployments never are. The retirement schedule page is the
+  source of truth. Dated data-plane api-versions have no published retirement
+  dates; the v1 API (/openai/v1/) needs no api-version at all.

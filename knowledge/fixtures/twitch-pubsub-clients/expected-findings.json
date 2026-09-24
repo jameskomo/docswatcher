@@ -1,0 +1,22 @@
+[
+  {
+    "contract": "twitch:endpoint:ANY /pubsub-edge",
+    "change": "twitch-pubsub-decommissioned-2025"
+  },
+  {
+    "contract": "twitch:endpoint:ANY /pubsub-edge/v1",
+    "change": "twitch-pubsub-decommissioned-2025"
+  },
+  {
+    "contract": "twitch:sdk_package:@twurple/pubsub",
+    "change": "twitch-pubsub-decommissioned-2025"
+  },
+  {
+    "contract": "twitch:sdk_package:com.github.twitch4j:twitch4j-pubsub",
+    "change": "twitch-pubsub-decommissioned-2025"
+  },
+  {
+    "contract": "twitch:sdk_package:twitch-pubsub-client",
+    "change": "twitch-pubsub-decommissioned-2025"
+  }
+]

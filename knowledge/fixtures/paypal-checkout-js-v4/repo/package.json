@@ -1,0 +1,7 @@
+{
+  "name": "storefront",
+  "private": true,
+  "dependencies": {
+    "paypal-checkout": "^4.0.347"
+  }
+}

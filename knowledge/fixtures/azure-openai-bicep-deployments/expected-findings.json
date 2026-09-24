@@ -1,0 +1,130 @@
+[
+  {
+    "contract": "azure-openai:model:gpt-5-chat-2025-10-03",
+    "change": "azure-openai-gpt-5-chat-2025-10-03-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-5.2-chat-2025-12-11",
+    "change": "azure-openai-gpt-5-2-chat-2025-12-11-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-5-chat-2025-08-07",
+    "change": "azure-openai-gpt-5-chat-2025-08-07-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-5.1-chat-2025-11-13",
+    "change": "azure-openai-gpt-5-1-chat-2025-11-13-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-5.2-chat-2026-02-10",
+    "change": "azure-openai-gpt-5-2-chat-2026-02-10-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-5.3-chat-2026-03-03",
+    "change": "azure-openai-gpt-5-3-chat-2026-03-03-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-chat-latest-2026-06-24",
+    "change": "azure-openai-gpt-chat-latest-2026-06-24-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-4.1-nano-2025-04-14",
+    "change": "azure-openai-gpt-4-1-nano-2025-04-14-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-4o-mini-transcribe-2025-03-20",
+    "change": "azure-openai-gpt-4o-mini-transcribe-2025-03-20-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-4o-mini-tts-2025-03-20",
+    "change": "azure-openai-gpt-4o-mini-tts-2025-03-20-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-4o-transcribe-2025-03-20",
+    "change": "azure-openai-gpt-4o-transcribe-2025-03-20-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:sora-2-2025-12-08",
+    "change": "azure-openai-sora-2-2025-12-08-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-image-1-2025-04-15",
+    "change": "azure-openai-gpt-image-1-2025-04-15-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:codex-mini-2025-05-16",
+    "change": "azure-openai-codex-mini-2025-05-16-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:o1-2024-12-17",
+    "change": "azure-openai-o1-2024-12-17-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:o1-pro-2025-03-19",
+    "change": "azure-openai-o1-pro-2025-03-19-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:o3-2025-04-16",
+    "change": "azure-openai-o3-2025-04-16-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:o3-deep-research-2025-06-26",
+    "change": "azure-openai-o3-deep-research-2025-06-26-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:o3-mini-2025-01-31",
+    "change": "azure-openai-o3-mini-2025-01-31-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:o3-pro-2025-06-10",
+    "change": "azure-openai-o3-pro-2025-06-10-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:o4-mini-2025-04-16",
+    "change": "azure-openai-o4-mini-2025-04-16-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-chat-latest-2026-08-06",
+    "change": "azure-openai-gpt-chat-latest-2026-08-06-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-4o-2024-05-13",
+    "change": "azure-openai-gpt-4o-2024-05-13-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:tts-001",
+    "change": "azure-openai-tts-001-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:tts-hd-001",
+    "change": "azure-openai-tts-hd-001-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:whisper-001",
+    "change": "azure-openai-whisper-001-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-image-1.5-2025-12-16",
+    "change": "azure-openai-gpt-image-1-5-2025-12-16-retired-2026"
+  },
+  {
+    "contract": "azure-openai:model:gpt-4.1-2025-04-14",
+    "change": "azure-openai-gpt-4-1-2025-04-14-retired-2027"
+  },
+  {
+    "contract": "azure-openai:model:gpt-4.1-mini-2025-04-14",
+    "change": "azure-openai-gpt-4-1-mini-2025-04-14-retired-2027"
+  },
+  {
+    "contract": "azure-openai:model:gpt-4o-2024-08-06",
+    "change": "azure-openai-gpt-4o-2024-08-06-retired-2027"
+  },
+  {
+    "contract": "azure-openai:model:gpt-4o-2024-11-20",
+    "change": "azure-openai-gpt-4o-2024-11-20-retired-2027"
+  },
+  {
+    "contract": "azure-openai:model:gpt-4o-mini-2024-07-18",
+    "change": "azure-openai-gpt-4o-mini-2024-07-18-retired-2027"
+  }
+]

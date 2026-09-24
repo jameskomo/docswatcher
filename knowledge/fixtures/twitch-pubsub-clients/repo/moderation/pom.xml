@@ -1,0 +1,13 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>tv.example</groupId>
+  <artifactId>moderation</artifactId>
+  <version>1.0.0</version>
+  <dependencies>
+    <dependency>
+      <groupId>com.github.twitch4j</groupId>
+      <artifactId>twitch4j-pubsub</artifactId>
+      <version>1.27.0</version>
+    </dependency>
+  </dependencies>
+</project>

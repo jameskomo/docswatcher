@@ -1,0 +1,7 @@
+{
+  "name": "shop-sync",
+  "private": true,
+  "dependencies": {
+    "fb": "^2.0.0"
+  }
+}

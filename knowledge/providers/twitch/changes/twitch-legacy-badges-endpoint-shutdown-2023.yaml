@@ -1,0 +1,35 @@
+id: twitch-legacy-badges-endpoint-shutdown-2023
+provider: twitch
+kind: sunset
+severity: breaking
+title: "Legacy badges.twitch.tv endpoint shut down"
+summary: >
+  The undocumented https://badges.twitch.tv chat badge endpoint was shut
+  down on 2023-06-08. Chat badges are read from the Helix chat badge
+  endpoints.
+
+affects:
+  - kind: endpoint
+    match: "ANY /badges/v1/badges"
+
+announced: 2023-03-30
+effective: 2023-06-08
+
+sources:
+  - kind: provider_page
+    url: https://discuss.dev.twitch.com/t/legacy-badges-endpoint-shutdown-details-and-timeline-june-2023/44621
+    observed: 2026-09-24
+    note: "The legacy and unsupported badges endpoint that begins with 'https://badges.twitch.tv' is the resource that will be shut down."
+
+migration:
+  replacement: "GET /helix/chat/badges/global"
+  guide: https://dev.twitch.tv/docs/api/reference/#get-global-chat-badges
+  effort: small
+  notes: >
+    Fetch global badges from GET /helix/chat/badges/global and a channel's
+    badges from GET /helix/chat/badges?broadcaster_id=X. Both need an app
+    or user token and the Client-Id header. The response is a data array
+    of sets with versions, not the old badge_sets object keyed by set
+    name, so update the lookup.
+
+status: expired

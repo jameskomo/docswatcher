@@ -1,0 +1,37 @@
+id: paypal-checkout-js-v4-deprecated
+provider: paypal
+kind: retired
+severity: warning
+title: "checkout.js (JavaScript SDK v4) deprecated"
+summary: >
+  checkout.js, served from www.paypalobjects.com/api/checkout.js and
+  published as the paypal-checkout npm package, is deprecated and scheduled
+  for removal. PayPal has not published the removal date and asks for
+  migration now.
+
+affects:
+  - kind: sdk_package
+    match: "paypal-checkout"
+
+announced: 2026-08-24
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://developer.paypal.com/v4-v6
+    observed: 2026-09-24
+    note: "checkout.js ... and the paypal-checkout npm package are deprecated and scheduled for removal. Begin this migration now rather than waiting for a removal date. announced is the page's last-updated date, August 24, 2026: no announcement date is published."
+
+migration:
+  replacement: "PayPal Web SDK v6"
+  guide: https://developer.paypal.com/v4-v6
+  effort: medium
+  notes: >
+    Remove the checkout.js script tag or the paypal-checkout dependency
+    and load the v6 Web SDK (https://www.paypal.com/web-sdk/v6/core) as
+    the migration guide shows. paypal.Button.render with payment() and
+    onAuthorize() becomes a v6 payment session whose order is created
+    server side with POST /v2/checkout/orders and captured on approval, so
+    the server integration changes too.
+
+status: active

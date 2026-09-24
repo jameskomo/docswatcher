@@ -1,0 +1,47 @@
+id: twitch-get-users-follows-removed-2023
+provider: twitch
+kind: sunset
+severity: breaking
+title: "Get Users Follows removed"
+summary: >
+  GET /helix/users/follows and EventSub channel.follow version 1 were shut
+  down on 2023-09-12. Follower and followed-channel lists moved to two new
+  endpoints with stricter authorization.
+
+affects:
+  - kind: endpoint
+    match: "GET /helix/users/follows"
+  - kind: endpoint
+    match: "ANY /helix/users/follows"
+
+announced: 2023-02-04
+effective: 2023-09-12
+
+sources:
+  - kind: provider_page
+    url: https://discuss.dev.twitch.com/t/legacy-follows-api-and-eventsub-shutdown-timeline-updated/46769
+    observed: 2026-09-24
+    note: "The final shutdown for Get Users Follows and channel.follow V1 will go into effect at 2023-09-12T17:00:00Z."
+  - kind: provider_page
+    url: https://discuss.dev.twitch.com/t/follows-endpoints-and-eventsub-subscription-type-are-now-available-in-open-beta/43322
+    observed: 2026-09-24
+  - kind: changelog
+    url: https://dev.twitch.tv/docs/change-log/
+    observed: 2026-09-24
+    note: "2023-09-06: The Get Users Follows API endpoint has been removed."
+
+migration:
+  replacement: "GET /helix/channels/followers"
+  guide: https://dev.twitch.tv/docs/api/reference/#get-channel-followers
+  effort: medium
+  notes: >
+    Replace GET /helix/users/follows?to_id=X with GET
+    /helix/channels/followers?broadcaster_id=X, which needs a user token
+    with moderator:read:followers for the full list, and ?from_id=Y with
+    GET /helix/channels/followed?user_id=Y, which needs user:read:follows.
+    Response fields are renamed (user_id and user_name for followers,
+    broadcaster_id and broadcaster_name for followed channels). EventSub
+    subscriptions to channel.follow must use version 2 with a
+    moderator_user_id condition.
+
+status: expired

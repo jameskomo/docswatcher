@@ -1,0 +1,394 @@
+[
+  {
+    "id": "twitch:endpoint:ANY /badges/v1/badges",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /badges/v1/badges",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacy.js",
+        "line": 5,
+        "column": 50,
+        "snippet": "export const globalBadges = () => fetch(\"https://badges.twitch.tv/v1/badges/global/display\");",
+        "detector": "twitch.literal.endpoint-legacy-host",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:endpoint:ANY /helix/hypetrain/events",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /helix/hypetrain/events",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/helix.js",
+        "line": 15,
+        "column": 63,
+        "snippet": "export const hypeTrains = (id) => fetch(`https://api.twitch.tv/helix/hypetrain/events?broadcaster_id=${id}`, { headers: headers() });",
+        "detector": "twitch.literal.endpoint-helix",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:endpoint:ANY /helix/moderation/banned/events",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /helix/moderation/banned/events",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/helix.js",
+        "line": 16,
+        "column": 62,
+        "snippet": "export const banEvents = (id) => fetch(`https://api.twitch.tv/helix/moderation/banned/events?broadcaster_id=${id}`, { headers: headers() });",
+        "detector": "twitch.literal.endpoint-helix",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:endpoint:ANY /helix/moderation/moderators/events",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /helix/moderation/moderators/events",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/helix.js",
+        "line": 17,
+        "column": 62,
+        "snippet": "export const modEvents = (id) => fetch(`https://api.twitch.tv/helix/moderation/moderators/events?broadcaster_id=${id}`, { headers: headers() });",
+        "detector": "twitch.literal.endpoint-helix",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:endpoint:ANY /helix/soundtrack/current_track",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /helix/soundtrack/current_track",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/helix.js",
+        "line": 12,
+        "column": 63,
+        "snippet": "export const nowPlaying = (id) => fetch(`https://api.twitch.tv/helix/soundtrack/current_track?broadcaster_id=${id}`, { headers: headers() });",
+        "detector": "twitch.literal.endpoint-helix",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:endpoint:ANY /helix/soundtrack/playlist",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /helix/soundtrack/playlist",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/helix.js",
+        "line": 13,
+        "column": 61,
+        "snippet": "export const playlist = (id) => fetch(`https://api.twitch.tv/helix/soundtrack/playlist?id=${id}`, { headers: headers() });",
+        "detector": "twitch.literal.endpoint-helix",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:endpoint:ANY /helix/soundtrack/playlists",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /helix/soundtrack/playlists",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/helix.js",
+        "line": 14,
+        "column": 60,
+        "snippet": "export const playlists = () => fetch(\"https://api.twitch.tv/helix/soundtrack/playlists\", { headers: headers() });",
+        "detector": "twitch.literal.endpoint-helix",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:endpoint:ANY /helix/streams/tags",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /helix/streams/tags",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/helix.js",
+        "line": 7,
+        "column": 63,
+        "snippet": "export const streamTags = (id) => fetch(`https://api.twitch.tv/helix/streams/tags?broadcaster_id=${id}`, { headers: headers() });",
+        "detector": "twitch.literal.endpoint-helix",
+        "layer": "literal"
+      },
+      {
+        "path": "src/helix.js",
+        "line": 9,
+        "column": 68,
+        "snippet": "export const setTags = (id, tagIds) => fetch(`https://api.twitch.tv/helix/streams/tags?broadcaster_id=${id}`, {",
+        "detector": "twitch.literal.endpoint-helix",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:endpoint:ANY /helix/subscriptions/events",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /helix/subscriptions/events",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/helix.js",
+        "line": 18,
+        "column": 62,
+        "snippet": "export const subEvents = (id) => fetch(`https://api.twitch.tv/helix/subscriptions/events?broadcaster_id=${id}`, { headers: headers() });",
+        "detector": "twitch.literal.endpoint-helix",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:endpoint:ANY /helix/tags/streams",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /helix/tags/streams",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/helix.js",
+        "line": 8,
+        "column": 58,
+        "snippet": "export const allTags = () => fetch(\"https://api.twitch.tv/helix/tags/streams\", { headers: headers() });",
+        "detector": "twitch.literal.endpoint-helix",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:endpoint:ANY /helix/users/follows",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /helix/users/follows",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/helix.js",
+        "line": 6,
+        "column": 62,
+        "snippet": "export const followers = (id) => fetch(`https://api.twitch.tv/helix/users/follows?to_id=${id}`, { headers: headers() });",
+        "detector": "twitch.literal.endpoint-helix",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:endpoint:ANY /helix/webhooks/hub",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /helix/webhooks/hub",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacy.js",
+        "line": 7,
+        "column": 75,
+        "snippet": "export const subscribe = (topic, callback) => fetch(\"https://api.twitch.tv/helix/webhooks/hub\", {",
+        "detector": "twitch.literal.endpoint-helix",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:endpoint:ANY /helix/webhooks/subscriptions",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /helix/webhooks/subscriptions",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacy.js",
+        "line": 11,
+        "column": 71,
+        "snippet": "export const webhookSubscriptions = () => fetch(\"https://api.twitch.tv/helix/webhooks/subscriptions\");",
+        "detector": "twitch.literal.endpoint-helix",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:endpoint:ANY /kraken",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /kraken",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacy.js",
+        "line": 2,
+        "column": 63,
+        "snippet": "export const channel = (login) => fetch(`https://api.twitch.tv/kraken/channels/${login}`, {",
+        "detector": "twitch.literal.endpoint-kraken",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:endpoint:ANY /tmi/group/user",
+    "provider": "twitch",
+    "kind": "endpoint",
+    "key": "ANY /tmi/group/user",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacy.js",
+        "line": 6,
+        "column": 51,
+        "snippet": "export const chatters = (login) => fetch(`https://tmi.twitch.tv/group/user/${login}/chatters`);",
+        "detector": "twitch.literal.endpoint-legacy-host",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  },
+  {
+    "id": "twitch:sdk_package:tmi.js",
+    "provider": "twitch",
+    "kind": "sdk_package",
+    "key": "tmi.js",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"tmi.js\": \"^1.8.5\"",
+        "detector": "twitch.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "tmi.js",
+        "version": "^1.8.5"
+      }
+    }
+  }
+]

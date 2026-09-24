@@ -1,0 +1,39 @@
+id: azure-openai-gpt-5-2-chat-2025-12-11-retired-2026
+provider: azure-openai
+kind: retired
+severity: breaking
+title: "gpt-5.2-chat version 2025-12-11 retired"
+summary: >
+  Azure OpenAI retired gpt-5.2-chat version 2025-12-11 on 2026-05-13.
+  Inference requests to a deployment of that version return 410 Gone.
+  Microsoft suggests gpt-chat-latest.
+
+affects:
+  - kind: model
+    match: "gpt-5.2-chat-2025-12-11"
+
+announced: 2025-12-11
+effective: 2026-05-13
+
+sources:
+  - kind: provider_page
+    url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/retired-models
+    observed: 2026-09-24
+    note: "Azure OpenAI: gpt-5.2-chat | 2025-12-11 | — | May 13, 2026 | gpt-chat-latest. announced is the version date: Microsoft sets a model's retirement date when it launches."
+  - kind: provider_page
+    url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule
+    observed: 2026-09-24
+    note: "Azure OpenAI table: gpt-5.2-chat | 2025-12-11 | Retired | 2026-05-13 | gpt-chat-latest."
+
+migration:
+  replacement: "gpt-chat-latest"
+  guide: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/retired-models
+  effort: small
+  notes: >
+    Deploy gpt-chat-latest and update the model name and version in the
+    deployment template, then point the deployment name the code uses at
+    it. gpt-chat-latest is a preview model with a short retirement date of
+    its own, so track its version too. Re-run evals, because output and
+    token usage differ between models.
+
+status: expired

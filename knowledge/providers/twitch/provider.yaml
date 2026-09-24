@@ -1,0 +1,19 @@
+id: twitch
+name: Twitch
+homepage: https://dev.twitch.tv
+docs: https://dev.twitch.tv/docs/api/reference/
+changelog: https://dev.twitch.tv/docs/change-log/
+base_urls:
+  - https://api.twitch.tv
+  - https://id.twitch.tv
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [javascript, typescript, python, java, go]
+deprecation_policy: >
+  Twitch publishes no SDK of its own; the packages below are the community
+  libraries most integrations use. Removals are announced by Twitch staff on
+  the developer forums with a shutdown date, often preceded by short
+  "brownout" windows, and recorded in the API change log once done. A removed
+  Helix endpoint returns 410 Gone. Undocumented legacy hosts (badges, tmi) and
+  whole systems (API v5, PubSub) have been shut down the same way.

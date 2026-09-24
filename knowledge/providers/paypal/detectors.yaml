@@ -1,0 +1,76 @@
+provider: paypal
+
+# Current SDKs and the deprecated ones they replaced. The deprecated names are
+# what the legacy SDK record targets.
+manifests:
+  - ecosystem: npm
+    package: "@paypal/paypal-server-sdk"
+  - ecosystem: npm
+    package: "@paypal/paypal-js"
+  - ecosystem: npm
+    package: "@paypal/react-paypal-js"
+  - ecosystem: npm
+    package: paypal-rest-sdk
+  - ecosystem: npm
+    package: "@paypal/checkout-server-sdk"
+  - ecosystem: npm
+    package: "@paypal/payouts-sdk"
+  - ecosystem: npm
+    package: paypal-checkout
+  - ecosystem: pypi
+    package: paypal-server-sdk
+  - ecosystem: pypi
+    package: paypalrestsdk
+  - ecosystem: pypi
+    package: paypal-checkout-serversdk
+  - ecosystem: pypi
+    package: paypal-payouts-sdk
+  - ecosystem: maven
+    package: com.paypal.sdk:paypal-server-sdk
+  - ecosystem: maven
+    package: com.paypal.sdk:rest-api-sdk
+  - ecosystem: maven
+    package: com.paypal.sdk:checkout-sdk
+  - ecosystem: rubygems
+    package: paypal-server-sdk
+  - ecosystem: rubygems
+    package: paypal-sdk-rest
+  - ecosystem: rubygems
+    package: paypal-checkout-sdk
+
+literals:
+  # A full REST URL on any PayPal API host, live or sandbox, api or api-m.
+  # Segments are lower case letters, hyphens and underscores, so the key stops
+  # at the first resource ID (PAYID-..., I-..., INV2-...).
+  - id: paypal.literal.endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://api(?:-m)?(?:\.sandbox)?\.paypal\.com(/v[0-9]+/[a-z_-]+(?:/[a-z_-]+)*)'
+    key: "ANY $1"
+    confidence: medium
+
+  # Most integrations keep the host in one constant and write paths on their
+  # own, so the deprecated resource paths are also matched as path literals.
+  # Only deprecated families are listed: Payouts (/v1/payments/payouts) and
+  # Subscriptions (/v1/billing/...) are current and sit next to them.
+  - id: paypal.literal.endpoint-deprecated-path
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: '["''`}](/v1/(?:payments/(?:payment|sale|authorization|orders|capture|refund|billing-agreements|billing-plans)|invoicing/(?:invoices|search|templates)|customer/partner-referrals))(?![0-9A-Za-z_-])'
+    key: "ANY $1"
+    confidence: medium
+
+  # checkout.js, the v4 JavaScript SDK, loaded from PayPal's CDN rather than
+  # installed. It is the same library as the paypal-checkout npm package, so
+  # it is keyed as that package.
+  - id: paypal.literal.checkout-js-script
+    kind: sdk_package
+    files: ["**/*.{html,htm,js,jsx,mjs,cjs,ts,tsx,vue,svelte,php,erb,cshtml,jsp,twig,hbs,ejs}"]
+    exclude: ["**/node_modules/**", "**/dist/**"]
+    pattern: 'paypalobjects\.com/api/checkout(?:\.min)?\.js'
+    key: "paypal-checkout"
+    confidence: medium
+
+callsites: []

@@ -1,0 +1,39 @@
+id: mistral-voxtral-mini-2507-retired-2026
+provider: mistral
+kind: retired
+severity: breaking
+title: "voxtral-mini-2507 retired"
+summary: >
+  Mistral deprecated voxtral-mini-2507 on 2026-02-27 and retired it on
+  2026-05-31. Requests naming it now fail with 404. Mistral names Voxtral
+  Mini Transcribe 2 (voxtral-mini-2602) as the alternative.
+
+affects:
+  - kind: model
+    match: "voxtral-mini-2507"
+
+announced: 2026-02-27
+effective: 2026-05-31
+
+sources:
+  - kind: provider_page
+    url: https://docs.mistral.ai/models
+    observed: 2026-09-24
+    note: "Deprecated & retired models table: voxtral-mini-2507, deprecation 2/27/2026, retirement 5/31/2026, alternative Voxtral Mini Transcribe 2."
+  - kind: provider_page
+    url: https://docs.mistral.ai/inference/model-lifecycle
+    observed: 2026-09-24
+    note: "Once retired, requests to its identifiers fail with a 404 error."
+
+migration:
+  replacement: "voxtral-mini-2602"
+  guide: https://docs.mistral.ai/models
+  effort: small
+  notes: >
+    Replace the model ID string voxtral-mini-2507 with voxtral-mini-2602,
+    or with that family's -latest alias if the code should follow future
+    releases. Re-run evals and any tests that assert on output, because
+    output style, context length and token usage differ between model
+    generations.
+
+status: expired

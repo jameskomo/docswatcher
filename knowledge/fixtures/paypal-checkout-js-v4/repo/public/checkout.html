@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+  </head>
+  <body>
+    <div id="paypal-button"></div>
+    <script>
+      paypal.Button.render({
+        env: "sandbox",
+        payment: function () { return fetch("/api/create-payment", { method: "POST" }).then((r) => r.json()).then((d) => d.id); },
+        onAuthorize: function (data) { return fetch("/api/execute-payment", { method: "POST", body: JSON.stringify(data) }); },
+      }, "#paypal-button");
+    </script>
+  </body>
+</html>

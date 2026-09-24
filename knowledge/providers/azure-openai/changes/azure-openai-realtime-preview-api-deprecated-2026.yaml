@@ -1,0 +1,38 @@
+id: azure-openai-realtime-preview-api-deprecated-2026
+provider: azure-openai
+kind: sunset
+severity: warning
+title: "Realtime API preview protocol deprecated"
+summary: >
+  The preview version of the Azure OpenAI Realtime API (/openai/realtime
+  with a dated preview api-version) was deprecated on 2026-04-30. Microsoft
+  asks for migration to the GA protocol on /openai/v1/realtime to avoid
+  service disruption but publishes no retirement date.
+
+affects:
+  - kind: endpoint
+    match: "ANY /openai/realtime"
+
+announced: 2026-04-30
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/realtime-audio-preview-api-migration-guide
+    observed: 2026-09-24
+    note: "The preview version of the API was deprecated on April 30, 2026. Migrate to the GA version now to avoid service disruption."
+
+migration:
+  replacement: "ANY /openai/v1/realtime"
+  guide: https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/realtime-audio-preview-api-migration-guide
+  effort: medium
+  notes: >
+    Connect to wss://<resource>.openai.azure.com/openai/v1/realtime
+    instead of /openai/realtime?api-version=...-preview and drop the
+    OpenAI-Beta header. Event names and session configuration changed in
+    the GA protocol, so update event handlers as the migration guide
+    lists. WebRTC clients move to /openai/v1/realtime/client_secrets and
+    /openai/v1/realtime/calls. Preview SDKs released by Microsoft do not
+    speak the GA protocol.
+
+status: active

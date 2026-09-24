@@ -1,0 +1,4 @@
+# Internal event schema, unrelated to any external API.
+schema:
+  name: directory-events
+  version: v20.0

@@ -1,0 +1,39 @@
+id: paypal-billing-agreements-v1-deprecated
+provider: paypal
+kind: sunset
+severity: warning
+title: "Billing Agreements v1 deprecated"
+summary: >
+  The /v1/payments/billing-agreements endpoints are deprecated in favour of
+  the Subscriptions API. No removal date is published.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v1/payments/billing-agreements"
+
+announced: 2026-06-29
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://developer.paypal.com/api/rest/deprecated-resources/
+    observed: 2026-09-24
+    note: "Lists it under Deprecated resources. announced is the page's last-updated date, June 29, 2026: PayPal publishes no announcement date."
+  - kind: provider_page
+    url: https://developer.paypal.com/api/deprecated/payments.billing-agreements/v1
+    observed: 2026-09-24
+    note: "Deprecation notice: The /v1/payments/billing-agreements endpoints are deprecated. Use the /v1/billing/subscriptions endpoints instead."
+
+migration:
+  replacement: "ANY /v1/billing/subscriptions"
+  guide: https://developer.paypal.com/docs/subscriptions/
+  effort: large
+  notes: >
+    Create and manage recurring billing with /v1/billing/subscriptions
+    instead of /v1/payments/billing-agreements. Agreement execute becomes
+    subscription approval through the approve link, and suspend,
+    re-activate and cancel map to the subscription's suspend, activate and
+    cancel actions. Each subscription needs a plan created with
+    /v1/billing/plans.
+
+status: active

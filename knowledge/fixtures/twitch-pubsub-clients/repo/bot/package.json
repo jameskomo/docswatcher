@@ -1,0 +1,8 @@
+{
+  "name": "points-bot",
+  "private": true,
+  "dependencies": {
+    "@twurple/auth": "^7.4.0",
+    "@twurple/pubsub": "^7.4.0"
+  }
+}

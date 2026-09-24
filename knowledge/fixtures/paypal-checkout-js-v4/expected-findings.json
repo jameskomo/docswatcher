@@ -1,0 +1,6 @@
+[
+  {
+    "contract": "paypal:sdk_package:paypal-checkout",
+    "change": "paypal-checkout-js-v4-deprecated"
+  }
+]

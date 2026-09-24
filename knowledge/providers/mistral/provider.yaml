@@ -1,0 +1,17 @@
+id: mistral
+name: Mistral AI
+homepage: https://mistral.ai
+docs: https://docs.mistral.ai
+changelog: https://docs.mistral.ai/models
+base_urls:
+  - https://api.mistral.ai
+openapi:
+  url: https://docs.mistral.ai/openapi.yaml
+  pinned_sha: null
+sdk_languages: [python, typescript]
+deprecation_policy: >
+  A model is deprecated as soon as its replacement is available and retired
+  after a notice period: six months for generally available models, one month
+  for Labs, preview and third-party models. After retirement, requests naming
+  any of its identifiers fail with 404. The models page lists every deprecated
+  and retired model with both dates and the suggested alternative.

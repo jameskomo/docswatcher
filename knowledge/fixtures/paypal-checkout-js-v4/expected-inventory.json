@@ -1,0 +1,34 @@
+[
+  {
+    "id": "paypal:sdk_package:paypal-checkout",
+    "provider": "paypal",
+    "kind": "sdk_package",
+    "key": "paypal-checkout",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"paypal-checkout\": \"^4.0.347\"",
+        "detector": "paypal.manifest.npm",
+        "layer": "manifest"
+      },
+      {
+        "path": "public/checkout.html",
+        "line": 4,
+        "column": 30,
+        "snippet": "<script src=\"https://www.paypalobjects.com/api/checkout.js\"></script>",
+        "detector": "paypal.literal.checkout-js-script",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "paypal-checkout",
+        "version": "^4.0.347"
+      }
+    }
+  }
+]

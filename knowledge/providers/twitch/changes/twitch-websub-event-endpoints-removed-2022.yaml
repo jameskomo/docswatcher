@@ -1,0 +1,44 @@
+id: twitch-websub-event-endpoints-removed-2022
+provider: twitch
+kind: sunset
+severity: breaking
+title: "Banned, moderator and subscription event endpoints removed"
+summary: >
+  GET /helix/moderation/banned/events, GET
+  /helix/moderation/moderators/events and GET /helix/subscriptions/events,
+  which supported the WebSub webhooks, were decommissioned on or soon after
+  2022-03-15.
+
+affects:
+  - kind: endpoint
+    match: "ANY /helix/moderation/banned/events"
+  - kind: endpoint
+    match: "ANY /helix/moderation/moderators/events"
+  - kind: endpoint
+    match: "ANY /helix/subscriptions/events"
+
+announced: 2021-12-03
+effective: 2022-03-15
+
+sources:
+  - kind: provider_page
+    url: https://discuss.dev.twitch.com/t/deprecation-of-twitch-api-event-endpoints-that-supported-websub-based-webhooks/35137
+    observed: 2026-09-24
+    note: "the following Twitch API endpoints are considered deprecated and will be decommissioned on or soon after March 15, 2022."
+  - kind: changelog
+    url: https://dev.twitch.tv/docs/change-log/
+    observed: 2026-09-24
+    note: "2022-03-18: the event endpoints were removed from the documentation."
+
+migration:
+  replacement: "EventSub"
+  guide: https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/
+  effort: medium
+  notes: >
+    Poll GET /helix/moderation/banned, GET /helix/moderation/moderators
+    and GET /helix/subscriptions for current state, and subscribe to
+    channel.ban, channel.unban, channel.moderator.add,
+    channel.moderator.remove and channel.subscribe in EventSub for
+    changes, instead of reading the event endpoints.
+
+status: expired

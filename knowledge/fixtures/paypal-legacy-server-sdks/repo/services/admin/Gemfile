@@ -1,0 +1,5 @@
+source "https://rubygems.org"
+
+gem "rails", "~> 7.2"
+gem "paypal-sdk-rest", "1.7.6"
+gem "paypal-checkout-sdk", "1.0.6"

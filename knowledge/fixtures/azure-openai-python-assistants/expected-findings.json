@@ -1,0 +1,14 @@
+[
+  {
+    "contract": "azure-openai:endpoint:ANY /openai/assistants",
+    "change": "azure-openai-assistants-api-retired-2026"
+  },
+  {
+    "contract": "azure-openai:endpoint:ANY /openai/threads",
+    "change": "azure-openai-assistants-api-retired-2026"
+  },
+  {
+    "contract": "azure-openai:endpoint:ANY /openai/realtime",
+    "change": "azure-openai-realtime-preview-api-deprecated-2026"
+  }
+]

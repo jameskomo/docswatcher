@@ -1,0 +1,104 @@
+[
+  {
+    "id": "paypal:sdk_package:@paypal/checkout-server-sdk",
+    "provider": "paypal",
+    "kind": "sdk_package",
+    "key": "@paypal/checkout-server-sdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "services/checkout/package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"@paypal/checkout-server-sdk\": \"^1.0.3\",",
+        "detector": "paypal.manifest.npm",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "paypal:sdk_package:paypal-checkout-sdk",
+    "provider": "paypal",
+    "kind": "sdk_package",
+    "key": "paypal-checkout-sdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "services/admin/Gemfile",
+        "line": 5,
+        "column": 6,
+        "snippet": "gem \"paypal-checkout-sdk\", \"1.0.6\"",
+        "detector": "paypal.manifest.rubygems",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "paypal:sdk_package:paypal-checkout-serversdk",
+    "provider": "paypal",
+    "kind": "sdk_package",
+    "key": "paypal-checkout-serversdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "services/refunds/requirements.txt",
+        "line": 2,
+        "column": 1,
+        "snippet": "paypal-checkout-serversdk==1.0.3",
+        "detector": "paypal.manifest.pypi",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "paypal:sdk_package:paypal-rest-sdk",
+    "provider": "paypal",
+    "kind": "sdk_package",
+    "key": "paypal-rest-sdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "services/checkout/package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"paypal-rest-sdk\": \"^1.8.1\"",
+        "detector": "paypal.manifest.npm",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "paypal:sdk_package:paypal-sdk-rest",
+    "provider": "paypal",
+    "kind": "sdk_package",
+    "key": "paypal-sdk-rest",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "services/admin/Gemfile",
+        "line": 4,
+        "column": 6,
+        "snippet": "gem \"paypal-sdk-rest\", \"1.7.6\"",
+        "detector": "paypal.manifest.rubygems",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "paypal:sdk_package:paypalrestsdk",
+    "provider": "paypal",
+    "kind": "sdk_package",
+    "key": "paypalrestsdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "services/refunds/requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "paypalrestsdk==1.13.3",
+        "detector": "paypal.manifest.pypi",
+        "layer": "manifest"
+      }
+    ]
+  }
+]

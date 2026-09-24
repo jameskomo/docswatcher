@@ -1,0 +1,7 @@
+{
+  "name": "narrator",
+  "private": true,
+  "dependencies": {
+    "@mistralai/mistralai": "^2.7.0"
+  }
+}

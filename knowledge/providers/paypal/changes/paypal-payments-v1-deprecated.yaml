@@ -1,0 +1,53 @@
+id: paypal-payments-v1-deprecated
+provider: paypal
+kind: sunset
+severity: warning
+title: "Payments v1 API deprecated"
+summary: >
+  The /v1/payments resources (payment, sale, authorization, orders, capture
+  and refund) are deprecated and PayPal says the API will be removed. No
+  removal date is published.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v1/payments/payment"
+  - kind: endpoint
+    match: "ANY /v1/payments/sale"
+  - kind: endpoint
+    match: "ANY /v1/payments/authorization"
+  - kind: endpoint
+    match: "ANY /v1/payments/orders"
+  - kind: endpoint
+    match: "ANY /v1/payments/capture"
+  - kind: endpoint
+    match: "ANY /v1/payments/refund"
+
+announced: 2026-06-29
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://developer.paypal.com/api/rest/deprecated-resources/
+    observed: 2026-09-24
+    note: "Lists it under Deprecated resources. announced is the page's last-updated date, June 29, 2026: PayPal publishes no announcement date."
+  - kind: provider_page
+    url: https://developer.paypal.com/api/deprecated/payments/v1
+    observed: 2026-09-24
+    note: "Deprecation notice: The /v1/payments endpoint is deprecated. Use the /v2/payments endpoint instead. The migration guide adds: The Payments v1 API is deprecated and will be removed."
+
+migration:
+  replacement: "POST /v2/checkout/orders"
+  guide: https://developer.paypal.com/api/rest/integration/payments-api/v1-v2-migration
+  effort: large
+  notes: >
+    Create payments with POST /v2/checkout/orders and capture or authorize
+    with /v2/checkout/orders/{id}/capture or /authorize instead of POST
+    /v1/payments/payment and /execute. Sale, authorization and capture
+    lookups and refunds move to /v2/payments/captures/{id} and
+    /v2/payments/authorizations/{id}. The request body is restructured
+    (purchase_units instead of transactions, payment_source instead of
+    payer), and listing payments has no v2 equivalent: use the Transaction
+    Search API. Webhook event names change from PAYMENT.SALE.* to
+    PAYMENT.CAPTURE.*.
+
+status: active

@@ -1,0 +1,4 @@
+{
+  "name": "Channel Poll Panel",
+  "content_security_policy": "connect-src 'self' https://api.twitch.tv wss://pubsub-edge.twitch.tv"
+}

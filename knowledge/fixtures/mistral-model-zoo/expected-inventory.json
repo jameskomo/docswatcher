@@ -1,0 +1,1010 @@
+[
+  {
+    "id": "mistral:model:codestral-2405",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "codestral-2405",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 8,
+        "column": 17,
+        "snippet": "codestral_2405: codestral-2405",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:codestral-2501",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "codestral-2501",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 18,
+        "column": 17,
+        "snippet": "codestral_2501: codestral-2501",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:devstral-2512",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "devstral-2512",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 36,
+        "column": 16,
+        "snippet": "devstral_2512: devstral-2512",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:devstral-medium-2507",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "devstral-medium-2507",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 29,
+        "column": 23,
+        "snippet": "devstral_medium_2507: devstral-medium-2507",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:devstral-small-2505",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "devstral-small-2505",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 24,
+        "column": 22,
+        "snippet": "devstral_small_2505: devstral-small-2505",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:devstral-small-2507",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "devstral-small-2507",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 28,
+        "column": 22,
+        "snippet": "devstral_small_2507: devstral-small-2507",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:labs-devstral-small-2512",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "labs-devstral-small-2512",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 33,
+        "column": 27,
+        "snippet": "labs_devstral_small_2512: labs-devstral-small-2512",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:labs-leanstral-1-5",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "labs-leanstral-1-5",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 41,
+        "column": 19,
+        "snippet": "leanstral_proofs: labs-leanstral-1-5",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:labs-leanstral-2603",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "labs-leanstral-2603",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 40,
+        "column": 22,
+        "snippet": "labs_leanstral_2603: labs-leanstral-2603",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:labs-mistral-small-creative",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "labs-mistral-small-creative",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 34,
+        "column": 30,
+        "snippet": "labs_mistral_small_creative: labs-mistral-small-creative",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:magistral-medium-2506",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "magistral-medium-2506",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 27,
+        "column": 24,
+        "snippet": "magistral_medium_2506: magistral-medium-2506",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:magistral-medium-2507",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "magistral-medium-2507",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 35,
+        "column": 24,
+        "snippet": "magistral_medium_2507: magistral-medium-2507",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:magistral-medium-2509",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "magistral-medium-2509",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 32,
+        "column": 24,
+        "snippet": "magistral_medium_2509: magistral-medium-2509",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:magistral-small-2506",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "magistral-small-2506",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 26,
+        "column": 23,
+        "snippet": "magistral_small_2506: magistral-small-2506",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:magistral-small-2507",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "magistral-small-2507",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 30,
+        "column": 23,
+        "snippet": "magistral_small_2507: magistral-small-2507",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:magistral-small-2509",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "magistral-small-2509",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 31,
+        "column": 23,
+        "snippet": "magistral_small_2509: magistral-small-2509",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:ministral-3b-2410",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "ministral-3b-2410",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 14,
+        "column": 20,
+        "snippet": "ministral_3b_2410: ministral-3b-2410",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:ministral-8b-2410",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "ministral-8b-2410",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 13,
+        "column": 20,
+        "snippet": "ministral_8b_2410: ministral-8b-2410",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-large-2402",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-large-2402",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 4,
+        "column": 21,
+        "snippet": "mistral_large_2402: mistral-large-2402",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-large-2407",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-large-2407",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 10,
+        "column": 21,
+        "snippet": "mistral_large_2407: mistral-large-2407",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-large-2411",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-large-2411",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 17,
+        "column": 21,
+        "snippet": "mistral_large_2411: mistral-large-2411",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-medium-2312",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-medium-2312",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 3,
+        "column": 22,
+        "snippet": "mistral_medium_2312: mistral-medium-2312",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-medium-2505",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-medium-2505",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 23,
+        "column": 22,
+        "snippet": "mistral_medium_2505: mistral-medium-2505",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-medium-2508",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-medium-2508",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 39,
+        "column": 22,
+        "snippet": "mistral_medium_2508: mistral-medium-2508",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-medium-3-5",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-medium-3-5",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 42,
+        "column": 10,
+        "snippet": "default: mistral-medium-3-5",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-moderation-2411",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-moderation-2411",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 15,
+        "column": 26,
+        "snippet": "mistral_moderation_2411: mistral-moderation-2411",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-ocr-2503",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-ocr-2503",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 21,
+        "column": 19,
+        "snippet": "mistral_ocr_2503: mistral-ocr-2503",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-ocr-2505",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-ocr-2505",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 25,
+        "column": 19,
+        "snippet": "mistral_ocr_2505: mistral-ocr-2505",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-saba-2502",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-saba-2502",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 20,
+        "column": 20,
+        "snippet": "mistral_saba_2502: mistral-saba-2502",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-small-2402",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-small-2402",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 5,
+        "column": 21,
+        "snippet": "mistral_small_2402: mistral-small-2402",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-small-2409",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-small-2409",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 12,
+        "column": 21,
+        "snippet": "mistral_small_2409: mistral-small-2409",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-small-2501",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-small-2501",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 19,
+        "column": 21,
+        "snippet": "mistral_small_2501: mistral-small-2501",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-small-2503",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-small-2503",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 22,
+        "column": 21,
+        "snippet": "mistral_small_2503: mistral-small-2503",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:mistral-small-2506",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "mistral-small-2506",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 38,
+        "column": 21,
+        "snippet": "mistral_small_2506: mistral-small-2506",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:open-mistral-7b",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "open-mistral-7b",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 7,
+        "column": 18,
+        "snippet": "open_mistral_7b: open-mistral-7b",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:open-mistral-nemo-2407",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "open-mistral-nemo-2407",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 9,
+        "column": 25,
+        "snippet": "open_mistral_nemo_2407: open-mistral-nemo-2407",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:open-mixtral-8x22b",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "open-mixtral-8x22b",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 6,
+        "column": 21,
+        "snippet": "open_mixtral_8x22b: open-mixtral-8x22b",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:open-mixtral-8x7b",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "open-mixtral-8x7b",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 2,
+        "column": 20,
+        "snippet": "open_mixtral_8x7b: open-mixtral-8x7b",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:pixtral-12b-2409",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "pixtral-12b-2409",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 11,
+        "column": 19,
+        "snippet": "pixtral_12b_2409: pixtral-12b-2409",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:pixtral-large-2411",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "pixtral-large-2411",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 16,
+        "column": 21,
+        "snippet": "pixtral_large_2411: pixtral-large-2411",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:model:voxtral-mini-2507",
+    "provider": "mistral",
+    "kind": "model",
+    "key": "voxtral-mini-2507",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 37,
+        "column": 20,
+        "snippet": "voxtral_mini_2507: voxtral-mini-2507",
+        "detector": "mistral.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  },
+  {
+    "id": "mistral:sdk_package:mistralai",
+    "provider": "mistral",
+    "kind": "sdk_package",
+    "key": "mistralai",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "mistralai==1.9.2",
+        "detector": "mistral.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "mistralai",
+        "version": "1.9.2"
+      }
+    }
+  }
+]

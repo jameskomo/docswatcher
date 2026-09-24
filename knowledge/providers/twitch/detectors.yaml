@@ -1,0 +1,69 @@
+provider: twitch
+
+# Twitch has no official SDK. These are the maintained community libraries,
+# plus the PubSub clients that the PubSub record targets and the old twitch
+# package that was renamed to @twurple/api.
+manifests:
+  - ecosystem: npm
+    package: "@twurple/api"
+  - ecosystem: npm
+    package: "@twurple/auth"
+  - ecosystem: npm
+    package: "@twurple/chat"
+  - ecosystem: npm
+    package: "@twurple/eventsub-ws"
+  - ecosystem: npm
+    package: "@twurple/eventsub-http"
+  - ecosystem: npm
+    package: "@twurple/pubsub"
+  - ecosystem: npm
+    package: twitch
+  - ecosystem: npm
+    package: twitch-pubsub-client
+  - ecosystem: npm
+    package: tmi.js
+  - ecosystem: pypi
+    package: twitchAPI
+  - ecosystem: pypi
+    package: twitchio
+  - ecosystem: maven
+    package: com.github.twitch4j:twitch4j
+  - ecosystem: maven
+    package: com.github.twitch4j:twitch4j-pubsub
+  - ecosystem: go
+    package: github.com/nicklaw5/helix
+  - ecosystem: go
+    package: github.com/nicklaw5/helix/v2
+
+literals:
+  - id: twitch.literal.endpoint-helix
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://api\.twitch\.tv(/helix/[a-z_]+(?:/[a-z_]+)*)'
+    key: "ANY $1"
+    confidence: medium
+
+  # API v5. Every Kraken path was shut down together, so one key covers them.
+  - id: twitch.literal.endpoint-kraken
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://api\.twitch\.tv(/kraken)(?![0-9A-Za-z_-])'
+    key: "ANY $1"
+    confidence: medium
+
+  # Hosts other than api.twitch.tv. As with Twilio, the key carries the first
+  # host label, since the paths alone say nothing about which system is meant:
+  # "ANY /pubsub-edge/v1" is legacy PubSub, "ANY /tmi/group/user" the
+  # undocumented chatters list. Code files only: an Extension's content
+  # security policy lists pubsub-edge for Extension PubSub, which still works.
+  - id: twitch.literal.endpoint-legacy-host
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: '(?:wss|https)://(pubsub-edge|badges|tmi)\.twitch\.tv(/v1/badges|/group/user|/v1)?'
+    key: "ANY /$1$2"
+    confidence: medium
+
+callsites: []
