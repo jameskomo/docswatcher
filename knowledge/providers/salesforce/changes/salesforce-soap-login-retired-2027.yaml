@@ -1,0 +1,46 @@
+id: salesforce-soap-login-retired-2027
+provider: salesforce
+kind: sunset
+severity: breaking
+title: "SOAP API login() retired in API versions 31.0 through 64.0"
+summary: >
+  Salesforce is retiring the SOAP API login() call in API versions 31.0
+  through 64.0 with the Summer '27 release; once an org is upgraded to
+  Summer '27, those calls stop working. login() is not available in API
+  versions 65.0 and later, and is disabled by default in orgs created from
+  Winter '26. The retirement covers login() on /services/Soap/c/ and
+  /services/Soap/u/. Salesforce names the release, not a day, so the
+  effective date is left empty.
+
+affects:
+  - kind: sdk_method
+    match: "soap.login"
+  - kind: sdk_method
+    match: "SalesforceLogin"
+
+announced: 2025-08-25
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://help.salesforce.com/s/articleView?id=005132110&language=en_US&type=1
+    observed: 2026-09-24
+    note: "Knowledge article 005132110, Platform SOAP API login() Retirement, original publication date August 25, 2025. Effective with the Summer '27 release; no single day is published."
+
+migration:
+  replacement: "OAuth 2.0 through an external client app (JWT bearer, client credentials or web server flow)"
+  guide: https://help.salesforce.com/s/articleView?id=005132110&language=en_US&type=1
+  effort: medium
+  notes: >
+    Stop authenticating with SOAP login() (username, password and security
+    token posted to login.salesforce.com/services/Soap/u/NN.0). Create an
+    external client app and use the OAuth 2.0 JWT bearer flow for
+    server-to-server integrations, the client credentials flow for headless
+    integrations, or the web server flow for user-driven ones, posting to
+    /services/oauth2/token. Keep the returned access_token and instance_url
+    in place of the sessionId and serverUrl. With simple-salesforce, pass
+    consumer_key with privatekey_file (JWT) or consumer_key and
+    consumer_secret with domain (client credentials) instead of
+    security_token. Remove stored security tokens once the new flow is live.
+
+status: active

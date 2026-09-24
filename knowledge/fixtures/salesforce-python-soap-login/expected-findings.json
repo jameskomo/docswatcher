@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "salesforce:sdk_method:SalesforceLogin",
+    "change": "salesforce-soap-login-retired-2027"
+  },
+  {
+    "contract": "salesforce:sdk_method:soap.login",
+    "change": "salesforce-soap-login-retired-2027"
+  }
+]

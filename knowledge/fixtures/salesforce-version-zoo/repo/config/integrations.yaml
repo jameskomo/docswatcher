@@ -1,0 +1,33 @@
+integrations:
+  lead_sync:
+    endpoint: /services/data/v21.0/sobjects/Lead
+
+  case_export:
+    endpoint: /services/data/v22.0/query
+
+  quote_pdf:
+    endpoint: /services/data/v23.0/sobjects/Quote
+
+  billing_bridge:
+    endpoint: /services/Soap/u/24.0
+
+  territory_loader:
+    endpoint: /services/async/25.0/job
+
+  partner_portal:
+    endpoint: /services/Soap/c/26.0
+
+  campaign_stats:
+    endpoint: /services/data/v27.0/analytics/reports
+
+  contract_archive:
+    endpoint: /services/data/v28.0/sobjects/Contract
+
+  usage_meter:
+    endpoint: /services/async/29.0/job
+
+  warehouse_feed:
+    endpoint: /services/data/v30.0/queryAll
+
+  orders_current:
+    endpoint: /services/data/v62.0/sobjects/Order

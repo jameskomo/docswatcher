@@ -1,0 +1,69 @@
+provider: salesforce
+
+manifests:
+  - ecosystem: npm
+    package: jsforce
+  - ecosystem: npm
+    package: "@salesforce/core"
+  - ecosystem: pypi
+    package: simple-salesforce
+  - ecosystem: maven
+    package: com.force.api:force-wsc
+  - ecosystem: maven
+    package: com.force.api:force-partner-api
+  - ecosystem: rubygems
+    package: restforce
+
+literals:
+  # The Platform API version in a REST (/services/data/v58.0/), SOAP
+  # (/services/Soap/u/58.0) or Bulk (/services/async/58.0/) path. The rule is
+  # anchored on /services/, so a bare v30.0 in another provider's URL (a Graph
+  # API version, a package version) is never read as a Salesforce version.
+  - id: salesforce.literal.api-version-path
+    kind: api_version
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,apex,cls,yaml,yml,toml,properties,env,json}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/package-lock.json"]
+    pattern: '/services/(?:data/v|Soap/[a-z]/|async/)([0-9]{1,2}\.[0-9])(?![0-9])'
+    key: "$1"
+    confidence: medium
+
+  # A SOAP request to the login host. login.salesforce.com and
+  # test.salesforce.com only serve the login() call on the SOAP endpoint; every
+  # other SOAP call goes to the serverUrl that login() returns. So this URL is a
+  # SOAP login() call, whatever version it names.
+  - id: salesforce.literal.soap-login-url
+    kind: sdk_method
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://(?:login|test)\.salesforce\.com(/services/Soap/[cu]/)'
+    key: "soap.login"
+    confidence: medium
+
+callsites:
+  # simple-salesforce authenticates with the SOAP API login() call when it is
+  # given a username and password with a security token or an organization ID
+  # (SalesforceLogin in simple_salesforce/login.py). Session-ID and OAuth
+  # construction (instance_url with session_id, consumer_key, privatekey) does
+  # not, so the rule requires one of the two SOAP-only arguments.
+  - id: salesforce.python.simple-salesforce-password-login
+    language: python
+    kind: sdk_method
+    requires: simple-salesforce
+    query: |
+      (call
+        function: (identifier) @f
+        arguments: (argument_list (keyword_argument name: (identifier) @k))
+        (#eq? @f "Salesforce") (#match? @k "^(security_token|organizationId)$")) @call
+    key: "SalesforceLogin"
+    confidence: high
+
+  - id: salesforce.python.salesforce-login
+    language: python
+    kind: sdk_method
+    requires: simple-salesforce
+    query: |
+      (call
+        function: (identifier) @f
+        (#eq? @f "SalesforceLogin")) @call
+    key: "SalesforceLogin"
+    confidence: high

@@ -1,0 +1,42 @@
+[
+  {
+    "contract": "salesforce:api_version:21.0",
+    "change": "salesforce-api-versions-21-30-retired-2025"
+  },
+  {
+    "contract": "salesforce:api_version:22.0",
+    "change": "salesforce-api-versions-21-30-retired-2025"
+  },
+  {
+    "contract": "salesforce:api_version:23.0",
+    "change": "salesforce-api-versions-21-30-retired-2025"
+  },
+  {
+    "contract": "salesforce:api_version:24.0",
+    "change": "salesforce-api-versions-21-30-retired-2025"
+  },
+  {
+    "contract": "salesforce:api_version:25.0",
+    "change": "salesforce-api-versions-21-30-retired-2025"
+  },
+  {
+    "contract": "salesforce:api_version:26.0",
+    "change": "salesforce-api-versions-21-30-retired-2025"
+  },
+  {
+    "contract": "salesforce:api_version:27.0",
+    "change": "salesforce-api-versions-21-30-retired-2025"
+  },
+  {
+    "contract": "salesforce:api_version:28.0",
+    "change": "salesforce-api-versions-21-30-retired-2025"
+  },
+  {
+    "contract": "salesforce:api_version:29.0",
+    "change": "salesforce-api-versions-21-30-retired-2025"
+  },
+  {
+    "contract": "salesforce:api_version:30.0",
+    "change": "salesforce-api-versions-21-30-retired-2025"
+  }
+]

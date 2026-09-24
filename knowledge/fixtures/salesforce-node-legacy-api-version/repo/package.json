@@ -1,0 +1,8 @@
+{
+  "name": "crm-sync",
+  "version": "5.0.2",
+  "private": true,
+  "dependencies": {
+    "jsforce": "^1.11.1"
+  }
+}

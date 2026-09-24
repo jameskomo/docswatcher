@@ -1,0 +1,74 @@
+[
+  {
+    "id": "salesforce:api_version:29.0",
+    "provider": "salesforce",
+    "kind": "api_version",
+    "key": "29.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/accounts.js",
+        "line": 1,
+        "column": 35,
+        "snippet": "const API_BASE = \"/services/data/v29.0\";",
+        "detector": "salesforce.literal.api-version-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "jsforce",
+        "version": "^1.11.1"
+      }
+    }
+  },
+  {
+    "id": "salesforce:api_version:62.0",
+    "provider": "salesforce",
+    "kind": "api_version",
+    "key": "62.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/orders.js",
+        "line": 2,
+        "column": 58,
+        "snippet": "const res = await fetch(`${instanceUrl}/services/data/v62.0/sobjects/Order`, {",
+        "detector": "salesforce.literal.api-version-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "jsforce",
+        "version": "^1.11.1"
+      }
+    }
+  },
+  {
+    "id": "salesforce:sdk_package:jsforce",
+    "provider": "salesforce",
+    "kind": "sdk_package",
+    "key": "jsforce",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"jsforce\": \"^1.11.1\"",
+        "detector": "salesforce.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "jsforce",
+        "version": "^1.11.1"
+      }
+    }
+  }
+]

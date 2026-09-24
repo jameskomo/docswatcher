@@ -1,0 +1,189 @@
+[
+  {
+    "id": "salesforce:api_version:21.0",
+    "provider": "salesforce",
+    "kind": "api_version",
+    "key": "21.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/integrations.yaml",
+        "line": 3,
+        "column": 31,
+        "snippet": "endpoint: /services/data/v21.0/sobjects/Lead",
+        "detector": "salesforce.literal.api-version-path",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "salesforce:api_version:22.0",
+    "provider": "salesforce",
+    "kind": "api_version",
+    "key": "22.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/integrations.yaml",
+        "line": 6,
+        "column": 31,
+        "snippet": "endpoint: /services/data/v22.0/query",
+        "detector": "salesforce.literal.api-version-path",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "salesforce:api_version:23.0",
+    "provider": "salesforce",
+    "kind": "api_version",
+    "key": "23.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/integrations.yaml",
+        "line": 9,
+        "column": 31,
+        "snippet": "endpoint: /services/data/v23.0/sobjects/Quote",
+        "detector": "salesforce.literal.api-version-path",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "salesforce:api_version:24.0",
+    "provider": "salesforce",
+    "kind": "api_version",
+    "key": "24.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/integrations.yaml",
+        "line": 12,
+        "column": 32,
+        "snippet": "endpoint: /services/Soap/u/24.0",
+        "detector": "salesforce.literal.api-version-path",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "salesforce:api_version:25.0",
+    "provider": "salesforce",
+    "kind": "api_version",
+    "key": "25.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/integrations.yaml",
+        "line": 15,
+        "column": 31,
+        "snippet": "endpoint: /services/async/25.0/job",
+        "detector": "salesforce.literal.api-version-path",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "salesforce:api_version:26.0",
+    "provider": "salesforce",
+    "kind": "api_version",
+    "key": "26.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/integrations.yaml",
+        "line": 18,
+        "column": 32,
+        "snippet": "endpoint: /services/Soap/c/26.0",
+        "detector": "salesforce.literal.api-version-path",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "salesforce:api_version:27.0",
+    "provider": "salesforce",
+    "kind": "api_version",
+    "key": "27.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/integrations.yaml",
+        "line": 21,
+        "column": 31,
+        "snippet": "endpoint: /services/data/v27.0/analytics/reports",
+        "detector": "salesforce.literal.api-version-path",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "salesforce:api_version:28.0",
+    "provider": "salesforce",
+    "kind": "api_version",
+    "key": "28.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/integrations.yaml",
+        "line": 24,
+        "column": 31,
+        "snippet": "endpoint: /services/data/v28.0/sobjects/Contract",
+        "detector": "salesforce.literal.api-version-path",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "salesforce:api_version:29.0",
+    "provider": "salesforce",
+    "kind": "api_version",
+    "key": "29.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/integrations.yaml",
+        "line": 27,
+        "column": 31,
+        "snippet": "endpoint: /services/async/29.0/job",
+        "detector": "salesforce.literal.api-version-path",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "salesforce:api_version:30.0",
+    "provider": "salesforce",
+    "kind": "api_version",
+    "key": "30.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/integrations.yaml",
+        "line": 30,
+        "column": 31,
+        "snippet": "endpoint: /services/data/v30.0/queryAll",
+        "detector": "salesforce.literal.api-version-path",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "salesforce:api_version:62.0",
+    "provider": "salesforce",
+    "kind": "api_version",
+    "key": "62.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/integrations.yaml",
+        "line": 33,
+        "column": 31,
+        "snippet": "endpoint: /services/data/v62.0/sobjects/Order",
+        "detector": "salesforce.literal.api-version-path",
+        "layer": "literal"
+      }
+    ]
+  }
+]

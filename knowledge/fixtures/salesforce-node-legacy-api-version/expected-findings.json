@@ -1,0 +1,6 @@
+[
+  {
+    "contract": "salesforce:api_version:29.0",
+    "change": "salesforce-api-versions-21-30-retired-2025"
+  }
+]

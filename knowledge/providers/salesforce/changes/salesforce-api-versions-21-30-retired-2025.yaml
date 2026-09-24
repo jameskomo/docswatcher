@@ -1,0 +1,59 @@
+id: salesforce-api-versions-21-30-retired-2025
+provider: salesforce
+kind: sunset
+severity: breaking
+title: "Platform API versions 21.0 through 30.0 retired"
+summary: >
+  Salesforce Platform API versions 21.0 through 30.0 were deprecated in the
+  Summer '22 release and retired in the Summer '25 release, for SOAP, REST
+  and Bulk API. Calls fail: REST returns 410 GONE, SOAP returns 500
+  UNSUPPORTED_API_VERSION, Bulk API returns 400 InvalidVersion. Salesforce
+  names the release, not a day, because a release reaches instances over
+  several weeks, so the effective date is left empty.
+
+affects:
+  - kind: api_version
+    match: "21.0"
+  - kind: api_version
+    match: "22.0"
+  - kind: api_version
+    match: "23.0"
+  - kind: api_version
+    match: "24.0"
+  - kind: api_version
+    match: "25.0"
+  - kind: api_version
+    match: "26.0"
+  - kind: api_version
+    match: "27.0"
+  - kind: api_version
+    match: "28.0"
+  - kind: api_version
+    match: "29.0"
+  - kind: api_version
+    match: "30.0"
+
+announced: 2020-10-20
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://help.salesforce.com/s/articleView?id=000389618&language=en_US&type=1
+    observed: 2026-09-24
+    note: "Knowledge article 000389618, original publication date October 20, 2020: deprecated as of Summer '22, retired as of the Summer '25 release. No single retirement day is published."
+
+migration:
+  replacement: "a current, supported API version"
+  guide: https://help.salesforce.com/s/articleView?id=000389618&language=en_US&type=1
+  effort: medium
+  notes: >
+    Change the version segment in every Salesforce API path
+    (/services/data/vNN.0/, /services/Soap/u/NN.0, /services/Soap/c/NN.0,
+    /services/async/NN.0/) and in client configuration (jsforce version,
+    simple-salesforce version, WSC endpoint) to a current version. Read the
+    API release notes between the old and new version: field-level security,
+    required fields and response shapes changed across these versions, and
+    SOAP WSDL-generated stubs must be regenerated from the new version's
+    WSDL.
+
+status: active

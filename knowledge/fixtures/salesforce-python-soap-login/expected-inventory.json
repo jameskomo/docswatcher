@@ -1,0 +1,110 @@
+[
+  {
+    "id": "salesforce:api_version:58.0",
+    "provider": "salesforce",
+    "kind": "api_version",
+    "key": "58.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "crm/raw_login.py",
+        "line": 3,
+        "column": 59,
+        "snippet": "LOGIN_URL = \"https://login.salesforce.com/services/Soap/u/58.0\"",
+        "detector": "salesforce.literal.api-version-path",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "simple-salesforce",
+        "version": "1.12.6"
+      },
+      "apiVersion": "58.0"
+    }
+  },
+  {
+    "id": "salesforce:sdk_method:SalesforceLogin",
+    "provider": "salesforce",
+    "kind": "sdk_method",
+    "key": "SalesforceLogin",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "crm/client.py",
+        "line": 7,
+        "column": 12,
+        "snippet": "return Salesforce(",
+        "detector": "salesforce.python.simple-salesforce-password-login",
+        "layer": "callsite"
+      },
+      {
+        "path": "crm/client.py",
+        "line": 15,
+        "column": 28,
+        "snippet": "session_id, instance = SalesforceLogin(",
+        "detector": "salesforce.python.salesforce-login",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "simple-salesforce",
+        "version": "1.12.6"
+      },
+      "apiVersion": "58.0"
+    }
+  },
+  {
+    "id": "salesforce:sdk_method:soap.login",
+    "provider": "salesforce",
+    "kind": "sdk_method",
+    "key": "soap.login",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "crm/raw_login.py",
+        "line": 3,
+        "column": 42,
+        "snippet": "LOGIN_URL = \"https://login.salesforce.com/services/Soap/u/58.0\"",
+        "detector": "salesforce.literal.soap-login-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "simple-salesforce",
+        "version": "1.12.6"
+      },
+      "apiVersion": "58.0"
+    }
+  },
+  {
+    "id": "salesforce:sdk_package:simple-salesforce",
+    "provider": "salesforce",
+    "kind": "sdk_package",
+    "key": "simple-salesforce",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "simple-salesforce==1.12.6",
+        "detector": "salesforce.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "simple-salesforce",
+        "version": "1.12.6"
+      },
+      "apiVersion": "58.0"
+    }
+  }
+]

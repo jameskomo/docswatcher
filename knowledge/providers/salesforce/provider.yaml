@@ -1,0 +1,20 @@
+id: salesforce
+name: Salesforce
+homepage: https://www.salesforce.com
+docs: https://developer.salesforce.com/docs
+changelog: https://help.salesforce.com/s/articleView?id=000389618&language=en_US&type=1
+base_urls:
+  - https://login.salesforce.com
+  - https://{instance}.my.salesforce.com
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [javascript, typescript, python, java, ruby]
+deprecation_policy: >
+  Platform API versions are numbered (vNN.0) and appear in the URL path of
+  REST (/services/data/vNN.0/), SOAP (/services/Soap/u/NN.0) and Bulk
+  (/services/async/NN.0/) requests. Old versions are deprecated first, then
+  retired in a named seasonal release (Spring, Summer, Winter) that rolls out
+  to instances over several weeks, so Salesforce publishes a release name
+  rather than a single day. Retirements are announced in Help articles and
+  release notes, often years ahead, and sometimes postponed.
