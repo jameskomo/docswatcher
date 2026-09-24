@@ -3,6 +3,10 @@
 # Without this, docs/11-ci-integration.md is a promise: the nightly job built native binaries
 # and discarded them, so there was no way to run DocsWatcher in someone else's CI except to
 # clone it and install GraalVM.
+#
+# native-image cannot cross-compile, so each native binary is built and smoke-tested on a runner
+# of its own platform. The release is published only when every platform passed: a release
+# missing one binary would break every download link for that platform.
 name: Release
 
 on:
@@ -18,12 +22,27 @@ on:
         required: true
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
+  native:
+    name: Native CLI (${{ matrix.asset }})
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 60
+    strategy:
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            asset: docswatcher-linux-x64
+          - runner: macos-latest
+            asset: docswatcher-macos-arm64
+          - runner: windows-latest
+            asset: docswatcher-windows-x64.exe
+          # No macOS x64: GraalVM Community stopped publishing macOS x64 builds after
+          # JDK 25.0.1, so there is no current GraalVM to build it with. Intel Macs use the jar.
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -36,33 +55,39 @@ jobs:
           distribution: graalvm-community
           cache: maven
 
-      - name: Build the portable jar
-        run: ./mvnw -B -pl cli -am package -DskipTests
+      # The wrapper downloads Maven itself, once, with no retry. Fetch it here, a few times if
+      # need be, so a short Maven Central outage does not fail one platform of a release.
+      - name: Fetch Maven
+        run: for _ in 1 2 3; do ./mvnw -q -v && exit 0; sleep 30; done; exit 1
 
+      # One build gives both: the native profile packages the portable jar before native-image.
       - name: Build the native CLI
         run: ./mvnw -B -Pnative -pl cli -am package -DskipTests
 
       - name: Collect the assets
+        env:
+          ASSET: ${{ matrix.asset }}
         run: |
           set -euo pipefail
           mkdir -p dist
-          cp cli/target/docswatcher cli/target/docswatcher-*-shaded.jar dist/ 2>/dev/null || true
-          # The shaded jar's exact name carries the version; publish it under a stable one so
-          # the documented download URL does not change every release.
-          jar=$(ls cli/target/*.jar | grep -v original | grep -v sources | head -1)
-          cp "$jar" dist/docswatcher.jar
-          mv dist/docswatcher dist/docswatcher-linux-x64
-          ( cd dist && sha256sum * > checksums.txt )
+          built=cli/target/docswatcher
+          [ -f cli/target/docswatcher.exe ] && built=cli/target/docswatcher.exe
+          cp "$built" "dist/$ASSET"
+          chmod +x "dist/$ASSET"
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            # The shaded jar runs anywhere with Java 25, so one build of it is enough. Publish it
+            # under a stable name so the documented download URL does not change every release.
+            cp cli/target/docswatcher-cli.jar dist/docswatcher.jar
+          fi
           ls -la dist
 
       - name: Smoke test what is about to be published
         env:
           TAG: ${{ inputs.tag || github.ref_name }}
+          ASSET: ${{ matrix.asset }}
         run: |
           set -euo pipefail
-          chmod +x dist/docswatcher-linux-x64
-          bin="$PWD/dist/docswatcher-linux-x64"
-          jar="$PWD/dist/docswatcher.jar"
+          bin="$PWD/dist/$ASSET"
 
           # Run from OUTSIDE the repository. Inside it, loadKnowledge() finds the local
           # knowledge/ directory and never touches the copy compiled into the binary, so a
@@ -79,6 +104,12 @@ jobs:
             *"${TAG#v}"*) : ;;
             *) echo "::error::--version says '$reported' but this is release $TAG"; exit 1 ;;
           esac
+
+          # validate loads every tree-sitter grammar and runs every fixture against the bundled
+          # knowledge base. It is the check that this platform's parser libraries made it into
+          # the binary and load: without them the scan below could still pass on literals.
+          "$bin" validate
+          echo "bundled knowledge validates, every grammar loads"
 
           # A repository with nothing to find must exit 0.
           mkdir -p clean && echo 'console.log("hi")' > clean/app.js
@@ -97,9 +128,14 @@ jobs:
           [ "$code" -eq 1 ] || { echo "::error::expected exit 1 on a breaking finding, got $code"; exit 1; }
           echo "breaking repo exited 1 as required"
 
-          java -jar "$jar" --version
-          java -jar "$jar" match clean --format json > /dev/null
-          echo "portable jar runs outside the repository too"
+          # The Action counts breaking findings from the JSON report. A native image missing
+          # reflection metadata for a finding prints [{}] and still exits 1, so check the fields.
+          set +e
+          json=$("$bin" match breaking --format json 2>/dev/null)
+          set -e
+          printf '%s\n' "$json" | grep -q '"severity": "breaking"' \
+            || { echo "::error::the JSON report has no breaking finding:"; echo "$json"; exit 1; }
+          echo "the JSON report carries the finding"
 
           # The MCP server is the same binary talking JSON-RPC on stdio (docs/14-coding-agents.md).
           # A coding agent gets exactly one JSON line per request on stdout, and nothing else.
@@ -113,14 +149,58 @@ jobs:
           printf '%s\n' "$out" | tail -1 | grep -q '"verdict":"RETIRED"' || { echo "::error::mcp check_api did not report dall-e-2 as retired"; exit 1; }
           echo "the native binary serves MCP"
 
+      - name: Smoke test the portable jar
+        if: runner.os == 'Linux'
+        run: |
+          set -euo pipefail
+          jar="$PWD/dist/docswatcher.jar"
+          work=$(mktemp -d)
+          cd "$work"
+          mkdir -p clean && echo 'console.log("hi")' > clean/app.js
+          java -jar "$jar" --version
+          java -jar "$jar" match clean --format json > /dev/null
+          echo "portable jar runs outside the repository too"
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ${{ matrix.asset }}
+          path: dist/
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    name: Publish
+    needs: native
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          path: dist
+          merge-multiple: true
+
+      # checksums.txt covers every asset. The Action refuses a binary whose hash is not in it.
+      - name: Write the checksums
+        run: |
+          set -euo pipefail
+          cd dist
+          for asset in docswatcher-linux-x64 docswatcher-macos-arm64 docswatcher-windows-x64.exe docswatcher.jar; do
+            [ -f "$asset" ] || { echo "::error::$asset is missing from the build"; exit 1; }
+          done
+          sha256sum -- * > checksums.txt
+          cat checksums.txt
+
       - name: Publish
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ inputs.tag || github.ref_name }}
+          REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
           gh release create "$TAG" dist/* \
-            --repo "${{ github.repository }}" \
+            --repo "$REPO" \
             --title "$TAG" \
             --generate-notes \
-            || gh release upload "$TAG" dist/* --repo "${{ github.repository }}" --clobber
+            || gh release upload "$TAG" dist/* --repo "$REPO" --clobber
