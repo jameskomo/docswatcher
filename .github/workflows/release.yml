@@ -85,6 +85,8 @@ jobs:
         env:
           TAG: ${{ inputs.tag || github.ref_name }}
           ASSET: ${{ matrix.asset }}
+          # Full stack traces in the log if a smoke test fails on a runner we cannot log in to.
+          DOCSWATCHER_DEBUG: "1"
         run: |
           set -euo pipefail
           bin="$PWD/dist/$ASSET"

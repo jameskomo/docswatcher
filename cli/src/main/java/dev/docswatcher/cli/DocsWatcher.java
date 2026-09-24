@@ -45,6 +45,12 @@ public final class DocsWatcher implements Callable<Integer> {
     return new CommandLine(new DocsWatcher())
         .setExecutionExceptionHandler((ex, cmd, parseResult) -> {
           cmd.getErr().println("docswatcher: " + (ex.getMessage() == null ? ex.toString() : ex.getMessage()));
+          // A wrapper with no message of its own (ExceptionInInitializerError, for one) says
+          // nothing useful; name every cause so a failure on a machine we cannot reach is readable.
+          for (Throwable c = ex.getCause(); c != null && c != c.getCause(); c = c.getCause()) {
+            cmd.getErr().println("  caused by: " + c);
+          }
+          if (System.getenv("DOCSWATCHER_DEBUG") != null) ex.printStackTrace(cmd.getErr());
           return FAILED;
         });
   }
