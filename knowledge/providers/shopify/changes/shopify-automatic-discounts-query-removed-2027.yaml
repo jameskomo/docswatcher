@@ -1,0 +1,39 @@
+id: shopify-automatic-discounts-query-removed-2027
+provider: shopify
+kind: sunset
+severity: breaking
+title: "automaticDiscounts query removed in Admin API 2027-01"
+summary: >
+  The automaticDiscounts query no longer exists on QueryRoot in Admin GraphQL
+  API version 2027-01, so a request that includes it fails validation instead
+  of returning data. The DiscountAutomaticConnection and DiscountAutomaticEdge
+  types go with it. Apps on 2026-10 and earlier keep working while those
+  versions are supported. Shopify ties the removal to API version 2027-01
+  and gives no calendar date.
+
+affects:
+  - kind: graphql_operation
+    match: "automaticDiscounts"
+
+announced: 2026-09-18
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://shopify.dev/changelog/automaticdiscounts-query-is-removed-in-api-version-2027-01
+    observed: 2026-09-24
+
+migration:
+  replacement: "discountNodes with query: \"method:automatic\""
+  guide: https://shopify.dev/changelog/automaticdiscounts-query-is-removed-in-api-version-2027-01
+  effort: small
+  notes: >
+    Replace automaticDiscounts(first: N) with discountNodes(first: N, query:
+    "method:automatic"). discountNodes returns DiscountNode objects, so move
+    the existing inline fragments (... on DiscountAutomaticBxgy and so on) one
+    level deeper, onto the discount field of each node. Regenerate GraphQL
+    types against 2027-01 and remove references to DiscountAutomaticConnection
+    and DiscountAutomaticEdge. Do not migrate to automaticDiscountNodes: it is
+    also deprecated in favour of discountNodes.
+
+status: active

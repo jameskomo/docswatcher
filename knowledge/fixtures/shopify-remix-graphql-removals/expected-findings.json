@@ -1,0 +1,14 @@
+[
+  {
+    "contract": "shopify:graphql_operation:DiscountCountriesInput.includeRestOfWorld",
+    "change": "shopify-include-rest-of-world-true-error-2027"
+  },
+  {
+    "contract": "shopify:graphql_operation:automaticDiscounts",
+    "change": "shopify-automatic-discounts-query-removed-2027"
+  },
+  {
+    "contract": "shopify:graphql_operation:marketCurrencySettingsUpdate",
+    "change": "shopify-market-currency-settings-update-removed-2027"
+  }
+]

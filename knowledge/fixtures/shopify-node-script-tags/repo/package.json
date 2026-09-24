@@ -1,0 +1,8 @@
+{
+  "name": "reviews-widget-installer",
+  "version": "1.4.0",
+  "dependencies": {
+    "@shopify/shopify-api": "^11.6.0",
+    "node-fetch": "^3.3.2"
+  }
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "contract": "shopify:endpoint:ANY /admin/api/{version}/script_tags.json",
+    "change": "shopify-script-tag-create-update-rejected-2026"
+  },
+  {
+    "contract": "shopify:endpoint:ANY /admin/api/{version}/script_tags/{id}.json",
+    "change": "shopify-script-tag-create-update-rejected-2026"
+  },
+  {
+    "contract": "shopify:graphql_operation:scriptTagCreate",
+    "change": "shopify-script-tag-create-update-rejected-2026"
+  },
+  {
+    "contract": "shopify:graphql_operation:scriptTagUpdate",
+    "change": "shopify-script-tag-create-update-rejected-2026"
+  },
+  {
+    "contract": "shopify:endpoint:ANY /admin/api/{version}/script_tags.json",
+    "change": "shopify-online-store-script-tags-stop-running-2027"
+  },
+  {
+    "contract": "shopify:endpoint:ANY /admin/api/{version}/script_tags/{id}.json",
+    "change": "shopify-online-store-script-tags-stop-running-2027"
+  },
+  {
+    "contract": "shopify:graphql_operation:scriptTagCreate",
+    "change": "shopify-online-store-script-tags-stop-running-2027"
+  },
+  {
+    "contract": "shopify:graphql_operation:scriptTagUpdate",
+    "change": "shopify-online-store-script-tags-stop-running-2027"
+  }
+]

@@ -108,6 +108,16 @@ The `pattern` is a regular expression that must run identically in Java and Java
 
 The `key` template refers to capture groups as `$1`, `$2`. The `files` globs decide which files are read at all. Be narrow. A rule with `files: ["**/*"]` reads every byte in the repo and needs a good reason.
 
+### GraphQL fields
+
+A GraphQL API has one endpoint, so its deprecations name fields, not paths. They are detected with literal rules of `kind: graphql_operation`, because a GraphQL document in code is a string: a template literal passed to `admin.graphql`, a `.graphql` file, a query in a Python string. Shopify's rules are the model (`providers/shopify/detectors.yaml`, ADR 0007):
+
+- **List the names.** The pattern is an alternation of the field names change records name, never a generic "any query" pattern, which would file GitHub's GraphQL under Shopify. When you add a record for a new removed field, add its name to the list in the same PR.
+- **Require GraphQL syntax after the name.** `\s*(?:\(\s*\w+\s*:|\{)` accepts `automaticDiscounts(first: 10)` and `automaticDiscounts {` and rejects prose, response handling such as `data.automaticDiscounts.nodes`, a function call such as `automaticDiscounts(session)`, and generated types such as `automaticDiscounts: DiscountAutomaticConnection`.
+- **Exclude schema dumps.** An SDL file declares the same fields with arguments. Exclude `**/schema.graphql` and similar in the rule.
+- **Keys.** A root field is keyed by its name (`automaticDiscounts`). An argument or input field is keyed by its schema coordinate (`DiscountCountriesInput.includeRestOfWorld`), since those names are not unique. When only one value is a problem, match that value (`includeRestOfWorld: true`).
+- **Negative fixture.** Pair the rule with a negative fixture holding prose, response handling and a schema excerpt that mention the names, and expect nothing. See `fixtures/shopify-negative-graphql-prose`.
+
 ### Call-site rules
 
 A call-site rule is a tree-sitter query. Write it against the pinned grammar version listed in `engine/grammars.lock`, and test it in the tree-sitter playground for that grammar before committing. Requirements:

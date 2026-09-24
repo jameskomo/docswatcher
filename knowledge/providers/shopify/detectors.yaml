@@ -49,4 +49,53 @@ literals:
     key: "$1"
     confidence: medium
 
+  # Admin GraphQL fields that a change record names, keyed by the field name.
+  # A GraphQL document in code is a string, so this is a literal rule, and the
+  # name list keeps it Shopify's: a generic "any query or mutation" rule would
+  # claim GitHub's GraphQL for Shopify. The name must be followed by what only a
+  # GraphQL selection can be followed by: arguments written as name: value, or a
+  # selection set. That leaves out prose, response handling
+  # (data.automaticDiscounts.nodes, const { automaticDiscounts } = ...) and
+  # generated TypeScript types (automaticDiscounts: DiscountAutomaticConnection).
+  # Schema dumps declare the same fields with arguments, so they are excluded.
+  # Add a name here in the same change that adds its record. See ADR 0007.
+  - id: shopify.literal.graphql-admin-field
+    kind: graphql_operation
+    files: ["**/*.{ts,tsx,js,jsx,mjs,cjs,py,rb,php,java,kt,go,cs,graphql,gql}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/schema.graphql", "**/*.schema.graphql", "**/schema.gql"]
+    pattern: '\b(automaticDiscounts|marketCurrencySettingsUpdate|scriptTagCreate|scriptTagUpdate)\s*(?:\(\s*\w+\s*:|\{)'
+    key: "$1"
+    confidence: medium
+
+  # An input field is not unique by name, so its key is the GraphQL schema
+  # coordinate Type.field. Only the value true is a problem, so only that is
+  # matched, in GraphQL, JSON variables, JS, Python and Ruby hashes, and PHP arrays.
+  - id: shopify.literal.graphql-include-rest-of-world
+    kind: graphql_operation
+    files: ["**/*.{ts,tsx,js,jsx,mjs,cjs,py,rb,php,java,kt,go,cs,graphql,gql,json}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/package-lock.json"]
+    pattern: '\b(includeRestOfWorld)["'']?\s*(?::|=>)\s*(?:true|True)\b'
+    key: "DiscountCountriesInput.includeRestOfWorld"
+    confidence: medium
+
+  # The REST ScriptTag resource. The version segment may be a literal or a
+  # template placeholder (${v}, {v}, #{v}), and the key writes it as {version}
+  # so every spelling is one contract. The method is not visible in a URL, so
+  # the key says ANY.
+  - id: shopify.literal.endpoint-script-tags
+    kind: endpoint
+    files: ["**/*.{ts,tsx,js,jsx,mjs,cjs,py,rb,php,java,kt,go,cs}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: '/admin/api/(?:[0-9]{4}-[0-9]{2}|unstable|[$#]?\{[^}\s]*\})/script_tags\.json'
+    key: "ANY /admin/api/{version}/script_tags.json"
+    confidence: medium
+
+  - id: shopify.literal.endpoint-script-tag
+    kind: endpoint
+    files: ["**/*.{ts,tsx,js,jsx,mjs,cjs,py,rb,php,java,kt,go,cs}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: '/admin/api/(?:[0-9]{4}-[0-9]{2}|unstable|[$#]?\{[^}\s]*\})/script_tags/(?:[0-9]+|[$#]?\{[^}\s]*\})\.json'
+    key: "ANY /admin/api/{version}/script_tags/{id}.json"
+    confidence: medium
+
 callsites: []

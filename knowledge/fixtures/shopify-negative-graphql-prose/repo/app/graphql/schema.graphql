@@ -1,0 +1,10 @@
+# Excerpt of the Admin API schema pulled by graphql-codegen. Declarations, not calls.
+type QueryRoot {
+  automaticDiscounts(after: String, first: Int, query: String): DiscountAutomaticConnection! @deprecated
+  discountNodes(after: String, first: Int, query: String): DiscountNodeConnection!
+}
+
+type Mutation {
+  marketCurrencySettingsUpdate(input: MarketCurrencySettingsUpdateInput!, marketId: ID!): MarketCurrencySettingsUpdatePayload @deprecated
+  scriptTagCreate(input: ScriptTagInput!): ScriptTagCreatePayload
+}

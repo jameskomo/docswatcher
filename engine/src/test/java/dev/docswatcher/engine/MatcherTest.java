@@ -24,6 +24,10 @@ class MatcherTest {
       "api_version | 2025-10 | 2025-10 | true",
       "model | gpt-4-turbo | gpt-4-turbo-2024-04-09 | false",
       "sdk_method | Source.create | Source.create | true",
+      "graphql_operation | automaticDiscounts | automaticDiscounts | true",
+      "graphql_operation | automaticDiscounts | automaticDiscountNodes | false",
+      "endpoint | POST /admin/api/*/script_tags.json | ANY /admin/api/{version}/script_tags.json | true",
+      "endpoint | PUT /admin/api/*/script_tags/*.json | ANY /admin/api/{version}/script_tags.json | false",
   })
   void matchSemantics(String kind, String pattern, String key, boolean expected) {
     assertThat(Matcher.matches(kind, pattern, key)).isEqualTo(expected);

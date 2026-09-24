@@ -161,9 +161,9 @@ Open source, community-editable, and the part that is hardest to copy.
 
 | Provider | Change records |
 |---|---|
-| OpenAI | 32 |
-| Google AI | 12 |
-| Shopify | 11 |
+| OpenAI | 42 |
+| Shopify | 16 |
+| Google AI | 13 |
 | Anthropic | 10 |
 | AWS SDK | 3 |
 | GitHub | 2 |
@@ -172,7 +172,7 @@ Open source, community-editable, and the part that is hardest to copy.
 | Twilio | 2 |
 | Stripe | 1 |
 
-Every record was researched from the provider's own deprecation page on 2026-09-18 and carries its source URL and the date observed.
+Every record was researched from the provider's own deprecation page or changelog and carries its source URL and the date observed.
 
 A change record:
 
@@ -216,7 +216,7 @@ Warnings: an individual `affects` entry that no fixture exercises.
 
 ```
 $ knowledge/scripts/validate
-Knowledge local: 10 providers, 87 change records, 34 fixtures
+Knowledge local: 10 providers, 93 change records, 37 fixtures
 OK · 0 errors, 0 warnings
 ```
 

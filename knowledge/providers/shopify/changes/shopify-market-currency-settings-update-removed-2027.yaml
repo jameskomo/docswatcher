@@ -1,0 +1,38 @@
+id: shopify-market-currency-settings-update-removed-2027
+provider: shopify
+kind: sunset
+severity: breaking
+title: "marketCurrencySettingsUpdate mutation removed in Admin API 2027-01"
+summary: >
+  The marketCurrencySettingsUpdate mutation is removed in Admin GraphQL API
+  version 2027-01, with MarketCurrencySettingsUpdatePayload,
+  MarketCurrencySettingsUserError and MarketCurrencySettingsUserErrorCode.
+  It already returns the UNIFIED_MARKETS_ENABLED user error for every request,
+  so it updates nothing today; on 2027-01 the whole request fails validation.
+  Shopify ties the removal to API version 2027-01 and gives no calendar date.
+
+affects:
+  - kind: graphql_operation
+    match: "marketCurrencySettingsUpdate"
+
+announced: 2026-09-22
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://shopify.dev/changelog/removing-marketcurrencysettingsupdate-mutation
+    observed: 2026-09-24
+
+migration:
+  replacement: "marketCreate and marketUpdate"
+  guide: https://shopify.dev/changelog/removing-marketcurrencysettingsupdate-mutation
+  effort: small
+  notes: >
+    Delete the marketCurrencySettingsUpdate call. Pass the same currency
+    settings in the input of marketCreate when creating a market, or of
+    marketUpdate when changing an existing one; neither needs a separate
+    currency call. Remove handling of MarketCurrencySettingsUserError. The
+    call has been a no-op returning a user error since 2025-04, so check that
+    the currency settings the code meant to set are actually in place.
+
+status: active

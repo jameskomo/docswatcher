@@ -1,0 +1,19 @@
+mutation CreateFreeShipping($title: String!, $code: String!, $startsAt: DateTime!) {
+  discountCodeFreeShippingCreate(
+    freeShippingCodeDiscount: {
+      title: $title
+      code: $code
+      startsAt: $startsAt
+      customerSelection: { all: true }
+      destination: { countries: { add: [CA, US], includeRestOfWorld: true } }
+    }
+  ) {
+    codeDiscountNode {
+      id
+    }
+    userErrors {
+      field
+      message
+    }
+  }
+}

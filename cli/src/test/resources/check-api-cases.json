@@ -77,7 +77,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"gpt-9-imaginary\" matches none of DocsWatcher's 88 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"gpt-9-imaginary\" matches none of DocsWatcher's 93 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
@@ -85,7 +85,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"0.28\" matches none of DocsWatcher's 88 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"0.28\" matches none of DocsWatcher's 93 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
@@ -144,7 +144,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"openai==0.28\" matches none of DocsWatcher's 88 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"openai==0.28\" matches none of DocsWatcher's 93 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
@@ -184,7 +184,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"gpt-4-turbo\" matches none of DocsWatcher's 88 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"gpt-4-turbo\" matches none of DocsWatcher's 93 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
@@ -202,7 +202,59 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"stripe\" matches none of DocsWatcher's 88 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"stripe\" matches none of DocsWatcher's 93 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+    },
+    {
+      "input": {
+        "value": "automaticDiscounts"
+      },
+      "verdict": "CHANGED",
+      "matches": [
+        "shopify-automatic-discounts-query-removed-2027"
+      ],
+      "answer": "CHANGED: automaticDiscounts query removed in Admin API 2027-01 [Shopify]. Replacement: discountNodes with query: \"method:automatic\". The automaticDiscounts query no longer exists on QueryRoot in Admin GraphQL API version 2027-01, so a request that includes it fails validation instead of returning data. The DiscountAutomaticConnection and DiscountAutomaticEdge types go with it. Apps on 2026-10 and earlier keep working while those versions are supported. Shopify ties the removal to API version 2027-01 and gives no calendar date.\n  Guide: https://shopify.dev/changelog/automaticdiscounts-query-is-removed-in-api-version-2027-01"
+    },
+    {
+      "input": {
+        "value": "scriptTagCreate",
+        "kind": "graphql_operation"
+      },
+      "verdict": "RETIRING",
+      "matches": [
+        "shopify-script-tag-create-update-rejected-2026",
+        "shopify-online-store-script-tags-stop-running-2027"
+      ],
+      "answer": "RETIRING in 8 days (2026-10-01): Script tags can no longer be created or updated [Shopify]. Replacement: an app embed block in a theme app extension, or a web pixel for analytics.\n  Guide: https://shopify.dev/changelog/online-store-script-tags-deprecation\nRETIRING in 159 days (2027-03-01): Script tags stop running on storefronts [Shopify]. Replacement: an app embed block in a theme app extension, or a web pixel for analytics.\n  Guide: https://shopify.dev/changelog/online-store-script-tags-deprecation"
+    },
+    {
+      "input": {
+        "value": "DiscountCountriesInput.includeRestOfWorld"
+      },
+      "verdict": "CHANGED",
+      "matches": [
+        "shopify-include-rest-of-world-true-error-2027"
+      ],
+      "answer": "CHANGED: includeRestOfWorld: true returns an error in Admin API 2027-01 [Shopify]. Replacement: an explicit country list in DiscountCountriesInput.add. From Admin GraphQL API version 2027-01, setting the deprecated DiscountCountriesInput.includeRestOfWorld field to true returns a BAD_REQUEST error (\"includeRestOfWorld is no longer supported. Specify the applicable country codes explicitly.\"). false keeps its behaviour and null is a no-op. Apps on 2026-10 and earlier are unaffected while those versions are supported. Shopify ties the change to API version 2027-01 and gives no calendar date.\n  Guide: https://shopify.dev/changelog/setting-includerestofworld-to-true-returns-an-error-in-api-version-2027-01"
+    },
+    {
+      "input": {
+        "value": "POST /admin/api/2025-07/script_tags.json"
+      },
+      "verdict": "RETIRING",
+      "matches": [
+        "shopify-script-tag-create-update-rejected-2026",
+        "shopify-online-store-script-tags-stop-running-2027"
+      ],
+      "answer": "RETIRING in 8 days (2026-10-01): Script tags can no longer be created or updated [Shopify]. Replacement: an app embed block in a theme app extension, or a web pixel for analytics.\n  Guide: https://shopify.dev/changelog/online-store-script-tags-deprecation\nRETIRING in 159 days (2027-03-01): Script tags stop running on storefronts [Shopify]. Replacement: an app embed block in a theme app extension, or a web pixel for analytics.\n  Guide: https://shopify.dev/changelog/online-store-script-tags-deprecation"
+    },
+    {
+      "input": {
+        "value": "discountNodes",
+        "provider": "shopify"
+      },
+      "verdict": "NO_KNOWN_DEPRECATION",
+      "matches": [],
+      "answer": "NO KNOWN DEPRECATION: \"discountNodes\" matches none of DocsWatcher's 93 deprecation records across 10 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     }
   ]
 }

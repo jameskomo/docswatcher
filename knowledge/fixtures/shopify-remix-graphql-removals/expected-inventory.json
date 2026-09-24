@@ -1,0 +1,98 @@
+[
+  {
+    "id": "shopify:graphql_operation:DiscountCountriesInput.includeRestOfWorld",
+    "provider": "shopify",
+    "kind": "graphql_operation",
+    "key": "DiscountCountriesInput.includeRestOfWorld",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/graphql/CreateFreeShipping.graphql",
+        "line": 8,
+        "column": 50,
+        "snippet": "destination: { countries: { add: [CA, US], includeRestOfWorld: true } }",
+        "detector": "shopify.literal.graphql-include-rest-of-world",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@shopify/shopify-app-remix",
+        "version": "^3.8.2"
+      }
+    }
+  },
+  {
+    "id": "shopify:graphql_operation:automaticDiscounts",
+    "provider": "shopify",
+    "kind": "graphql_operation",
+    "key": "automaticDiscounts",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/routes/app.discounts.tsx",
+        "line": 11,
+        "column": 7,
+        "snippet": "automaticDiscounts(first: 25, query: \"status:active\") {",
+        "detector": "shopify.literal.graphql-admin-field",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@shopify/shopify-app-remix",
+        "version": "^3.8.2"
+      }
+    }
+  },
+  {
+    "id": "shopify:graphql_operation:marketCurrencySettingsUpdate",
+    "provider": "shopify",
+    "kind": "graphql_operation",
+    "key": "marketCurrencySettingsUpdate",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/markets.server.ts",
+        "line": 5,
+        "column": 5,
+        "snippet": "marketCurrencySettingsUpdate(marketId: $marketId, input: $input) {",
+        "detector": "shopify.literal.graphql-admin-field",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@shopify/shopify-app-remix",
+        "version": "^3.8.2"
+      }
+    }
+  },
+  {
+    "id": "shopify:sdk_package:@shopify/shopify-app-remix",
+    "provider": "shopify",
+    "kind": "sdk_package",
+    "key": "@shopify/shopify-app-remix",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 7,
+        "column": 6,
+        "snippet": "\"@shopify/shopify-app-remix\": \"^3.8.2\",",
+        "detector": "shopify.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@shopify/shopify-app-remix",
+        "version": "^3.8.2"
+      }
+    }
+  }
+]

@@ -1,0 +1,43 @@
+id: shopify-online-store-script-tags-stop-running-2027
+provider: shopify
+kind: sunset
+severity: breaking
+title: "Script tags stop running on storefronts"
+summary: >
+  On 1 March 2027 Shopify stops injecting script tags into online store
+  storefronts, the last place they still run, so JavaScript an app loads
+  through a script tag no longer loads. This applies to all API versions and
+  to script tags with a display_scope of online_store. Script tags on the
+  order status page already stopped under an earlier deprecation.
+
+affects:
+  - kind: graphql_operation
+    match: "scriptTagCreate"
+  - kind: graphql_operation
+    match: "scriptTagUpdate"
+  - kind: endpoint
+    match: "POST /admin/api/*/script_tags.json"
+  - kind: endpoint
+    match: "PUT /admin/api/*/script_tags/*.json"
+
+announced: 2026-08-24
+effective: 2027-03-01
+
+sources:
+  - kind: changelog
+    url: https://shopify.dev/changelog/online-store-script-tags-deprecation
+    observed: 2026-09-24
+
+migration:
+  replacement: "an app embed block in a theme app extension, or a web pixel for analytics"
+  guide: https://shopify.dev/changelog/online-store-script-tags-deprecation
+  effort: large
+  notes: >
+    Move the JavaScript each script tag loads into an app embed block shipped
+    in a theme app extension, which the merchant activates in the theme
+    editor. Analytics and conversion tracking scripts become a web pixel.
+    After the new path is live, use the scriptTags query and scriptTagDelete
+    to remove the app's existing script tags, and delete the code that creates
+    them.
+
+status: active

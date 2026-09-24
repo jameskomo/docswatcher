@@ -1,0 +1,10 @@
+{
+  "name": "bundle-discounts",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@remix-run/node": "^2.16.1",
+    "@shopify/shopify-app-remix": "^3.8.2",
+    "react": "^18.3.1"
+  }
+}

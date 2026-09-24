@@ -1,0 +1,39 @@
+id: shopify-include-rest-of-world-true-error-2027
+provider: shopify
+kind: field_change
+severity: breaking
+title: "includeRestOfWorld: true returns an error in Admin API 2027-01"
+summary: >
+  From Admin GraphQL API version 2027-01, setting the deprecated
+  DiscountCountriesInput.includeRestOfWorld field to true returns a
+  BAD_REQUEST error ("includeRestOfWorld is no longer supported. Specify the
+  applicable country codes explicitly."). false keeps its behaviour and null
+  is a no-op. Apps on 2026-10 and earlier are unaffected while those versions
+  are supported. Shopify ties the change to API version 2027-01 and gives no
+  calendar date.
+
+affects:
+  - kind: graphql_operation
+    match: "DiscountCountriesInput.includeRestOfWorld"
+
+announced: 2026-09-23
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://shopify.dev/changelog/setting-includerestofworld-to-true-returns-an-error-in-api-version-2027-01
+    observed: 2026-09-24
+
+migration:
+  replacement: "an explicit country list in DiscountCountriesInput.add"
+  guide: https://shopify.dev/changelog/setting-includerestofworld-to-true-returns-an-error-in-api-version-2027-01
+  effort: small
+  notes: >
+    In discount create and update mutations (for example
+    discountCodeFreeShippingCreate), remove includeRestOfWorld: true from the
+    countries input and list every country code where the discount should
+    apply in add. Stop sending includeRestOfWorld at all, since Shopify is
+    preparing to remove it from the schema. Which countries to add is a
+    business decision; do not guess a list, ask for it.
+
+status: active

@@ -1,0 +1,44 @@
+id: shopify-script-tag-create-update-rejected-2026
+provider: shopify
+kind: sunset
+severity: breaking
+title: "Script tags can no longer be created or updated"
+summary: >
+  From 1 October 2026 the scriptTagCreate and scriptTagUpdate mutations return
+  a user error and the REST ScriptTag resource rejects POST and PUT, in every
+  API version, so pinning an older version does not defer it. Existing script
+  tags keep running until 1 March 2027. The scriptTags query and the
+  scriptTagDelete mutation keep working. Applies to script tags with a
+  display_scope of online_store.
+
+affects:
+  - kind: graphql_operation
+    match: "scriptTagCreate"
+  - kind: graphql_operation
+    match: "scriptTagUpdate"
+  - kind: endpoint
+    match: "POST /admin/api/*/script_tags.json"
+  - kind: endpoint
+    match: "PUT /admin/api/*/script_tags/*.json"
+
+announced: 2026-08-24
+effective: 2026-10-01
+
+sources:
+  - kind: changelog
+    url: https://shopify.dev/changelog/online-store-script-tags-deprecation
+    observed: 2026-09-24
+
+migration:
+  replacement: "an app embed block in a theme app extension, or a web pixel for analytics"
+  guide: https://shopify.dev/changelog/online-store-script-tags-deprecation
+  effort: large
+  notes: >
+    Stop creating and updating script tags. Move the JavaScript each script
+    tag loads into an app embed block shipped in a theme app extension; the
+    merchant turns it on in the theme editor, so the install flow needs a step
+    that tells them to. If the script only collects analytics or conversion
+    data, build a web pixel instead, which needs no merchant action. Keep the
+    scriptTags query and scriptTagDelete calls to find and remove the old tags.
+
+status: active

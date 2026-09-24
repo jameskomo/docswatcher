@@ -12,7 +12,7 @@ for call sites, and a native binary for Linux only.
 
 | Component | State | Evidence |
 |---|---|---|
-| Knowledge base | 10 providers, 87 change records, 34 fixtures | `knowledge/scripts/validate` reports 0 errors |
+| Knowledge base | 10 providers, 93 change records, 37 fixtures | `knowledge/scripts/validate` reports 0 errors |
 | Java engine | 3 detection layers, exclusion rules, matcher, validator, `Matcher.lookup` | 198 tests pass |
 | TypeScript engine | Same three layers and the same exclusion rules, runs in the browser | Part of the 99 TypeScript unit tests below |
 | Two-engine parity | Byte-identical output on every fixture | `npm run parity` passes |

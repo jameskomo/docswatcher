@@ -1,0 +1,122 @@
+[
+  {
+    "id": "shopify:endpoint:ANY /admin/api/{version}/script_tags.json",
+    "provider": "shopify",
+    "kind": "endpoint",
+    "key": "ANY /admin/api/{version}/script_tags.json",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacyRest.js",
+        "line": 7,
+        "column": 43,
+        "snippet": "const res = await fetch(`https://${shop}/admin/api/${API_VERSION}/script_tags.json`, {",
+        "detector": "shopify.literal.endpoint-script-tags",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@shopify/shopify-api",
+        "version": "^11.6.0"
+      }
+    }
+  },
+  {
+    "id": "shopify:endpoint:ANY /admin/api/{version}/script_tags/{id}.json",
+    "provider": "shopify",
+    "kind": "endpoint",
+    "key": "ANY /admin/api/{version}/script_tags/{id}.json",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/legacyRest.js",
+        "line": 16,
+        "column": 43,
+        "snippet": "const res = await fetch(`https://${shop}/admin/api/${API_VERSION}/script_tags/${id}.json`, {",
+        "detector": "shopify.literal.endpoint-script-tag",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@shopify/shopify-api",
+        "version": "^11.6.0"
+      }
+    }
+  },
+  {
+    "id": "shopify:graphql_operation:scriptTagCreate",
+    "provider": "shopify",
+    "kind": "graphql_operation",
+    "key": "scriptTagCreate",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/installWidget.js",
+        "line": 6,
+        "column": 5,
+        "snippet": "scriptTagCreate(input: $input) {",
+        "detector": "shopify.literal.graphql-admin-field",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@shopify/shopify-api",
+        "version": "^11.6.0"
+      }
+    }
+  },
+  {
+    "id": "shopify:graphql_operation:scriptTagUpdate",
+    "provider": "shopify",
+    "kind": "graphql_operation",
+    "key": "scriptTagUpdate",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/installWidget.js",
+        "line": 15,
+        "column": 5,
+        "snippet": "scriptTagUpdate(id: $id, input: $input) {",
+        "detector": "shopify.literal.graphql-admin-field",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@shopify/shopify-api",
+        "version": "^11.6.0"
+      }
+    }
+  },
+  {
+    "id": "shopify:sdk_package:@shopify/shopify-api",
+    "provider": "shopify",
+    "kind": "sdk_package",
+    "key": "@shopify/shopify-api",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"@shopify/shopify-api\": \"^11.6.0\",",
+        "detector": "shopify.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@shopify/shopify-api",
+        "version": "^11.6.0"
+      }
+    }
+  }
+]
