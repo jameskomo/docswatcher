@@ -21,6 +21,9 @@ const wasmPath = (file) => {
     "tree-sitter-tsx.wasm": "tree-sitter-typescript/tree-sitter-tsx.wasm",
     "tree-sitter-javascript.wasm": "tree-sitter-javascript/tree-sitter-javascript.wasm",
     "tree-sitter-go.wasm": "tree-sitter-go/tree-sitter-go.wasm",
+    "tree-sitter-ruby.wasm": "tree-sitter-ruby/tree-sitter-ruby.wasm",
+    "tree-sitter-php.wasm": "tree-sitter-php/tree-sitter-php.wasm",
+    "tree-sitter-c_sharp.wasm": "tree-sitter-c-sharp/tree-sitter-c_sharp.wasm",
   };
   return join(nm, map[file]);
 };

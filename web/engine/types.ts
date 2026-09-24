@@ -6,8 +6,8 @@ export type Confidence = "high" | "medium" | "low";
 export type Layer = "manifest" | "literal" | "callsite";
 export type Severity = "breaking" | "warning" | "info";
 export type ChangeStatus = "draft" | "active" | "withdrawn" | "expired";
-export type Ecosystem = "npm" | "pypi" | "maven" | "go" | "rubygems";
-export type Language = "java" | "python" | "typescript" | "javascript" | "go";
+export type Ecosystem = "npm" | "pypi" | "maven" | "go" | "rubygems" | "packagist" | "nuget";
+export type Language = "java" | "python" | "typescript" | "javascript" | "go" | "ruby" | "php" | "csharp";
 
 export interface InputFile { path: string; text: string; }
 

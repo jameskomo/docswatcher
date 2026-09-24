@@ -8,6 +8,9 @@ export const GRAMMAR_FILES: Record<string, string> = {
   tsx: "tree-sitter-tsx.wasm",
   javascript: "tree-sitter-javascript.wasm",
   go: "tree-sitter-go.wasm",
+  ruby: "tree-sitter-ruby.wasm",
+  php: "tree-sitter-php.wasm",
+  csharp: "tree-sitter-c_sharp.wasm",
 };
 
 /**

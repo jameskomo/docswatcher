@@ -21,6 +21,9 @@ beforeAll(async () => {
     "tree-sitter-tsx.wasm": "tree-sitter-typescript/tree-sitter-tsx.wasm",
     "tree-sitter-javascript.wasm": "tree-sitter-javascript/tree-sitter-javascript.wasm",
     "tree-sitter-go.wasm": "tree-sitter-go/tree-sitter-go.wasm",
+    "tree-sitter-ruby.wasm": "tree-sitter-ruby/tree-sitter-ruby.wasm",
+    "tree-sitter-php.wasm": "tree-sitter-php/tree-sitter-php.wasm",
+    "tree-sitter-c_sharp.wasm": "tree-sitter-c-sharp/tree-sitter-c_sharp.wasm",
   };
   grammars = await createTreeSitter((f) => join(nm, map[f]));
 });
@@ -69,6 +72,35 @@ describe("manifests", () => {
       .toMatchObject({ line: 3, column: 2, version: "v79.0.0" });
     expect(scanManifest({ path: "Gemfile", text: 'gem "shopify_api", "14.0.0"\n' }, [{ ecosystem: "rubygems", package: "shopify_api" }])[0])
       .toMatchObject({ line: 1, column: 6, version: "14.0.0" });
+  });
+  it("reads composer.json require sections", () => {
+    const text = '{\n  "name": "acme/shop",\n  "require": {\n    "php": "^8.2",\n    "stripe/stripe-php": "^16.1"\n  },\n  "require-dev": { "openai-php/client": "^0.10" }\n}\n';
+    const rules = [{ ecosystem: "packagist" as const, package: "stripe/stripe-php" }, { ecosystem: "packagist" as const, package: "openai-php/client" }, { ecosystem: "packagist" as const, package: "acme/shop" }];
+    const hits = scanManifest({ path: "composer.json", text }, rules);
+    expect(hits.map((h) => [h.rule.package, h.line, h.column, h.version])).toEqual([
+      ["stripe/stripe-php", 5, 6, "^16.1"],
+      ["openai-php/client", 7, 21, "^0.10"],
+    ]);
+  });
+  it("reads PackageReference from a .csproj, attribute or element version, any case", () => {
+    const text = [
+      '<Project Sdk="Microsoft.NET.Sdk.Web">',
+      "  <ItemGroup>",
+      '    <PackageReference Include="twilio" Version="7.8.0" />',
+      '    <PackageReference Include="Stripe.net">',
+      "      <Version>47.2.0</Version>",
+      "    </PackageReference>",
+      '    <PackageReference Include="OpenAI" />',
+      "  </ItemGroup>",
+      "</Project>",
+    ].join("\n");
+    const rules = ["Twilio", "Stripe.net", "OpenAI", "SendGrid"].map((p) => ({ ecosystem: "nuget" as const, package: p }));
+    const hits = scanManifest({ path: "src/Shop/Shop.csproj", text }, rules);
+    expect(hits.map((h) => [h.rule.package, h.line, h.column, h.version])).toEqual([
+      ["Twilio", 3, 32, "7.8.0"],
+      ["Stripe.net", 4, 32, "47.2.0"],
+      ["OpenAI", 7, 32, null],
+    ]);
   });
 });
 

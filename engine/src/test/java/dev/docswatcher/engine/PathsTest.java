@@ -21,8 +21,23 @@ class PathsTest {
       "src/testing/a.js, false",
       "fixtures/x/y.py, true",
       "attest/a.js, false",
+      "Billing.Tests/InvoiceTests.cs, true",
+      "src/PaymentTest.cs, true",
+      "src/Contest.cs, false",
+      "spec/services/payment_spec.rb, true",
   })
   void classifies(String path, boolean docOrTest) {
     assertThat(Paths.isDocOrTest(path)).as(path).isEqualTo(docOrTest);
+  }
+
+  @ParameterizedTest
+  @CsvSource({
+      "app/models/order.rb, ruby",
+      "src/Http/Controller.php, php",
+      "Controllers/SmsController.cs, csharp",
+      "src/a.tsx, tsx",
+  })
+  void language(String path, String language) {
+    assertThat(Paths.language(path)).isEqualTo(language);
   }
 }

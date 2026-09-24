@@ -65,6 +65,21 @@
       <artifactId>tree-sitter-go</artifactId>
       <version>0.25.0</version>
     </dependency>
+    <dependency>
+      <groupId>io.github.bonede</groupId>
+      <artifactId>tree-sitter-ruby</artifactId>
+      <version>0.23.1</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.bonede</groupId>
+      <artifactId>tree-sitter-php</artifactId>
+      <version>0.24.2</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.bonede</groupId>
+      <artifactId>tree-sitter-c-sharp</artifactId>
+      <version>0.23.1</version>
+    </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>

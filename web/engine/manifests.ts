@@ -16,6 +16,8 @@ export function scanManifest(file: InputFile, rules: ManifestRule[]): ManifestHi
   else if (base === "pom.xml") hits.push(...maven(file, byEco("maven")));
   else if (base === "go.mod") hits.push(...gomod(file, byEco("go")));
   else if (base === "Gemfile") hits.push(...gemfile(file, byEco("rubygems")));
+  else if (base === "composer.json") hits.push(...composer(file, byEco("packagist")));
+  else if (base.endsWith(".csproj")) hits.push(...csproj(file, byEco("nuget")));
   return hits;
 }
 
@@ -141,6 +143,64 @@ function gomod(file: InputFile, rules: ManifestRule[]): ManifestHit[] {
       out.push(hit(file, starts, rule, starts[i] + line.indexOf(m[1]), m[2]));
     }
   });
+  return out;
+}
+
+const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/** composer.json: a key of `require` or `require-dev`. Evidence is the first `"package":` in the file. */
+function composer(file: InputFile, rules: ManifestRule[]): ManifestHit[] {
+  if (rules.length === 0) return [];
+  let json: any;
+  try { json = JSON.parse(file.text); } catch { return []; }
+  const starts = lineStarts(file.text);
+  const out: ManifestHit[] = [];
+  for (const rule of rules) {
+    let present = false;
+    let version: string | null = null;
+    for (const section of ["require", "require-dev"]) {
+      const deps = json?.[section];
+      if (!deps || typeof deps !== "object" || !(rule.package in deps)) continue;
+      present = true;
+      if (version === null && typeof deps[rule.package] === "string") version = deps[rule.package];
+    }
+    if (!present) continue;
+    const m = new RegExp(`"${escapeRegExp(rule.package)}"\\s*:`).exec(file.text);
+    if (m) out.push(hit(file, starts, rule, m.index + 1, version));
+  }
+  return out;
+}
+
+/**
+ * *.csproj: `<PackageReference Include="...">`, the id compared case-insensitively as NuGet does.
+ * The version is the Version attribute, else a nested `<Version>` element.
+ */
+function csproj(file: InputFile, rules: ManifestRule[]): ManifestHit[] {
+  if (rules.length === 0) return [];
+  const starts = lineStarts(file.text);
+  const out: ManifestHit[] = [];
+  for (const rule of rules) {
+    const ref = /<PackageReference\b([^>]*)>/g;
+    let m: RegExpExecArray | null;
+    while ((m = ref.exec(file.text))) {
+      const attributes = m[1];
+      const include = /\bInclude\s*=\s*(["'])(.*?)\1/.exec(attributes);
+      if (!include || include[2].toLowerCase() !== rule.package.toLowerCase()) continue;
+      const v = /\bVersion\s*=\s*(["'])(.*?)\1/.exec(attributes);
+      let version: string | null = v ? v[2] : null;
+      const end = m.index + m[0].length;
+      if (version === null && !attributes.endsWith("/")) {
+        const close = file.text.indexOf("</PackageReference>", end);
+        if (close >= 0) {
+          const e = /<Version>\s*([^<\s]+)\s*<\/Version>/.exec(file.text.slice(end, close));
+          if (e) version = e[1];
+        }
+      }
+      const attributesStart = m.index + "<PackageReference".length;
+      out.push(hit(file, starts, rule, attributesStart + include.index + include[0].indexOf(include[1]) + 1, version));
+      break;
+    }
+  }
   return out;
 }
 

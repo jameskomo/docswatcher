@@ -1,10 +1,13 @@
 package dev.docswatcher.engine;
 
 import org.treesitter.TSLanguage;
+import org.treesitter.TreeSitterCSharp;
 import org.treesitter.TreeSitterGo;
 import org.treesitter.TreeSitterJava;
 import org.treesitter.TreeSitterJavascript;
+import org.treesitter.TreeSitterPhp;
 import org.treesitter.TreeSitterPython;
+import org.treesitter.TreeSitterRuby;
 import org.treesitter.TreeSitterTsx;
 import org.treesitter.TreeSitterTypescript;
 import java.util.HashMap;
@@ -23,6 +26,9 @@ final class Grammars {
       case "tsx" -> new TreeSitterTsx();
       case "javascript" -> new TreeSitterJavascript();
       case "go" -> new TreeSitterGo();
+      case "ruby" -> new TreeSitterRuby();
+      case "php" -> new TreeSitterPhp();
+      case "csharp" -> new TreeSitterCSharp();
       default -> throw new IllegalArgumentException("No grammar for language " + l);
     });
   }

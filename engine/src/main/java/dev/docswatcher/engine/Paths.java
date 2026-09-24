@@ -20,7 +20,8 @@ final class Paths {
       if (TEST_SEGMENTS.contains(segments[i])) return true;
     }
     String file = segments[segments.length - 1];
-    return file.contains(".test.") || file.contains(".spec.") || file.contains("_test.") || file.endsWith("Test.java");
+    return file.contains(".test.") || file.contains(".spec.") || file.contains("_test.") || file.endsWith("Test.java")
+        || file.endsWith("Test.cs") || file.endsWith("Tests.cs");
   }
 
   static boolean isDocOrTest(String path) {
@@ -37,6 +38,9 @@ final class Paths {
       case "tsx" -> "tsx";
       case "js", "jsx", "mjs", "cjs" -> "javascript";
       case "go" -> "go";
+      case "rb" -> "ruby";
+      case "php" -> "php";
+      case "cs" -> "csharp";
       default -> null;
     };
   }

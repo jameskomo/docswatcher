@@ -77,6 +77,46 @@ class ManifestLayerTest {
   }
 
   @Test
+  void composerFindsRequireAndRequireDevButNotName() {
+    SourceFile f = new SourceFile("composer.json",
+        "{\n  \"name\": \"acme/shop\",\n  \"require\": {\n    \"php\": \"^8.2\",\n    \"stripe/stripe-php\": \"^16.1\"\n  },\n"
+            + "  \"require-dev\": { \"openai-php/client\": \"^0.10\" }\n}\n");
+    assertThat(ManifestLayer.ecosystemOf("composer.json")).isEqualTo("packagist");
+    ManifestLayer.Hit s = ManifestLayer.composer(f, "stripe/stripe-php");
+    assertThat(s.version()).isEqualTo("^16.1");
+    assertThat(f.lineAt(s.offset())).isEqualTo(5);
+    assertThat(f.columnAt(s.offset())).isEqualTo(6);
+    ManifestLayer.Hit o = ManifestLayer.composer(f, "openai-php/client");
+    assertThat(o.version()).isEqualTo("^0.10");
+    assertThat(f.columnAt(o.offset())).isEqualTo(21);
+    assertThat(ManifestLayer.composer(f, "acme/shop")).isNull();
+  }
+
+  @Test
+  void csprojFindsPackageReferenceWithAttributeOrElementVersionInAnyCase() {
+    SourceFile f = new SourceFile("src/Shop/Shop.csproj", String.join("\n",
+        "<Project Sdk=\"Microsoft.NET.Sdk.Web\">",
+        "  <ItemGroup>",
+        "    <PackageReference Include=\"twilio\" Version=\"7.8.0\" />",
+        "    <PackageReference Include=\"Stripe.net\">",
+        "      <Version>47.2.0</Version>",
+        "    </PackageReference>",
+        "    <PackageReference Include=\"OpenAI\" />",
+        "  </ItemGroup>",
+        "</Project>"));
+    assertThat(ManifestLayer.ecosystemOf("Shop.csproj")).isEqualTo("nuget");
+    ManifestLayer.Hit t = ManifestLayer.csproj(f, "Twilio");
+    assertThat(t.version()).isEqualTo("7.8.0");
+    assertThat(f.lineAt(t.offset())).isEqualTo(3);
+    assertThat(f.columnAt(t.offset())).isEqualTo(32);
+    ManifestLayer.Hit s = ManifestLayer.csproj(f, "Stripe.net");
+    assertThat(s.version()).isEqualTo("47.2.0");
+    assertThat(f.lineAt(s.offset())).isEqualTo(4);
+    assertThat(ManifestLayer.csproj(f, "OpenAI").version()).isNull();
+    assertThat(ManifestLayer.csproj(f, "SendGrid")).isNull();
+  }
+
+  @Test
   void manifestEvidenceIsHighEvenInTxtFile() {
     Knowledge k = TestSupport.knowledge();
     List<Contract> contracts = TestSupport.scan(k, TestSupport.file("requirements.txt", "openai==1.0.0\n"));

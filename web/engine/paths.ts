@@ -1,3 +1,5 @@
+import type { Language } from "./types";
+
 const SKIP_DIRS = new Set(["node_modules", "target", "dist", "build", ".git", "vendor", ".venv"]);
 const MAX_BYTES = 1024 * 1024;
 
@@ -27,10 +29,11 @@ export function isDocOrTestPath(path: string): boolean {
   const segs = path.split("/");
   const file = segs[segs.length - 1];
   for (let i = 0; i < segs.length - 1; i++) if (TEST_SEGS.has(segs[i])) return true;
-  return file.includes(".test.") || file.includes(".spec.") || file.includes("_test.") || file.endsWith("Test.java");
+  return file.includes(".test.") || file.includes(".spec.") || file.includes("_test.") || file.endsWith("Test.java")
+    || file.endsWith("Test.cs") || file.endsWith("Tests.cs");
 }
 
-export function languageOf(path: string): "java" | "python" | "typescript" | "tsx" | "javascript" | "go" | null {
+export function languageOf(path: string): Language | "tsx" | null {
   const m = /\.([a-z]+)$/i.exec(path);
   if (!m) return null;
   switch (m[1].toLowerCase()) {
@@ -40,6 +43,9 @@ export function languageOf(path: string): "java" | "python" | "typescript" | "ts
     case "tsx": return "tsx";
     case "js": case "jsx": case "mjs": case "cjs": return "javascript";
     case "go": return "go";
+    case "rb": return "ruby";
+    case "php": return "php";
+    case "cs": return "csharp";
     default: return null;
   }
 }

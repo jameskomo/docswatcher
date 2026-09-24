@@ -71,7 +71,7 @@ async function gh(url: string, token?: string) {
   return res.json();
 }
 
-const PRIORITY = [/(^|\/)(package\.json|requirements[^/]*\.txt|pyproject\.toml|pom\.xml|go\.mod|Gemfile)$/, /\.(ya?ml|toml|env|properties|json)$/, /\.(java|kt|ts|tsx|js|jsx|mjs|cjs|py|go|rb|php|cs)$/];
+const PRIORITY = [/(^|\/)(package\.json|requirements[^/]*\.txt|pyproject\.toml|pom\.xml|go\.mod|Gemfile|composer\.json|[^/]+\.csproj)$/, /\.(ya?ml|toml|env|properties|json)$/, /\.(java|kt|ts|tsx|js|jsx|mjs|cjs|py|go|rb|php|cs)$/];
 
 /** Fallback without a relay: one tree call to the API, then raw file reads (not counted against the API limit). */
 export async function fetchViaApi(t: RepoTarget, token: string | undefined, progress: FetchProgress): Promise<FetchResult> {
