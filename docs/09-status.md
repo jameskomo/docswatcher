@@ -5,14 +5,14 @@ Last updated 2026-09-24. Everything below was verified by running it on that dat
 ## One-line status
 
 The scanner works end to end from a browser, a command line, CI, a GitHub App and now a coding
-agent. The knowledge base is watched daily. What is thin is reach: ten providers, eight languages
+agent. The knowledge base is watched daily. What is thin is reach: fifteen providers, eight languages
 for call sites, and no native binary for Intel Macs.
 
 ## Built and verified
 
 | Component | State | Evidence |
 |---|---|---|
-| Knowledge base | 10 providers, 93 change records, 49 fixtures | `knowledge/scripts/validate` reports 0 errors |
+| Knowledge base | 15 providers, 202 change records, 68 fixtures | `knowledge/scripts/validate` reports 0 errors |
 | Java engine | 3 detection layers, exclusion rules, matcher, validator, `Matcher.lookup` | 198 tests pass |
 | TypeScript engine | Same three layers and the same exclusion rules, runs in the browser | Part of the 99 TypeScript unit tests below |
 | Two-engine parity | Byte-identical output on every fixture | `npm run parity` passes |
@@ -24,9 +24,9 @@ for call sites, and no native binary for Intel Macs.
 | Web site | Scanner, calendar with subscriptions, dashboard (browser scan signed out; the organisation dashboard signed in), finding detail with linked evidence, CI, Agents and Teams pages, live scan links | 40 browser tests pass; the organisation dashboard's run against a mocked API |
 | Organisation dashboard | Sign in with GitHub; overview, provider map, horizon, repositories, findings with snooze, not-in-production and fix, blast radius of one change | Built and tested; live once the App's client secret and the `/auth/` and `/api/` routes are deployed |
 | Feeds | iCalendar (all and per provider), Atom, open JSON | 11 tests; parsed by the `icalendar` library; served correctly by nginx 1.27 |
-| Knowledge watch | Daily fetch of 26 cited pages, issue on news, optional agent-drafted pull request | 16 tests; two live runs over every source, the second reporting no change |
+| Knowledge watch | Daily fetch of every cited page (68 since the 2026-09-24 providers), issue on news, optional agent-drafted pull request | 16 tests; two live runs over the 26 sources cited before then, the second reporting no change; every page the new providers cite answered 200 when they were added |
 | Open-source study | Cohort runner and aggregate summary | First cohort: `study/2026-09-openai-top50` |
-| Try it (Agents page) | Claude, OpenAI (GPT, Codex) or Gemini with the visitor's own key, answered with and without `check_api` | 4 browser tests against mocked providers; `check_api` held to the CLI by 26 shared cases |
+| Try it (Agents page) | Claude, OpenAI (GPT, Codex) or Gemini with the visitor's own key, answered with and without `check_api` | 4 browser tests against mocked providers; `check_api` held to the CLI by 30 shared cases |
 | Early access | Teams page form, stored in Postgres, emailed to the owner by the `notify/` worker | 7 app tests, 3 notifier tests, 3 worker tests; checked live |
 | Relay worker | Tarball streaming with permissive origins. Not used by the deployed site; kept for self-hosters | 10 tests pass |
 | Deployment | Live behind a Cloudflare Tunnel, five containers, no inbound ports | Runbooks in the private operations repository |
@@ -51,7 +51,7 @@ The two zero-finding repositories are as important as the others. They are evide
 Ordered by what is most likely to cost a user today.
 
 1. **Native binary for Intel Macs.** Releases ship native binaries for Linux x64, macOS arm64 and Windows x64, and a portable jar. GraalVM Community no longer builds for macOS x64, so an Intel Mac needs the jar and Java 25, which is a poor first step for someone adding an MCP server to their editor.
-2. **Providers.** Ten. Azure OpenAI, Mistral, Twitch, Meta Graph and PayPal are the obvious next ones; each is a `provider.yaml`, a detector table and change records.
+2. **Providers.** Fifteen. Azure OpenAI, Mistral, Meta Graph, PayPal and Twitch were added on 2026-09-24. Some of what they deprecate has no date to record: PayPal publishes no removal date for any deprecated REST resource, Azure OpenAI none for its dated api-versions, and Meta's Instagram and Page Insights metric removals are field names, which no contract kind describes. Each further provider is a `provider.yaml`, a detector table and change records.
 3. **Knowledge watch coverage.** It watches pages already cited. A provider's brand-new deprecation page is found only if its changelog, which is watched, links to it.
 4. **Status badge with a count.** Deliberately not built; see ADR 0004.
 5. **Your own APIs in the App's dashboard.** Issues and check runs carry a team's own change records in full, but the dashboard and fix pull requests look change records up in the bundled knowledge, so they show such a finding by its change id. The App reads only the owner's `.docswatcher` repository.

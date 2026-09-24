@@ -167,9 +167,14 @@ Open source, community-editable, and the part that is hardest to copy.
 | Provider | Change records |
 |---|---|
 | OpenAI | 42 |
+| Mistral AI | 41 |
+| Azure OpenAI | 35 |
 | Shopify | 16 |
+| Meta Graph API | 15 |
 | Google AI | 13 |
+| Twitch | 11 |
 | Anthropic | 10 |
+| PayPal | 7 |
 | AWS SDK | 3 |
 | GitHub | 2 |
 | SendGrid | 2 |
@@ -207,7 +212,7 @@ status: expired
 
 ### Fixtures
 
-33, each a tiny repository plus the exact inventory and findings it must produce. Ten are negatives: a provider named in a README, a mocked client in a test file. They exist to pin down false positives, and every provider needs at least one.
+55, each a tiny repository plus the exact inventory and findings it must produce. Sixteen are negatives: a provider named in a README, a mocked client in a test file. They exist to pin down false positives, and every provider needs at least one.
 
 ### The central invariant
 
@@ -221,8 +226,8 @@ Warnings: an individual `affects` entry that no fixture exercises.
 
 ```
 $ knowledge/scripts/validate
-Knowledge local: 10 providers, 93 change records, 37 fixtures
-OK · 0 errors, 0 warnings
+Knowledge 2026.09.24: 15 providers, 202 change records, 55 fixtures
+OK · 0 errors, 1 warnings
 ```
 
 ## 5. Two engines and parity

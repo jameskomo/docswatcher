@@ -18,7 +18,7 @@ still pass against their mocks, and one morning a payment fails.
 DocsWatcher reads a repository, finds every external API it actually calls, and tells you which
 ones already have a shutdown date — with the file, the line, and the date.
 
-It currently tracks **93 published shutdowns and changes across 10 providers**. 61 of those are AI model
+It currently tracks **202 published shutdowns and changes across 15 providers**. 133 of those are AI model
 retirements, which is where this hurts most right now.
 
 ## What a scan finds
@@ -122,7 +122,8 @@ the provider's migration notes, and the agent opens a pull request you review li
 
 ## Providers tracked today
 
-OpenAI · Anthropic · Google AI · Shopify · Stripe · AWS SDK · GitHub · Slack · SendGrid · Twilio
+OpenAI · Anthropic · Google AI · Azure OpenAI · Mistral AI · Shopify · Stripe · PayPal · Meta Graph API ·
+Twitch · AWS SDK · GitHub · Slack · SendGrid · Twilio
 
 The [deprecation calendar](https://docswatcher.vukisha.co.ke/#/calendar) shows every tracked
 shutdown on a timeline, whether or not you have scanned anything. Subscribe to it in Google

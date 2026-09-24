@@ -146,7 +146,7 @@ useHead({
       <ul>
         <li>A native download for Intel Macs. They run the portable <code>docswatcher.jar</code> with Java 25 today.</li>
         <li>Call-site detection for Ruby, PHP and C#. Their dependencies and literal API calls are found; SDK method calls are not.</li>
-        <li>More providers: Azure OpenAI, Mistral, PayPal and others.</li>
+        <li>More providers beyond the fifteen tracked today. Each is a detector table and change records in the open knowledge base.</li>
         <li>Team features in general availability: a dashboard across every repository, and alerts before the date. <NuxtLink to="/teams">Request early access</NuxtLink>.</li>
       </ul>
 
