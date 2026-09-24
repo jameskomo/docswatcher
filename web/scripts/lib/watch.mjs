@@ -214,6 +214,9 @@ export async function fetchPage(url, { timeoutMs = 30000, fetchImpl = fetch } = 
       headers: {
         "user-agent": "DocsWatcher-knowledge-watch/1.0 (+https://github.com/jameskomo/docswatcher)",
         accept: "text/html,text/plain,text/markdown;q=0.9,*/*;q=0.5",
+        // Without it, some sites answer in whatever language they guess for the runner. Google's
+        // deprecations page came back in Portuguese on 2026-09-24, and every line looked new.
+        "accept-language": "en-US,en;q=0.9",
       },
     });
     if (!res.ok) return { ok: false, status: res.status, error: `HTTP ${res.status}` };

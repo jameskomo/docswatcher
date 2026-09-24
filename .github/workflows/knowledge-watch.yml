@@ -160,7 +160,7 @@ jobs:
           EOF
           )
           claude -p "$prompt" \
-            --allowedTools "Read" "Glob" "Grep" "Edit(knowledge/**)" "Write(knowledge/**)" \
+            --allowedTools "Read" "Glob" "Grep" "Edit(knowledge/**)" \
             --disallowedTools "Bash" "WebFetch" "WebSearch" \
             --max-turns 60
 
