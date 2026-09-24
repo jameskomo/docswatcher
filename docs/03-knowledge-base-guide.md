@@ -11,6 +11,7 @@ Formats are defined in `docs/02-schemas.md`. This guide covers the workflow. The
 
 ```
 knowledge/
+  VERSION                    the knowledge base version, e.g. 2026.09.24
   providers/
     stripe/
       provider.yaml          identity, base URLs, docs, spec source
@@ -35,6 +36,24 @@ knowledge/
     gen-methods         regenerate methods.yaml from a pinned OpenAPI spec
     check-links         weekly URL check
 ```
+
+### VERSION
+
+`knowledge/VERSION` is the one knowledge base version: a single line, the date of the last
+change to the records, as `YYYY.MM.DD`. Bump it in the same commit as any change to a provider,
+detector or change record. Every surface reports that line and nothing else:
+
+| Surface | Where it shows |
+|---|---|
+| Java engine, directory load (`--knowledge <dir>`, or a `knowledge/` in the working directory) | `engine.knowledgeVersion` in the inventory |
+| CLI binary and jar, which carry `VERSION` inside their bundled copy | `docswatcher validate`, the text report of `docswatcher match` |
+| MCP server | "knowledge base <version>" in every `check_api` answer, and `knowledgeBase.version` |
+| App | the dashboard overview and `scan_run.knowledge_version` |
+| Web site | the header ("KB 2026.09.24 · 88 tracked"), the browser `check_api`, `deprecations.json` |
+
+The build copies the file into the knowledge jar unchanged; nothing stamps a build date. A
+directory without a `VERSION` file reports `unversioned` on both engines. The CLI's own version
+(`docswatcher --version`) is the software release and is separate.
 
 ### provider.yaml
 

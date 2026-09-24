@@ -34,7 +34,7 @@ cli/target/docswatcher <command> [options]
 | `--sha <sha>` | `scan`, `match` | Commit SHA recorded in the inventory |
 | `--write-expected` | `scan` | Write `expected-inventory.json` and `expected-findings.json` beside a fixture |
 | `-h`, `--help` | all | Help |
-| `-V`, `--version` | root | Version |
+| `-V`, `--version` | root | CLI release version. The knowledge base version (`knowledge/VERSION`) is printed by `validate` |
 
 ### Examples
 

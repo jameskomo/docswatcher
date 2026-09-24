@@ -191,6 +191,9 @@ jobs:
         if: steps.diff.outputs.any == 'true'
         run: |
           set -euo pipefail
+          # knowledge/VERSION is the one knowledge base version (docs/03-knowledge-base-guide.md).
+          # The workflow bumps it, not the agent, so a proposal can never ship under the old version.
+          date -u +%Y.%m.%d > knowledge/VERSION
           for repo in knowledge/fixtures/*/repo; do
             "$RUNNER_TEMP/docswatcher" scan "$repo" --knowledge knowledge --write-expected > /dev/null
           done
