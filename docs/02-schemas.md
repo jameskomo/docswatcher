@@ -77,6 +77,7 @@ Clarifications fixed by the Java engine, which the TypeScript engine must mirror
 - A call-site rule with `requires` runs only when that exact package matched a manifest. A rule without `requires` runs when any manifest rule of its provider matched.
 - Files are read as UTF-8. A file over 1 MB, or one with a NUL byte in its first 8 KB, is skipped and counted in `filesSkipped`. Skipped directories are not counted.
 - `filesScanned` counts every text file the walk visited, whether or not any rule matched it.
+- `stats.incomplete` is present only when a whole-scan limit stopped the scan (docs/10-reference.md, "Scan limits"): `{"limit": "maxFiles" | "maxBytes" | "maxDuration", "max": <files, bytes or milliseconds>, "filesNotScanned": <n>}`. Files after the stop are counted there, not in `filesSkipped`. The contracts are then those found in the files scanned, not the repository's.
 - The manifest evidence column points at the start of the package name: after the opening quote in `package.json`, `composer.json`, `Gemfile`, and a `.csproj` `Include` attribute, at the artifact id text in `pom.xml`, at the module path in `go.mod`, and at the start of the line in requirements files.
 
 ## 2. Change record

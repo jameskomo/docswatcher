@@ -3,6 +3,7 @@ package dev.docswatcher.app.scan;
 import dev.docswatcher.app.model.ChangeDoc;
 import dev.docswatcher.app.model.EvidenceDoc;
 import dev.docswatcher.app.model.FindingDoc;
+import dev.docswatcher.app.model.InventoryDoc;
 import dev.docswatcher.app.store.Repo;
 import java.util.List;
 import java.util.Optional;
@@ -62,18 +63,32 @@ public final class IssueText {
   }
 
   public static String checkTitle(int contracts, List<FindingDoc> findings) {
+    return checkTitle(contracts, findings, null);
+  }
+
+  /** An incomplete scan says so in the title, where it is seen without opening the check. */
+  public static String checkTitle(int contracts, List<FindingDoc> findings, InventoryDoc.Incomplete incomplete) {
+    String prefix = incomplete == null ? "" : "Incomplete scan: ";
     long breaking = findings.stream().filter(f -> "breaking".equals(f.severity())).count();
     if (findings.isEmpty()) {
-      return contracts + " external contracts, nothing pending";
+      return prefix + contracts + " external contracts, nothing pending" + (incomplete == null ? "" : " in the files read");
     }
-    return findings.size() + " findings, " + breaking + " breaking, across " + contracts + " external contracts";
+    return prefix + findings.size() + " findings, " + breaking + " breaking, across " + contracts + " external contracts";
   }
 
   public static String checkSummary(List<FindingDoc> findings) {
-    if (findings.isEmpty()) {
-      return "No known deprecation affects this repository.";
-    }
+    return checkSummary(findings, null);
+  }
+
+  public static String checkSummary(List<FindingDoc> findings, InventoryDoc.Incomplete incomplete) {
     StringBuilder b = new StringBuilder();
+    if (incomplete != null) {
+      b.append("**This scan is incomplete.** ").append(describe(incomplete))
+          .append(" Findings from earlier scans stay open, and nothing was closed. The next complete scan settles them.\n\n");
+    }
+    if (findings.isEmpty()) {
+      return b.append("No known deprecation affects ").append(incomplete == null ? "this repository." : "the files that were read.").toString();
+    }
     for (FindingDoc f : findings) {
       b.append("- ").append(f.severity()).append(" | ").append(mdText(f.change())).append(" | ").append(mdText(contractKey(f.contract())));
       if (f.effective() != null) {
@@ -85,10 +100,30 @@ public final class IssueText {
   }
 
   public static String checkConclusion(List<FindingDoc> findings, boolean production) {
-    if (!production || findings.isEmpty()) {
+    return checkConclusion(findings, production, null);
+  }
+
+  /** An incomplete scan is never a success: without a breaking finding it is neutral. */
+  public static String checkConclusion(List<FindingDoc> findings, boolean production, InventoryDoc.Incomplete incomplete) {
+    if (!production) {
       return "success";
     }
-    return findings.stream().anyMatch(f -> "breaking".equals(f.severity())) ? "failure" : "neutral";
+    if (findings.stream().anyMatch(f -> "breaking".equals(f.severity()))) {
+      return "failure";
+    }
+    return findings.isEmpty() && incomplete == null ? "success" : "neutral";
+  }
+
+  static String describe(InventoryDoc.Incomplete incomplete) {
+    String what = switch (incomplete.limit()) {
+      case "maxFiles" -> "the " + incomplete.max() + "-file limit";
+      case "maxBytes" -> "the " + (incomplete.max() / (1024 * 1024)) + " MB limit";
+      case "maxDuration" -> "the " + (incomplete.max() / 1000) + "-second limit";
+      default -> "a scan limit";
+    };
+    int n = incomplete.filesNotScanned();
+    return "It stopped at " + what + " with " + n + (n == 1 ? " file" : " files")
+        + " not scanned, so anything in them is not reported. Exclude paths that need no scan (.docswatcherignore), or raise `docswatcher.scan` limits.";
   }
 
   static String contractKey(String contractId) {

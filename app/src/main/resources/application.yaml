@@ -56,6 +56,12 @@ docswatcher:
     threads: 2
     poll-ms: 2000
     clone-timeout-seconds: 120
+  # Whole-scan limits (ScanLimitsProperties). A scan that reaches one stops reading, is recorded as
+  # incomplete, closes nothing, and says so in its check run.
+  scan:
+    max-files: 20000
+    max-total-mb: 200
+    max-seconds: 600
 
 ---
 spring:

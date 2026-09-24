@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BooleanSupplier;
 
 /** Tree-sitter query rules, run only for providers whose SDK package appears in a manifest. */
 final class CallsiteLayer {
@@ -59,6 +60,14 @@ final class CallsiteLayer {
   }
 
   void run(List<Provider> providers, List<SourceFile> files, Accumulator acc) {
+    run(providers, files, acc, () -> false);
+  }
+
+  /**
+   * As above, stopping before the next file once {@code expired} says the scan is out of time.
+   * Returns how many files were left unreached then, and 0 when every file was considered.
+   */
+  int run(List<Provider> providers, List<SourceFile> files, Accumulator acc, BooleanSupplier expired) {
     // Group active rules by rule language.
     Map<String, List<Rule>> byLanguage = new HashMap<>();
     for (Provider p : providers) {
@@ -67,11 +76,13 @@ final class CallsiteLayer {
         byLanguage.computeIfAbsent(c.language(), x -> new ArrayList<>()).add(new Rule(p, c));
       }
     }
-    if (byLanguage.isEmpty()) return;
+    if (byLanguage.isEmpty()) return 0;
 
     byte[] chunk = new byte[READ_CHUNK];
     try (TSParser parser = new TSParser()) {
-      for (SourceFile f : files) {
+      for (int i = 0; i < files.size(); i++) {
+        if (expired.getAsBoolean()) return files.size() - i;
+        SourceFile f = files.get(i);
         String fileLanguage = Paths.language(f.path);
         if (fileLanguage == null) continue;
         List<Rule> rules = byLanguage.get(Grammars.ruleLanguage(fileLanguage));
@@ -119,6 +130,7 @@ final class CallsiteLayer {
         }
       }
     }
+    return 0;
   }
 
   /**

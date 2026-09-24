@@ -74,7 +74,8 @@ public class ScanRunner {
     GitHubClient.CloneSource source = client.cloneSource(repo.installationId(), repo.fullName());
     try (GitCloner.Checkout checkout = cloner.clone(source, repo.defaultBranch(), run.sha())) {
       RepoRefDoc ref = new RepoRefDoc("github", repo.owner(), repo.name(), "refs/heads/" + repo.defaultBranch(), checkout.sha());
-      InventoryDoc inventory = engine.scan(checkout.dir(), ref);
+      InventoryDoc inventory = carryForwardIfIncomplete(repo, engine.scan(checkout.dir(), ref));
+      InventoryDoc.Incomplete incomplete = inventory.stats() == null ? null : inventory.stats().incomplete();
       List<FindingDoc> derived = engine.match(inventory);
 
       for (ContractDoc c : inventory.contracts()) {
@@ -84,11 +85,36 @@ public class ScanRunner {
       List<FindingDoc> open = reconcile(repo, checkout.sha(), derived);
 
       client.createCheckRun(repo.installationId(), repo.fullName(), checkout.sha(), CHECK_NAME,
-          IssueText.checkConclusion(open, repo.production()),
-          IssueText.checkTitle(inventory.contracts().size(), open),
-          IssueText.checkSummary(open));
+          IssueText.checkConclusion(open, repo.production(), incomplete),
+          IssueText.checkTitle(inventory.contracts().size(), open, incomplete),
+          IssueText.checkSummary(open, incomplete));
       runs.finish(run.id(), engine.engineVersion(), engine.knowledgeVersion(), mapper.writeValueAsString(inventory.stats()));
     }
+  }
+
+  /**
+   * A scan a limit stopped did not look at every file, so a contract it did not see may still be
+   * in the files it did not read. Those contracts are kept as they were last seen, which means an
+   * incomplete scan never closes a finding or its issue, and a later rematch does not either. The
+   * next complete scan settles them.
+   */
+  private InventoryDoc carryForwardIfIncomplete(Repo repo, InventoryDoc scanned) {
+    if (scanned.stats() == null || scanned.stats().incomplete() == null) {
+      return scanned;
+    }
+    Set<String> seen = new HashSet<>();
+    for (ContractDoc c : scanned.contracts()) {
+      seen.add(c.id());
+    }
+    List<ContractDoc> all = new ArrayList<>(scanned.contracts());
+    for (StoredContract c : contracts.currentForRepo(repo.id())) {
+      if (!seen.contains(c.id())) {
+        all.add(fromStored(c));
+      }
+    }
+    log.warn("Scan of {} incomplete ({}): {} contracts carried forward from the last scan",
+        repo.fullName(), scanned.stats().incomplete(), all.size() - scanned.contracts().size());
+    return new InventoryDoc(scanned.schemaVersion(), scanned.repo(), scanned.scannedAt(), scanned.engine(), scanned.stats(), all);
   }
 
   private void rematch(ScanRun run, Repo repo) {

@@ -326,7 +326,28 @@
           "parameterTypes": []
         },
         {
+          "name": "incomplete",
+          "parameterTypes": []
+        },
+        {
           "name": "layers",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "dev.docswatcher.engine.Inventory$Incomplete",
+      "methods": [
+        {
+          "name": "filesNotScanned",
+          "parameterTypes": []
+        },
+        {
+          "name": "limit",
+          "parameterTypes": []
+        },
+        {
+          "name": "max",
           "parameterTypes": []
         }
       ]

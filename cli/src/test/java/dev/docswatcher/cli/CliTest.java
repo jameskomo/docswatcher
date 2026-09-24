@@ -95,6 +95,40 @@ class CliTest {
     assertThat(excluded.out().trim()).isEqualTo("[]");
   }
 
+  /** A scan cut short with nothing breaking in what it read is not clean: it exits 4 and says why. */
+  @Test
+  void anIncompleteScanWithNothingBreakingExitsFourAndSaysSo() {
+    PrintStream original = System.err;
+    ByteArrayOutputStream err = new ByteArrayOutputStream();
+    System.setErr(new PrintStream(err, true));
+    Run r;
+    try {
+      r = run("match", KNOWLEDGE.resolve("fixtures/stripe-negative-mock-in-tests/repo").toString(),
+          "--knowledge", KNOWLEDGE.toString(), "--today", "2026-09-18", "--max-files", "1");
+    } finally {
+      System.setErr(original);
+    }
+    assertThat(r.exit()).isEqualTo(DocsWatcher.INCOMPLETE);
+    assertThat(r.out().trim()).isEqualTo("[]");
+    assertThat(err.toString()).contains("warning: Scan incomplete: stopped at the 1-file limit, 2 files not scanned").contains("--max-files");
+  }
+
+  @Test
+  void anIncompleteScanWithABreakingFindingStillExitsOneAndTheTextSaysItIsIncomplete() {
+    Run r = run("match", KNOWLEDGE.resolve("fixtures/openai-python-model-config/repo").toString(),
+        "--knowledge", KNOWLEDGE.toString(), "--format", "text", "--today", "2026-09-18", "--max-files", "1");
+    assertThat(r.exit()).isEqualTo(1);
+    assertThat(r.out()).contains("Scanned 1 files").contains("Scan incomplete: stopped at the 1-file limit, 2 files not scanned");
+  }
+
+  @Test
+  void scanRecordsTheStopInTheInventoryAndExitsFour() {
+    Run r = run("scan", KNOWLEDGE.resolve("fixtures/openai-python-model-config/repo").toString(), "--knowledge", KNOWLEDGE.toString(),
+        "--max-total-mb", "1", "--max-files", "2");
+    assertThat(r.exit()).isEqualTo(DocsWatcher.INCOMPLETE);
+    assertThat(r.out()).contains("\"incomplete\": {").contains("\"limit\": \"maxFiles\"").contains("\"filesNotScanned\": 1");
+  }
+
   @Test
   void aScanThatFailsExitsThreeNotOne() {
     // 1 means "a breaking finding is open". A failure must never be mistaken for that, or for its

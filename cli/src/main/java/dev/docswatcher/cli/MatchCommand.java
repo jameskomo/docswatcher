@@ -31,6 +31,8 @@ final class MatchCommand implements Callable<Integer> {
 
   @Mixin DocsWatcher.Common common;
 
+  @Mixin ScanLimitOptions limits = new ScanLimitOptions();
+
   @Option(names = "--repo", paramLabel = "owner/name") String repo;
   @Option(names = "--ref") String ref;
   @Option(names = "--sha") String sha;
@@ -55,7 +57,8 @@ final class MatchCommand implements Callable<Integer> {
   @Override
   public Integer call() throws IOException {
     Knowledge k = common.loadKnowledge();
-    Inventory inv = ScanCommand.scan(k, path, repo, ref, sha, exclude);
+    Inventory inv = ScanCommand.scan(k, path, repo, ref, sha, exclude, limits.limits());
+    boolean incomplete = ScanLimitOptions.warnIfIncomplete(inv, System.err);
     List<Finding> findings = Matcher.match(inv, k, common.today, includeLow);
     if (report != null) Files.writeString(report, Json.write(findings));
     if (inventory != null) Files.writeString(inventory, Json.write(inv));
@@ -64,7 +67,10 @@ final class MatchCommand implements Callable<Integer> {
     } else {
       System.out.print(Json.write(findings));
     }
-    return findings.stream().anyMatch(f -> "breaking".equals(f.severity())) ? 1 : 0;
+    // A breaking finding is a result whatever else was not read. Without one, an incomplete scan
+    // cannot say the repository is clean, so it does not exit 0.
+    if (findings.stream().anyMatch(f -> "breaking".equals(f.severity()))) return 1;
+    return incomplete ? DocsWatcher.INCOMPLETE : 0;
   }
 
   static String render(Inventory inv, List<Finding> findings, Knowledge k) {
@@ -78,6 +84,7 @@ final class MatchCommand implements Callable<Integer> {
     sb.append("Scanned ").append(inv.stats().filesScanned()).append(" files · ")
         .append(visible).append(" external contracts found · ")
         .append(findings.size()).append(findings.size() == 1 ? " needs" : " need").append(" attention\n");
+    if (inv.stats().incomplete() != null) sb.append("⚠ ").append(inv.stats().incomplete().describe()).append('\n');
 
     Map<String, List<Finding>> bySeverity = new LinkedHashMap<>();
     for (Finding f : findings) bySeverity.computeIfAbsent(f.severity(), x -> new ArrayList<>()).add(f);

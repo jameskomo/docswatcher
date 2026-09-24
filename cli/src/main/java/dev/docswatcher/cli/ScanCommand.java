@@ -8,6 +8,7 @@ import dev.docswatcher.engine.Json;
 import dev.docswatcher.engine.Knowledge;
 import dev.docswatcher.engine.Matcher;
 import dev.docswatcher.engine.RepoRef;
+import dev.docswatcher.engine.ScanLimits;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ final class ScanCommand implements Callable<Integer> {
   Path path;
 
   @Mixin DocsWatcher.Common common;
+
+  @Mixin ScanLimitOptions limits = new ScanLimitOptions();
 
   @Option(names = "--repo", paramLabel = "owner/name", description = "Repository name to record in the inventory.")
   String repo;
@@ -48,8 +51,10 @@ final class ScanCommand implements Callable<Integer> {
   @Override
   public Integer call() throws Exception {
     Knowledge k = common.loadKnowledge();
-    Inventory inv = scan(k, path, repo, ref, sha, exclude);
+    Inventory inv = scan(k, path, repo, ref, sha, exclude, limits.limits());
+    boolean incomplete = ScanLimitOptions.warnIfIncomplete(inv, System.err);
     if (writeExpected) {
+      if (incomplete) return DocsWatcher.INCOMPLETE;
       Path fixtureDir = path.toAbsolutePath().normalize().getParent();
       Files.writeString(fixtureDir.resolve("expected-inventory.json"), Json.write(inv.contracts()));
       List<Finding.Pair> pairs = Matcher.match(inv, k, common.today, includeLow).stream().map(Finding::pair).toList();
@@ -59,7 +64,7 @@ final class ScanCommand implements Callable<Integer> {
       return 0;
     }
     System.out.print(Json.write(inv));
-    return 0;
+    return incomplete ? DocsWatcher.INCOMPLETE : 0;
   }
 
   static Inventory scan(Knowledge k, Path path, String repo, String ref, String sha) {
@@ -68,6 +73,11 @@ final class ScanCommand implements Callable<Integer> {
 
   /** Scans a checkout, honouring its .gitignore files, its .docswatcherignore and {@code exclude}. */
   static Inventory scan(Knowledge k, Path path, String repo, String ref, String sha, List<String> exclude) {
+    return scan(k, path, repo, ref, sha, exclude, ScanLimits.DEFAULT);
+  }
+
+  /** As above, within {@code limits}; a scan they stop says so in {@code stats.incomplete}. */
+  static Inventory scan(Knowledge k, Path path, String repo, String ref, String sha, List<String> exclude, ScanLimits limits) {
     if (!Files.isDirectory(path)) throw new IllegalArgumentException("Not a directory: " + path);
     RepoRef r;
     if (repo != null && repo.contains("/")) {
@@ -76,7 +86,7 @@ final class ScanCommand implements Callable<Integer> {
     } else {
       r = new RepoRef("local", null, repo != null ? repo : path.toAbsolutePath().normalize().getFileName().toString(), ref, sha);
     }
-    return new Engine(k).scan(path, r, exclude);
+    return new Engine(k).scan(path, r, exclude, limits);
   }
 
   static long countHigh(List<Contract> contracts) {

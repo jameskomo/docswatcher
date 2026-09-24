@@ -102,6 +102,8 @@ Low-confidence contracts produce no findings by default. This is what keeps a pr
 
 Directories named `node_modules`, `target`, `dist`, `build`, `.git`, `vendor`, and `.venv` are never entered. Files over 1 MB are skipped and counted.
 
+The whole scan is bounded as well: 20,000 files, 200 MB read, and 10 minutes by default, each configurable. A scan that reaches one stops, keeps what it found, and says so: `stats.incomplete` in the inventory, a warning and exit code 4 from the CLI when nothing breaking was found, and an `Incomplete scan` check run that closes nothing in the GitHub App. Details under "Scan limits" in `docs/10-reference.md`.
+
 ## 2. The inventory
 
 A scan produces one inventory document. It is the single seam between every component.
@@ -340,7 +342,7 @@ Deliveries are de-duplicated so a GitHub retry does not scan twice.
 
 A polling loop over the `scan_run` table using `SELECT ... FOR UPDATE SKIP LOCKED`, running on virtual threads. There is no queue service, which is deliberate: a table and a loop are free and sufficient.
 
-Each run does a shallow clone at the commit, scans, matches, upserts contracts by repository and id, reconciles findings, posts a check run, and opens one issue per new finding. A finding closes as fixed when its evidence is gone from a later scan.
+Each run does a shallow clone at the commit, scans, matches, upserts contracts by repository and id, reconciles findings, posts a check run, and opens one issue per new finding. A finding closes as fixed when its evidence is gone from a later scan. A scan stopped by a scan limit closes nothing: what it did not see is carried forward until a complete scan.
 
 A rematch re-runs the matcher over stored contracts without cloning, which is what happens when the knowledge base updates.
 

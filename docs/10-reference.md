@@ -31,6 +31,9 @@ cli/target/docswatcher <command> [options]
 | `--today YYYY-MM-DD` | `scan`, `match`, `mcp` | Date used for day counts. Default is today, asked afresh on every `mcp` call |
 | `--include-low` | `scan`, `match` | Include low-confidence contracts |
 | `--exclude <pattern>` | `scan`, `match` | Skip paths matching a `.gitignore`-style pattern, after the repository's `.gitignore` files and `.docswatcherignore`. Repeatable. See `docs/18-excluding-paths.md` |
+| `--max-files <n>` | `scan`, `match` | Stop reading after this many files (after exclusions). Default 20000. See "Scan limits" |
+| `--max-total-mb <n>` | `scan`, `match` | Stop reading once this many megabytes have been read. Default 200 |
+| `--max-seconds <n>` | `scan`, `match` | Stop scanning further files after this many seconds. Default 600 |
 | `--repo owner/name` | `scan`, `match` | Repository name recorded in the inventory |
 | `--ref <ref>` | `scan`, `match` | Git ref recorded in the inventory |
 | `--sha <sha>` | `scan`, `match` | Commit SHA recorded in the inventory |
@@ -123,7 +126,7 @@ Read by the app module. Defaults come from `app/src/main/resources/application.y
 | `DOCSWATCHER_NOTIFY_TOKEN` | empty | Bearer token for that Worker. In production it is a file secret, `docswatcher.notify.token` |
 | `PORT` | `8080` | HTTP port |
 
-Worker settings live under `docswatcher.worker` in the YAML: `enabled` true, `threads` 2, `poll-ms` 2000, `clone-timeout-seconds` 120. The worker runs on virtual threads.
+Worker settings live under `docswatcher.worker` in the YAML: `enabled` true, `threads` 2, `poll-ms` 2000, `clone-timeout-seconds` 120. The worker runs on virtual threads. Scan limits live under `docswatcher.scan`: `max-files` 20000, `max-total-mb` 200, `max-seconds` 600 (see "Scan limits").
 
 Label names are configurable under `docswatcher.github` (`fix-label`, `snooze-label`, `not-in-prod-label`, `not-affected-label`) and default to:
 
@@ -233,3 +236,18 @@ An `Authorization` header is forwarded to GitHub and never cached, which is how 
 | 1 | For `match`, at least one breaking finding is open. For `validate`, at least one error |
 | 2 | Usage error, such as a missing argument |
 | 3 | The command did not complete: the path is not a directory, the scan threw, or the JVM ran out of memory. Never a result, always a failure |
+| 4 | For `scan` and `match`, a scan limit stopped the scan and, for `match`, nothing breaking was found in the files it read. The output is valid for those files, but it is not a clean result for the repository. A breaking finding still exits 1. A warning on stderr names the limit and the number of files not scanned |
+
+### Scan limits
+
+Each file is limited on its own: over 1 MB it is skipped, and parsing and querying it stop after 10 seconds. The whole scan is limited too, because every file read is held in memory until the scan ends:
+
+| Limit | Default | CLI | App (`docswatcher.scan`) | Recorded as |
+|---|---|---|---|---|
+| Files read | 20,000 | `--max-files` | `max-files` | `maxFiles` |
+| Bytes read | 200 MB | `--max-total-mb` | `max-total-mb` | `maxBytes` |
+| Time, reading and all three layers | 10 minutes | `--max-seconds` | `max-seconds` | `maxDuration` |
+
+Files are read in path order. At a limit, no further file is read (or, when time runs out after reading, searched by the call-site layer), and the inventory's `stats.incomplete` says which limit, its value, and how many files were not scanned. A file already being parsed finishes within its own 10 seconds, so the time limit can be overrun by that much. A complete scan has no `incomplete` field. The first remedy is excluding what needs no scan (`.docswatcherignore`, `--exclude`); raising a limit is the second.
+
+In the GitHub App an incomplete scan closes no finding and no issue: contracts it did not see are carried forward from the previous scan, because they may be in the files it skipped. Its check run is titled `Incomplete scan: ...`, explains the stop in its summary, and is never `success`; without a breaking finding it is `neutral`. The web scanner has its own limit of 300 files, chosen by relevance, and says when it applied it.

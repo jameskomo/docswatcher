@@ -472,6 +472,7 @@ final class McpServer {
     ObjectNode data = F.objectNode();
     data.put("path", dir.toString());
     data.put("filesScanned", inv.stats().filesScanned());
+    if (inv.stats().incomplete() != null) data.put("incomplete", inv.stats().incomplete().describe());
     data.put("findingCount", findings.size());
     data.put("breaking", findings.stream().filter(f -> "breaking".equals(f.severity())).count());
     ArrayNode list = data.putArray("findings");

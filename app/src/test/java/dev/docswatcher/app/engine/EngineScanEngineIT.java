@@ -30,14 +30,16 @@ class EngineScanEngineIT {
 
   @BeforeAll
   static void start() {
-    var properties =
-        new AppProperties(
-            new AppProperties.GitHub("1", "", "", "https://api.github.com", "docswatcher:fix", "docswatcher:snooze", "docswatcher:not-in-prod"),
-            new AppProperties.Api("t", false),
-            new AppProperties.Web("*"),
-            new AppProperties.Knowledge(KNOWLEDGE.toString()),
-            new AppProperties.Worker(false, 1, 1000, 60));
-    subject = new EngineScanEngine(properties, new ObjectMapper());
+    subject = new EngineScanEngine(properties(), new ObjectMapper());
+  }
+
+  private static AppProperties properties() {
+    return new AppProperties(
+        new AppProperties.GitHub("1", "", "", "https://api.github.com", "docswatcher:fix", "docswatcher:snooze", "docswatcher:not-in-prod"),
+        new AppProperties.Api("t", false),
+        new AppProperties.Web("*"),
+        new AppProperties.Knowledge(KNOWLEDGE.toString()),
+        new AppProperties.Worker(false, 1, 1000, 60));
   }
 
   private static InventoryDoc scanFixture(String name) {
@@ -68,6 +70,21 @@ class EngineScanEngineIT {
     assertThat(actual.toString())
         .as("contracts crossing the adapter must survive the JSON round trip")
         .isEqualTo(expected.toString());
+  }
+
+  @Test
+  void the_worker_limits_reach_the_engine_and_an_incomplete_scan_says_so() {
+    var limited = new EngineScanEngine(properties(), new ObjectMapper(),
+        new dev.docswatcher.engine.ScanLimits(1, Long.MAX_VALUE, java.time.Duration.ofMinutes(1)));
+    InventoryDoc inventory = limited.scan(KNOWLEDGE.resolve("fixtures/stripe-java-sources/repo"),
+        new RepoRefDoc("fixture", "docswatcher", "stripe-java-sources", "fixture", "0000000"));
+    assertThat(inventory.stats().filesScanned()).isEqualTo(1);
+    assertThat(inventory.stats().incomplete()).isNotNull();
+    assertThat(inventory.stats().incomplete().limit()).isEqualTo("maxFiles");
+    assertThat(inventory.stats().incomplete().filesNotScanned()).isPositive();
+    // The worker matches the incomplete inventory too: it must cross back into the engine.
+    assertThat(limited.match(inventory)).isNotNull();
+    assertThat(scanFixture("stripe-java-sources").stats().incomplete()).isNull();
   }
 
   @Test

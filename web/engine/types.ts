@@ -30,7 +30,10 @@ export interface Inventory {
   repo: RepoRef;
   scannedAt: string;
   engine: { name: string; version: string; knowledgeVersion: string };
-  stats: { filesScanned: number; filesSkipped: number; durationMs: number; layers: Layer[] };
+  // incomplete: set by the Java engine when a whole-scan limit stopped it. The web engine is given its
+  // files already chosen (fetchRepo's 300-file cap, reported as `truncated`) and never sets it.
+  stats: { filesScanned: number; filesSkipped: number; durationMs: number; layers: Layer[];
+    incomplete?: { limit: "maxFiles" | "maxBytes" | "maxDuration"; max: number; filesNotScanned: number } };
   contracts: Contract[];
 }
 

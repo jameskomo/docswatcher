@@ -36,6 +36,8 @@ To run the JVM image in compose instead: `../mvnw -pl app spring-boot:build-imag
 
 Worker tuning lives under `docswatcher.worker` in `application.yaml`: `threads`, `poll-ms`, `enabled`.
 
+Whole-scan limits live under `docswatcher.scan`: `max-files` (20000), `max-total-mb` (200) and `max-seconds` (600). Each worker thread holds the files of its scan in memory, so size the heap for `threads` times `max-total-mb`. A scan that reaches a limit is recorded as incomplete (`stats.incomplete` on the scan run), closes no finding or issue, and posts a check run titled `Incomplete scan: ...` that is never `success`. See "Scan limits" in `docs/10-reference.md`.
+
 ## GitHub App setup
 
 1. Create a GitHub App at Settings, Developer settings, GitHub Apps.

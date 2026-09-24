@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import dev.docswatcher.app.engine.ScanEngine;
 import dev.docswatcher.app.github.GitHubClient;
+import dev.docswatcher.app.model.InventoryDoc;
 import dev.docswatcher.app.store.ContractStore;
 import dev.docswatcher.app.store.FindingStore;
 import dev.docswatcher.app.store.InstallationStore;
@@ -46,6 +47,7 @@ class ScanRunnerIT extends PostgresTest {
 
   @AfterEach
   void tearDown() {
+    ((FakeScanEngine) engine).incomplete = null;
     source.close();
   }
 
@@ -110,6 +112,46 @@ class ScanRunnerIT extends PostgresTest {
     assertThat(github.calls("createIssue")).hasSize(1);
     assertThat(github.calls("closeIssue")).isEmpty();
     assertThat(github.calls("createCheckRun").get(1).args()[4]).isEqualTo("success");
+  }
+
+  /**
+   * A scan a limit stopped did not read every file, so a contract it did not see may be in one it
+   * skipped. It keeps the finding open, closes no issue, and says it is incomplete on the check.
+   */
+  @Test
+  void anIncompleteScanClosesNothingAndSaysSoOnTheCheck() throws Exception {
+    source.commitFile("models.yaml", "model: gpt-4-turbo\n", "add model");
+    runs.enqueue(9001, null, ScanRun.TRIGGER_INSTALL);
+    worker.drain();
+
+    String sha2 = source.removeFile("models.yaml", "the scan will not see it");
+    ((FakeScanEngine) engine).incomplete = new InventoryDoc.Incomplete("maxFiles", 20000, 1234);
+    runs.enqueue(9001, sha2, ScanRun.TRIGGER_PUSH);
+    worker.drain();
+
+    assertThat(findings.find(9001, FakeScanEngine.CONTRACT_ID, FakeScanEngine.CHANGE_ID).orElseThrow().status()).isEqualTo("open");
+    assertThat(github.calls("closeIssue")).isEmpty();
+    assertThat(contracts.currentForRepo(9001)).singleElement().extracting("id").isEqualTo(FakeScanEngine.CONTRACT_ID);
+    var check = github.calls("createCheckRun").get(1);
+    assertThat(check.args()[5].toString()).startsWith("Incomplete scan: ");
+    assertThat(check.args()[6].toString()).contains("**This scan is incomplete.**").contains("20000-file limit with 1234 files not scanned");
+    assertThat(runs.forRepo(9001).getFirst().statsJson()).contains("filesNotScanned").contains("1234");
+
+    ((FakeScanEngine) engine).incomplete = null;
+    runs.enqueue(9001, sha2, ScanRun.TRIGGER_MANUAL);
+    worker.drain();
+    assertThat(findings.find(9001, FakeScanEngine.CONTRACT_ID, FakeScanEngine.CHANGE_ID).orElseThrow().status()).isEqualTo("fixed");
+  }
+
+  @Test
+  void anIncompleteScanWithNothingFoundIsNeutralNotSuccess() throws Exception {
+    source.commitFile("README.md", "nothing here\n", "init");
+    ((FakeScanEngine) engine).incomplete = new InventoryDoc.Incomplete("maxDuration", 600000, 3);
+    runs.enqueue(9001, null, ScanRun.TRIGGER_INSTALL);
+    worker.drain();
+    var check = github.calls("createCheckRun").getFirst();
+    assertThat(check.args()[4]).isEqualTo("neutral");
+    assertThat(check.args()[6].toString()).contains("600-second limit").contains("the files that were read");
   }
 
   @Test

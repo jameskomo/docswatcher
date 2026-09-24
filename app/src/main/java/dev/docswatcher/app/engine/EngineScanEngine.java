@@ -1,6 +1,7 @@
 package dev.docswatcher.app.engine;
 
 import dev.docswatcher.app.config.AppProperties;
+import dev.docswatcher.app.config.ScanLimitsProperties;
 import dev.docswatcher.app.model.ChangeDoc;
 import dev.docswatcher.app.model.FindingDoc;
 import dev.docswatcher.app.model.InventoryDoc;
@@ -12,9 +13,11 @@ import dev.docswatcher.engine.Json;
 import dev.docswatcher.engine.Knowledge;
 import dev.docswatcher.engine.Matcher;
 import dev.docswatcher.engine.RepoRef;
+import dev.docswatcher.engine.ScanLimits;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.ObjectMapper;
@@ -31,10 +34,21 @@ public class EngineScanEngine implements ScanEngine {
   private final Knowledge knowledge;
   private final Engine engine;
   private final ObjectMapper mapper;
+  private final ScanLimits limits;
   private final List<ChangeDoc> changes;
   private final List<ProviderDoc> providers;
 
   public EngineScanEngine(AppProperties properties, ObjectMapper mapper) {
+    this(properties, mapper, ScanLimits.DEFAULT);
+  }
+
+  @Autowired
+  public EngineScanEngine(AppProperties properties, ObjectMapper mapper, ScanLimitsProperties limits) {
+    this(properties, mapper, limits.limits());
+  }
+
+  public EngineScanEngine(AppProperties properties, ObjectMapper mapper, ScanLimits limits) {
+    this.limits = limits;
     String dir = properties.knowledge().dir();
     this.knowledge = dir == null || dir.isBlank() ? Knowledge.bundled() : Knowledge.load(Path.of(dir));
     this.engine = new Engine(knowledge);
@@ -46,7 +60,7 @@ public class EngineScanEngine implements ScanEngine {
   @Override
   public InventoryDoc scan(Path repoRoot, RepoRefDoc repo) {
     RepoRef ref = new RepoRef(repo.host(), repo.owner(), repo.name(), repo.ref(), repo.sha());
-    Inventory inventory = engine.scan(repoRoot, ref);
+    Inventory inventory = engine.scan(repoRoot, ref, List.of(), limits);
     return mapper.readValue(Json.write(inventory), InventoryDoc.class);
   }
 

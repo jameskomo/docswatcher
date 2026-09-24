@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BooleanSupplier;
 
 /** Deterministic, filtered walk of a repository checkout. */
 final class FileTree {
@@ -22,6 +23,8 @@ final class FileTree {
 
   final List<SourceFile> files = new ArrayList<>();
   int skipped;
+  /** Set when a whole-scan limit stopped the read; null when every file was considered. */
+  Inventory.Incomplete incomplete;
 
   static FileTree read(Path root) {
     return read(root, List.of());
@@ -32,6 +35,15 @@ final class FileTree {
    * (docs/18-excluding-paths.md). Excluded files are counted as skipped and never read.
    */
   static FileTree read(Path root, List<String> exclude) {
+    return read(root, exclude, ScanLimits.DEFAULT, () -> false);
+  }
+
+  /**
+   * As {@link #read(Path, List)}, stopping before the first file that would pass {@code limits},
+   * or once {@code expired} says the scan is out of time. The files after the stop are counted in
+   * {@link #incomplete}, never in {@link #skipped}.
+   */
+  static FileTree read(Path root, List<String> exclude, ScanLimits limits, BooleanSupplier expired) {
     FileTree tree = new FileTree();
     List<Path> paths = new ArrayList<>();
     try {
@@ -68,17 +80,36 @@ final class FileTree {
     }
     Ignore ignore = Ignore.of(ignoreFiles, exclude);
 
-    for (Path p : paths) {
+    long bytesRead = 0;
+    for (int i = 0; i < paths.size(); i++) {
+      Path p = paths.get(i);
       if (ignore.ignored(rel(root, p))) {
         tree.skipped++;
         continue;
       }
       try {
-        if (Files.size(p) > MAX_BYTES) {
+        long size = Files.size(p);
+        if (size > MAX_BYTES) {
           tree.skipped++;
           continue;
         }
+        String limit = tree.files.size() >= limits.maxFiles() ? ScanLimits.MAX_FILES
+            : bytesRead + size > limits.maxBytes() ? ScanLimits.MAX_BYTES
+            : expired.getAsBoolean() ? ScanLimits.MAX_DURATION
+            : null;
+        if (limit != null) {
+          int notRead = 0;
+          for (int j = i; j < paths.size(); j++) if (!ignore.ignored(rel(root, paths.get(j)))) notRead++;
+          long max = switch (limit) {
+            case ScanLimits.MAX_FILES -> limits.maxFiles();
+            case ScanLimits.MAX_BYTES -> limits.maxBytes();
+            default -> limits.maxDuration().toMillis();
+          };
+          tree.incomplete = new Inventory.Incomplete(limit, max, notRead);
+          break;
+        }
         byte[] bytes = Files.readAllBytes(p);
+        bytesRead += bytes.length;
         if (isBinary(bytes)) {
           tree.skipped++;
           continue;

@@ -26,6 +26,8 @@ public class FakeScanEngine implements ScanEngine {
   public static final LocalDate EFFECTIVE = LocalDate.of(2026, 10, 23);
 
   public int scans = 0;
+  /** Set to make the next scans report that a whole-scan limit stopped them. */
+  public InventoryDoc.Incomplete incomplete = null;
 
   @Override
   public InventoryDoc scan(Path repoRoot, RepoRefDoc repo) {
@@ -41,7 +43,7 @@ public class FakeScanEngine implements ScanEngine {
       throw new IllegalStateException(e);
     }
     return new InventoryDoc("1", repo, "2026-09-18T00:00:00Z", new InventoryDoc.EngineInfo("fake", "0", "test"),
-        new InventoryDoc.Stats(1, 0, 5, List.of("literal")), contracts);
+        new InventoryDoc.Stats(1, 0, 5, List.of("literal"), incomplete), contracts);
   }
 
   @Override

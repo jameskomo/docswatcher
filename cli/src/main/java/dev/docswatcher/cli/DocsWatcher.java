@@ -28,6 +28,14 @@ public final class DocsWatcher implements Callable<Integer> {
    */
   static final int FAILED = 3;
 
+  /**
+   * Exit code for a scan a whole-scan limit stopped (--max-files, --max-total-mb, --max-seconds),
+   * with no breaking finding in what it did read. The output is valid for the files read; it is
+   * not a clean bill for the repository, so it is neither 0 nor 1. A breaking finding still
+   * exits 1.
+   */
+  static final int INCOMPLETE = 4;
+
   public static void main(String[] args) {
     int code;
     try {
