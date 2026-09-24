@@ -30,6 +30,14 @@ inputs:
       .gitignore files and .docswatcherignore already apply; this is for one workflow.
     required: false
     default: ""
+  knowledge:
+    description: >-
+      Directories of your own API records to add to the knowledge base, one per line, relative to the
+      workspace. Each holds providers/<id>/ in the knowledge base's format, for example a checkout of
+      your organisation's .docswatcher repository. The scanned path's own .docswatcher/ is always read.
+      Invalid records fail the step and name every error. See docs/19-your-own-apis.md.
+    required: false
+    default: ""
   report:
     description: Write the full JSON findings to this path.
     required: false
@@ -127,6 +135,7 @@ runs:
         DW_INCLUDE_LOW: ${{ inputs.include-low }}
         DW_REPORT: ${{ inputs.report }}
         DW_EXCLUDE: ${{ inputs.exclude }}
+        DW_KNOWLEDGE: ${{ inputs.knowledge }}
         DW_BIN: ${{ steps.fetch.outputs.bin }}
       run: |
         set -uo pipefail
@@ -136,6 +145,17 @@ runs:
           pattern="${pattern#"${pattern%%[![:space:]]*}"}"; pattern="${pattern%"${pattern##*[![:space:]]}"}"
           [ -n "$pattern" ] && args+=("--exclude" "$pattern")
         done <<< "$DW_EXCLUDE"
+        # Your own API records (docs/19-your-own-apis.md). A release from before they existed would
+        # reject the flag with a usage error, so say which release is needed instead.
+        extra=0
+        while IFS= read -r dir; do
+          dir="${dir#"${dir%%[![:space:]]*}"}"; dir="${dir%"${dir##*[![:space:]]}"}"
+          [ -n "$dir" ] && args+=("--knowledge-extra" "$dir") && extra=1
+        done <<< "$DW_KNOWLEDGE"
+        if [ "$extra" = "1" ] && ! "$DW_BIN" match --help 2>/dev/null | grep -q -- '--knowledge-extra'; then
+          echo "::error::the knowledge input needs a DocsWatcher release that reads your own API records; set version to latest"
+          exit 3
+        fi
 
         out="${DW_REPORT:-$RUNNER_TEMP/docswatcher.json}"
         # The CLI exits 1 when a breaking finding is open. That is a result, not a failure of
@@ -157,7 +177,7 @@ runs:
           echo "::error::the scan stopped at a size or time limit before reading every file, so this repository was only partly checked. Narrow it with the path or exclude inputs"
           exit 4
         elif [ "$code" -gt 1 ]; then
-          echo "::error::docswatcher exited $code, which means the scan itself failed"
+          echo "::error::docswatcher exited $code, which means the scan itself failed; the log above says why, for example an error in your own API records"
           exit "$code"
         fi
 
