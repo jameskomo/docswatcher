@@ -1,0 +1,20 @@
+id: youtube
+name: YouTube Data API
+homepage: https://developers.google.com/youtube
+docs: https://developers.google.com/youtube/v3/docs
+changelog: https://developers.google.com/youtube/v3/revision_history
+base_urls:
+  - https://www.googleapis.com/youtube/v3
+openapi:
+  url: https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest
+  pinned_sha: null
+sdk_languages: [python, typescript, javascript, java, go]
+deprecation_policy: >
+  The API is at v3 and is not versioned further. Resources, methods,
+  parameters and properties are deprecated one at a time in the revision
+  history, each entry marked "This is a deprecation announcement", with a stop
+  date when one is set. Some entries deprecate a feature that is already
+  unsupported, with no later date. The v2 API (gdata.youtube.com) was
+  deprecated on 2014-03-04. Most Python and Node code reaches the API through
+  Google's general client libraries, so detection relies on URLs and on
+  YouTube-specific method names rather than on a package.

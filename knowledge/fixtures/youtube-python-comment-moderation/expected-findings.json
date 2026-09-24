@@ -1,0 +1,18 @@
+[
+  {
+    "contract": "youtube:sdk_method:search.list.relatedToVideoId",
+    "change": "youtube-search-related-to-video-id-removed-2023"
+  },
+  {
+    "contract": "youtube:sdk_method:commentThreads.update",
+    "change": "youtube-comment-threads-update-unsupported-2021"
+  },
+  {
+    "contract": "youtube:sdk_method:comments.markAsSpam",
+    "change": "youtube-comments-mark-as-spam-unsupported-2023"
+  },
+  {
+    "contract": "youtube:endpoint:ANY /feeds/api/users",
+    "change": "youtube-data-api-v2-deprecated-2014"
+  }
+]

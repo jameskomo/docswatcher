@@ -1,0 +1,65 @@
+provider: youtube
+
+manifests:
+  # Only the YouTube-specific packages. google-api-python-client, googleapis
+  # and google.golang.org/api serve every Google API, so listing them would
+  # report YouTube in any project that talks to Drive or Sheets. Code that uses
+  # them is found by the URL and method-name literals below instead.
+  - ecosystem: maven
+    package: com.google.apis:google-api-services-youtube
+  - ecosystem: npm
+    package: "@googleapis/youtube"
+
+literals:
+  # Data API v3 resources, with the one action segment some methods have
+  # (comments/markAsSpam, videos/rate). youtube.googleapis.com is the API's
+  # own host name; www.googleapis.com is the one the docs use.
+  - id: youtube.literal.endpoint-v3
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://(?:www|youtube)\.googleapis\.com(/youtube/v3/[A-Za-z]+(?:/[A-Za-z]+)?)'
+    key: "ANY $1"
+    confidence: medium
+
+  # The v2 GData feeds. Old code often wrote them over plain http.
+  - id: youtube.literal.endpoint-v2
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https?://gdata\.youtube\.com(/feeds/api/[a-z]+)'
+    key: "ANY $1"
+    confidence: medium
+
+  # Google's client libraries expose the API as resource().method() in Python
+  # and Java, resource.method() in Node and Resource.Method() in Go. The
+  # resource and method names are YouTube's own, so the pair identifies the
+  # call without the general client package as a guard.
+  - id: youtube.literal.method-comments-mark-as-spam
+    kind: sdk_method
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: '\b[Cc]omments(?:\(\))?\.(?:markAsSpam|MarkAsSpam)\s*\('
+    key: "comments.markAsSpam"
+    confidence: medium
+
+  - id: youtube.literal.method-comment-threads-update
+    kind: sdk_method
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: '\b[Cc]ommentThreads(?:\(\))?\.(?:update|Update)\s*\('
+    key: "commentThreads.update"
+    confidence: medium
+
+  # The search.list relatedToVideoId parameter, as a keyword argument or
+  # object key, a query string parameter, or a Java or Go setter. A TypeScript
+  # declaration (relatedToVideoId?: string) is not a use and does not match.
+  - id: youtube.literal.param-related-to-video-id
+    kind: sdk_method
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: '(?:\brelatedToVideoId\s*[=:]|[?&]relatedToVideoId=|\.(?:setRelatedToVideoId|RelatedToVideoId)\s*\()'
+    key: "search.list.relatedToVideoId"
+    confidence: medium
+
+callsites: []

@@ -1,0 +1,43 @@
+id: youtube-data-api-v2-deprecated-2014
+provider: youtube
+kind: sunset
+severity: warning
+title: YouTube Data API v2 (GData feeds) deprecated
+summary: >
+  The v2 API served from gdata.youtube.com was officially deprecated on
+  2014-03-04 and replaced by the YouTube Data API v3. YouTube's developer pages
+  publish no shutdown date for it, so this record carries no effective date.
+
+affects:
+  - kind: endpoint
+    match: "ANY /feeds/api/*"
+
+announced: 2014-03-04
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://developers.google.com/youtube/v3/revision_history
+    observed: 2026-09-24
+    note: "August 12, 2014: \"The older API was officially deprecated as of March 4, 2014. The guide intends to help you migrate applications still using the v2 API to the most recent API version.\""
+  - kind: provider_page
+    url: https://developers.google.com/gdata/docs/directory
+    observed: 2026-09-24
+    note: "YouTube Data API (v2): \"Deprecated in March 4, 2014 ... Replaced by YouTube Data API (v3).\""
+
+migration:
+  replacement: "https://www.googleapis.com/youtube/v3"
+  guide: https://developers.google.com/youtube/v3/getting-started
+  effort: large
+  notes: >
+    Replace GData feed URLs (http(s)://gdata.youtube.com/feeds/api/...) with
+    Data API v3 calls on https://www.googleapis.com/youtube/v3. Feeds become
+    resources: /feeds/api/videos queries become search.list or videos.list,
+    /feeds/api/users/{user}/uploads becomes playlistItems.list on the
+    channel's uploads playlist (channels.list part=contentDetails gives its
+    id), and /feeds/api/playlists becomes playlists.list and
+    playlistItems.list. v3 returns JSON, not Atom XML, so feed parsing code is
+    rewritten. Requests need an API key or OAuth 2.0 credentials, and are
+    charged against the project's daily quota.
+
+status: active

@@ -1,0 +1,35 @@
+id: youtube-comment-threads-update-unsupported-2021
+provider: youtube
+kind: sunset
+severity: breaking
+title: commentThreads.update no longer supported
+summary: >
+  The commentThreads.update endpoint was deprecated and is no longer supported,
+  announced on 2021-07-02 with immediate effect, so this record carries no
+  later effective date. comments.update does the same job.
+
+affects:
+  - kind: sdk_method
+    match: "commentThreads.update"
+
+announced: 2021-07-02
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://developers.google.com/youtube/v3/revision_history
+    observed: 2026-09-24
+    note: "July 2, 2021: \"The commentThreads.update endpoint has been deprecated and is no longer supported. This endpoint duplicated functionality available through other API endpoints. Instead, you can call the comments.update method and, if your code requires a commentThreads resource, make a secondary call to the commentThreads.list method.\""
+
+migration:
+  replacement: "comments.update"
+  guide: https://developers.google.com/youtube/v3/docs/comments/update
+  effort: small
+  notes: >
+    Replace commentThreads.update with comments.update on the thread's top
+    level comment: send the comment resource (id and snippet.textOriginal)
+    rather than the commentThread resource. If the caller needs the updated
+    commentThread resource back, follow with commentThreads.list filtered by
+    the thread id.
+
+status: active

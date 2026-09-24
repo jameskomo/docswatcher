@@ -1,0 +1,87 @@
+[
+  {
+    "id": "youtube:endpoint:ANY /feeds/api/users",
+    "provider": "youtube",
+    "kind": "endpoint",
+    "key": "ANY /feeds/api/users",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "channel_bot/legacy_feed.py",
+        "line": 4,
+        "column": 41,
+        "snippet": "UPLOADS_FEED = \"http://gdata.youtube.com/feeds/api/users/{user}/uploads?v=2\"",
+        "detector": "youtube.literal.endpoint-v2",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "youtube:endpoint:ANY /youtube/v3/videos",
+    "provider": "youtube",
+    "kind": "endpoint",
+    "key": "ANY /youtube/v3/videos",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "channel_bot/legacy_feed.py",
+        "line": 5,
+        "column": 40,
+        "snippet": "STATS_URL = \"https://www.googleapis.com/youtube/v3/videos\"",
+        "detector": "youtube.literal.endpoint-v3",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "youtube:sdk_method:commentThreads.update",
+    "provider": "youtube",
+    "kind": "sdk_method",
+    "key": "commentThreads.update",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "channel_bot/moderation.py",
+        "line": 14,
+        "column": 20,
+        "snippet": "return youtube.commentThreads().update(part=\"snippet\", body=body).execute()",
+        "detector": "youtube.literal.method-comment-threads-update",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "youtube:sdk_method:comments.markAsSpam",
+    "provider": "youtube",
+    "kind": "sdk_method",
+    "key": "comments.markAsSpam",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "channel_bot/moderation.py",
+        "line": 9,
+        "column": 13,
+        "snippet": "youtube.comments().markAsSpam(id=comment_id).execute()",
+        "detector": "youtube.literal.method-comments-mark-as-spam",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "youtube:sdk_method:search.list.relatedToVideoId",
+    "provider": "youtube",
+    "kind": "sdk_method",
+    "key": "search.list.relatedToVideoId",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "channel_bot/moderation.py",
+        "line": 21,
+        "column": 9,
+        "snippet": "relatedToVideoId=video_id,",
+        "detector": "youtube.literal.param-related-to-video-id",
+        "layer": "literal"
+      }
+    ]
+  }
+]

@@ -1,0 +1,38 @@
+id: youtube-comments-mark-as-spam-unsupported-2023
+provider: youtube
+kind: sunset
+severity: breaking
+title: comments.markAsSpam no longer supported
+summary: >
+  The comments.markAsSpam method is no longer supported through the API. YouTube
+  announced on 2023-09-12 that the method, deprecated for several years, was
+  already unsupported on YouTube, so the entry gives no later stop date and this
+  record carries no effective date.
+
+affects:
+  - kind: sdk_method
+    match: "comments.markAsSpam"
+  - kind: endpoint
+    match: "ANY /youtube/v3/comments/markAsSpam"
+
+announced: 2023-09-12
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://developers.google.com/youtube/v3/revision_history
+    observed: 2026-09-24
+    note: "September 12, 2023: \"The comments.markAsSpam method has been deprecated for several years. This method is already unsupported on YouTube and is no longer supported through the API.\""
+
+migration:
+  replacement: null
+  guide: https://developers.google.com/youtube/v3/revision_history
+  effort: small
+  notes: >
+    Remove calls to comments.markAsSpam (POST /youtube/v3/comments/markAsSpam).
+    YouTube names no replacement in the deprecation entry. If the code flags
+    comments on the channel owner's own videos, comments.setModerationStatus is
+    the moderation method that remains in the reference; confirm it fits the
+    use case before switching, since it moderates rather than reports.
+
+status: active
