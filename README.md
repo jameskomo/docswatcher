@@ -14,7 +14,7 @@ still pass against their mocks, and one morning a payment fails.
 DocsWatcher reads a repository, finds every external API it actually calls, and tells you which
 ones already have a shutdown date — with the file, the line, and the date.
 
-It currently tracks **87 published shutdowns across 10 providers**. 61 of those are AI model
+It currently tracks **93 published shutdowns and changes across 10 providers**. 61 of those are AI model
 retirements, which is where this hurts most right now.
 
 ## What a scan finds
@@ -111,6 +111,10 @@ or one provider at `/feeds/openai.ics`), follow it as an
 A scan of a public repository has a link that re-runs it for whoever opens it,
 `https://docswatcher.vukisha.co.ke/#/?repo=owner/name`, and a README badge that does the same.
 
+The [Agents page](https://docswatcher.vukisha.co.ke/#/agents) lets you try it with your own
+assistant: paste a Claude, OpenAI or Gemini key and see the same model's answer with and without
+DocsWatcher. The key goes from your browser to the provider and nowhere else.
+
 A [scheduled job](./docs/16-knowledge-watch.md) re-reads every page the knowledge base cites each
 day and opens an issue when one announces something new, so the records do not quietly go stale.
 
@@ -137,7 +141,7 @@ cd web && npm install && npm run dev
 ./mvnw -pl cli -am package -DskipTests
 java -jar cli/target/docswatcher-cli.jar match /path/to/project --format text
 
-# the tests: 264 Java, 75 TypeScript, 18 end-to-end
+# the tests: 354 Java, 132 TypeScript, 30 end-to-end
 ./mvnw test
 cd web && npm test && npm run e2e
 ```
