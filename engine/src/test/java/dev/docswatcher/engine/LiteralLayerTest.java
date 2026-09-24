@@ -74,6 +74,50 @@ class LiteralLayerTest {
   }
 
   @Test
+  void anchorsAreTheTextEveryMatchOpensWith() {
+    assertThat(LiteralLayer.anchors("\\b(claude-(?:[0-9]+|opus)[0-9a-z.-]*)\\b")).containsExactly("claude-");
+    assertThat(LiteralLayer.anchors("\\b(gemini-[0-9]|veo-[0-9]|antigravity-preview-[0-9]{2})\\b"))
+        .containsExactly("gemini-", "veo-", "antigravity-preview-");
+    assertThat(LiteralLayer.anchors("(?:Stripe-Version|setStripeVersionOverride\\(|api_version)[\"']?([0-9]{4})"))
+        .containsExactly("Stripe-Version", "setStripeVersionOverride(", "api_version");
+    assertThat(LiteralLayer.anchors("https://api\\.openai\\.com(/v1/[a-z_]+)")).containsExactly("https://api.openai.com");
+    assertThat(LiteralLayer.anchors("abc|de")).containsExactly("abc", "de");
+    // A character that may be absent ends the anchor; a repeated one is kept once.
+    assertThat(LiteralLayer.anchors("colou?r")).containsExactly("colo");
+    assertThat(LiteralLayer.anchors("ab*c")).containsExactly("a");
+    assertThat(LiteralLayer.anchors("ab+c")).containsExactly("ab");
+    assertThat(LiteralLayer.anchors("x{2}y")).isNull();
+  }
+
+  @Test
+  void anchorsAreUnknownRatherThanWrong() {
+    for (String regex : List.of("[\"'](o[134])[\"']", "(a|b)?c", "(a|b)c|d", "(?=a)b", "(?<n>a)b", "(a|)b",
+        "\\d+", ".*gpt", "^gpt", "\\Qa\\E", "(a|b", "[]a]b")) {
+      assertThat(LiteralLayer.anchors(regex)).as(regex).isNull();
+    }
+  }
+
+  @Test
+  void everyMatchInTheKnowledgeBaseOpensWithAnAnchor() {
+    for (Provider p : k.providers()) {
+      for (Provider.Literal rule : p.detectors().literals()) {
+        List<String> anchors = LiteralLayer.anchors(rule.pattern());
+        if (anchors == null) continue;
+        for (Fixture fx : k.fixtures()) {
+          // Every fixture file, whatever its rule globs, is text a pattern could run over.
+          for (SourceFile f : FileTree.read(fx.repo()).files) {
+            java.util.regex.Matcher m = java.util.regex.Pattern.compile(rule.pattern()).matcher(f.text);
+            while (m.find()) {
+              String at = f.text.substring(m.start());
+              assertThat(anchors).as(rule.id() + " in " + f.path).anyMatch(at::startsWith);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @Test
   void sameKeyAcrossFilesMergesEvidenceInPathOrder() {
     List<Contract> out = TestSupport.scan(k,
         TestSupport.file("z.py", "m = 'gpt-4-turbo'\n"),
