@@ -153,7 +153,7 @@ class ApiIT extends PostgresTest {
   void setupWorkflowIsServed() throws Exception {
     mvc.perform(get("/api/setup/workflow").header("Authorization", AUTH))
         .andExpect(status().isOk())
-        .andExpect(content().string(org.hamcrest.Matchers.containsString("anthropics/claude-code-action@v1")));
+        .andExpect(content().string(org.hamcrest.Matchers.containsString("types: [docswatcher-fix]")));
   }
 
   @Test
