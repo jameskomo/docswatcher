@@ -34,6 +34,8 @@ Reads dependency files and records which provider SDKs the project declares. Che
 | maven | `pom.xml` | `groupId:artifactId` | the `<version>` text |
 | go | `go.mod` | module path in a `require` | the version token |
 | rubygems | `Gemfile` | first string argument of `gem` | second string if present |
+| packagist | `composer.json` | key in `require` or `require-dev` | the value string |
+| nuget | `*.csproj` | `<PackageReference Include>`, case-insensitive | `Version` attribute or element |
 
 A manifest hit does two things: it produces an `sdk_package` contract, and it unlocks that provider's call-site rules.
 
@@ -78,7 +80,7 @@ Tree-sitter queries against the parsed syntax tree. This is what turns an SDK me
 
 `maps_to` emits a second contract with the same evidence, which is how `Source.create` also becomes `POST /v1/sources`.
 
-Six grammars ship: java, python, typescript, tsx, javascript, go. Language is chosen by file extension.
+Nine grammars ship: java, python, typescript, tsx, javascript, go, ruby, php, csharp. Language is chosen by file extension (`.rb`, `.php` and `.cs` for the last three). Both engines pin the same grammar versions, so a query means the same thing in the browser and on the command line.
 
 ### Contract kinds
 
@@ -92,7 +94,7 @@ Six grammars ship: java, python, typescript, tsx, javascript, go. Language is ch
 | medium | Literal hits in ordinary source |
 | low | Every evidence location is a documentation or test path |
 
-Documentation paths end in `.md`, `.rst`, `.txt`, or `.adoc`. Test paths contain a segment like `test`, `spec`, or `fixtures`, or a filename like `*.test.js`. Manifest evidence is never downgraded, because `requirements.txt` ends in `.txt` but is not documentation.
+Documentation paths end in `.md`, `.rst`, `.txt`, or `.adoc`. Test paths contain a segment like `test`, `spec`, or `fixtures`, or a filename like `*.test.js` or `*Tests.cs`. Manifest evidence is never downgraded, because `requirements.txt` ends in `.txt` but is not documentation.
 
 Low-confidence contracts produce no findings by default. This is what keeps a provider name in a README from raising an alert.
 

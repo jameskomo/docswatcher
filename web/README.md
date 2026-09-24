@@ -34,7 +34,7 @@ First time only: `npx playwright install chromium`.
 
 ## Grammars
 
-Call-site detection uses web-tree-sitter 0.27 with the prebuilt wasm files that the official grammar packages publish on npm: `tree-sitter-java` 0.23.5, `tree-sitter-python` 0.25.0, `tree-sitter-typescript` 0.23.2 (typescript and tsx), `tree-sitter-javascript` 0.25.0, `tree-sitter-go` 0.25.0. These are the same versions the Java engine pins. They are installed with `--ignore-scripts` so npm does not try to compile their native addons. The `tree-sitter-wasms` package was tried first and rejected: its grammars were built with tree-sitter 0.20 and web-tree-sitter 0.27 refuses to load them.
+Call-site detection uses web-tree-sitter 0.27 with the prebuilt wasm files that the official grammar packages publish on npm: `tree-sitter-java` 0.23.5, `tree-sitter-python` 0.25.0, `tree-sitter-typescript` 0.23.2 (typescript and tsx), `tree-sitter-javascript` 0.25.0, `tree-sitter-go` 0.25.0, `tree-sitter-ruby` 0.23.1, `tree-sitter-php` 0.24.2 (the `php` grammar, which accepts HTML around `<?php` blocks, not `php_only`), `tree-sitter-c-sharp` 0.23.1. These are the same versions the Java engine pins; `tree-sitter-c-sharp` is pinned exactly because 0.23.5 exists on npm and no Java build of it does. They are installed with `--ignore-scripts` so npm does not try to compile their native addons. The `tree-sitter-wasms` package was tried first and rejected: its grammars were built with tree-sitter 0.20 and web-tree-sitter 0.27 refuses to load them.
 
 Grammars load lazily, one per language present in the scanned tree, from `./grammars/` relative to the page.
 
@@ -44,7 +44,7 @@ Set `NUXT_PUBLIC_RELAY_URL` to the Cloudflare Worker that streams GitHub tarball
 
 ## Static export and artifact hosting
 
-`npm run generate` produces `.output/public` with hash routing and relative asset URLs, so the whole site works when its `index.html` is served from any path. The e2e suite proves it by serving under `/some/deep/prefix`. The export is about 5 MB including all six grammars and the tree-sitter runtime, well under the 16 MB artifact limit. `index.html` is the page; `_nuxt/` and `grammars/` are its supporting files.
+`npm run generate` produces `.output/public` with hash routing and relative asset URLs, so the whole site works when its `index.html` is served from any path. The e2e suite proves it by serving under `/some/deep/prefix`. The export is about 14 MB including all nine grammars and the tree-sitter runtime, under the 16 MB artifact limit. C# is the largest grammar at 5.9 MB; a page downloads only the grammars for languages present in the scanned tree. `index.html` is the page; `_nuxt/` and `grammars/` are its supporting files.
 
 ## Design
 

@@ -120,7 +120,7 @@ A GraphQL API has one endpoint, so its deprecations name fields, not paths. They
 
 ### Call-site rules
 
-A call-site rule is a tree-sitter query. Write it against the pinned grammar version listed in `engine/grammars.lock`, and test it in the tree-sitter playground for that grammar before committing. Requirements:
+A call-site rule is a tree-sitter query. Write it against the pinned grammar version: the `tree-sitter-*` versions in `engine/pom.xml`, which `web/package.json` pins to match, and test it in the tree-sitter playground for that grammar before committing. Requirements:
 
 - One capture must be named `@call`. That node's position becomes the evidence.
 - The rule must declare `requires`, the manifest package that unlocks it. This is the precision guard. A rule with no `requires` is rejected.

@@ -35,6 +35,9 @@ Four kinds of thing, because an API dependency hides in four places:
 It finds them by parsing, not grepping: a manifest pass to confirm the SDK is really installed,
 a literal pass for versions and model strings, then tree-sitter queries over the syntax tree for
 the actual call sites. That is why it can point at a line and a column instead of a file.
+Call sites are parsed in Java, Python, TypeScript, JavaScript, Go, Ruby, PHP and C#; manifests are
+read from `package.json`, `requirements*.txt`, `pyproject.toml`, `pom.xml`, `go.mod`, `Gemfile`,
+`composer.json` and `*.csproj`.
 
 ## Four ways to run it
 

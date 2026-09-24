@@ -5,14 +5,14 @@ Last updated 2026-09-24. Everything below was verified by running it on that dat
 ## One-line status
 
 The scanner works end to end from a browser, a command line, CI, a GitHub App and now a coding
-agent. The knowledge base is watched daily. What is thin is reach: ten providers, five languages
+agent. The knowledge base is watched daily. What is thin is reach: ten providers, eight languages
 for call sites, and no native binary for Intel Macs.
 
 ## Built and verified
 
 | Component | State | Evidence |
 |---|---|---|
-| Knowledge base | 10 providers, 93 change records, 37 fixtures | `knowledge/scripts/validate` reports 0 errors |
+| Knowledge base | 10 providers, 93 change records, 49 fixtures | `knowledge/scripts/validate` reports 0 errors |
 | Java engine | 3 detection layers, exclusion rules, matcher, validator, `Matcher.lookup` | 198 tests pass |
 | TypeScript engine | Same three layers and the same exclusion rules, runs in the browser | Part of the 99 TypeScript unit tests below |
 | Two-engine parity | Byte-identical output on every fixture | `npm run parity` passes |
@@ -49,10 +49,9 @@ The two zero-finding repositories are as important as the others. They are evide
 Ordered by what is most likely to cost a user today.
 
 1. **Native binary for Intel Macs.** Releases ship native binaries for Linux x64, macOS arm64 and Windows x64, and a portable jar. GraalVM Community no longer builds for macOS x64, so an Intel Mac needs the jar and Java 25, which is a poor first step for someone adding an MCP server to their editor.
-2. **Call-site languages.** Java, Python, TypeScript, JavaScript and Go. Ruby, PHP and C# are found through manifests and literals only.
-3. **Providers.** Ten. Azure OpenAI, Mistral, Twitch, Meta Graph and PayPal are the obvious next ones; each is a `provider.yaml`, a detector table and change records.
-4. **Knowledge watch coverage.** It watches pages already cited. A provider's brand-new deprecation page is found only if its changelog, which is watched, links to it.
-5. **Status badge with a count.** Deliberately not built; see ADR 0004.
+2. **Providers.** Ten. Azure OpenAI, Mistral, Twitch, Meta Graph and PayPal are the obvious next ones; each is a `provider.yaml`, a detector table and change records.
+3. **Knowledge watch coverage.** It watches pages already cited. A provider's brand-new deprecation page is found only if its changelog, which is watched, links to it.
+4. **Status badge with a count.** Deliberately not built; see ADR 0004.
 
 ## Technical notes
 
