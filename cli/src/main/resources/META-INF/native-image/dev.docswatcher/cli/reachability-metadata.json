@@ -230,6 +230,9 @@
       ]
     },
     {
+      "type": "dev.docswatcher.engine.Evidence[]"
+    },
+    {
       "type": "dev.docswatcher.engine.Finding$Pair",
       "methods": [
         {
