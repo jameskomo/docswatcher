@@ -4,8 +4,15 @@ docswatcher:
   github:
     app-id: ""
     webhook-secret: test-secret
+    # Sign-in. GitHubUserMock answers for both hosts, so nothing leaves the JVM.
+    client-id: Iv23test
+    client-secret: oauth-test-secret
+    web-base: https://github.test
+    api-base: https://api.github.test
   api:
     token: test-token
     require-token: true
+  web:
+    origin: https://docswatcher.test
   worker:
     enabled: false

@@ -1,5 +1,6 @@
 package dev.docswatcher.app.api;
 
+import dev.docswatcher.app.auth.MemberAccess;
 import dev.docswatcher.app.scan.FixDispatcher;
 import dev.docswatcher.app.store.FindingStore;
 import dev.docswatcher.app.store.Repo;
@@ -17,8 +18,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Acting on findings. Open to signed-in members with write access to the repository, the same
+ * bar a finding issue's labels are held to, because each action changes shared state or spends
+ * the installation's write authority.
+ */
 @RestController
 @RequestMapping("/api")
+@MemberAccess(MemberAccess.Level.WRITE)
 public class ActionController {
 
   private final RepoStore repos;
@@ -35,20 +42,12 @@ public class ActionController {
 
   @PostMapping("/findings/{repoId}/{contractId}/{changeId}/snooze")
   public ResponseEntity<Dto.Ack> snooze(@PathVariable("repoId") long repoId, @PathVariable("contractId") String contractId, @PathVariable("changeId") String changeId, @RequestBody(required = false) Dto.SnoozeRequest body) {
-    int days = body == null || body.days() <= 0 ? 30 : body.days();
-    return withFinding(repoId, contractId, changeId, f -> {
-      LocalDate until = LocalDate.now().plusDays(days);
-      findings.setStatus(repoId, contractId, changeId, "snoozed", until);
-      return new Dto.Ack("snoozed", until.toString());
-    });
+    return doSnooze(repoId, contractId, changeId, body == null ? 0 : body.days());
   }
 
   @PostMapping("/findings/{repoId}/{contractId}/{changeId}/not-in-prod")
   public ResponseEntity<Dto.Ack> notInProd(@PathVariable("repoId") long repoId, @PathVariable("contractId") String contractId, @PathVariable("changeId") String changeId) {
-    return withFinding(repoId, contractId, changeId, f -> {
-      findings.setStatus(repoId, contractId, changeId, "not_in_prod", null);
-      return new Dto.Ack("not_in_prod", null);
-    });
+    return doNotInProd(repoId, contractId, changeId);
   }
 
   @PostMapping("/findings/{repoId}/{contractId}/{changeId}/not-affected")
@@ -61,15 +60,27 @@ public class ActionController {
 
   @PostMapping("/findings/{repoId}/{contractId}/{changeId}/fix")
   public ResponseEntity<Dto.Ack> fix(@PathVariable("repoId") long repoId, @PathVariable("contractId") String contractId, @PathVariable("changeId") String changeId) {
-    return withFinding(repoId, contractId, changeId, f -> {
-      Repo repo = repos.find(repoId).orElseThrow();
-      Map<String, Object> payload = fixes.dispatch(repo, f);
-      return new Dto.Ack("dispatched", payload);
-    });
+    return doFix(repoId, contractId, changeId);
   }
 
-  @PostMapping("/repos/{id}/rescan")
-  public ResponseEntity<Dto.Ack> rescan(@PathVariable("id") long id) {
+  /** The same three actions with the finding named in the body, for contract ids a path cannot carry. */
+  @PostMapping("/repos/{repoId}/findings/snooze")
+  public ResponseEntity<Dto.Ack> snoozeByRef(@PathVariable("repoId") long repoId, @RequestBody Dto.FindingRef ref) {
+    return doSnooze(repoId, ref.contract(), ref.change(), ref.days() == null ? 0 : ref.days());
+  }
+
+  @PostMapping("/repos/{repoId}/findings/not-in-prod")
+  public ResponseEntity<Dto.Ack> notInProdByRef(@PathVariable("repoId") long repoId, @RequestBody Dto.FindingRef ref) {
+    return doNotInProd(repoId, ref.contract(), ref.change());
+  }
+
+  @PostMapping("/repos/{repoId}/findings/fix")
+  public ResponseEntity<Dto.Ack> fixByRef(@PathVariable("repoId") long repoId, @RequestBody Dto.FindingRef ref) {
+    return doFix(repoId, ref.contract(), ref.change());
+  }
+
+  @PostMapping("/repos/{repoId}/rescan")
+  public ResponseEntity<Dto.Ack> rescan(@PathVariable("repoId") long id) {
     if (repos.find(id).isEmpty()) {
       return ResponseEntity.notFound().build();
     }
@@ -77,7 +88,34 @@ public class ActionController {
     return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Dto.Ack("queued", runId));
   }
 
+  private ResponseEntity<Dto.Ack> doSnooze(long repoId, String contractId, String changeId, int requestedDays) {
+    int days = requestedDays <= 0 ? 30 : requestedDays;
+    return withFinding(repoId, contractId, changeId, f -> {
+      LocalDate until = LocalDate.now().plusDays(days);
+      findings.setStatus(repoId, contractId, changeId, "snoozed", until);
+      return new Dto.Ack("snoozed", until.toString());
+    });
+  }
+
+  private ResponseEntity<Dto.Ack> doNotInProd(long repoId, String contractId, String changeId) {
+    return withFinding(repoId, contractId, changeId, f -> {
+      findings.setStatus(repoId, contractId, changeId, "not_in_prod", null);
+      return new Dto.Ack("not_in_prod", null);
+    });
+  }
+
+  private ResponseEntity<Dto.Ack> doFix(long repoId, String contractId, String changeId) {
+    return withFinding(repoId, contractId, changeId, f -> {
+      Repo repo = repos.find(repoId).orElseThrow();
+      Map<String, Object> payload = fixes.dispatch(repo, f);
+      return new Dto.Ack("dispatched", payload);
+    });
+  }
+
   private ResponseEntity<Dto.Ack> withFinding(long repoId, String contractId, String changeId, java.util.function.Function<StoredFinding, Dto.Ack> action) {
+    if (contractId == null || changeId == null) {
+      return ResponseEntity.badRequest().build();
+    }
     return findings.find(repoId, contractId, changeId).map(f -> ResponseEntity.ok(action.apply(f))).orElseGet(() -> ResponseEntity.notFound().build());
   }
 }

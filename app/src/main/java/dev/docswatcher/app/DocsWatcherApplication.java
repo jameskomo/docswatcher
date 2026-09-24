@@ -1,5 +1,6 @@
 package dev.docswatcher.app;
 
+import dev.docswatcher.app.auth.OAuthProperties;
 import dev.docswatcher.app.config.AppProperties;
 import dev.docswatcher.app.config.ScanLimitsProperties;
 import org.springframework.boot.SpringApplication;
@@ -7,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties({AppProperties.class, ScanLimitsProperties.class})
+@EnableConfigurationProperties({AppProperties.class, ScanLimitsProperties.class, OAuthProperties.class})
 public class DocsWatcherApplication {
 
   public static void main(String[] args) {

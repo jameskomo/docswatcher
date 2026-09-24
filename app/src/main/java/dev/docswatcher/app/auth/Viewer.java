@@ -1,0 +1,75 @@
+package dev.docswatcher.app.auth;
+
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * Who is asking, as far as the API is concerned. Exactly two kinds.
+ *
+ * <p>The {@link Owner} holds the shared API token: the deployment's operator and its automation.
+ * It sees everything, as the token always has. A {@link Member} signed in with GitHub and sees
+ * only what GitHub said they could see: repositories they can reach through an installation of
+ * this App. Every API request has one or the other, set by {@code ApiTokenFilter}.
+ */
+public sealed interface Viewer permits Viewer.Owner, Viewer.Member {
+
+  /** The request attribute the filter stores the viewer under. */
+  String ATTRIBUTE = Viewer.class.getName();
+
+  Owner OWNER = new Owner();
+
+  /** Levels at which acting on a repository's findings is allowed; the same bar the label path sets. */
+  Set<String> WRITE_OR_ABOVE = Set.of("write", "maintain", "admin");
+
+  boolean canSeeOrg(String login);
+
+  boolean canRead(long repoId);
+
+  boolean canWrite(long repoId);
+
+  /** True for the owner: no filtering at all, so queries can skip the per-repository check. */
+  default boolean seesEverything() {
+    return false;
+  }
+
+  record Owner() implements Viewer {
+    @Override public boolean canSeeOrg(String login) { return true; }
+    @Override public boolean canRead(long repoId) { return true; }
+    @Override public boolean canWrite(long repoId) { return true; }
+    @Override public boolean seesEverything() { return true; }
+  }
+
+  record Member(UserSession session, Map<Long, String> permissions, Set<String> orgs) implements Viewer {
+
+    public static Member of(UserSession session) {
+      Map<Long, String> permissions = new HashMap<>();
+      Set<String> orgs = new java.util.HashSet<>();
+      for (UserSession.OrgAccess org : session.orgs()) {
+        orgs.add(org.login().toLowerCase(Locale.ROOT));
+        for (UserSession.RepoAccess repo : org.repos()) {
+          permissions.put(repo.id(), repo.permission());
+        }
+      }
+      return new Member(session, Map.copyOf(permissions), Set.copyOf(orgs));
+    }
+
+    /** GitHub logins are case-insensitive; a URL typed in another case is the same organisation. */
+    @Override
+    public boolean canSeeOrg(String login) {
+      return login != null && orgs.contains(login.toLowerCase(Locale.ROOT));
+    }
+
+    @Override
+    public boolean canRead(long repoId) {
+      String p = permissions.get(repoId);
+      return p != null && !"none".equals(p);
+    }
+
+    @Override
+    public boolean canWrite(long repoId) {
+      return WRITE_OR_ABOVE.contains(permissions.get(repoId));
+    }
+  }
+}

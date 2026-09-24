@@ -36,6 +36,14 @@ docswatcher:
     private-key: ${GITHUB_APP_PRIVATE_KEY:}
     webhook-secret: ${GITHUB_WEBHOOK_SECRET:}
     api-base: ${GITHUB_API_BASE:https://api.github.com}
+    # Sign-in with GitHub (docs/adr/0008-sign-in-with-github.md): the App's OAuth client.
+    # The id is public. The secret belongs in /run/secrets/docswatcher.github.client-secret,
+    # which the config tree above maps onto this property and which wins over the variable.
+    # Either one blank: sign-in answers 503 and the dashboard offers only the browser scan.
+    client-id: ${GITHUB_CLIENT_ID:}
+    client-secret: ${GITHUB_CLIENT_SECRET:}
+    web-base: ${GITHUB_WEB_BASE:https://github.com}
+    session-ttl: 8h
     fix-label: docswatcher:fix
     snooze-label: docswatcher:snooze-30d
     not-in-prod-label: docswatcher:not-in-prod

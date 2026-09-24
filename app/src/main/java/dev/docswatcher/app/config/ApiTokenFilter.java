@@ -1,5 +1,10 @@
 package dev.docswatcher.app.config;
 
+import dev.docswatcher.app.auth.AccessInterceptor;
+import dev.docswatcher.app.auth.Cookies;
+import dev.docswatcher.app.auth.SessionStore;
+import dev.docswatcher.app.auth.UserSession;
+import dev.docswatcher.app.auth.Viewer;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,6 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.Optional;
+import java.util.Set;
 import org.springframework.http.server.PathContainer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -14,7 +21,17 @@ import org.springframework.web.util.ServletRequestPathUtils;
 import org.springframework.web.util.pattern.PathPattern;
 import org.springframework.web.util.pattern.PathPatternParser;
 
-/** Shared bearer token for the dashboard API. Not a user identity; that comes in v1.5 with GitHub login. */
+/**
+ * Authentication for the dashboard API: who is asking, before any handler runs.
+ *
+ * <p>Two principals, never mixed. The shared bearer token is the deployment's owner and its
+ * automation, and sees everything, as it always has. Without a token, a signed-in session cookie
+ * makes the caller a member, who sees only what GitHub said they could when they signed in
+ * ({@link AccessInterceptor} enforces that per organisation and per repository). A member's
+ * state-changing requests must also come from the site's own origin. Neither: 401.
+ *
+ * <p>docs/adr/0008-sign-in-with-github.md.
+ */
 @Component
 public class ApiTokenFilter extends OncePerRequestFilter {
 
@@ -31,10 +48,16 @@ public class ApiTokenFilter extends OncePerRequestFilter {
    */
   private static final PathPattern API = PathPatternParser.defaultInstance.parse("/api/**");
 
-  private final AppProperties.Api api;
+  private static final Set<String> SAFE_METHODS = Set.of("GET", "HEAD", "OPTIONS");
 
-  public ApiTokenFilter(AppProperties properties) {
+  private final AppProperties.Api api;
+  private final SessionStore sessions;
+  private final String webOrigin;
+
+  public ApiTokenFilter(AppProperties properties, SessionStore sessions) {
     this.api = properties.api();
+    this.sessions = sessions;
+    this.webOrigin = properties.web().origin();
   }
 
   @Override
@@ -65,19 +88,44 @@ public class ApiTokenFilter extends OncePerRequestFilter {
   protected void doFilterInternal(
       HttpServletRequest request, HttpServletResponse response, FilterChain chain)
       throws ServletException, IOException {
-    if (!api.requireToken()) {
-      chain.doFilter(request, response);
-      return;
-    }
-    if (api.token() == null || api.token().isBlank()) {
-      response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "DOCSWATCHER_API_TOKEN is not set");
-      return;
-    }
     String header = request.getHeader("Authorization");
-    if (header == null || !header.startsWith("Bearer ") || !constantTimeEquals(header.substring(7), api.token())) {
-      response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+    if (header != null) {
+      // A caller that presents the token is judged on the token alone, never on a cookie too.
+      if (!api.requireToken()) {
+        pass(Viewer.OWNER, request, response, chain);
+        return;
+      }
+      if (api.token() == null || api.token().isBlank()) {
+        response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "DOCSWATCHER_API_TOKEN is not set");
+        return;
+      }
+      if (!header.startsWith("Bearer ") || !constantTimeEquals(header.substring(7), api.token())) {
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        return;
+      }
+      pass(Viewer.OWNER, request, response, chain);
       return;
     }
+    Optional<UserSession> session = sessions.find(Cookies.read(request, Cookies.SESSION));
+    if (session.isPresent()) {
+      if (!SAFE_METHODS.contains(request.getMethod()) && !Cookies.sameOrigin(request, webOrigin)) {
+        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Cross-origin request refused");
+        return;
+      }
+      pass(Viewer.Member.of(session.get()), request, response, chain);
+      return;
+    }
+    if (!api.requireToken()) {
+      // The dev profile: no token, no session, full access, as before sign-in existed.
+      pass(Viewer.OWNER, request, response, chain);
+      return;
+    }
+    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+  }
+
+  private static void pass(Viewer viewer, HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+      throws ServletException, IOException {
+    request.setAttribute(Viewer.ATTRIBUTE, viewer);
     chain.doFilter(request, response);
   }
 

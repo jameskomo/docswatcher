@@ -1,5 +1,6 @@
 package dev.docswatcher.app.store;
 
+import java.util.Collection;
 import java.util.List;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
@@ -77,6 +78,40 @@ public class ContractStore {
             where i.account_login = :login and c.last_seen_sha = r.last_scanned_sha
             """)
         .param("login", login)
+        .query(Long.class)
+        .single();
+  }
+
+  /** {@link #countByProvider(String)}, narrowed to the repositories a signed-in member can see. */
+  public List<ProviderCount> countByProvider(String login, Collection<Long> repoIds) {
+    if (repoIds.isEmpty()) {
+      return List.of();
+    }
+    return jdbc.sql(
+            """
+            select c.provider, count(*) as contracts, coalesce(sum(jsonb_array_length(c.evidence)), 0) as evidence
+            from contract c join repo r on r.id = c.repo_id join installation i on i.id = r.installation_id
+            where i.account_login = :login and c.last_seen_sha = r.last_scanned_sha and r.id in (:repos)
+            group by c.provider order by c.provider
+            """)
+        .param("login", login)
+        .param("repos", repoIds)
+        .query(ProviderCount.class)
+        .list();
+  }
+
+  /** {@link #countForLogin(String)}, narrowed to the repositories a signed-in member can see. */
+  public long countForLogin(String login, Collection<Long> repoIds) {
+    if (repoIds.isEmpty()) {
+      return 0;
+    }
+    return jdbc.sql(
+            """
+            select count(*) from contract c join repo r on r.id = c.repo_id join installation i on i.id = r.installation_id
+            where i.account_login = :login and c.last_seen_sha = r.last_scanned_sha and r.id in (:repos)
+            """)
+        .param("login", login)
+        .param("repos", repoIds)
         .query(Long.class)
         .single();
   }

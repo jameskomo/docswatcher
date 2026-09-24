@@ -1,7 +1,9 @@
 package dev.docswatcher.app.support;
 
+import dev.docswatcher.app.auth.OAuthProperties;
 import dev.docswatcher.app.engine.ScanEngine;
 import dev.docswatcher.app.github.GitHubClient;
+import dev.docswatcher.app.github.GitHubUserApi;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -19,5 +21,16 @@ public class TestBeans {
   @Primary
   ScanEngine fakeScanEngine() {
     return new FakeScanEngine();
+  }
+
+  @Bean
+  GitHubUserMock gitHubUserMock(OAuthProperties oauth) {
+    return new GitHubUserMock(oauth);
+  }
+
+  @Bean
+  @Primary
+  GitHubUserApi mockedGitHubUserApi(GitHubUserMock mock) {
+    return mock.api;
   }
 }

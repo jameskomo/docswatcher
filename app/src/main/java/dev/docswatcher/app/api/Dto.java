@@ -45,5 +45,13 @@ public final class Dto {
 
   public record SnoozeRequest(int days) {}
 
+  /**
+   * Names a finding in a request body rather than the path. Contract ids carry whatever the key
+   * holds, and an endpoint key such as {@code POST /v1/sources} has a slash that no path segment
+   * can carry through Tomcat, so the dashboard addresses findings this way. {@code days} is read
+   * by snooze only.
+   */
+  public record FindingRef(String contract, String change, Integer days) {}
+
   public record Ack(String status, Object detail) {}
 }

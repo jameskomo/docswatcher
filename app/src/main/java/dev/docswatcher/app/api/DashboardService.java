@@ -1,5 +1,6 @@
 package dev.docswatcher.app.api;
 
+import dev.docswatcher.app.auth.Viewer;
 import dev.docswatcher.app.engine.ScanEngine;
 import dev.docswatcher.app.model.ChangeDoc;
 import dev.docswatcher.app.model.ContractDoc;
@@ -53,11 +54,24 @@ public class DashboardService {
     this.mapper = mapper;
   }
 
-  public Dto.Overview overview(String login) {
-    List<Repo> repoList = repos.forLogin(login);
+  /**
+   * The organisation-wide answers below take the {@link Viewer} and keep only what it can read.
+   * The owner reads everything and pays nothing for the check; a member's answers are computed
+   * from their repositories alone, so an aggregate never reflects a repository they cannot open.
+   */
+  private List<Repo> visibleRepos(String login, Viewer viewer) {
+    return repos.forLogin(login).stream().filter(r -> viewer.canRead(r.id())).toList();
+  }
+
+  private List<StoredFinding> visibleFindings(List<StoredFinding> all, Viewer viewer) {
+    return viewer.seesEverything() ? all : all.stream().filter(f -> viewer.canRead(f.repoId())).toList();
+  }
+
+  public Dto.Overview overview(String login, Viewer viewer) {
+    List<Repo> repoList = visibleRepos(login, viewer);
     Map<String, Long> bySeverity = new TreeMap<>();
     LocalDate nearest = null;
-    for (StoredFinding f : findings.forLogin(login)) {
+    for (StoredFinding f : visibleFindings(findings.forLogin(login), viewer)) {
       if (!"open".equals(f.status())) {
         continue;
       }
@@ -66,12 +80,15 @@ public class DashboardService {
         nearest = f.effective();
       }
     }
-    return new Dto.Overview(login, repoList.size(), contracts.countForLogin(login), bySeverity, nearest, engine.knowledgeVersion());
+    long contractCount = viewer.seesEverything()
+        ? contracts.countForLogin(login)
+        : contracts.countForLogin(login, repoList.stream().map(Repo::id).toList());
+    return new Dto.Overview(login, repoList.size(), contractCount, bySeverity, nearest, engine.knowledgeVersion());
   }
 
-  public List<Dto.RepoSummary> repos(String login) {
+  public List<Dto.RepoSummary> repos(String login, Viewer viewer) {
     List<Dto.RepoSummary> out = new ArrayList<>();
-    for (Repo r : repos.forLogin(login)) {
+    for (Repo r : visibleRepos(login, viewer)) {
       long open = findings.openForRepo(r.id()).stream().filter(f -> "open".equals(f.status())).count();
       out.add(new Dto.RepoSummary(r.id(), r.fullName(), r.defaultBranch(), r.lastScannedSha(), r.production(), open));
     }
@@ -111,11 +128,11 @@ public class DashboardService {
     return out;
   }
 
-  public List<Dto.HorizonMonth> horizon(String login) {
+  public List<Dto.HorizonMonth> horizon(String login, Viewer viewer) {
     Map<String, List<Dto.RepoFinding>> months = new TreeMap<>();
     Map<Long, Repo> repoById = new HashMap<>();
     Map<Long, Map<String, StoredContract>> contractsByRepo = new HashMap<>();
-    for (StoredFinding f : findings.forLogin(login)) {
+    for (StoredFinding f : visibleFindings(findings.forLogin(login), viewer)) {
       if ("fixed".equals(f.status())) {
         continue;
       }
@@ -129,10 +146,10 @@ public class DashboardService {
     return out;
   }
 
-  public List<Dto.MapNode> map(String login) {
+  public List<Dto.MapNode> map(String login, Viewer viewer) {
     Map<String, long[]> openByProvider = new HashMap<>();
     Map<String, String> worst = new HashMap<>();
-    for (StoredFinding f : findings.forLogin(login)) {
+    for (StoredFinding f : visibleFindings(findings.forLogin(login), viewer)) {
       if (!"open".equals(f.status())) {
         continue;
       }
@@ -141,19 +158,22 @@ public class DashboardService {
       worst.merge(provider, f.severity(), (a, b) -> rank(a) >= rank(b) ? a : b);
     }
     List<Dto.MapNode> out = new ArrayList<>();
-    for (ContractStore.ProviderCount p : contracts.countByProvider(login)) {
+    List<ContractStore.ProviderCount> counts = viewer.seesEverything()
+        ? contracts.countByProvider(login)
+        : contracts.countByProvider(login, visibleRepos(login, viewer).stream().map(Repo::id).toList());
+    for (ContractStore.ProviderCount p : counts) {
       out.add(new Dto.MapNode(p.provider(), p.contracts(), p.evidence(), worst.getOrDefault(p.provider(), "healthy"),
           openByProvider.containsKey(p.provider()) ? openByProvider.get(p.provider())[0] : 0));
     }
     return out;
   }
 
-  public Dto.BlastRadius blastRadius(String login, String changeId) {
+  public Dto.BlastRadius blastRadius(String login, String changeId, Viewer viewer) {
     Optional<ChangeDoc> change = engine.change(changeId);
     Map<Long, Repo> repoById = new HashMap<>();
     Map<Long, Map<String, StoredContract>> contractsByRepo = new HashMap<>();
     List<Dto.RepoFinding> list = new ArrayList<>();
-    for (StoredFinding f : findings.forLoginAndChange(login, changeId)) {
+    for (StoredFinding f : visibleFindings(findings.forLoginAndChange(login, changeId), viewer)) {
       Repo repo = repoById.computeIfAbsent(f.repoId(), id -> repos.find(id).orElseThrow());
       list.add(toDto(repo, f, contractsByRepo.computeIfAbsent(f.repoId(), this::contractsById)));
     }
