@@ -45,6 +45,12 @@ export default defineNuxtConfig({
   },
   nitro: {
     prerender: { crawlLinks: false, routes: ["/"] },
+    // `npm run dev` only: the app on :8080 answers the dashboard API and sign-in, same-origin,
+    // as nginx does in production. The static export carries no proxy.
+    devProxy: {
+      "/api": { target: "http://localhost:8080/api", changeOrigin: false },
+      "/auth": { target: "http://localhost:8080/auth", changeOrigin: false },
+    },
   },
   typescript: { strict: true, typeCheck: false },
 });

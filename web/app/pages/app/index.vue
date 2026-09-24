@@ -1,5 +1,28 @@
 <script setup lang="ts">
+import { createOrgApi, siteBase, type Me, type OrgApi } from "~/utils/orgApi";
+
 const store = useScanStore();
+const route = useRoute();
+
+/*
+ * Signed in with GitHub, this page is the organisation dashboard (components/OrgDashboard.vue).
+ * Signed out, or served where no app stands behind the site, it is what it always was: the last
+ * scan run in this browser, with an invitation to sign in when sign-in exists here.
+ */
+const me = ref<Me | null>(null);
+const api = shallowRef<OrgApi | null>(null);
+const signedIn = computed(() => !!me.value?.signedIn);
+const SIGNIN_PROBLEMS: Record<string, string> = {
+  denied: "Sign-in was cancelled on GitHub.",
+  failed: "Sign-in with GitHub did not complete. Try again.",
+  unavailable: "Sign-in with GitHub is not configured on this deployment.",
+};
+const signinProblem = computed(() => SIGNIN_PROBLEMS[String(route.query.signin ?? "")] ?? "");
+
+async function refreshMe() {
+  api.value ??= createOrgApi(siteBase(location.href));
+  me.value = await api.value.me();
+}
 
 /**
  * The scan is kept in browser storage so a reload does not lose it, and that record holds the
@@ -22,6 +45,17 @@ const findings = computed(() => (result.value?.findings ?? []).filter((f) => sto
 const hidden = computed(() => (result.value?.findings.length ?? 0) - findings.value.length);
 
 onMounted(async () => {
+  await refreshMe();
+  if (signedIn.value) return;
+  await prepareExample();
+});
+
+async function onSignedOut() {
+  await refreshMe();
+  if (!signedIn.value) await prepareExample();
+}
+
+async function prepareExample() {
   if (store.current.value || !samples.length) return;
   loading.value = true;
   try {
@@ -41,11 +75,24 @@ onMounted(async () => {
   } finally {
     loading.value = false;
   }
-});
+}
 </script>
 
 <template>
-  <div>
+  <OrgDashboard v-if="signedIn && api && me" :me="me" :api="api" @signed-out="onSignedOut" />
+  <div v-else>
+    <p v-if="signinProblem" class="section notice bad" role="alert" data-testid="signin-problem">{{ signinProblem }}</p>
+    <div v-if="me?.enabled && api" class="section signin-cta" data-testid="signin-cta">
+      <div>
+        <h2>See your organisation</h2>
+        <p class="t2 ink-soft">
+          Sign in with GitHub to see every repository DocsWatcher watches for your organisation, one
+          view, and the blast radius of a single shutdown. You see only what GitHub lets you see.
+        </p>
+      </div>
+      <a class="btn solid" :href="api.loginUrl()">Sign in with GitHub to see your organisation</a>
+    </div>
+
     <Board
       v-if="loading || result"
       :inventory="result?.inventory"
@@ -125,3 +172,19 @@ onMounted(async () => {
     </section>
   </div>
 </template>
+
+<style scoped>
+.signin-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: var(--s4);
+  border: 1px solid var(--hair);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+}
+.signin-cta h2 { margin-bottom: var(--s1); }
+.signin-cta p { max-width: var(--measure); }
+</style>

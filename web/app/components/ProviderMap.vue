@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Finding, Inventory, Severity } from "~~/engine/types";
+import type { ProviderRow } from "~/utils/orgApi";
 import { SEVERITY_GLYPH } from "~/utils/format";
 
 /**
@@ -13,24 +14,23 @@ import { SEVERITY_GLYPH } from "~/utils/format";
  */
 const GRAPH_MIN_PROVIDERS = 3;
 
-const props = defineProps<{ inventory: Inventory; findings: Finding[] }>();
+/*
+ * Either one repository's scan (inventory and findings), or rows the server already summarised
+ * for a whole organisation (providerRows in utils/orgApi.ts). `centre` names the hub of the graph.
+ */
+const props = defineProps<{ inventory?: Inventory; findings?: Finding[]; rows?: ProviderRow[]; centre?: string; subject?: string }>();
 const { providerName } = useKnowledge();
 
 type Health = Severity | "healthy";
 const rank: Record<Health, number> = { healthy: 0, info: 1, warning: 2, breaking: 3 };
 
-interface Row {
-  id: string;
-  name: string;
-  contracts: number;
-  callSites: number;
-  health: Health;
-  split: Record<Health, number>;
-}
+type Row = ProviderRow;
 
 const rows = computed<Row[]>(() => {
+  if (props.rows) return props.rows.map((r) => ({ ...r, name: providerName(r.id) }));
+  if (!props.inventory) return [];
   const worst = new Map<string, Severity>();
-  for (const f of props.findings) {
+  for (const f of props.findings ?? []) {
     const prev = worst.get(f.contract);
     if (!prev || rank[f.severity] > rank[prev]) worst.set(f.contract, f.severity);
   }
@@ -75,7 +75,10 @@ const nodes = computed(() =>
 );
 const colorVar = (h: Health) =>
   h === "breaking" ? "var(--critical)" : h === "warning" ? "var(--warning)" : h === "info" ? "var(--info)" : "var(--good)";
-const visibleContracts = computed(() => props.inventory.contracts.filter((c) => c.confidence !== "low").length);
+const visibleContracts = computed(() =>
+  props.rows ? props.rows.reduce((n, r) => n + r.contracts, 0) : (props.inventory?.contracts.filter((c) => c.confidence !== "low").length ?? 0),
+);
+const subjectLabel = computed(() => props.subject ?? (props.inventory ? `${props.inventory.repo.owner}/${props.inventory.repo.name}` : "this organisation"));
 </script>
 
 <template>
@@ -110,7 +113,7 @@ const visibleContracts = computed(() => props.inventory.contracts.filter((c) => 
       class="chart"
       :viewBox="`0 0 ${W} ${H}`"
       role="img"
-      :aria-label="`Map of ${nodes.length} external providers used by ${inventory.repo.owner}/${inventory.repo.name}`"
+      :aria-label="`Map of ${nodes.length} external providers used by ${subjectLabel}`"
     >
       <line
         v-for="n in nodes" :key="'l' + n.id"
@@ -120,7 +123,7 @@ const visibleContracts = computed(() => props.inventory.contracts.filter((c) => 
         stroke-opacity="0.4" stroke-linecap="round"
       />
       <circle :cx="CX" :cy="CY" r="30" fill="var(--surface-2)" stroke="var(--line-strong)" />
-      <text :x="CX" :y="CY - 1" text-anchor="middle" style="font-weight: 600; fill: var(--ink)">this repo</text>
+      <text :x="CX" :y="CY - 1" text-anchor="middle" style="font-weight: 600; fill: var(--ink)">{{ centre ?? "this repo" }}</text>
       <text :x="CX" :y="CY + 14" text-anchor="middle" style="font-size: 10px">{{ visibleContracts }} contracts</text>
       <g v-for="n in nodes" :key="n.id">
         <circle :cx="n.x" :cy="n.y" :r="n.r + 3" fill="var(--chart-surface)" />
@@ -133,7 +136,8 @@ const visibleContracts = computed(() => props.inventory.contracts.filter((c) => 
 
     <div v-else class="empty">
       <h3>No external providers detected</h3>
-      <p class="t2">This repository calls nothing DocsWatcher tracks, or the scan found only low-confidence mentions.</p>
+      <p v-if="props.rows" class="t2">No repository you can see calls anything DocsWatcher tracks, or none has been scanned yet.</p>
+      <p v-else class="t2">This repository calls nothing DocsWatcher tracks, or the scan found only low-confidence mentions.</p>
     </div>
 
     <div class="legend" v-if="rows.length">

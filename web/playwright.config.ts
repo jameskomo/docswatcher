@@ -2,7 +2,8 @@ import { defineConfig, devices } from "@playwright/test";
 
 // Runs against the static export served under a deep prefix, which is how an artifact host serves it.
 const PREFIX = "/some/deep/prefix";
-const PORT = 8091;
+// E2E_PORT lets two checkouts run their suites at once without one testing the other's build.
+const PORT = Number(process.env.E2E_PORT ?? 8091);
 
 export default defineConfig({
   testDir: "tests/e2e",

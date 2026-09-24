@@ -7,7 +7,9 @@ function watchFailures(page: Page) {
   page.on("pageerror", (e) => failed.push(`PAGEERROR ${e.message}`));
   return failed;
 }
-const own = (list: string[]) => list.filter((u) => !u.includes("fonts.g") && !u.includes("api.github.com"));
+// The dashboard asks the app who is signed in; the static test server has no app, so that one
+// answers 404, which the page reads as "signed out" (org-dashboard.spec.ts covers it).
+const own = (list: string[]) => list.filter((u) => !u.includes("fonts.g") && !u.includes("api.github.com") && !u.endsWith("/auth/me"));
 
 /** Scans one sample by its option value, so a test never depends on which sample is the default. */
 async function scanSample(page: Page, value: string) {
