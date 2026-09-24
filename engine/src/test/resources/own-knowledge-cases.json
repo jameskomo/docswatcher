@@ -120,6 +120,25 @@
       ]
     },
     {
+      "name": "a change record with nothing but an id and a provider",
+      "files": {
+        ".docswatcher/providers/internal-bare/provider.yaml": "id: internal-bare\nname: Bare\n",
+        ".docswatcher/providers/internal-bare/changes/internal-bare-1.yaml": "id: internal-bare-1\nprovider: internal-bare\n"
+      },
+      "providers": ["internal-bare"],
+      "changes": ["internal-bare-1"],
+      "errors": [
+        ".docswatcher/providers/internal-bare/changes/internal-bare-1.yaml: unknown kind null",
+        ".docswatcher/providers/internal-bare/changes/internal-bare-1.yaml: unknown severity null",
+        ".docswatcher/providers/internal-bare/changes/internal-bare-1.yaml: unknown status null",
+        ".docswatcher/providers/internal-bare/changes/internal-bare-1.yaml: title missing",
+        ".docswatcher/providers/internal-bare/changes/internal-bare-1.yaml: affects must not be empty",
+        ".docswatcher/providers/internal-bare/changes/internal-bare-1.yaml: sources must not be empty",
+        ".docswatcher/providers/internal-bare/changes/internal-bare-1.yaml: announced date invalid or missing"
+      ],
+      "warnings": []
+    },
+    {
       "name": "the same provider from two places",
       "files": {
         ".docswatcher/providers/internal-orders/provider.yaml": "id: internal-orders\nname: Orders\n",

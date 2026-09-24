@@ -191,13 +191,13 @@ public final class Validator {
   /** A provider's manifest, literal and callsite rules. Detector ids are unique across every provider. */
   private static void checkDetectors(Provider p, Set<String> detectorIds, List<String> errors) {
     for (Provider.Manifest m : p.detectors().manifests()) {
-      if (!ECOSYSTEMS.contains(m.ecosystem())) errors.add(p.id() + ": unknown ecosystem " + m.ecosystem());
+      if (!in(ECOSYSTEMS, m.ecosystem())) errors.add(p.id() + ": unknown ecosystem " + m.ecosystem());
       if (m.pkg() == null || m.pkg().isBlank()) errors.add(p.id() + ": manifest rule without package");
     }
     for (Provider.Literal l : p.detectors().literals()) {
       if (!detectorIds.add(l.id())) errors.add("duplicate detector id " + l.id());
-      if (!CONTRACT_KINDS.contains(l.kind())) errors.add(l.id() + ": unknown kind " + l.kind());
-      if (!CONFIDENCES.contains(l.confidence())) errors.add(l.id() + ": unknown confidence " + l.confidence());
+      if (!in(CONTRACT_KINDS, l.kind())) errors.add(l.id() + ": unknown kind " + l.kind());
+      if (!in(CONFIDENCES, l.confidence())) errors.add(l.id() + ": unknown confidence " + l.confidence());
       if (l.files().isEmpty()) errors.add(l.id() + ": files must not be empty");
       if (l.key() == null) errors.add(l.id() + ": key template missing");
       if (l.pattern() == null) {
@@ -208,11 +208,11 @@ public final class Validator {
     }
     for (Provider.Callsite c : p.detectors().callsites()) {
       if (!detectorIds.add(c.id())) errors.add("duplicate detector id " + c.id());
-      if (!CONTRACT_KINDS.contains(c.kind())) errors.add(c.id() + ": unknown kind " + c.kind());
-      if (!LANGUAGES.contains(c.language())) errors.add(c.id() + ": unknown language " + c.language());
-      if (!CONFIDENCES.contains(c.confidence())) errors.add(c.id() + ": unknown confidence " + c.confidence());
+      if (!in(CONTRACT_KINDS, c.kind())) errors.add(c.id() + ": unknown kind " + c.kind());
+      if (!in(LANGUAGES, c.language())) errors.add(c.id() + ": unknown language " + c.language());
+      if (!in(CONFIDENCES, c.confidence())) errors.add(c.id() + ": unknown confidence " + c.confidence());
       if (c.query() == null || c.query().isBlank()) errors.add(c.id() + ": query missing");
-      if (c.mapsTo() != null && !CONTRACT_KINDS.contains(c.mapsTo().kind())) errors.add(c.id() + ": maps_to kind unknown");
+      if (c.mapsTo() != null && !in(CONTRACT_KINDS, c.mapsTo().kind())) errors.add(c.id() + ": maps_to kind unknown");
       if (c.requires() != null && p.detectors().manifests().stream().noneMatch(m -> c.requires().equals(m.pkg()))) {
         errors.add(c.id() + ": requires " + c.requires() + " which is not a manifest rule of " + p.id());
       }
@@ -226,21 +226,21 @@ public final class Validator {
    */
   private static void checkChange(Change c, LocalDate today, List<String> errors, List<String> dates, List<String> warnings) {
     String where = c.file();
-    if (!CHANGE_KINDS.contains(c.kind())) errors.add(where + ": unknown kind " + c.kind());
-    if (!SEVERITIES.contains(c.severity())) errors.add(where + ": unknown severity " + c.severity());
-    if (!STATUSES.contains(c.status())) errors.add(where + ": unknown status " + c.status());
+    if (!in(CHANGE_KINDS, c.kind())) errors.add(where + ": unknown kind " + c.kind());
+    if (!in(SEVERITIES, c.severity())) errors.add(where + ": unknown severity " + c.severity());
+    if (!in(STATUSES, c.status())) errors.add(where + ": unknown status " + c.status());
     if (c.title() == null || c.title().isBlank()) errors.add(where + ": title missing");
     if (c.affects().isEmpty()) errors.add(where + ": affects must not be empty");
     for (Change.Affect a : c.affects()) {
-      if (!CONTRACT_KINDS.contains(a.kind())) errors.add(where + ": affects kind unknown " + a.kind());
+      if (!in(CONTRACT_KINDS, a.kind())) errors.add(where + ": affects kind unknown " + a.kind());
       if (a.match() == null || a.match().isBlank()) errors.add(where + ": affects match missing");
     }
     if (c.sources().isEmpty()) errors.add(where + ": sources must not be empty");
     for (Change.Source s : c.sources()) {
-      if (!SOURCE_KINDS.contains(s.kind())) errors.add(where + ": source kind unknown " + s.kind());
+      if (!in(SOURCE_KINDS, s.kind())) errors.add(where + ": source kind unknown " + s.kind());
       if (parseDate(s.observed()) == null) errors.add(where + ": source observed date invalid");
     }
-    if (c.migration() != null && c.migration().effort() != null && !EFFORTS.contains(c.migration().effort())) {
+    if (c.migration() != null && c.migration().effort() != null && !in(EFFORTS, c.migration().effort())) {
       errors.add(where + ": migration effort unknown " + c.migration().effort());
     }
     LocalDate announced = parseDate(c.announced());
@@ -249,6 +249,11 @@ public final class Validator {
     if (c.effective() != null && effective == null) errors.add(where + ": effective date invalid");
     if (announced != null && effective != null && !effective.isAfter(announced)) errors.add(where + ": effective must be after announced");
     lifecycle(c, effective, today, dates, warnings);
+  }
+
+  /** Set.of(...).contains(null) throws, and a field missing from a record is null. */
+  private static boolean in(Set<String> allowed, String value) {
+    return value != null && allowed.contains(value);
   }
 
   private static boolean isHttp(String url) {
