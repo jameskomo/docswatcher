@@ -151,7 +151,12 @@ runs:
           code=$?
           text=""
         fi
-        if [ "$code" -gt 1 ]; then
+        if [ "$code" = 4 ]; then
+          # A whole-scan limit stopped it: the report covers only the files read, so it is not
+          # a clean result. docs/10-reference.md, "Scan limits".
+          echo "::error::the scan stopped at a size or time limit before reading every file, so this repository was only partly checked. Narrow it with the path or exclude inputs"
+          exit 4
+        elif [ "$code" -gt 1 ]; then
           echo "::error::docswatcher exited $code, which means the scan itself failed"
           exit "$code"
         fi
