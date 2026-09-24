@@ -87,6 +87,7 @@ curl -H "Authorization: Bearer $DOCSWATCHER_API_TOKEN" localhost:8080/api/orgs/a
 | POST | `/api/repos/{id}/rescan` | Queues a manual scan |
 | POST | `/api/findings/{repoId}/{contractId}/{changeId}/snooze` | Snoozes a finding |
 | POST | `/api/findings/{repoId}/{contractId}/{changeId}/not-in-prod` | Marks a finding informational |
+| POST | `/api/findings/{repoId}/{contractId}/{changeId}/not-affected` | Marks a finding not affected: the change does not touch this code |
 | POST | `/api/findings/{repoId}/{contractId}/{changeId}/fix` | Dispatches the fix workflow |
 | GET | `/api/setup/workflow` | The GitHub Actions workflow a customer installs |
 | GET | `/api/setup/workflow.txt` | The same, as plain text |
@@ -124,7 +125,16 @@ Read by the app module. Defaults come from `app/src/main/resources/application.y
 
 Worker settings live under `docswatcher.worker` in the YAML: `enabled` true, `threads` 2, `poll-ms` 2000, `clone-timeout-seconds` 120. The worker runs on virtual threads.
 
-Label names are configurable and default to `docswatcher:fix`, `docswatcher:snooze-30d`, and `docswatcher:not-in-prod`.
+Label names are configurable under `docswatcher.github` (`fix-label`, `snooze-label`, `not-in-prod-label`, `not-affected-label`) and default to:
+
+| Label | Finding status | Effect |
+|---|---|---|
+| `docswatcher:fix` | unchanged | Dispatches the fix workflow |
+| `docswatcher:snooze-30d` | `snoozed` | Hidden for thirty days |
+| `docswatcher:not-in-prod` | `not_in_prod` | Informational: the code does not run in production |
+| `docswatcher:not-affected` | `not_affected` | The change does not touch this code; no longer fails the check run |
+
+Closing a finding's issue by hand also sets `not_affected`; reopening it sets `open`. Closes sent by the App's own bot account (it closes an issue when the evidence disappears) are ignored. Every label, close and reopen needs write permission or above from the sender, and fails closed. All four statuses survive rescans; a finding whose evidence disappears becomes `fixed` whatever its status.
 
 The web site reads `NUXT_PUBLIC_RELAY_URL`. Leave it empty to use jsDelivr and the GitHub API instead of a relay.
 

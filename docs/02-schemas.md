@@ -288,7 +288,7 @@ Derived, not authored. The matcher produces it from an inventory and the active 
 }
 ```
 
-`status` is one of `open`, `snoozed`, `not_in_prod`, `fixed`. Only the app changes it. The matcher is a pure function and re-derives everything else on every run.
+`status` is one of `open`, `snoozed`, `not_in_prod`, `not_affected`, `fixed`. Only the app changes it. The matcher is a pure function and re-derives everything else on every run.
 
 Matcher semantics:
 

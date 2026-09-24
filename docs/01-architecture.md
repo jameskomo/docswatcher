@@ -235,7 +235,7 @@ Primary key is `repo_id` plus `id`.
 | contract_id | |
 | change_id | Knowledge base change record ID |
 | severity, effective | Copied at match time |
-| status | `open`, `snoozed`, `not_in_prod`, `fixed` |
+| status | `open`, `snoozed`, `not_in_prod`, `not_affected`, `fixed` |
 | snoozed_until | |
 | issue_number | GitHub issue |
 | fix_pr_url | |

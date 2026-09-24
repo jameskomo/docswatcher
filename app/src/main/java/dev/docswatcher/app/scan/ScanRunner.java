@@ -19,7 +19,9 @@ import dev.docswatcher.app.store.StoredContract;
 import dev.docswatcher.app.store.StoredFinding;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -112,7 +114,7 @@ public class ScanRunner {
       var change = engine.change(f.change());
       int number = client.createIssue(repo.installationId(), repo.fullName(),
           IssueText.issueTitle(f, change),
-          IssueText.issueBody(repo, sha, f, change, github.fixLabel(), github.snoozeLabel(), github.notInProdLabel()),
+          IssueText.issueBody(repo, sha, f, change, github.fixLabel(), github.snoozeLabel(), github.notInProdLabel(), github.notAffectedLabel()),
           List.of("docswatcher", "docswatcher:" + f.severity()));
       findings.setIssueNumber(repo.id(), f.contract(), f.change(), number);
     }
@@ -125,8 +127,19 @@ public class ScanRunner {
         client.closeIssue(repo.installationId(), repo.fullName(), f.issueNumber(), "Resolved: the contract is no longer observed at " + sha + ".");
       }
     }
+    // A person said these do not affect the code; they stay recorded but no longer hold the check.
+    Set<String> notAffected = new HashSet<>();
+    for (StoredFinding f : stored) {
+      if ("not_affected".equals(f.status())) {
+        notAffected.add(f.contractId() + "|" + f.changeId());
+      }
+    }
     List<FindingDoc> open = new ArrayList<>(plan.open());
-    open.addAll(plan.unchanged());
+    for (FindingDoc f : plan.unchanged()) {
+      if (!notAffected.contains(f.contract() + "|" + f.change())) {
+        open.add(f);
+      }
+    }
     return open;
   }
 

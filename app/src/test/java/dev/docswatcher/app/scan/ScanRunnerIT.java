@@ -94,6 +94,24 @@ class ScanRunnerIT extends PostgresTest {
     assertThat(github.calls("createIssue")).hasSize(1);
   }
 
+  /** A person's not-affected verdict outlives rescans and stops the finding from failing the check. */
+  @Test
+  void notAffectedSurvivesRescanAndNoLongerFailsTheCheck() throws Exception {
+    source.commitFile("models.yaml", "model: gpt-4-turbo\n", "add model");
+    runs.enqueue(9001, null, ScanRun.TRIGGER_INSTALL);
+    worker.drain();
+    assertThat(github.calls("createIssue").getFirst().args()[3].toString()).contains("docswatcher:not-affected");
+    findings.setStatus(9001, FakeScanEngine.CONTRACT_ID, FakeScanEngine.CHANGE_ID, "not_affected", null);
+
+    runs.enqueue(9001, null, ScanRun.TRIGGER_MANUAL);
+    worker.drain();
+
+    assertThat(findings.find(9001, FakeScanEngine.CONTRACT_ID, FakeScanEngine.CHANGE_ID).orElseThrow().status()).isEqualTo("not_affected");
+    assertThat(github.calls("createIssue")).hasSize(1);
+    assertThat(github.calls("closeIssue")).isEmpty();
+    assertThat(github.calls("createCheckRun").get(1).args()[4]).isEqualTo("success");
+  }
+
   @Test
   void rematchRunsMatcherOverStoredContractsWithoutCloning() throws Exception {
     source.commitFile("models.yaml", "model: gpt-4-turbo\n", "add model");

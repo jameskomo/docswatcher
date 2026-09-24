@@ -183,4 +183,87 @@ class WebhookReplayTest extends PostgresTest {
     assertThat(github.calls("repositoryDispatch")).isEmpty();
   }
 
+  @Test
+  void notAffectedLabelMarksTheFindingNotAffected() throws Exception {
+    givenFindingWithIssue101();
+
+    Webhooks.post(mvc, "issues", Webhooks.payload("issues.labeled.not-affected.json")).andExpect(status().isAccepted());
+
+    assertThat(findingStatus()).isEqualTo("not_affected");
+    assertThat(github.calls("repositoryDispatch")).isEmpty();
+  }
+
+  @Test
+  void notAffectedLabelFromAnActorWithoutWritePermissionDoesNothing() throws Exception {
+    givenFindingWithIssue101();
+    github.permission = "triage";
+
+    Webhooks.post(mvc, "issues", Webhooks.payload("issues.labeled.not-affected.json")).andExpect(status().isAccepted());
+
+    assertThat(findingStatus()).isEqualTo("open");
+  }
+
+  /** Closing the issue by hand is the same verdict as the label, and reopening it takes it back. */
+  @Test
+  void closingTheIssueByHandMarksNotAffectedAndReopeningReopens() throws Exception {
+    givenFindingWithIssue101();
+
+    Webhooks.post(mvc, "issues", Webhooks.payload("issues.closed.person.json")).andExpect(status().isAccepted());
+    assertThat(findingStatus()).isEqualTo("not_affected");
+
+    Webhooks.post(mvc, "issues", Webhooks.payload("issues.reopened.person.json")).andExpect(status().isAccepted());
+    assertThat(findingStatus()).isEqualTo("open");
+  }
+
+  @Test
+  void closeFromAnActorWithoutWritePermissionDoesNothing() throws Exception {
+    givenFindingWithIssue101();
+    github.permission = "triage";
+
+    Webhooks.post(mvc, "issues", Webhooks.payload("issues.closed.person.json")).andExpect(status().isAccepted());
+
+    assertThat(findingStatus()).isEqualTo("open");
+  }
+
+  /** The App closes an issue when a finding's evidence disappears; its own close is not a verdict. */
+  @Test
+  void closeByTheAppItselfIsIgnored() throws Exception {
+    givenFindingWithIssue101();
+
+    Webhooks.post(mvc, "issues", Webhooks.payload("issues.closed.app.json")).andExpect(status().isAccepted());
+
+    assertThat(findingStatus()).isEqualTo("open");
+    assertThat(github.calls("collaboratorPermission")).isEmpty();
+  }
+
+  @Test
+  void closingAnIssueOfAFixedFindingKeepsItFixed() throws Exception {
+    givenFindingWithIssue101();
+    findings.close(9001, FakeScanEngine.CONTRACT_ID, FakeScanEngine.CHANGE_ID);
+
+    Webhooks.post(mvc, "issues", Webhooks.payload("issues.closed.person.json")).andExpect(status().isAccepted());
+
+    assertThat(findingStatus()).isEqualTo("fixed");
+  }
+
+  @Test
+  void reopeningASnoozedFindingsIssueLeavesTheSnooze() throws Exception {
+    givenFindingWithIssue101();
+    findings.setStatus(9001, FakeScanEngine.CONTRACT_ID, FakeScanEngine.CHANGE_ID, "snoozed", LocalDate.now().plusDays(30));
+
+    Webhooks.post(mvc, "issues", Webhooks.payload("issues.reopened.person.json")).andExpect(status().isAccepted());
+
+    assertThat(findingStatus()).isEqualTo("snoozed");
+  }
+
+  private void givenFindingWithIssue101() throws Exception {
+    Webhooks.post(mvc, "installation", Webhooks.payload("installation.created.json"));
+    findings.insertOpen(9001, FakeScanEngine.CONTRACT_ID, FakeScanEngine.CHANGE_ID, "acme/checkout-service:x", "breaking", LocalDate.of(2026, 10, 23));
+    findings.setIssueNumber(9001, FakeScanEngine.CONTRACT_ID, FakeScanEngine.CHANGE_ID, 101);
+    github.calls.clear();
+  }
+
+  private String findingStatus() {
+    return findings.find(9001, FakeScanEngine.CONTRACT_ID, FakeScanEngine.CHANGE_ID).orElseThrow().status();
+  }
 }

@@ -51,6 +51,14 @@ public class ActionController {
     });
   }
 
+  @PostMapping("/findings/{repoId}/{contractId}/{changeId}/not-affected")
+  public ResponseEntity<Dto.Ack> notAffected(@PathVariable("repoId") long repoId, @PathVariable("contractId") String contractId, @PathVariable("changeId") String changeId) {
+    return withFinding(repoId, contractId, changeId, f -> {
+      findings.setStatus(repoId, contractId, changeId, "not_affected", null);
+      return new Dto.Ack("not_affected", null);
+    });
+  }
+
   @PostMapping("/findings/{repoId}/{contractId}/{changeId}/fix")
   public ResponseEntity<Dto.Ack> fix(@PathVariable("repoId") long repoId, @PathVariable("contractId") String contractId, @PathVariable("changeId") String changeId) {
     return withFinding(repoId, contractId, changeId, f -> {

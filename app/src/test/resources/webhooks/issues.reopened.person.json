@@ -1,0 +1,7 @@
+{
+  "action": "reopened",
+  "issue": { "number": 101, "title": "[DocsWatcher] gpt-4-turbo shut down affects gpt-4-turbo", "state": "open" },
+  "repository": { "id": 9001, "name": "checkout-service", "full_name": "acme/checkout-service", "default_branch": "main" },
+  "installation": { "id": 5001 },
+  "sender": { "login": "octocat", "type": "User" }
+}

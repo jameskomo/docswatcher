@@ -142,6 +142,8 @@ class ApiIT extends PostgresTest {
     mvc.perform(post(base + "/snooze").header("Authorization", AUTH).contentType("application/json").content("{\"days\":10}"))
         .andExpect(status().isOk()).andExpect(jsonPath("$.status").value("snoozed"));
     mvc.perform(post(base + "/not-in-prod").header("Authorization", AUTH)).andExpect(status().isOk());
+    mvc.perform(post(base + "/not-affected").header("Authorization", AUTH))
+        .andExpect(status().isOk()).andExpect(jsonPath("$.status").value("not_affected"));
     mvc.perform(post(base + "/fix").header("Authorization", AUTH))
         .andExpect(status().isOk()).andExpect(jsonPath("$.detail.finding.change").value(FakeScanEngine.CHANGE_ID))
         .andExpect(jsonPath("$.detail.guide").value("https://developers.openai.com/api/docs/deprecations"));

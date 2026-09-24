@@ -63,7 +63,7 @@ export interface Knowledge { version: string; providers: Provider[]; }
 
 export interface Finding {
   id: string; contract: string; change: string; severity: Severity; effective: string | null;
-  daysRemaining: number | null; evidence: Evidence[]; status: "open" | "snoozed" | "not_in_prod" | "fixed";
+  daysRemaining: number | null; evidence: Evidence[]; status: "open" | "snoozed" | "not_in_prod" | "not_affected" | "fixed";
   snoozedUntil: string | null; fixPr: string | null;
 }
 

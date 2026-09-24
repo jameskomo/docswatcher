@@ -63,6 +63,9 @@ Findings arrive as issues labelled `docswatcher` and `docswatcher:<severity>`. A
 | `docswatcher:fix` | Dispatches the fix workflow with the finding's context |
 | `docswatcher:snooze-30d` | Snoozes for thirty days |
 | `docswatcher:not-in-prod` | Marks the finding informational |
+| `docswatcher:not-affected` | Marks the finding `not_affected`: the change does not touch this code. It leaves the open counts, no longer fails the check run, and survives rescans |
+
+Closing a finding's issue by hand is the same verdict as `docswatcher:not-affected`, and reopening it makes the finding open again. The App closes issues itself when a finding's evidence disappears; those closes come from its bot account and are ignored. Labels, closes and reopens all require the sender to have write permission or above on the repository; anything less, or a permission the App cannot look up, is ignored.
 
 ## Fix handoff
 
@@ -91,6 +94,7 @@ All under `/api`, JSON, bearer token.
 | `GET /repos/{id}/findings` | findings with evidence and change titles |
 | `POST /findings/{repoId}/{contractId}/{changeId}/snooze` | body `{"days": 30}` |
 | `POST /findings/{repoId}/{contractId}/{changeId}/not-in-prod` | |
+| `POST /findings/{repoId}/{contractId}/{changeId}/not-affected` | |
 | `POST /findings/{repoId}/{contractId}/{changeId}/fix` | dispatches the fix workflow, returns the payload |
 | `POST /repos/{id}/rescan` | queues a manual scan |
 | `GET /setup/workflow` | the fix workflow YAML |

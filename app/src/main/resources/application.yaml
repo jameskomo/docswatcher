@@ -39,6 +39,7 @@ docswatcher:
     fix-label: docswatcher:fix
     snooze-label: docswatcher:snooze-30d
     not-in-prod-label: docswatcher:not-in-prod
+    not-affected-label: docswatcher:not-affected
   api:
     token: ${DOCSWATCHER_API_TOKEN:}
     require-token: true

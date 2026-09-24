@@ -17,7 +17,7 @@ public final class IssueText {
     return "[DocsWatcher] " + what + " affects " + contractKey(f.contract());
   }
 
-  public static String issueBody(Repo repo, String sha, FindingDoc f, Optional<ChangeDoc> change, String fixLabel, String snoozeLabel, String notInProdLabel) {
+  public static String issueBody(Repo repo, String sha, FindingDoc f, Optional<ChangeDoc> change, String fixLabel, String snoozeLabel, String notInProdLabel, String notAffectedLabel) {
     StringBuilder b = new StringBuilder();
     b.append("**Severity:** ").append(f.severity()).append("\n");
     if (f.effective() != null) {
@@ -55,7 +55,8 @@ public final class IssueText {
           .append(") ").append(codeSpan(e.snippet())).append("\n");
     }
     b.append("\n**Actions**: add the label `").append(fixLabel).append("` to open a fix PR, `")
-        .append(snoozeLabel).append("` to snooze, or `").append(notInProdLabel).append("` if this code does not run in production.\n");
+        .append(snoozeLabel).append("` to snooze, `").append(notInProdLabel).append("` if this code does not run in production, or `")
+        .append(notAffectedLabel).append("` if the change does not affect it (closing this issue says the same; reopening it takes that back).\n");
     b.append("\n<!-- docswatcher-finding: ").append(f.id()).append(" -->\n");
     return b.toString();
   }

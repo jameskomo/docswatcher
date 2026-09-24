@@ -19,6 +19,7 @@ public class FakeGitHubClient implements GitHubClient {
     calls.clear();
     installationRepos = List.of();
     issueCounter.set(100);
+    permission = "write";
   }
 
   public List<Call> calls(String method) {

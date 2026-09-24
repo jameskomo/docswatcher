@@ -332,7 +332,7 @@ Spring Boot 4 on Java 25. This is the GitHub App backend.
 
 ### Webhooks
 
-`POST /webhooks/github` verifies `X-Hub-Signature-256` with a constant-time compare, responds 202 immediately, and records work as rows. Handled events: installation created, deleted and suspended; installation repositories; push on the default branch; issues labelled.
+`POST /webhooks/github` verifies `X-Hub-Signature-256` with a constant-time compare, responds 202 immediately, and records work as rows. Handled events: installation created, deleted and suspended; installation repositories; push on the default branch; issues labelled, closed and reopened.
 
 Deliveries are de-duplicated so a GitHub retry does not scan twice.
 
@@ -351,8 +351,11 @@ A rematch re-runs the matcher over stored contracts without cloning, which is wh
 | `docswatcher:fix` | Dispatches the fix workflow |
 | `docswatcher:snooze-30d` | Hides the finding for thirty days |
 | `docswatcher:not-in-prod` | Marks it informational |
+| `docswatcher:not-affected` | Marks it not affected: the change does not touch this code |
 
-Snoozes survive rescans because findings are keyed by repository, contract, and change together.
+Closing a finding's issue by hand says the same as the not-affected label, and reopening the issue opens the finding again. The App's own closes, sent when evidence disappears, are told apart by their bot sender and ignored. Every command needs write permission from the person who sent it.
+
+Snoozes and verdicts survive rescans because findings are keyed by repository, contract, and change together. A not-affected finding stays recorded but no longer fails the check run.
 
 ### The fix loop
 

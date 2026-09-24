@@ -8,6 +8,7 @@ import dev.docswatcher.app.store.RepoStore;
 import dev.docswatcher.app.store.ScanRun;
 import dev.docswatcher.app.store.ScanRunStore;
 import dev.docswatcher.app.store.FindingStore;
+import dev.docswatcher.app.store.StoredFinding;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
@@ -122,37 +123,97 @@ public class WebhookService {
   }
 
   private void issues(JsonNode payload) {
-    if (!"labeled".equals(payload.path("action").asString())) {
-      return;
+    switch (payload.path("action").asString()) {
+      case "labeled" -> labeled(payload);
+      case "closed" -> closedByPerson(payload);
+      case "reopened" -> reopenedByPerson(payload);
+      default -> log.debug("Ignoring issues action {}", payload.path("action").asString());
     }
+  }
+
+  private void labeled(JsonNode payload) {
     String label = payload.path("label").path("name").asString();
-    long repoId = payload.path("repository").path("id").asLong();
-    int number = payload.path("issue").path("number").asInt();
-    String actor = payload.path("sender").path("login").asString();
-    Optional<Repo> repo = repos.find(repoId);
-    if (repo.isEmpty()) {
-      return;
-    }
-    if (!label.equals(github.fixLabel()) && !label.equals(github.snoozeLabel()) && !label.equals(github.notInProdLabel())) {
+    if (!label.equals(github.fixLabel()) && !label.equals(github.snoozeLabel()) && !label.equals(github.notInProdLabel())
+        && !label.equals(github.notAffectedLabel())) {
       return;
     }
     // Authorize the actor, not the label. The webhook HMAC proves GitHub sent this message; it
     // says nothing about who applied the label. Applying a label is a triage capability on
     // GitHub, while these branches dispatch into the repository with the installation token and
     // rewrite finding state, so the gate has to be the labeller's own permission.
-    if (!canCommand(repo.get(), actor)) {
-      log.warn("Ignoring label {} on {}#{} from {}: no write permission", label, repo.get().fullName(), number, actor);
-      return;
-    }
-    findings.findByIssue(repoId, number).ifPresent(f -> {
+    commanded(payload, "label " + label).ifPresent(c -> {
+      StoredFinding f = c.finding();
+      long repoId = c.repo().id();
       if (label.equals(github.fixLabel())) {
-        fixes.dispatch(repo.get(), f);
+        fixes.dispatch(c.repo(), f);
       } else if (label.equals(github.snoozeLabel())) {
         findings.setStatus(repoId, f.contractId(), f.changeId(), "snoozed", LocalDate.now().plusDays(30));
       } else if (label.equals(github.notInProdLabel())) {
         findings.setStatus(repoId, f.contractId(), f.changeId(), "not_in_prod", null);
+      } else {
+        findings.setStatus(repoId, f.contractId(), f.changeId(), "not_affected", null);
       }
     });
+  }
+
+  /**
+   * A person closing a finding's issue says the finding does not apply to their code, which is
+   * recorded as not_affected so it leaves the open counts and survives rescans. The App closes
+   * issues itself when a finding's evidence disappears; that close comes back as a webhook sent
+   * by the App's bot account, after the finding was already marked fixed, and is ignored on both
+   * counts.
+   */
+  private void closedByPerson(JsonNode payload) {
+    if (fromBot(payload)) {
+      return;
+    }
+    commanded(payload, "close").ifPresent(c -> {
+      StoredFinding f = c.finding();
+      if (!"fixed".equals(f.status()) && !"not_affected".equals(f.status())) {
+        findings.setStatus(c.repo().id(), f.contractId(), f.changeId(), "not_affected", null);
+      }
+    });
+  }
+
+  /** Reopening the issue takes a not-affected verdict back: the finding is open again. */
+  private void reopenedByPerson(JsonNode payload) {
+    if (fromBot(payload)) {
+      return;
+    }
+    commanded(payload, "reopen").ifPresent(c -> {
+      StoredFinding f = c.finding();
+      if ("not_affected".equals(f.status())) {
+        findings.setStatus(c.repo().id(), f.contractId(), f.changeId(), "open", null);
+      }
+    });
+  }
+
+  private record Command(Repo repo, StoredFinding finding) {}
+
+  /** The finding behind this issue event, when the issue is a finding's and its sender may act on it. */
+  private Optional<Command> commanded(JsonNode payload, String what) {
+    long repoId = payload.path("repository").path("id").asLong();
+    int number = payload.path("issue").path("number").asInt();
+    String actor = payload.path("sender").path("login").asString();
+    Optional<Repo> repo = repos.find(repoId);
+    if (repo.isEmpty()) {
+      return Optional.empty();
+    }
+    Optional<StoredFinding> finding = findings.findByIssue(repoId, number);
+    if (finding.isEmpty()) {
+      return Optional.empty();
+    }
+    if (!canCommand(repo.get(), actor)) {
+      log.warn("Ignoring {} on {}#{} from {}: no write permission", what, repo.get().fullName(), number, actor);
+      return Optional.empty();
+    }
+    return Optional.of(new Command(repo.get(), finding.get()));
+  }
+
+  /** GitHub reports an App's own REST calls with the App's bot account as the sender. */
+  private static boolean fromBot(JsonNode payload) {
+    JsonNode sender = payload.path("sender");
+    return "Bot".equals(sender.path("type").asString()) || sender.path("login").asString().endsWith("[bot]");
   }
 
   private static final Set<String> WRITE_OR_ABOVE = Set.of("admin", "maintain", "write");
