@@ -14,7 +14,9 @@ docker compose up -d db                      # Postgres on 5432
 curl localhost:8080/actuator/health
 ```
 
-The `dev` profile turns off the API token check. Every other profile requires `DOCSWATCHER_API_TOKEN` and rejects requests without `Authorization: Bearer <token>`.
+The `dev` profile turns off the API token check. Every other profile requires either `Authorization: Bearer <DOCSWATCHER_API_TOKEN>` (the owner, sees everything) or a signed-in session cookie (a member, sees what GitHub lets them see). See "Sign-in with GitHub" below.
+
+For the organisation dashboard locally, run the site with `npm run dev` in `web/`. It proxies `/api` and `/auth` to this app on :8080, so the browser sees one origin, as it does behind nginx. Set `DOCSWATCHER_WEB_ORIGIN=http://localhost:3000` and add `http://localhost:3000/auth/github/callback` as a second callback URL on a development App.
 
 To run the JVM image in compose instead: `../mvnw -pl app spring-boot:build-image -DskipTests` then `docker compose up`.
 
@@ -28,8 +30,11 @@ To run the JVM image in compose instead: `../mvnw -pl app spring-boot:build-imag
 | `GITHUB_APP_PRIVATE_KEY` | The App's private key as a PKCS8 PEM. Convert GitHub's PKCS1 download with `openssl pkcs8 -topk8 -nocrypt -in key.pem`. | blank |
 | `GITHUB_WEBHOOK_SECRET` | Shared secret GitHub signs webhook bodies with | blank, which rejects every webhook |
 | `GITHUB_API_BASE` | GitHub API base URL, for GitHub Enterprise. Requests pin REST API version `2026-03-10`, so an Enterprise Server must support it (see `docs/10-reference.md`). | `https://api.github.com` |
-| `DOCSWATCHER_API_TOKEN` | Bearer token for `/api/**` | blank |
-| `DOCSWATCHER_WEB_ORIGIN` | CORS origin for the dashboard | `http://localhost:3000` |
+| `GITHUB_CLIENT_ID` | The App's client id, for sign-in with GitHub | blank, which turns sign-in off |
+| `GITHUB_CLIENT_SECRET` | The App's client secret. In production it is a file secret instead: `/run/secrets/docswatcher.github.client-secret`, which takes precedence | blank, which turns sign-in off |
+| `GITHUB_WEB_BASE` | Where people sign in, for GitHub Enterprise | `https://github.com` |
+| `DOCSWATCHER_API_TOKEN` | Bearer token for `/api/**`: the owner's access | blank |
+| `DOCSWATCHER_WEB_ORIGIN` | The site's public origin. Used for CORS, as the only `Origin` a signed-in member's POST may carry, and as the base of the sign-in callback and redirect. Production: `https://docswatcher.vukisha.co.ke` | `http://localhost:3000` |
 | `DOCSWATCHER_NOTIFY_URL`, `DOCSWATCHER_NOTIFY_TOKEN` | Where early-access requests are emailed from (`notify/`), and its token. Unset: stored only | blank |
 | `DOCSWATCHER_KNOWLEDGE_DIR` | A local knowledge checkout instead of the bundled release | bundled |
 | `PORT` | HTTP port | `8080` |
@@ -58,6 +63,30 @@ Whole-scan limits live under `docswatcher.scan`: `max-files` (20000), `max-total
    conversion of the same key.
 6. Install the App on an organisation. The installation webhook queues one scan per repository.
 
+### Sign-in with GitHub
+
+The organisation dashboard signs people in through the same App's OAuth client. No separate OAuth
+App is needed. See `docs/adr/0008-sign-in-with-github.md` for the design.
+
+1. In the App's settings (Settings, Developer settings, GitHub Apps, DocsWatcher, General),
+   under **Identifying and authorizing users**, add the callback URL
+   `https://docswatcher.vukisha.co.ke/auth/github/callback`. It must equal
+   `{DOCSWATCHER_WEB_ORIGIN}/auth/github/callback` exactly. Leave "Request user authorization
+   (OAuth) during installation" off. Keep "Expire user authorization tokens" on: the app uses the
+   token only while signing someone in.
+2. Copy the **Client ID** from the top of that page into `GITHUB_CLIENT_ID`. It is not a secret.
+3. Under **Client secrets**, press **Generate a new client secret** and copy it at once, because
+   GitHub shows it only once. Store it as the Docker secret `docswatcher.github.client-secret`,
+   mounted at `/run/secrets/docswatcher.github.client-secret`. For local runs,
+   `GITHUB_CLIENT_SECRET` works too.
+4. Set `DOCSWATCHER_WEB_ORIGIN` to the site's public origin, and route `/auth/` and `/api/` on
+   that host to the app (nginx, beside `/webhooks/` and `/early-access`).
+5. Restart the app. `GET /auth/me` then answers `"enabled": true`, and `/app` offers "Sign in with GitHub".
+
+No extra permissions are needed. GitHub works out which installations and repositories a person
+can reach from the App's existing grant and the person's own access. To rotate the secret,
+generate a new one, deploy it, then delete the old one on the same page.
+
 Findings arrive as issues labelled `docswatcher` and `docswatcher:<severity>`. Adding these labels to a finding issue acts on it:
 
 | Label | Effect |
@@ -83,7 +112,7 @@ The agent reads code DocsWatcher does not control, so its limits are enforced by
 
 ## API
 
-All under `/api`, JSON, bearer token.
+All under `/api`, JSON. The owner authenticates with the bearer token. A signed-in member uses the session cookie and can use every route below except `/early-access`, and cannot use the OTLP ingest. The member sees only their organisations and repositories, and needs write access for the POSTs (ADR 0008).
 
 | Method and path | Returns |
 |---|---|
@@ -98,6 +127,8 @@ All under `/api`, JSON, bearer token.
 | `POST /findings/{repoId}/{contractId}/{changeId}/not-in-prod` | |
 | `POST /findings/{repoId}/{contractId}/{changeId}/not-affected` | |
 | `POST /findings/{repoId}/{contractId}/{changeId}/fix` | dispatches the fix workflow, returns the payload |
+| `POST /repos/{id}/findings/snooze`, `/not-in-prod`, `/fix` | the same three actions, with the finding in the body: `{"contract": "...", "change": "...", "days": 30}`. For contract ids with a slash |
+| `GET /repos/{id}/runtime` | runtime observations for the repository |
 | `POST /repos/{id}/rescan` | queues a manual scan |
 | `GET /setup/workflow` | the fix workflow YAML |
 | `GET /early-access` | early-access requests, newest first |
@@ -105,6 +136,8 @@ All under `/api`, JSON, bearer token.
 Outside `/api`, `POST /early-access` takes the Teams page form without a token: validated,
 length-limited, a honeypot, 5 requests per client per hour, one row per email. See
 `docs/adr/0005-early-access-requests.md`.
+
+Sign-in, outside `/api`: `GET /auth/github/login`, `GET /auth/github/callback`, `GET /auth/me`, and `POST /auth/logout`.
 
 Health: `GET /actuator/health`, no token.
 

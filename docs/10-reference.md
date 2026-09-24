@@ -68,33 +68,44 @@ Served by the app module. Base path `/api`. All responses are JSON.
 
 ### Authentication
 
-A single bearer token from `DOCSWATCHER_API_TOKEN`:
+Two principals (ADR 0008).
+
+**The owner** holds the bearer token from `DOCSWATCHER_API_TOKEN` and sees everything:
 
 ```
 curl -H "Authorization: Bearer $DOCSWATCHER_API_TOKEN" localhost:8080/api/orgs/acme/overview
 ```
 
-`docswatcher.api.require-token` is `true` by default and `false` under the `dev` profile. With the token required but unset, the API refuses requests rather than running open.
+A request that presents an `Authorization` header is judged on the token alone. `docswatcher.api.require-token` is `true` by default and `false` under the `dev` profile. If the token is required but unset, requests that present one get 503 rather than being let through.
+
+**A member** is signed in with GitHub and presents the `__Host-docswatcher_session` cookie. A member sees only the organisations and repositories GitHub listed for them at sign-in, and can reach only endpoints marked `@MemberAccess` (the Member column below). Every other endpoint answers a member with 403. An organisation or repository outside the member's access answers 404. Organisation-wide answers count only the member's repositories. POST endpoints need write, maintain or admin on the repository. They also need an `Origin` equal to `DOCSWATCHER_WEB_ORIGIN`, or `Sec-Fetch-Site: same-origin`.
+
+A request with neither a token nor a live session gets 401.
 
 ### Endpoints
 
-| Method | Path | Returns |
-|---|---|---|
-| GET | `/api/orgs/{login}/overview` | Repository count, contract count, findings by severity, nearest effective date |
-| GET | `/api/orgs/{login}/repos` | Repositories in the installation |
-| GET | `/api/orgs/{login}/map` | Providers with contract counts and worst severity |
-| GET | `/api/orgs/{login}/horizon` | Findings grouped by the month they take effect |
-| GET | `/api/orgs/{login}/blast-radius/{changeId}` | Every repository and finding touched by one deprecation |
-| GET | `/api/repos/{id}/inventory` | The stored inventory document for one repository |
-| GET | `/api/repos/{id}/findings` | Findings for one repository |
-| POST | `/api/repos/{id}/rescan` | Queues a manual scan |
-| POST | `/api/findings/{repoId}/{contractId}/{changeId}/snooze` | Snoozes a finding |
-| POST | `/api/findings/{repoId}/{contractId}/{changeId}/not-in-prod` | Marks a finding informational |
-| POST | `/api/findings/{repoId}/{contractId}/{changeId}/not-affected` | Marks a finding not affected: the change does not touch this code |
-| POST | `/api/findings/{repoId}/{contractId}/{changeId}/fix` | Dispatches the fix workflow |
-| GET | `/api/setup/workflow` | The GitHub Actions workflow a customer installs |
-| GET | `/api/setup/workflow.txt` | The same, as plain text |
-| GET | `/api/early-access` | Early-access requests from the Teams page, newest first |
+| Method | Path | Returns | Member |
+|---|---|---|---|
+| GET | `/api/orgs/{login}/overview` | Repository count, contract count, findings by severity, nearest effective date | read, filtered |
+| GET | `/api/orgs/{login}/repos` | Repositories in the installation | read, filtered |
+| GET | `/api/orgs/{login}/map` | Providers with contract counts and worst severity | read, filtered |
+| GET | `/api/orgs/{login}/horizon` | Findings grouped by the month they take effect | read, filtered |
+| GET | `/api/orgs/{login}/blast-radius/{changeId}` | Every repository and finding touched by one deprecation | read, filtered |
+| GET | `/api/repos/{id}/inventory` | The stored inventory document for one repository | read |
+| GET | `/api/repos/{id}/findings` | Findings for one repository | read |
+| GET | `/api/repos/{id}/runtime` | Runtime observations for one repository | read |
+| POST | `/api/repos/{id}/rescan` | Queues a manual scan | write |
+| POST | `/api/repos/{id}/findings/snooze` | Snoozes the finding named in the body `{"contract", "change", "days"}`; `days` defaults to 30 | write |
+| POST | `/api/repos/{id}/findings/not-in-prod` | Marks the finding named in the body `{"contract", "change"}` informational | write |
+| POST | `/api/repos/{id}/findings/fix` | Dispatches the fix workflow for the finding named in the body | write |
+| POST | `/api/findings/{repoId}/{contractId}/{changeId}/snooze` | Snoozes a finding | write |
+| POST | `/api/findings/{repoId}/{contractId}/{changeId}/not-in-prod` | Marks a finding informational | write |
+| POST | `/api/findings/{repoId}/{contractId}/{changeId}/not-affected` | Marks a finding not affected: the change does not touch this code | write |
+| POST | `/api/findings/{repoId}/{contractId}/{changeId}/fix` | Dispatches the fix workflow | write |
+| GET | `/api/setup/workflow` | The GitHub Actions workflow a customer installs | yes |
+| GET | `/api/setup/workflow.txt` | The same, as plain text | yes |
+| GET | `/api/early-access` | Early-access requests from the Teams page, newest first | no |
+| POST | `/api/runtime/otlp/v1/traces` | OTLP/JSON trace ingest (docs/13-runtime-observation.md) | no |
 
 ### Not under `/api`
 
@@ -102,9 +113,13 @@ curl -H "Authorization: Bearer $DOCSWATCHER_API_TOKEN" localhost:8080/api/orgs/a
 |---|---|---|
 | POST | `/webhooks/github` | GitHub App events. Verifies `X-Hub-Signature-256`, responds 202 |
 | POST | `/early-access` | The Teams page form. Public: validated, rate-limited per client, honeypot-checked; one row per email (ADR 0005) |
+| GET | `/auth/github/login` | Starts sign-in with GitHub: a 302 to GitHub with a state and a PKCE challenge, both remembered in `__Host-docswatcher_oauth`. 503 when sign-in is not configured (ADR 0008) |
+| GET | `/auth/github/callback` | GitHub returns here. Checks the state, exchanges the code, records the person's access, sets `__Host-docswatcher_session`, and redirects to `/#/app`. On failure it redirects to `/#/app?signin=denied`, `failed` or `unavailable` |
+| GET | `/auth/me` | `{enabled, signedIn, user, orgs, expiresAt}`. Always 200, never cached |
+| POST | `/auth/logout` | Ends the session and clears the cookie. 204. Same-origin only |
 | GET | `/actuator/health` | Liveness |
 
-Findings are keyed by the triple of repository, contract, and change, which is why the action endpoints take three path segments. A snooze survives a rescan because of that key.
+Findings are keyed by the triple of repository, contract, and change. A snooze survives a rescan because of that key. The three-segment action routes carry the key in the path. That fails for a contract id containing a slash, such as `stripe:endpoint:POST /v1/sources`, so the dashboard uses the `/api/repos/{id}/findings/...` routes, which take the contract and change in the body.
 
 ## Environment variables
 
@@ -116,17 +131,22 @@ Read by the app module. Defaults come from `app/src/main/resources/application.y
 | `DOCSWATCHER_DB_USER` | `docswatcher` | Database user |
 | `DOCSWATCHER_DB_PASSWORD` | `docswatcher` | Database password |
 | `DOCSWATCHER_API_TOKEN` | empty | Bearer token for the REST API |
-| `DOCSWATCHER_WEB_ORIGIN` | `http://localhost:3000` | Origin allowed by CORS |
+| `DOCSWATCHER_WEB_ORIGIN` | `http://localhost:3000` | The site's public origin: allowed by CORS, required as `Origin` on a member's POST, and the base of the sign-in callback (`{origin}/auth/github/callback`) and the post-sign-in redirect. In production, `https://docswatcher.vukisha.co.ke` |
 | `DOCSWATCHER_KNOWLEDGE_DIR` | empty | Knowledge directory. Empty means the bundled release |
 | `GITHUB_APP_ID` | empty | GitHub App numeric id |
 | `GITHUB_APP_PRIVATE_KEY` | empty | App private key, PKCS8 PEM |
 | `GITHUB_WEBHOOK_SECRET` | empty | Shared secret for signature verification |
 | `GITHUB_API_BASE` | `https://api.github.com` | Override for GitHub Enterprise |
+| `GITHUB_CLIENT_ID` | empty | The GitHub App's client id, for sign-in (`docswatcher.github.client-id`) |
+| `GITHUB_CLIENT_SECRET` | empty | The App's client secret. In production it is a file secret, `docswatcher.github.client-secret`, which takes precedence. Either value blank: sign-in answers 503 |
+| `GITHUB_WEB_BASE` | `https://github.com` | Where sign-in happens and the code is exchanged. Override for GitHub Enterprise |
 | `DOCSWATCHER_NOTIFY_URL` | empty | The `notify/` Worker that emails each early-access request. Empty: stored, not emailed |
 | `DOCSWATCHER_NOTIFY_TOKEN` | empty | Bearer token for that Worker. In production it is a file secret, `docswatcher.notify.token` |
 | `PORT` | `8080` | HTTP port |
 
 Worker settings live under `docswatcher.worker` in the YAML: `enabled` true, `threads` 2, `poll-ms` 2000, `clone-timeout-seconds` 120. The worker runs on virtual threads. Scan limits live under `docswatcher.scan`: `max-files` 20000, `max-total-mb` 200, `max-seconds` 600 (see "Scan limits").
+
+`docswatcher.github.session-ttl` (default `8h`) sets how long a signed-in session lasts.
 
 Label names are configurable under `docswatcher.github` (`fix-label`, `snooze-label`, `not-in-prod-label`, `not-affected-label`) and default to:
 
@@ -145,7 +165,7 @@ The web site reads `NUXT_PUBLIC_RELAY_URL`. Leave it empty to use jsDelivr and t
 
 Every call to the GitHub REST API sends `X-GitHub-Api-Version: 2026-03-10`: the GitHub App (`RestGitHubClient.API_VERSION`), the browser's API fallback (`GITHUB_API_VERSION` in `web/app/utils/fetchRepo.ts`) and the tarball relay (`relay/src/worker.js`). The previous pin, 2022-11-28, stops being served on 2028-03-10, and GitHub answers a retired version with `410 Gone`.
 
-None of 2026-03-10's breaking changes touch what DocsWatcher reads. The app reads `token` and `expires_at` from installation tokens, `id`, `full_name` and `default_branch` from installation repositories, `number` from a created issue, and `permission` from a collaborator's permission. The browser reads `default_branch`, and a tree's `sha`, `path`, `type` and `size`. The relay only follows the tarball redirect. The removed fields (`assignee`, `has_downloads`, `use_squash_pr_title_as_default` and the rest) are not read anywhere. A `permission` outside `admin`, `maintain`, `write`, `triage`, `read` and `none` counts as `none`.
+None of 2026-03-10's breaking changes touch what DocsWatcher reads. The app reads `token` and `expires_at` from installation tokens, `id`, `full_name` and `default_branch` from installation repositories, `number` from a created issue, and `permission` from a collaborator's permission. Sign-in (`GitHubUserApi`) reads `access_token` from the code exchange; `id`, `login`, `name` and `avatar_url` from `/user`; `id` and `account.login` from `/user/installations`; and `id`, `full_name` and `permissions` from `/user/installations/{id}/repositories`. The browser reads `default_branch`, and a tree's `sha`, `path`, `type` and `size`. The relay only follows the tarball redirect. The removed fields (`assignee`, `has_downloads`, `use_squash_pr_title_as_default` and the rest) are not read anywhere. A `permission` outside `admin`, `maintain`, `write`, `triage`, `read` and `none` counts as `none`.
 
 GitHub Enterprise Server only accepts versions it knows. A server that predates 2026-03-10 rejects the header with `400`, so `GITHUB_API_BASE` needs a release that supports it.
 

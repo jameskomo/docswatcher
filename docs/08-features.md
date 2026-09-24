@@ -293,7 +293,27 @@ jsDelivr leads because it has no hourly ceiling. If every route is blocked, the 
 
 ### The dashboard
 
-`/app` renders the last scan.
+`/app` has two faces.
+
+**Signed in with GitHub: every repository, one view.** Sign-in uses the DocsWatcher GitHub App's
+own OAuth client (ADR 0008). The dashboard then covers every organisation where the App is
+installed, limited to the repositories GitHub lets the person see. If there are several
+organisations, a picker switches between them.
+
+- **Overview.** Repositories, external contracts, open breaking findings and warnings, and the next deadline.
+- **The provider map and the horizon** for the whole organisation, the same components as a single scan.
+- **Repositories with open findings.** Open one to see its findings, each with three actions:
+  snooze for 30 days, mark as not running in production, or request a fix pull request. The
+  actions need write access to the repository, the same bar as the issue labels. Otherwise the
+  row says so.
+- **The blast radius of one shutdown.** Pick a change and see every repository and location it touches.
+
+What a person sees is a snapshot GitHub gave at sign-in, and it lasts eight hours. Their GitHub
+token is not kept.
+
+**Signed out: the last scan run in this browser**, as before. Where sign-in is configured, a
+"Sign in with GitHub to see your organisation" invitation sits above it. On a copy of the site
+with no app behind it, the invitation does not appear.
 
 - **The provider map.** Every external service as a node, sized by call sites, coloured by health. The picture most engineering leads have never seen of their own system.
 - **The horizon.** A twelve-month timeline of effective dates with the affected contracts beneath each.
@@ -303,7 +323,7 @@ jsDelivr leads because it has no hourly ceiling. If every route is blocked, the 
 
 `/app/findings/[id]` shows the evidence with source snippets, the change summary, and the migration notes. The fix button copies a ready-to-paste prompt for a coding agent, containing the finding, every evidence location with its snippet, and the provider's migration block.
 
-Snooze and the production flag are per-browser here. The server app stores them properly.
+Snooze and the production flag are per-browser here. Signed in, the organisation dashboard stores them on the server.
 
 ### The Agents page and Try it
 

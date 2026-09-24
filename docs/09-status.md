@@ -19,8 +19,9 @@ for call sites, and no native binary for Intel Macs.
 | Path exclusion | `.gitignore` files, a root `.docswatcherignore`, and `--exclude` | 21 shared cases replayed by both engines |
 | Command line | `scan`, `match` (with `--report` and `--inventory` from one scan), `validate`, `mcp`, and `--exclude` | 28 tests pass; the release smoke-tests the native binary on Linux, macOS and Windows |
 | MCP server | `check_api`, `upcoming_deprecations`, `scan_repository` | Covered by the CLI tests above, including the shared `check_api` cases; a real Claude Code session used it unprompted |
-| Server app | Webhooks, scan worker, REST API, fix dispatch, runtime observation, org blast radius | 108 tests, run in CI (they need Postgres); fix pull requests run an agent that can only edit the files a finding names |
-| Web site | Scanner, calendar with subscriptions, dashboard, finding detail with linked evidence, CI, Agents and Teams pages, live scan links | 30 browser tests pass |
+| Server app | Webhooks, scan worker, REST API, fix dispatch, runtime observation, org blast radius, sign-in with GitHub with per-organisation and per-repository access (ADR 0008) | 141 tests, run in CI (they need Postgres); the OAuth round trip runs against a scripted GitHub; fix pull requests run an agent that can only edit the files a finding names |
+| Web site | Scanner, calendar with subscriptions, dashboard (browser scan signed out; the organisation dashboard signed in), finding detail with linked evidence, CI, Agents and Teams pages, live scan links | 40 browser tests pass; the organisation dashboard's run against a mocked API |
+| Organisation dashboard | Sign in with GitHub; overview, provider map, horizon, repositories, findings with snooze, not-in-production and fix, blast radius of one change | Built and tested; live once the App's client secret and the `/auth/` and `/api/` routes are deployed |
 | Feeds | iCalendar (all and per provider), Atom, open JSON | 11 tests; parsed by the `icalendar` library; served correctly by nginx 1.27 |
 | Knowledge watch | Daily fetch of 26 cited pages, issue on news, optional agent-drafted pull request | 16 tests; two live runs over every source, the second reporting no change |
 | Open-source study | Cohort runner and aggregate summary | First cohort: `study/2026-09-openai-top50` |
@@ -29,7 +30,7 @@ for call sites, and no native binary for Intel Macs.
 | Relay worker | Tarball streaming with permissive origins. Not used by the deployed site; kept for self-hosters | 10 tests pass |
 | Deployment | Live behind a Cloudflare Tunnel, five containers, no inbound ports | Runbooks in the private operations repository |
 
-Total: 354 Java tests (218 engine, 28 CLI, 108 app), 132 TypeScript unit tests, 30 browser tests,
+Total: 392 Java tests (223 engine, 28 CLI, 141 app), 142 TypeScript unit tests, 40 browser tests,
 10 relay tests and 3 notify tests. The app's tests need Postgres and run in CI rather than on a developer's machine;
 every other number here was produced by running that suite.
 
