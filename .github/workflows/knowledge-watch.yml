@@ -159,9 +159,12 @@ jobs:
           correct outcome. Never invent a date, a model name or a replacement that is not on the page.
           EOF
           )
+          # Reads are scoped too: an unscoped Read could open /proc/self/environ, and the token
+          # with it, and this agent's output becomes a public pull request. Glob and Grep keep
+          # their default of the working directory only.
           claude -p "$prompt" \
-            --allowedTools "Read" "Glob" "Grep" "Edit(knowledge/**)" \
-            --disallowedTools "Bash" "WebFetch" "WebSearch" \
+            --allowedTools "Read(./**)" "Read(/${RUNNER_TEMP}/report.md)" "Edit(knowledge/**)" \
+            --disallowedTools "Bash" "WebFetch" "WebSearch" "Read(//proc/**)" "Read(~/**)" \
             --max-turns 60
 
       - name: Accept only knowledge base edits

@@ -27,7 +27,7 @@ jobs:
       # The wrapper downloads Maven itself, once, with no retry: a short Maven Central outage
       # failed the whole nightly run on 2026-09-24. Fetch it here, a few times if need be.
       - name: Fetch Maven
-        run: for i in 1 2 3; do ./mvnw -q -v && exit 0; sleep 30; done; exit 1
+        run: for _ in 1 2 3; do ./mvnw -q -v && exit 0; sleep 30; done; exit 1
       - name: Build and test
         run: ./mvnw -B verify
       - name: Validate knowledge base
@@ -75,7 +75,7 @@ jobs:
       # The wrapper downloads Maven itself, once, with no retry: a short Maven Central outage
       # failed the whole nightly run on 2026-09-24. Fetch it here, a few times if need be.
       - name: Fetch Maven
-        run: for i in 1 2 3; do ./mvnw -q -v && exit 0; sleep 30; done; exit 1
+        run: for _ in 1 2 3; do ./mvnw -q -v && exit 0; sleep 30; done; exit 1
       - name: Performance budget
         run: ./mvnw -B -pl engine -am verify -Dgroups=nightly
       - name: Native CLI

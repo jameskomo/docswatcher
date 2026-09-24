@@ -54,9 +54,10 @@ public class FixDispatcher {
     f.put("severity", finding.severity());
     f.put("effective", finding.effective() == null ? null : finding.effective().toString());
     // Structural locators only. Evidence.snippet is the verbatim matched source line of a
-    // repository DocsWatcher does not control, and the shipped workflow interpolates this whole
-    // payload into a coding agent's prompt in a job holding contents: write. The agent has the
-    // checkout and can read the line itself, so the prose never needs to cross that boundary.
+    // repository DocsWatcher does not control, and the shipped workflow hands this payload to a
+    // coding agent. The agent has the checkout and can read the line itself, so the prose never
+    // needs to cross that boundary. The paths also become the agent's edit scope, which the
+    // workflow validates (templates/docswatcher-fix.yml).
     f.put("evidence", evidence.stream()
         .limit(MAX_EVIDENCE)
         .map(e -> Map.<String, Object>of("path", e.path(), "line", e.line(), "column", e.column()))

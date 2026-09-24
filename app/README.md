@@ -65,7 +65,15 @@ Findings arrive as issues labelled `docswatcher` and `docswatcher:<severity>`. A
 
 ## Fix handoff
 
-Customers add `src/main/resources/templates/docswatcher-fix.yml` to their repository as `.github/workflows/docswatcher-fix.yml` and set the `ANTHROPIC_API_KEY` secret. The app serves the file at `GET /api/setup/workflow`. Pressing Fix, or adding the fix label, sends a `repository_dispatch` event of type `docswatcher-fix` whose `client_payload` holds the finding, every evidence location with a snippet, the migration block, and the guide URL. The workflow runs `anthropics/claude-code-action@v1` in the customer's Actions with the customer's key. DocsWatcher never spends tokens on a fix.
+Customers add `src/main/resources/templates/docswatcher-fix.yml` to their repository as `.github/workflows/docswatcher-fix.yml` and set the `ANTHROPIC_API_KEY` secret. The app serves the file at `GET /api/setup/workflow`. Pressing Fix, or adding the fix label, sends a `repository_dispatch` event of type `docswatcher-fix` whose `client_payload` holds the finding with its evidence locations (path, line, column; no source text), the migration block, and the guide URL. Claude Code runs in the customer's Actions with the customer's key. DocsWatcher never spends tokens on a fix.
+
+The agent reads code DocsWatcher does not control, so its limits are enforced by the workflow, not the prompt:
+
+- It may edit only the files the finding names, which must be tracked regular files outside `.github/`, and may read only the checkout and the finding. It cannot run commands or reach the web.
+- Its job has `contents: read`. The workflow then checks that only the named files changed, with no file created, deleted or re-moded.
+- A second job, with no agent and no key, applies the change, checks it again, and opens the pull request.
+
+`FixWorkflowTemplateTest` keeps these properties from regressing.
 
 ## API
 
