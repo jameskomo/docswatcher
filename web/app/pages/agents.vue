@@ -62,7 +62,7 @@ useHead({
         working in 30 days before shipping it, not the morning it fails.
       </p>
 
-      <h2>Try it with your own assistant</h2>
+      <h2 id="try">Try it with your own assistant</h2>
       <p>
         Ask Claude, GPT and Codex, or Gemini to write something, and see the answer with DocsWatcher
         next to the answer without it. Bring your own API key; it stays between your browser and the

@@ -9,6 +9,34 @@ if (typeof globalThis !== "undefined" && (globalThis as any).process && !(global
 const providers = knowledge.providers.length;
 const changes = knowledge.providers.reduce((n, p) => n + p.changes.length, 0);
 
+// Every feature, one click from any page. Feeds resolve against wherever the site is served.
+const base = ref("");
+onMounted(() => { base.value = location.href.split("#")[0].replace(/[^/]*$/, ""); });
+const GH = "https://github.com/jameskomo/docswatcher";
+const footerLinks = computed(() => [
+  { title: "Use it", links: [
+    { label: "Scan a repository", to: "/" },
+    { label: "Deprecation calendar", to: "/calendar" },
+    { label: "Dashboard", to: "/app" },
+    { label: "In CI (GitHub Action)", to: "/ci" },
+    { label: "In your AI assistant", to: "/agents" },
+    { label: "Try it with your own key", to: "/agents#try" },
+    { label: "For teams: early access", to: "/teams" },
+  ] },
+  { title: "Subscribe and build on it", links: [
+    { label: "Calendar feed (.ics)", href: `${base.value}feeds/deprecations.ics` },
+    { label: "Atom feed", href: `${base.value}feeds/deprecations.atom` },
+    { label: "Open JSON", href: `${base.value}feeds/deprecations.json` },
+  ] },
+  { title: "Open source", links: [
+    { label: "Source code", href: GH },
+    { label: "Downloads (latest release)", href: `${GH}/releases/latest` },
+    { label: "Documentation", href: `${GH}#documentation` },
+    { label: "Knowledge base", href: `${GH}/tree/main/knowledge` },
+    { label: "How this works", to: "/about" },
+  ] },
+]);
+
 const theme = ref<"dark" | "light">("dark");
 
 function applyTheme(t: "dark" | "light") {
@@ -89,6 +117,17 @@ onMounted(() => {
     </main>
 
     <footer class="site-footer">
+      <nav class="wrap footer-links" aria-label="Everything DocsWatcher does" data-testid="footer-links">
+        <div v-for="g in footerLinks" :key="g.title">
+          <h2>{{ g.title }}</h2>
+          <ul>
+            <li v-for="l in g.links" :key="l.label">
+              <NuxtLink v-if="l.to" :to="l.to">{{ l.label }}</NuxtLink>
+              <a v-else :href="l.href" :target="l.href!.startsWith('http') ? '_blank' : undefined" rel="noopener">{{ l.label }}</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <div class="wrap">
         <span>
           Knowledge base <span class="mono num">{{ knowledge.version }}</span>, tracking

@@ -346,3 +346,24 @@ test("if the early-access request fails, the visitor can still email", async ({ 
   await expect(page.getByTestId("early-access-form")).toBeVisible();
 });
 
+
+test("the footer links every feature, and each page it names opens", async ({ page }) => {
+  const failed = watchFailures(page);
+  await page.goto("./");
+  const footer = page.getByTestId("footer-links");
+  for (const label of ["Scan a repository", "Deprecation calendar", "Dashboard", "In CI (GitHub Action)",
+    "In your AI assistant", "Try it with your own key", "For teams: early access", "Calendar feed (.ics)",
+    "Atom feed", "Open JSON", "Source code", "Downloads (latest release)", "Documentation", "Knowledge base", "How this works"]) {
+    await expect(footer.getByRole("link", { name: label })).toBeVisible();
+  }
+  // The feeds resolve against the site's own path, so they work under any subpath.
+  for (const name of ["Calendar feed (.ics)", "Atom feed", "Open JSON"]) {
+    const href = await footer.getByRole("link", { name }).getAttribute("href");
+    expect((await page.request.get(href!)).status()).toBe(200);
+  }
+  await footer.getByRole("link", { name: "Try it with your own key" }).click();
+  await expect(page.getByTestId("try-assistant")).toBeInViewport();
+  await footer.getByRole("link", { name: "For teams: early access" }).click();
+  await expect(page.getByTestId("early-access-form")).toBeVisible();
+  expect(own(failed)).toEqual([]);
+});

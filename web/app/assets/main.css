@@ -472,6 +472,23 @@ main {
   font-size: var(--t2);
   background: var(--bg-surface-raised);
 }
+.footer-links {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  align-items: start !important;
+  gap: var(--s4);
+  margin-bottom: var(--s5);
+}
+.footer-links h2 {
+  font-size: var(--t1);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin: 0 0 var(--s2);
+}
+.footer-links ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.footer-links a { color: var(--ink-soft); }
+.footer-links a:hover { color: var(--ink-max); }
 .site-footer .wrap {
   display: flex;
   justify-content: space-between;

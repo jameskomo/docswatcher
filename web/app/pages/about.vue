@@ -143,12 +143,11 @@ useHead({
       </p>
 
       <h2>What does not exist yet</h2>
-      <p>Capabilities actively in development on our roadmap:</p>
       <ul>
-        <li>Automated deprecation monitoring for upcoming third-party OpenAPI and GraphQL schemas.</li>
-        <li>Passive runtime telemetry observation for Sunset and Deprecation HTTP response headers.</li>
-        <li>Cross-repository organizational dependency blast radius mapping.</li>
-        <li>Expanded language grammars for additional backend languages.</li>
+        <li>Native downloads for Windows and Intel Macs. Both run the portable <code>docswatcher.jar</code> with Java 25 today.</li>
+        <li>Call-site detection for Ruby, PHP and C#. Their dependencies and literal API calls are found; SDK method calls are not.</li>
+        <li>More providers: Azure OpenAI, Mistral, PayPal and others.</li>
+        <li>Team features in general availability: a dashboard across every repository, and alerts before the date. <NuxtLink to="/teams">Request early access</NuxtLink>.</li>
       </ul>
 
       <div class="row" style="margin-top: var(--s6); gap: var(--s3)">
