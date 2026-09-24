@@ -269,6 +269,21 @@ class McpServerTest {
     }
   }
 
+  /**
+   * The {version} in the shared cases is knowledge/VERSION on every side: this directory load, the
+   * copy compiled into the CLI, and the site bundle (web/tests/unit/checkApi.test.ts).
+   */
+  @Test
+  void everyAnswerNamesTheKnowledgeVersionFile() throws Exception {
+    String version = java.nio.file.Files.readString(KNOWLEDGE.resolve("VERSION")).trim();
+    assertThat(K.version()).isEqualTo(version);
+    McpServer bundled = new McpServer(Knowledge.bundled(), () -> TODAY, KNOWLEDGE, "test");
+    JsonNode r = bundled.handle("{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/call\",\"params\":"
+        + "{\"name\":\"check_api\",\"arguments\":{\"value\":\"gpt-9-imaginary\"}}}").get("result").get("structuredContent");
+    assertThat(r.get("knowledgeBase").get("version").asText()).isEqualTo(version);
+    assertThat(r.get("answer").asText()).contains("(knowledge base " + version + ", ");
+  }
+
   private static String firstMatchId(JsonNode result) {
     JsonNode matches = result.get("structuredContent").get("matches");
     assertThat(matches.size()).as("expected a match in %s", result).isGreaterThan(0);

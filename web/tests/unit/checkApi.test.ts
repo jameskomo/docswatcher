@@ -11,6 +11,12 @@ const shared = JSON.parse(readFileSync(join(web, "..", "cli", "src", "test", "re
 const today = new Date(`${shared.today}T00:00:00Z`);
 
 describe("checkApi answers the shared cases exactly as the CLI does", () => {
+  it("names knowledge/VERSION as the knowledge base version, as the CLI does", () => {
+    const version = readFileSync(join(web, "..", "knowledge", "VERSION"), "utf8").trim();
+    expect(knowledge.version).toBe(version);
+    expect(checkApi(knowledge, { value: "gpt-9-imaginary" }, today).answer).toContain(`(knowledge base ${version}, `);
+  });
+
   for (const c of shared.cases) {
     it(JSON.stringify(c.input), () => {
       const r = checkApi(knowledge, c.input, today);

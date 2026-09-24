@@ -12,27 +12,20 @@
   <name>DocsWatcher Knowledge Base</name>
   <description>Providers, detectors, change records, and fixtures packaged as classpath resources.</description>
 
-  <properties>
-    <maven.build.timestamp.format>yyyy.MM.dd</maven.build.timestamp.format>
-    <knowledge.version>${maven.build.timestamp}</knowledge.version>
-  </properties>
-
   <build>
     <resources>
       <resource>
         <directory>${project.basedir}</directory>
         <targetPath>docswatcher-knowledge</targetPath>
         <includes>
+          <!-- VERSION is the one knowledge base version. It is copied as it is, never stamped. -->
+          <include>VERSION</include>
           <include>providers/**</include>
           <include>fixtures/**</include>
         </includes>
         <excludes>
           <exclude>**/node_modules/**</exclude>
         </excludes>
-      </resource>
-      <resource>
-        <directory>${project.basedir}/src/main/resources-filtered</directory>
-        <filtering>true</filtering>
       </resource>
     </resources>
   </build>

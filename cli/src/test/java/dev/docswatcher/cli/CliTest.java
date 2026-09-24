@@ -57,6 +57,16 @@ class CliTest {
   }
 
   @Test
+  void theBundledAndTheDirectoryKnowledgeReportTheSameVersionFile() throws java.io.IOException {
+    String version = java.nio.file.Files.readString(KNOWLEDGE.resolve("VERSION")).trim();
+    // No directory: the working directory (cli/) has no knowledge/, so this is the copy the jar carries.
+    Run bundled = run("validate", "--today", "2026-09-18");
+    Run directory = run("validate", KNOWLEDGE.toString(), "--today", "2026-09-18");
+    assertThat(bundled.out()).startsWith("Knowledge " + version + ": ");
+    assertThat(directory.out()).startsWith("Knowledge " + version + ": ");
+  }
+
+  @Test
   void matchHonoursDocswatcherignoreAndExclude() {
     String repo = KNOWLEDGE.resolve("fixtures/openai-python-docswatcherignore/repo").toString();
     Run withIgnoreFile = run("match", repo, "--knowledge", KNOWLEDGE.toString(), "--today", "2026-09-23");

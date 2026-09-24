@@ -27,6 +27,15 @@ public final class Knowledge {
 
   private static final String RESOURCE_ROOT = "docswatcher-knowledge";
 
+  /**
+   * The file at the knowledge root that holds the knowledge base version, e.g. 2026.09.24. It is
+   * the only source of that version: the build copies it into the jar unchanged.
+   */
+  public static final String VERSION_FILE = "VERSION";
+
+  /** Reported only for a knowledge directory with no VERSION file. The web build says the same. */
+  public static final String UNVERSIONED = "unversioned";
+
   private final String version;
   private final List<Provider> providers;
   private final List<Change> changes;
@@ -41,25 +50,23 @@ public final class Knowledge {
     this.root = root;
   }
 
-  /** Load from a knowledge directory containing providers/ and fixtures/. */
+  /**
+   * Load from a knowledge directory containing providers/ and fixtures/. The version is the
+   * directory's VERSION file, the same file the bundled copy and the web build read, so every
+   * surface names the same knowledge base the same way.
+   */
   public static Knowledge load(Path dir) {
     if (!Files.isDirectory(dir.resolve("providers"))) {
       throw new IllegalArgumentException("Not a knowledge directory (no providers/): " + dir);
     }
-    Path versionFile = dir.resolve("src/main/resources-filtered/" + RESOURCE_ROOT + "/version.txt");
-    String version = "local";
-    if (Files.exists(versionFile)) {
-      version = readString(versionFile).trim();
-      if (version.startsWith("${")) version = "local";
-    }
-    return load(dir, version);
+    return load(dir, version(dir));
   }
 
   /** Load the copy packaged in the knowledge jar on the classpath. */
   public static Knowledge bundled() {
-    URL marker = Knowledge.class.getClassLoader().getResource(RESOURCE_ROOT + "/version.txt");
+    URL marker = Knowledge.class.getClassLoader().getResource(RESOURCE_ROOT + "/" + VERSION_FILE);
     if (marker == null) {
-      throw new IllegalStateException("No bundled knowledge on the classpath (missing " + RESOURCE_ROOT + "/version.txt)");
+      throw new IllegalStateException("No bundled knowledge on the classpath (missing " + RESOURCE_ROOT + "/" + VERSION_FILE + ")");
     }
     try {
       URI uri = marker.toURI();
@@ -73,7 +80,7 @@ public final class Knowledge {
           fs = FileSystems.getFileSystem(URI.create(jarPart));
         }
         Path root = fs.getPath("/" + RESOURCE_ROOT);
-        return load(root, readString(root.resolve("version.txt")).trim());
+        return load(root, version(root));
       }
       if ("resource".equals(uri.getScheme())) {
         // GraalVM native-image resource file system. It is not mounted automatically: calling
@@ -87,13 +94,21 @@ public final class Knowledge {
           fs = FileSystems.getFileSystem(URI.create("resource:/"));
         }
         Path root = fs.getPath("/" + RESOURCE_ROOT);
-        return load(root, readString(root.resolve("version.txt")).trim());
+        return load(root, version(root));
       }
       Path root = Path.of(uri).getParent();
-      return load(root, readString(root.resolve("version.txt")).trim());
+      return load(root, version(root));
     } catch (Exception e) {
       throw new IllegalStateException("Cannot open bundled knowledge: " + e.getMessage(), e);
     }
+  }
+
+  /** The trimmed content of VERSION at a knowledge root, or {@link #UNVERSIONED} without one. */
+  static String version(Path root) {
+    Path file = root.resolve(VERSION_FILE);
+    if (!Files.isRegularFile(file)) return UNVERSIONED;
+    String v = readString(file).trim();
+    return v.isEmpty() ? UNVERSIONED : v;
   }
 
   private static Knowledge load(Path root, String version) {

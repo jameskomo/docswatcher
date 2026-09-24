@@ -8,7 +8,8 @@ const iso = (d) => (d instanceof Date ? d.toISOString().slice(0, 10) : d);
 
 export function loadKnowledge(knowledgeDir) {
   const versionFile = join(knowledgeDir, "VERSION");
-  const version = existsSync(versionFile) ? readFileSync(versionFile, "utf8").trim() : "0.0.0-dev";
+  // VERSION is the one knowledge base version; the Java engine and the CLI read the same file.
+  const version = (existsSync(versionFile) ? readFileSync(versionFile, "utf8").trim() : "") || "unversioned";
 
   const providers = [];
   for (const id of readdirSync(join(knowledgeDir, "providers")).sort()) {
