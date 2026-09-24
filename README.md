@@ -101,6 +101,13 @@ Anything your `.gitignore` excludes is never scanned. For committed files that a
 product, such as fixtures or sample configs, add a `.docswatcherignore` at the root in the same
 syntax. See [`docs/18-excluding-paths.md`](./docs/18-excluding-paths.md).
 
+## Your own APIs too
+
+Your internal services deprecate things as well. Write them down in the same format, in a
+`.docswatcher/` directory, and every repository that calls them gets the same findings, in CI, in
+the browser, from the App and in the coding agent. Keep them in your organisation's `.docswatcher`
+repository and nobody copies a file. See [`docs/19-your-own-apis.md`](./docs/19-your-own-apis.md).
+
 ## What it will not tell you
 
 It only knows about deprecations someone has written down. **A green result means nothing
@@ -184,6 +191,7 @@ cd web && npm test && npm run e2e
 | [`docs/16-knowledge-watch.md`](./docs/16-knowledge-watch.md) | Keeping the knowledge base true as provider pages change |
 | [`docs/17-open-source-study.md`](./docs/17-open-source-study.md) | Scanning public repositories, and publishing what we find |
 | [`docs/18-excluding-paths.md`](./docs/18-excluding-paths.md) | `.gitignore`, `.docswatcherignore` and `--exclude` |
+| [`docs/19-your-own-apis.md`](./docs/19-your-own-apis.md) | Your internal services' deprecations, found the same way |
 
 `deployment/` is intentionally not in this repository: it describes one specific server, its
 secret layout and its tunnel, so publishing it would document an attack surface without helping

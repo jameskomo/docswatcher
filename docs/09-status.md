@@ -17,6 +17,7 @@ for call sites, and no native binary for Intel Macs.
 | TypeScript engine | Same three layers and the same exclusion rules, runs in the browser | Part of the 99 TypeScript unit tests below |
 | Two-engine parity | Byte-identical output on every fixture | `npm run parity` passes |
 | Path exclusion | `.gitignore` files, a root `.docswatcherignore`, and `--exclude` | 21 shared cases replayed by both engines |
+| Your own APIs | A repository's `.docswatcher/` records and the organisation's `.docswatcher` repository, in both engines, the CLI (`--knowledge-extra`), the Action (`knowledge`), MCP, the App and the site | 9 shared validation cases replayed by both engines; the `internal-orders-own-records` fixture passes parity; CLI, App and browser tests |
 | Command line | `scan`, `match` (with `--report` and `--inventory` from one scan), `validate`, `mcp`, and `--exclude` | 28 tests pass; the release smoke-tests the native binary on Linux, macOS and Windows |
 | MCP server | `check_api`, `upcoming_deprecations`, `scan_repository` | Covered by the CLI tests above, including the shared `check_api` cases; a real Claude Code session used it unprompted |
 | Server app | Webhooks, scan worker, REST API, fix dispatch, runtime observation, org blast radius, sign-in with GitHub with per-organisation and per-repository access (ADR 0008) | 141 tests, run in CI (they need Postgres); the OAuth round trip runs against a scripted GitHub; fix pull requests run an agent that can only edit the files a finding names |
@@ -53,6 +54,7 @@ Ordered by what is most likely to cost a user today.
 2. **Providers.** Ten. Azure OpenAI, Mistral, Twitch, Meta Graph and PayPal are the obvious next ones; each is a `provider.yaml`, a detector table and change records.
 3. **Knowledge watch coverage.** It watches pages already cited. A provider's brand-new deprecation page is found only if its changelog, which is watched, links to it.
 4. **Status badge with a count.** Deliberately not built; see ADR 0004.
+5. **Your own APIs in the App's dashboard.** Issues and check runs carry a team's own change records in full, but the dashboard and fix pull requests look change records up in the bundled knowledge, so they show such a finding by its change id. The App reads only the owner's `.docswatcher` repository.
 
 ## Technical notes
 

@@ -12,6 +12,14 @@
 - **The site scans GitLab projects.** Paste a gitlab.com project URL, nested groups included, or a
   self-managed instance's full URL where the site's policy allows that host. Share links are
   `?repo=gitlab.com/group/project`, and GitHub links are unchanged.
+- **Your own APIs.** Describe your internal services' deprecations in a `.docswatcher/` directory,
+  in the knowledge base's format with `internal-` ids, and every scan of that repository finds
+  calls to them. Share them across an organisation through a repository named `.docswatcher`: the
+  GitHub App reads it for every repository of the owner and rescans them when it changes, and the
+  CLI and the Action take it as `--knowledge-extra` and the new `knowledge` input.
+  `docswatcher validate .docswatcher` checks them. Invalid records are always reported: the CLI
+  exits 3 and names every error. See `docs/19-your-own-apis.md`.
+- A `.docswatcher/` directory is no longer scanned as code.
 
 ## 0.3.1 (2026-09-24)
 

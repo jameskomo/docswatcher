@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 
 /**
  * A team's own API records, added to the bundled knowledge for one scan (docs/19-your-own-apis.md,
- * ADR 0008). They use the knowledge base's own layout, {@code providers/<id>/provider.yaml},
+ * ADR 0009). They use the knowledge base's own layout, {@code providers/<id>/provider.yaml},
  * {@code detectors.yaml} and {@code changes/*.yaml}, and come from a repository's
  * {@code .docswatcher/} directory or from a shared directory such as a checkout of an
  * organisation's {@code .docswatcher} repository.

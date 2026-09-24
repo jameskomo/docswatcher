@@ -242,6 +242,29 @@ Every detector has a stable `id`. Evidence records carry it, so a false positive
 
 An engine is conformant when, for every fixture in the knowledge base, it produces the expected inventory byte for byte. Two engines exist: the Java engine in `engine/` and the TypeScript engine in `web/`. Both are tested against the same fixtures on every PR.
 
+### A team's own records
+
+The provider profile, detector table and change record above are also how a team describes its
+own internal services ([19-your-own-apis.md](19-your-own-apis.md)). They live in a repository's
+`.docswatcher/providers/<id>/` instead of `knowledge/providers/<id>/`, with the same fields, and are
+added to the bundled knowledge for a scan. Their ids are namespaced so they never collide with a
+bundled record:
+
+| Field | Rule for a team's own records |
+|---|---|
+| Provider `id` | Starts with `internal-` and equals its directory name. No bundled provider may start with `internal-`. |
+| Detector `id` | Starts with the provider id and a dot: `internal-orders.literal.endpoint`. |
+| Change `id` | Starts with the provider id and a dash: `internal-orders-v1-sunset-2027`. |
+| Change `provider` | One of the team's own providers. |
+| `manifests` | Optional. |
+| `sources[].url`, `migration.guide` | `https://` or `http://`. |
+
+No fixtures are required, and an `active` record whose `effective` date has passed (or an
+`expired` one whose date has not) is a warning rather than an error. Everything else, contract
+kinds, match semantics, the regex dialect and the interpreter contract, is identical. Contracts
+and findings from these records use the same inventory and finding schemas, so
+`internal-orders:endpoint:ANY /v1/orders` is an ordinary contract id.
+
 ## 4. Fixture
 
 A fixture is a tiny repository plus the inventory it must produce plus the findings it must yield. Lives in `knowledge/fixtures/<name>/`.

@@ -17,7 +17,7 @@ cli/target/docswatcher <command> [options]
 |---|---|---|
 | `scan <path>` | Scans a checkout and prints the inventory document | 0 |
 | `match <path>` | Scans, matches against the knowledge base, prints findings | 1 if any breaking finding is open, else 0 |
-| `validate [dir]` | Validates a knowledge directory | 1 on any error, 0 on warnings only |
+| `validate [dir]` | Validates a knowledge directory, or your own API records: a directory named `.docswatcher`, every `--knowledge-extra`, or with no `dir`, `./.docswatcher` when there is one. See `docs/19-your-own-apis.md` | 1 on any error, 0 on warnings only |
 | `mcp` | Serves the Model Context Protocol on stdio until the client closes it. See `docs/14-coding-agents.md` | 0 |
 
 ### Options
@@ -25,6 +25,7 @@ cli/target/docswatcher <command> [options]
 | Option | Applies to | Meaning |
 |---|---|---|
 | `--knowledge <dir>` | all | Use this knowledge directory instead of the bundled release |
+| `--knowledge-extra <dir>` | all | Add a directory of your own API records (`providers/internal-<name>/...`), such as a checkout of your organisation's `.docswatcher` repository's `.docswatcher/`. Repeatable. The scanned repository's own `.docswatcher/` (for `mcp`, the working directory's) is always read. Invalid records stop `scan` and `match` with exit 3. See `docs/19-your-own-apis.md` |
 | `--format json\|text` | `match` | Output format. Default `json` |
 | `--report <file>` | `match` | Also write the findings as JSON to this file, whatever `--format` prints. Text and JSON from one scan |
 | `--inventory <file>` | `match` | Also write the inventory document, as `scan` prints it, to this file |
@@ -56,11 +57,21 @@ docswatcher scan /path/to/repo --knowledge knowledge
 # Check the knowledge base
 docswatcher validate knowledge
 
+# Check your own API records, then scan with them and your organisation's
+docswatcher validate .docswatcher
+docswatcher match . --knowledge-extra ../org-records/.docswatcher --format text
+
 # Let a coding agent ask before it writes a model ID
 claude mcp add docswatcher -- docswatcher mcp
 ```
 
 Output shapes are defined in `docs/02-schemas.md`. They are not repeated here.
+
+### GitHub Action inputs
+
+`path`, `fail-on`, `include-low`, `exclude`, `knowledge`, `report` and `version`, described in
+`docs/11-ci-integration.md`. `knowledge` takes directories of your own API records, one per line,
+and passes each as `--knowledge-extra`.
 
 ## REST API
 
@@ -255,7 +266,7 @@ An `Authorization` header is forwarded to GitHub and never cached, which is how 
 | 0 | Success. For `match`, no breaking finding is open |
 | 1 | For `match`, at least one breaking finding is open. For `validate`, at least one error |
 | 2 | Usage error, such as a missing argument |
-| 3 | The command did not complete: the path is not a directory, the scan threw, or the JVM ran out of memory. Never a result, always a failure |
+| 3 | The command did not complete: the path is not a directory, your own API records are invalid (every error is on stderr), the scan threw, or the JVM ran out of memory. Never a result, always a failure |
 | 4 | For `scan` and `match`, a scan limit stopped the scan and, for `match`, nothing breaking was found in the files it read. The output is valid for those files, but it is not a clean result for the repository. A breaking finding still exits 1. A warning on stderr names the limit and the number of files not scanned |
 
 ### Scan limits

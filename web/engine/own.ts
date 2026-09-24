@@ -1,5 +1,5 @@
 // A team's own API records, added to the bundled knowledge for one scan (docs/19-your-own-apis.md,
-// ADR 0008). The TypeScript twin of engine/.../OwnKnowledge.java and Validator.validateOwn: both are
+// ADR 0009). The TypeScript twin of engine/.../OwnKnowledge.java and Validator.validateOwn: both are
 // held to the same messages by engine/src/test/resources/own-knowledge-cases.json.
 //
 // Records use the knowledge base's own layout under a repository's .docswatcher/ directory:

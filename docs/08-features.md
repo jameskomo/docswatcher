@@ -18,6 +18,7 @@ Every capability DocsWatcher has today, what it does, how to use it, and how it 
 12. [Feeds and sharing](#12-feeds-and-sharing)
 13. [Knowledge watch](#13-knowledge-watch)
 14. [Excluding paths](#14-excluding-paths)
+15. [Your own APIs](#15-your-own-apis)
 
 ## 1. Detection
 
@@ -214,7 +215,7 @@ status: expired
 
 ### Validator checks
 
-Errors: schema violations, bad enum values, effective before announced, an active record whose date has passed, a regex outside the shared dialect, a duplicate detector id, a tree-sitter query that does not parse, a change record no fixture references, a provider with no negative fixture.
+Errors: schema violations, bad enum values, effective before announced, an active record whose date has passed, a regex outside the shared dialect, a duplicate detector id, a tree-sitter query that does not parse, a change record no fixture references, a provider with no negative fixture, a provider id starting `internal-` (reserved for a team's own records, section 15).
 
 Warnings: an individual `affects` entry that no fixture exercises.
 
@@ -487,3 +488,18 @@ Both engines share one matcher specification, proven by the same cases, and the 
 apply the ignore files before choosing which 300 files to read, so fixtures cannot crowd out real
 code. `docs/18-excluding-paths.md`.
 
+
+## 15. Your own APIs
+
+A team describes its internal services' deprecations in the knowledge base's own format, in a
+`.docswatcher/` directory: `providers/internal-<name>/provider.yaml`, `detectors.yaml` and
+`changes/*.yaml`. Every surface reads the scanned repository's `.docswatcher/` and adds it to the
+bundled knowledge; an organisation shares records through the `.docswatcher/` of a repository named
+`.docswatcher`, which the GitHub App reads for every repository of the owner (and rescans them all
+when it changes), and which the CLI and the Action take as `--knowledge-extra` and `knowledge`.
+Records are validated with the knowledge base's rules, with `internal-` ids, optional manifests, no
+fixtures, and date/status disagreements as warnings. Any error keeps all of them out and is
+reported: the CLI exits 3, the App says so in its check run and keeps their findings open, the site
+and the MCP server say so in every answer. Both engines are held to the same messages and, by the
+fixture `internal-orders-own-records`, to the same results. `docs/19-your-own-apis.md`,
+ADR 0009.

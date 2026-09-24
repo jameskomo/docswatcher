@@ -104,6 +104,14 @@ Guide: https://developers.openai.com/api/docs/deprecations
 The verdict words are fixed: `RETIRED`, `RETIRING`, `CHANGED` (a warning with no date), and
 `NO KNOWN DEPRECATION`.
 
+### Your own APIs
+
+The server adds the `.docswatcher/` records of the directory it starts in, and every
+`--knowledge-extra <dir>`, to what it knows, so `check_api` and `upcoming_deprecations` answer for
+your internal services too, and `scan_repository` reads the scanned directory's own records
+([19-your-own-apis.md](19-your-own-apis.md)). Invalid records are left out; the server still
+starts, and every answer ends by saying they were not loaded and naming the first error.
+
 ### Safety
 
 Read-only. The server never writes a file, never makes a network call and never runs a process.

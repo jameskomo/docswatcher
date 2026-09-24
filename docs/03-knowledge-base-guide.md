@@ -379,6 +379,18 @@ scripts/validate
 
 It checks the schema, the date order, the regex dialect, that the change is referenced by a fixture, and that both engines agree on every fixture.
 
+## Your own internal APIs
+
+Deprecations of a company's own services do not belong in this directory. A team describes them
+in its own repositories, in this same format, under `.docswatcher/providers/internal-<name>/`,
+and every DocsWatcher surface adds them to the knowledge base for its scans. Everything in this
+guide about writing rules and records applies; ids are prefixed, and fixtures are not required.
+See [19-your-own-apis.md](19-your-own-apis.md) for the layout, the rules and how to share them
+across an organisation.
+
+The id prefix `internal-` is reserved for those records, and the validator rejects a provider in
+this knowledge base that uses it.
+
 ## Review checklist for a knowledge base PR
 
 Reviewers check every item. A PR that fails one is sent back, not merged with a note.

@@ -47,6 +47,7 @@ const free = [
   { what: "Your AI coding assistant checks before it writes", where: "/agents" },
   { what: "Every shutdown date in your calendar", where: "/calendar" },
   { what: "The open knowledge base, and the CLI", where: "https://github.com/jameskomo/docswatcher" },
+  { what: "Your own APIs' deprecations, found the same way", where: "https://github.com/jameskomo/docswatcher/blob/main/docs/19-your-own-apis.md" },
 ];
 
 const team = [
@@ -54,7 +55,7 @@ const team = [
   { title: "Warned before the date", text: "Email or Slack when a repository calls something due to shut down, 30 and 7 days ahead, not the morning it fails." },
   { title: "Private repositories", text: "The GitHub App watches private code on every push and opens an issue per finding, with a fix pull request on request." },
   { title: "What actually runs", text: "Runtime observation from your existing OpenTelemetry: which deprecated calls production really makes, and how often." },
-  { title: "Your own APIs", text: "Add your internal services' deprecations, so the teams that call them hear about it the same way." },
+  { title: "Your own APIs", text: "Record your internal services' deprecations once, in your organisation's .docswatcher repository, and every repository that calls them hears about it the same way." },
 ];
 
 useHead({

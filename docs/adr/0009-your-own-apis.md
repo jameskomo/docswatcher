@@ -1,4 +1,4 @@
-# ADR 0008: Your own APIs are knowledge base records in a `.docswatcher/` directory
+# ADR 0009: Your own APIs are knowledge base records in a `.docswatcher/` directory
 
 Date: 2026-09-24
 Status: accepted

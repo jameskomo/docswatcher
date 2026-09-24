@@ -46,6 +46,7 @@ if the two do not match.
 | `fail-on` | `breaking` | `breaking` fails on a shutdown that already has a date. `never` reports without failing, which is how to introduce this to an existing codebase. |
 | `include-low` | `false` | Also report contracts found only in documentation or test files. Off by default because those are usually noise. |
 | `exclude` | empty | Paths to skip, one `.gitignore`-style pattern per line. The repository's `.gitignore` files and `.docswatcherignore` already apply without this. |
+| `knowledge` | empty | Directories of your own API records, one per line, such as a checkout of your organisation's `.docswatcher` repository. The scanned path's own `.docswatcher/` is read without this. See [Your own APIs](#your-own-apis). |
 | `report` | *(unset)* | Write the full JSON findings to this path, for a later step to upload or post. |
 | `version` | `latest` | Release tag of the CLI to download, for example `v0.3.1`. |
 
@@ -98,6 +99,31 @@ workflow only, use the `exclude` input. Details: [`18-excluding-paths.md`](./18-
 
 Run the step once per service if you want a separate pass or fail per service. Scanning the
 repository root works too, and reports every service at once.
+
+A scan of `path` reads `path/.docswatcher/`. If your own API records sit at the repository root,
+pass them with `knowledge: .docswatcher`.
+
+## Your own APIs
+
+Deprecations of your internal services fail the build the same way, once they are written down as
+records ([`19-your-own-apis.md`](./19-your-own-apis.md)). Records in the repository's own
+`.docswatcher/` are read with no configuration. To read your organisation's shared records, check
+its `.docswatcher` repository out beside the code:
+
+```yaml
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: acme/.docswatcher
+          path: org-records
+          token: ${{ secrets.DOCSWATCHER_RECORDS_TOKEN }}   # read access, if it is private
+      - uses: jameskomo/docswatcher@v0
+        with:
+          knowledge: org-records/.docswatcher
+```
+
+Invalid records fail the step, and the log lists every error. Check them before they are merged
+with `docswatcher validate .docswatcher` in the records repository's own workflow.
 
 ## Posting the findings on the pull request
 
