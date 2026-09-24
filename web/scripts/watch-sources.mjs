@@ -51,7 +51,7 @@ const r = result.report;
 console.log(result.first
   ? `\nBaseline recorded for ${urls.length} sources. Nothing is reported on a first run.`
   : `\n${r.changed.length} changed with news, ${r.quietlyChanged.length} changed quietly, ${r.failing.length} failing, `
-    + `${r.unreadable.length} newly unreadable, ${r.ageing.length} newly ageing records.`);
+    + `${r.unreadable.length} newly unreadable, ${r.ageing.length} newly ageing records, ${r.expiring.length} newly due to expire.`);
 
 if (result.worthAnIssue && args.report) writeFileSync(args.report, renderReport(r, { today }));
 if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `report=${result.worthAnIssue}\n`);

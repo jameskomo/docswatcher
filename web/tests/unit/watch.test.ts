@@ -4,8 +4,8 @@ import { join } from "node:path";
 // @ts-expect-error plain ESM build script, no type declarations
 import { loadKnowledge } from "../../scripts/lib/knowledge.mjs";
 import {
-  collectUrls, reduceHtml, addedLines, isSignal, ageing, evaluate, renderReport, fetchPage, slug,
-  MIN_READABLE, FAILURE_THRESHOLD,
+  collectUrls, reduceHtml, addedLines, isSignal, ageing, expiring, evaluate, renderReport, fetchPage, slug,
+  MIN_READABLE, FAILURE_THRESHOLD, EXPIRY_NOTICE_DAYS,
   // @ts-expect-error plain ESM build script, no type declarations
 } from "../../scripts/lib/watch.mjs";
 
@@ -139,6 +139,49 @@ describe("a watch run", () => {
     expect(later.report.ageing.length).toBeGreaterThan(0);
     const again = run({ [url]: { ok: true, status: 200, text: before } }, later.state, { [url]: before }, "2026-12-02");
     expect(again.report.ageing).toEqual([]);
+  });
+});
+
+describe("records about to pass their date", () => {
+  const rec = (id: string, status: string, effective: string | null) => ({ id, status, effective, sources: [] });
+  const kb = {
+    version: "t",
+    providers: [{
+      info: { id: "shopify" },
+      changes: [
+        rec("shopify-script-tag-create-update-rejected-2026", "active", "2026-10-01"),
+        rec("later", "active", "2026-12-01"),
+        rec("undated", "active", null),
+        rec("already-expired", "expired", "2026-09-01"),
+        rec("overdue", "active", "2026-09-20"),
+      ],
+    }],
+  };
+
+  it("lists active records due within the notice window, and overdue ones, with the day to expire them", () => {
+    expect(EXPIRY_NOTICE_DAYS).toBe(7);
+    expect(expiring(kb, "2026-09-24")).toEqual([
+      { id: "overdue", provider: "shopify", effective: "2026-09-20", expireOn: "2026-09-21", overdue: true },
+      { id: "shopify-script-tag-create-update-rejected-2026", provider: "shopify", effective: "2026-10-01", expireOn: "2026-10-02", overdue: false },
+    ]);
+    expect(expiring(kb, "2026-09-23").map((e: any) => e.id)).toEqual(["overdue"]);
+  });
+
+  it("reports each record once per date, and names it in the issue", () => {
+    const url = "https://example.test/p";
+    const text = reduceHtml(page(filler));
+    const go = (state: any, today: string) =>
+      evaluate({ knowledge: kb, urls: [{ url, citedBy: [] }], pages: { [url]: { ok: true, status: 200, text } }, state, previousText: { [url]: text }, today });
+    const base = go(null, "2026-09-10");
+    expect(base.report.expiring).toEqual([]);
+    const week = go(base.state, "2026-09-24");
+    expect(week.worthAnIssue).toBe(true);
+    expect(week.report.expiring.map((e: any) => e.id)).toEqual(["overdue", "shopify-script-tag-create-update-rejected-2026"]);
+    const md = renderReport(week.report, { today: "2026-09-24" });
+    expect(md).toContain("Records that must be set expired (2)");
+    expect(md).toContain("`shopify-script-tag-create-update-rejected-2026` takes effect 2026-10-01: set `status: expired` on 2026-10-02");
+    expect(md).toContain("`overdue` takes effect 2026-09-20: overdue");
+    expect(go(week.state, "2026-09-25").report.expiring).toEqual([]);
   });
 });
 

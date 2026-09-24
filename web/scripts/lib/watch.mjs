@@ -106,6 +106,28 @@ export function ageing(knowledge, today, days = STALE_DAYS) {
   return out.sort((a, b) => (a.observed < b.observed ? -1 : a.observed > b.observed ? 1 : a.id < b.id ? -1 : 1));
 }
 
+/** Days ahead an active record's effective date is announced. Matches the engine's Validator.EXPIRY_NOTICE_DAYS. */
+export const EXPIRY_NOTICE_DAYS = 7;
+
+const plusDays = (day, n) => new Date(Date.parse(day + "T00:00:00Z") + n * 86400000).toISOString().slice(0, 10);
+
+/**
+ * Active records whose effective date is at most EXPIRY_NOTICE_DAYS away, or already past. The day
+ * after that date `docswatcher validate` fails on them until they say `status: expired`.
+ * `expireOn` is that first failing day: the earliest the validator accepts the new status.
+ */
+export function expiring(knowledge, today, days = EXPIRY_NOTICE_DAYS) {
+  const horizon = plusDays(today, days);
+  const out = [];
+  for (const p of knowledge.providers) {
+    for (const c of p.changes) {
+      if (c.status !== "active" || !c.effective || c.effective > horizon) continue;
+      out.push({ id: c.id, provider: p.info.id, effective: c.effective, expireOn: plusDays(c.effective, 1), overdue: c.effective < today });
+    }
+  }
+  return out.sort((a, b) => (a.effective < b.effective ? -1 : a.effective > b.effective ? 1 : a.id < b.id ? -1 : 1));
+}
+
 /**
  * One watch run. `pages` maps a URL to its fetched result ({ ok, status, text } or { ok: false,
  * error }). `state` is the previous run's state; `previousText` maps a URL to its last snapshot.
@@ -113,10 +135,14 @@ export function ageing(knowledge, today, days = STALE_DAYS) {
  */
 export function evaluate({ knowledge, urls, pages, state, previousText, today }) {
   const first = !state || !state.urls;
-  const prev = first ? { urls: {}, agedReported: {} } : state;
-  const next = { version: 1, lastRun: today, urls: {}, agedReported: { ...(prev.agedReported ?? {}) } };
+  const prev = first ? { urls: {}, agedReported: {}, expiryReported: {} } : state;
+  const next = {
+    version: 1, lastRun: today, urls: {},
+    agedReported: { ...(prev.agedReported ?? {}) },
+    expiryReported: { ...(prev.expiryReported ?? {}) },
+  };
   const snapshots = {};
-  const report = { changed: [], quietlyChanged: [], unreadable: [], failing: [], ageing: [] };
+  const report = { changed: [], quietlyChanged: [], unreadable: [], failing: [], ageing: [], expiring: [] };
 
   for (const { url, citedBy } of urls) {
     const was = prev.urls[url] ?? {};
@@ -154,7 +180,16 @@ export function evaluate({ knowledge, urls, pages, state, previousText, today })
     for (const a of ageing(knowledge, today)) next.agedReported[a.id] = a.observed;
   }
 
-  const worthAnIssue = report.changed.length + report.unreadable.length + report.failing.length + report.ageing.length > 0;
+  // Once per record and date, so a week of notice is one issue, not seven. A first run is a
+  // baseline here too; a record already overdue then still gets the expiry pull request.
+  for (const e of expiring(knowledge, today)) {
+    if (next.expiryReported[e.id] === e.effective) continue;
+    next.expiryReported[e.id] = e.effective;
+    if (!first) report.expiring.push(e);
+  }
+
+  const worthAnIssue = report.changed.length + report.unreadable.length + report.failing.length + report.ageing.length
+    + report.expiring.length > 0;
   return { state: next, snapshots, report, worthAnIssue, first };
 }
 
@@ -188,6 +223,15 @@ export function renderReport(report, { today, repoUrl = "https://github.com/jame
     out.push(`## Sources that cannot be watched (${report.unreadable.length})`, "",
       `These reduce to under ${MIN_READABLE} characters of text, so they are probably rendered by JavaScript or block automated readers. Check them by hand, or cite a page that serves its text.`, "");
     for (const u of report.unreadable) out.push(`- ${u.url} (${u.chars} characters). Cited by ${cited(u.citedBy)}.`);
+    out.push("");
+  }
+  if (report.expiring.length) {
+    out.push(`## Records that must be set expired (${report.expiring.length})`, "",
+      "`docswatcher validate` fails on an active record the day after its effective date. The knowledge watch opens a pull request "
+      + "that sets `status: expired` from that day; merge it, or change the date if the provider moved it.", "");
+    for (const e of report.expiring) {
+      out.push(`- \`${e.id}\` takes effect ${e.effective}: ${e.overdue ? "overdue, set `status: expired` now" : `set \`status: expired\` on ${e.expireOn}`}`);
+    }
     out.push("");
   }
   if (report.ageing.length) {

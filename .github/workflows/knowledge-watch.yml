@@ -1,7 +1,8 @@
 name: Knowledge watch
 
 # Watches every page the knowledge base cites and reports when one changes with deprecation news,
-# when one stops answering, and when a record has not been re-verified for 30 days.
+# when one stops answering, when a record has not been re-verified for 30 days, and when an active
+# record is about to pass its effective date (and, once it has, proposes `status: expired`).
 # See docs/16-knowledge-watch.md.
 #
 # State (the last text of every page) lives on the orphan branch `knowledge-watch`, so daily
@@ -97,6 +98,91 @@ jobs:
         env:
           TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: echo "enabled=$([ -n "$TOKEN" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+  # The day after an active record's effective date, `docswatcher validate` fails on it until it
+  # says `status: expired`. This job makes that one-line change itself and keeps one pull request
+  # open with it. No agent: the edit is decided by a date comparison and made by a script, and the
+  # gate below refuses any diff that is not exactly that.
+  expire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write        # to push the knowledge-watch/expire branch; main is never pushed
+      pull-requests: write   # to open the pull request
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install the loader's dependencies
+        working-directory: web
+        run: npm ci --no-audit --no-fund --ignore-scripts
+
+      - name: Set status expired where the date has passed
+        id: expire
+        working-directory: web
+        run: node scripts/expire-records.mjs --write --body "$RUNNER_TEMP/expire.md"
+
+      - name: Accept only status lines in change records
+        if: steps.expire.outputs.expired != '0'
+        run: |
+          set -euo pipefail
+          outside=$(git diff --name-only | grep -vE '^knowledge/providers/[a-z0-9-]+/changes/[a-z0-9.-]+\.yaml$' || true)
+          if [ -n "$outside" ]; then
+            echo "::error::The expiry step changed files outside the change records:"; echo "$outside"; exit 1
+          fi
+          other=$(git diff -U0 | grep -E '^[-+]' | grep -vE '^(\+\+\+|---) ' | grep -vE '^-status: active$|^\+status: expired$' || true)
+          if [ -n "$other" ]; then
+            echo "::error::The expiry step changed more than status lines:"; echo "$other"; exit 1
+          fi
+          git diff --stat
+
+      - name: Fetch the DocsWatcher CLI
+        if: steps.expire.outputs.expired != '0'
+        run: |
+          set -euo pipefail
+          curl -sSL --fail -o "$RUNNER_TEMP/docswatcher" \
+            "https://github.com/${{ github.repository }}/releases/latest/download/docswatcher-linux-x64"
+          chmod +x "$RUNNER_TEMP/docswatcher"
+
+      - name: Bump the knowledge version and validate
+        if: steps.expire.outputs.expired != '0'
+        run: |
+          set -euo pipefail
+          date -u +%Y.%m.%d > knowledge/VERSION
+          "$RUNNER_TEMP/docswatcher" validate knowledge
+
+      - name: Open or refresh the pull request
+        if: steps.expire.outputs.expired != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # One standing branch, rebuilt from main every day, so a second record coming due joins
+          # the open pull request instead of opening another.
+          branch="knowledge-watch/expire"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add knowledge
+          git commit --quiet -m "knowledge: set status expired on records past their effective date ($(date -u +%F))"
+          git push --force --quiet "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" "$branch"
+          gh label create knowledge-expiry --repo "$REPO" --color FBCA04 \
+            --description "Records past their effective date, set expired by the knowledge watch" --force >/dev/null
+          open=$(gh pr list --repo "$REPO" --head "$branch" --state open --json number --jq 'length')
+          if [ "$open" = "0" ]; then
+            gh pr create --repo "$REPO" --label knowledge-expiry --head "$branch" \
+              --title "Knowledge: set status expired on records past their effective date" --body-file "$RUNNER_TEMP/expire.md"
+          else
+            gh pr edit "$branch" --repo "$REPO" --body-file "$RUNNER_TEMP/expire.md"
+          fi
 
   # Optional. Without a CLAUDE_CODE_OAUTH_TOKEN secret this job never runs.
   propose:

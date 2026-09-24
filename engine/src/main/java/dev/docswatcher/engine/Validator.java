@@ -3,6 +3,7 @@ package dev.docswatcher.engine;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -103,12 +104,7 @@ public final class Validator {
       LocalDate effective = c.effective() == null ? null : parseDate(c.effective());
       if (c.effective() != null && effective == null) errors.add(where + ": effective date invalid");
       if (announced != null && effective != null && !effective.isAfter(announced)) errors.add(where + ": effective must be after announced");
-      if ("active".equals(c.status()) && effective != null && effective.isBefore(today)) {
-        errors.add(where + ": status active but effective " + c.effective() + " is in the past; set status expired");
-      }
-      if ("expired".equals(c.status()) && effective != null && !effective.isBefore(today)) {
-        errors.add(where + ": status expired but effective " + c.effective() + " is not in the past");
-      }
+      lifecycle(c, effective, today, errors, warnings);
       if (c.producesFindings()) {
         if (!referenced.contains(c.id())) {
           errors.add(where + ": no fixture references change " + c.id() + " in its expected-findings.json");
@@ -122,6 +118,32 @@ public final class Validator {
       }
     }
     return new Report(errors, warnings);
+  }
+
+  /**
+   * How many days ahead an active record's effective date is announced as a warning. The day
+   * after that date the same record is an error, so the warning is the notice that the build
+   * will turn red unless someone sets {@code status: expired} on the day.
+   */
+  static final int EXPIRY_NOTICE_DAYS = 7;
+
+  /** Whether the status agrees with the effective date on {@code today}. */
+  static void lifecycle(Change c, LocalDate effective, LocalDate today, List<String> errors, List<String> warnings) {
+    if (effective == null) return;
+    String where = c.file();
+    if ("active".equals(c.status())) {
+      if (effective.isBefore(today)) {
+        errors.add(where + ": status active but effective " + c.effective() + " is in the past; set status expired");
+      } else if (!effective.isAfter(today.plusDays(EXPIRY_NOTICE_DAYS))) {
+        long days = today.until(effective, ChronoUnit.DAYS);
+        warnings.add(where + ": " + c.id() + " takes effect " + c.effective()
+            + (days == 0 ? " (today)" : " (in " + days + (days == 1 ? " day)" : " days)"))
+            + "; set status expired on " + effective.plusDays(1) + ", when validation starts failing on it");
+      }
+    }
+    if ("expired".equals(c.status()) && !effective.isBefore(today)) {
+      errors.add(where + ": status expired but effective " + c.effective() + " is not in the past");
+    }
   }
 
   private static boolean contractMatches(String contractId, Change.Affect a) {
