@@ -41,6 +41,8 @@ See the status section at the bottom of this file for the current state of the n
 
 Builds and runs on Linux x64 with GraalVM Community 25.0.0. `cli/target/docswatcher` is about 46 MB and runs `scan`, `match`, and `validate` against the fixtures.
 
+The release workflow also builds it on macOS arm64 and Windows x64 runners (`cli/target/docswatcher.exe` there). The `macos` and `windows` profiles switch on by OS and include only that platform's tree-sitter libraries in the image. There is no macOS x64 build: GraalVM Community stopped publishing macOS x64 after JDK 25.0.1.
+
 Two things were needed:
 
 1. **Reachability metadata repository disabled** in the `native` profile. native-maven-plugin 1.1.14 ships a metadata schema newer than GraalVM 25.0.0 understands and refuses to build. Our own JNI and resource configuration from the tracing agent is enough.
