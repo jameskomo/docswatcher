@@ -1,0 +1,5 @@
+source "https://rubygems.org"
+
+gem "rails", "~> 7.1.4"
+gem "ruby-openai", "~> 7.1"
+gem "sidekiq", "~> 7.3"

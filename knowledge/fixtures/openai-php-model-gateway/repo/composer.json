@@ -1,0 +1,10 @@
+{
+    "name": "acme/model-gateway",
+    "require": {
+        "php": ">=8.1",
+        "slim/slim": "^4.14",
+        "openai-php/client": "^0.10.3",
+        "anthropic-ai/sdk": "^0.3.0",
+        "guzzlehttp/guzzle": "^7.9"
+    }
+}

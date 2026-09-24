@@ -1,0 +1,14 @@
+[
+  {
+    "contract": "github:endpoint:ANY /search/code",
+    "change": "github-code-search-rate-limit-2023"
+  },
+  {
+    "contract": "anthropic:endpoint:POST /v1/messages",
+    "change": "anthropic-sampling-parameters-deprecated-2026"
+  },
+  {
+    "contract": "anthropic:sdk_method:messages.create",
+    "change": "anthropic-sampling-parameters-deprecated-2026"
+  }
+]

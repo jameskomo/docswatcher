@@ -1,0 +1,250 @@
+[
+  {
+    "id": "anthropic:endpoint:POST /v1/messages",
+    "provider": "anthropic",
+    "kind": "endpoint",
+    "key": "POST /v1/messages",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Gateway.php",
+        "line": 22,
+        "column": 24,
+        "snippet": "$message = $this->anthropic->messages->create(",
+        "detector": "anthropic.php.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "anthropic-ai/sdk",
+        "version": "^0.3.0"
+      }
+    }
+  },
+  {
+    "id": "anthropic:model:claude-sonnet-4-5",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-sonnet-4-5",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/Gateway.php",
+        "line": 25,
+        "column": 25,
+        "snippet": "model: 'claude-sonnet-4-5',",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "anthropic-ai/sdk",
+        "version": "^0.3.0"
+      }
+    }
+  },
+  {
+    "id": "anthropic:sdk_method:messages->create",
+    "provider": "anthropic",
+    "kind": "sdk_method",
+    "key": "messages->create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Gateway.php",
+        "line": 22,
+        "column": 24,
+        "snippet": "$message = $this->anthropic->messages->create(",
+        "detector": "anthropic.php.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "anthropic-ai/sdk",
+        "version": "^0.3.0"
+      }
+    }
+  },
+  {
+    "id": "anthropic:sdk_package:anthropic-ai/sdk",
+    "provider": "anthropic",
+    "kind": "sdk_package",
+    "key": "anthropic-ai/sdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "composer.json",
+        "line": 7,
+        "column": 10,
+        "snippet": "\"anthropic-ai/sdk\": \"^0.3.0\",",
+        "detector": "anthropic.manifest.packagist",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "anthropic-ai/sdk",
+        "version": "^0.3.0"
+      }
+    }
+  },
+  {
+    "id": "openai:endpoint:POST /v1/assistants",
+    "provider": "openai",
+    "kind": "endpoint",
+    "key": "POST /v1/assistants",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Gateway.php",
+        "line": 40,
+        "column": 16,
+        "snippet": "return $this->openai->assistants()->create([",
+        "detector": "openai.php.assistants-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "openai-php/client",
+        "version": "^0.10.3"
+      }
+    }
+  },
+  {
+    "id": "openai:endpoint:POST /v1/chat/completions",
+    "provider": "openai",
+    "kind": "endpoint",
+    "key": "POST /v1/chat/completions",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Gateway.php",
+        "line": 31,
+        "column": 19,
+        "snippet": "$result = $this->openai->chat()->create([",
+        "detector": "openai.php.chat-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "openai-php/client",
+        "version": "^0.10.3"
+      }
+    }
+  },
+  {
+    "id": "openai:model:gpt-4o",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/Gateway.php",
+        "line": 32,
+        "column": 25,
+        "snippet": "'model' => 'gpt-4o',",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      },
+      {
+        "path": "src/Gateway.php",
+        "line": 41,
+        "column": 25,
+        "snippet": "'model' => 'gpt-4o',",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "openai-php/client",
+        "version": "^0.10.3"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_method:assistants()->create",
+    "provider": "openai",
+    "kind": "sdk_method",
+    "key": "assistants()->create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Gateway.php",
+        "line": 40,
+        "column": 16,
+        "snippet": "return $this->openai->assistants()->create([",
+        "detector": "openai.php.assistants-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "openai-php/client",
+        "version": "^0.10.3"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_method:chat()->create",
+    "provider": "openai",
+    "kind": "sdk_method",
+    "key": "chat()->create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Gateway.php",
+        "line": 31,
+        "column": 19,
+        "snippet": "$result = $this->openai->chat()->create([",
+        "detector": "openai.php.chat-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "openai-php/client",
+        "version": "^0.10.3"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_package:openai-php/client",
+    "provider": "openai",
+    "kind": "sdk_package",
+    "key": "openai-php/client",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "composer.json",
+        "line": 6,
+        "column": 10,
+        "snippet": "\"openai-php/client\": \"^0.10.3\",",
+        "detector": "openai.manifest.packagist",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "openai-php/client",
+        "version": "^0.10.3"
+      }
+    }
+  }
+]

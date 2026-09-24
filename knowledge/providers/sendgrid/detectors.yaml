@@ -11,6 +11,12 @@ manifests:
     package: com.sendgrid:sendgrid-java
   - ecosystem: go
     package: github.com/sendgrid/sendgrid-go
+  - ecosystem: rubygems
+    package: sendgrid-ruby
+  - ecosystem: packagist
+    package: sendgrid/sendgrid
+  - ecosystem: nuget
+    package: SendGrid
 
 literals:
   # The v2 Web API uses a verb-in-path style with a format suffix, which is what
@@ -59,6 +65,57 @@ callsites:
           property: (property_identifier) @m)
         (#eq? @o "sgMail") (#eq? @m "send")) @call
     key: "sgMail.send"
+    maps_to:
+      kind: endpoint
+      key: "POST /v3/mail/send"
+    confidence: high
+
+  # sendgrid-ruby builds the request path from method calls:
+  # sg.client.mail._("send").post(request_body: ...).
+  - id: sendgrid.ruby.mail-send
+    language: ruby
+    kind: sdk_method
+    requires: sendgrid-ruby
+    query: |
+      (call
+        receiver: (call
+          receiver: (call method: (identifier) @mail)
+          method: (identifier) @u
+          arguments: (argument_list (string (string_content) @s)))
+        method: (identifier) @m
+        (#eq? @mail "mail") (#eq? @u "_") (#eq? @s "send") (#eq? @m "post")) @call
+    key: "mail._(\"send\").post"
+    maps_to:
+      kind: endpoint
+      key: "POST /v3/mail/send"
+    confidence: high
+
+  # Like sgMail.send in JavaScript, keyed on the variable or property name the
+  # SDK's documentation uses, since send() alone is too common a method name.
+  - id: sendgrid.php.mail-send
+    language: php
+    kind: sdk_method
+    requires: sendgrid/sendgrid
+    query: |
+      (member_call_expression
+        object: [(variable_name (name) @o) (member_access_expression name: (name) @o)]
+        name: (name) @m
+        (#eq? @o "sendgrid") (#eq? @m "send")) @call
+    key: "$sendgrid->send"
+    maps_to:
+      kind: endpoint
+      key: "POST /v3/mail/send"
+    confidence: high
+
+  - id: sendgrid.csharp.send-email
+    language: csharp
+    kind: sdk_method
+    requires: SendGrid
+    query: |
+      (invocation_expression
+        function: (member_access_expression name: (identifier) @m)
+        (#eq? @m "SendEmailAsync")) @call
+    key: "SendGridClient.SendEmailAsync"
     maps_to:
       kind: endpoint
       key: "POST /v3/mail/send"

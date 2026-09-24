@@ -1,0 +1,170 @@
+[
+  {
+    "id": "openai:endpoint:POST /v1/assistants",
+    "provider": "openai",
+    "kind": "endpoint",
+    "key": "POST /v1/assistants",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/Services/HelpdeskAssistant.php",
+        "line": 12,
+        "column": 22,
+        "snippet": "$assistant = OpenAI::assistants()->create([",
+        "detector": "openai.php.laravel-assistants-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "openai-php/laravel",
+        "version": "^0.10.1"
+      }
+    }
+  },
+  {
+    "id": "openai:endpoint:POST /v1/chat/completions",
+    "provider": "openai",
+    "kind": "endpoint",
+    "key": "POST /v1/chat/completions",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/Services/HelpdeskAssistant.php",
+        "line": 24,
+        "column": 21,
+        "snippet": "$response = \\OpenAI\\Laravel\\Facades\\OpenAI::chat()->create([",
+        "detector": "openai.php.laravel-chat-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "openai-php/laravel",
+        "version": "^0.10.1"
+      }
+    }
+  },
+  {
+    "id": "openai:model:gpt-4-turbo",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4-turbo",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/Services/HelpdeskAssistant.php",
+        "line": 13,
+        "column": 25,
+        "snippet": "'model' => 'gpt-4-turbo',",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "openai-php/laravel",
+        "version": "^0.10.1"
+      }
+    }
+  },
+  {
+    "id": "openai:model:gpt-4o-mini",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o-mini",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/Services/HelpdeskAssistant.php",
+        "line": 25,
+        "column": 25,
+        "snippet": "'model' => 'gpt-4o-mini',",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "openai-php/laravel",
+        "version": "^0.10.1"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_method:OpenAI::assistants()->create",
+    "provider": "openai",
+    "kind": "sdk_method",
+    "key": "OpenAI::assistants()->create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/Services/HelpdeskAssistant.php",
+        "line": 12,
+        "column": 22,
+        "snippet": "$assistant = OpenAI::assistants()->create([",
+        "detector": "openai.php.laravel-assistants-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "openai-php/laravel",
+        "version": "^0.10.1"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_method:OpenAI::chat()->create",
+    "provider": "openai",
+    "kind": "sdk_method",
+    "key": "OpenAI::chat()->create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/Services/HelpdeskAssistant.php",
+        "line": 24,
+        "column": 21,
+        "snippet": "$response = \\OpenAI\\Laravel\\Facades\\OpenAI::chat()->create([",
+        "detector": "openai.php.laravel-chat-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "openai-php/laravel",
+        "version": "^0.10.1"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_package:openai-php/laravel",
+    "provider": "openai",
+    "kind": "sdk_package",
+    "key": "openai-php/laravel",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "composer.json",
+        "line": 7,
+        "column": 10,
+        "snippet": "\"openai-php/laravel\": \"^0.10.1\"",
+        "detector": "openai.manifest.packagist",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "openai-php/laravel",
+        "version": "^0.10.1"
+      }
+    }
+  }
+]

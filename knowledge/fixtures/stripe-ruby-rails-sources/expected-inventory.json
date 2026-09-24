@@ -1,0 +1,242 @@
+[
+  {
+    "id": "sendgrid:endpoint:POST /v3/mail/send",
+    "provider": "sendgrid",
+    "kind": "endpoint",
+    "key": "POST /v3/mail/send",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/services/receipt_notifier.rb",
+        "line": 30,
+        "column": 5,
+        "snippet": "sg.client.mail._(\"send\").post(request_body: mail.to_json)",
+        "detector": "sendgrid.ruby.mail-send",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "sendgrid-ruby",
+        "version": "~> 6.7"
+      }
+    }
+  },
+  {
+    "id": "sendgrid:sdk_method:mail._(\"send\").post",
+    "provider": "sendgrid",
+    "kind": "sdk_method",
+    "key": "mail._(\"send\").post",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/services/receipt_notifier.rb",
+        "line": 30,
+        "column": 5,
+        "snippet": "sg.client.mail._(\"send\").post(request_body: mail.to_json)",
+        "detector": "sendgrid.ruby.mail-send",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "sendgrid-ruby",
+        "version": "~> 6.7"
+      }
+    }
+  },
+  {
+    "id": "sendgrid:sdk_package:sendgrid-ruby",
+    "provider": "sendgrid",
+    "kind": "sdk_package",
+    "key": "sendgrid-ruby",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "Gemfile",
+        "line": 10,
+        "column": 6,
+        "snippet": "gem \"sendgrid-ruby\", \"~> 6.7\"",
+        "detector": "sendgrid.manifest.rubygems",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "sendgrid-ruby",
+        "version": "~> 6.7"
+      }
+    }
+  },
+  {
+    "id": "stripe:endpoint:POST /v1/sources",
+    "provider": "stripe",
+    "kind": "endpoint",
+    "key": "POST /v1/sources",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/services/payment_sources.rb",
+        "line": 9,
+        "column": 5,
+        "snippet": "Stripe::Source.create(",
+        "detector": "stripe.ruby.source-create",
+        "layer": "callsite"
+      },
+      {
+        "path": "app/services/payment_sources.rb",
+        "line": 19,
+        "column": 5,
+        "snippet": "client.v1.sources.create({ type: \"ach_credit_transfer\", currency: \"usd\", owner: { email: @customer.email } })",
+        "detector": "stripe.ruby.sources-create",
+        "layer": "callsite"
+      },
+      {
+        "path": "spec/services/payment_sources_spec.rb",
+        "line": 6,
+        "column": 14,
+        "snippet": "source = Stripe::Source.create(type: \"sepa_debit\", currency: \"eur\")",
+        "detector": "stripe.ruby.source-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "stripe",
+        "version": "~> 13.3"
+      }
+    }
+  },
+  {
+    "id": "stripe:sdk_method:Source.create",
+    "provider": "stripe",
+    "kind": "sdk_method",
+    "key": "Source.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/services/payment_sources.rb",
+        "line": 9,
+        "column": 5,
+        "snippet": "Stripe::Source.create(",
+        "detector": "stripe.ruby.source-create",
+        "layer": "callsite"
+      },
+      {
+        "path": "spec/services/payment_sources_spec.rb",
+        "line": 6,
+        "column": 14,
+        "snippet": "source = Stripe::Source.create(type: \"sepa_debit\", currency: \"eur\")",
+        "detector": "stripe.ruby.source-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "stripe",
+        "version": "~> 13.3"
+      }
+    }
+  },
+  {
+    "id": "stripe:sdk_method:sources.create",
+    "provider": "stripe",
+    "kind": "sdk_method",
+    "key": "sources.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/services/payment_sources.rb",
+        "line": 19,
+        "column": 5,
+        "snippet": "client.v1.sources.create({ type: \"ach_credit_transfer\", currency: \"usd\", owner: { email: @customer.email } })",
+        "detector": "stripe.ruby.sources-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "stripe",
+        "version": "~> 13.3"
+      }
+    }
+  },
+  {
+    "id": "stripe:sdk_package:stripe",
+    "provider": "stripe",
+    "kind": "sdk_package",
+    "key": "stripe",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "Gemfile",
+        "line": 8,
+        "column": 6,
+        "snippet": "gem \"stripe\", \"~> 13.3\"",
+        "detector": "stripe.manifest.rubygems",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "stripe",
+        "version": "~> 13.3"
+      }
+    }
+  },
+  {
+    "id": "twilio:sdk_method:messages.create",
+    "provider": "twilio",
+    "kind": "sdk_method",
+    "key": "messages.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/services/receipt_notifier.rb",
+        "line": 19,
+        "column": 5,
+        "snippet": "client.messages.create(",
+        "detector": "twilio.ruby.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "twilio-ruby",
+        "version": "~> 7.3"
+      }
+    }
+  },
+  {
+    "id": "twilio:sdk_package:twilio-ruby",
+    "provider": "twilio",
+    "kind": "sdk_package",
+    "key": "twilio-ruby",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "Gemfile",
+        "line": 9,
+        "column": 6,
+        "snippet": "gem \"twilio-ruby\", \"~> 7.3\"",
+        "detector": "twilio.manifest.rubygems",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "twilio-ruby",
+        "version": "~> 7.3"
+      }
+    }
+  }
+]

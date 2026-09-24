@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "twilio:endpoint:ANY /notify/v1/Services",
+    "change": "twilio-notify-api-eol-2025"
+  },
+  {
+    "contract": "twilio:endpoint:ANY /chat/v2/Services",
+    "change": "twilio-programmable-chat-eol-2026"
+  }
+]

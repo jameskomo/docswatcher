@@ -1,0 +1,26 @@
+[
+  {
+    "id": "twilio:sdk_package:Twilio",
+    "provider": "twilio",
+    "kind": "sdk_package",
+    "key": "Twilio",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "Alerts/Alerts.csproj",
+        "line": 8,
+        "column": 32,
+        "snippet": "<PackageReference Include=\"Twilio\" Version=\"7.8.0\" />",
+        "detector": "twilio.manifest.nuget",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "Twilio",
+        "version": "7.8.0"
+      }
+    }
+  }
+]

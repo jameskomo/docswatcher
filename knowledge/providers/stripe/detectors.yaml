@@ -9,6 +9,12 @@ manifests:
     package: stripe
   - ecosystem: go
     package: github.com/stripe/stripe-go
+  - ecosystem: rubygems
+    package: stripe
+  - ecosystem: packagist
+    package: stripe/stripe-php
+  - ecosystem: nuget
+    package: Stripe.net
 
 literals:
   - id: stripe.literal.endpoint
@@ -86,6 +92,112 @@ callsites:
           property: (property_identifier) @m)
         (#eq? @a1 "sources") (#eq? @m "create")) @call
     key: "sources.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/sources"
+    confidence: high
+
+  # Ruby: resource classes (Stripe::Source.create) and, since stripe-ruby 13,
+  # StripeClient services under client.v1. A bare x.sources.create is not
+  # claimed: older gems used customer.sources.create to attach a card, which is
+  # a different endpoint.
+  - id: stripe.ruby.source-create
+    language: ruby
+    kind: sdk_method
+    requires: stripe
+    query: |
+      (call
+        receiver: (scope_resolution scope: (constant) @mod name: (constant) @cls)
+        method: (identifier) @m
+        (#eq? @mod "Stripe") (#eq? @cls "Source") (#eq? @m "create")) @call
+    key: "Source.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/sources"
+    confidence: high
+
+  - id: stripe.ruby.sources-create
+    language: ruby
+    kind: sdk_method
+    requires: stripe
+    query: |
+      (call
+        receiver: (call
+          receiver: (call method: (identifier) @v)
+          method: (identifier) @a1)
+        method: (identifier) @m
+        (#eq? @v "v1") (#eq? @a1 "sources") (#eq? @m "create")) @call
+    key: "sources.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/sources"
+    confidence: high
+
+  # PHP: static resource methods (\Stripe\Source::create) and StripeClient
+  # services ($stripe->sources->create).
+  - id: stripe.php.source-create
+    language: php
+    kind: sdk_method
+    requires: stripe/stripe-php
+    query: |
+      (scoped_call_expression
+        scope: [(name) @cls (qualified_name (name) @cls)]
+        name: (name) @m
+        (#eq? @cls "Source") (#eq? @m "create")) @call
+    key: "Source::create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/sources"
+    confidence: high
+
+  - id: stripe.php.sources-create
+    language: php
+    kind: sdk_method
+    requires: stripe/stripe-php
+    query: |
+      (member_call_expression
+        object: (member_access_expression name: (name) @a1)
+        name: (name) @m
+        (#eq? @a1 "sources") (#eq? @m "create")) @call
+    key: "sources->create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/sources"
+    confidence: high
+
+  # C#: Stripe.net calls go through a service object. Constructing
+  # SourceService is the Sources API whichever of its methods runs next, so it
+  # maps to ANY. StripeClient (Stripe.net 47+) exposes client.V1.Sources.
+  - id: stripe.csharp.source-service
+    language: csharp
+    kind: sdk_method
+    requires: Stripe.net
+    query: |
+      (object_creation_expression
+        type: [(identifier) @t (qualified_name name: (identifier) @t)]
+        (#eq? @t "SourceService")) @call
+    key: "SourceService"
+    maps_to:
+      kind: endpoint
+      key: "ANY /v1/sources"
+    confidence: high
+
+  - id: stripe.csharp.sources-create
+    language: csharp
+    kind: sdk_method
+    requires: Stripe.net
+    query: |
+      (invocation_expression
+        function: (member_access_expression
+          expression: (member_access_expression name: (identifier) @a1)
+          name: (identifier) @m)
+        (#eq? @a1 "Sources") (#eq? @m "Create")) @call
+      (invocation_expression
+        function: (member_access_expression
+          expression: (member_access_expression name: (identifier) @a1)
+          name: (identifier) @m)
+        (#eq? @a1 "Sources") (#eq? @m "CreateAsync")) @call
+    key: "Sources.Create"
     maps_to:
       kind: endpoint
       key: "POST /v1/sources"

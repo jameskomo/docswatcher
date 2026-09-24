@@ -1,0 +1,258 @@
+[
+  {
+    "id": "sendgrid:endpoint:POST /v3/mail/send",
+    "provider": "sendgrid",
+    "kind": "endpoint",
+    "key": "POST /v3/mail/send",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Shop.Web/Services/OrderNotifier.cs",
+        "line": 32,
+        "column": 15,
+        "snippet": "await _mail.SendEmailAsync(message);",
+        "detector": "sendgrid.csharp.send-email",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "SendGrid",
+        "version": "9.29.3"
+      }
+    }
+  },
+  {
+    "id": "sendgrid:sdk_method:SendGridClient.SendEmailAsync",
+    "provider": "sendgrid",
+    "kind": "sdk_method",
+    "key": "SendGridClient.SendEmailAsync",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Shop.Web/Services/OrderNotifier.cs",
+        "line": 32,
+        "column": 15,
+        "snippet": "await _mail.SendEmailAsync(message);",
+        "detector": "sendgrid.csharp.send-email",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "SendGrid",
+        "version": "9.29.3"
+      }
+    }
+  },
+  {
+    "id": "sendgrid:sdk_package:SendGrid",
+    "provider": "sendgrid",
+    "kind": "sdk_package",
+    "key": "SendGrid",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Shop.Web/Shop.Web.csproj",
+        "line": 12,
+        "column": 32,
+        "snippet": "<PackageReference Include=\"SendGrid\">",
+        "detector": "sendgrid.manifest.nuget",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "SendGrid",
+        "version": "9.29.3"
+      }
+    }
+  },
+  {
+    "id": "stripe:endpoint:ANY /v1/sources",
+    "provider": "stripe",
+    "kind": "endpoint",
+    "key": "ANY /v1/sources",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Shop.Web.Tests/CheckoutTests.cs",
+        "line": 11,
+        "column": 23,
+        "snippet": "var service = new SourceService(new StripeClient(\"sk_test_placeholder\"));",
+        "detector": "stripe.csharp.source-service",
+        "layer": "callsite"
+      },
+      {
+        "path": "src/Shop.Web/Controllers/CheckoutController.cs",
+        "line": 28,
+        "column": 23,
+        "snippet": "var service = new SourceService();",
+        "detector": "stripe.csharp.source-service",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "Stripe.net",
+        "version": "47.4.0"
+      }
+    }
+  },
+  {
+    "id": "stripe:endpoint:POST /v1/sources",
+    "provider": "stripe",
+    "kind": "endpoint",
+    "key": "POST /v1/sources",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Shop.Web/Controllers/CheckoutController.cs",
+        "line": 36,
+        "column": 28,
+        "snippet": "var source = await _stripe.V1.Sources.CreateAsync(new SourceCreateOptions",
+        "detector": "stripe.csharp.sources-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "Stripe.net",
+        "version": "47.4.0"
+      }
+    }
+  },
+  {
+    "id": "stripe:sdk_method:SourceService",
+    "provider": "stripe",
+    "kind": "sdk_method",
+    "key": "SourceService",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Shop.Web.Tests/CheckoutTests.cs",
+        "line": 11,
+        "column": 23,
+        "snippet": "var service = new SourceService(new StripeClient(\"sk_test_placeholder\"));",
+        "detector": "stripe.csharp.source-service",
+        "layer": "callsite"
+      },
+      {
+        "path": "src/Shop.Web/Controllers/CheckoutController.cs",
+        "line": 28,
+        "column": 23,
+        "snippet": "var service = new SourceService();",
+        "detector": "stripe.csharp.source-service",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "Stripe.net",
+        "version": "47.4.0"
+      }
+    }
+  },
+  {
+    "id": "stripe:sdk_method:Sources.Create",
+    "provider": "stripe",
+    "kind": "sdk_method",
+    "key": "Sources.Create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Shop.Web/Controllers/CheckoutController.cs",
+        "line": 36,
+        "column": 28,
+        "snippet": "var source = await _stripe.V1.Sources.CreateAsync(new SourceCreateOptions",
+        "detector": "stripe.csharp.sources-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "Stripe.net",
+        "version": "47.4.0"
+      }
+    }
+  },
+  {
+    "id": "stripe:sdk_package:Stripe.net",
+    "provider": "stripe",
+    "kind": "sdk_package",
+    "key": "Stripe.net",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Shop.Web/Shop.Web.csproj",
+        "line": 10,
+        "column": 32,
+        "snippet": "<PackageReference Include=\"Stripe.net\" Version=\"47.4.0\" />",
+        "detector": "stripe.manifest.nuget",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "Stripe.net",
+        "version": "47.4.0"
+      }
+    }
+  },
+  {
+    "id": "twilio:sdk_method:MessageResource.Create",
+    "provider": "twilio",
+    "kind": "sdk_method",
+    "key": "MessageResource.Create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Shop.Web/Services/OrderNotifier.cs",
+        "line": 21,
+        "column": 15,
+        "snippet": "await MessageResource.CreateAsync(",
+        "detector": "twilio.csharp.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "Twilio",
+        "version": "7.8.0"
+      }
+    }
+  },
+  {
+    "id": "twilio:sdk_package:Twilio",
+    "provider": "twilio",
+    "kind": "sdk_package",
+    "key": "Twilio",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Shop.Web/Shop.Web.csproj",
+        "line": 11,
+        "column": 32,
+        "snippet": "<PackageReference Include=\"Twilio\" Version=\"7.8.0\" />",
+        "detector": "twilio.manifest.nuget",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "Twilio",
+        "version": "7.8.0"
+      }
+    }
+  }
+]

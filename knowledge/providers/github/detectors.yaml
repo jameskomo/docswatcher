@@ -66,3 +66,19 @@ callsites:
       kind: endpoint
       key: "GET /search/code"
     confidence: high
+
+  # octokit.rb flattens the endpoint into one method name.
+  - id: github.ruby.search-code
+    language: ruby
+    kind: sdk_method
+    requires: octokit
+    query: |
+      (call
+        receiver: (_)
+        method: (identifier) @m
+        (#eq? @m "search_code")) @call
+    key: "search_code"
+    maps_to:
+      kind: endpoint
+      key: "ANY /search/code"
+    confidence: high

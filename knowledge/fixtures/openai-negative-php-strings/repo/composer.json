@@ -1,0 +1,7 @@
+{
+    "name": "acme/prompt-library",
+    "require": {
+        "php": "^8.2",
+        "openai-php/client": "^0.10.3"
+    }
+}

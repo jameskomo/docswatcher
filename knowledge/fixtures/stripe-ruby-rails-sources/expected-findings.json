@@ -1,0 +1,14 @@
+[
+  {
+    "contract": "stripe:endpoint:POST /v1/sources",
+    "change": "stripe-sources-api-deprecated"
+  },
+  {
+    "contract": "stripe:sdk_method:Source.create",
+    "change": "stripe-sources-api-deprecated"
+  },
+  {
+    "contract": "stripe:sdk_method:sources.create",
+    "change": "stripe-sources-api-deprecated"
+  }
+]

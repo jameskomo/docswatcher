@@ -1,0 +1,266 @@
+[
+  {
+    "id": "anthropic:endpoint:POST /v1/messages",
+    "provider": "anthropic",
+    "kind": "endpoint",
+    "key": "POST /v1/messages",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "SupportDesk/Agents/TriageAgent.cs",
+        "line": 43,
+        "column": 29,
+        "snippet": "var message = await _claude.Messages.Create(new MessageCreateParams",
+        "detector": "anthropic.csharp.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "Anthropic",
+        "version": "10.1.0"
+      }
+    }
+  },
+  {
+    "id": "anthropic:model:claude-sonnet-4-5",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-sonnet-4-5",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "SupportDesk/Agents/TriageAgent.cs",
+        "line": 45,
+        "column": 22,
+        "snippet": "Model = \"claude-sonnet-4-5\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "Anthropic",
+        "version": "10.1.0"
+      }
+    }
+  },
+  {
+    "id": "anthropic:sdk_method:Messages.Create",
+    "provider": "anthropic",
+    "kind": "sdk_method",
+    "key": "Messages.Create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "SupportDesk/Agents/TriageAgent.cs",
+        "line": 43,
+        "column": 29,
+        "snippet": "var message = await _claude.Messages.Create(new MessageCreateParams",
+        "detector": "anthropic.csharp.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "Anthropic",
+        "version": "10.1.0"
+      }
+    }
+  },
+  {
+    "id": "anthropic:sdk_package:Anthropic",
+    "provider": "anthropic",
+    "kind": "sdk_package",
+    "key": "Anthropic",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "SupportDesk/SupportDesk.csproj",
+        "line": 11,
+        "column": 32,
+        "snippet": "<PackageReference Include=\"Anthropic\" Version=\"10.1.0\" />",
+        "detector": "anthropic.manifest.nuget",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "Anthropic",
+        "version": "10.1.0"
+      }
+    }
+  },
+  {
+    "id": "openai:endpoint:POST /v1/assistants",
+    "provider": "openai",
+    "kind": "endpoint",
+    "key": "POST /v1/assistants",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "SupportDesk/Agents/TriageAgent.cs",
+        "line": 26,
+        "column": 37,
+        "snippet": "Assistant assistant = await assistants.CreateAssistantAsync(\"gpt-4-turbo\", new AssistantCreationOptions",
+        "detector": "openai.csharp.assistants-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "OpenAI",
+        "version": "2.1.0"
+      }
+    }
+  },
+  {
+    "id": "openai:endpoint:POST /v1/chat/completions",
+    "provider": "openai",
+    "kind": "endpoint",
+    "key": "POST /v1/chat/completions",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "SupportDesk/Agents/TriageAgent.cs",
+        "line": 37,
+        "column": 43,
+        "snippet": "ChatCompletion completion = await chat.CompleteChatAsync(new UserChatMessage($\"Summarize: {ticket}\"));",
+        "detector": "openai.csharp.chat-complete-chat",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "OpenAI",
+        "version": "2.1.0"
+      }
+    }
+  },
+  {
+    "id": "openai:model:gpt-4-turbo",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4-turbo",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "SupportDesk/Agents/TriageAgent.cs",
+        "line": 26,
+        "column": 70,
+        "snippet": "Assistant assistant = await assistants.CreateAssistantAsync(\"gpt-4-turbo\", new AssistantCreationOptions",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "OpenAI",
+        "version": "2.1.0"
+      }
+    }
+  },
+  {
+    "id": "openai:model:gpt-4o-mini",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o-mini",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "SupportDesk/Agents/TriageAgent.cs",
+        "line": 36,
+        "column": 50,
+        "snippet": "ChatClient chat = _openai.GetChatClient(\"gpt-4o-mini\");",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "OpenAI",
+        "version": "2.1.0"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_method:AssistantClient.CreateAssistant",
+    "provider": "openai",
+    "kind": "sdk_method",
+    "key": "AssistantClient.CreateAssistant",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "SupportDesk/Agents/TriageAgent.cs",
+        "line": 26,
+        "column": 37,
+        "snippet": "Assistant assistant = await assistants.CreateAssistantAsync(\"gpt-4-turbo\", new AssistantCreationOptions",
+        "detector": "openai.csharp.assistants-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "OpenAI",
+        "version": "2.1.0"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_method:ChatClient.CompleteChat",
+    "provider": "openai",
+    "kind": "sdk_method",
+    "key": "ChatClient.CompleteChat",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "SupportDesk/Agents/TriageAgent.cs",
+        "line": 37,
+        "column": 43,
+        "snippet": "ChatCompletion completion = await chat.CompleteChatAsync(new UserChatMessage($\"Summarize: {ticket}\"));",
+        "detector": "openai.csharp.chat-complete-chat",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "OpenAI",
+        "version": "2.1.0"
+      }
+    }
+  },
+  {
+    "id": "openai:sdk_package:OpenAI",
+    "provider": "openai",
+    "kind": "sdk_package",
+    "key": "OpenAI",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "SupportDesk/SupportDesk.csproj",
+        "line": 10,
+        "column": 32,
+        "snippet": "<PackageReference Include=\"OpenAI\" Version=\"2.1.0\" />",
+        "detector": "openai.manifest.nuget",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "nuget",
+        "package": "OpenAI",
+        "version": "2.1.0"
+      }
+    }
+  }
+]

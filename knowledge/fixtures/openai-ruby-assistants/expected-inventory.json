@@ -1,0 +1,204 @@
+[
+  {
+    "id": "openai:endpoint:POST /v1/assistants",
+    "provider": "openai",
+    "kind": "endpoint",
+    "key": "POST /v1/assistants",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/models/support_assistant.rb",
+        "line": 7,
+        "column": 16,
+        "snippet": "response = self.class.client.assistants.create(",
+        "detector": "openai.ruby.ruby-openai-assistants-create",
+        "layer": "callsite"
+      },
+      {
+        "path": "worker/lib/triage_worker.rb",
+        "line": 10,
+        "column": 5,
+        "snippet": "@openai.beta.assistants.create(model: \"gpt-4-turbo\", name: \"Nightly triage\")",
+        "detector": "openai.ruby.assistants-create",
+        "layer": "callsite"
+      }
+    ]
+  },
+  {
+    "id": "openai:endpoint:POST /v1/chat/completions",
+    "provider": "openai",
+    "kind": "endpoint",
+    "key": "POST /v1/chat/completions",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/models/support_assistant.rb",
+        "line": 19,
+        "column": 5,
+        "snippet": "self.class.client.chat(",
+        "detector": "openai.ruby.ruby-openai-chat",
+        "layer": "callsite"
+      },
+      {
+        "path": "worker/lib/triage_worker.rb",
+        "line": 14,
+        "column": 18,
+        "snippet": "completion = @openai.chat.completions.create(",
+        "detector": "openai.ruby.chat-completions-create",
+        "layer": "callsite"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4-turbo",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4-turbo",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models/support_assistant.rb",
+        "line": 9,
+        "column": 17,
+        "snippet": "model: \"gpt-4-turbo\",",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      },
+      {
+        "path": "worker/lib/triage_worker.rb",
+        "line": 10,
+        "column": 44,
+        "snippet": "@openai.beta.assistants.create(model: \"gpt-4-turbo\", name: \"Nightly triage\")",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-4o-mini",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-4o-mini",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/models/support_assistant.rb",
+        "line": 21,
+        "column": 17,
+        "snippet": "model: \"gpt-4o-mini\",",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      },
+      {
+        "path": "worker/lib/triage_worker.rb",
+        "line": 15,
+        "column": 15,
+        "snippet": "model: \"gpt-4o-mini\",",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:sdk_method:assistants.create",
+    "provider": "openai",
+    "kind": "sdk_method",
+    "key": "assistants.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/models/support_assistant.rb",
+        "line": 7,
+        "column": 16,
+        "snippet": "response = self.class.client.assistants.create(",
+        "detector": "openai.ruby.ruby-openai-assistants-create",
+        "layer": "callsite"
+      }
+    ]
+  },
+  {
+    "id": "openai:sdk_method:beta.assistants.create",
+    "provider": "openai",
+    "kind": "sdk_method",
+    "key": "beta.assistants.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "worker/lib/triage_worker.rb",
+        "line": 10,
+        "column": 5,
+        "snippet": "@openai.beta.assistants.create(model: \"gpt-4-turbo\", name: \"Nightly triage\")",
+        "detector": "openai.ruby.assistants-create",
+        "layer": "callsite"
+      }
+    ]
+  },
+  {
+    "id": "openai:sdk_method:chat",
+    "provider": "openai",
+    "kind": "sdk_method",
+    "key": "chat",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/models/support_assistant.rb",
+        "line": 19,
+        "column": 5,
+        "snippet": "self.class.client.chat(",
+        "detector": "openai.ruby.ruby-openai-chat",
+        "layer": "callsite"
+      }
+    ]
+  },
+  {
+    "id": "openai:sdk_method:chat.completions.create",
+    "provider": "openai",
+    "kind": "sdk_method",
+    "key": "chat.completions.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "worker/lib/triage_worker.rb",
+        "line": 14,
+        "column": 18,
+        "snippet": "completion = @openai.chat.completions.create(",
+        "detector": "openai.ruby.chat-completions-create",
+        "layer": "callsite"
+      }
+    ]
+  },
+  {
+    "id": "openai:sdk_package:openai",
+    "provider": "openai",
+    "kind": "sdk_package",
+    "key": "openai",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "worker/Gemfile",
+        "line": 3,
+        "column": 6,
+        "snippet": "gem \"openai\", \"~> 0.16\"",
+        "detector": "openai.manifest.rubygems",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "openai:sdk_package:ruby-openai",
+    "provider": "openai",
+    "kind": "sdk_package",
+    "key": "ruby-openai",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "Gemfile",
+        "line": 4,
+        "column": 6,
+        "snippet": "gem \"ruby-openai\", \"~> 7.1\"",
+        "detector": "openai.manifest.rubygems",
+        "layer": "manifest"
+      }
+    ]
+  }
+]

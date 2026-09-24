@@ -11,6 +11,10 @@ manifests:
     package: github.com/twilio/twilio-go
   - ecosystem: rubygems
     package: twilio-ruby
+  - ecosystem: packagist
+    package: twilio/sdk
+  - ecosystem: nuget
+    package: Twilio
 
 literals:
   # Twilio splits products across subdomains and several of them expose the same
@@ -69,4 +73,130 @@ callsites:
           property: (property_identifier) @m)
         (#eq? @a1 "messages") (#eq? @m "create")) @call
     key: "messages.create"
+    confidence: high
+
+  - id: twilio.ruby.messages-create
+    language: ruby
+    kind: sdk_method
+    requires: twilio-ruby
+    query: |
+      (call
+        receiver: (call method: (identifier) @a1)
+        method: (identifier) @m
+        (#eq? @a1 "messages") (#eq? @m "create")) @call
+    key: "messages.create"
+    confidence: high
+
+  # The Ruby and PHP helpers name the product and version in the call chain
+  # (client.chat.v2.services), so the end-of-life products are visible in code
+  # even though no URL is written. Any operation on the services list or one
+  # service counts.
+  - id: twilio.ruby.chat-services
+    language: ruby
+    kind: sdk_method
+    requires: twilio-ruby
+    query: |
+      (call
+        receiver: (call
+          receiver: (call method: (identifier) @p)
+          method: (identifier) @v)
+        method: (identifier) @s
+        (#eq? @p "chat") (#eq? @v "v2") (#eq? @s "services")) @call
+    key: "chat.v2.services"
+    maps_to:
+      kind: endpoint
+      key: "ANY /chat/v2/Services"
+    confidence: high
+
+  - id: twilio.ruby.notify-services
+    language: ruby
+    kind: sdk_method
+    requires: twilio-ruby
+    query: |
+      (call
+        receiver: (call
+          receiver: (call method: (identifier) @p)
+          method: (identifier) @v)
+        method: (identifier) @s
+        (#eq? @p "notify") (#eq? @v "v1") (#eq? @s "services")) @call
+    key: "notify.v1.services"
+    maps_to:
+      kind: endpoint
+      key: "ANY /notify/v1/Services"
+    confidence: high
+
+  - id: twilio.php.messages-create
+    language: php
+    kind: sdk_method
+    requires: twilio/sdk
+    query: |
+      (member_call_expression
+        object: (member_access_expression name: (name) @a1)
+        name: (name) @m
+        (#eq? @a1 "messages") (#eq? @m "create")) @call
+    key: "messages->create"
+    confidence: high
+
+  # $twilio->chat->v2->services is a property when listing or creating and a
+  # method call when naming one service by SID.
+  - id: twilio.php.chat-services
+    language: php
+    kind: sdk_method
+    requires: twilio/sdk
+    query: |
+      (member_access_expression
+        object: (member_access_expression
+          object: (member_access_expression name: (name) @p)
+          name: (name) @v)
+        name: (name) @s
+        (#eq? @p "chat") (#eq? @v "v2") (#eq? @s "services")) @call
+      (member_call_expression
+        object: (member_access_expression
+          object: (member_access_expression name: (name) @p)
+          name: (name) @v)
+        name: (name) @s
+        (#eq? @p "chat") (#eq? @v "v2") (#eq? @s "services")) @call
+    key: "chat->v2->services"
+    maps_to:
+      kind: endpoint
+      key: "ANY /chat/v2/Services"
+    confidence: high
+
+  - id: twilio.php.notify-services
+    language: php
+    kind: sdk_method
+    requires: twilio/sdk
+    query: |
+      (member_access_expression
+        object: (member_access_expression
+          object: (member_access_expression name: (name) @p)
+          name: (name) @v)
+        name: (name) @s
+        (#eq? @p "notify") (#eq? @v "v1") (#eq? @s "services")) @call
+      (member_call_expression
+        object: (member_access_expression
+          object: (member_access_expression name: (name) @p)
+          name: (name) @v)
+        name: (name) @s
+        (#eq? @p "notify") (#eq? @v "v1") (#eq? @s "services")) @call
+    key: "notify->v1->services"
+    maps_to:
+      kind: endpoint
+      key: "ANY /notify/v1/Services"
+    confidence: high
+
+  # C#: resources are static classes. MessageResource.Create sends an SMS
+  # whatever namespace imported it.
+  - id: twilio.csharp.messages-create
+    language: csharp
+    kind: sdk_method
+    requires: Twilio
+    query: |
+      (invocation_expression
+        function: (member_access_expression expression: (identifier) @cls name: (identifier) @m)
+        (#eq? @cls "MessageResource") (#eq? @m "Create")) @call
+      (invocation_expression
+        function: (member_access_expression expression: (identifier) @cls name: (identifier) @m)
+        (#eq? @cls "MessageResource") (#eq? @m "CreateAsync")) @call
+    key: "MessageResource.Create"
     confidence: high

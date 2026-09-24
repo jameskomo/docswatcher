@@ -1,0 +1,26 @@
+[
+  {
+    "id": "openai:sdk_package:openai-php/client",
+    "provider": "openai",
+    "kind": "sdk_package",
+    "key": "openai-php/client",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "composer.json",
+        "line": 5,
+        "column": 10,
+        "snippet": "\"openai-php/client\": \"^0.10.3\"",
+        "detector": "openai.manifest.packagist",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "openai-php/client",
+        "version": "^0.10.3"
+      }
+    }
+  }
+]

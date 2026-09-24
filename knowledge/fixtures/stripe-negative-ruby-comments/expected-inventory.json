@@ -1,0 +1,26 @@
+[
+  {
+    "id": "stripe:sdk_package:stripe",
+    "provider": "stripe",
+    "kind": "sdk_package",
+    "key": "stripe",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "Gemfile",
+        "line": 4,
+        "column": 6,
+        "snippet": "gem \"stripe\", \"~> 13.3\"",
+        "detector": "stripe.manifest.rubygems",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "stripe",
+        "version": "~> 13.3"
+      }
+    }
+  }
+]

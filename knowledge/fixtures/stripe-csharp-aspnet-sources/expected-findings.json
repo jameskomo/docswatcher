@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "stripe:endpoint:ANY /v1/sources",
+    "change": "stripe-sources-api-deprecated"
+  },
+  {
+    "contract": "stripe:endpoint:POST /v1/sources",
+    "change": "stripe-sources-api-deprecated"
+  }
+]

@@ -1,0 +1,10 @@
+{
+    "name": "acme/legacy-shop",
+    "description": "Storefront checkout, receipts and customer chat",
+    "require": {
+        "php": "^8.1",
+        "stripe/stripe-php": "^10.21",
+        "sendgrid/sendgrid": "^8.1",
+        "twilio/sdk": "^6.44"
+    }
+}

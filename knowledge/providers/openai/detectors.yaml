@@ -9,6 +9,16 @@ manifests:
     package: com.openai:openai-java
   - ecosystem: go
     package: github.com/openai/openai-go
+  - ecosystem: rubygems
+    package: openai
+  - ecosystem: rubygems
+    package: ruby-openai
+  - ecosystem: packagist
+    package: openai-php/client
+  - ecosystem: packagist
+    package: openai-php/laravel
+  - ecosystem: nuget
+    package: OpenAI
 
 literals:
   # text-embedding-* is not an OpenAI-only shape. Google ships
@@ -127,4 +137,180 @@ callsites:
     maps_to:
       kind: endpoint
       key: "POST /v1/chat/completions"
+    confidence: high
+
+  # Ruby: the official gem (openai) mirrors the Python client's resource paths;
+  # the community gem ruby-openai takes one parameters: hash per method.
+  - id: openai.ruby.chat-completions-create
+    language: ruby
+    kind: sdk_method
+    requires: openai
+    query: |
+      (call
+        receiver: (call
+          receiver: (call method: (identifier) @a1)
+          method: (identifier) @a2)
+        method: (identifier) @m
+        (#eq? @a1 "chat") (#eq? @a2 "completions") (#eq? @m "create")) @call
+    key: "chat.completions.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/chat/completions"
+    confidence: high
+
+  - id: openai.ruby.assistants-create
+    language: ruby
+    kind: sdk_method
+    requires: openai
+    query: |
+      (call
+        receiver: (call
+          receiver: (call method: (identifier) @a1)
+          method: (identifier) @a2)
+        method: (identifier) @m
+        (#eq? @a1 "beta") (#eq? @a2 "assistants") (#eq? @m "create")) @call
+    key: "beta.assistants.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/assistants"
+    confidence: high
+
+  - id: openai.ruby.ruby-openai-chat
+    language: ruby
+    kind: sdk_method
+    requires: ruby-openai
+    query: |
+      (call
+        receiver: (_)
+        method: (identifier) @m
+        arguments: (argument_list (pair key: (hash_key_symbol) @k))
+        (#eq? @m "chat") (#eq? @k "parameters")) @call
+    key: "chat"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/chat/completions"
+    confidence: high
+
+  - id: openai.ruby.ruby-openai-assistants-create
+    language: ruby
+    kind: sdk_method
+    requires: ruby-openai
+    query: |
+      (call
+        receiver: (call method: (identifier) @a1)
+        method: (identifier) @m
+        arguments: (argument_list (pair key: (hash_key_symbol) @k))
+        (#eq? @a1 "assistants") (#eq? @m "create") (#eq? @k "parameters")) @call
+    key: "assistants.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/assistants"
+    confidence: high
+
+  # PHP: openai-php/client resources are methods ($client->chat()->create()).
+  # The Laravel package exposes the same client through the OpenAI facade.
+  - id: openai.php.chat-create
+    language: php
+    kind: sdk_method
+    requires: openai-php/client
+    query: |
+      (member_call_expression
+        object: (member_call_expression name: (name) @a1)
+        name: (name) @m
+        (#eq? @a1 "chat") (#eq? @m "create")) @call
+    key: "chat()->create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/chat/completions"
+    confidence: high
+
+  - id: openai.php.assistants-create
+    language: php
+    kind: sdk_method
+    requires: openai-php/client
+    query: |
+      (member_call_expression
+        object: (member_call_expression name: (name) @a1)
+        name: (name) @m
+        (#eq? @a1 "assistants") (#eq? @m "create")) @call
+    key: "assistants()->create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/assistants"
+    confidence: high
+
+  - id: openai.php.laravel-chat-create
+    language: php
+    kind: sdk_method
+    requires: openai-php/laravel
+    query: |
+      (member_call_expression
+        object: (scoped_call_expression
+          scope: [(name) @f (qualified_name (name) @f)]
+          name: (name) @a1)
+        name: (name) @m
+        (#eq? @f "OpenAI") (#eq? @a1 "chat") (#eq? @m "create")) @call
+    key: "OpenAI::chat()->create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/chat/completions"
+    confidence: high
+
+  - id: openai.php.laravel-assistants-create
+    language: php
+    kind: sdk_method
+    requires: openai-php/laravel
+    query: |
+      (member_call_expression
+        object: (scoped_call_expression
+          scope: [(name) @f (qualified_name (name) @f)]
+          name: (name) @a1)
+        name: (name) @m
+        (#eq? @f "OpenAI") (#eq? @a1 "assistants") (#eq? @m "create")) @call
+    key: "OpenAI::assistants()->create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/assistants"
+    confidence: high
+
+  # C#: the OpenAI package's clients are typed per API (ChatClient,
+  # AssistantClient), so the method name alone identifies the endpoint.
+  - id: openai.csharp.chat-complete-chat
+    language: csharp
+    kind: sdk_method
+    requires: OpenAI
+    query: |
+      (invocation_expression
+        function: (member_access_expression name: (identifier) @m)
+        (#eq? @m "CompleteChat")) @call
+      (invocation_expression
+        function: (member_access_expression name: (identifier) @m)
+        (#eq? @m "CompleteChatAsync")) @call
+      (invocation_expression
+        function: (member_access_expression name: (identifier) @m)
+        (#eq? @m "CompleteChatStreaming")) @call
+      (invocation_expression
+        function: (member_access_expression name: (identifier) @m)
+        (#eq? @m "CompleteChatStreamingAsync")) @call
+    key: "ChatClient.CompleteChat"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/chat/completions"
+    confidence: high
+
+  - id: openai.csharp.assistants-create
+    language: csharp
+    kind: sdk_method
+    requires: OpenAI
+    query: |
+      (invocation_expression
+        function: (member_access_expression name: (identifier) @m)
+        (#eq? @m "CreateAssistant")) @call
+      (invocation_expression
+        function: (member_access_expression name: (identifier) @m)
+        (#eq? @m "CreateAssistantAsync")) @call
+    key: "AssistantClient.CreateAssistant"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/assistants"
     confidence: high

@@ -1,0 +1,162 @@
+[
+  {
+    "id": "twilio:endpoint:ANY /chat/v2/Services",
+    "provider": "twilio",
+    "kind": "endpoint",
+    "key": "ANY /chat/v2/Services",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "lib/community/messaging.rb",
+        "line": 21,
+        "column": 7,
+        "snippet": "@client.chat.v2.services(@chat_sid).channels.create(friendly_name: name)",
+        "detector": "twilio.ruby.chat-services",
+        "layer": "callsite"
+      },
+      {
+        "path": "lib/community/messaging.rb",
+        "line": 25,
+        "column": 7,
+        "snippet": "@client.chat.v2.services.list(limit: 20)",
+        "detector": "twilio.ruby.chat-services",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "twilio-ruby",
+        "version": "~> 5.77"
+      }
+    }
+  },
+  {
+    "id": "twilio:endpoint:ANY /notify/v1/Services",
+    "provider": "twilio",
+    "kind": "endpoint",
+    "key": "ANY /notify/v1/Services",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "lib/community/messaging.rb",
+        "line": 13,
+        "column": 7,
+        "snippet": "@client.notify.v1.services(@notify_sid).bindings.create(",
+        "detector": "twilio.ruby.notify-services",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "twilio-ruby",
+        "version": "~> 5.77"
+      }
+    }
+  },
+  {
+    "id": "twilio:sdk_method:chat.v2.services",
+    "provider": "twilio",
+    "kind": "sdk_method",
+    "key": "chat.v2.services",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "lib/community/messaging.rb",
+        "line": 21,
+        "column": 7,
+        "snippet": "@client.chat.v2.services(@chat_sid).channels.create(friendly_name: name)",
+        "detector": "twilio.ruby.chat-services",
+        "layer": "callsite"
+      },
+      {
+        "path": "lib/community/messaging.rb",
+        "line": 25,
+        "column": 7,
+        "snippet": "@client.chat.v2.services.list(limit: 20)",
+        "detector": "twilio.ruby.chat-services",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "twilio-ruby",
+        "version": "~> 5.77"
+      }
+    }
+  },
+  {
+    "id": "twilio:sdk_method:messages.create",
+    "provider": "twilio",
+    "kind": "sdk_method",
+    "key": "messages.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "lib/community/messaging.rb",
+        "line": 29,
+        "column": 7,
+        "snippet": "@client.messages.create(from: ENV.fetch(\"TWILIO_FROM\"), to: phone, body: body)",
+        "detector": "twilio.ruby.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "twilio-ruby",
+        "version": "~> 5.77"
+      }
+    }
+  },
+  {
+    "id": "twilio:sdk_method:notify.v1.services",
+    "provider": "twilio",
+    "kind": "sdk_method",
+    "key": "notify.v1.services",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "lib/community/messaging.rb",
+        "line": 13,
+        "column": 7,
+        "snippet": "@client.notify.v1.services(@notify_sid).bindings.create(",
+        "detector": "twilio.ruby.notify-services",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "twilio-ruby",
+        "version": "~> 5.77"
+      }
+    }
+  },
+  {
+    "id": "twilio:sdk_package:twilio-ruby",
+    "provider": "twilio",
+    "kind": "sdk_package",
+    "key": "twilio-ruby",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "Gemfile",
+        "line": 4,
+        "column": 6,
+        "snippet": "gem \"twilio-ruby\", \"~> 5.77\"",
+        "detector": "twilio.manifest.rubygems",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "twilio-ruby",
+        "version": "~> 5.77"
+      }
+    }
+  }
+]

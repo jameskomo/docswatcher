@@ -9,6 +9,12 @@ manifests:
     package: com.anthropic:anthropic-java
   - ecosystem: go
     package: github.com/anthropics/anthropic-sdk-go
+  - ecosystem: rubygems
+    package: anthropic
+  - ecosystem: packagist
+    package: anthropic-ai/sdk
+  - ecosystem: nuget
+    package: Anthropic
 
 literals:
   - id: anthropic.literal.model
@@ -86,6 +92,52 @@ callsites:
         name: (identifier) @m
         (#eq? @a1 "messages") (#eq? @m "create")) @call
     key: "messages().create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/messages"
+    confidence: high
+
+  - id: anthropic.ruby.messages-create
+    language: ruby
+    kind: sdk_method
+    requires: anthropic
+    query: |
+      (call
+        receiver: (call method: (identifier) @a1)
+        method: (identifier) @m
+        (#eq? @a1 "messages") (#eq? @m "create")) @call
+    key: "messages.create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/messages"
+    confidence: high
+
+  - id: anthropic.php.messages-create
+    language: php
+    kind: sdk_method
+    requires: anthropic-ai/sdk
+    query: |
+      (member_call_expression
+        object: (member_access_expression name: (name) @a1)
+        name: (name) @m
+        (#eq? @a1 "messages") (#eq? @m "create")) @call
+    key: "messages->create"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/messages"
+    confidence: high
+
+  - id: anthropic.csharp.messages-create
+    language: csharp
+    kind: sdk_method
+    requires: Anthropic
+    query: |
+      (invocation_expression
+        function: (member_access_expression
+          expression: (member_access_expression name: (identifier) @a1)
+          name: (identifier) @m)
+        (#eq? @a1 "Messages") (#eq? @m "Create")) @call
+    key: "Messages.Create"
     maps_to:
       kind: endpoint
       key: "POST /v1/messages"

@@ -1,0 +1,170 @@
+[
+  {
+    "id": "anthropic:endpoint:POST /v1/messages",
+    "provider": "anthropic",
+    "kind": "endpoint",
+    "key": "POST /v1/messages",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "lib/review_bot.rb",
+        "line": 23,
+        "column": 15,
+        "snippet": "message = @claude.messages.create(",
+        "detector": "anthropic.ruby.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "anthropic",
+        "version": "~> 1.6"
+      }
+    }
+  },
+  {
+    "id": "anthropic:model:claude-sonnet-4-5",
+    "provider": "anthropic",
+    "kind": "model",
+    "key": "claude-sonnet-4-5",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "lib/review_bot.rb",
+        "line": 24,
+        "column": 15,
+        "snippet": "model: \"claude-sonnet-4-5\",",
+        "detector": "anthropic.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "anthropic",
+        "version": "~> 1.6"
+      }
+    }
+  },
+  {
+    "id": "anthropic:sdk_method:messages.create",
+    "provider": "anthropic",
+    "kind": "sdk_method",
+    "key": "messages.create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "lib/review_bot.rb",
+        "line": 23,
+        "column": 15,
+        "snippet": "message = @claude.messages.create(",
+        "detector": "anthropic.ruby.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "anthropic",
+        "version": "~> 1.6"
+      }
+    }
+  },
+  {
+    "id": "anthropic:sdk_package:anthropic",
+    "provider": "anthropic",
+    "kind": "sdk_package",
+    "key": "anthropic",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "Gemfile",
+        "line": 3,
+        "column": 6,
+        "snippet": "gem \"anthropic\", \"~> 1.6\"",
+        "detector": "anthropic.manifest.rubygems",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "anthropic",
+        "version": "~> 1.6"
+      }
+    }
+  },
+  {
+    "id": "github:endpoint:ANY /search/code",
+    "provider": "github",
+    "kind": "endpoint",
+    "key": "ANY /search/code",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "lib/review_bot.rb",
+        "line": 14,
+        "column": 15,
+        "snippet": "results = @github.search_code(\"#{symbol} org:#{@org}\")",
+        "detector": "github.ruby.search-code",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "octokit",
+        "version": "~> 9.2"
+      }
+    }
+  },
+  {
+    "id": "github:sdk_method:search_code",
+    "provider": "github",
+    "kind": "sdk_method",
+    "key": "search_code",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "lib/review_bot.rb",
+        "line": 14,
+        "column": 15,
+        "snippet": "results = @github.search_code(\"#{symbol} org:#{@org}\")",
+        "detector": "github.ruby.search-code",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "octokit",
+        "version": "~> 9.2"
+      }
+    }
+  },
+  {
+    "id": "github:sdk_package:octokit",
+    "provider": "github",
+    "kind": "sdk_package",
+    "key": "octokit",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "Gemfile",
+        "line": 4,
+        "column": 6,
+        "snippet": "gem \"octokit\", \"~> 9.2\"",
+        "detector": "github.manifest.rubygems",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "rubygems",
+        "package": "octokit",
+        "version": "~> 9.2"
+      }
+    }
+  }
+]

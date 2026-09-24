@@ -1,0 +1,290 @@
+[
+  {
+    "id": "sendgrid:endpoint:POST /v3/mail/send",
+    "provider": "sendgrid",
+    "kind": "endpoint",
+    "key": "POST /v3/mail/send",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Notifications/CustomerMessages.php",
+        "line": 24,
+        "column": 9,
+        "snippet": "$this->sendgrid->send($email);",
+        "detector": "sendgrid.php.mail-send",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "sendgrid/sendgrid",
+        "version": "^8.1"
+      }
+    }
+  },
+  {
+    "id": "sendgrid:sdk_method:$sendgrid->send",
+    "provider": "sendgrid",
+    "kind": "sdk_method",
+    "key": "$sendgrid->send",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Notifications/CustomerMessages.php",
+        "line": 24,
+        "column": 9,
+        "snippet": "$this->sendgrid->send($email);",
+        "detector": "sendgrid.php.mail-send",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "sendgrid/sendgrid",
+        "version": "^8.1"
+      }
+    }
+  },
+  {
+    "id": "sendgrid:sdk_package:sendgrid/sendgrid",
+    "provider": "sendgrid",
+    "kind": "sdk_package",
+    "key": "sendgrid/sendgrid",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "composer.json",
+        "line": 7,
+        "column": 10,
+        "snippet": "\"sendgrid/sendgrid\": \"^8.1\",",
+        "detector": "sendgrid.manifest.packagist",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "sendgrid/sendgrid",
+        "version": "^8.1"
+      }
+    }
+  },
+  {
+    "id": "stripe:endpoint:POST /v1/sources",
+    "provider": "stripe",
+    "kind": "endpoint",
+    "key": "POST /v1/sources",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Checkout/PaymentMethods.php",
+        "line": 19,
+        "column": 16,
+        "snippet": "return \\Stripe\\Source::create([",
+        "detector": "stripe.php.source-create",
+        "layer": "callsite"
+      },
+      {
+        "path": "src/Checkout/PaymentMethods.php",
+        "line": 29,
+        "column": 16,
+        "snippet": "return $this->stripe->sources->create([",
+        "detector": "stripe.php.sources-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "stripe/stripe-php",
+        "version": "^10.21"
+      }
+    }
+  },
+  {
+    "id": "stripe:sdk_method:Source::create",
+    "provider": "stripe",
+    "kind": "sdk_method",
+    "key": "Source::create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Checkout/PaymentMethods.php",
+        "line": 19,
+        "column": 16,
+        "snippet": "return \\Stripe\\Source::create([",
+        "detector": "stripe.php.source-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "stripe/stripe-php",
+        "version": "^10.21"
+      }
+    }
+  },
+  {
+    "id": "stripe:sdk_method:sources->create",
+    "provider": "stripe",
+    "kind": "sdk_method",
+    "key": "sources->create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Checkout/PaymentMethods.php",
+        "line": 29,
+        "column": 16,
+        "snippet": "return $this->stripe->sources->create([",
+        "detector": "stripe.php.sources-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "stripe/stripe-php",
+        "version": "^10.21"
+      }
+    }
+  },
+  {
+    "id": "stripe:sdk_package:stripe/stripe-php",
+    "provider": "stripe",
+    "kind": "sdk_package",
+    "key": "stripe/stripe-php",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "composer.json",
+        "line": 6,
+        "column": 10,
+        "snippet": "\"stripe/stripe-php\": \"^10.21\",",
+        "detector": "stripe.manifest.packagist",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "stripe/stripe-php",
+        "version": "^10.21"
+      }
+    }
+  },
+  {
+    "id": "twilio:endpoint:ANY /chat/v2/Services",
+    "provider": "twilio",
+    "kind": "endpoint",
+    "key": "ANY /chat/v2/Services",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Notifications/CustomerMessages.php",
+        "line": 37,
+        "column": 16,
+        "snippet": "return $this->twilio->chat->v2->services($this->chatServiceSid)",
+        "detector": "twilio.php.chat-services",
+        "layer": "callsite"
+      },
+      {
+        "path": "src/Notifications/CustomerMessages.php",
+        "line": 44,
+        "column": 16,
+        "snippet": "return $this->twilio->chat->v2->services->read(20);",
+        "detector": "twilio.php.chat-services",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "twilio/sdk",
+        "version": "^6.44"
+      }
+    }
+  },
+  {
+    "id": "twilio:sdk_method:chat->v2->services",
+    "provider": "twilio",
+    "kind": "sdk_method",
+    "key": "chat->v2->services",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Notifications/CustomerMessages.php",
+        "line": 37,
+        "column": 16,
+        "snippet": "return $this->twilio->chat->v2->services($this->chatServiceSid)",
+        "detector": "twilio.php.chat-services",
+        "layer": "callsite"
+      },
+      {
+        "path": "src/Notifications/CustomerMessages.php",
+        "line": 44,
+        "column": 16,
+        "snippet": "return $this->twilio->chat->v2->services->read(20);",
+        "detector": "twilio.php.chat-services",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "twilio/sdk",
+        "version": "^6.44"
+      }
+    }
+  },
+  {
+    "id": "twilio:sdk_method:messages->create",
+    "provider": "twilio",
+    "kind": "sdk_method",
+    "key": "messages->create",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Notifications/CustomerMessages.php",
+        "line": 29,
+        "column": 9,
+        "snippet": "$this->twilio->messages->create($phone, [",
+        "detector": "twilio.php.messages-create",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "twilio/sdk",
+        "version": "^6.44"
+      }
+    }
+  },
+  {
+    "id": "twilio:sdk_package:twilio/sdk",
+    "provider": "twilio",
+    "kind": "sdk_package",
+    "key": "twilio/sdk",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "composer.json",
+        "line": 8,
+        "column": 10,
+        "snippet": "\"twilio/sdk\": \"^6.44\"",
+        "detector": "twilio.manifest.packagist",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "packagist",
+        "package": "twilio/sdk",
+        "version": "^6.44"
+      }
+    }
+  }
+]

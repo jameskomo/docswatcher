@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "twilio:endpoint:ANY /chat/v2/Services",
+    "change": "twilio-programmable-chat-eol-2026"
+  },
+  {
+    "contract": "stripe:endpoint:POST /v1/sources",
+    "change": "stripe-sources-api-deprecated"
+  }
+]
