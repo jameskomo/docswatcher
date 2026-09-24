@@ -1,0 +1,42 @@
+id: x-v1-1-statuses-filter-deprecated-2023
+provider: x
+kind: sunset
+severity: warning
+title: v1.1 statuses/filter stream deprecated
+summary: >
+  X deprecated the v1.1 statuses/filter streaming endpoint on 2023-03-14 and
+  points developers to the filtered stream endpoint in the X API v2. No removal
+  date has been published, so this record carries no effective date.
+
+affects:
+  - kind: endpoint
+    match: "ANY /1.1/statuses/filter.json"
+
+announced: 2023-03-14
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://docs.x.com/changelog
+    observed: 2026-09-24
+    note: "Mar 14, 2023, X API v1.1: \"Today, we are deprecating the statuses/filter endpoint in the X API v1.1 Developers can use the filtered stream endpoint in the X API v2.\""
+  - kind: provider_page
+    url: https://docs.x.com/x-api/migrate/x-api-endpoint-map
+    observed: 2026-09-24
+    note: "Maps GET statuses/filter to Filtered stream: connect to stream, add/delete rules, retrieve rules."
+
+migration:
+  replacement: "GET /2/tweets/search/stream"
+  guide: https://docs.x.com/x-api/migrate/x-api-endpoint-map
+  effort: large
+  notes: >
+    The v1.1 stream took track, follow and locations parameters on the
+    connection. The v2 filtered stream keeps rules on the server: create them
+    with POST /2/tweets/search/stream/rules, then connect to
+    GET /2/tweets/search/stream. Each rule has a tag, and matched posts arrive
+    with matching_rules so the consumer can route them. Posts arrive in the v2
+    format, so parsing code that reads v1.1 fields (user, entities,
+    extended_tweet) must move to fields and expansions. Reconnect and backoff
+    handling carries over.
+
+status: active

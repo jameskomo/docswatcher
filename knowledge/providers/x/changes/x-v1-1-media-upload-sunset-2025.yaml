@@ -1,0 +1,48 @@
+id: x-v1-1-media-upload-sunset-2025
+provider: x
+kind: sunset
+severity: breaking
+title: v1.1 media upload endpoints sunset
+summary: >
+  The v1.1 media upload endpoints on upload.twitter.com were sunset on
+  2025-06-09 for self-serve developers (Free, Basic and Pro). Media is uploaded
+  through the X API v2 media endpoints on api.x.com instead.
+
+affects:
+  - kind: endpoint
+    match: "ANY /1.1/media/upload.json"
+  - kind: sdk_method
+    match: "API.media_upload"
+  - kind: sdk_method
+    match: "v1.uploadMedia"
+
+announced: 2025-02-25
+effective: 2025-06-09
+
+sources:
+  - kind: provider_page
+    url: https://devcommunity.x.com/t/deprecating-the-v1-1-media-upload-endpoints/238196
+    observed: 2026-09-24
+    note: "XDevelopers, 2025-02-25: \"We plan to deprecate the legacy v1.1 media upload endpoints on March 31st 2025 for self serve developers (Free, Basic and Pro tiers).\""
+  - kind: provider_page
+    url: https://devcommunity.x.com/t/media-upload-endpoints-update-and-extended-migration-deadline/241818
+    observed: 2026-09-24
+    note: "Update at the top of the post: \"The Media Upload v1.1 endpoints will be sunset on Monday, June 9, 2025.\" Linked from the 2025-04-30 entry of docs.x.com/changelog."
+
+migration:
+  replacement: "POST /2/media/upload"
+  guide: https://docs.x.com/x-api/media/quickstart/media-upload-chunked
+  effort: medium
+  notes: >
+    Replace calls to https://upload.twitter.com/1.1/media/upload.json with the
+    v2 media endpoints on https://api.x.com. A one-shot upload of an image or
+    subtitle file is POST /2/media/upload. Chunked uploads (video, GIF, large
+    files) no longer use a command=INIT/APPEND/FINALIZE parameter on one URL:
+    call POST /2/media/upload/initialize, then POST /2/media/upload/{id}/append
+    for each chunk, then POST /2/media/upload/{id}/finalize. In tweepy,
+    API.media_upload is the v1.1 call. In twitter-api-v2, client.v1.uploadMedia
+    is the v1.1 call; move to the v2 media upload method of the installed
+    version. The returned media id is passed to POST /2/tweets as
+    media.media_ids.
+
+status: expired

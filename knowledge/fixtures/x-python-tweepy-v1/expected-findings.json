@@ -1,0 +1,30 @@
+[
+  {
+    "contract": "x:endpoint:ANY /1.1/statuses/oembed.json",
+    "change": "x-v1-1-oembed-retired-2021"
+  },
+  {
+    "contract": "x:endpoint:POST /1.1/media/upload.json",
+    "change": "x-v1-1-media-upload-sunset-2025"
+  },
+  {
+    "contract": "x:sdk_method:API.media_upload",
+    "change": "x-v1-1-media-upload-sunset-2025"
+  },
+  {
+    "contract": "x:endpoint:ANY /2/account_activity/replay/webhooks/{webhook_id}/subscriptions/all",
+    "change": "x-account-activity-replay-retired-2026"
+  },
+  {
+    "contract": "x:endpoint:ANY /1.1/statuses/filter.json",
+    "change": "x-v1-1-statuses-filter-deprecated-2023"
+  },
+  {
+    "contract": "x:endpoint:GET /1.1/search/tweets.json",
+    "change": "x-v1-1-search-deprecated-2023"
+  },
+  {
+    "contract": "x:sdk_method:API.search_tweets",
+    "change": "x-v1-1-search-deprecated-2023"
+  }
+]

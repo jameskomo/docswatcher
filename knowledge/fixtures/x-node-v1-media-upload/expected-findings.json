@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "x:endpoint:POST /1.1/media/upload.json",
+    "change": "x-v1-1-media-upload-sunset-2025"
+  },
+  {
+    "contract": "x:sdk_method:v1.uploadMedia",
+    "change": "x-v1-1-media-upload-sunset-2025"
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "id": "x:endpoint:ANY /1.1/search/tweets.json",
+    "provider": "x",
+    "kind": "endpoint",
+    "key": "ANY /1.1/search/tweets.json",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "tests/test_mentions.py",
+        "line": 6,
+        "column": 41,
+        "snippet": "LEGACY_SEARCH = \"https://api.twitter.com/1.1/search/tweets.json\"",
+        "detector": "x.literal.endpoint-v1",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "x:endpoint:ANY /2/tweets/search/recent",
+    "provider": "x",
+    "kind": "endpoint",
+    "key": "ANY /2/tweets/search/recent",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "digest/mentions.py",
+        "line": 5,
+        "column": 32,
+        "snippet": "SEARCH_URL = \"https://api.x.com/2/tweets/search/recent\"",
+        "detector": "x.literal.endpoint-v2",
+        "layer": "literal"
+      }
+    ]
+  }
+]

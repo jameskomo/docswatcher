@@ -1,0 +1,218 @@
+[
+  {
+    "id": "x:endpoint:ANY /1.1/statuses/filter.json",
+    "provider": "x",
+    "kind": "endpoint",
+    "key": "ANY /1.1/statuses/filter.json",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "social/stream.py",
+        "line": 7,
+        "column": 41,
+        "snippet": "STREAM_URL = \"https://stream.twitter.com/1.1/statuses/filter.json\"",
+        "detector": "x.literal.endpoint-v1",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "tweepy",
+        "version": "4.14.0"
+      }
+    }
+  },
+  {
+    "id": "x:endpoint:ANY /1.1/statuses/oembed.json",
+    "provider": "x",
+    "kind": "endpoint",
+    "key": "ANY /1.1/statuses/oembed.json",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "social/stream.py",
+        "line": 8,
+        "column": 38,
+        "snippet": "OEMBED_URL = \"https://api.twitter.com/1.1/statuses/oembed.json\"",
+        "detector": "x.literal.endpoint-v1",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "tweepy",
+        "version": "4.14.0"
+      }
+    }
+  },
+  {
+    "id": "x:endpoint:ANY /2/account_activity/replay/webhooks/{webhook_id}/subscriptions/all",
+    "provider": "x",
+    "kind": "endpoint",
+    "key": "ANY /2/account_activity/replay/webhooks/{webhook_id}/subscriptions/all",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "social/webhooks.py",
+        "line": 10,
+        "column": 13,
+        "snippet": "url = f\"https://api.x.com/2/account_activity/replay/webhooks/{WEBHOOK_ID}/subscriptions/all\"",
+        "detector": "x.literal.endpoint-aaa-replay",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "tweepy",
+        "version": "4.14.0"
+      }
+    }
+  },
+  {
+    "id": "x:endpoint:ANY /2/webhooks",
+    "provider": "x",
+    "kind": "endpoint",
+    "key": "ANY /2/webhooks",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "social/webhooks.py",
+        "line": 20,
+        "column": 40,
+        "snippet": "r = requests.get(\"https://api.x.com/2/webhooks\", headers={\"Authorization\": f\"Bearer {BEARER}\"})",
+        "detector": "x.literal.endpoint-v2",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "tweepy",
+        "version": "4.14.0"
+      }
+    }
+  },
+  {
+    "id": "x:endpoint:GET /1.1/search/tweets.json",
+    "provider": "x",
+    "kind": "endpoint",
+    "key": "GET /1.1/search/tweets.json",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "social/poster.py",
+        "line": 27,
+        "column": 12,
+        "snippet": "return api.search_tweets(q=f\"@{handle} -filter:retweets\", count=limit, result_type=\"recent\")",
+        "detector": "x.python.search-tweets",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "tweepy",
+        "version": "4.14.0"
+      }
+    }
+  },
+  {
+    "id": "x:endpoint:POST /1.1/media/upload.json",
+    "provider": "x",
+    "kind": "endpoint",
+    "key": "POST /1.1/media/upload.json",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "social/poster.py",
+        "line": 21,
+        "column": 13,
+        "snippet": "media = api.media_upload(filename=image_path)",
+        "detector": "x.python.media-upload",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "tweepy",
+        "version": "4.14.0"
+      }
+    }
+  },
+  {
+    "id": "x:sdk_method:API.media_upload",
+    "provider": "x",
+    "kind": "sdk_method",
+    "key": "API.media_upload",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "social/poster.py",
+        "line": 21,
+        "column": 13,
+        "snippet": "media = api.media_upload(filename=image_path)",
+        "detector": "x.python.media-upload",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "tweepy",
+        "version": "4.14.0"
+      }
+    }
+  },
+  {
+    "id": "x:sdk_method:API.search_tweets",
+    "provider": "x",
+    "kind": "sdk_method",
+    "key": "API.search_tweets",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "social/poster.py",
+        "line": 27,
+        "column": 12,
+        "snippet": "return api.search_tweets(q=f\"@{handle} -filter:retweets\", count=limit, result_type=\"recent\")",
+        "detector": "x.python.search-tweets",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "tweepy",
+        "version": "4.14.0"
+      }
+    }
+  },
+  {
+    "id": "x:sdk_package:tweepy",
+    "provider": "x",
+    "kind": "sdk_package",
+    "key": "tweepy",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "tweepy==4.14.0",
+        "detector": "x.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "tweepy",
+        "version": "4.14.0"
+      }
+    }
+  }
+]

@@ -1,0 +1,35 @@
+id: x-v1-1-oembed-retired-2021
+provider: x
+kind: sunset
+severity: breaking
+title: v1.1 statuses/oembed endpoint retired
+summary: >
+  The v1.1 oEmbed endpoint was retired and removed on 2021-11-23. After that
+  date the only supported oEmbed endpoint is the one on the publish host.
+
+affects:
+  - kind: endpoint
+    match: "ANY /1.1/statuses/oembed.json"
+
+announced: 2021-05-26
+effective: 2021-11-23
+
+sources:
+  - kind: changelog
+    url: https://docs.x.com/changelog
+    observed: 2026-09-24
+    note: "May 26, 2021: \"the v1.1 oEmbed endpoint will be retired and removed on November 23, 2021 ... After that date, the only official and supported API endpoint for X oEmbeds (embedded posts and timelines) will be via publish.x.com/oembed.\""
+
+migration:
+  replacement: "https://publish.x.com/oembed"
+  guide: https://docs.x.com/changelog
+  effort: small
+  notes: >
+    Replace https://api.twitter.com/1.1/statuses/oembed.json with a GET to
+    https://publish.x.com/oembed, passing the post URL as url. The display
+    parameters of the v1.1 call (maxwidth, hide_media, hide_thread,
+    omit_script, align, lang, theme, dnt) are oEmbed options on the publish
+    endpoint too; confirm each one the code sends against the publish
+    documentation. The embed markup is still returned in html.
+
+status: expired

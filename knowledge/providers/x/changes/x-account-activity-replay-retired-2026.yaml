@@ -1,0 +1,39 @@
+id: x-account-activity-replay-retired-2026
+provider: x
+kind: sunset
+severity: breaking
+title: Account Activity replay endpoint retired
+summary: >
+  POST /2/account_activity/replay/webhooks/{webhook_id}/subscriptions/all was
+  deprecated effective 2026-03-25 at 12:00 PM ET. The consolidated
+  POST /2/webhooks/replay endpoint provides the same function.
+
+affects:
+  - kind: endpoint
+    match: "ANY /2/account_activity/replay/webhooks/{webhook_id}/subscriptions/all"
+
+announced: 2026-03-20
+effective: 2026-03-25
+
+sources:
+  - kind: changelog
+    url: https://docs.x.com/changelog
+    observed: 2026-09-24
+    note: "Mar 20, 2026: \"Today, we announced the deprecation of POST /2/account_activity/replay/webhooks/{webhook_id}/subscriptions/all, effective March 25, 2026 at 12:00 PM ET. Use the new consolidated POST /2/webhooks/replay endpoint instead — it provides identical functionality.\""
+  - kind: provider_page
+    url: https://devcommunity.x.com/t/deprecation-of-account-activity-replay-endpoint/260354
+    observed: 2026-09-24
+
+migration:
+  replacement: "POST /2/webhooks/replay"
+  guide: https://docs.x.com/changelog
+  effort: small
+  notes: >
+    Replace the request to
+    /2/account_activity/replay/webhooks/{webhook_id}/subscriptions/all with
+    POST /2/webhooks/replay. X describes the new endpoint as providing identical
+    functionality. Check the webhooks replay reference for how the webhook id
+    and the replay time window are passed, since the webhook id is no longer a
+    path segment.
+
+status: expired

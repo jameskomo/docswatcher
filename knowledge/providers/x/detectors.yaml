@@ -1,0 +1,118 @@
+provider: x
+
+manifests:
+  # The official XDKs, then the community clients X's tools page lists and
+  # the long-standing Java client. tweepy.API and twitter-api-v2's client.v1
+  # are v1.1 surfaces, which is what the call-site rules below look for.
+  - ecosystem: pypi
+    package: xdk
+  - ecosystem: npm
+    package: "@xdevplatform/xdk"
+  - ecosystem: pypi
+    package: tweepy
+  - ecosystem: npm
+    package: twitter-api-v2
+  - ecosystem: maven
+    package: org.twitter4j:twitter4j-core
+
+literals:
+  # v1.1 resources end in .json and live on three hosts (api, upload, stream),
+  # under either the twitter.com or the x.com name. The key is the path alone:
+  # no v1.1 path is served by two hosts, so the host adds nothing.
+  - id: x.literal.endpoint-v1
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://(?:api|upload|stream)\.(?:twitter|x)\.com(/1\.1/[a-z_]+(?:/[a-z_]+)*\.json)'
+    key: "ANY $1"
+    confidence: medium
+
+  # v2 paths with literal segments only. The lookahead drops a path that goes on
+  # into an id or a template placeholder rather than truncating it, since a
+  # truncated path would claim a different endpoint.
+  - id: x.literal.endpoint-v2
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://api\.(?:twitter|x)\.com(/2/[a-z_]+(?:/[a-z_]+)*)(?![\w/{$-])'
+    key: "ANY $1"
+    confidence: medium
+
+  # The Account Activity replay route carries a webhook id in the middle, as a
+  # number or a placeholder, so it gets its own rule with the id normalised.
+  - id: x.literal.endpoint-aaa-replay
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://api\.(?:twitter|x)\.com/2/account_activity/replay/webhooks/[^/\s"''`]+/subscriptions/all'
+    key: "ANY /2/account_activity/replay/webhooks/{webhook_id}/subscriptions/all"
+    confidence: medium
+
+callsites:
+  # tweepy.API is the v1.1 client. search_tweets is GET search/tweets; the v2
+  # Client names its searches search_recent_tweets and search_all_tweets.
+  - id: x.python.search-tweets
+    language: python
+    kind: sdk_method
+    requires: tweepy
+    query: |
+      (call
+        function: (attribute
+          object: (_)
+          attribute: (identifier) @m)
+        (#eq? @m "search_tweets")) @call
+    key: "API.search_tweets"
+    maps_to:
+      kind: endpoint
+      key: "GET /1.1/search/tweets.json"
+    confidence: high
+
+  # API.media_upload posts to upload.twitter.com/1.1/media/upload.json.
+  - id: x.python.media-upload
+    language: python
+    kind: sdk_method
+    requires: tweepy
+    query: |
+      (call
+        function: (attribute
+          object: (_)
+          attribute: (identifier) @m)
+        (#eq? @m "media_upload")) @call
+    key: "API.media_upload"
+    maps_to:
+      kind: endpoint
+      key: "POST /1.1/media/upload.json"
+    confidence: high
+
+  # twitter-api-v2 namespaces the v1.1 surface as client.v1.
+  - id: x.javascript.v1-upload-media
+    language: javascript
+    kind: sdk_method
+    requires: twitter-api-v2
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @ns)
+          property: (property_identifier) @m)
+        (#eq? @ns "v1") (#eq? @m "uploadMedia")) @call
+    key: "v1.uploadMedia"
+    maps_to:
+      kind: endpoint
+      key: "POST /1.1/media/upload.json"
+    confidence: high
+
+  - id: x.typescript.v1-upload-media
+    language: typescript
+    kind: sdk_method
+    requires: twitter-api-v2
+    query: |
+      (call_expression
+        function: (member_expression
+          object: (member_expression property: (property_identifier) @ns)
+          property: (property_identifier) @m)
+        (#eq? @ns "v1") (#eq? @m "uploadMedia")) @call
+    key: "v1.uploadMedia"
+    maps_to:
+      kind: endpoint
+      key: "POST /1.1/media/upload.json"
+    confidence: high

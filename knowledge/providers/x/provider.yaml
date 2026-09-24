@@ -1,0 +1,21 @@
+id: x
+name: X (Twitter) API
+homepage: https://developer.x.com
+docs: https://docs.x.com/x-api
+changelog: https://docs.x.com/changelog
+base_urls:
+  - https://api.x.com
+  - https://api.twitter.com
+  - https://upload.twitter.com
+  - https://stream.twitter.com
+openapi:
+  url: https://api.x.com/2/openapi.json
+  pinned_sha: null
+sdk_languages: [python, typescript, javascript, java]
+deprecation_policy: >
+  The version is a path segment: /1.1/ for the legacy standard API and /2/ for
+  the current one. The versioning page lists v1.1 as legacy with limited
+  support. X deprecates individual endpoints in its changelog, often with
+  effect from the day of the entry and without a later removal date, and
+  announces removals with a date in the developer forum. Hosts moved from
+  twitter.com to x.com, so both spellings appear in code.

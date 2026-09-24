@@ -1,0 +1,49 @@
+id: x-v1-1-search-deprecated-2023
+provider: x
+kind: sunset
+severity: warning
+title: v1.1 search endpoints deprecated
+summary: >
+  X deprecated the v1.1 search/tweets, users/search and geo/search endpoints on
+  2023-09-28. X has published no removal date, so this record carries no
+  effective date. Recent search in the X API v2 is the documented replacement
+  for search/tweets.
+
+affects:
+  - kind: endpoint
+    match: "ANY /1.1/search/tweets.json"
+  - kind: endpoint
+    match: "ANY /1.1/users/search.json"
+  - kind: endpoint
+    match: "ANY /1.1/geo/search.json"
+  - kind: sdk_method
+    match: "API.search_tweets"
+
+announced: 2023-09-28
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://docs.x.com/changelog
+    observed: 2026-09-24
+    note: "Sep 28, 2023, X API v1.1: \"Today, we are deprecating the search/tweets, users/search, and geo/search endpoints in the X API v1.1.\""
+  - kind: provider_page
+    url: https://docs.x.com/x-api/posts/search/migrate/overview
+    observed: 2026-09-24
+    note: "Endpoint path table: /1.1/search/tweets.json (Standard v1.1) against /2/tweets/search/recent (X API v2)."
+
+migration:
+  replacement: "GET /2/tweets/search/recent"
+  guide: https://docs.x.com/x-api/posts/search/migrate/standard-to-twitter-api-v2
+  effort: medium
+  notes: >
+    Replace GET /1.1/search/tweets.json with GET /2/tweets/search/recent, or
+    /2/tweets/search/all for full-archive access. The q parameter becomes
+    query. v2 returns only id and text by default: request other fields with
+    tweet.fields, user.fields and expansions, and read authors from
+    includes.users rather than an embedded user object. Pagination uses
+    next_token instead of max_id and since_id. In tweepy, move from
+    API.search_tweets to Client.search_recent_tweets. The migration pages name
+    no v2 equivalent for users/search or geo/search.
+
+status: active
