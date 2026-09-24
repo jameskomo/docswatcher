@@ -1,0 +1,218 @@
+[
+  {
+    "id": "cohere:endpoint:POST /v1/classify",
+    "provider": "cohere",
+    "kind": "endpoint",
+    "key": "POST /v1/classify",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/triage.py",
+        "line": 14,
+        "column": 14,
+        "snippet": "result = co.classify(inputs=tickets, examples=EXAMPLES)",
+        "detector": "cohere.python.classify",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.13.4"
+      }
+    }
+  },
+  {
+    "id": "cohere:endpoint:POST /v1/generate",
+    "provider": "cohere",
+    "kind": "endpoint",
+    "key": "POST /v1/generate",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/writer.py",
+        "line": 9,
+        "column": 16,
+        "snippet": "response = co.generate(",
+        "detector": "cohere.python.generate",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.13.4"
+      }
+    }
+  },
+  {
+    "id": "cohere:endpoint:POST /v1/summarize",
+    "provider": "cohere",
+    "kind": "endpoint",
+    "key": "POST /v1/summarize",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/writer.py",
+        "line": 19,
+        "column": 16,
+        "snippet": "response = co.summarize(text=thread, model=\"command-light\", length=\"short\", format=\"bullets\")",
+        "detector": "cohere.python.summarize",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.13.4"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:command",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "command",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/writer.py",
+        "line": 10,
+        "column": 16,
+        "snippet": "model=\"command\",",
+        "detector": "cohere.literal.model-command",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.13.4"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:command-light",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "command-light",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/writer.py",
+        "line": 19,
+        "column": 49,
+        "snippet": "response = co.summarize(text=thread, model=\"command-light\", length=\"short\", format=\"bullets\")",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.13.4"
+      }
+    }
+  },
+  {
+    "id": "cohere:sdk_method:Client.classify",
+    "provider": "cohere",
+    "kind": "sdk_method",
+    "key": "Client.classify",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/triage.py",
+        "line": 14,
+        "column": 14,
+        "snippet": "result = co.classify(inputs=tickets, examples=EXAMPLES)",
+        "detector": "cohere.python.classify",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.13.4"
+      }
+    }
+  },
+  {
+    "id": "cohere:sdk_method:Client.generate",
+    "provider": "cohere",
+    "kind": "sdk_method",
+    "key": "Client.generate",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/writer.py",
+        "line": 9,
+        "column": 16,
+        "snippet": "response = co.generate(",
+        "detector": "cohere.python.generate",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.13.4"
+      }
+    }
+  },
+  {
+    "id": "cohere:sdk_method:Client.summarize",
+    "provider": "cohere",
+    "kind": "sdk_method",
+    "key": "Client.summarize",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "app/writer.py",
+        "line": 19,
+        "column": 16,
+        "snippet": "response = co.summarize(text=thread, model=\"command-light\", length=\"short\", format=\"bullets\")",
+        "detector": "cohere.python.summarize",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.13.4"
+      }
+    }
+  },
+  {
+    "id": "cohere:sdk_package:cohere",
+    "provider": "cohere",
+    "kind": "sdk_package",
+    "key": "cohere",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "cohere==5.13.4",
+        "detector": "cohere.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.13.4"
+      }
+    }
+  }
+]

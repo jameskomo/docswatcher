@@ -1,0 +1,47 @@
+id: cohere-v1-generate-deprecated-2025
+provider: cohere
+kind: sunset
+severity: warning
+title: "/v1/generate endpoint deprecated"
+summary: >
+  Cohere deprecated the /v1/generate endpoint effective September 15, 2025.
+  Deprecated means it is no longer available to new customers and stays
+  available to existing users until retirement; Cohere assigns a shutdown
+  date later and none has been published, so requests still work for
+  existing users today.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v1/generate"
+  - kind: endpoint
+    match: "POST /v1/generate"
+  - kind: sdk_method
+    match: "Client.generate"
+  - kind: sdk_method
+    match: "CohereClient.generate"
+
+announced: 2025-09-15
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://docs.cohere.com/docs/deprecations
+    observed: 2026-09-24
+    note: "No shutdown date is published."
+  - kind: changelog
+    url: https://docs.cohere.com/changelog/2025-09-15-major-command-deprecations
+    observed: 2026-09-24
+
+migration:
+  replacement: "POST /v2/chat"
+  guide: https://docs.cohere.com/docs/migrating-from-cogenerate-to-cochat
+  effort: medium
+  notes: >
+    Replace co.generate(prompt=...) with co.chat, passing the prompt as a
+    single user message (messages=[{role: user, content: prompt}] on v2).
+    Read the reply from the message content instead of generations[0].text.
+    generate-only options such as num_generations and return_likelihoods
+    have no chat equivalent; call chat once per generation if several are
+    needed.
+
+status: active

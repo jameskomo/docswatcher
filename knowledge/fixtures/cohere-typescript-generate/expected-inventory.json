@@ -1,0 +1,194 @@
+[
+  {
+    "id": "cohere:endpoint:ANY /v1/connectors",
+    "provider": "cohere",
+    "kind": "endpoint",
+    "key": "ANY /v1/connectors",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/connectors.ts",
+        "line": 1,
+        "column": 47,
+        "snippet": "const CONNECTORS_URL = \"https://api.cohere.com/v1/connectors\";",
+        "detector": "cohere.literal.endpoint",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "cohere-ai",
+        "version": "^7.14.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:endpoint:POST /v1/classify",
+    "provider": "cohere",
+    "kind": "endpoint",
+    "key": "POST /v1/classify",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/notes.ts",
+        "line": 17,
+        "column": 26,
+        "snippet": "const response = await cohere.classify({",
+        "detector": "cohere.typescript.classify",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "cohere-ai",
+        "version": "^7.14.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:endpoint:POST /v1/generate",
+    "provider": "cohere",
+    "kind": "endpoint",
+    "key": "POST /v1/generate",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/notes.ts",
+        "line": 7,
+        "column": 26,
+        "snippet": "const response = await cohere.generate({ prompt, maxTokens: 400 });",
+        "detector": "cohere.typescript.generate",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "cohere-ai",
+        "version": "^7.14.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:endpoint:POST /v1/summarize",
+    "provider": "cohere",
+    "kind": "endpoint",
+    "key": "POST /v1/summarize",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/notes.ts",
+        "line": 12,
+        "column": 26,
+        "snippet": "const response = await cohere.summarize({ text: text, length: \"short\" });",
+        "detector": "cohere.typescript.summarize",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "cohere-ai",
+        "version": "^7.14.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:sdk_method:CohereClient.classify",
+    "provider": "cohere",
+    "kind": "sdk_method",
+    "key": "CohereClient.classify",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/notes.ts",
+        "line": 17,
+        "column": 26,
+        "snippet": "const response = await cohere.classify({",
+        "detector": "cohere.typescript.classify",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "cohere-ai",
+        "version": "^7.14.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:sdk_method:CohereClient.generate",
+    "provider": "cohere",
+    "kind": "sdk_method",
+    "key": "CohereClient.generate",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/notes.ts",
+        "line": 7,
+        "column": 26,
+        "snippet": "const response = await cohere.generate({ prompt, maxTokens: 400 });",
+        "detector": "cohere.typescript.generate",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "cohere-ai",
+        "version": "^7.14.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:sdk_method:CohereClient.summarize",
+    "provider": "cohere",
+    "kind": "sdk_method",
+    "key": "CohereClient.summarize",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/notes.ts",
+        "line": 12,
+        "column": 26,
+        "snippet": "const response = await cohere.summarize({ text: text, length: \"short\" });",
+        "detector": "cohere.typescript.summarize",
+        "layer": "callsite"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "cohere-ai",
+        "version": "^7.14.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:sdk_package:cohere-ai",
+    "provider": "cohere",
+    "kind": "sdk_package",
+    "key": "cohere-ai",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 6,
+        "column": 6,
+        "snippet": "\"cohere-ai\": \"^7.14.0\"",
+        "detector": "cohere.manifest.npm",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "cohere-ai",
+        "version": "^7.14.0"
+      }
+    }
+  }
+]

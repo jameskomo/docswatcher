@@ -1,0 +1,40 @@
+id: cohere-embed-english-v2-0-shutdown-2026
+provider: cohere
+kind: retired
+severity: breaking
+title: "embed-english-v2.0 retired"
+summary: >
+  Effective April 4, 2026, embed-english-v2.0 is no longer available on the
+  Cohere API and requests that name it fail. Cohere recommends
+  embed-english-v3.0 or embed-v4.0 for embedding tasks.
+
+affects:
+  - kind: model
+    match: "embed-english-v2.0"
+
+announced: 2026-02-27
+effective: 2026-04-04
+
+sources:
+  - kind: provider_page
+    url: https://docs.cohere.com/docs/deprecations
+    observed: 2026-09-24
+    note: "The deprecations page entry was published by Cohere's docs repository commit 'chore: apr 4 2026 deprecations' on 2026-02-27, which is used as the announcement date."
+  - kind: changelog
+    url: https://docs.cohere.com/changelog/2026-04-04-embed-v2-aya-8b-retirement
+    observed: 2026-09-24
+
+migration:
+  replacement: "embed-english-v3.0"
+  guide: https://docs.cohere.com/docs/deprecations
+  effort: large
+  notes: >
+    Replace embed-english-v2.0 with embed-english-v3.0 (or embed-v4.0).
+    Embeddings from different models are not comparable, so every stored
+    vector must be re-embedded with the new model before queries switch
+    over; do not mix old and new vectors in one index. v3 and later models
+    require the input_type parameter (search_document when indexing,
+    search_query when querying). Check the vector dimension of the new model
+    and resize the index if it differs.
+
+status: expired

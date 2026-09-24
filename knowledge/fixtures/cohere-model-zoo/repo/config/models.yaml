@@ -1,0 +1,22 @@
+chat:
+  primary: command-r-plus
+  fallback: command-r-03-2024
+  legacy_plus: command-r-plus-04-2024
+  alias: command-r
+  refreshed: command-r-08-2024
+  cheap: command-r7b-12-2024
+  best: command-a-03-2025
+  reasoning: command-a-reasoning-08-2025
+multilingual:
+  small: c4ai-aya-expanse-8b
+  vision: c4ai-aya-vision-8b
+embeddings:
+  english: embed-english-v2.0
+  english_light: embed-english-light-v2.0
+  multilingual: embed-multilingual-v2.0
+  v3: embed-english-v3.0
+  current: embed-v4.0
+rerank:
+  english: rerank-english-v2.0
+  multilingual: rerank-multilingual-v2.0
+  current: rerank-v3.5

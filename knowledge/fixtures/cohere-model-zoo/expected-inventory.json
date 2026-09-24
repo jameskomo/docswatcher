@@ -1,0 +1,458 @@
+[
+  {
+    "id": "cohere:model:c4ai-aya-expanse-8b",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "c4ai-aya-expanse-8b",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 11,
+        "column": 10,
+        "snippet": "small: c4ai-aya-expanse-8b",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:c4ai-aya-vision-8b",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "c4ai-aya-vision-8b",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 12,
+        "column": 11,
+        "snippet": "vision: c4ai-aya-vision-8b",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:command-a-03-2025",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "command-a-03-2025",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 8,
+        "column": 9,
+        "snippet": "best: command-a-03-2025",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:command-a-reasoning-08-2025",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "command-a-reasoning-08-2025",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 9,
+        "column": 14,
+        "snippet": "reasoning: command-a-reasoning-08-2025",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:command-r",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "command-r",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 5,
+        "column": 10,
+        "snippet": "alias: command-r",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:command-r-03-2024",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "command-r-03-2024",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 3,
+        "column": 13,
+        "snippet": "fallback: command-r-03-2024",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:command-r-08-2024",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "command-r-08-2024",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 6,
+        "column": 14,
+        "snippet": "refreshed: command-r-08-2024",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:command-r-plus",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "command-r-plus",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 2,
+        "column": 12,
+        "snippet": "primary: command-r-plus",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:command-r-plus-04-2024",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "command-r-plus-04-2024",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 4,
+        "column": 16,
+        "snippet": "legacy_plus: command-r-plus-04-2024",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:command-r7b-12-2024",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "command-r7b-12-2024",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 7,
+        "column": 10,
+        "snippet": "cheap: command-r7b-12-2024",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:embed-english-light-v2.0",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "embed-english-light-v2.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 15,
+        "column": 18,
+        "snippet": "english_light: embed-english-light-v2.0",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:embed-english-v2.0",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "embed-english-v2.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 14,
+        "column": 12,
+        "snippet": "english: embed-english-v2.0",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:embed-english-v3.0",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "embed-english-v3.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 17,
+        "column": 7,
+        "snippet": "v3: embed-english-v3.0",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:embed-multilingual-v2.0",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "embed-multilingual-v2.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 16,
+        "column": 17,
+        "snippet": "multilingual: embed-multilingual-v2.0",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:embed-v4.0",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "embed-v4.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 18,
+        "column": 12,
+        "snippet": "current: embed-v4.0",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:rerank-english-v2.0",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "rerank-english-v2.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 20,
+        "column": 12,
+        "snippet": "english: rerank-english-v2.0",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:rerank-multilingual-v2.0",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "rerank-multilingual-v2.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 21,
+        "column": 17,
+        "snippet": "multilingual: rerank-multilingual-v2.0",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:model:rerank-v3.5",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "rerank-v3.5",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 22,
+        "column": 12,
+        "snippet": "current: rerank-v3.5",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  },
+  {
+    "id": "cohere:sdk_package:cohere",
+    "provider": "cohere",
+    "kind": "sdk_package",
+    "key": "cohere",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "requirements.txt",
+        "line": 1,
+        "column": 1,
+        "snippet": "cohere>=5.0",
+        "detector": "cohere.manifest.pypi",
+        "layer": "manifest"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "pypi",
+        "package": "cohere",
+        "version": "5.0"
+      }
+    }
+  }
+]

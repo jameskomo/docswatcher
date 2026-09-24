@@ -1,0 +1,45 @@
+id: cohere-v1-summarize-deprecated-2025
+provider: cohere
+kind: sunset
+severity: warning
+title: "/v1/summarize endpoint deprecated"
+summary: >
+  Cohere deprecated the /v1/summarize endpoint effective September 15, 2025.
+  Deprecated means it is no longer available to new customers and stays
+  available to existing users until retirement; Cohere assigns a shutdown
+  date later and none has been published, so requests still work for
+  existing users today.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v1/summarize"
+  - kind: endpoint
+    match: "POST /v1/summarize"
+  - kind: sdk_method
+    match: "Client.summarize"
+  - kind: sdk_method
+    match: "CohereClient.summarize"
+
+announced: 2025-09-15
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://docs.cohere.com/docs/deprecations
+    observed: 2026-09-24
+    note: "No shutdown date is published."
+  - kind: changelog
+    url: https://docs.cohere.com/changelog/2025-09-15-major-command-deprecations
+    observed: 2026-09-24
+
+migration:
+  replacement: "POST /v2/chat"
+  guide: https://docs.cohere.com/docs/summarizing-text#migration-from-summarize-to-chat-endpoint
+  effort: medium
+  notes: >
+    Replace co.summarize(text=...) with a chat call whose user message asks
+    for a summary of the text, and express length, format and extractiveness
+    as instructions in that prompt. Cohere's migration guide at
+    docs.cohere.com/docs/summarizing-text gives the prompt shapes.
+
+status: active

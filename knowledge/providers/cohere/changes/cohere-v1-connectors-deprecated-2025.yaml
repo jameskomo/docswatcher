@@ -1,0 +1,40 @@
+id: cohere-v1-connectors-deprecated-2025
+provider: cohere
+kind: sunset
+severity: warning
+title: "/v1/connectors endpoint deprecated"
+summary: >
+  Cohere deprecated the /v1/connectors endpoint effective September 15,
+  2025. Deprecated means it is no longer available to new customers and
+  stays available to existing users until retirement; Cohere assigns a
+  shutdown date later and none has been published, so requests still work
+  for existing users today.
+
+affects:
+  - kind: endpoint
+    match: "ANY /v1/connectors"
+
+announced: 2025-09-15
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://docs.cohere.com/docs/deprecations
+    observed: 2026-09-24
+    note: "No shutdown date is published."
+  - kind: changelog
+    url: https://docs.cohere.com/changelog/2025-09-15-major-command-deprecations
+    observed: 2026-09-24
+
+migration:
+  replacement: "none named by Cohere"
+  guide: https://docs.cohere.com/docs/deprecations
+  effort: medium
+  notes: >
+    Managed connectors are deprecated along with the connectors and
+    search_queries_only chat parameters. Run retrieval in the application
+    and pass the results to chat as documents, or expose the data source as
+    a tool and let chat call it. Cohere names no replacement for managed
+    connectors.
+
+status: active

@@ -1,0 +1,33 @@
+id: cohere-rerank-english-v2-0-shutdown-2025
+provider: cohere
+kind: retired
+severity: breaking
+title: "rerank-english-v2.0 shut down"
+summary: >
+  Cohere deprecated the Rerank v2.0 family on 2024-12-02 alongside the
+  release of rerank-v3.5. The deprecations page lists a shutdown date of
+  2025-04-30 for rerank-english-v2.0. Fine-tuned models created from these
+  base models are not affected.
+
+affects:
+  - kind: model
+    match: "rerank-english-v2.0"
+
+announced: 2024-12-02
+effective: 2025-04-30
+
+sources:
+  - kind: provider_page
+    url: https://docs.cohere.com/docs/deprecations
+    observed: 2026-09-24
+
+migration:
+  replacement: "rerank-v3.5"
+  guide: https://docs.cohere.com/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID rerank-english-v2.0 with rerank-v3.5 in every
+    rerank call. Relevance scores are not comparable across model versions,
+    so recalibrate any score thresholds and re-run retrieval evaluations.
+
+status: expired

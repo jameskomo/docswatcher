@@ -1,0 +1,39 @@
+id: cohere-c4ai-aya-vision-8b-shutdown-2026
+provider: cohere
+kind: retired
+severity: breaking
+title: "c4ai-aya-vision-8b retired"
+summary: >
+  Effective April 4, 2026, c4ai-aya-vision-8b is no longer available on the
+  Cohere API and requests that name it fail. Cohere lists
+  command-r7b-12-2024, command-a-03-2025 and command-a-reasoning-08-2025 as
+  chat alternatives.
+
+affects:
+  - kind: model
+    match: "c4ai-aya-vision-8b"
+
+announced: 2026-02-27
+effective: 2026-04-04
+
+sources:
+  - kind: provider_page
+    url: https://docs.cohere.com/docs/deprecations
+    observed: 2026-09-24
+    note: "The deprecations page entry was published by Cohere's docs repository commit 'chore: apr 4 2026 deprecations' on 2026-02-27, which is used as the announcement date."
+  - kind: changelog
+    url: https://docs.cohere.com/changelog/2026-04-04-embed-v2-aya-8b-retirement
+    observed: 2026-09-24
+
+migration:
+  replacement: "command-a-03-2025"
+  guide: https://docs.cohere.com/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID c4ai-aya-vision-8b with command-a-03-2025, or
+    command-r7b-12-2024 where latency and cost matter more than quality.
+    Re-run evaluations, because output style and token usage differ. This
+    model took image input; confirm the replacement supports every input
+    modality the call sends before switching.
+
+status: expired

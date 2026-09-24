@@ -1,0 +1,46 @@
+[
+  {
+    "contract": "cohere:model:rerank-english-v2.0",
+    "change": "cohere-rerank-english-v2-0-shutdown-2025"
+  },
+  {
+    "contract": "cohere:model:rerank-multilingual-v2.0",
+    "change": "cohere-rerank-multilingual-v2-0-shutdown-2025"
+  },
+  {
+    "contract": "cohere:model:c4ai-aya-expanse-8b",
+    "change": "cohere-c4ai-aya-expanse-8b-shutdown-2026"
+  },
+  {
+    "contract": "cohere:model:c4ai-aya-vision-8b",
+    "change": "cohere-c4ai-aya-vision-8b-shutdown-2026"
+  },
+  {
+    "contract": "cohere:model:embed-english-light-v2.0",
+    "change": "cohere-embed-english-light-v2-0-shutdown-2026"
+  },
+  {
+    "contract": "cohere:model:embed-english-v2.0",
+    "change": "cohere-embed-english-v2-0-shutdown-2026"
+  },
+  {
+    "contract": "cohere:model:embed-multilingual-v2.0",
+    "change": "cohere-embed-multilingual-v2-0-shutdown-2026"
+  },
+  {
+    "contract": "cohere:model:command-r",
+    "change": "cohere-command-r-03-2024-deprecated-2025"
+  },
+  {
+    "contract": "cohere:model:command-r-03-2024",
+    "change": "cohere-command-r-03-2024-deprecated-2025"
+  },
+  {
+    "contract": "cohere:model:command-r-plus",
+    "change": "cohere-command-r-plus-04-2024-deprecated-2025"
+  },
+  {
+    "contract": "cohere:model:command-r-plus-04-2024",
+    "change": "cohere-command-r-plus-04-2024-deprecated-2025"
+  }
+]

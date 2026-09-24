@@ -1,0 +1,30 @@
+[
+  {
+    "contract": "cohere:endpoint:ANY /v1/connectors",
+    "change": "cohere-v1-connectors-deprecated-2025"
+  },
+  {
+    "contract": "cohere:endpoint:POST /v1/classify",
+    "change": "cohere-v1-classify-deprecated-2025"
+  },
+  {
+    "contract": "cohere:endpoint:POST /v1/generate",
+    "change": "cohere-v1-generate-deprecated-2025"
+  },
+  {
+    "contract": "cohere:endpoint:POST /v1/summarize",
+    "change": "cohere-v1-summarize-deprecated-2025"
+  },
+  {
+    "contract": "cohere:sdk_method:CohereClient.classify",
+    "change": "cohere-v1-classify-deprecated-2025"
+  },
+  {
+    "contract": "cohere:sdk_method:CohereClient.generate",
+    "change": "cohere-v1-generate-deprecated-2025"
+  },
+  {
+    "contract": "cohere:sdk_method:CohereClient.summarize",
+    "change": "cohere-v1-summarize-deprecated-2025"
+  }
+]

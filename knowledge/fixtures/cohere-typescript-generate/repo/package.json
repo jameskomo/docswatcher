@@ -1,0 +1,8 @@
+{
+  "name": "release-notes-bot",
+  "version": "1.4.0",
+  "private": true,
+  "dependencies": {
+    "cohere-ai": "^7.14.0"
+  }
+}

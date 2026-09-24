@@ -1,0 +1,186 @@
+provider: cohere
+
+manifests:
+  - ecosystem: pypi
+    package: cohere
+  - ecosystem: npm
+    package: cohere-ai
+  - ecosystem: maven
+    package: com.cohere:cohere-java
+  - ecosystem: go
+    package: github.com/cohere-ai/cohere-go/v2
+
+literals:
+  # Command, Embed, Rerank and Aya identifiers as the Cohere API names them.
+  # Each family is spelled out rather than matched as command-[a-z-]+, because
+  # command-a would otherwise swallow words such as command-and-control.
+  # The character before the ID may not be a letter, digit, dot, colon, slash or
+  # hyphen: that keeps out Bedrock IDs (cohere.command-r-v1:0), Hugging Face
+  # repositories (CohereLabs/c4ai-aya-expanse-8b, c4ai-command-r-v01) and router
+  # prefixes, none of which call the Cohere API's own model lifecycle. The
+  # lookahead makes the match all or nothing, so command-r-plus-08-2024 is never
+  # read as command-r.
+  - id: cohere.literal.model
+    kind: model
+    files: ["**/*"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/*.lock", "**/package-lock.json"]
+    pattern: '(?:^|[^\w.:/-])(command-r7b-[0-9]{2}-[0-9]{4}(?:-[a-z]+)?|command-r(?:-plus)?(?:-[0-9]{2}-[0-9]{4})?|command-a-(?:[a-z]+-)?[0-9]{2}-[0-9]{4}|command-light(?:-nightly)?|command-nightly|embed-(?:english|multilingual)(?:-light)?-v[0-9]+\.[0-9]|embed-v[0-9]+\.[0-9]|rerank-(?:english|multilingual)-v[0-9]+\.[0-9]|rerank-v[0-9]+\.[0-9]|c4ai-aya-(?:expanse|vision)-[0-9]+b)(?![\w-])'
+    key: "$1"
+    confidence: medium
+
+  # The bare model name command is an ordinary English word, so it only counts
+  # as a model when it is the value of a model argument or setting.
+  - id: cohere.literal.model-command
+    kind: model
+    files: ["**/*.{py,ts,tsx,js,jsx,mjs,cjs,java,kt,go,rb,yml,yaml,toml,json,env,properties}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/package-lock.json"]
+    pattern: '\bmodel["'']?\s*[:=]\s*["''](command)["'']'
+    key: "$1"
+    confidence: medium
+
+  - id: cohere.literal.endpoint
+    kind: endpoint
+    files: ["**/*.{java,kt,ts,tsx,js,jsx,mjs,cjs,py,go,rb,php,cs,yaml,yml,toml,properties,env}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**"]
+    pattern: 'https://api\.cohere\.(?:com|ai)(/v[0-9]+/[a-z_]+(?:/[a-z_]+)*)'
+    key: "ANY $1"
+    confidence: medium
+
+# The legacy generate, summarize and classify calls. Each rule also requires the
+# argument only that call takes (prompt, text, inputs), so an unrelated
+# .generate() in a repository that happens to depend on cohere is not claimed.
+callsites:
+  - id: cohere.python.generate
+    language: python
+    kind: sdk_method
+    requires: cohere
+    query: |
+      (call
+        function: (attribute attribute: (identifier) @m)
+        arguments: (argument_list (keyword_argument name: (identifier) @k))
+        (#eq? @m "generate") (#eq? @k "prompt")) @call
+    key: "Client.generate"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/generate"
+    confidence: high
+
+  - id: cohere.python.summarize
+    language: python
+    kind: sdk_method
+    requires: cohere
+    query: |
+      (call
+        function: (attribute attribute: (identifier) @m)
+        arguments: (argument_list (keyword_argument name: (identifier) @k))
+        (#eq? @m "summarize") (#eq? @k "text")) @call
+    key: "Client.summarize"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/summarize"
+    confidence: high
+
+  - id: cohere.python.classify
+    language: python
+    kind: sdk_method
+    requires: cohere
+    query: |
+      (call
+        function: (attribute attribute: (identifier) @m)
+        arguments: (argument_list (keyword_argument name: (identifier) @k))
+        (#eq? @m "classify") (#eq? @k "inputs")) @call
+    key: "Client.classify"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/classify"
+    confidence: high
+
+  - id: cohere.typescript.generate
+    language: typescript
+    kind: sdk_method
+    requires: cohere-ai
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object [(pair key: (property_identifier) @k) (shorthand_property_identifier) @k]))
+        (#eq? @m "generate") (#eq? @k "prompt")) @call
+    key: "CohereClient.generate"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/generate"
+    confidence: high
+
+  - id: cohere.javascript.generate
+    language: javascript
+    kind: sdk_method
+    requires: cohere-ai
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object [(pair key: (property_identifier) @k) (shorthand_property_identifier) @k]))
+        (#eq? @m "generate") (#eq? @k "prompt")) @call
+    key: "CohereClient.generate"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/generate"
+    confidence: high
+
+  - id: cohere.typescript.summarize
+    language: typescript
+    kind: sdk_method
+    requires: cohere-ai
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object [(pair key: (property_identifier) @k) (shorthand_property_identifier) @k]))
+        (#eq? @m "summarize") (#eq? @k "text")) @call
+    key: "CohereClient.summarize"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/summarize"
+    confidence: high
+
+  - id: cohere.javascript.summarize
+    language: javascript
+    kind: sdk_method
+    requires: cohere-ai
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object [(pair key: (property_identifier) @k) (shorthand_property_identifier) @k]))
+        (#eq? @m "summarize") (#eq? @k "text")) @call
+    key: "CohereClient.summarize"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/summarize"
+    confidence: high
+
+  - id: cohere.typescript.classify
+    language: typescript
+    kind: sdk_method
+    requires: cohere-ai
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object [(pair key: (property_identifier) @k) (shorthand_property_identifier) @k]))
+        (#eq? @m "classify") (#eq? @k "inputs")) @call
+    key: "CohereClient.classify"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/classify"
+    confidence: high
+
+  - id: cohere.javascript.classify
+    language: javascript
+    kind: sdk_method
+    requires: cohere-ai
+    query: |
+      (call_expression
+        function: (member_expression property: (property_identifier) @m)
+        arguments: (arguments (object [(pair key: (property_identifier) @k) (shorthand_property_identifier) @k]))
+        (#eq? @m "classify") (#eq? @k "inputs")) @call
+    key: "CohereClient.classify"
+    maps_to:
+      kind: endpoint
+      key: "POST /v1/classify"
+    confidence: high

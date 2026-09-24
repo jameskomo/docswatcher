@@ -1,0 +1,42 @@
+id: cohere-command-deprecated-2025
+provider: cohere
+kind: retired
+severity: warning
+title: "command deprecated"
+summary: >
+  Cohere deprecated the model command effective September 15, 2025.
+  Deprecated means it is no longer available to new customers and stays
+  available to existing users until retirement; Cohere assigns a shutdown
+  date later and none has been published, so requests still work for
+  existing users today. Cohere recommends command-r-08-2024,
+  command-r-plus-08-2024 or command-a-03-2025.
+
+affects:
+  - kind: model
+    match: "command"
+
+announced: 2025-09-15
+effective: null
+
+sources:
+  - kind: provider_page
+    url: https://docs.cohere.com/docs/deprecations
+    observed: 2026-09-24
+    note: "No shutdown date is published; the models page lists the status as Deprecated Sept 15, 2025."
+  - kind: changelog
+    url: https://docs.cohere.com/changelog/2025-09-15-major-command-deprecations
+    observed: 2026-09-24
+
+migration:
+  replacement: "command-a-03-2025"
+  guide: https://docs.cohere.com/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID command with command-a-03-2025 (or
+    command-a-03-2025, Cohere's strongest model). If the call goes through
+    the legacy generate or summarize endpoint, move it to the chat endpoint
+    first, since newer models are served through chat. Re-run evaluations,
+    because output style and token usage differ. Fine-tuned models built on
+    these bases are retired and cannot be recreated.
+
+status: active

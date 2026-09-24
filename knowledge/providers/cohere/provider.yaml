@@ -1,0 +1,18 @@
+id: cohere
+name: Cohere
+homepage: https://cohere.com
+docs: https://docs.cohere.com
+changelog: https://docs.cohere.com/docs/deprecations
+base_urls:
+  - https://api.cohere.com
+  - https://api.cohere.ai
+openapi:
+  url: null
+  pinned_sha: null
+sdk_languages: [python, typescript, java, go]
+deprecation_policy: >
+  Models and endpoints move from active to legacy to deprecated to shutdown.
+  A deprecated model or endpoint is closed to new customers but stays available
+  to existing users, defined as anyone who used it within 90 days of the
+  announcement, until a shutdown date is assigned. Requests after the shutdown
+  date fail. The deprecations page lists every event, newest first.

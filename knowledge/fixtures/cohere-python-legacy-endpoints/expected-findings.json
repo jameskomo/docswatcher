@@ -1,0 +1,34 @@
+[
+  {
+    "contract": "cohere:endpoint:POST /v1/classify",
+    "change": "cohere-v1-classify-deprecated-2025"
+  },
+  {
+    "contract": "cohere:endpoint:POST /v1/generate",
+    "change": "cohere-v1-generate-deprecated-2025"
+  },
+  {
+    "contract": "cohere:endpoint:POST /v1/summarize",
+    "change": "cohere-v1-summarize-deprecated-2025"
+  },
+  {
+    "contract": "cohere:model:command",
+    "change": "cohere-command-deprecated-2025"
+  },
+  {
+    "contract": "cohere:model:command-light",
+    "change": "cohere-command-light-deprecated-2025"
+  },
+  {
+    "contract": "cohere:sdk_method:Client.classify",
+    "change": "cohere-v1-classify-deprecated-2025"
+  },
+  {
+    "contract": "cohere:sdk_method:Client.generate",
+    "change": "cohere-v1-generate-deprecated-2025"
+  },
+  {
+    "contract": "cohere:sdk_method:Client.summarize",
+    "change": "cohere-v1-summarize-deprecated-2025"
+  }
+]

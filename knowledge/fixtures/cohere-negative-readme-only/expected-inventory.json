@@ -1,0 +1,36 @@
+[
+  {
+    "id": "cohere:model:command-r",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "command-r",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "README.md",
+        "line": 3,
+        "column": 25,
+        "snippet": "We benchmarked Cohere's command-r and embed-english-v2.0 in 2024 and chose",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "cohere:model:embed-english-v2.0",
+    "provider": "cohere",
+    "kind": "model",
+    "key": "embed-english-v2.0",
+    "confidence": "low",
+    "evidence": [
+      {
+        "path": "README.md",
+        "line": 3,
+        "column": 39,
+        "snippet": "We benchmarked Cohere's command-r and embed-english-v2.0 in 2024 and chose",
+        "detector": "cohere.literal.model",
+        "layer": "literal"
+      }
+    ]
+  }
+]
