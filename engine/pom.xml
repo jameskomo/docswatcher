@@ -12,6 +12,11 @@
   <name>DocsWatcher Engine</name>
   <description>Plain Java library: detector interpreter, inventory model, matcher, validators. No Spring.</description>
 
+  <properties>
+    <!-- A property rather than plugin configuration, so -DexcludedGroups= on the command line wins. -->
+    <excludedGroups>nightly,fuzz</excludedGroups>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>dev.docswatcher</groupId>
@@ -77,16 +82,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <excludedGroups>nightly</excludedGroups>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
