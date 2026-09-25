@@ -1,0 +1,52 @@
+Twitch Developer Forums
+Deprecation of WebSub-based Webhooks
+Announcements
+madhatter
+June 16, 2021, 9:50pm
+1
+Today, we are announcing the deprecation and sunset plan for WebSub webhooks – our non-EventSub webhooks product.
+When EventSub was announced during Developer Day 2020, we discussed the benefits of an event-based and transport-agnostic product and how this approach would be the future for retrieving real-time events from Twitch. We also mentioned that when EventSub had subscription types that matched the functionality of WebSub, we would deprecate WebSub. Since the launch, we’ve added 14 more subscription types to EventSub, getting us to parity with what is offered via WebSub and adding support for features like Raids, Polls, and Predictions.
+What’s changing?
+Now that EventSub has subscription types that match the topics in WebSub, WebSub is now deprecated. Starting today, Twitch application client IDs that have not previously accessed WebSub can no longer access WebSub. Client IDs that currently use WebSub can continue to use WebSub until it is decommissioned on or soon after September 16, 2021 .
+What action needs to be taken?
+For developers who have not migrated from WebSub to EventSub just yet, you have improvements to look forward to. EventSub fixes some of the challenges you may have experienced with past webhooks, such as no longer requiring resubscribing to topics and retrieving more robust information in payloads. In addition, EventSub’s subscription limit scales with the number of users who have authorized your application, so it’s easier to scale as your application grows. We also provide the Twitch CLI to make a migration easier, allowing you to mock events and see the payload difference between equivalent topics.
+We are thrilled with the support we’ve received from the developer community for the EventSub product and we’re working hard to add more subscription types and transports to EventSub soon. Some of our best ideas have come from the UserVoice ideas you’ve shared with us. Thank you. We’re excited to keep hearing from you and improving EventSub. To get started with EventSub, please visit the EventSub documentation .
+3 Likes
+Deprecation of Twitch API event endpoints that supported WebSub-based webhooks
+“Get Hype Train Events” API endpoint - “id” query parameter deprecation
+Related topics
+Topic
+Replies
+Views
+Activity
+Deprecation of Twitch API event endpoints that supported WebSub-based webhooks
+Announcements
+0
+2559
+December 3, 2021
+EventSub WebSockets are now available in open beta
+Announcements
+17
+3668
+June 14, 2023
+Legacy PubSub deprecation and shutdown timeline
+Announcements
+17
+8719
+April 8, 2025
+EventSub WebSockets are now out of beta and generally available
+Announcements
+3
+1188
+July 19, 2023
+RFC 0016 - EventSub WebSockets
+RFCs
+11
+7206
+September 28, 2022
+Home
+Categories
+Guidelines
+Terms of Service
+Privacy Policy
+Powered by Discourse , best viewed with JavaScript enabled

@@ -1,0 +1,143 @@
+Business Platforms and marketplaces Platforms Enterprise
+Search...
+Log In
+Sign Up
+Help
+APIs & SDKs
+Business Platforms and marketplaces Enterprise
+Sections
+Business Platforms and marketplaces Enterprise
+Help
+FAQs Account help Technical support API Status
+APIs & SDKs
+JavaScript SDK React SDK REST API Server SDKs Codes Webhook events iOS Android
+On this page
+Resources
+GitHub repo
+Postman repo
+PayPal.com
+llms.txt
+Where to find us
+Developer blog
+Community
+Help Center
+Sign up for updates
+Where to hear from us
+X
+YouTube
+LinkedIn
+Discord
+Legal
+Privacy Policy
+Terms of Service
+Developer Agreement
+© 2026 PayPal. All rights reserved.
+If you accept cookies, we’ll use them to improve and customize your experience and enable our partners to show you personalized PayPal ads when you visit other sites. Manage cookies and learn more
+Accept Decline
+Close
+API v1
+API v2
+API v1
+SDK
+Copy for LLM
+View as Markdown
+API Spec (JSON)
+API Spec (YAML)
+API v1
+API v2
+API v1
+SDK
+Copy / Export
+Copy for LLM
+View as Markdown
+API Spec (JSON)
+API Spec (YAML)
+API Reference Overview
+Payments v1
+payment
+5 endpoints
+GET
+List payments
+/v1/payments/payment
+Deprecation notice: The /v1/payments endpoint is deprecated.
+POST
+Create payment
+/v1/payments/payment
+Deprecation notice: The /v1/payments endpoint is deprecated.
+GET
+Show payment details
+/v1/payments/payment/{payment_id}
+Deprecation notice: The /v1/payments endpoint is deprecated.
+PATCH
+Partially update payment
+/v1/payments/payment/{payment_id}
+Deprecation notice: The /v1/payments endpoint is deprecated.
+POST
+Execute approved PayPal payment
+/v1/payments/payment/{payment_id}/execute
+Deprecation notice: The /v1/payments endpoint is deprecated.
+sale
+2 endpoints
+GET
+Show sale details
+/v1/payments/sale/{sale_id}
+Deprecation notice: The /v1/payments endpoint is deprecated.
+POST
+Refund sale
+/v1/payments/sale/{sale_id}/refund
+Deprecation notice: The /v1/payments endpoint is deprecated.
+authorization
+4 endpoints
+GET
+Show authorization details
+/v1/payments/authorization/{authorization_id}
+Deprecation notice: The /v1/payments endpoint is deprecated.
+POST
+Capture authorization
+/v1/payments/authorization/{authorization_id}/capture
+Deprecation notice: The /v1/payments endpoint is deprecated.
+POST
+Void authorization
+/v1/payments/authorization/{authorization_id}/void
+Deprecation notice: The /v1/payments endpoint is deprecated.
+POST
+Re-authorize payment
+/v1/payments/authorization/{authorization_id}/reauthorize
+Deprecation notice: The /v1/payments endpoint is deprecated.
+orders
+4 endpoints
+GET
+Show order details
+/v1/payments/orders/{order_id}
+Deprecation notice: The /v1/payments endpoint is deprecated.
+POST
+Capture order
+/v1/payments/orders/{order_id}/capture
+Deprecation notice: The /v1/payments endpoint is deprecated.
+POST
+Void order
+/v1/payments/orders/{order_id}/do-void
+Deprecation notice: The /v1/payments endpoint is deprecated.
+POST
+Authorize order
+/v1/payments/orders/{order_id}/authorize
+Deprecation notice: The /v1/payments endpoint is deprecated.
+capture
+2 endpoints
+GET
+Show captured payment details
+/v1/payments/capture/{capture_id}
+Deprecation notice: The /v1/payments endpoint is deprecated.
+POST
+Refund captured payment
+/v1/payments/capture/{capture_id}/refund
+Deprecation notice: The /v1/payments endpoint is deprecated.
+refund
+1 endpoint
+GET
+Show refund details
+/v1/payments/refund/{refund_id}
+Deprecation notice: The /v1/payments endpoint is deprecated.
+Back to top
+On this page
+No Headings

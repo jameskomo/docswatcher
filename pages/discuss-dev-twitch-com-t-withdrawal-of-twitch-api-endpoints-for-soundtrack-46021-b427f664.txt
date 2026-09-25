@@ -1,0 +1,54 @@
+Twitch Developer Forums
+Withdrawal of Twitch API endpoints for Soundtrack
+Announcements
+jbulava
+June 10, 2023, 12:07am
+1
+Update (2023-07-17): The API endpoints listed below have been removed from the documentation and are now returning a 410 response code.
+Soundtrack by Twitch, a creator tool that provided rights-cleared music for creators to play on stream, will soon be shut down. As a result, we are withdrawing the Twitch API endpoints that third-party developers have leveraged to help creators integrate Soundtrack by Twitch into their streaming workflow and content creation.
+What’s changing?
+On or soon after July 17, 2023 , the following Twitch API endpoints will no longer be available. Developers can expect to receive a “410 Gone” HTTP response.
+Get Soundtrack Current Track - Gets the Soundtrack track that the broadcaster is playing.
+Get Soundtrack Playlist - Gets the Soundtrack playlist’s tracks.
+Get Soundtrack Playlists - Gets a list of Soundtrack playlists.
+Who will be impacted by these changes?
+All developers who are currently using the Twitch API endpoints above will be impacted and we recommend removing Soundtrack by Twitch features from your integrations before the date mentioned above. In addition to this announcement, we plan to send direct email communication to all developers who have made requests to these endpoints fairly recently.
+Music Options for Streamers has been published to provide alternative solutions for streamers who were using Soundtrack by Twitch.
+If you have any questions, please feel free to include them below.
+1 Like
+Related topics
+Topic
+Replies
+Views
+Activity
+Soundtracks by twitch API?
+Migration
+1
+1334
+December 27, 2020
+Get currently playing Twitch Soundtrack?
+API
+1
+1129
+October 29, 2020
+Twitch Soundtrack detection (BETA) is this working?
+API
+1
+251
+October 11, 2022
+Twitch Soundtrack not playing tracks
+API
+2
+387
+September 27, 2021
+Tidal Extention
+Ideas
+4
+2421
+August 9, 2020
+Home
+Categories
+Guidelines
+Terms of Service
+Privacy Policy
+Powered by Discourse , best viewed with JavaScript enabled

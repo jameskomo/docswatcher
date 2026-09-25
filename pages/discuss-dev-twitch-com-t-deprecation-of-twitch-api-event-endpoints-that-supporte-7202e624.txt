@@ -1,0 +1,58 @@
+Twitch Developer Forums
+Deprecation of Twitch API event endpoints that supported WebSub-based webhooks
+Announcements
+jbulava
+December 3, 2021, 8:14pm
+1
+When we first introduced Websub-based webhooks to the developer community, there were also a number of related Twitch API endpoints created as a fallback mechanism to catch up on missed events. Now that our WebSub-based webhooks have been decommissioned , these endpoints are no longer needed and have a migration path if they are currently being used by third-party applications.
+What’s changing?
+As of today, the following Twitch API endpoints are considered deprecated and will be decommissioned on or soon after March 15, 2022 .
+Get Banned Events
+Get Moderator Events
+Get Subscription Events (previously documented in the WebSub reference)
+Who will be impacted by these changes?
+Any developer using these endpoints must update their implementation before the date above to avoid disruption to their application.
+What action needs to be taken?
+Developers using “Get Banned Events” should update their applications to use “ Get Banned Users ” which includes the same information other than when the ban occurred and/or the “ channel.ban ” EventSub subscription type that includes this information when the ban event occurs.
+Developers using “Get Moderator Events” should update their applications to use “ Get Moderators ” to retrieve the current list of moderators and/or use the EventSub “ channel.moderator.add ” and “ channel.moderator.remove ” subscription types to retrieve the events depending on the use case.
+Developers using “Get Subscription Events” should update their applications to use “ Get Broadcaster Subscriptions ” to retrieve the current list of subscriptions and/or any of the channel subscription EventSub subscription types to retrieve events as they occur (i.e. “ channel.subscribe ,” “ channel.subscription.end ,” “ channel.subscription.gift ,” “ channel.subscription.message ”).
+What about “Get Hype Train Events?”
+This deprecation does not include “ Get Hype Train Events .”
+2 Likes
+Undocumented helix/moderation/banned modification
+Related topics
+Topic
+Replies
+Views
+Activity
+Deprecation of WebSub-based Webhooks
+Announcements
+0
+2424
+June 16, 2021
+Undocumented helix/moderation/banned modification
+API
+8
+1045
+May 16, 2022
+Events in the new Twitch API?
+API
+4
+4054
+December 21, 2017
+Get events when moderators or broadcasters ban users
+API
+2
+560
+November 7, 2020
+Follows endpoints and EventSub subscription type are now available in open beta
+Announcements
+16
+260913
+October 14, 2023
+Home
+Categories
+Guidelines
+Terms of Service
+Privacy Policy
+Powered by Discourse , best viewed with JavaScript enabled

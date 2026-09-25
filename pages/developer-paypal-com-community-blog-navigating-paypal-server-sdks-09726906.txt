@@ -1,0 +1,54 @@
+Back to Community Blog
+News Technology
+PayPal Server-side SDKs: Navigating the Transition to Private Visibility
+PayPal Tech Blog Team
+Jan 29, 2024
+3 min read
+PayPal, a pioneering force in online transactions, will be undergoing a transition regarding its server-side SDKs. This will include removing deprecated SDKs from our public GitHub presence, while concurrently gearing up to introduce new, innovative solutions. This article summarizes details on this shift, how developers can prepare for the transition, and the benefits of the new server-side SDKs.
+The Shift to Private: Understanding PayPal's Move
+PayPal will be transitioning deprecated server-side SDKs to private, restricted access. This shift will streamline operations, enhance security measures, and ensure optimal support for existing users, while aligning with evolving industry standards. Therefore, access to these SDKs on and after April 29th will be restricted.
+Considerations
+For current users of the deprecated server-side SDKs, this transition might require developer updates on or before April 29th for the following repositories:
+PayPal PHP SDK
+PayPal Node SDK
+PayPal Python SDK
+PayPal .NET SDK
+PayPal JAVA SDK
+PayPal PHP SDK 2.0 BETA
+Gaining insight into the potential effects is essential, this could include:
+Compatibility Factors: Applications integrated with the deprecated SDKs may encounter issues or errors when building their applications due to GitHub access being newly restricted, and or require developer updates to function seamlessly post-transition. This could include but is not limited to access restrictions and CI/CD failures.
+Support and Maintenance: With private access, support and maintenance from PayPal teams will change. Users should consider alternative solutions or schedule plans for developer updates to their systems – see more on this below.
+Looking Ahead: The Launch of New Server-side SDKs
+PayPal is set to introduce a new generation of server-side SDKs designed to reduce complexity in payment integrations. The upcoming SDKs goals:
+Enhanced Functionality: Expect improved features and functionalities that align with evolving market needs and technological advancements.
+Simplified Integration: Streamlined integration processes aim to offer developers a more intuitive and user-friendly experience.
+Robust Support: Comprehensive support structures and documentation will accompany these new SDKs, ensuring a smoother onboarding experience.
+Continued Maintenance: Dedicated teams focused on ensuring these new libraries continue to be best-in-class, with clear and predictable deprecation policies.
+Preparing for the Transition
+As the transition to private access progresses, here are steps to navigate this change effectively:
+Assessment: Evaluate your current integration(s) of deprecated SDKs and identify potential areas requiring near-term attention or modification.
+Communication: Stay updated with official communications from PayPal by signing up for the PayPal Developer Newsletter regarding the transition timelines, updates, and available resources.
+Exploring Alternatives: Consider exploring alternative solutions, including upcoming PayPal SDKs or a direct integration with PayPal’s REST API , to ensure a seamless transition and continued operational efficiency.
+The move to remove public GitHub access of deprecated server-side SDKs by PayPal marks a transformative phase in the realm of online payment integrations. While it brings additional steps for current users, it also signals the dawn of innovative, high-performing SDKs set to improve the experience of integrating payment processing. Navigating this transition with a proactive approach and an eye on the horizon of upcoming solutions will be key to ensuring uninterrupted service and unlocking new possibilities in the digital payment landscape.
+News Technology
+Share this post:
+Recommended
+News
+Managing Recurring Payments with Apple Pay Using PayPal
+PayPal Tech Blog Team
+Jan 08, 2024
+4 min read
+News
+Why You Should Attend PayPal’s Developer Meetup at Money20/20
+PayPal Tech Blog Team
+Jan 08, 2024
+4 min read
+Technology
+Building a Customizable Messaging Platform
+PayPal Tech Blog Team
+Jan 08, 2024
+10 min read
+Reference PayPal.com Privacy Cookies Support Legal Contact
+If you accept cookies, we’ll use them to improve and customize your experience and enable our partners to show you personalized PayPal ads when you visit other sites. Manage cookies and learn more
+Accept Decline
+Close

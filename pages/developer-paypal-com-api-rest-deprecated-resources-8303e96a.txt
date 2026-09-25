@@ -1,0 +1,81 @@
+Business Platforms and marketplaces Platforms Enterprise
+Search...
+Log In
+Sign Up
+Help
+APIs & SDKs
+Business Platforms and marketplaces Enterprise
+Sections
+Business Platforms and marketplaces Enterprise
+Help
+FAQs Account help Technical support API Status
+APIs & SDKs
+JavaScript SDK React SDK REST API Server SDKs Codes Webhook events iOS Android
+On this page
+Resources
+GitHub repo
+Postman repo
+PayPal.com
+llms.txt
+Where to find us
+Developer blog
+Community
+Help Center
+Sign up for updates
+Where to hear from us
+X
+YouTube
+LinkedIn
+Discord
+Legal
+Privacy Policy
+Terms of Service
+Developer Agreement
+© 2026 PayPal. All rights reserved.
+If you accept cookies, we’ll use them to improve and customize your experience and enable our partners to show you personalized PayPal ads when you visit other sites. Manage cookies and learn more
+Accept Decline
+Close
+Deprecated resources
+Last updated: June 29, 2026
+Copy for LLM
+View as Markdown
+Copy / Export
+Copy for LLM
+View as Markdown
+The resources listed here are deprecated . Information on these reference pages is to support customers with existing integrations only. For new integrations or users interested in upgrading, use our current offerings.
+Deprecated
+Current
+Upgrade benefits
+Billing Agreements
+Subscriptions
+Manage all your subscriptions in a single payment hub both on web and on mobile.
+Choose how your buyers can pay: credit card, debit card, PayPal balance, bank.
+Change financial instrument at any time after initial signup.
+Cancelation of subscriptions from the hub.
+Billing Plans
+Subscriptions
+Manage all your subscriptions plans in a single payment hub both on web and on mobile.
+Choose how your buyers can pay for plans: credit card, debit card, PayPal balance, bank.
+Change financial instrument for a subscription at any time after initial signup.
+Cancelation of subscriptions from the hub.
+Invoicing v1
+Invoicing v2
+Invoicing V2 API aligns with common components of other PayPal API's, helping those of you who integrate more than one PayPal products reuse components.
+Integrated Sign-Up (ISU) enables ecommerce platforms and merchant service providers to connect with PayPal's merchants and take authorized actions on their behalf.
+Improved error messaging helps you fix errors yourself, reducing time you might spend at PayPal Customer Support.
+Partner Referrals v1
+Partner Referrals v2
+Better validation of request data.
+Better Error Messages for easy debug and integration.
+Payments v1
+Payments v2
+Synchronous payment mechanics bring you real-time payments completion.
+More payment methods available
+Better integration with Vault to support purchase-with-vaulting type scenarios.
+Invalid request or validation error
+Previous Page
+Invoicing v1
+<blockquote><strong>Deprecation notice:</strong> The <code>/v1/invoices</code> endpoint is deprecated. Use the <code>/v2/invoices</code> endpoint instead. For details, see <a href="/docs/invoicing/basic-integration/">PayPal Invoicing Basic Integration</a>.</blockquote>Use the Invoicing API to create, send, and manage invoices. You can also use the API or webhooks to track invoice payments. When you send an invoice to a customer, the invoice moves from draft to payable state. PayPal then emails the customer a link to the invoice on the PayPal website. Customers with a PayPal account can log in and pay the invoice with PayPal. Alternatively, customers can pay as a guest with a debit card or credit card. For more information, see <a href="/docs/invoicing/">Invoicing Overview</a> and the <a href="docs/archive/invoicing/integrate/">Invoicing Integration Guide</a>.
+Back to top
+On this page
+No Headings

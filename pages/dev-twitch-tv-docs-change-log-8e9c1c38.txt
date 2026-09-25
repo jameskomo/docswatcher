@@ -1,0 +1,1781 @@
+Products
+Showcase
+Support
+Blog
+Docs
+Tutorials
+Log in with Twitch
+Contents
+Overview
+Twitch API
+EventSub
+Chat & Chatbots
+Authentication
+Organizations
+Drops
+Game Engine Plugins
+Embedding Twitch
+Extensions
+Insights & Analytics
+Mobile Deep Links
+Video Broadcast
+Twitch CLI
+Changelog
+Product Lifecycle
+Documentation Changelog
+Date
+Documentation Changes
+2026‑09‑16
+Added blocked_link as a possible value for reason in EventSub topics automod.message.hold v2 and automod.message.update v2 . When this value is present, the blocked_term object will be populated.
+2026‑07‑31
+Updated Extensions CSPs :
+In connect-src , updated Google Analytics URLs and included blob:
+In script-src , updated Google Analytics URLs
+In img-src , updated Google Analytics URLs and included Twitch image CDN
+2026‑07‑17
+IRC PRIVMSG Tags has been updated to include information about the new gif tag, including an example of the tag in use.
+2026‑07‑16
+The channel.chat.message EventSub subscription type has been updated to include the new gif fragment type. GIF messages now include a gif object with gif_id and url fields alongside the existing text on the message fragment.
+2026‑06‑26
+V1 of the stream.offline EventSub subscription type has been updated to include the id parameter in the event payload.
+2026‑06‑25
+Get Creator Goals API was updated to include the following goal types:
+new_bit
+new_cheerer
+2026‑06‑18
+The maximum amount of shards that can be updated at a single time using the Update Conduit Shards API is now publicly stated as 100.
+Added viewermilestone and modiversary message types to IRC’s USERNOTICE Tags , representing Watch Streaks and Modiversary respectively.
+2026‑06‑12
+V1 of the channel.chat.notification EventSub subscription type has been updated to include modiversary and shared_chat_modiversary .
+The legacy PubSub migration guide has been removed.
+2026‑06‑08
+Corrections were made to update the documentation to better clarify current behaviors. None of the below changes represent new or modified functionality, although these may be relevant to projects that did not take these into consideration previously.
+Extension SDK:
+Removed unused onPositionChanged from Extensions SDK referene .
+API Reference:
+Updated Get Channel Teams and Get Teams to match the existing behavior that response body fields background_image_url and banner may be null in some cases.
+Tags set using Modify Channel Information are no longer specified as being case-sensitive.
+EventSub Reference:
+Included the unknown type to the channel.chat.notification EventSub type
+2026‑05‑29
+The app access token support that was added for several endpoints is now considered generally available and is now reflected in the API reference .
+All Pinned Chat API endpoints are now considered generally available.
+2026‑05‑19
+The Get Custom Power-Up API endpoint is now considered generally available.
+The channel.custom_power_up_redemption.add EventSub subscription type is now available as version 1 to receive a notification when a custom Power-up is redeemed. Version 1 is identical to the beta version - developers using the beta version can update EventSub subscriptions to version 1 without further implementation changes.
+2026‑05‑15
+The following API endpoints are now available in open beta for managing mod-pinned messages in a broadcaster’s chat room.
+Get Pinned Chat Message
+Pin Chat Message
+Update Pinned Chat Message
+Unpin Chat Message
+The Send Chat Message API endpoint has been updated with a new optional pin parameter to support sending and pinning a message in a single request.
+2026‑05‑01
+The Get Custom Power-Up API endpoint is now available in open beta to retrieve a full or partial list of a broadcaster’s custom Power-ups.
+The channel.custom_power_up_redemption.add EventSub subscription type is now available in open beta to receive a notification when a custom Power-up is redeemed.
+2026‑04‑17
+The Get EventSub Subscriptions API endpoint has been updated to accept a conduit_id as an additional filtering option.
+The Create EventSub Subscription API endpoint has been updated to provide the id of the existing EventSub subscription when a 409 Conflict is returned.
+2026‑04‑02
+V1 of the channel.chat.notifications EventSub subscription type has been updated to include Watch Streaks.
+V1 of the channel.bits.use EventSub subscription type have received the following updates.
+Custom Power-ups have been added as an event type
+Combos has been removed from event types
+V1 of the channel.chat.notification EventSub subscription type has been updated to include is_source_only for chat announcements during a shared chat session.
+The Send Chat Announcement API endpoint has received the following updates.
+Added support for app access token authorization
+Added the for_source_only optional parameter to specify during a shared chat session if the announcement should be sent only to the source channel or both channels
+2026‑03‑25
+Introduced RSS feed for the documentation’s changelog .
+2026‑02‑27
+App access token support has been added for several endpoints in open beta and is now reflected in the API reference .
+2026‑02‑05
+The following API endpoints are now considered generally available:
+Create Clip From VOD
+Add Suspicious Status to Chat User
+Remove Suspicious Status From Chat User
+The “Get Hype Train Events” API endpoint has been removed in favor of Get Hype Train Status . See more information in the related announcement .
+2026‑01‑16
+Added the following Twitch API endpoints for open beta:
+Add suspicious status to chat user - Adds a suspicious user status to a chatter on the broadcaster’s channel.
+Remove suspicious status from chat user - Remove a suspicious user status from a chatter on broadcaster’s channel.
+2026‑01‑08
+Released translated versions of the Twitch Drops guides for the following languages:
+日本語
+中文 简体
+한국어
+العربية
+2025‑12‑19
+Create Clip From VOD is now available in open beta.
+Create Clip has been updated to include the following improvements:
+2k video (if applicable)
+Vertical video from dual format streams (if applicable)
+An optional parameter for title
+An optional parameter for duration
+An updated edit URL with more features
+For more details, see our announcement .
+2025‑12‑16
+Added a C# code sample to demonstrate Drops offline inventory .
+2025‑10‑30
+Get Clips Download and Get Authorization By User are now considered generally available.
+2025‑10‑18
+Added a new Twitch API endpoint for open beta:
+Get Authorization By User - Gets the authorization scopes that the specified user(s) have granted the application.
+2025‑10‑14
+Updated the Drops Campaign Guide’s Consideration section to include Overlapping Campaign Behavioral Considerations , detailing new behavioral changes to how incremental Minutes Watched and Subscriptions are distributed across Drops campaigns simultaneously running on a channel.
+2025‑10‑06
+Monetization Strategies has been added to provide implementation suggestions for the Bits-in-Extensions.
+2025‑09‑19
+Added a new Twitch API endpoint for open beta:
+Get Clips Download - Provides URLs to download the video file(s) for the specified clips.
+2025‑08‑28
+Added Chatbot Badge and Chat Identity section to Chat & Chatbots . This section provides details and requirements for a chatbot to appear with the Chat Bot Badge when chat sending messages, and appear as a Chat Bot under Users in Chat when reading chat messages.
+2025‑08‑22
+IRC Concepts updated to reflect the decommission on August 15, 2025.
+2025‑08‑19
+Get Hype Train Status is now generally available.
+2025‑08‑14
+Embed guides have been updated to standardize minimum size requirements and note the requirements for autoplay functionality.
+2025‑07‑31
+Added a new Twitch API endpoint for open beta:
+Get Hype Train Status - Get the status of a Hype Train for the specified broadcaster.
+2025‑06‑13
+V1 of the following EventSub subscriptions have been deprecated and V2 versions are now available for migration:
+Channel Hype Train Begin - A Hype Train begins on the specified channel.
+channel.hype_train.begin V1
+channel.hype_train.begin V2
+Channel Hype Train Progress - A Hype Train makes progress on the specified channel.
+channel.hype_train.progress V1
+channel.hype_train.progress V2
+Channel Hype Train End - A Hype Train ends on the specified channel.
+channel.hype_train.end V1
+channel.hype_train.end V2
+2025‑05‑23
+The Twitch Drops Guide has been updated to include additional high-level information about Drops, expanded FAQs, and a separate Campaign Guide and Technical Guide .
+2025‑05‑09
+This release includes the following updates:
+Get EventSub Subscriptions has been updated to include the new subscription_id parameter that returns an array with the subscription matching the ID (as long as it is owned by the client making the request), or an empty array if there is no matching subscription.
+Channel Bits Use has been updated to send when a user Combos in a channel.
+2025‑04‑17
+Updated description of Send Chat Message API and its for_source_only parameter to clarify how chat messages are sent depending on token type.
+2025‑04‑15
+Following deprecation of PubSub, PubSub Guide has been replaced with Legacy PubSub to EventSub Migration Guide .
+2025‑04‑10
+This release includes the following updates:
+The new is_source_only field and for_source_only parameter have been added to Channel Chat Message and Send Chat Message to indicate, when in a shared chat session, if a chat message is sent only to the source channel or both channels.
+Updates and additions are now reflected in the following:
+Updated EventSub subscription:
+Channel Chat Message
+channel.chat.messsage - Any user sends a message to a specific chat room.
+Updated API:
+Send Chat Message
+Send Chat Message - Sends a message to the broadcaster’s chat room.
+Added IRC PRIVMSG tag:
+source-only
+source-only - A Boolean that indicates if a message sent during a shared chat session is only sent to the source channel. Has no effect if the message is not sent during a shared chat session.
+2025‑03‑18
+This release includes the following updates:
+EventSub:
+Channel Suspicious User Message Event - Updated the types field to reflect the following return values:
+ban_evader
+manually_added
+banned_in_shared_channel
+Get EventSub Subscriptions - Updated the following note to accurately reflect the functionality when a WebSocket is disconnected:
+The GET API returns disabled WebSocket subscriptions for a minimum of 1 minute as compared to webhooks which returns disabled subscriptions for a minimum of 10 days.
+Twitch API:
+Update User API Endpoint - Added a new error code:
+429 Too many requests: The app exceeded the number of requests that it may make.
+2025‑02‑27
+This release includes updates to the following EventSub subscription types:
+Channel Bits Use - Updated from open beta to V1.
+Channel Points Automatic Reward Redemption Add V2 - Updated from open beta to V2.
+2025‑02‑19
+This release includes the following updates for Twitch API endpoints and EventSub subscription types:
+Channel Bits Use - Added the following parameters:
+emote_set_id
+owner_id
+format
+Get Extension Live Channels - updated the following parameter to better reflect its actual functionality.
+first - The specific maximum number of items per page in the response. The actual number returned may be less than this limit. Read More
+2025‑02‑12
+The following V2 EventSub subscription type is now available in open beta:
+channel.channel_points_automatic_reward_redemption.add - A viewer has redeemed an automatic channel points reward on the specified channel.
+2025‑02‑06
+The following EventSub subscription type is now available in open beta:
+Channel Bits Use - A notification is sent whenever Bits are used on a channel.
+2025‑01‑30
+Added Legacy PubSub to EventSub Migration Guide .
+2025‑01‑21
+Send Chat Announcement now includes response code 429 (Too Many Requests) in its Response Codes section.
+2025‑01‑13
+Get Clips has been updated to reflect the maximum number of results to be returned over multiple paginated requests.
+2024‑12‑05
+This release includes the following updates:
+The following V2 Automod Message EventSub subscription types are now available in v2:
+automod.message.hold - A user is notified if a message is caught by automod for review. Only public blocked terms trigger notifications, not private ones.
+automod.mesage.update - A message in the automod queue had its status changed. Only public blocked terms trigger notifications, not private ones.
+2024‑12‑04
+The Twitch Drops Guide has been updated to include information regarding subscription-based Drops, now available for all game developers.
+We have also revised the Developer Services Agreement to include subscription-based Twitch Drops, and reorganized related Drops information. Game developers who currently or plan to use Twitch Drops should take a moment to review the revised Agreement.
+2024‑11‑25
+This release includes the following updates:
+Added information about the Game Maker version of the Twitch Game Engine Plugins
+2024‑11‑21
+This release includes the following updates:
+Hype Train EventSub subscription types now indicate whether a Hype Train is a Golden Kappa Train:
+channel.hype_train.begin - A Hype Train begins on the specified channel.
+channel.hype_train.progress - A Hype Train makes progress on the specified channel.
+channel.hype_train.end - A Hype Train ends on the specified channel.
+2024‑11‑12
+This release includes the following updates:
+The following V2 Automod Message EventSub subscription types are now available in open beta:
+automod.message.hold - A user is notified if a message is caught by automod for review.
+automod.mesage.update - A message in the automod queue had its status changed.
+2024‑11‑01
+Get Content Classification Labels and Modify Channel Information have been updated to support the new Content Classification Label, “Politics and Sensitive Social Issues.”
+2024‑09‑16
+This release includes the following updates:
+The following EventSub subscription types were updated from open beta to V1:
+Shared Chat
+channel.shared_chat.begin - A notification when a channel becomes active in an active shared chat session.
+channel.shared_chat.update - A notification when the active shared chat session the channel is in changes.
+channel.shared_chat.end - A notification when a channel leaves a shared chat session or the session ends.
+The following API was updated from open beta to V1:
+Get Shared Chat Session
+Get Shared Chat Session - Retrieves the active shared chat session for a channel.
+2024‑09‑10
+This release includes the following updates:
+Updated IRC PRIVMSG tags to include the following new tags:
+source-room-id
+source-id
+source-badges
+source-badge-info
+Updated IRC USERNOTICE tags to include the following changes:
+Introduced new tag source-room-id
+Introduced new tag source-id
+Introduced new tag source-msg-id
+Introduced new tag source-badges
+Introduced new tag source-badge-info
+Added possible value of sharedchatnotice to the existing msg-id tag
+Added Shared Chat section to IRC Concepts, detailing the handling of Shared Chat on IRC
+2024‑09‑06
+This release includes the following updates:
+The following EventSub subscription types are now available in open beta:
+Shared Chat
+channel.shared_chat.begin - A notification when a channel becomes active in an active shared chat session.
+channel.shared_chat.update - A notification when the active shared chat session the channel is in changes.
+channel.shared_chat.end - A notification when a channel leaves a shared chat session or the session ends.
+The following item was added to the API reference in open beta:
+Get Shared Chat Session
+Get Shared Chat Session - Retrieves the active shared chat session for a channel.
+The following EventSub subscription types have been updated:
+Chat Message
+channel.chat.message V1
+Chat Notification
+channel.chat.notification
+Chat Moderate V1 and V2
+channel.moderate V1
+channel.moderate V2
+2024‑08‑01
+This release includes the following updates:
+The Chat & Chatbots section has been reworked to describe information about Chat using EventSub and IRC.
+IRC reference pages were merged into the IRC Concepts page.
+The page Moderating a Broadcaster’s chat under Twitch API was moved to Chat & Chatbots as Moderation . The old page URL will redirect to the new location.
+The Scopes page was updated to contain clearer and additional information:
+Scopes are split by API/EventSub , IRC , and PubSub .
+Links to EventSub reference were added to relevant scopes
+2024‑07‑11
+This release includes the following updates:
+The following EventSub subscription types were updated from open beta to V1:
+Channel Warnings
+channel.warning.acknowledge - A user acknowledges a warning.
+channel.warning.send - A user is sent a warning.
+The following EventSub subscription type was updated from open beta to V2:
+Moderator Actions
+channel.moderate v2 - A moderator performs a moderation action in a channel. Includes warnings.
+The following API endpoint was updated from open beta to V1:
+Warn Chat User
+Warn Chat User API Endpoint - Warns a user in the specified broadcaster’s chat room, preventing them from interaction with the chat until the warning is acknowledged.
+The following scopes were added to the Twitch API scopes :
+moderator:manage:warnings - Warn users in channels where you have the moderator role.
+moderator:read:warnings - Read warnings in channels where you have the moderator role.
+2024‑07‑09
+This release includes the following updates:
+There is no longer a requirement to have an Apple Developer account, or fill out the iOS Allowlist form, to allow an Extension to work on the iOS version of the Twitch app. All mobile Extensions, existing and new, are available on iOS and Android without additional requirements in the submission process.
+Developer Forums announcement
+Updated messaging in Building Extensions .
+Added policy 3.5 to Extensions Guidelines & Policies .
+2024‑06‑19
+This release includes the following updates:
+The following EventSub subscription types are now available in open beta:
+Moderator Actions
+channel.moderate v2 - A moderator performs a moderation action in a channel. Includes warnings. This event’s version will eventually migrate version from beta to 2 in a future release.
+Channel Warnings
+channel.warning.acknowledge - A user acknowledges a warning.
+channel.warning.send - A user is sent a warning.
+The following item was added to the API reference in open beta:
+Warn Chat User
+Warn Chat User API Endpoint - Warns a user in the specified broadcaster’s chat room, preventing them from interaction with the chat until the warning is acknowledged.
+2024‑06‑13
+This release includes the following updates:
+Channel Chat Message :
+The following enum values for the message_type field have been changed:
+animated has been renamed to power_ups_message_effect
+gigantified_emote has been renamed to power_ups_gigantified_emote
+Automatic Point Redemption Add :
+The following enum values for the reward_type field have been changed:
+send_animated_message has been renamed to message_effect
+send_gigantified_emote has been renamed to gigantify_an_emote
+2024‑06‑11
+This release includes the following updates:
+General improvements made to Unity Guide
+Fixed Typos
+General code improvements
+General rewording to improve readability
+Updated unitypackage to include experiemental Mac support
+2024‑05‑22
+This release includes the following updates:
+Channel Chat Message now supports:
+A new field:
+channel_points_animation_id
+The following new enum values for the message_type field:
+animated
+gigantified_emote
+Automatic Point Redemption Add now supports:
+The following new enum values for the reward_type field:
+send_animated_message
+send_gigantified_emote
+celebration
+2024‑04‑22
+This release includes the following updates:
+All Goal Subscription EventSub events were updated to include two new goal type values:
+new_bit
+new_cheerer
+2024‑04‑12
+This release includes the following updates:
+The following items were updated from open beta to V1:
+Low Trust User (Suspicious User)
+channel.suspicious_user.message - A chat message has been sent by a suspicious user.
+channel.suspicious_user.update - A suspicious user has been updated.
+Made updates to Get User Emotes API endpoint:
+Re-added broadcaster_id query parameter. The description of this query parameter was updated to reflect it’s purpose.
+2024‑04‑05
+This release includes the following updates:
+The following events are now available in open beta:
+Low Trust User (Suspicious User)
+channel.suspicious_user.message - A chat message has been sent by a suspicious user.
+channel.suspicious_user.update - A suspicious user has been updated.
+The following items were updated from open beta to V1:
+Moderator Actions
+channel.moderate - A moderator performs a moderation action in a channel.
+VIP Add and Remove
+channel.vip.add - A VIP is added to the channel.
+channel.vip.remove - A VIP is removed from the channel.
+Whisper Received
+user.whisper.message - A user receives a whisper.
+Channel Point Redemptions
+channel.channel_points_automatic_reward_redemption.add - A viewer has redeemed an automatic channel points reward on the specified channel.
+Expanded supported EventSub status messages on the following API endpoints:
+Get EventSub Subscriptions
+Get Conduit Shards
+Update Conduit Shards
+Made updates to Get User Emotes API endpoint:
+Expanded possible values for emote_type field in response.
+Removed broadcaster_id query parameter.
+2024‑03‑15
+This release includes the following updates:
+The following EventSub subscription types are now available in open beta:
+Moderator Actions
+channel.moderate - A moderator performs a moderation action in a channel.
+VIP Add and Remove
+channel.vip.add - A VIP is added to the channel.
+channel.vip.remove - A VIP is removed from the channel.
+Whisper Received
+user.whisper.message - A user receives a whisper.
+Channel Point Redemptions
+channel.channel_points_automatic_reward.add - A viewer has redeemed an automatic channel points reward on the specified channel.
+The following items were updated from open beta to V1:
+Twitch API
+Get User Emotes API Endpoint - Retrieves emotes available to the user across all channels.
+EventSub Type Subscriptions
+Unban Requests
+channel.unban_request.create - Sends a notification when a user creates an unban request.
+channel.unban_request.resolve - Sends a notification when an unban request has been resolved.
+Automod
+automod.message.hold - Notifies a user when a message is caught by automod for review.
+automod.message.update - Sends a notification when a message in the automod queue had its status changed.
+automod.settings.update - Sends a notification when a broadcaster’s automod settings are updated.
+automod.terms.update - Sends a notification when a broadcaster’s automod terms are updated. Changes to private terms are not sent.
+channel.chat.user_message_hold - Notifies a user if their message is caught by automod.
+channel.chat.user_message_update - Notifies a user if their message’s automod status is updated.
+2024‑03‑07
+This release includes the following updates:
+Channel Chat Settings Update has moved from public beta to v1.
+Added the following Twitch API endpoints and EventSub subscription types in open beta:
+Twitch API:
+Get Unban Requests - Gets a list of unban requests for a broadcaster’s channel.
+Resolve Unban Requests - Resolve an unban request by approving or denying it.
+Get User Emotes - Retrieves emotes available to the user.
+EventSub subscription types:
+Unban Requests
+channel.unban_request.create - Sends a notification when a user creates an unban request.
+channel.unban_request.resolve - Sends a notification when an unban request has been resolved.
+Automod
+automod.message.hold - Notifies a user when a message is caught by automod for review.
+automod.message.update - Sends a notification when a message in the automod queue had its status changed.
+automod.settings.update - Sends a notification when a broadcaster’s automod settings are updated.
+automod.terms.update - A notification is sent when a broadcaster’s automod terms are updated. Changes to private terms are not sent.
+channel.chat.user_message_hold - A user is notified if their message is caught by automod.
+channel.chat.user_message_update - A user is notified if their message’s automod status is updated.
+2024‑02‑01
+The following releases and changes have been made:
+The Twitch Game Engine Plugins are now generally available for building integrations in Unity, Unreal, and other C++ engines.
+Get Moderated Channels has moved from public beta to v1.
+Made the following changes to specific EventSub references in open beta:
+Events
+Channel Guest Star Session End Event and Channel Guest Star Session Update Event :
+Added three new fields:
+host_user_id
+host_user_name
+host_user_login
+Updated definitions for all broadcaster_* fields to reference the non-hosting streamer in a channel:
+broadcaster_user_id
+broadcaster_user_name
+broadcaster_user_login
+Conditions
+Channel Guest Star Session End Condition and Channel Guest Star Session Update Condition :
+Updated the definition for broadcaster_user_id to refer to the non-hosting broadcaster of the channel.
+2024‑01‑25
+This release includes the following updates:
+Conduits
+Conduit event and transport method features are now generally available. See, Handling Conduit Events .
+Updated Create EventSub Subscription to include examples for all three supported transport methods types:
+webhook
+websocket
+conduit
+Added the following Twitch API endpoints and EventSub subscription types:
+Twitch API:
+Create Conduits - Creates a new conduit.
+Get Conduits - Retrieves the conduits for a client ID.
+Update Conduits - Updates a conduit’s shard count.
+Delete Conduit - Deletes a conduit.
+Get Conduit Shards - Lists all shards for a conduit.
+Update Conduit Shards - Updates shard(s) for a conduit.
+EventSub subscription types:
+conduit.shard.disabled - Sends a notification when EventSub disables a shard due to the status of the underlying transport changing.
+Chat
+Added a new Twitch API endpoint:
+Send Chat Message - Sends a message to the broadcaster’s chat room.
+Added new EventSub subscription type:
+channel.chat.message - Any user sends a message to a specific chat room.
+2024‑01‑08
+This release includes the following updates:
+Get Moderated Channels and channel.chat_settings.update have been added to open beta.
+user:read:moderated_channels has been added to the Twitch API scopes .
+2023‑12‑11
+The following Ads Manager endpoints and subscription type have been moved from open beta to generally available with the following changes, where applicable:
+Get Ad Schedule
+length_seconds has been renamed to duration .
+preroll_free_time_seconds has been renamed to preroll_free_time .
+Snooze Next Ad
+channel.ad_break.begin
+length_seconds has been renamed to duration_seconds .
+2023‑12‑05
+Device Code Flow (DCF) is now generally available.
+Refer to Authentication Overview and Device code grant flow for more information.
+2023‑11‑15
+The following EventSub subscription types have been moved from open beta to generally available:
+channel.chat.clear
+channel.chat.clear_user_messages
+channel.chat.message_delete
+channel.chat.notification
+Additionally, removed sub.cumulative_months from the event payload
+2023‑11‑07
+Made the following changes to the channel.chat.notification EventSub subscription type in open beta:
+All instances of sub_plan have been renamed to sub_tier .
+For the sub and resub events, the Prime value has been removed from sub_tier .
+For the sub and resub events, a new is_prime field has been added to indicate if the subscription was purchased through Prime. Prime subs will only have a sub_tier value of 1000 .
+A new badges field has been added, which returns a list of chat badges.
+2023‑10‑19
+Added the following Twitch API endpoints and EventSub subscription types to open beta:
+Chat on Eventsub
+channel.chat.clear - sends a notification when a moderator or bot clears all messages from the chat room.
+channel.chat.clear_user_messages - sends a notification when a moderator or bot clears all messages for a specific user.
+channel.chat.message_delete - sends a notification when a moderator removes a specific message.
+channel.chat.notification - sends a notification when an event that appears in chat occurs, such as someone subscribing to the channel or a subscription is gifted.
+Ads Manager
+Get Ad Schedule - Returns ad schedule related information, including snooze, when the last ad was run, when the next ad is scheduled, and if the channel is currently in pre-roll free time.
+Snooze Next Ad - Pushes back the timestamp of the upcoming automatic mid-roll ad by 5 minutes.
+channel.ad_break.begin - sends a notification when a midroll commercial break begins on a channel.
+Added the following authentication scopes for the above API endpoionts and subscription types:
+channel:bot - Allows the client’s bot users access to a channel.
+user:bot - Allows client’s bot to act as this user.
+user:read:chat - View live stream chat and room messages.
+channel:manage:ads - Manage ads schedule on a channel.
+channel:read:ads - Read the ads schedule and details on your channel.
+2023‑10‑18
+The Twitch Drops guide has been updated for the latest version as announced on Improving the Flexibility of Twitch Drops .
+2023‑09‑12
+This release includes the following updates to the Get Clips API endpoint:
+The optional is_featured field has been added to the request parameters to allow returning only featured clips, non-featured clips, or both if the parameter is not present.
+The is_featured field has been added to the response body, indicating if the clip is featured or not.
+2023‑09‑06
+This release includes the following updates, detailed in the Legacy Follows API and Eventsub Shutdown Timeline post here :
+The Get Users Follows API endpoint has been removed.
+Get Channel Followers now requires the user access token to contain both the moderator:read:followers scope and have either the user ID match the broadcaster_id or the user must be a moderator for the specified broadcaster in order to return data about specific followers. This condition is also required for using the user_id parameter.
+V1 of channel.follow has been removed.
+2023‑08‑24
+This release includes the following updates:
+The Channel Guest Star Guest Update notification now sends when a slot is updated, and includes information about the slot, if applicable.
+The Guest Star Slot Update event has been removed, as its information is now included in the Channel Guest Star Guest Update event.
+The moderator:read:guest_star and moderator:manage:guest_star scopes have been added to the following subscription types:
+Channel Guest Star Session Begin
+Channel Guest Star Session End
+2023‑08‑04
+This release includes the following updates:
+IRC Tags for PRIVMSG have been updated to include changes to Chat Replies:
+Updated existing reply-parent-* tags to refer to only referencing their direct parent message
+Added reply-thread-parent-msg-id
+Added reply-thread-parent-user-login
+Guest Star Guest Update now includes the accepted state for when a guest has accepted their invitation to the Guest Star session.
+2023‑07‑19
+IRC Tags for PRIVMSG have been updated to include Hype Chat.
+Video Broadcast updated to refer to the latest broadcasting guidelines.
+2023‑07‑17
+This release includes the following updates:
+Moved Version 2 of channel.update from open beta to generally available.
+The following Twitch API endpoints have been decommissioned and removed from documentation:
+“Get Soundtrack Current Track”
+“Get Soundtrack Playlist”
+“Get Soundtrack Playlists”
+Increased the maximum number of enabled subscriptions per WebSocket connection from 100 to 300.
+2023‑07‑10
+This release includes the following updates related to content classification labels and branded content:
+Made the following changes to Get Channel Information :
+Added the content_classification_labels field to the response, which returns the CCLs currently applied to the channel.
+Added the is_branded_content field to the response, which indicates if the channel has branded content.
+Made the following changes to Modify Channel Information :
+Added the content_classification_labels field to the request body, which lets you enable or disable specific content classification labels for the channel.
+Added the is_branded_content field to the request body, which lets you specify if the channel has branded content.
+Added the Twitch API endpoint Get Content Classification Labels , which shows you the available content classification labels.
+2023‑06‑29
+Moved the following changes to existing subscription type channel.update to open beta:
+Removed the is_mature boolean flag
+Added a new content_classification_labels field that lists the IDs of any content classification labels applied on the channel
+2023‑06‑15
+Authorization Revoked has been added for PubSub.
+2023‑05‑22
+This release includes the following updates:
+Made the following changes to Get Channel Guest Star Settings :
+The following authentication scopes have been added
+moderator:read:guest_star
+moderator:manage:guest_star
+A moderator_id is now required in the request query parameters
+Removed the Twitch API v5 Migration Guide
+2023‑05‑11
+Added the following Twitch API endpoints and subscription types to open beta:
+Get Channel Guest Star Settings - Gets the channel settings for configuration of the Guest Star feature for a particular host.
+Update Channel Guest Star Settings - Mutates the channel settings for configuration of the Guest Star feature for a particular host.
+Get Guest Star Session - Gets information about an ongoing Guest Star session for a particular channel.
+Create Guest Star Session - Programmatically creates a Guest Star session on behalf of the broadcaster.
+End Guest Star Session - Programmatically ends a Guest Star session on behalf of the broadcaster.
+Get Guest Star Invites - Provides the caller with a list of pending invites to a Guest Star session.
+Send Guest Star Invite - Sends an invite to a specified guest on behalf of the broadcaster for a Guest Star session in progress.
+Delete Guest Star Invite - Revokes a previously sent invite for a Guest Star session.
+Assign Guest Star Slot - Allows a previously invited user to be assigned a slot within the active Guest Star session.
+Update Guest Star Slot - Allows a user to update the assigned slot for a particular user within the active Guest Star session.
+Delete Guest Star Slot - Allows a caller to remove a slot assignment from a user participating in an active Guest Star session.
+Update Guest Star Slot Settings - Allows a user to update slot settings for a particular guest within a Guest Star session.
+channel.guest_star_session.begin - The host began a new Guest Star session.
+channel.guest_star_session.end - A running Guest Star session has ended.
+channel.guest_star_guest.update - A guest has moved between interaction states in an active Guest Star session.
+channel.guest_star_slot.update - A slot setting has been updated in an active Guest Star session.
+channel.guest_star_settings.update - The host preferences for Guest Star have been updated.
+The following authentication scopes have been added:
+channel:read:guest_star
+channel:manage:guest_star
+moderator:read:guest_star
+moderator:manage:guest_star
+2023‑04‑12
+The EventSub WebSockets connection URL has been updated to wss://eventsub.wss.twitch.tv/ws . See the announcement for more details.
+2023‑04‑05
+Twitch’s CLI has been updated to allow for testing Reconnect message flow and forwarding EventSub events to the mock WebSocket server.
+2023‑03‑30
+Get Channel Chat Badges and Get Global Chat Badges have been updated to include the following return fields; title , description , click_action , and click_url . See the announcement for more information.
+2023‑03‑15
+References to the Twitch Developer Rig have been updated or removed following the end of support announcement .
+2023‑02‑28
+This release includes the following updates:
+Search Channels , Get Streams , Get Followed Streams — Include the following changes:
+Added customizable tags via a new tags field.
+Deprecated the tag_ids field in the response. The response continues to include the field; however, it will only return an empty array.
+Get All Stream Tags and Get Stream Tags — Include the following change:
+Deprecated the tag_ids field in the response. The response continues to include the field; however, it will only return an empty array. These endpoints will return a 410 response on July 13, 2023
+Additionally, removed the Replace Stream Tags endpoint.
+For information about these changes, see Adding customizable tags to the Twitch API .
+2023‑02‑27
+“Get Code Status” and “Redeem Code” Twitch API endpoints have been decommissioned and removed from documentation.
+2023‑02‑22
+This release includes the following updates:
+Moved the following Channel Follows endpoints and subscription type from open beta to generally available:
+Get Followed Channels — Gets a list of broadcasters that the specified user follows.
+Get Channel Followers — Gets a list of users that follow the specified broadcaster.
+channel.follows — Version 2 of the existing subscription type that will now require the moderator:read:followers scope.
+Added deprecation notices to the following:
+Get User Follows
+channel.follows (v1)
+Updated the Product Lifecycle with the above deprecation notice.
+2023‑02‑09
+Moved the following Shoutout endpoint and subscription types from open beta to generally available:
+Send a Shoutout — This endpoint sends a Shoutout to the specified broadcaster.
+channel.shoutout.create — This subscription type sends a notification when the specified broadcaster sends a Shoutout.
+channel.shoutout.receive — This subscription type sends a notification when the specified broadcaster receives a Shoutout.
+2023‑02‑03
+Added the following Twitch API endpoints and subscription types to open beta.
+Get Followed Channels — Gets a list of broadcasters that the specified user follows.
+Get Channel Followers — Gets a list of users that follow the specified broadcaster.
+channel.follows (beta) — Beta version of the existing subscription type that will now require the moderator:read:followers scope.
+low-trust-users has been added to PubSub reference .
+2023‑01‑19
+This release includes the following updates:
+Added the following Shoutout endpoint and subscription types to open beta:
+Send a Shoutout — This endpoint sends a Shoutout to the specified broadcaster.
+channel.shoutout.create — This subscription type sends a notification when the specified broadcaster sends a Shoutout.
+channel.shoutout.receive — This subscription type sends a notification when the specified broadcaster receives a Shoutout.
+Moved the following Charity endpoints and subscription types from open beta to generally available:
+Get Charity Campaign Donations — Returns the list of donations that users have made to the broadcaster’s active charity campaign.
+Get Charity Campaign — Gets information about the charity campaign that the broadcaster is running, such as their fundraising goal and the amount that’s been donated so far.
+channel.charity_campaign.start — Sends a notification when the broadcaster starts a charity campaign.
+channel.charity_campaign.progress — Sends a notification when the broadcaster changes the fundraiser’s target goal or when progress is made towards the goal.
+channel.charity_campaign.stop — Sends a notification when the broadcaster stops a charity campaign.
+channel.charity_campaign.donate — Sends an event notification when a user donates to the broadcaster’s charity campaign.
+2023‑01‑10
+This release includes the following updates:
+Moved the following Shield Mode endpoints and subscription types from open beta to generally available:
+Get Shield Mode Status — This endpoint gets the broadcaster’s Shield Mode activation status.
+Update Shield Mode Status — This endpoint activates or deactivates the broadcaster’s Shield Mode.
+channel.shield_mode.begin — This subscription type sends a notification when the broadcaster activates Shield Mode.
+channel.shield_mode.end — This subscription type sends a notification when the broadcaster deactivates Shield Mode.
+Added the tags field to the following endpoints:
+Get Streams
+Get Followed Streams
+Search Channels
+Get Channel Information
+The tags field contains the tags that the broadcaster or Twitch added to help identify the content that the broadcaster streams.
+Added the tags field to the Modify Channel Information endpoint to let broadcasters add or remove tags. Broadcasters use the tags to help identify the content that they stream.
+Added the id field to the Get Charity Campaign Donations response to identify the donation.
+Added the id field to the Charity Donation event data to identify the donation.
+2022‑12‑09
+This release includes the following updates:
+Added the following missing status values that Get EventSub Subscriptions may return in the status field. All of these statuses indicate that the subscription is now disabled. You may also use the status values to filter the list of subscriptions that Get EventSub Subscriptions returns.
+websocket_disconnected — The client closed the connection.
+websocket_failed_ping_pong — The client failed to respond to a ping message.
+websocket_received_inbound_traffic — The client sent a non-pong message. Clients may only send pong messages (and only in response to a ping message).
+websocket_connection_unused — The client failed to subscribe to events within the required time.
+websocket_internal_error — The Twitch WebSocket server experienced an unexpected error.
+websocket_network_timeout — The Twitch WebSocket server timed out writing the message to the client.
+websocket_network_error — The Twitch WebSocket server experienced a network error writing the message to the client.
+moderator_removed — The moderator that authorized the subscription is no longer one of the broadcaster’s moderators.
+2022‑12‑05
+This release updates Twitch’s CLI with the following changes:
+Adds the following events that you can trigger (see Testing webhook events ).
+charity-donation — Triggers an event to mimic when a user donations to the broadcaster’s charity campaign.
+charity-start — Triggers an event to mimic when a broadcaster starts a charity campaign.
+charity-progress — Triggers an event to mimic when progress is made towards the campaign’s goal or when the broadcaster changes the fundraising goal.
+charity-stop — Triggers an event to mimic when a broadcaster stops a charity campaign.
+Adds the following flags that you can use with the charity events.
+charity-current-value — Use to specify the amount of money that’s donated for charity donation events or the current amount raised for the charity campaign events.
+charity-target-value — Use to specify the fundraising target amount for the charity campaign events.
+Changed the user.update event name in the documentation to user-update to match the convention used by the other events.
+2022‑12‑02
+This release includes the following updates to the Twitch endpoints :
+Added the Update Shield Mode Status endpoint, which activates or deactivates the broadcaster’s Shield Mode. Twitch’s Shield Mode feature is like a panic button that broadcasters can push to protect themselves from chat abuse coming from one or more accounts. When activated, Shield Mode applies the overrides that the broadcaster configured in the Twitch UX. If the broadcaster hasn’t configured Shield Mode, it applies default overrides.
+Added the Get Shield Mode Status endpoint, which gets the broadcaster’s Shield Mode activation status.
+Updated the status of the Get Chatters endpoint from Beta to generally available.
+This release includes the following updates to the EventSub subscription types :
+Added the channel.shield_mode.begin subscription type, which sends a notification when the broadcaster activates Shield Mode.
+Added the channel.shield_mode.end subscription type, which sends a notification when the broadcaster deactivates Shield Mode.
+2022‑11‑29
+Updated the Get Channel Information endpoint to require a user access token to return the Partner’s stream delay value (see the delay field). By default, the delay field’s value is zero.
+2022‑11‑22
+Updated the channel.charity_campaign.stop subscription type to include the following fields:
+charity_name
+charity_description
+charity_logo
+charity_website
+Updated the channel.charity_campaign.donate and
+channel.charity_campaign.progress subscription types to include the following fields:
+charity_description
+charity_website
+2022‑11‑21
+Added the IGDB ID to the Get Games and Get Top Games responses (see the igdb_id field).
+Updated the Get Games endpoint to let you search by IGDB ID.
+2022‑11‑17
+Added the user_id and user_name fields to the Get Chatters response.
+Added the Get Charity Campaign Donations endpoint, which returns the list of donations that users have made to the broadcaster’s active charity campaign.
+Added the following subscription types to EventSub .
+channel.charity_campaign.start — Sends a notification when the broadcaster starts a charity campaign.
+channel.charity_campaign.progress — Sends a notification when the broadcaster changes the fundraiser’s target goal or when progress is made towards the goal.
+channel.charity_campaign.stop — Sends a notification when the broadcaster stops a charity campaign.
+Added version_removed as a possible status value to EventSub. The subscription’s status field is set to version_removed if EventSub stops supporting the subscribed to subscription type and version. EventSub sends the status in a revocation message.
+2022‑11‑04
+This release includes the following updates:
+Updated the CLI’s Generating Mock Data and Starting the Server topic to remove the erroneous user_id parameter from the table under Getting an app access token .
+Updated the Get Hype Train Events endpoint to include the following new contribution type:
+OTHER — Covers contribution methods other than Bits and Subscriptions. See the type field under the last_contribution and top_contributions fields.
+Updated the begin , progress , and end Hype Train events to include the following new contribution type:
+other — Covers contribution methods other than Bits and Subscriptions. See the type field under the last_contribution and top_contributions fields.
+Added the Broadcast Scheduling Guide .
+2022‑11‑02
+Updated the channel.charity_campaign.donate subscription type to include the following fields in the event’s data:
+charity_name — The charity’s name.
+charity_logo — A URL to the charity’s logo.
+2022‑11‑01
+Added WebSocket support for EventSub notifications. See Handling WebSocket Events .
+Updated the Twitch CLI to support testing your WebSocket client (you’ll need to upgrade to the latest version). The server sends the client a welcome message followed by ping and keepalive messages. You’ll mostly use the mock server to send a reconnect message to test your client’s reconnect code flow. For details, see the start-websocket-server sub-command.
+Updated the Transport object that you use to subscribe to events:
+Added websocket as a possible value to the method field.
+Require the callback field only if the method field is set to webhook .
+Require the secret field only if the method field is set to webhook .
+Add the session_id field, which identifies the WebSocket to send notifications to. This field is required only if the method field is set to websocket .
+Added the connected_at field, which contains the UTC date and time that the WebSocket connection was established. This is a response-only field that Create EventSub Subscription and Get EventSub Subscription returns if the method field is set to websocket .
+Added the disconnected_at field, which contains the UTC date and time that the WebSocket connection was lost. This is a response-only field that Get EventSub Subscription returns if the method field is set to websocket .
+2022‑09‑29
+Added the Get Chatters endpoint, which you use to get the list of users that are connected to the specified broadcaster’s chat session.
+2022‑09‑16
+Breaking change to the Beta channel.charity_campaign.donate EventSub subscription type :
+The id field of the Charity Donation Event object will change to campaign_id to better reflect its content on Tuesday, September 20 at 1:00pm PDT.
+2022‑09‑01
+Updated the Create Poll endpoint to remove support for voting with Bits. This change removes the following optional request fields from the documentation:
+bits_voting_enabled
+bits_per_vote
+If your request includes these fields, the endpoint ignores them. The following response fields will be set to default values.
+bits_votes — set to 0.
+bits_voting_enabled — set to false .
+bits_per_vote — set to 0.
+The Get Polls and End Poll responses will show the above values for polls created on or after August 29, 2022; otherwise, the response contains Bits values if enabled.
+The above Bits-related fields should also be ignored for the following EventSub events:
+channel.poll.begin
+channel.poll.progress
+channel.poll.end
+2022‑08‑26
+Added the vip tag to PRIVMSG . You can use the tag to determine whether the user that sent the chat is a VIP.
+2022‑08‑25
+Adds the following API and subscription type that you can use to get information about the charity campaign that the broadcaster is running.
+Get Charity Campaign — Gets information about the charity campaign that the broadcaster is running, such as their fundraising goal and the amount that’s been donated so far.
+channel.charity_campaign.donate — Sends an event notification when a user donates to the broadcaster’s charity campaign.
+2022‑08‑12
+Added the Moderation Guide that shows how to use the moderation APIs such as adding and removing moderators, banning users or putting them in a timeout, and updating your AutoMod settings.
+2022‑07‑29
+All Twitch API endpoints introduced on 2022-07-15 have moved from public beta to general availability.
+2022‑07‑22
+Added the following guides:
+Creating Clips — Shows how to create and get clips.
+Creating Markers — Shows how to create and get stream markers.
+2022‑07‑20
+Added the vod_offset field to the Get Clips API response. The offset is the number of seconds from the start of the video to the beginning of the clip.
+Updated the list of possible values that the type field in the Get Creator Goals API response may be set to. The following values were added to the list:
+subscription_count — The goal is to increase subscriptions. This type shows the net increase or decrease in the number of subscriptions.
+new_subscription_count — The goal is to increase subscriptions. This type shows only the net increase in the number of subscriptions (it does not account for users that unsubscribed since the goal started).
+2022‑07‑15
+This release adds the following endpoints. See :
+Send Chat Announcement — Sends an announcement to the broadcaster’s chat room.
+Delete Chat Messages — Removes a single chat message or all chat messages from the broadcaster’s chat room.
+Update User Chat Color — Updates the color used for the user’s name in chat.
+Get User Chat Color — Gets the color used for the user’s name in chat.
+Add Channel Moderator — Adds a moderator to the broadcaster’s chat room.
+Remove Channel Moderator — Removes a moderator from the broadcaster’s chat room.
+Get VIPs — Gets a list of the channel’s VIPs.
+Add Channel VIP — Adds a VIP to the broadcaster’s chat room.
+Remove Channel VIP — Removes a VIP from the broadcaster’s chat room.
+Send Whisper — Sends a whisper message to the specified user.
+The following authentication scopes have also been added for the endpoints above:
+moderator:manage:announcements
+moderator:manage:chat_messages
+user:manage:chat_color
+channel:manage:moderators
+channel:read:vips
+channel:manage:vips
+user:manage:whispers
+2022‑07‑11
+Submission Best Practices - Updated the “Content in Extensions” section to define the expected functionality of global overlay Extensions and examples.
+2022‑06‑29
+Twitch API - Organization and content for this section has been improved for a better developer experience.
+Twitch Drops - Japanese localization added.
+2022‑06‑27
+Check AutoMod Status — Includes the following changes:
+Deprecated and removed the user_id field from the request body. The endpoint ignores the field if you include it.
+Added endpoint-specific rate limits.
+For information about these changes, see Upcoming changes to the Check AutoMod Status API .
+Get Users — Includes the following change:
+Deprecated the view_count field in the response. The response continues to include the field; however, it contains stale data. You should stop displaying this data at your earliest convenience.
+Start a Raid , Cancel a Raid — Includes the following change:
+These endpoints were removed from Beta and are now generally available (replaced the Beta tag to New).
+Get EventSub Subscriptions — Includes the following change:
+Added the user_id query parameter that you can use to filter your list of subscriptions by. The response contains subscriptions where the user ID matches a user ID that you specified in the Condition object when you created the subscription .
+BREAKING CHANGES
+Get Soundtrack Playlist — Removed the following playlist fields from the response:
+description
+id
+image_url
+title
+tracks (the data field now contains the playlist’s tracks)
+Get Soundtrack Playlists — Added the id query parameter, which you can use to get metadata information about a single playlist.
+2022‑06‑08
+Added the ability for your application to start or cancel a raid. Read more
+This update adds the following endpoints:
+Start a Raid
+Cancel a Raid
+Added the created_at field to the response object of the following endpoints:
+Ban User
+Get Banned Users
+2022‑06‑02
+Create Prediction - Updated to allow specifying up to ten outcomes.
+2022‑05‑17
+Added fields to the following EventSub subscription types:
+user.update — Added the email_verified field, which indicates whether Twitch has verified the user’s email.
+channel.ban — Added the banned_at field, which indicates the UTC date and time of when the user was banned or put in a timeout.
+channel.hype_train.begin — Added the level field, which indicates the level at which the Hype Train started.
+Extension Guidelines and Policies - Added section 4.11 regarding NFTs in Twitch Extensions.
+2022‑05‑09
+Extension Submission Best Practices
+Added a section for content in Extensions
+Amended the quicker reviews section with information regarding what types of domains are valid for an Extension’s content security policy allowlists.
+Extension Guidelines and Policies
+Added section 4.10 regarding global overlay Extensions. See more details in our announcement .
+Added section 2.13 to regarding what types of domains are valid for an Extension’s content security policy allowlists
+2022‑04‑29
+Chat & Chatbots - Organization and content for this section has been improved for a better developer experience.
+2022‑04‑13
+Added 409 Conflict as a possible response code to Ban User and Unban User .
+Added information about when the Twitch API may introduce breaking and non-breaking changes to the API. For details, see Breaking Changes .
+2022‑04‑12
+Enhanced Experiences and Event-based Drops have been decommissioned and documentation has been removed.
+2022‑04‑07
+Authentication - Organization and writing for this section has been improved for a better developer experience.
+Get Hype Train Events - Removed id query parameter. See the deprecation announcement for more information.
+2022‑03‑18
+Removed documentation for “Get Banned Events” and “Get Moderator Events” Twitch API endpoints. For more information about the deprecation and removal of these endpoints, see the deprecation announcement .
+2022‑02‑28
+Twitch API v5 endpoints (i.e. kraken) are no longer available. Documentation for these endpoints have been removed.
+2022‑02‑25
+Chat msg-id tags updated for accuracy.
+2022‑02‑11
+Updated the Chatbots content with the following changes:
+Replaced the /r9kbeta and /r9kbetaoff Twitch chat commands to /uniquechat and /uniquechatoff, respectively, to match the commands used in Twitch Chat. The /r9kbeta and /r9kbetaoff continue to work but you should start using /uniquechat and /uniquechatoff at your earliest convenience.
+Removed the following tags from the list of possible USERNOTICE tags :
+anonsubgift
+anonsubmysterygift
+Added the WHISPER command to the list of commands that the Twitch IRC server may send your bot.
+2022‑02‑08
+Get channel information endpoint
+Changed the description for the broadcaster_id query parameter to indicate that you may specify a maximum of 100 IDs.
+Get Soundtrack Current Track endpoint
+Changed the description for the data response field to remove the part that states that the list is empty if the broadcaster is not playing a track. The correct behavior is that if the broadcaster is not playing a track, the endpoint returns HTTP status code 404 Not Found.
+Changed the description for the creator_channel_id response field to indicate that its value is an empty string if a Twitch user didn’t create the track instead of null .
+Get Soundtrack Playlist endpoint
+Changed the description for the creator_channel_id response field to indicate that its value is an empty string if a Twitch user didn’t create the track instead of null .
+Extension Policy 2.9 updated to clarify that the Twitch Extension Helper must be included as the first script in all front-end HTML files.
+2022‑01‑21
+Restrictions on content updated to reflect the new Twitch Extensions policy for Content Security Policy (CSP) directives and enforcement .
+Moderation API endpoints have moved from public beta to generally available.
+2022‑01‑06
+Added the new_subscription Creator Goals type, which reports all new subscriptions since the goal’s inception. This type differs from the subscription type, which reports the net increase or decrease in subscriptions. See the type field of:
+Goals Event
+Get Creator Goals
+2021‑12‑16
+The Update Chat Settings endpoint now lets you:
+Set the follower_mode_duration field to any value between 0 and 129600, inclusive.
+Set the slow_mode_wait_time field to any value between 3 and 120, inclusive.
+Open beta changes:
+For Ban Users , bulk requests have been removed until a more scalable solution is available.
+For Ban Users and Unban User , error message formatting now utilizes the same structure as other API endpoints since bulk requests have been removed. HTTP 429 errors may also be returned if there are too many requests even within normal Twitch API rate limits.
+2021‑12‑09
+Added the following Soundtrack APIs:
+Get Soundtrack Current Track — Gets the Soundtrack track that the specified broadcaster is playing.
+Get Soundtrack Playlists — Gets the list of Soundtrack playlists.
+Get Soundtrack Playlist — Gets the specified Soundtrack playlist.
+2021‑12‑03
+Updated Organizations to reflect cover art powered by IGDB .
+Updates Product Lifecycle to include the deprecation of a few Twitch API endpoints that supported WebSub-based webhooks.
+2021‑11‑23
+Added the following chat and moderation APIs that let developers create experiences that help broadcasters combat harassment and hate raids.
+What do you want to do?
+How to do it…
+Ban users or put them in a timeout
+Send a POST /moderation/bans request.
+You can also remove a ban or timeout.
+Block terms that the broadcaster doesn’t want used in their chat room
+Send a POST /moderation/blocked_terms request.
+You can also get a list of blocked terms and delete blocked terms.
+Update the broadcaster’s AutoMod settings
+Send a PUT /moderation/automod/settings request.
+You can also get a list of the current AutoMod settings.
+Update the broadcaster’s chat settings
+Send a PATCH /chat/settings request.
+You can also get a list of the current chat settings.
+2021‑11‑09
+Reorganization of EventSub documentation, moving handling events to a dedicated page.
+Explicitly including the “Content-Type: application/json” header in API reference examples.
+2021‑10‑27
+Organization Management updated to reflect IGDB will power Twitch game cover art as of November 17, 2021.
+2021‑10‑20
+Added documenation for Twitch’s command-line interface (CLI).
+2021‑10‑01
+Added the points field to the Get Broadcaster Subscriptions response. This field provides the current number of subscriber points earned by this broadcaster.
+2021‑09‑30
+Extensions Policy 2.12 has been added in regards to defining the domains from which Twitch Extensions can load content. More information is available in the announcement, New Extensions policy for Content Security Policy (CSP) directives and timeline for enforcement .
+Get started with Twitch Extensions - “Restrictions on content” section updated to reflect Extensions policy 2.12 and the timeline mentioned in the announcement.
+2021‑09‑29
+Drops Guide received minor updates.
+2021‑09‑24
+Reformatted Goals EventSub Subscription Types for consistency.
+Retitled the “Get Live Channels” to “ Get Extension Live Channels ” to clarify the endpoint is specific to Extensions activated on live channels.
+2021‑09‑16
+Decommissioned WebSub-based webhooks, which resulted in the following documentation changes:
+Removed the Get Webhook Subscriptions endpoint from the reference .
+Deleted the Webhooks Guide and Webhooks Reference topics.
+Updated the Product Lifecycle topic to note the date that WebSub-based webhooks was decommissioned.
+2021‑09‑15
+The Creator Goals feature is now generally available. Broadcasters create goals to generate hype in their community, and it provides the community a way to support the channel. Goals can be daily goals, subathons, or anything in between. For information about using the API to get goals or receive notifications about goals, see Creator Goals .
+2021‑09‑10
+Minor updates to address GitHub Issues .
+Insights & Analytics – Directions to access Drops Analytics has been updated and the “Top Streamers” report has been removed.
+2021‑09‑01
+Added the Creator Goals API, which returns active goals that broadcasters create on Twitch. Broadcasters create these goals to generate hype in their community, and it provides the community a way to support the channel. Goals can be daily goals, subathons, or anything in between. For more information, see Creator Goals .
+2021‑08‑30
+Twitch API Guide - Technical concepts in this guide have been updated or added to for further clarification.
+Embedding Twitch - Updated to include that certain features may be disabled if the embedded iframe is obscured.
+Embedding Video and Clips - Updated description for seek function and added the SEEK event.
+2021‑08‑20
+Updated examples for validating and revoking OAuth tokens.
+Updated Extension Helper Library to clarify that all HTML files should include the Extension Helper.
+2021‑08‑13
+Added the following fields to the Get Channel Emotes , Get Global Emotes , and Get Emote Sets endpoints.
+format — The formats that the emote is available in. For example, PNG or animated GIF.
+scale — The sizes that the emote is available in. For example, 1.0 (small).
+theme_mode — The background themes that the emote is available in. For example, light.
+template — The URL template that you use to create a URL for fetching the emote.
+For information about how to use these fields, see Twitch Emotes .
+Added the following to the Chatbots & IRC Guide .
+Existing site-wide rate limit for verified bots
+Clarification in the JOIN section regarding expected behavior when exceeding rate limits for joining channels
+2021‑07‑30
+Get Started with the Twitch API - This API guide has been updated to use the Twitch CLI and simplify how to retrieve an OAuth token to improve the getting started experience.
+2021‑07‑27
+The Create and Delete Follows API endpoints have been removed. See the Deprecation of Create and Delete Follows API Endpoints announcement for more information.
+2021‑07‑26
+Twitch Chat Guide - Updated information regarding verified chatbots including rate limits. Known bots have been removed. More information can be found in the chatbot verification update announcement .
+2021‑07‑23
+Get Banned Users and “Get Banned Events” updated to include ban reason and information for the moderator who initiated the ban.
+Twitch Emotes Guide - Added to document how developers can customize Twitch Emote image URLs to optimize their rendering in third-party applications.
+With the addition of the guide above, the “Chatbots & IRC” navigation item has been retitled to “Chat & Chatbots” to include a broader range of chat topics.
+2021‑07‑15
+v5 Migration Guide - Updated to include additional migration paths and indicated endpoints that are not supported beyond v5.
+2021‑07‑13
+Using the Twitch API in an Extension Front End - Added to describe how to a JWT can be used to make Twitch API requests from an Extension front end.
+The following Extension-related Twitch API endpoints have been added:
+Get Extension Configuration Segment
+Set Extension Configuration Segment
+Set Extension Required Configuration
+Send Extension PubSub Message
+Get Extension Live Channels
+Get Extension Secrets
+Create Extension Secret
+Send Extension Chat Message
+Get Extensions
+Get Released Extensions
+Get Extension Bits Products
+Update Extension Bits Product
+2021‑07‑02
+Twitch IRC: Tags - Minor updates, deprecated tags removed, and chat replies added.
+2021‑06‑30
+Enhanced Experiences and Event-based Drops are now generally available.
+Get Drops Entitlements - Updated to include fulfillment_status .
+Update Drops Entitlements - Added to the Twitch API reference.
+User Authorization Grant EventSub subscription type added as v1.
+Drops guide - Minor changes and updates regarding the additions above.
+2021‑06‑25
+Drop Entitlement Grant EventSub subscription type added.
+Update regarding the temporary pause of chatbot verification added to the Twitch Chat Guide .
+2021‑06‑17
+Get Channel Chat Badges - Now supports OAuth app access tokens in addition to OAuth user access tokens.
+EventSub - Channel Subscription End Event added tier and is_gift .
+Authentication - The existing user:read:email scope has been added.
+2021‑06‑15
+Twitch API endpoints added for Twitch channel stream schedule.
+Get Channel Stream Schedule
+Get Channel iCalendar
+Update Channel Stream Schedule
+Create Channel Stream Schedule Segment
+Update Channel Stream Schedule Segment
+Delete Channel Stream Schedule Segment
+Channel Subscription Message has moved from public beta to v1.
+2021‑06‑11
+Channel Subscription Gift has moved from public beta to v1.
+Get Videos updated to explicitly mention the 500 results limit when specifying game_id .
+2021‑06‑08
+Twitch API endpoints added for Twitch Emotes.
+Get Channel Emotes
+Get Global Emotes
+Get Emote Sets
+2021‑06‑07
+Channel Subscription Message EventSub subscription type added as a public beta.
+Extension Bits Transaction Create EventSub subscription type has moved from public beta to version 1.
+2021‑06‑03
+Channel Subscription Gift EventSub subscription type - Added is_anonymous boolean to the event.
+AutoMod Queue and User Moderation Notifications PubSub topics - Examples updated for accuracy.
+Several GitHub Issues resolved for documentation.
+2021‑06‑02
+Get Broadcaster Subscriptions - total subscription count added to the response.
+2021‑05‑28
+Twitch API endpoints have been added for chat badges.
+Get Channel Chat Badges
+Get Global Chat Badges
+EventSub subscription type updates.
+Channel Subscription End has moved from public beta to v1. This was previously known as “Channel Unsubscribe.”
+Channel Subscription Gift has been added as a public beta.
+2021‑05‑24
+Polls and Channel Points Predictions Twitch API endpoints have moved from public beta to general availability.
+Polls and Channel Points Predictions EventSub subscription types have moved from public beta to version 1.
+AutoMod Queue and User Moderation Notification topics added to PubSub reference .
+2021‑05‑21
+Extension Bits Transaction Create EventSub subscription type has been added as a public beta.
+Channel Points Custom Rewards - The API reference for Custom Rewards endpoints has been updated for consistency and to clarify conditional requirements for body parameters. For example, max_per_stream is required if a value for is_max_per_stream_enabled is also provided.
+2021‑05‑14
+Channel Prediction Lock EventSub subscription type - corrected the name of the lock timestamp to locked_at .
+Channel Prediction End EventSub subscription type - removed the locked_at field due to edge cases with Predictions that are cancelled or closed early.
+Create EventSub Subscription and Get EventSub Subscriptions - limit removed following the new EventSub subscription limit cost-based system .
+Get Channel Information - Added delay to return values table and example payload.
+2021‑05‑12
+Manage Held AutoMod Messages – Added to the Twitch API reference.
+Authentication - moderator:manage:automod scope added for Manage Held AutoMod Messages .
+2021‑05‑06
+Channel Subscription End EventSub subscription type has been added as a public beta.
+This entry has been updated, the subscription type has been renamed from “Channel Unsubscribe” to “Channel Subscription End” after moving from beta to v1.
+2021‑05‑03
+Twitch API endpoints added for polls and Channel Points Predictions as a public beta.
+Get Polls
+Create Poll
+End Poll
+Get Predictions
+Create Prediction
+End Prediction
+EventSub subscriptions types added for polls and Channel Points Predictions as a public beta.
+Channel Poll Begin
+Channel Poll Progress
+Channel Poll End
+Channel Prediction Begin
+Channel Prediction Progress
+Channel Prediction Lock
+Channel Prediction End
+2021‑04‑30
+Overview page - New information and organization.
+EventSub Subscriptions Types - Added information regarding the expected availability of EventSub subscription types when released as a public beta.
+2021‑04‑26
+Notification Example for user.authorization.revoke updated to show the cost is 1.
+Embedding Twitch - Minor documentation updates.
+2021‑04‑20
+Get Followed Streams - Added to the Twitch API reference.
+Authentication - user:read:follows scope added for Get Followed Streams .
+v5 Migration Guide - Updated to mention Get Followed Streams equivalence.
+2021‑04‑15
+Modify Channel Information – delay added as an optional body parameter.
+New API response fields added
+Get Streams : is_mature
+Get Clips : duration
+Search Channels : game_name
+Get Videos : stream_id
+Get Videos : muted_segments array of objects with duration and offset
+2021‑04‑09
+Get Broadcaster Subscriptions - Added context for how a Twitch Extension can retrieve this information.
+Update User - Clarifying why description is optional and what results if not provided.
+Extensions Reference - Parameter tables reordered to match the order they should be passed into their respective functions.
+Other minor corrections.
+2021‑04‑05
+Twitch Quarterly Insights has been decommissioned and removed in favor of Game Developer Analytics .
+2021‑03‑31
+Viewer Heartbeat Service (VHS) v5 endpoints removed in association with the decommission of legacy Drops.
+2021‑03‑30
+Organizations updated to include information regarding joining multiple organizations, as well as minor updates.
+2021‑03‑26
+EventSub’s Channel Moderator Add and Channel Moderator Remove subscriptions types have been moved from beta to v1.
+Added associated Twitch API endpoints to the scopes section of the Authentication guide.
+Minor design improvements.
+2021‑03‑19
+Get Drops Entitlements
+The maximum value for the number of items return via the first parameter has been increased to 1000.
+Pagination updated for accuracy in the the return values table and the example payload.
+Webhooks example payloads updated for accuracy.
+Miscellaneous corrections.
+2021‑03‑12
+Added Check User Subscription to the Twitch API.
+EventSub’s cost-based system for subscription limits has been added. Thanks for the feedback on RFC 0014 .
+Improved the instructions and information regarding the creation of Twitch applications for Drops campaigns .
+Several documentation corrections received through GitHub Issues have been resolved.
+2021‑03‑04
+Twitch API
+Get Channel Teams has been added to the API reference.
+Get Teams has been added to the API reference.
+The v5 migration guide has been updated to include the new Get Teams endpoint.
+EventSub
+The Channel Raid subscription type has been moved from beta to v1.
+The Channel Moderator Add and Channel Moderator Remove subscription types have been added as a public beta.
+2021‑02‑26
+EventSub updates
+Added clarification in steps 4-5 on “Create a subscription.”
+Channel Follow now includes the timestamp of when the follow occurred.
+Clarified the id field in the EventSub Stream Online notification payload.
+The following endpoints were updated to use the channel:manage:broadcast scope. The previous scope remains valid.
+Modify Channel Information
+Create Stream Marker
+Replace Stream Tags
+Updated the v5 Video Upload Guide introduction for visitors looking for information regarding uploads via the Creator Dashboard.
+Fixed broken links in chat references.
+Removed the “Create Entitlement Grants Upload URL” Twitch API endpoint associated with a previous version of Twitch Drops.
+2021‑02‑22
+Legacy Drops have been removed following the announced decommission .
+2021‑02‑19
+status added to EventSub subscription objects .
+Scope for Channel Subscriptions in PubSub has been updated to channel:read:subscriptions . Previous scope remains valid.
+Channel Points Hackathon banner added.
+Further clarification for game_id and title added for Modify Channel Information .
+Minor updates to the API guide and Chat guide .
+2021‑02‑12
+EventSub Channel Ban v1 now includes moderator information, reason for ban, and timeout duration if the ban was a timeout.
+EventSub Channel Unban v1 now includes moderator information.
+Section 7.5 of the Extensions Guidelines and Policies has been removed following the original announcement .
+2021‑02‑09
+In EventSub, the authorization scopes allowed for all Channel Point subscription types have been updated to accept channel:read:redemptions or channel:manage:redemptions .
+Updated Get Users to correctly document created_at in the example.
+Minor editorial updates to the Extensions Monetization Guide .
+2021‑02‑05
+Eventsub API endpoints have been moved to the API reference .
+A message regarding the deprecation of Twitch Quarterly Insights has been added to Insights following the recent announcement .
+Explicitly stating in Extensions that files should be zipped together as opposed to zipping the directory containing the files.
+Miscellaneous UserVoice and GitHub Issues addressed.
+2021‑01‑29
+EventSub
+The Channel Raid subscription type has been added as a public beta.
+The started_at timestamp has been added to the Stream Online Event .
+A note about removing Extensions Policy 7.5 has been added since Twitch Extensions no longer load for banned users.
+The Drops guide now includes a section regarding thoughtful naming of campaigns and rewards.
+Product Lifecycle has been updated to include definitions for tagging functionality in the documentation.
+2021‑01‑28
+broadcaster_login and/or user_login added to multiple API endpoint payloads that already return user ID and display name.
+GET helix/bits/leaderboard
+GET helix/channel_points/custom_rewards
+PATCH helix/channel_points/custom_rewards
+POST helix/channel_points/custom_rewards
+GET helix/channel_points/custom_rewards/redemptions
+PATCH helix/channel_points/custom_rewards/redemptions
+GET helix/extensions/transactions
+GET helix/moderation/banned
+GET helix/moderation/banned/events
+GET helix/moderation/moderators
+GET helix/moderation/moderators/events
+GET helix/search/channels
+GET helix/streams
+GET helix/streams/markers
+GET helix/videos
+GET helix/users/follows
+2021‑01‑22
+EventSub:
+Corrected status value in examples.
+Clarified requirements for secret .
+Authentication updates:
+Correctly state a 400 Bad Request is returned when attempting to revoke an invalid token, rather than a 200 OK .
+Scope information corrections and updates.
+Additional updates:
+offset removed from Get Channel Followers endpoint in v5 as it is no longer supported. cursor should be used for pagination.
+Extensions tutorial updated to use Gists instead of image.
+Several UserVoice suggestions and GitHub Issues addressed.
+2021‑01‑15
+New Twitch API endpoints available:
+Get Channel Editors
+Delete Videos
+Get User Block List
+Block User
+Unblock User
+The new scopes for these endpoints have also been added to Authentication . Updated the descriptions of existing scopes for consistency and accuracy.
+channel:read:editors
+channel:manage:videos
+user:read:blocked_users
+user:manage:blocked_users
+v5 migration guide updates:
+New v5 scope mappings have been added for the above endpoints. See channel_editor , channel_read , user_blocks_read , and user_blocks_edit .
+Five endpoint equivalence definitions have been added for the above endpoints.
+giantbomb_id set to 0 in the v5 Get Top Games response example to reflect a game data migration .
+2021‑01‑08
+EventSub updates:
+Added support for filtering by type .
+Added user login to notification payloads.
+Added twitch://broadcast mobile deeplink to broadcast a specific category.
+Embed updates:
+enableCaptions() function, disableCaptions() function, and Twitch.Player.CAPTIONS event added.
+sandbox added for embedded chat.
+getPlaybackStats() function and a description of the PlaybackStats object added back into the documentation.
+autoplay documentation updated to note the default value is false .
+Removed frameborder and scrolling from Twitch embed examples as these were deprecated in HTML5.
+Feedback and bug reports:
+Bring back a function similar to .getPlaybackStats()
+Channel Update Notification Example Contradicts Channel Update Event Documentation
+Typo in “Chatbots & IRC Guide” section and typo
+Google Analytics in extensions: example not up to date with GA changes
+Typo in EventSub Guide page
+Unclear Mention of Regex for Bits Parameter
+[TYPO] EventSub channel.update docs
+Deprecated attribute
+2020‑12‑18
+Updated auth validation sample with values and the expires_in field.
+Updated JavaScript helper examples to use window.Twitch.ext .
+Clarifcation for linking accounts for time-based Drops.
+Miscellaneous API reference fixes.
+2020‑12‑17
+Details for retriving ingest servers have been moved to the top-level Video Broadcasting section. This includes the launch of “ Get Ingest Servers ” to replace its deprecated version previously found in v5.
+2020‑12‑04
+UserVoice feedback fixes:
+Further documenting endpoints that support first and after
+“Get Users” now mentions an app access token can be used
+user:read:email corrected to be optional
+broadcaster_name documented for “Get Channel Information”
+Backend typo
+Subscriptions webhook link fixed
+usage_untimeout correction
+OAuth procedure links are clickable
+Possible typo for separating scopes
+Fixed example payload for Get All Chat Emoticons
+Added clarification for expected language query parameters and response values
+Fixed link to configuration service reference
+Miscellaneous fixes:
+Removed duplicate search results
+Displaying more search results
+Provided the full accept header in the v5 “Requests” section
+Changed the date format in the changelog to YYYY-MM-DD
+2020‑12‑01
+Added progress field to Hype Train EventSub subscription types .
+2020‑11‑30
+Corrections and edits to the EventSub documentation.
+Fixed a typo for “msg-param-gift-months” under IRC usernotices .
+2020‑11‑19
+Corrections and edits to the EventSub documentation.
+Updated Drops Analytics image.
+Changed type for pagination response field to be “object containing a string”.
+Corrections and edits to scopes documentation.
+2020‑11‑13
+Added documentation for EventSub .
+Added Channel Points API to the API Reference .
+Added a v5 to Twitch API migration guide .
+2020‑11‑04
+Added information about Drops Analytics to documentation.
+2020‑10‑29
+Removed CurseForge references from docs.
+API Reference:
+Corrected token requirement for Get Stream Tags .
+Made sub-section ordering consistent, listing query parameters before body parameters.
+Corrected Modify Channel Information documentation which had body parameters listed as query parameters.
+Pub Sub:
+Updated user notices for multi-month subscriptions.
+Added sample code for multi-month subscriptions.
+Updated the topic for chat moderator actions .
+2020‑10‑26
+API Reference :
+Fixed issue causing apostrophes to show as random characters.
+Removed duplicate entry for Get Stream Tags.
+Authentication Guide :
+Added maximum OAuth token limits.
+Added channel:read:redemptions scope.
+Corrected the spelling of channel:manage:broadcast .
+Clarified instructions for supplying parameters in the Webhooks Reference.
+Clarified limits in the Webhooks Guide.
+In the Extensions Guide , corrected the environment variable HTTPS=true for create-react-app.
+2020‑10‑09
+Updates to the API Reference :
+Made example code consistent.
+Eliminated duplicate entry for the Get Stream Tags endpoint.
+Fixed typos.
+Fixed a typo in the channel:manage:broadcast scope.
+Removed the Glossary.
+2020‑09‑23
+Removed links to internal documents in Increase Feedback in Extensions .
+2020‑09‑17
+Added to the v5 API Get Channel Subscribers endpoint the information that if a user in the subscribers list has been banned, the subscription information will be provided, but the user object will have a value of null .
+2020‑09‑15
+Edited all documentation to replace the terms “blacklist” and “whitelist” with “denylist” and “allowlist”.
+Edited and redesigned the top-level page:
+Fixed broken links.
+Added links to UserVoice and GitHub for feedback and support.
+Removed outdated screenshots.
+Removed redundant links.
+Added to the Get Clips endpoint documentation that clips are returned sorted by view count, in descending order.
+2020‑09‑14
+Updated the following endpoints to make clear they are about Bits codes:
+Get Code Status
+Redeem Code
+Updated Extensions documentation to say that layout needs to accommodate variable height rather than fixed at 700 pixels.
+2020‑09‑12
+Added discussion of subscription status support to the Extensions Monetization documentation.
+Clarified language in the Create Clip endpoint documentation.
+2020‑09‑07
+Documented authentication and Join rate limits for chat .
+Removed documentation for chat rooms, because the feature is deprecated.
+2020‑08‑28
+Removed mention of a webhook for Drops because it is not yet available.
+2020‑08‑25
+Updated the API Reference to note that the clips service returns a maximum of 1000 clips.
+Removed the deprecated information about rate limits when there is no token from the API Guide .
+Added pagination information to the Get Drops Entitlements endpoint documentation.
+2020‑08‑21
+Fixed code sample for Events-based Drops.
+2020‑08‑20
+Updated Authorization section for the Get Clips endpoint to indicate that a user access token is required.
+2020‑08‑18
+Published Drops 2.0 documentation
+added Get Drops Entitlements to the API reference
+2020‑08‑13
+Added a new section to our Extension Submission Best Practices: Template for a helpful Walkthrough Guide and Change Log
+2020‑07‑30
+Updated Marketing and Developer User Roles .
+2020‑07‑30
+Updated Webhooks documentation to describe notification timeout.
+Changed documentation of Start Commercial response field from retryAfter to retry_after.
+2020‑07‑23
+Updated Extensions documentation to reflect new process for required review channels.
+2020‑07‑21
+Addressed issues in the API reference for the following endpoints:
+Get Stream Key
+Get Channel Information
+Modify Channel Information
+Delete User Follows
+Get Hype Train Events
+2020‑07‑06
+Added required authorization for the Get Streams endpoint and updated sample code.
+2020‑07‑01
+Added new fields to the Channel Subscriptions Event Pubsub topic and a new USERNOTICE tag parameter in support of Multi-Month Subscription Gifting.
+2020‑06‑22
+Updated the Authentication Guide to mention that developers can provide multiple redirect URIs.
+2020‑06‑22
+Bug fixes in the API Reference .
+2020‑06‑18
+Added new endpoints to the API Reference and Webhooks Reference:
+Get Channel Information
+Modify Channel Information
+Search Channels
+Search Categories
+Get Stream Key
+Start Commercial
+Create User Follows
+Delete User Follows
+Get Cheermotes
+Added new functionality to the API: the Hype Train API .
+2020‑06‑15
+Added links to rate limits documentation to the API Reference.
+2020‑06‑03
+Clarified the definition of Subscription denied in the Webhooks Guide.
+2020‑05‑12
+Removed documentation of MODE and NAMES in the IRC documentation because they have not functioned correctly for some time and will not be supported.
+2020‑05‑08
+Drops Guide : Updated Create Entitlement Grants Upload URL example to include Client ID.
+API Reference : Updated all example requests to include Client ID and token in Authorization header, as per new OAuth requirement.
+2020‑05‑04
+Fixed a bug in the API Reference. The optional scope for the Get Users endpoint should be user:read:email .
+2020‑05‑01
+Updated the Twitch API Reference to reflect that OAuth is now mandated.
+Updated the Authentication Guide to include new OAuth scopes.
+Updated the Webhooks Reference to show that authorization is now required authorization for every web hook.
+2020‑04‑27
+Updated Extensions Best Practices:
+Commerce Best Practices
+Bits Best Practices
+Updated the Extensions Guidelines and Policies page for Content and Commerce.
+2020‑04‑20
+Updated Drops documentation to align with UI changes.
+2020‑04‑01
+Deleted documentation of these deprecated v5 endpoints:
+Get Channel Communities
+Set Channel Communities
+Delete Channel from Communities
+Corrected URL for Get Extension Transaction endpoint.
+2020‑03‑30
+Updated definition of “language” in v5 Streams API Reference.
+2020‑03‑27
+Published new Extensions Guide .
+2020‑03‑18
+Updates to the Embedding Twitch documentation:
+Added new parent parameter.
+Removed deprecated getPlaybackStats method.
+Removed references to the font-size option for everywhere embeds.
+2020‑03‑10
+Updated the Extensions Guidelines & Policies to add Moderation.
+2020‑02‑25
+Edited the following endpoints in the v. 5 API Reference:
+v5 Get Live Streams
+Removed _total field
+Documented that the offset is capped at 900
+v5 Get Followed Streams
+Removed _total field
+Documented that the offset is capped at 900
+Edited the Get Game Analytics endpoint to note that we only return data for the previous 365 days.
+Updated documentation for the sunset of Premieres.
+2020‑02‑14
+Updated the game_id parameter in the Get Streams endpoint from up to 100 IDs to up to 10 IDs.
+Documented the isBitsEnabled feature flag in the Extensions Reference.
+Removed the link to the deprecated form to increase webhook subscription limits.
+Added gifter_id and gifter_name fields to the Get Broadcaster Subscriptions endpoint and webhook.
+2020‑02‑13
+Removed the live query string parameter from the Search Games v5 endpoint documentation.
+Removed the popularity response field from the Search Games v5 endpoint and the Get Top Games v5 endpoint documentation.
+2020‑01‑24
+Updates to PubSub documentation :
+Added Chat feature
+Added Required Scope for channel-bits-events-v1 and channel-bits-badge-unlocks
+Removed channel-commerce-events-v1 because it is deprecated
+2020‑01‑10
+Updated documentation to reflect that OAuth is the preferred method of authentication.
+Removed documentation for chat rooms because the feature is deprecated.
+2020‑01‑08
+Extensions tutorials are now live on the site.
+2019‑12‑17
+Webhooks Reference
+Updated description of Subscribe / Unsubscribe call to be more accurate about response codes and authentication required.
+Small syntax / formatting tweaks in the JSON examples.
+Mention the authenticated scopes needed for various authenticated webhooks.
+Webhooks Guide
+Clarified how retries are performed and how we handle non-2xx response codes from clients.
+Provided insight into the implementation of a handler for verification according to the W3C websub spec.
+2019‑12‑16
+Added the Channel Points PubSub topic.
+2019‑12‑05
+Added chat rooms to the Product Lifecycle page as deprecated.
+2019‑12‑02
+Updated the Getting Tokens OIDC doc to note that the email and email_verified claims will soon be gated by user:read:email scope.
+2019‑10‑22
+Updated review section in Extensions Life Cycle Management doc to include review SLA.
+2019‑10‑16
+Added Product Lifecycle page to the site.
+2019‑09‑28
+Added links to the Developer Rig in these pages:
+https://dev.twitch.tv/docs/extensions/#hello-world
+https://dev.twitch.tv/docs/extensions/rig/
+2019‑09‑11
+Added Increasing Feedback in Extensions .
+2019‑09‑10
+Removed communities-related data fields from Get Streams and Get Streams Metadata endpoints. These fields are no longer supported.
+Merged Get Broadcaster’s Subscribers into Get Broadcaster Subscriptions because they both return the subscribers to a channel.
+Added Load Testing Extensions Using Locust and Elastic Beanstalk document.
+Added Submission Best Practices for Extensions.
+2019‑09‑06
+Corrected msg_id parameter type in Check AutoMod Status from integer to string.
+2019‑09‑04
+Added an updated Glossary.
+2019‑08‑22
+Edited the payload example in Topic: Subscription Events.
+2019‑08‑14
+Edited optional Create Stream Marker parameter description to include a max length of 140 characters.
+Removed “Increasing Feedback in Extensions”.
+2019‑08‑07
+Update Mobile Deep Links
+2019‑08‑05
+Updated Organizations (formerly “Companies”).
+Updated Extensions: Developer Rig
+Updated Extensions: Increasing Feedback in Your Extension.
+2019‑08‑04
+Add RBAC info to “Companies” (now “Organizations”)
+2019‑07‑31
+Added 2.10 and 2.11 to Extensions Guidelines and Policies.
+Updates to “Extensions: Designing” guide.
+2019‑07‑30
+Add RBAC information to Extensions Life Cycle Management and Monetization.
+2019‑07‑29
+Corrected URL for endpoint “Get Moderator Events”.
+2019‑07‑22
+Extensions update - reset file ordering
+2019‑07‑19
+Retry adding 3 new Extensions docs (A/B Testing, Google Analytics, & Increasing Feedback)
+2019‑07‑18
+DA-430: Add three new Extensions documents: Using A/B Testing in Extensions, Using Google Analytics in Extensions, and Increasing Feedback in Extensions. Also made minor change in Drops (meaning of “retries”).
+2019‑07‑09
+Updated “Chatbots & IRC” docs (Getting Started, Guide, Membership, Commands, Tags, & Chat Rooms), except for “msg-ID Tags”.
+Updated all “Embed” docs (Introduction, Embed Chat, Embed Video & Clips, & Embed Everything).
+2019‑06‑27
+Added documentation for Get Subscription Events endpoint .
+Added documentation for Subscription Events webhook.
+2019‑06‑25
+Documented the new Moderation API .
+Documented two new webhooks:
+Moderator Change Events
+Channel Ban Change Events
+2019‑06‑21
+Insights & Analytics updates (twice today)
+2019‑06‑20
+Changed “position” to “policies” in Extensions: Guidelines and Policies, section 6.6.
+2019‑06‑19
+Added clarification to the Get Users endpoint in the Twitch API Reference that the limit of 100 IDs and login names is a total limit, not 100 of each.
+Changes to Helper Bits in the Extensions Reference:
+The field should be “ exp ” rather than “ expires ”.
+Documented the domainID object.
+Edited definition of the product object.
+2019‑06‑13
+Extensions Life Cycle Management : Added section on Control Security Policy (CSP)
+2019‑06‑07
+Removed deprecated Channel Feed API Reference.
+2019‑06‑06
+Extensions Guidelines & Policies :
+Added policy 6.2.8.
+2019‑06‑04
+Added Get Extension Transactions to the Twitch API Reference .
+Added Extension Transaction Created to the Webhooks Reference.
+2019‑05‑30
+Updated v5 API Guide: New third-party development will be limited to the API versions Kraken v5 and Helix. Limitation of new development will be enforced on client ID created on or after 5/31/2019.
+2019‑05‑08
+Removed orphan Bits Code Redemption Guide and added the content to the API Reference .
+Fixed date errors in the changelog .
+2019‑05‑07
+Fixed code formatting errors in several endpoints.
+Updated Configuration Service documentation.
+Removed Topic: Extension Analytics and Topic: Game Analytics from the Webhooks Reference because the endpoint is returning invalid data.
+2019‑04‑19
+Removed note that Webhooks parameters must appear in alphabetical order because that restriction no longer exists.
+Extensions Guidelines & Policies :
+Added policies 1.5, 3.4, and 4.6.2.
+Appended 4.3 to mention Emotes usage and beta program.
+Appended 4.4 to mention advertising beta program.
+Removed 4.6.1 (Off-site links must be related to the extension’s core functionality).
+Removed 4.6.3 (Off-site links must be included within your URL allowlist).
+Previous 5.2 and 5.3 reworked and appended to mention the commerce beta program.
+2019‑04‑18
+Updated link to download the Developer Rig for Windows.
+Updated the v5 API Reference to indicate that the version is deprecated.
+2019‑04‑16
+Deleted Communities Reference from v5 API because it is deprecated.
+2019‑04‑15
+Video: Updated v5 Video Upload Guide and v5 Video Reference to note that you must be a Partner or Affiliate to upload VODs.
+2019‑03‑27
+Chatbots & IRC: Twitch Tags : Added note that undocumented tags can be added/removed at any time. Also, tags may appear in any order. So, developers should write code to parse tags individually and ignore unrecognized tags.
+2019‑03‑26
+Chatbots & IRC: Twitch Tags : Added new badge-info parameter to GLOBALUSERSTATE, PRIVMSG, USERNOTICE, and USERSTATE.
+2019‑03‑18
+Getting Started with Extensions and Extensions Developer Rig : Changes based on the new Developer Rig UI. Updated “Hello World” example in Getting Started .
+2019‑03‑15
+Extensions Reference: Added information related to Monetization.
+Extensions Monetization Guide {: target=”_blank” (formerly Bits in Extensions), Extensions Life Cycle Management : Added Monetization tab to Extensions manager, for selecting Bits support and/or new subscription status support, and for going to the monetization onboarding process.
+2019‑03‑14
+Websub: Updated documentation to make it clear that the order of query parameters matters.
+Bits : Small edits to documentation, for clarity.
+2019‑03‑11
+Chatbots & IRC: Twitch Tags : Added several more msg-param parameters (for USERNOTICE).
+2019‑03‑08
+Chatbots & IRC: Twitch Tags : Deleted broadcaster-lang (from ROOMSTATE). Added several more valid values for the msg-id field (for USERNOTICE).
+2019‑03‑07
+Extensions doc set : Many changes. New version of Getting Started with Extensions . New Extensions manager UI (see Extensions Life Cycle Management ).
+2019‑02‑21
+Insights & Analytics: Added mod author analytics.
+2019‑02‑08
+PubSub : Added topic channel-bits-events-v2 . Removed deprecated months field. Added new cumulative-months and streak-months fields.
+2019‑02‑04
+Chatbots & IRC: Twitch Tags : For USERNOTICE , added three fields ( msg-param-cumulative-months , msg-param-should-share-streak , msg-param-streak-months ) and changed when msg-param-months is sent.
+2019‑01‑30
+Apps & Authentication : Added the scope channel:read:subscriptions .
+New Twitch API Reference : Added new endpoints: Get Broadcaster Subscriptions and Get User Subscriptions.
+2019‑01‑28
+Apps & Authentication : Clarified language around deprecation of Twitch API v. 5.
+Getting Started with Extensions : Clarified using the native Developer Rig (beta).
+2019‑01‑22
+Extensions Reference: Added locale parameter to “Client Query Parameters.”
+2019‑01‑18
+Extensions Developer Rig : Added section on “Enabling 2FA.”
+2019‑01‑17
+New Twitch API Reference : Added new endpoints: Replace Stream Tags, Get Stream Tags, and Get All Stream Tags. Updated Get Streams endpoint to document new tags functionality.
+Mobile Deep Links : Added deep links for category tags and live-stream tags.
+Insights & Analytics : Several clarifications, based on user feedback. Revised definitions of data fields that use device IDs. New section on “Counting Device IDs.”
+2018‑12‑21
+Getting Started with Chatbots & IRC : New version of this doc.
+2018‑12‑19
+Extensions Guidelines & Policies : New version of this doc.
+2018‑12‑17
+Code Redemption API : New reference document.
+2018‑11‑30
+Extensions Reference: Moved Bits-related reference information (JS helper functions) here, to consolidate all Extensions reference info in one place. The Bits in Extensions document is now purely a guide.
+2018‑11‑28
+Company Management : New document on registering companies and managing users in them. Company registration is required before you can manage games on Twitch or create Drops campaigns.
+2018‑11‑27
+Getting Started with Extensions , Extensions Developer Rig : Deleted information about the Developer Rig “local mode” (no longer available).
+2018‑11‑14
+Apps & Authentication: Getting Tokens: OIDC : Added claims and UserInfo endpoint.
+Chatbots & IRC Guide : Added scopes for /vip, /unvip, and /vips commands.
+Chatbots & IRC: Twitch Tags : In USERNOTICE , added anonsubgift.
+PubSub Guide : Added sample message for anonsubgift.
+2018‑11‑02
+Twitch IRC Capability: msd-ID Tags : This new document (under Chatbots & IRC) contains a complete (lengthy) list of all msg-id tags that apply to the NOTICE (Twitch Commands) and NOTICE (Twitch Chat Rooms) commands.
+Extensions Reference: New JWT schema field, is_unlinked .
+New Twitch API Reference : New description and example in Get Webhook Subscriptions, which requires a Bearer token.
+2018‑10‑24
+Extensions Guidelines & Policies : New version of this document.
+2018‑10‑23
+New Twitch API Reference, New Twitch API: Webhooks Reference: Added a display-name response field to several endpoints and webhooks. Endpoints affected: Get Bits Leaderboard, Get Clips, Get Streams, Get Streams Metadata, Get Stream Markers, Get Users Follows, Get Videos. Webhooks affected: Stream Changed, User Follows.
+Building Extensions: Added information about pre-release disclosures. 3/7/19 update: Moved to Extensions Life Cycle Mangement .
+2018‑10‑22
+Apps & Authentication Guide : In “ Types of Tokens ,” added a clarification about bearer tokens.
+New Twitch API Guide : New information in “ Rate Limits. ”
+Getting Started with Extensions : Added the new Extensions Developer Sandbox.
+2018‑10‑16
+Extensions: Onboarding is now required only for monetization (Bits).
+Extensions Developer Rig : The rig no longer requires prior onboarding.
+Bits in Extensions Guide : A new onboarding procedure is described.
+2018‑10‑10
+Extensions: Added the new Configuration Service. See:
+Building Extensions : New “Configuration Service” section.
+Extensions Reference:
+Three new endpoints (Set Extension Configuration Segment, Get Extension Channel Configuration, Get Extension Configuration Segment).
+New Twitch Extensions configuration helper functions (see “Helper: Configuration”).
+Change to when Set Extension Required Configuration can be used.
+Extensions Developer Rig : New Configuration Service tab.
+Releasing & Maintaining Extensions: Many updates. 3/7/19 update: Renamed Extensions Life Cycle Management .
+Insights & Analytics : Added printing a poster view of Twitch Quarterly Insights.
+2018‑10‑09
+Chatbots & IRC: Twitch Commands , Chatbots & IRC: Twitch Tags : Added CLEARMSG, single-message removal on a channel.
+2018‑10‑02
+Drops Guide : Added recommendations for campaigns.
+Webhooks Reference: Clarified the functionality of the Stream Changed webhook (formerly called Stream Up/Down).
+2018‑10‑01
+Drops Guide : New functionality for creating and using items, with a new Item Manager page and new fields for items. See especially the section on using campaigns.
+2018‑09‑28
+Extensions Developer Rig : New document focusing on the rig. Also see changes to the Developer Rig section of Getting Started with Extensions .
+Extensions Reference: New hostingInfo property in the onContext JS helper function. New onHighlightChanged JS helper function.
+Apps & Authentication Guide : The chat_login scope is deprecated. See the section on new scopes for chat and PubSub.
+Chatbots & IRC Guide : New section on Scopes for IRC Commands.
+Mobile Deep Links : New section on launching the Twitch app with universal links (recommended).
+2018‑09‑14
+New Twitch API: Webhooks Guide: There are changes to subscription limits. Each client ID can have at most 10,000 subscriptions. Also, you can subscribe to the same topic at most 3 times.
+2018‑09‑11
+New Twitch API Reference : New optional query string parameters ( started_at and ended_at ) for Get Clips .
+2018‑09‑07
+Extensions Reference: New JS helper function, minimize . See Helper: Actions.
+2018‑09‑06
+New Twitch API Reference : Added new endpoints, Create Stream Marker and Get Stream Markers .
+2018‑09‑04
+Insights & Analytics : Added three new clips fields to game-developer analytics .
+2018‑09‑03
+Getting Started with the New Twitch API : When registering your app, the app name must not include “Twitch” (as an exact or fuzzy match), or registration will fail.
+2018‑08‑30
+Extensions (several docs): Added pop-out Extensions. Start reading here in Required Technical Background (this links to relevant info elsewhere in the doc set).
+Extensions Reference: Added Send Extension Chat Message endpoint and Helper: Feature Flags (JS helper functions).
+2018‑08‑21
+Insights & Analytics : Added Twitch Quarterly Insights (fact sheet for games).
+2018‑08‑13
+Building Extensions : Due to requirements recently communicated to us by Apple, Extensions support on iOS devices (including the ability to test on iOS) is now restricted to Apple Developer Program members. See “ Mobile Support .”
+If you have released a mobile extension: Your extension no longer appears on iOS. Twitch will contact you soon about adding iOS support.
+If you develop a new mobile extension for iOS, please set up an Apple developer account (if you do not already have one), then contact Twitch (developer_support@twitch.tv) to add iOS support.
+Extensions Reference: In Helper: Extensions, added new property ( arePlayerControlsVisible ) to the onContext JS helper function.
+2018‑08‑07
+Insights & Analytics : Added V2 of extension analytics.
+New Twitch API Reference : Updated the Get Extension Analytics endpoint for V2.
+New Twitch API: Webhooks Reference: Added new webhook, Extension Analytics.
+2018‑08‑02
+Chatbots & IRC: Twitch Tags : Marked some parameters as deprecated ( subscriber , turbo , and user_type ). Use the badges parameter instead.
+2018‑07‑31
+New Twitch API Reference: Added Get Webhook Subscriptions endpoint.
+2018‑07‑27
+Designing Extensions : Added more guidance for all extensions and panel extensions.
+2018‑07‑20
+Apps & Authentication: Guide , Getting Tokens: OAuth , & Getting Tokens: OIDC : Added token_type parameter (required value = bearer ) in several places.
+2018‑07‑19
+Bits in Extensions : New document.
+Extensions Guidelines & Policies : Added Bits in Extensions requirements.
+2018‑07‑12
+Twitch API v5 Channel Feed Reference: Changed (deprecated) most endpoint responses.
+2018‑07‑06
+Getting Started with Extensions , Building Extensions : Added information about the Twitch Developer Rig “local mode” (for local testing against mock, non-production endpoints).
+Extensions Guidelines & Policies : Added a note about which versions of Android and iOS must be supported by mobile extensions.
+Extensions Reference: Added two new fields to the onContext JS helper function ( isMuted , volume ).
+Apps & Authentication : Split this large document into several smaller docs, to make it easier to read and find information.
+2018‑06‑22
+Insights & Analytics : Added V2 of game analytics.
+New Twitch API Reference : Updated the Get Game Analytics endpoint, to enable selection of report version and date/time range.
+Chatbots & IRC Guide : Updated the information on “Connecting to Twitch IRC.”
+2018‑06‑19
+Extensions Reference: Expanded the definition of onPositionChanged JS helper function.
+Building Extensions : In “Local Test,” added information about the new Invite Only tab, for seeing allowlisted extensions in the Extensions Manager.
+New Twitch API Reference : Added three endpoints: Get User Extensions, Get User Active Extensions, Update User Installed Extensions.
+Apps & Authentication : Added new scopes, for new endpoints.
+Embedding Twitch: Everything : For the layout parameter, changed the valid value from video-and-chat to video-with-chat .
+Twitch API v5: In “Which API Version Can You Use?” indicated that there is no scheduled deletion date for v5.
+2018‑06‑07
+Embedding Video & Clips : In setVideo , added a new Timestamp parameter.
+Drops Guide : In “Next: Notify the Viewer about Drops,” added GUID to URLs.
+2018‑06‑04
+Having Extensions Reviewed: Before you submit an extension for review, you now select a category under which your extension will be shown in the Extension Manager and upload an image for “discovery” purposes. 3/7/19 update: This document was deleted; information is in Extensions Life Cycle Management .
+2018‑05‑31
+Getting Started docs:
+Getting Started with Extensions : Added links to new videos.
+Getting Started with Chatbots & IRC : New doc.
+Getting Started with the New Twitch API : New doc.
+Extensions Reference: Changes to Send Extension PubSub Message (messages can be sent globally), listen and send JS Helper functions, and Example JWT Payload.
+New Twitch API: Webhooks Reference: Added two webhooks (User Changed, Game Analytics).
+Insights & Analytics : New doc, with information on both game developer analytics and extensions developer analytics. (Replaces the Game Developer Analytics doc.)
+2018‑05‑21
+Embedding Twitch and Chatbots & IRC : These large documents were spit into several smaller docs, to make it easier to read and find information.
+Extensions Reference: The onVisibilityChanged JS helper function now works with component extensions.
+2018‑05‑15
+Getting Started with Extensions : In “Procedure for Non-Twitch Partners/Affiliates,” the last step of beginning the onboarding process was changed.
+2018‑05‑09
+New Twitch API Reference :
+In Create Clip , an optional query string parameter was added, has_delay . This adds a delay before the clip is captured to account for the brief delay between the broadcaster’s stream and the viewer’s experience of that stream.
+2018‑05‑02
+Extensions : The Extensions Guide was split into several shorter docs. Look in the Extensions doc category.
+2018‑04‑29
+Updated Organizations documentation.
+2018‑04‑19
+Embedding Video and Clips : In “Interactive Frames for Live Streams and VODs” > “Optional Parameter,” the default of the parameter playsinline parameter was changed to true .
+Extensions Guide: Video-component extensions were added. Broadcasters can activate up to six extensions at a time: 3 panel, 1 video overlay (full screen), and 2 video component (smaller).
+Extensions Reference: Info was added about video-component extensions (new JS Helper function, onPositionChanged ).
+New Twitch API Reference : In Get Clip, 4 query params were added ( broadcaster_id , game_id , before , after ).
+2018‑04‑04
+Embedding Video and Clips : In “Events Emitted by and Defined by the Player,” a new Twitch.Player.PLAYBACK_BLOCKED event was added.
+New Twitch API Reference : A “Resource” column was added to the summary table of endpoints, then endpoints in the doc were re-ordered to match the table (so endpoints for the same resource are in the same part of the doc).
+2018‑03‑29
+Apps & Authentication Guide : See new wording in “Validating Requests.”
+Embedding Video and Clips : In “Interactive Frames for Live Streams and VODs” > “Events Emitted by and Defined by the Player,” a new PLAYING event was added and the definition of the PLAY event was changed.
+Extensions Guide: In “Appendix B: Guidelines and Practices,” the policy for audio was revised: “Extensions can include audio only if they include controls which allow viewers to adjust the volume, and by default, these controls are set to off/muted.” 5/2/18 update: Now that the Extensions Guide is split up, this information is in Extensions Guidelines & Policies .
+Extensions Reference: Changes related to the introduction of dynamic anchors. Search for “anchor” in the doc.
+Provide feedback for this page
+Docs
+Support
+Showcase
+Announcements
+What We Do
+Stream
+Watch
+Develop
+Advertise
+twitch.tv
+Company
+Jobs
+Merch
+Brand
+TwitchCon
+Meetups
+Newsroom
+News
+Press
+Products
+Bits
+Subs
+Turbo
+Prime
+Extensions
+Resources
+Legal
+Help Center
+Security
+Connect
+Twitter
+Facebook
+Instagram
+Terms of service
+Privacy Policy
+Ad Choices
+Cookie Policy
+Partners
+Affiliates
+&copy; 2026 Twitch Interactive, Inc.

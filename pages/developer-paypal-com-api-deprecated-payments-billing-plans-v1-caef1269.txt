@@ -1,0 +1,69 @@
+Business Platforms and marketplaces Platforms Enterprise
+Search...
+Log In
+Sign Up
+Help
+APIs & SDKs
+Business Platforms and marketplaces Enterprise
+Sections
+Business Platforms and marketplaces Enterprise
+Help
+FAQs Account help Technical support API Status
+APIs & SDKs
+JavaScript SDK React SDK REST API Server SDKs Codes Webhook events iOS Android
+On this page
+Resources
+GitHub repo
+Postman repo
+PayPal.com
+llms.txt
+Where to find us
+Developer blog
+Community
+Help Center
+Sign up for updates
+Where to hear from us
+X
+YouTube
+LinkedIn
+Discord
+Legal
+Privacy Policy
+Terms of Service
+Developer Agreement
+© 2026 PayPal. All rights reserved.
+If you accept cookies, we’ll use them to improve and customize your experience and enable our partners to show you personalized PayPal ads when you visit other sites. Manage cookies and learn more
+Accept Decline
+Close
+Copy for LLM
+View as Markdown
+API Spec (JSON)
+API Spec (YAML)
+Copy / Export
+Copy for LLM
+View as Markdown
+API Spec (JSON)
+API Spec (YAML)
+API Reference Overview
+Billing Plans v1
+billing-plans
+4 endpoints
+GET
+Show billing plan details
+/billing-plans/{plan_id}
+Shows details for a billing plan, by ID.
+PATCH
+Update billing plan
+/billing-plans/{plan_id}
+Updates fields in a billing plan, by ID.
+GET
+List billing plans
+/billing-plans
+Lists billing plans.
+POST
+Create billing plan
+/billing-plans
+Creates a billing plan.
+Back to top
+On this page
+No Headings

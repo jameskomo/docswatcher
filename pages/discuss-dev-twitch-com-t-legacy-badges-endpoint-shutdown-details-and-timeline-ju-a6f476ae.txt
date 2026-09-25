@@ -1,0 +1,88 @@
+Twitch Developer Forums
+Legacy badges endpoint shutdown details and timeline - June 2023
+Announcements
+jbulava
+March 30, 2023, 10:33pm
+1
+Update (2023-05-03) : The phased shutdown schedule has been revised. The post has been updated below to reflect a start date of May 18 and a permanent shutdown on June 8.
+Today we are announcing the timeline to decommission a legacy badges endpoint that some developers may be using for their Twitch integrations to retrieve a list of global chat badges or channel-specific chat badges. While this endpoint has never been documented or supported, we are communicating this change to limit disruption to third-party applications and the creators that rely on your innovation. Here are the details of the shutdown plan.
+What’s changing and who will it impact?
+If your application only relies on Get Channel Chat Badges and/or Get Global Chat Badges , then this announcement does not apply. The legacy and unsupported badges endpoint that begins with “ https://badges.twitch.tv ” is the resource that will be shut down. During the shutdown windows, developers can expect to receive a 404 error response. After the permanent shutdown, developers can expect the subdomain to no longer resolve.
+To provide a migration path for any developer using this legacy resource, the Twitch API Chat Badges endpoints mentioned above have been updated to include two additional fields that provide descriptive information and the documentation has been updated to reflect this change (i.e. title , description , click_url , and click_action ).
+When are we making this change?
+Given the number of developers who may be using this legacy endpoint, we wanted to ensure developers have time to update applications to the equivalent Twitch API endpoints and are alerted to the change if previous communications have gone unnoticed. As such, a phased shutdown will be implemented similar to other commonly used third-party services in the past. The shutdown windows to expect are as followed:
+Date
+Window Length
+Range (Click to view other timezones)
+2023-05-18
+3-hour
+2023-05-18T17:00:00Z → 2023-05-18T20:00:00Z
+2023-05-23
+6-hour
+2023-05-23T17:00:00Z → 2023-05-23T23:00:00Z
+2023-05-30
+24-hour
+2023-05-30T17:00:00Z → 2023-05-31T17:00:00Z
+2023-06-08
+Permanent
+2023-06-08T17:00:00Z
+Why are we making these changes?
+With the fields mentioned above added to the chat badge Twitch API endpoints, we can offer a migration path for developers who may have discovered this unsupported resource and remove a service that is no longer needed to power first-party Twitch interfaces.
+What action needs to be taken?
+If your application is using the badges endpoint that begins with “ https://badges.twitch.tv ,” refer to the chat badges reference links above to begin any necessary updates. Should you have any questions regarding those updates, please consider joining the TwitchDev Discord server for assistance.
+1 Like
+Badges.twitch.tv Down?
+Marenthyu
+March 31, 2023, 5:47am
+2
+F another legacy endpoint, o7
+1 Like
+Sylvanus
+April 17, 2023, 9:23am
+3
+I wonder how many more roads like this hahah I was using it to replicate a chat overlay, I migrated to a daily API operation that caches. Fortunately, the data was identical
+2023 seems to be the year of the big cleaning. I hope it’s to better add new features in the future…
+1 Like
+jbulava
+May 4, 2023, 12:36am
+4
+Adding a comment in case the in-line update at the top of the post goes unnoticed.
+The phased shutdown schedule has been revised. The post has been updated to reflect a start date of May 18 and a permanent shutdown on June 8.
+Badges.twitch.tv Down?
+Boxart links not working anymore
+Related topics
+Topic
+Replies
+Views
+Activity
+Badges.twitch.tv Down?
+API
+3
+1114
+June 9, 2023
+Legacy Chatters endpoint shutdown details and timeline - April 2023
+Announcements
+14
+10830
+April 13, 2023
+Legacy Twitch API v5 Shutdown Details and Timeline
+Announcements
+28
+3786
+January 11, 2022
+Has the 'http://tmi.twitch.tv/group/user/channel_name/chatters' endpoint been removed?
+API
+1
+2007
+March 31, 2023
+Legacy Twitch API v5 (i.e. kraken) Shutdown Reminder - February 28, 2022
+Announcements
+0
+12087
+February 4, 2022
+Home
+Categories
+Guidelines
+Terms of Service
+Privacy Policy
+Powered by Discourse , best viewed with JavaScript enabled

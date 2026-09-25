@@ -982,6 +982,8 @@ Announcement
 Rate limit changes for non-Marketplace apps
 May 29, 2025
 This page has been updated to clarify the rate limits for existing internal customer-built apps.
+Japanese version available / 日本語版
+You can view this page in Japanese: 非 Marketplace アプリのレート制限の変更 .
 We're updating the rate limits for the conversations.history and conversations.replies Web API methods methods for non-Marketplace apps. This rate limit reduction will apply only to applications that are commercially distributed outside of the Marketplace (also called “unlisted” apps). It will immediately impact affect new unlisted applications and new installations of existing unlisted non-Marketplace applications. The new rate limits will be updated to allow 1 request per minute and will return a maximum of 15 objects per request.
 The new rate limits will not be applied to existing installations of unlisted, distributed applications published outside the Marketplace.
 Tags:

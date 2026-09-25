@@ -1,0 +1,95 @@
+Business Platforms and marketplaces Platforms Enterprise
+Search...
+Log In
+Sign Up
+Help
+APIs & SDKs
+Business Platforms and marketplaces Enterprise
+Sections
+Business Platforms and marketplaces Enterprise
+Help
+FAQs Account help Technical support API Status
+APIs & SDKs
+JavaScript SDK React SDK REST API Server SDKs Codes Webhook events iOS Android
+On this page
+Resources
+GitHub repo
+Postman repo
+PayPal.com
+llms.txt
+Where to find us
+Developer blog
+Community
+Help Center
+Sign up for updates
+Where to hear from us
+X
+YouTube
+LinkedIn
+Discord
+Legal
+Privacy Policy
+Terms of Service
+Developer Agreement
+© 2026 PayPal. All rights reserved.
+If you accept cookies, we’ll use them to improve and customize your experience and enable our partners to show you personalized PayPal ads when you visit other sites. Manage cookies and learn more
+Accept Decline
+Close
+API v1
+API v2
+API v1
+Copy for LLM
+View as Markdown
+API Spec (JSON)
+API Spec (YAML)
+API v1
+API v2
+API v1
+Copy / Export
+Copy for LLM
+View as Markdown
+API Spec (JSON)
+API Spec (YAML)
+API Reference Overview
+Partner Referrals v1
+partner-referrals
+2 endpoints
+POST
+Create partner referral
+/v1/customer/partner-referrals
+Creates a partner referral that is shared by the API caller.
+GET
+Show referral data
+/v1/customer/partner-referrals/{partner_referral_id}
+Shows details for referral data, by ID, that was shared by the API caller.
+merchant-integration
+3 endpoints
+GET
+List seller tracking information
+/v1/customer/partners/{partner_id}/merchant-integrations
+Lists sellers that a partner onboarded, by partner ID.
+GET
+Show seller status
+/v1/customer/partners/{partner_id}/merchant-integrations/{merchant_id}
+Shows status information for sellers that the partner on-boards, by partner ID.
+GET
+Fetch merchant credentials
+/v1/customer/partners/{partner_id}/merchant-integrations/credentials
+Fetches merchant credentials for a merchant onboarded through downloadable cart flow.
+partner
+3 endpoints
+GET
+Show partner information - agreements and preferences
+/v1/customer/partners/{id}
+Shows partner information - agreements and preferences - by partner ID.
+POST
+Create partner information - agreements and preferences
+/v1/customer/partners/{id}
+Creates partner information - agreements and preferences - for the given partner.
+PUT
+Update partner information - agreements and preferences
+/v1/customer/partners/{id}
+Updates partner information - agreements and preferences - for the given partner.
+Back to top
+On this page
+No Headings

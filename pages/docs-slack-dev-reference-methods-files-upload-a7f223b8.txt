@@ -9,7 +9,6 @@ Block Kit
 Events
 Interaction payloads
 Methods
-Overview
 admin
 agents
 api

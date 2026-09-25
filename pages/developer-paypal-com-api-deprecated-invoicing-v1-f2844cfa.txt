@@ -1,0 +1,147 @@
+Business Platforms and marketplaces Platforms Enterprise
+Search...
+Log In
+Sign Up
+Help
+APIs & SDKs
+Business Platforms and marketplaces Enterprise
+Sections
+Business Platforms and marketplaces Enterprise
+Help
+FAQs Account help Technical support API Status
+APIs & SDKs
+JavaScript SDK React SDK REST API Server SDKs Codes Webhook events iOS Android
+On this page
+Resources
+GitHub repo
+Postman repo
+PayPal.com
+llms.txt
+Where to find us
+Developer blog
+Community
+Help Center
+Sign up for updates
+Where to hear from us
+X
+YouTube
+LinkedIn
+Discord
+Legal
+Privacy Policy
+Terms of Service
+Developer Agreement
+© 2026 PayPal. All rights reserved.
+If you accept cookies, we’ll use them to improve and customize your experience and enable our partners to show you personalized PayPal ads when you visit other sites. Manage cookies and learn more
+Accept Decline
+Close
+API v1
+API v2
+API v1
+Copy for LLM
+View as Markdown
+API Spec (JSON)
+API Spec (YAML)
+API v1
+API v2
+API v1
+Copy / Export
+Copy for LLM
+View as Markdown
+API Spec (JSON)
+API Spec (YAML)
+API Reference Overview
+Invoicing v1
+invoices
+15 endpoints
+GET
+List invoices
+/v1/invoicing/invoices
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+POST
+Create draft invoice
+/v1/invoicing/invoices
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+POST
+Send invoice
+/v1/invoicing/invoices/{invoice_id}/send
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+POST
+Schedule invoice
+/v1/invoicing/invoices/{invoice_id}/schedule
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+POST
+Send invoice reminder
+/v1/invoicing/invoices/{invoice_id}/remind
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+POST
+Cancel sent invoice
+/v1/invoicing/invoices/{invoice_id}/cancel
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+POST
+Mark invoice as paid
+/v1/invoicing/invoices/{invoice_id}/record-payment
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+POST
+Mark invoice as refunded
+/v1/invoicing/invoices/{invoice_id}/record-refund
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+GET
+Show invoice details
+/v1/invoicing/invoices/{invoice_id}
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+DELETE
+Delete draft invoice
+/v1/invoicing/invoices/{invoice_id}
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+PUT
+Update invoice
+/v1/invoicing/invoices/{invoice_id}
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+DELETE
+Delete external payment
+/v1/invoicing/invoices/{invoice_id}/payment-records/{transaction_id}
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+DELETE
+Delete external refund
+/v1/invoicing/invoices/{invoice_id}/refund-records/{transaction_id}
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+GET
+Generate QR code
+/v1/invoicing/invoices/{invoice_id}/qr-code
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+POST
+Generate invoice number
+/v1/invoicing/invoices/next-invoice-number
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+search
+1 endpoint
+POST
+Search for invoices
+/v1/invoicing/search
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+templates
+5 endpoints
+GET
+List templates
+/v1/invoicing/templates
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+POST
+Create template
+/v1/invoicing/templates
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+GET
+Show template details
+/v1/invoicing/templates/{template_id}
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+DELETE
+Delete template
+/v1/invoicing/templates/{template_id}
+Deletes a template, by ID.
+PUT
+Update template
+/v1/invoicing/templates/{template_id}
+Deprecation notice: The /v1/invoices endpoint is deprecated.
+Back to top
+On this page
+No Headings

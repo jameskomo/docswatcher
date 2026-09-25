@@ -1,0 +1,200 @@
+Twitch Developer Forums
+Legacy PubSub deprecation and shutdown timeline
+Announcements
+jbulava
+April 12, 2024, 11:46pm
+1
+Today we are announcing the timeline to decommission our legacy PubSub system for third-party development with a shutdown to be completed on or soon after April 14, 2025 . Since the launch of EventSub in 2020, we have discussed our intention to simplify our third-party interfaces for real-time events and move away from PubSub once EventSub reached feature parity. With the general release of subscription types for suspicious users earlier today, EventSub subscription types now cover everything available in PubSub. PubSub is now deprecated and will have a year-long withdrawal period for any developers who need to migrate to EventSub.
+EventSub for real-time events
+Introduced in 2016, PubSub offered the first real-time event interface for third-party developers other than chat. Developers were able to retrieve information about Bits usage to celebrate contributions and it continued to evolve with additional topics including moderator actions and Channel Points. Since then, more data has been made available through the Twitch API and EventSub, and these interfaces offer improved reliability and methods to scale applications as an application’s audience grows. This is especially true with the introduction of the Conduits transport method for high-throughput notifications.
+With this product evolution, we are decommissioning PubSub to simplify our third-party products. EventSub will continue to be the primary interface for real-time events and receive updates as new Twitch features are released with third-party support.
+PubSub to EventSub migration guide
+To assist developers in the transition from our legacy PubSub interface to EventSub, we are publishing a PubSub migration guide that will be available on our developer documentation website throughout the migration window. It will provide a comprehensive list of equivalent topics and mentions any differences in data or permissions. This resource will be available soon can be found at PubSub | Twitch Developers .
+PubSub shutdown timeline
+A phased shutdown will be implemented to ensure developers are aware of the deprecation before the permanent shutdown. The shutdown windows to expect are as followed:
+Date
+Window Length
+Start Time (Click to view other timezones)
+2025-02-10
+1-hour
+2025-02-10T19:00:00Z → 2025-02-10T20:00:00Z
+2025-02-24
+3-hour
+2025-02-24T19:00:00Z → 2025-02-24T22:00:00Z
+2025-03-10
+6-hour
+2025-03-10T18:00:00Z → 2025-03-11T00:00:00Z
+2025-03-24
+24-hour
+2025-03-24T18:00:00Z → 2025-03-25T18:00:00Z
+2025-04-07
+48-hour
+2025-04-07T18:00:00Z → 2025-04-09T18:00:00Z
+2025-04-14
+Permanent
+2025-04-14T18:00:00Z
+What will happen during the shutdown windows and after the final shutdown?
+During the shutdown windows and on the final shutdown date, developers can expect to receive an ERR_BADAUTH error response when attempting to issue a new listen command.
+Existing connections may not disconnect during the shorter windows, but will be closed during the 24-hour and 48-hour periods. Connections will also be closed on the final shutdown date.
+Will this deprecation affect Extension PubSub?
+No. Broadcasting messages for Extensions as documented on Building Extensions will not be affected by the broader PubSub deprecation and shutdown.
+What if developers haven’t seen this announcement?
+Over the next year, we will continue to monitor usage of PubSub and plan to send email reminders to developers with applications that are issuing a listen command.
+I have more questions
+Please feel free to use the comments section of this announcement for further questions and we will provide further updates throughout the withdrawal period.
+Our next Standard Output broadcast on the TwitchDev channel will take place on Thursday, May 2, 2024 where we will continue to discuss the PubSub deprecation and the migration guide.
+4 Likes
+Ittermittent ERR_BADAUTH on PubSub Listen for channel point reward
+Security Concerns with Twitch PubSub API Authorization Process
+[PubSub] inconsistent datatype for userInput of Channel Points Event Message
+Gambloide
+April 13, 2024, 8:55am
+2
+I have personally moved from PubSub to EventSub a long time ago, but that came with loss of functionality due to EventSub not being on feature parity with PubSub. This is still true today.
+For example : In case of a gift sub, it is impossible to tell who gifted whom a subscription from the returned data. There are only distinct events which contain either the gifter or the recipient, but no event with both. There is no identifier linking these events. The only way to correlate the two is with innacurate heuristics. Whereas in PubSub, messages from the topic “channel-subscribe-events” contain both users.
+This and more is covered in Revise the `channel.subscription` topics – Twitch UserVoice and the linked relevant User Voice Topics.
+Are these gaps targeted to be closed during the deprecation window?
+2 Likes
+BarryCarlyon
+April 13, 2024, 11:55am
+3
+Gambloide:
+For example : In case of a gift sub, it is impossible to tell who gifted whom a subscription from the returned data
+This is covered under The Chat Notification Topic which is analogous to USERNOTICE as a Topic and will provide the needed data
+Twitch Developers – 12 Apr 24
+EventSub Subscription Types
+Subscription Types
+But yes would be nice for additional hydration on other topics it’s just not quite “pubsub parity” target imo
+2 Likes
+PubSub deprecation feedback: danthegoodman
+jbulava
+Split this topic
+April 18, 2024, 3:30pm
+4
+7 posts were split to a new topic: PubSub deprecation feedback: ckohen
+Gambloide
+April 13, 2024, 8:13pm
+6
+I was not aware of that, thank you!
+jbulava
+Split this topic
+April 18, 2024, 3:32pm
+12
+10 posts were split to a new topic: PubSub deprecation feedback: danthegoodman
+emilgardis
+April 15, 2024, 2:19pm
+22
+PubSub deprecation feedback: danthegoodman
+Are the documentation issues GitHub’ed? and thus just pending a fix being added to the documentation?
+Get Ad Schedule - `length_seconds`, `preroll_free_time_seconds` and `snooze_count` documented integers but example uses strings · Issue #857 · twitchdev/issues · GitHub exists for the all the ad endpoints documenting integers but using strings in examples
+1 Like
+BarryCarlyon
+May 8, 2024, 10:38am
+23
+Migation paths in my opinion are: [ source ]
+image 621×935 24 KB
+Kinsi
+February 8, 2025, 12:21am
+24
+Now that we are close to shutdown and channel-subscribe-events-v1 is the only thing I rely on in PubSub for this very reason, has this situation improved?
+BarryCarlyon
+February 8, 2025, 12:39am
+25
+Kinsi:
+channel-subscribe-events-v1 is the only thing I rely on in PubSub for this very reason,
+The equivalent topic is channel.chat.notification - EventSub Subscription Types | Twitch Developers
+Which is what I put in the post you have referenced.
+1 Like
+Kinsi
+February 8, 2025, 12:57am
+26
+I was hoping it was integrated into the Event by now because as it stands, the Event in itself really is pretty useless.
+I suppose I’ll have to figure out in which cases the like 10 different sub/giftsub related chat notifications trigger then. Thanks!
+BarryCarlyon
+February 8, 2025, 1:09am
+27
+I’m not sure what you mean by “it” here
+Does this code example help at all? Activity Feed | Twitch API Example
+Kinsi
+February 8, 2025, 1:18am
+28
+With “it” I mean the missing / linked information in the Giftsub event of who gifted whom the sub as was available via PubSub rather than having to rely on the “catchall” Chat Event. I’ll have a look at your example and see if that helps me out, thanks!
+BarryCarlyon
+February 8, 2025, 1:25am
+29
+The pubsub topic is a catch all for all sub events
+Chat notification is the same just has a couple of extras such as announcements
+So you’d be filtering pubsub or the catch all event sub type if you were only after full gift information.
+But no at this time the gift specific topic has no related revisions/hydration
+(Just filing a completish answer for others finding this thread)
+1 Like
+Kruiser8
+February 11, 2025, 12:44am
+30
+Is there a way to receive notifications for the channel point community challenges? This is currently available with the community-points-channel-v1 PubSub topic (although it’s undocumented, so I understand if it’s not supported going forward).
+BarryCarlyon
+February 11, 2025, 12:53am
+31
+Kruiser8:
+Is there a way to receive notifications for the channel point community challenges?
+Not currently, upvote this user voice and/or add your use case to it
+https://twitch.uservoice.com/forums/310213-developers/suggestions/41741308-add-support-for-channel-points-community-challenge
+Kruiser8:
+This is currently available with the community-points-channel-v1 PubSub topic
+Thats the issue there undocumented as you note.
+People will tend to just use an undocumented rather than requesting features so UV lacks use cases and votes and so on
+8ham_radios
+February 24, 2025, 9:09pm
+32
+Congratulations on screwing over broadcasters while they are ALREADY trying to develop new tools for you. All this has done is screw people over. Again, congratulations for screwing a 12 hour stream up from one of your biggest broadcasters. “Hey, lets interrupt everyones streams even if they’re already developing tools for this! This definitely wont go bad!” Smh this decision sucks.
+jbulava
+February 24, 2025, 10:12pm
+33
+Hi 8ham_radios,
+Our intent with the temporary shutdown windows is to make sure developers and broadcasters who may have not have seen the announcement or messaging are aware before PubSub is completely unavailable. Of course, that means it may interrupt streams using integrations that are still reliant on our legacy system. We believe it is better to temporarily interrupt integrations to get the attention it needs rather than wait until the final shutdown date. The current temporary shutdown window has now concluded and PubSub will continue to be available through April 14 to make adjustments.
+PubSub has powered a lot of great innovations over eight+ years. With that said, we can offer a more flexible and resilient real-time event delivery service with EventSub that will hopefully last even longer. If you have specific questions or need assistance understanding how to migrate your integration that is using PubSub today, please let us know here or connect with folks in the Discord server. We would like to assist with migrations as best as we can.
+1 Like
+prolokar
+April 8, 2025, 12:20pm
+34
+Hey so will the migration over from Pubsub be the reason why channel points no longer function for Lioranboard?
+Dist
+April 8, 2025, 12:59pm
+35
+You should reach out to the developers of that application directly for support regarding their application and any issues it has that may or may not relating to migration from PubSub to EventSub.
+Related topics
+Topic
+Replies
+Views
+Activity
+PubSub deprecation feedback: danthegoodman
+API
+9
+524
+April 14, 2024
+PubSub deprecation feedback: ckohen
+API
+6
+337
+April 14, 2024
+Deprecation of WebSub-based Webhooks
+Announcements
+0
+2424
+June 16, 2021
+EventSub vs PubSub for subscription events
+API
+2
+2937
+January 6, 2021
+Subscriptions Beta Changes
+API
+119
+20511
+July 9, 2017
+Home
+Categories
+Guidelines
+Terms of Service
+Privacy Policy
+Powered by Discourse , best viewed with JavaScript enabled

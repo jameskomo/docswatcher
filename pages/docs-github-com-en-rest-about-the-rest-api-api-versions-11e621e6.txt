@@ -134,10 +134,6 @@ Environments
 Protection rules
 Deployment statuses
 Emojis
-Enterprise teams
-Enterprise team members
-Enterprise team organizations
-Enterprise teams
 Gists
 Comments
 Git database

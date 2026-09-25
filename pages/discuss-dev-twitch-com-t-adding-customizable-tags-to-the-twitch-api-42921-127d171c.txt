@@ -1,0 +1,70 @@
+Twitch Developer Forums
+Adding customizable tags to the Twitch API
+Announcements
+jbulava
+January 21, 2023, 2:06am
+1
+Update (2023-02-10): A more readable timeline has been added below regarding when to expect changes to the legacy tags API endpoints.
+Last year, Twitch announced customizable tags to improve how streamers describe themselves and their content, and to help viewers find communities they’re interested in. And now the Twitch API has been updated to support the latest tagging functionality. Below, you will find further information regarding our recent documentation updates as well as the deprecation timeline for legacy tags.
+What’s new?
+Unlike the legacy tags returned in the Twitch API, the new customizable tags do not have tag IDs and are not localized into multiple languages. Because of these differences between the older tags and new customizable tags, we’ve added a new tags array to the objects in the following Twitch API endpoints used to retrieve stream or channel information:
+Get Streams
+Get Followed Streams
+Get Channel Information
+Search Channels
+We have also updated the Modify Channel Information Twitch API endpoint to include customizable tags in the request body to set tags for a channel.
+What about the existing tags API endpoints and data?
+Customizable tags are replacing the old tag format. Because we’ve added the ability to get and set customizable tags via “Get Channel Information” and “Modify Channel Information,” the legacy tags endpoints and data will be phased out of the Twitch API according to the following timeline.
+February 13, 2023
+The legacy tag_ids array in API responses that provides the older tag format will begin returning an empty array. This array can be found in Get Streams, Get Followed Streams, and Search Channels.
+February 28, 2023
+“Get Stream Tags” and “Get All Stream Tags” will return empty arrays.
+“Replace Stream Tags” will return at 410 response.
+July 13, 2023
+“Get Stream Tags” and “Get All Stream Tags” will return at 410 response.
+Developers should also note that a customizable tag localized to the broadcast language has automatically been added since the launch of customizable tags for consistency between the two tagging systems. This automatic behavior will be removed now that customizable tag functionality is available via Modify Channel Info. Therefore, third-party applications should include a language tag in their Modify Channel Info requests if the creator expects a language tag to be present for their stream.
+How do I get started?
+Review the documentation linked above for each endpoint to understand where to find tags in the response.
+As always, we appreciate your feedback in UserVoice to help prioritize our third-party developer product features and thanks to Durss for the customizable tags UserVoice suggestion .
+1 Like
+Triz
+February 18, 2023, 10:47pm
+2
+Is there ever going to be the ability to search for channels/streams using a tag as a query? The current Search Channels endpoint doesn’t quite seem to work when defining a tagName in the query parameter.
+I’ve already created a uservoice for this here , but i just wanted to see if i could get an opinion on it.
+Related topics
+Topic
+Replies
+Views
+Activity
+Get Stream Tags Endpoint no longer returning tags
+API
+4
+704
+August 19, 2022
+Updating Stream Tags
+API
+4
+384
+April 15, 2023
+Introducing the Tags API
+Announcements
+14
+5949
+April 20, 2021
+Tags API - Incomplete Data
+API
+4
+632
+March 21, 2019
+API end point does not behave as mention in the documentation
+API
+1
+260
+December 10, 2023
+Home
+Categories
+Guidelines
+Terms of Service
+Privacy Policy
+Powered by Discourse , best viewed with JavaScript enabled

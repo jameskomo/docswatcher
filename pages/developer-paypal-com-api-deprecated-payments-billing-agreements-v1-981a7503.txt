@@ -1,0 +1,93 @@
+Business Platforms and marketplaces Platforms Enterprise
+Search...
+Log In
+Sign Up
+Help
+APIs & SDKs
+Business Platforms and marketplaces Enterprise
+Sections
+Business Platforms and marketplaces Enterprise
+Help
+FAQs Account help Technical support API Status
+APIs & SDKs
+JavaScript SDK React SDK REST API Server SDKs Codes Webhook events iOS Android
+On this page
+Resources
+GitHub repo
+Postman repo
+PayPal.com
+llms.txt
+Where to find us
+Developer blog
+Community
+Help Center
+Sign up for updates
+Where to hear from us
+X
+YouTube
+LinkedIn
+Discord
+Legal
+Privacy Policy
+Terms of Service
+Developer Agreement
+© 2026 PayPal. All rights reserved.
+If you accept cookies, we’ll use them to improve and customize your experience and enable our partners to show you personalized PayPal ads when you visit other sites. Manage cookies and learn more
+Accept Decline
+Close
+Copy for LLM
+View as Markdown
+API Spec (JSON)
+API Spec (YAML)
+Copy / Export
+Copy for LLM
+View as Markdown
+API Spec (JSON)
+API Spec (YAML)
+API Reference Overview
+Billing Agreements v1
+billing-agreements
+10 endpoints
+POST
+Create agreement
+/billing-agreements
+Creates a billing agreement.
+POST
+Execute agreement
+/billing-agreements/{payment_token}/agreement-execute
+Executes a billing agreement, by ID, after customer approval.
+GET
+Show agreement details
+/billing-agreements/{agreement_id}
+Shows details for a billing agreement, by ID.
+PATCH
+Update agreement
+/billing-agreements/{agreement_id}
+Updates details of a billing agreement, by ID.
+POST
+Suspend agreement
+/billing-agreements/{agreement_id}/suspend
+Suspends a billing agreement, by ID.
+POST
+Reactivate agreement
+/billing-agreements/{agreement_id}/re-activate
+Reactivates a suspended billing agreement, by ID.
+POST
+Cancel agreement
+/billing-agreements/{agreement_id}/cancel
+Cancels a billing agreement, by ID.
+POST
+Bill agreement balance
+/billing-agreements/{agreement_id}/bill-balance
+Bills the balance for an agreement, by ID.
+POST
+Set agreement balance
+/billing-agreements/{agreement_id}/set-balance
+Sets the balance for an agreement, by ID.
+GET
+List agreement transactions
+/billing-agreements/{agreement_id}/transactions
+Lists transactions for an agreement, by ID.
+Back to top
+On this page
+No Headings

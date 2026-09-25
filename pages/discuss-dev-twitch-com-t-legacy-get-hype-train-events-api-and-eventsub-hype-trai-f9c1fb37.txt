@@ -1,0 +1,70 @@
+Twitch Developer Forums
+Legacy Get Hype Train Events API and EventSub Hype Train v1 subscription types deprecation and withdrawal timeline
+Announcements
+jbulava
+September 4, 2025, 11:37pm
+1
+Update (2026-01-22): The Get Hype Train Events API now returns a 410 response and EventSub Hype Train v1 events are no longer available.
+Update (2025-12-04): Due to current usage, we are adjusting the shutdown date for the legacy API endpoint and V1 EventSub subscription types to Thursday, January 15, 2026. This change has been reflected below and email reminders will follow.
+Hype Trains on Twitch are evolving, with Golden Kappa trains, Treasure trains, and Shared Hype Trains as some of the Hype Trains types that have left the station since we originally launched the feature and our Hype Train API and subscription types. To accommodate the evolution of the Hype Trains product, we launched V2 of the Hype Train EventSub subscription types for all three Hype Train events (i.e. begin, progress, and end) in June and in August, we released the Get Hype Train Status API endpoint with our latest improvements. Please continue reading if you are using V1 of the Hype Train subscription types or the “Get Hype Train Events” endpoint as a migration will be necessary.
+Now that the new Get Hype Train Status API is generally available, we’re deprecating the Get Hype Train Events API. We will withdraw the Get Hype Train Events API and the EventSub Channel Hype Train Begin v1, Channel Hype Train Progress V1, and Channel Hype Train End v1 subscription types on Thursday, December 4, 2025 Thursday, January 15, 2026 . If your application uses this deprecated Hype Train functionality, you’ll need to migrate your application before this date to avoid disruption.
+How are the API and subscription types changing?
+We’re removing “last_contribution” from the Hype Train subscription type and Get Hype Train Status payloads and we’re adding information about all-time record Hype Trains.
+Are scopes changing?
+Scopes are not changing. The only new data being provided is the all-time record information.
+What action needs to be taken?
+Developers who are using V1 of the Channel Hype Train EventSub subscription types should consider migrating to V2 when it is convenient to do so. You can find the V2 documentation at the links below:
+channel.hype_train.begin V2
+channel.hype_train.progress V2
+channel.hype_train.end V2
+Developers who are using the Get Hype Train Events Twitch API endpoint (i.e. /helix/hypetrain/events ) should migrate to Get Hype Train Status endpoint (i.e. /helix/hypetrain/status ) at their convenience prior to the decommission date above. After this date, developers can expect to receive a 410 HTTP response error for the former endpoint.
+As always, please use the comments below for any questions or join the TwitchDev Discord server for further discussion.
+1 Like
+ccKep
+December 9, 2025, 1:15pm
+2
+Plenty late to the party, but: That means there’s no way to get information about the last / most-recent HypeTrain anymore? That’s a bummer since I used those to calculate when the train is gonna be ready again in case my bot was offline during a train.
+2 Likes
+Skytro
+February 18, 2026, 5:53am
+3
+May I ask why the “last_contribution” field was removed?
+I don’t really see a reason except that I as developer now ain’t able to get the information of who contributed to it most recently to show in an overlay or similar. It seems it was just removed cause it’s possible to remove.
+Best Regards
+~ Felix // Skytro
+Related topics
+Topic
+Replies
+Views
+Activity
+“Get Hype Train Events” API endpoint - “id” query parameter deprecation
+Announcements
+2
+947
+March 29, 2022
+Get Hype Train Events via App Token
+API
+16
+1540
+June 6, 2021
+HypeTrain API pagination
+API
+2
+442
+December 23, 2020
+Get all users that contributed to a Hype Train
+API
+3
+144
+February 2, 2025
+Twitch Hype Train
+API
+9
+2302
+March 28, 2022
+Home
+Categories
+Guidelines
+Terms of Service
+Privacy Policy
+Powered by Discourse , best viewed with JavaScript enabled

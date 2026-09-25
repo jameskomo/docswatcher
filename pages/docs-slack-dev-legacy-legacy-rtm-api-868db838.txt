@@ -23,7 +23,6 @@ Slack Marketplace
 Surfaces
 Workflows
 Legacy
-Overview
 Legacy classic app migration
 Legacy authentication
 Legacy bot users
@@ -32,7 +31,7 @@ Legacy dialogs
 Legacy messaging
 Legacy RTM API
 Legacy Slack button
-日本語版ページ
+日本語のドキュメント
 Legacy
 Legacy RTM API
 Copy as markdown

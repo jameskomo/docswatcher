@@ -1,0 +1,673 @@
+Business Platforms and marketplaces Platforms Enterprise
+Search...
+Log In
+Sign Up
+Get started Payments Revenue Developer resources
+Help
+APIs & SDKs
+Business Platforms and marketplaces Enterprise
+Business
+Get started Payments Revenue Developer resources
+Help
+FAQs Account help Technical support API Status
+APIs & SDKs
+JavaScript SDK React SDK REST API Server SDKs Codes Webhook events iOS Android
+On this page
+Resources
+GitHub repo
+Postman repo
+PayPal.com
+llms.txt
+Where to find us
+Developer blog
+Community
+Help Center
+Sign up for updates
+Where to hear from us
+X
+YouTube
+LinkedIn
+Discord
+Legal
+Privacy Policy
+Terms of Service
+Developer Agreement
+© 2026 PayPal. All rights reserved.
+If you accept cookies, we’ll use them to improve and customize your experience and enable our partners to show you personalized PayPal ads when you visit other sites. Manage cookies and learn more
+Accept Decline
+Close
+Upgrade from JavaScript SDK v4 to latest version
+Update your PayPal JavaScript integration from checkout.js (v4) to PayPal Web SDK v6. Move to the createInstance() architecture, explicit eligibility checks, and session-based payment flows.
+Last updated: August 24, 2026
+Copy for LLM
+View as Markdown
+Copy / Export
+Copy for LLM
+View as Markdown
+Update your JavaScript integration from checkout.js (v4) to PayPal Web SDK v6 to continue processing PayPal payments, card payments, and related payment methods.
+checkout.js is deprecated
+checkout.js, served from www.paypalobjects.com/api/checkout.js , and the paypal-checkout npm package are deprecated and scheduled for removal. Begin this migration now rather than waiting for a removal date.
+SDK v6 includes the following changes:
+replaces the immediate window.paypal.Buttons() global with an explicit createInstance() architecture.
+adds a required eligibility check before you render any payment component.
+moves order creation and capture out of client-side actions helpers and onto your server.
+This is a flow redesign, not a script swap
+The core payment concept carries forward, but the instantiation model, component loading, eligibility system, and callback API are different. Changing the <script src> value without updating your JavaScript breaks your integration.
+If your integration uses the payment: and onAuthorize: callbacks from the Payments v1 API, this guide's client-side steps alone don't restore a working integration. Your server also needs to move from the Payments v1 API to the Orders v2 API before you continue.
+Check country availability
+Make sure this solution is available in your country or territory before upgrading.
+Country or region
+Africa (11)
++
+Algeria
+Botswana
+Egypt
+Kenya
+Lesotho
+Mauritius
+Morocco
+Mozambique
+Senegal
+Seychelles
+South Africa
+Americas (33)
++
+Antigua and Barbuda
+Argentina
+Bahamas
+Barbados
+Belize
+Bermuda
+Brazil
+Canada
+Cayman Islands
+Chile
+Colombia
+Costa Rica
+Dominica
+Dominican Republic
+Ecuador
+El Salvador
+Greenland
+Grenada
+Guatemala
+Honduras
+Jamaica
+Mexico
+Nicaragua
+Panama
+Peru
+Puerto Rico
+Saint Kitts and Nevis
+Saint Lucia
+Trinidad and Tobago
+Turks and Caicos Islands
+United States of America
+Uruguay
+Venezuela
+Asia (13)
++
+China
+Hong Kong
+India
+Indonesia
+Japan
+Kazakhstan
+Malaysia
+Philippines
+Singapore
+South Korea
+Taiwan
+Thailand
+Vietnam
+Europe (41)
++
+Albania
+Andorra
+Austria
+Belgium
+Bosnia and Herzegovina
+Bulgaria
+Croatia
+Cyprus
+Denmark
+Estonia
+Faroe Islands
+Finland
+France
+Georgia
+Germany
+Gibraltar
+Greece
+Hungary
+Iceland
+Ireland
+Italy
+Latvia
+Liechtenstein
+Lithuania
+Luxembourg
+Malta
+Moldova
+Monaco
+Netherlands
+Norway
+Poland
+Portugal
+Romania
+San Marino
+Serbia
+Slovakia
+Slovenia
+Spain
+Sweden
+Switzerland
+United Kingdom
+Middle East (8)
++
+Bahrain
+Israel
+Jordan
+Kuwait
+Oman
+Qatar
+Saudi Arabia
+United Arab Emirates
+Oceania (6)
++
+Australia
+Fiji
+French Polynesia
+New Caledonia
+New Zealand
+Palau
+1. Find your current checkout.js usage
+Search your codebase for the following patterns before you start the migration:
+# Script tag inclusion
+grep -r "paypalobjects.com/api/checkout" .
+grep -r "checkout.js" .
+grep -r "paypal-checkout" ./package.json
+# API usage patterns
+grep -r "paypal.Buttons\b" .
+grep -r "paypal.Button\b" . # older alias
+grep -r "paypal.HostedFields" .
+grep -r "paypal.Marks" .
+grep -r "paypal.Messages" .
+grep -r "paypal.BillingAgreement" .
+grep -r "payment:" . # Payments v1 callback
+grep -r "onAuthorize:" . # Payments v1 callback
+Determine which steps apply to you
+Use your search results to scope your migration. Complete steps 1-5 for all integrations.
+For steps 6-10, use the following table to determine which steps apply based on the checkout.js patterns you found.
+If your integration uses, Complete
+If your integration uses
+Complete
+paypal.Buttons({ createOrder, onApprove }) only
+Step 6 , replacing your button flow
+style
+Step 6 , replacing your button flow
+fundingSource
+Step 6 and step 8 , mapping your funding sources to v6 components
+onShippingChange
+Step 6 and step 9 , updating your shipping callbacks
+paypal.HostedFields()
+Step 7 , migrating card fields
+paypal.Marks() , paypal.Messages() , or paypal.BillingAgreement()
+Step 8 , using the component mapping table
+payment: and onAuthorize: callbacks (Payments v1)
+Every conditional step in your integration, plus the server-side Orders v2 migration
+Multiple funding sources in one integration
+Step 8 before you change any code; the funding source model changed
+Then, complete steps 11-12 for all integrations.
+2. Review what carries forward from v4
+Most v4 script parameters carry forward to v6 with the same value, though several move to a different call.
+v4 script parameter, Carries forward, v6 location
+v4 script parameter
+Carries forward
+v6 location
+client-id
+Yes, same value
+createInstance({ clientId })
+merchant-id
+Yes, same value
+createInstance({ merchantId })
+currency
+Location changed
+findEligibleMethods({ currencyCode })
+intent
+Set on the Orders v2 server call
+Order body intent: "CAPTURE"
+vault
+Model changed
+createInstance({ clientId }) for standard vault flows. A clientToken is required only if you build a view or edit payment method experience, such as updating a saved card.
+data-client-token
+Yes, same value
+createInstance({ clientToken })
+data-partner-attribution-id
+Yes, same BN code value
+createInstance({ partnerAttributionId })
+components query string
+Format changed
+createInstance({ components: [...] }) , an array with new component names
+3. Install the JS SDK v6 package
+Remove the checkout.js script tag or the paypal-checkout npm dependency, then install the current package.
+# npm
+npm install @paypal/paypal-js
+# React
+npm install @paypal/react-paypal-js
+The unpkg CDN build doesn't include createInstance()
+The unpkg IIFE build of @paypal/paypal-js exposes window.paypalLoadScript , which wraps the v5-compatible loadScript function. To use the v6 createInstance() architecture, install the npm package and import loadCoreSdkScript from @paypal/paypal-js/sdk-v6 .
+4. Load the SDK and create an instance
+In v4, window.paypal was set when the script tag loaded, and a single paypal.Buttons() call configured everything. With v6, you load the script, create an instance with the components you need, and check eligibility before rendering anything.
+Before (v4): script load and render
+The script tag sets window.paypal as soon as it loads, and this single paypal.Buttons() call both creates the order and renders the button in one step.
+paypal. Buttons ({
+createOrder : function ( data , actions ) {
+return actions.order. create ({ purchase_units: [{ amount: { value: '10.00' } }] });
+},
+onApprove : function ( data , actions ) {
+return actions.order. capture ();
+}
+}). render ( '#paypal-button-container' );
+After (v6): create an instance
+This loads the SDK with loadCoreSdkScript() , then creates an instance scoped to only the components you declare. No button is rendered yet. That happens in a later step .
+import { loadCoreSdkScript } from '@paypal/paypal-js/sdk-v6' ;
+const paypal = await loadCoreSdkScript ({ environment: 'sandbox' });
+const sdkInstance = await paypal. createInstance ({
+clientId: 'YOUR-CLIENT-ID' ,
+components: [ 'paypal-payments' ],
+pageType: 'checkout' ,
+});
+Declare every component you use in the components array. A component you call later but didn't declare here isn't available on the instance at runtime.
+Confirm sdkInstance resolves before you continue.
+5. Check payment method eligibility
+In v4, the SDK determined which buttons to show, with no way for your code to know why. With v6, the SDK returns eligibility data that you check before rendering any payment component.
+const eligibility = await sdkInstance. findEligibleMethods ({ currencyCode: 'USD' });
+if (eligibility. isEligible ( 'paypal' )) {
+// Render the PayPal payment component
+}
+Call findEligibleMethods() after createInstance() and before you render any component. If you render a component for a payment method that isn't eligible, it throws an error. Add loading state around this call so the page doesn't flash unrendered content while it resolves.
+Confirm eligibility.isEligible('paypal') returns a boolean.
+6. Replace your button flow
+The v6 SDK replaces the paypal.Buttons() object with a payment session. The actions object doesn't exist in v6, including:
+actions.order.create()
+actions.order.capture()
+actions.redirect()
+actions.restart()
+actions.reject()
+Move order creation and capture to your server.
+Before (v4): button flow
+See the paypal.Buttons() call in step 4 . This replaces that same call with a session-based flow.
+After (v6): payment session
+This creates a payment session whose onApprove and order creation both call your own server endpoints instead of client-side actions . The flow kicks off with session.start() instead of .render() .
+if (eligibility. isEligible ( 'paypal' )) {
+const session = sdkInstance. createPayPalOneTimePaymentSession ({
+onApprove : async ( data ) => {
+await fetch ( '/api/capture-order' , {
+method: 'POST' ,
+headers: { 'Content-Type' : 'application/json' },
+body: JSON . stringify ({ orderId: data.orderId }),
+});
+},
+onCancel : () => console. log ( 'Buyer canceled' ),
+onError : ( err ) => console. error ( 'Payment error' , err),
+});
+await session. start (
+{ presentationMode: 'auto' },
+async () => {
+const res = await fetch ( '/api/create-order' , { method: 'POST' });
+const { orderId } = await res. json ();
+return { orderId };
+}
+);
+}
+Confirm the function you pass to session.start() returns an object with an orderId key, not a plain string. A plain string causes a runtime error.
+The following table maps each v4 callback to its v6 equivalent.
+v4 callback, v6 equivalent, Category
+v4 callback
+v6 equivalent
+Category
+createOrder: (data, actions) => actions.order.create({...})
+createOrder: async () => ({ orderId }) , calling your server
+Restructured
+onApprove: (data, actions) => actions.order.capture()
+onApprove: async (data) => fetch('/api/capture-order', ...)
+Restructured
+onApprove: (data, actions) => actions.order.authorize()
+A server-side call to POST /v2/payments/authorizations
+Restructured
+onShippingChange: (data, actions)
+onShippingAddressChange and onShippingOptionChange , split into two callbacks. See step 9 .
+Behavioral change
+onCancel: (data)
+onCancel: (data) , unchanged
+Direct
+onError: (err)
+onError: (err) , unchanged
+Direct
+onClick: (data, actions)
+A standard DOM click handler on your trigger element
+Behavioral change
+onInit: (data, actions) => actions.disable()
+A disabled prop on the button component
+Restructured
+After you render the button, confirm:
+the button renders only when isEligible('paypal') returns true .
+selecting the button calls your /api/create-order endpoint.
+a completed payment fires onApprove with the order ID your server returned.
+7. Migrate card fields
+If your search in step 1 found paypal.HostedFields() , replace it with the card-fields component. This is the largest change in the migration: field initialization, rendering, and submission all changed.
+Before (v4): HostedFields
+HostedFields.render() configures every card field in one call, targeting each by a CSS selector, and submission is triggered from a click handler.
+paypal.HostedFields. render ({
+createOrder : function () {
+return fetch ( '/api/order' )
+. then ( r => r. json ())
+. then ( d => d.orderID);
+},
+styles: {
+'.valid' : { color: 'green' },
+'.invalid' : { color: 'red' }
+},
+fields: {
+number: {
+selector: '#card-number' ,
+placeholder: 'Card Number'
+},
+cvv: {
+selector: '#card-cvv' ,
+placeholder: 'CVV'
+},
+expirationDate: {
+selector: '#expiration-date' ,
+placeholder: 'MM/YYYY'
+},
+}
+}). then ( function ( hostedFields ) {
+btn. addEventListener ( 'click' , function () {
+hostedFields. submit ({
+cardholderName: nameField.value
+});
+After (v6): card-fields
+createCardFields() creates the field controller, then each field is rendered individually with its own .render() call. Submission is now a bare cardFields.submit() , with no cardholder name argument.
+const sdkInstance = await paypal. createInstance ({
+clientId: 'YOUR-CLIENT-ID' ,
+components: [ 'card-fields' ],
+pageType: 'checkout' ,
+});
+const cardFields = sdkInstance. createCardFields ({
+createOrder : async () => {
+const res = await fetch ( '/api/order' , { method: 'POST' });
+const { orderId } = await res. json ();
+return { orderId };
+},
+onApprove : async ( data ) => { /* capture on your server */ },
+onError : ( err ) => console. error (err),
+});
+// Render each field individually
+cardFields. NumberField (). render ( '#card-number' );
+cardFields. ExpiryField (). render ( '#expiration-date' );
+cardFields. CVVField (). render ( '#card-cvv' );
+cardFields. NameField (). render ( '#card-name' );
+btn. addEventListener ( 'click' , () => {
+cardFields. submit ();
+});
+Dimension, v4 HostedFields, v6 card-fields
+Dimension
+v4 HostedFields
+v6 card-fields
+Initialization
+HostedFields.render({ fields: { selector... } })
+createCardFields() , then .NumberField().render() for each field
+Field selectors
+Passed as an object in the init config
+Called individually per field method
+Submit
+hostedFields.submit({ cardholderName })
+cardFields.submit()
+Cardholder name
+Passed as data in submit()
+A standalone NameField() component
+Eligibility check
+Implicit
+Call findEligibleMethods() first
+createOrder return value
+A raw order ID string
+An object: { orderId: '...' }
+Confirm every field component renders in its target selector, that selecting your submit button calls cardFields.submit() , and that onApprove fires with the order ID after a successful test card payment.
+8. Migrate other components
+Map any other v4 component to its v6 equivalent using the following table, then update that component's entry in your components array.
+v4 component, v6 component string, Category, Notes
+v4 component
+v6 component string
+Category
+Notes
+paypal.Buttons({ fundingSource: 'paypal' })
+paypal-payments
+Restructured
+Session-based; start() replaces render and the click trigger
+paypal.Buttons({ fundingSource: 'venmo' })
+venmo-payments
+Restructured
+Separate component; check eligibility
+paypal.Buttons({ fundingSource: 'paylater' })
+paypal-payments (bundled)
+Direct
+Pay Later eligibility returns from findEligibleMethods()
+paypal.Buttons({ fundingSource: 'card' })
+paypal-guest-payments
+Restructured
+Guest card payments are now a distinct component
+paypal.HostedFields()
+card-fields
+Restructured
+See step 7
+paypal.Marks()
+An eligibility details object
+Behavioral change
+No standalone Marks component. Derive the details from eligibility.getDetails() .
+paypal.Messages()
+paypal-messages
+Direct
+Component name changed only
+paypal.BillingAgreement()
+paypal-legacy-billing-agreements
+Restructured
+Legacy path. Consider migrating to the Subscriptions API instead.
+paypal.Buttons({ createSubscription })
+paypal-subscriptions
+Restructured
+Dedicated component. The createSubscription callback carries forward.
+Apple Pay (not in v4)
+applepay-payments
+New in v6
+Requires Safari and HTTPS
+Google Pay (not in v4)
+googlepay-payments
+New in v6
+Requires the Google Pay JavaScript library separately. Configuration comes from eligibility.
+9. Update shipping change callbacks
+If your search in step 1 found onShippingChange , split it into two callbacks. The SDK v4 fired one callback, onShippingChange(data, actions) , for both address changes and shipping option selection.
+Before (v4): onShippingChange
+A single onShippingChange callback branches internally to handle both address changes and shipping option selection, rejecting via actions.reject() on failure.
+onShippingChange : function ( data , actions ) {
+// Handled both address changes and option selection
+return fetch ( '/api/patch-order' , { /* ... */ })
+. then ( function ( res ) {
+if ( ! res.ok) return actions. reject ();
+});
+}
+After (v6): onShippingAddressChange and onShippingOptionChange
+The single callback is split into two dedicated handlers, each patching the order independently. Failures are surfaced by throwing an error instead of calling actions.reject() , which doesn't exist in v6.
+onShippingAddressChange : async ( data ) => {
+const res = await fetch ( '/api/patch-order' , {
+method: 'PATCH' ,
+body: JSON . stringify ({ orderId: data.orderId, address: data.address }),
+});
+if ( ! res.ok) throw new Error ( 'Address not supported' );
+},
+onShippingOptionChange : async ( data ) => {
+const res = await fetch ( '/api/patch-order' , {
+method: 'PATCH' ,
+body: JSON . stringify ({ orderId: data.orderId, optionId: data.selectedOption.id }),
+});
+if ( ! res.ok) throw new Error ( 'Option not available' );
+}
+The actions object doesn't exist in v6 (see step 6 ). Return an error from your server-side patch endpoint and handle it in onError instead.
+Confirm onShippingAddressChange fires when the buyer changes their address, onShippingOptionChange fires when the buyer selects a different shipping option, and an unsupported address or option surfaces through onError .
+10. Update your React integration
+If you use @paypal/react-paypal-js , move to the v6 components and provider.
+Before (v4/v5): PayPalScriptProvider and PayPalButtons
+PayPalScriptProvider loads the SDK for the tree beneath it, and PayPalButtons renders the button directly with createOrder and onApprove props.
+import {
+PayPalScriptProvider,
+PayPalButtons,
+} from "@paypal/react-paypal-js" ;
+function App () {
+return (
+< PayPalScriptProvider options ={ { "client-id" : "YOUR-CLIENT-ID" } } >
+< PayPalButtons createOrder ={ createOrder } onApprove ={ onApprove } />
+</ PayPalScriptProvider >
+);
+}
+After (v6): PayPalProvider and PayPalOneTimePaymentButton
+PayPalProvider replaces the script provider and requires you to declare components up front, the same as createInstance() in the vanilla JS flow. PayPalOneTimePaymentButton replaces PayPalButtons , and its createOrder / onApprove callbacks call your server endpoints instead of client-side actions .
+import {
+PayPalProvider,
+PayPalOneTimePaymentButton,
+} from "@paypal/react-paypal-js/sdk-v6" ;
+function App () {
+return (
+< PayPalProvider
+clientId = "YOUR-CLIENT-ID"
+environment = "sandbox"
+components ={ [ "paypal-payments" ] }
+pageType = "checkout"
+>
+< CheckoutPage />
+</ PayPalProvider >
+);
+}
+function CheckoutPage () {
+return (
+< PayPalOneTimePaymentButton
+createOrder ={async () => {
+const res = await fetch ( "/api/order" , { method: "POST" });
+const { orderId } = await res. json ();
+return { orderId };
+} }
+onApprove ={async ({ orderId }) => {
+await fetch ( `/api/capture/${ orderId }` , { method: "POST" });
+} }
+onCancel ={ () => {} }
+onError ={ ( err ) => {} }
+/>
+);
+}
+React component, components[] string
+React component
+components[] string
+PayPalOneTimePaymentButton
+paypal-payments
+VenmoOneTimePaymentButton
+venmo-payments
+GooglePayOneTimePaymentButton
+googlepay-payments
+PayPalSubscriptionButton
+paypal-subscriptions
+PayPalCreditOneTimePaymentButton
+paypal-payments
+Two hooks support this pattern. usePayPal() returns loadingStatus , error , and sdkInstance . useEligibleMethods({ payload }) runs an asynchronous eligibility check and returns its own loading state.
+11. Test your integration
+Use sandbox for testing
+Set environment: 'sandbox' in loadCoreSdkScript() while you test. Your existing sandbox client ID carries forward unchanged. Create sandbox buyer accounts on the developer dashboard .
+Load the SDK against the sandbox environment with debug: true for verbose logging, then create an instance scoped to the paypal-payments component:
+const paypal = await loadCoreSdkScript ({ environment: 'sandbox' , debug: true });
+const sdkInstance = await paypal. createInstance ({
+clientId: 'YOUR-SANDBOX-CLIENT-ID' ,
+components: [ 'paypal-payments' ],
+});
+Run through each scenario and confirm the result matches what's expected.
+Scenario, What to verify
+Scenario
+What to verify
+Currency not supported
+findEligibleMethods() gates rendering, and the component doesn't render
+PayPal button renders
+isEligible('paypal') returns true before the button renders
+PayPal payment approved
+createOrder returns { orderId } , and onApprove fires with the correct order ID after approval
+Server-side capture
+The capture response returns a COMPLETED status
+Buyer cancels
+onCancel fires when the buyer closes the PayPal window
+Simulated error
+onError fires when you submit an invalid order ID
+Venmo payment, if implemented
+The Venmo button renders and completes the flow
+Card fields submission, if implemented
+All field components render, submit works, and onApprove fires
+Shipping address change, if implemented
+onShippingAddressChange fires and patches the order
+Shipping option change, if implemented
+onShippingOptionChange fires and patches the order
+12. Go live
+Confirm each of the following before you release the update:
+Your live client ID, retrieved from the Developer Dashboard, replaces the sandbox client ID in createInstance() .
+environment: 'sandbox' in loadCoreSdkScript() is changed to environment: 'production' .
+Your server-side Orders v2 calls point to api-m.paypal.com .
+Every debug: true flag is removed.
+The PayPal-Debug-Id header is logged on every Orders v2 API response, for support escalation.
+Your content security policy allows https://www.paypal.com in script-src and frame-src .
+No references to paypalobjects.com/api/checkout.js or the paypal-checkout npm package remain in your production build or cached pages.
+Migration checklist
+Confirm you've completed every step in this guide, plus the following call sites:
+No remaining calls to the removed actions methods (see step 6 ).
+Every component you use is declared in createInstance({ components: [...] }) (see step 4 ).
+findEligibleMethods() runs before any payment component renders (see step 5 ).
+createOrder returns { orderId } everywhere, not a plain string (see step 6 ).
+Avoid these common migration mistakes
+These are the failure modes teams run into most often when a step gets skipped or half-applied.
+Mistake, Why it happens, Resolution
+Mistake
+Why it happens
+Resolution
+Treating this as a script-tag swap
+The v4 script tag and the v6 script both set window.paypal , so it looks like a drop-in replacement
+Follow the createInstance() flow. The component APIs underneath window.paypal are different, even though the global itself carries forward
+Calling actions.order.create() or actions.order.capture() in v6
+These helpers existed in v4 and are easy to copy into a new callback
+Move order creation and capture to your server. See step 6
+Rendering a component without checking eligibility first
+It's easy to assume every buyer sees every payment method
+Call findEligibleMethods() before rendering. See step 5
+Handling onShippingChange as a single callback
+The v4 callback fired for both address changes and option changes
+Implement both onShippingAddressChange and onShippingOptionChange . See step 9
+Calling actions.reject() to decline a shipping address
+The method existed in v4 for this purpose
+Return an error from your server-side order patch endpoint and handle it in onError . See step 9
+Loading a component that wasn't declared in createInstance()
+It's easy to add a new session type without updating the components array first
+Declare every component you use up front. See step 4
+Passing currency as a script query parameter
+This was the v4 pattern
+Pass currencyCode to findEligibleMethods({ currencyCode }) instead. v6 doesn't use a query-parameterized script URL
+Using the unpkg IIFE build for v6 createInstance() features
+The CDN build still loads and sets window.paypal
+Install through npm instead. See step 3
+Returning a plain string from createOrder
+The v4 pattern returned a raw order ID string
+Return { orderId: 'ORDER-123ABC' } , an object with an orderId key. See step 6
+Not updating your content security policy
+The v6 SDK loads from www.paypal.com/sdk/js , not www.paypalobjects.com
+Update script-src and frame-src . See step 12
+What's next
+For the full set of components, sessions, and configuration options, review the PayPal Web SDK v6 reference .
+For the server-side order creation, capture, and authorization endpoints this migration depends on, review the Orders v2 API reference .
+Upgrade from v5 to v6
+Upgrade your existing PayPal JavaScript SDK v5 integration to v6.
+Overview
+Next Page
+On this page
+Check country availability 1. Find your current checkout.js usage Determine which steps apply to you 2. Review what carries forward from v4 3. Install the JS SDK v6 package 4. Load the SDK and create an instance Before (v4): script load and render After (v6): create an instance 5. Check payment method eligibility 6. Replace your button flow Before (v4): button flow After (v6): payment session 7. Migrate card fields Before (v4): HostedFields After (v6): card-fields 8. Migrate other components 9. Update shipping change callbacks Before (v4): onShippingChange After (v6): onShippingAddressChange and onShippingOptionChange 10. Update your React integration Before (v4/v5): PayPalScriptProvider and PayPalButtons After (v6): PayPalProvider and PayPalOneTimePaymentButton 11. Test your integration 12. Go live Migration checklist Avoid these common migration mistakes What's next

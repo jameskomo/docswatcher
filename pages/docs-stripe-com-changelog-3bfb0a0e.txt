@@ -21,8 +21,7 @@ Clover
 Basil
 Acacia
 Previous versions
-Upgrade your API version
-Upgrade your SDK version
+Upgrade your integration How API versioning works
 Essentials
 SDKs
 API
@@ -67,9 +66,11 @@ Ask about this page
 Copy for LLM
 View as Markdown
 Install tools
-My API usage Breaking changes Product
+Breaking changes Product
 Category
 All
+Relevant changes only
+Sign in to see changes related to APIs your account uses.
 Generally available
 Public preview
 Dahlia

@@ -1,0 +1,159 @@
+Twitch Developer Forums
+Legacy Twitch API v5 Shutdown Details and Timeline
+Announcements
+jbulava
+July 15, 2021, 6:01pm
+1
+Today we are announcing the timeline to decommission the Legacy Twitch API v5 with the shutdown to be completed on February 28, 2022 . Twitch application client IDs must migrate to the Twitch API by February 28, 2022, and those that have not made requests to the v5 API before July 15, 2021 will no longer be able to access v5.
+The information below includes key takeaways and the shutdown windows leading up to the final decommission date. For greater detail regarding this shutdown, please see the Twitch blog post entitled Legacy Twitch API v5 Shutdown Details and Timeline .
+What’s changing?
+The Legacy Twitch API v5 has been deprecated for some time and as of today has a scheduled shutdown timeline. With the latest endpoint additions, the Twitch API now includes all the functionality that we intend to migrate from v5.
+Why are we making these changes?
+For further details regarding why the Legacy Twitch API v5 was deprecated and scheduled for decommission, see the blog post linked above.
+Who will be impacted by these changes?
+All developers who are currently using legacy v5 endpoints in their applications.
+What action needs to be taken?
+Refer to the v5 Migration Guide which provides endpoint equivalence and migration paths, as well as scope equivalence to help ease the migration for your users.
+7 Likes
+Legacy Twitch API v5 (i.e. kraken) Shutdown Reminder - February 28, 2022
+Dashboard statistics
+Marenthyu
+July 15, 2021, 6:10pm
+2
+DEATH TO KRAKEN
+More seriously:
+jbulava:
+and those that have not made requests to the v5 API before July 15, 2021 will no longer be able to access v5.
+When will those ClientIDs no longer be able to make requests? Now?
+ckohen
+July 15, 2021, 6:33pm
+3
+jbulava:
+shutdown to be completed on February 28, 2022
+This should probably be added to Product Lifecycle | Twitch Developers in Important Dates?
+BarryCarlyon
+July 15, 2021, 6:34pm
+4
+ckohen:
+This should probably be added to Product Lifecycle | Twitch Developers in Important Dates?
+He forgot to add it before he went live for the monthly update on /twitchdev
+Rosuav
+July 15, 2021, 6:59pm
+5
+A bunch of endpoints are simply not supported in the new API. Are you planning to support any of them before the shutdown? If not, what happens to applications that need that functionality?
+BarryCarlyon
+July 15, 2021, 7:01pm
+6
+Rosuav:
+A bunch of endpoints are simply not supported in the new API
+Then a uservoice would need to be created citing the use case
+https://twitch.uservoice.com/forums/310213-developers
+The Endpoint Equivalence guide covers a number of things as well
+https://dev.twitch.tv/docs/api/migration/#endpoint-equivalence
+Rosuav
+July 15, 2021, 7:13pm
+7
+Several UVs already exist, regarding things like “Get User Emotes”. There are no equivalents. The guide says so.
+jbulava
+July 15, 2021, 7:22pm
+8
+Correct, as of today.
+1 Like
+jbulava
+July 15, 2021, 7:22pm
+9
+Yes! I realized it during our broadcast Thanks for calling it out.
+jbulava
+July 15, 2021, 7:39pm
+10
+Following today’s update, the v5 migration guide should mention all v5 endpoints in the table to explicitly state if each one has a migration path. The few endpoints that state they are “[n]o longer supported via the API” are not planned to be provided by the shutdown date in February 2022.
+Now that the decommission details and timeline have been announced, we will soon be updating UserVoice suggestion statuses related to v5 and checking them with the teams that own each product before doing so.
+Rosuav
+July 15, 2021, 7:52pm
+11
+Okay, thank you. Can you get the migration page updated to say that these APIs won’t be shut down, please? It’s kinda important to those of us who use these.
+jbulava
+July 15, 2021, 8:18pm
+12
+Apologies if my wording wasn’t clear. The migration guide is updated and accurate. There are no plans to support the few endpoints that do not have a migration path.
+I will be making sure product teams are aware of all open v5 UserVoice suggestions and double checked before replying with specific context.
+1 Like
+Rosuav
+July 15, 2021, 8:32pm
+13
+Oh. Then we need a migration path, please! You’ve put yourselves on a time limit here.
+Marenthyu
+July 15, 2021, 8:40pm
+14
+As mentioned: For some things, there is no migration path because the usecase is no longer supported.
+For those things that do have a Migration Path, see v5 Migration Guide | Twitch Developers
+As for the “Get User Emotes” Endpoint, specifically: to reconstruct the usecase this is used for, you will need to capture the Emote Set IDs via IRC ( See here ) and then utilize the new Emote Endpoints in Helix to resolve the Emote set IDs. ( See here )
+Yes, there are inconsistencies there and there are uservoices to clarify some things. Vote for the Uservoices that indicate your missing usecases!
+deef0000dragon1
+July 16, 2021, 7:37am
+15
+Ran through the list myself real qucik, and the get all chat emoticons endpoint is the only one that is not on the list.
+Given this catch-all statement I assume there is no intention to support it right now. As such I created a uservoice to create an equivalent. (I thought I did this when the new emote endpoints were released, but I must have forgotten)
+Rosuav
+July 16, 2021, 12:38pm
+16
+The emote sets given via IRC are not sufficient . The use case is listing all emotes available to a user - for example, for a custom chat client. There is NO WAY TO LIST A USER’S EMOTES. Pardon me for shouting, but this is a very very real use case that is being completely ignored.
+Listing emote sets is not sufficient because a user may not have access to every emote in that set. For instance, if you cheer 1000 bits in a channel, you gain access to one of that channel’s bit emotes, but you are listed as having the entire set.
+Dist
+July 16, 2021, 2:05pm
+17
+The best place for stating your use case is Uservoice rather than this announcement post.
+If there’s not a suitable solution in Helix then you may simply have to do without such data. Even if I agree with you that it’s a great use case for such data there may be technical or design considerations you don’t know which have limited any implementation in Helix so far.
+1 Like
+Rosuav
+July 16, 2021, 2:16pm
+18
+And UV already has multiple such posts. I’m not responding here because I have any real hope that this will be fixed, but more just because everyone keeps saying “it’s okay, use the IRC set list”, and no it is not okay.
+1 Like
+Dist
+July 16, 2021, 3:08pm
+19
+It may not be to your liking, but if the IRC set list is what we have to work with, along with any existing Helix endpoints, then apps will have to adjust to that situation. People are trying to suggest alternatives because while they may not fit your perfect little app, we all have to work with what we’ve got and that does mean that some features we may like to implement in our apps are simply not viable, or will have to make do with limitations/
+1 Like
+Rosuav
+July 16, 2021, 3:22pm
+20
+“perfect little app”. Nice respectful language you’re using.
+2 Likes
+next page →
+Related topics
+Topic
+Replies
+Views
+Activity
+Twitch API update – delaying v5 end-of-life
+Announcements
+18
+12257
+August 8, 2019
+HTTP 410 on GET https://api.twitch.tv/kraken/user
+API
+10
+5860
+September 9, 2019
+Twitch API v3 and v5 Deprecation Updates
+Announcements
+0
+6780
+December 20, 2018
+Deprecation date for v5?
+API
+4
+531
+April 12, 2021
+Twitch API v5 deprecate date?
+API
+2
+1079
+October 10, 2019
+Home
+Categories
+Guidelines
+Terms of Service
+Privacy Policy
+Powered by Discourse , best viewed with JavaScript enabled

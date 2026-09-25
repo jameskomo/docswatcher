@@ -1,0 +1,170 @@
+Twitch Developer Forums
+Legacy Chatters endpoint shutdown details and timeline - April 2023
+Announcements
+jbulava
+January 31, 2023, 7:44pm
+1
+Today we are announcing the timeline to decommission the legacy Chatters endpoint that some developers may be using for their Twitch integrations to retrieve a list of users present in a channel’s stream chat. While this endpoint has never been documented or supported, we are communicating this change to limit disruption to third-party applications and the creators that rely on your innovation. As promised in the September announcement for the official Chatters API endpoint , here are the details of the shutdown plan.
+What’s changing and who will it impact?
+If your application only relies on Get Chatters , then this announcement does not apply. The legacy and unsupported Chatters endpoint that begins with “ https://tmi.twitch.tv/” is the resource that will be shut down. During the shutdown windows and after the final date below, developers can expect to receive a 404 error response.
+When are we making this change?
+Given the number of developers who may be using this legacy endpoint, we wanted to ensure developers have time to update applications to the equivalent Twitch API endpoint and are alerted to the change if previous communications have gone unnoticed. As such, a phased shutdown will be implemented similar to other commonly used third-party services in the past. The shutdown windows to expect are as followed:
+Date
+Window Length
+Range (Click to view other timezones)
+2023-03-22
+2023-03-23
+3-hour
+2023-03-23T17:30:00Z → 2023-03-22T20:30:00Z
+2023-03-28
+5-hour
+2023-03-28T17:30:00Z → 2023-03-28T22:30:00Z
+2023-03-30
+24-hour
+2023-03-30T17:30:00Z → 2023-03-31T17:30:00Z
+2023-04-03
+Permanent
+2023-04-03T17:30:00Z
+Why are we making these changes?
+Programmatically retrieving the list of users in a channel’s stream chat should be information and permission that the creator or their moderators control. The official “Get Chatters” endpoint provides this functionality while also meeting the expectations of these permissions with the introduction of the moderator:read:chatters authentication scope.
+What action needs to be taken?
+If your application is using the Chatters endpoint that begins with “ https://tmi.twitch.tv ,” refer to the "Get Chatters "documentation linked above to learn more about the official endpoint and begin any necessary updates. Should you have any questions regarding those updates, please consider joining the TwitchDev Discord server for assistance.
+7 Likes
+Has the 'http://tmi.twitch.tv/group/user/channel_name/chatters' endpoint been removed?
+Issue in JSON in API
+Marenthyu
+January 31, 2023, 8:05pm
+2
+Thank you Endpoint who shall not be named!
+You introduced many a person to calling APIs and working with Twitch, but you shall not be missed as your legacy lives on!
+F
+3 Likes
+wolbee
+January 31, 2023, 9:56pm
+3
+Will you be incorporating the legacy endpoint response into the Helix API response (arrays of names based on role), or adding the user’s role to the current response?
+jbulava
+January 31, 2023, 10:15pm
+4
+There aren’t plans to change the response for Get Chatters at this time (i.e. the response will continue to be an array of user objects with id, login, and name). To understand which users in the chatters list are moderators or VIPs, requests should be made to Get Moderators and Get VIPs , and then search for matches between the lists.
+DevMcGee
+February 1, 2023, 2:38am
+5
+jbulava:
+Programmatically retrieving the list of users in a channel’s stream chat should be information and permission that the creator or their moderators control.
+So when are you going to give creators and moderators that control on your website? What if they want unprivileged users to be able to see that information?
+Not to mention that if someone wants to get roles, that’ll burn through the rate limit.
+BarryCarlyon
+February 1, 2023, 2:58am
+6
+DevMcGee:
+So when are you going to give creators and moderators that control on your website?
+The website at this time presents a list of people whom have been active in chat recently. The website doesn’t give the full list of viewers out. The first party/unprivileges user offering is very different to what the API provides
+DevMcGee:
+Not to mention that if someone wants to get roles, that’ll burn through the rate limit.
+In theory, you only need to get Mods/VIPS for a channel once (and/or periodically) then use EventSub to keep up to date with changes. You wouldn’t be geting roles each time you got the list of users in a given chat. So you wouldn’t burn through the rate limit as you suggest.
+1 Like
+EchtkPvL
+February 4, 2023, 12:32am
+7
+jbulava:
+Programmatically retrieving the list of users in a channel’s stream chat should be information and permission that the creator or their moderators control.
+Why does this only affects the API? I could understand that change if it would also affect twitch.tv and join/part-messages on IRC.
+Dist
+February 4, 2023, 1:30am
+8
+Join/part messages are not sent on channels over 1,000 viewers, and there are also limitations to how they are sent, for example a join may not be sent until the user sends a message.
+As for the chatter list on the Twitch site itself, the list states:
+Some active viewers and chatters in the community.
+So the public means of getting info on chatters wont be accurate. Where as the Get Chatters endpoint will be a more complete list of chatters and without the issues of using joins/parts.
+To some degree it’s similar to how a channels subscribers is partially public in that sub badges when a user send chat messages indicates their subscriber status, but to get a full list of a broadcasters subscribers can only be obtained with their explicit consent to your app.
+1 Like
+Sylvanus
+March 19, 2023, 10:36am
+9
+Any chance to have more 1000 chatters per call in the future ?
+I’m developing for a streamer who has thousands of viewers, minimum 8 to 10,000 every days, so that means that if I want to create a loyalty system, I have to repeatedly request this API.
+Hoping she’s never unavailable and I never eat limit, that open route call was so damn good
+1 Like
+BarryCarlyon
+March 19, 2023, 11:15am
+10
+Sylvanus:
+I’m developing for a streamer who has thousands of viewers, minimum 8 to 10,000 every days, so that means that if I want to create a loyalty system, I have to repeatedly request this API.
+I ported to this API without issue on the large channels that I operate a currency system on.
+1000 per page is not a problem. Speed/efficency is as good as it was using the legacy endpoint. And I have no problems with rate limit.
+Would I like bigger pages, for sure.
+Do I expect bigger pages, no.
+Am I happy with the performance of my loyalty system yes.
+Theres more time spent on the databse calls than the fetching and the new system is similar in speed (and marginally quicker) than the old system.
+Especially now I get userID’s to start with so I don’t have to name to ID lookup/check first
+jbulava
+March 22, 2023, 7:12pm
+11
+We discovered and rectified an issue that prevented the first phased shutdown window to operate as expected. As such, the first window has been rescheduled for the same times tomorrow and I will update the announcement above accordingly.
+mad_daniel1
+April 3, 2023, 6:54pm
+12
+F - TMI
+andrewcz
+April 10, 2023, 11:18pm
+13
+Is this endpoint available to unauthenticated users? A.k.a nightbot?
+e.g. Show current mods in chat command - #11 by jotammz98 - Nightbot - NightDev Community Forums
+BarryCarlyon
+April 10, 2023, 11:20pm
+14
+andrewcz:
+Is this endpoint available to unauthenticated users? A.k.a nightbot?
+No
+A token for a moderator or above is required.
+I’m sure for urlfetch based things a work around is available/the problem is solvable.
+I have a solution but no interest or time or requests to build it persae and I don’t need it myself
+1 Like
+jbulava
+Split this topic
+April 13, 2023, 2:50pm
+15
+17 posts were split to a new topic: Legacy Chatters endpoint and detecting bots
+jbulava
+April 13, 2023, 2:55pm
+16
+@5cottFive , I split the discussion regarding bot detection into a new topic (linked above) so it is focused and not lost in the comments of the announcement thread here.
+If anyone has further discussions or questions regarding the legacy chatters endpoint, please feel free to create a new topic in the API category .
+1 Like
+Related topics
+Topic
+Replies
+Views
+Activity
+New Chatters API endpoint now available in open beta
+Announcements
+26
+7968
+March 6, 2023
+Has the 'http://tmi.twitch.tv/group/user/channel_name/chatters' endpoint been removed?
+API
+1
+2007
+March 31, 2023
+Chatters info via chatbot
+Chat and IRC
+3
+600
+March 31, 2023
+New chatters endpoint
+API
+6
+765
+April 24, 2023
+Legacy Chatters endpoint and detecting bots
+API
+34
+3151
+April 30, 2023
+Home
+Categories
+Guidelines
+Terms of Service
+Privacy Policy
+Powered by Discourse , best viewed with JavaScript enabled

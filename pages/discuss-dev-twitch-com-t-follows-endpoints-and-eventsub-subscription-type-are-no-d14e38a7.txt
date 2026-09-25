@@ -1,0 +1,180 @@
+Twitch Developer Forums
+Follows endpoints and EventSub subscription type are now available in open beta
+Announcements
+jbulava
+February 4, 2023, 2:04am
+1
+Update (2023-08-03) : The final shutdown timeline for the legacy follows endpoint and V1 EventSub subscription type has been extended. See this post for updated details regarding the shutdown on September 12, 2023.
+Update (2023-02-23) : The deprecated “Get Users Follows” API endpoint and channel.follow (v1) EventSub subscription type now have limited access to minimize usage in new development leading up to the August 3 decommission date. The API endpoint is accessible to client IDs that have made requests on or before February 17, 2023. The v1 EventSub subscription type is accessible to client IDs that had an active subscription on February 17, 2023.
+In our TwitchCon edition of Standard Output, we mentioned our roadmap for a new version of the EventSub channel.follow subscription type and new “follows” API endpoints that would require user or moderator authorization.
+Today we’re launching these new versions in open beta:
+Get Channel Followers
+Get Followed Channels
+EventSub channel.follow (beta version)
+The open beta will continue for two weeks to gather developer feedback and make any further changes. Please take advantage of the Developer section of UserVoice to provide feedback. After the open beta period, the endpoints and the subscription type (as v2) will be promoted to Generally Available. We are also providing six-month timeline to withdrawal the following functionality that is being replacing:
+Get Users Follows
+EventSub channel.follow (v1)
+Why make this change?
+When we introduced the latest channel page design, it was updated to show the number of followers belonging to a channel while no longer identifying the individual users who follow. As such, authorization will be required to retrieve the list of a channel’s followers as well as who a user follows via third-party interfaces to match the availability of this information on the Twitch website and mobile applications.
+We understand that breaking changes are disruptive to our third-party community. To minimize any disruption, we are providing developers a six-month timeline to update applications for the new subscription type and endpoints. The deprecated “Get User Follows” and EventSub channel.follow (v1) will be removed on or soon after August 3, 2023 (see update above).
+We’ve been planning this change for some time; eagle-eyed readers may have seen that when we moved “Get Followed Streams” from our legacy V5 API to the Twitch API in April 2021, we introduced a new user:read:follows scope. The new “Get Followed Channels” endpoint will also use this scope. The new “Get Channel Followers” endpoint uses the new moderator:read:followers scope. If the scope is not provided, the Get Channel Followers endpoint only returns the channel’s total follower count to match the visibility of this information on Twitch channel pages.
+How do I get started?
+If your application calls “Get User Follows” or subscribes to EventSub channel.follow (v1), you should begin a plan to update your application to use the new endpoints and subscription type, and add the new user:read:follows and moderator:read:followers scopes for user authorization. To get started, review the documentation linked above for each endpoint and subscription type. If you have any questions, please share them in the #api-help channel on the TwitchDev Discord server, and any feedback during the open beta can be posted on the Developer section of UserVoice .
+As always, thank you for being part of our community. We send a special thanks to the developers who participated in the closed beta for these changes last summer and those who provided feedback when we announced these plans in the fall.
+20 Likes
+Legacy Follows API and EventSub Shutdown Timeline Updated
+Channel followers
+BarryCarlyon
+February 4, 2023, 10:50am
+2
+It would seem that the follows API’s havn’t been deployed correctly and they are 404-ing. (Didn’t check eventsub myself yet)
+4 Likes
+secretply
+February 4, 2023, 2:40pm
+4
+The link for EventSub channel.follow (beta version) is the same for EventSub channel.follow (v1) and doesn’t have a beta example. I am assuming there was supposed to be another section for the beta version payload.
+4 Likes
+BarryCarlyon
+February 4, 2023, 3:06pm
+5
+secretply:
+I am assuming there was supposed to be another section for the beta version payload.
+The payload is the same but it’s been version bumped to account for the change in authentication requirements.
+2 Likes
+secretply
+February 4, 2023, 3:14pm
+6
+Edit: Updated post to correctly reference issue with request body, not payload.
+I tested the beta version of EventSub with the same request body in the documentation and having the moderator:read:followers scope but received the following error:
+{
+"error": "Bad Request",
+"status": 400,
+"message": "unknown validation error: Key: 'SubscriptionCondition.moderator_user_id' Error:Field validation for 'moderator_user_id' failed on the 'required' tag"
+}
+This was the reason I thought there was supposed to be a beta/v2 version request body example as it seems the condition is now moderator_user_id instead of broadcaster_user_id .
+5 Likes
+BarryCarlyon
+February 4, 2023, 3:22pm
+7
+Ah yeah you need to declare the channel id and the moderator ID’s in the condition.
+But the payload is unchanged.
+By payload I thought you meant the data sent to you as apposed to the parameters of the condition
+4 Likes
+RealityRipple
+February 4, 2023, 9:19pm
+8
+Any chance of a “follower=1” tag being added to IRC’s PRIVMSG chat events in authorized channels with this new moderator:read:followers permission? It would be nice not to have to deal with sending requests and keeping caches to make this determination.
+4 Likes
+BarryCarlyon
+February 4, 2023, 9:20pm
+9
+I doubt it due to TMI not being able to easily change the data of a message. And it’s a lot of “extra data to send for most people that don’t need it”
+Either way, create a uservoice
+3 Likes
+RealityRipple
+February 4, 2023, 9:37pm
+10
+Added as a comment to the existing IRC Request: Follow tag to filter out non follower messages , should anyone wish to vote for the idea.
+4 Likes
+francois-egner
+February 18, 2023, 6:49pm
+11
+So in fact there will be no way to fetch the follower count without the permission of the broadcaster through the user access token?
+This is yet again something I just dont understand. The linked twitch VOD talks about matching the API with the website UI but in fact it does minimize the API even more. I can see the follower count when visiting the broadcasters channel but I cannot get the followers count via an API without the broadcasters permission.
+Its the same mismatch with the goals. I can see the goals visiting the broadcasters channel but I need an user access token to get this information when using the API.
+Please make those infos publicly available via the API using an app access token if they can be seen on the website UI.
+2 Likes
+BarryCarlyon
+February 18, 2023, 6:49pm
+12
+francois-egner:
+So in fact there will be no way to fetch the follower count without the permission of the broadcaster through the user access token?
+If you do not have the scope, then only the total is returned.
+If a scope is not provided, only the total follower count will be included in the response.
+From the documentation
+TwitchCLI example output: (my CLI is currently using an app access token, as the call to users shows)
+2 Likes
+francois-egner
+February 18, 2023, 6:57pm
+13
+Ah ok. “If a scope is not provided” is kind of misleading. I interpreted this a “I got a user access token that does not have the scope for this but nevertheless can get the count” but I did not understand this as “You can also use the app access token”.
+Maybe the fact that the app access token can be used too should be added to the description.
+Thanks for your detailed answer @BarryCarlyon
+3 Likes
+ACPixel
+February 18, 2023, 10:54pm
+14
+For the most part these changes seem great and are totally reasonable. But my one concern is the eventsub change and I have a couple questions regarding it. I understand that there will be a 6 month “roll over” period where the old v1 event will still work, after this 6 month period will those existing subscriptions stop working? My concern is that it needs a new scope for the new subscription, this is easy enough for “new” accounts to a third party application, but for existing accounts that means we would have to reach out to every single user and ask them to re-authenticate if they want live-follow based systems to continue working.
+I guess ultimately my question is, when that 6 month period is over, is there a way to allow the v1 existing subscriptions to continue working, or some other migration path. I know that even if I were to reach out to every user of my application, a good chunk of them wouldn’t end up re-authenticating with the new scope, either from not seeing the messaging or forgetting, and I would end up with a bunch of support messages asking why follow based events no longer work. I’m sure that would likely happen for many of the bigger third party applications as well at a much larger scale.
+2 Likes
+BarryCarlyon
+February 18, 2023, 10:57pm
+15
+ACPixel:
+after this 6 month period will those existing subscriptions stop working?
+Correct
+ACPixel:
+My concern is that it needs a new scope for the new subscription, this is easy enough for “new” accounts to a third party application, but for existing accounts that means we would have to reach out to every single user and ask them to re-authenticate if they want live-follow based systems to continue working.
+Also correct
+ACPixel:
+I guess ultimately my question is, when that 6 month period is over, is there a way to allow the v1 existing subscriptions to continue working, or some other migration path
+No, which is why there is a six month period so you can start reaching out to your users now
+The migration path is: you have six months to get all your users moved over.
+ACPixel:
+I’m sure that would likely happen for many of the bigger third party applications as well at a much larger scale.
+Yeah and it already has done/is doing so for the kraken to helix migration and the current deprecation of chat commands over IRC.
+Twitch declares the change is happening, gives a timeline, then we start moving on getting the new auth’s for our users/clients.
+fadam9903
+October 14, 2023, 10:18pm
+16
+I need my follower list to be poated pls pikachulogann
+2 Likes
+BarryCarlyon
+October 14, 2023, 10:21pm
+17
+fadam9903:
+I need my follower list to be poated pls pikachulogann
+Not sure what you are asking for.
+This is the third party developers forum for helping people building tools and products using the API’s that Twitch offers for third party devs to use
+1 Like
+fadam9903
+October 14, 2023, 10:26pm
+18
+Oh i didnt know sorry
+2 Likes
+Related topics
+Topic
+Replies
+Views
+Activity
+Channel followers
+API
+1
+811
+September 15, 2023
+Legacy Follows API and EventSub Shutdown Timeline Updated
+Announcements
+0
+6494
+August 4, 2023
+Get Channel Followers usernames
+API
+3
+467
+October 29, 2023
+Following Scope
+API
+8
+3474
+March 29, 2016
+API request: add "new follower" topic to PubSub
+API
+2
+1513
+June 30, 2020
+Home
+Categories
+Guidelines
+Terms of Service
+Privacy Policy
+Powered by Discourse , best viewed with JavaScript enabled

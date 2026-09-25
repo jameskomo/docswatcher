@@ -1,0 +1,62 @@
+Twitch Developer Forums
+Legacy Follows API and EventSub Shutdown Timeline Updated
+Announcements
+jbulava
+August 4, 2023, 5:38pm
+1
+Update (2023-09-06): The announcement was updated below to reflect that today’s shutdown window was only 1 hour and tomorrow, September 7, will be a 4-hour shutdown window.
+In February, we announced the Twitch API endpoints and new EventSub subscription type version that would replace our legacy follows functionality. This change introduced a scope that gave Twitch users control over which applications have access to their follow information via third-party authorization.
+As we approached the end of the migration period (originally August 3, 2023), we received feedback regarding a response condition that requires an update. As such, we will be making this change shortly as detailed below and extending the end of the migration period for the legacy endpoints and subscription type. An update will be added to the original announcement above regarding this change.
+What’s the issue to be resolved?
+If you are using the optional user_id query parameter for Get Channel Followers to check if someone follows the broadcaster, and the user access token does not include the moderator:read:followers scope or the user does not have broadcaster/moderator permission for the channel, the API response will return a successful HTTP response code, but not include the data array regardless if the follow condition is true. This will result in developers falsely believing that a user does not follow the broadcaster in the event the scope was not set up properly.
+Who will be impacted by this fix?
+Impacted developers include anyone who is checking if someone follows the broadcaster by requesting the Get Channel Followers endpoint with the user_id query parameter. Please make sure that the moderator:read:followers scope is added to your OAuth flow and that the user has broadcaster/moderator permissions. If either of these two conditions are false, developers will begin to receive 410 error responses on the date below. We will be reaching out to developers who are using this query parameter directly via email in addition to this announcement.
+The final overall shutdown of Get Users Follows and EventSub channel.follow V1 will impact any developer still utilizing this functionality. Below are the updated dates to expect.
+September 6, 2023
+To correct the issue above, on September 6, 2023, the API response will be updated to a 401 HTTP response code and error message when the user_id parameter is provided and the user access token does not include the moderator:read:followers scope or the user does not have broadcaster or moderator permission for the channel. If the user_id parameter is not used and the user access token does not include the scope, there is no change to the response; it will return a successful 200 response code and just include the followers count as it does today.
+This day will also include a 4-hour 1-hour shutdown window starting at 2023-09-06T17:00:00Z in case developers are either unaware of the legacy functionality deprecation or have not realized it is still being used in their applications. Get Users Follows will return a 410 Gone and you will not be able to create new channel.follow V1 subscriptions during this window. Note that existing channel.follow V1 EventSub subscriptions will not be disconnected during this window.
+September 7, 2023
+A 4-hour shutdown window will begin at 2023-09-07T17:00:00Z with the same conditions described above.
+September 8, 2023
+A 24-hour shutdown window will begin at 2023-09-08T17:00:00Z with the same conditions described above.
+September 12, 2023
+The final shutdown for Get Users Follows and channel.follow V1 will go into effect at 2023-09-12T17:00:00Z . All developers will need to use Get Channel Followers , Get Followed Channels , and/or channel.follow V2 by this time to retain use of follow information. All channel.follow V1 subscriptions will be revoked on or shortly after this date.
+Please let us know if you have any questions below.
+3 Likes
+Channel followers
+Related topics
+Topic
+Replies
+Views
+Activity
+Follows endpoints and EventSub subscription type are now available in open beta
+Announcements
+16
+260913
+October 14, 2023
+Get Channel Followers usernames
+API
+3
+467
+October 29, 2023
+Issue with channel followers endpoint
+API
+4
+536
+September 16, 2023
+Channel followers
+API
+1
+811
+September 15, 2023
+Empty results from api.twitch.tv/helix/channels/followers
+API
+4
+230
+December 18, 2023
+Home
+Categories
+Guidelines
+Terms of Service
+Privacy Policy
+Powered by Discourse , best viewed with JavaScript enabled
