@@ -53,7 +53,7 @@ const free = [
 const team = [
   { title: "Every repository, one view", text: "A dashboard across your organisation, and the blast radius of a single shutdown: which repositories break, and where." },
   { title: "Warned before the date", text: "Email or Slack when a repository calls something due to shut down, 30 and 7 days ahead, not the morning it fails." },
-  { title: "Private repositories", text: "The GitHub App watches private code on every push and opens an issue per finding, with a fix pull request on request." },
+  { title: "Private repositories", text: "The GitHub App, or a connected GitLab group, watches private code on every push and opens an issue per finding. On GitHub, a fix pull request on request." },
   { title: "What actually runs", text: "Runtime observation from your existing OpenTelemetry: which deprecated calls production really makes, and how often." },
   { title: "Your own APIs", text: "Record your internal services' deprecations once, in your organisation's .docswatcher repository, and every repository that calls them hears about it the same way." },
 ];

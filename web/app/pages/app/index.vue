@@ -1,23 +1,26 @@
 <script setup lang="ts">
-import { createOrgApi, siteBase, type Me, type OrgApi } from "~/utils/orgApi";
+import { createOrgApi, PROVIDER_NAME, signInProviders, siteBase, type Me, type OrgApi } from "~/utils/orgApi";
 
 const store = useScanStore();
 const route = useRoute();
 
 /*
- * Signed in with GitHub, this page is the organisation dashboard (components/OrgDashboard.vue).
+ * Signed in with GitHub or GitLab, this page is the organisation dashboard (components/OrgDashboard.vue).
  * Signed out, or served where no app stands behind the site, it is what it always was: the last
  * scan run in this browser, with an invitation to sign in when sign-in exists here.
  */
 const me = ref<Me | null>(null);
 const api = shallowRef<OrgApi | null>(null);
 const signedIn = computed(() => !!me.value?.signedIn);
-const SIGNIN_PROBLEMS: Record<string, string> = {
-  denied: "Sign-in was cancelled on GitHub.",
-  failed: "Sign-in with GitHub did not complete. Try again.",
-  unavailable: "Sign-in with GitHub is not configured on this deployment.",
+const providers = computed(() => signInProviders(me.value));
+/* The callback does not say which provider it came back from, so the words name what is offered. */
+const offered = computed(() => providers.value.map((p) => PROVIDER_NAME[p]).join(" or ") || "GitHub");
+const SIGNIN_PROBLEMS: Record<string, (by: string) => string> = {
+  denied: (by) => `Sign-in was cancelled on ${by}.`,
+  failed: (by) => `Sign-in with ${by} did not complete. Try again.`,
+  unavailable: (by) => `Sign-in with ${by} is not configured on this deployment.`,
 };
-const signinProblem = computed(() => SIGNIN_PROBLEMS[String(route.query.signin ?? "")] ?? "");
+const signinProblem = computed(() => SIGNIN_PROBLEMS[String(route.query.signin ?? "")]?.(offered.value) ?? "");
 
 async function refreshMe() {
   api.value ??= createOrgApi(siteBase(location.href));
@@ -83,15 +86,19 @@ async function prepareExample() {
   <OrgDashboard v-if="signedIn && api && me" :me="me" :api="api" @signed-out="onSignedOut" />
   <div v-else>
     <p v-if="signinProblem" class="section notice bad" role="alert" data-testid="signin-problem">{{ signinProblem }}</p>
-    <div v-if="me?.enabled && api" class="section signin-cta" data-testid="signin-cta">
+    <div v-if="providers.length && api" class="section signin-cta" data-testid="signin-cta">
       <div>
         <h2>See your organisation</h2>
         <p class="t2 ink-soft">
-          Sign in with GitHub to see every repository DocsWatcher watches for your organisation, one
-          view, and the blast radius of a single shutdown. You see only what GitHub lets you see.
+          Sign in with {{ offered }} to see every repository DocsWatcher watches for your organisation, one
+          view, and the blast radius of a single shutdown. You see only what {{ offered }} lets you see.
         </p>
       </div>
-      <a class="btn solid" :href="api.loginUrl()">Sign in with GitHub to see your organisation</a>
+      <div class="row signin-buttons">
+        <a v-for="p in providers" :key="p" class="btn solid" :href="api.loginUrl(p)" :data-testid="`signin-${p}`">
+          Sign in with {{ PROVIDER_NAME[p] }} to see your organisation
+        </a>
+      </div>
     </div>
 
     <Board
@@ -188,4 +195,5 @@ async function prepareExample() {
 }
 .signin-cta h2 { margin-bottom: var(--s1); }
 .signin-cta p { max-width: var(--measure); }
+.signin-buttons { gap: var(--s3); flex-wrap: wrap; }
 </style>

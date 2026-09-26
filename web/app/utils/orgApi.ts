@@ -2,16 +2,24 @@ import type { Finding, Severity } from "~~/engine/types";
 import { normaliseRuntimeSummary, type CreatedToken, type IngestToken, type RuntimeSummary } from "./runtime";
 
 /**
- * The organisation dashboard's view of the app's API. docs/adr/0008-sign-in-with-github.md.
+ * The organisation dashboard's view of the app's API. docs/adr/0008-sign-in-with-github.md and
+ * docs/adr/0011-gitlab.md.
  *
  * Every call is same-origin and resolved against the page's own address, like the early-access
  * form, so the static site works wherever it is served. Authentication is the HttpOnly session
  * cookie the app set at sign-in; page script never sees it, only sends it.
  */
 
+export type Provider = "github" | "gitlab";
+
 export interface Me {
+  /** Some sign-in exists on this deployment. */
   enabled: boolean;
+  /** Which sign-ins exist. An app from before GitLab leaves it out, and then enabled means GitHub. */
+  providers?: Partial<Record<Provider, boolean>>;
   signedIn: boolean;
+  /** What the person signed in with. */
+  provider?: Provider;
   user?: { login: string; name: string | null; avatarUrl: string | null };
   orgs?: { login: string; installationId: number; repos: number }[];
   expiresAt?: string;
@@ -33,6 +41,7 @@ export interface RepoSummary {
   lastScannedSha: string | null;
   production: boolean;
   openFindings: number;
+  provider?: Provider;
 }
 
 export interface MapNode {
@@ -66,6 +75,29 @@ export interface BlastRadius {
 export type FindingAction = "snooze" | "not-in-prod" | "fix";
 
 export interface Ack { status: string; detail: unknown }
+
+/** A connected GitLab group or project. webhookToken is sent once, when the connection is created. */
+export interface GitLabConnection {
+  id: number;
+  login: string;
+  kind: "group" | "project";
+  namespace: string;
+  projects: number;
+  tokenExpiresAt: string | null;
+  connectedBy: string;
+  createdAt: string;
+  webhookUrl: string;
+  webhookToken?: string | null;
+}
+
+/** The sign-ins this deployment offers, in the order the site shows them. */
+export function signInProviders(me: Me | null): Provider[] {
+  if (!me?.enabled) return [];
+  if (!me.providers) return ["github"];
+  return (["github", "gitlab"] as const).filter((p) => me.providers![p]);
+}
+
+export const PROVIDER_NAME: Record<Provider, string> = { github: "GitHub", gitlab: "GitLab" };
 
 /**
  * Raised for any non-2xx answer, carrying the status so the page can say what it means, and the
@@ -216,9 +248,11 @@ export function createOrgApi(base: string, fetchImpl: typeof fetch = fetch) {
       headers: { Accept: "application/json", ...(init?.body ? { "Content-Type": "application/json" } : {}), ...(init?.headers ?? {}) },
     });
     if (!res.ok) {
+      // The app explains a refusal as {"error": ...} or {"message": ...}; either is shown as text.
       const body = await res.json().catch(() => null);
-      const detail = body && typeof body.error === "string" ? body.error : null;
-      throw new ApiError(res.status, `${res.status} ${res.statusText}`.trim(), detail);
+      const said = body && typeof body.error === "string" && body.error ? body.error
+        : body && typeof body.message === "string" && body.message ? body.message : null;
+      throw new ApiError(res.status, said ?? `${res.status} ${res.statusText}`.trim(), said);
     }
     if (res.status === 204) return undefined as T;
     return (await res.json()) as T;
@@ -235,7 +269,7 @@ export function createOrgApi(base: string, fetchImpl: typeof fetch = fetch) {
         return { enabled: false, signedIn: false };
       }
     },
-    loginUrl: () => new URL("auth/github/login", base).toString(),
+    loginUrl: (provider: Provider = "github") => new URL(`auth/${provider}/login`, base).toString(),
     logout: () => call<void>("auth/logout", { method: "POST" }),
     overview: (login: string) => call<Overview>(org(login, "overview")),
     repos: (login: string) => call<RepoSummary[]>(org(login, "repos")),
@@ -270,6 +304,11 @@ export function createOrgApi(base: string, fetchImpl: typeof fetch = fetch) {
         method: "POST",
         body: JSON.stringify({ contract: f.contract, change: f.change, ...(days ? { days } : {}) }),
       }),
+    gitlabConnections: () => call<GitLabConnection[]>("api/gitlab/connections"),
+    /** The token travels once, in the body, to the app on the same origin; the page keeps no copy. */
+    connectGitLab: (namespace: string, token: string) =>
+      call<GitLabConnection>("api/gitlab/connections", { method: "POST", body: JSON.stringify({ namespace, token }) }),
+    disconnectGitLab: (id: number) => call<void>(`api/gitlab/connections/${id}/disconnect`, { method: "POST" }),
   };
 }
 

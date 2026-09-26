@@ -64,6 +64,12 @@ async function mockApi(page: Page, me: object): Promise<Mock> {
           slack: body.slackWebhook === "" ? { configured: false } : ALERTS.slack });
       }
       if (path === "api/orgs/acme/alerts/test") return json(route, { emails: 1, slackMessages: 1, failures: 0 });
+      if (path === "api/gitlab/connections") {
+        return json(route, {
+          id: -1, login: "acme", kind: "group", namespace: "acme", projects: 2, tokenExpiresAt: "2027-03-01", connectedBy: "gitlab:tanuki",
+          createdAt: "2026-09-26T10:00:00Z", webhookUrl: "https://docswatcher.test/webhooks/gitlab", webhookToken: "hook-secret-shown-once",
+        }, 201);
+      }
       return json(route, { status: path.endsWith("snooze") ? "snoozed" : "ok", detail: null });
     }
     switch (path) {
@@ -265,4 +271,40 @@ test("alerts: someone without write access sees the settings read-only", async (
   await expect(page.getByTestId("alerts-readonly")).toBeVisible();
   await expect(page.getByTestId("alerts-emails")).toBeDisabled();
   await expect(page.getByTestId("alerts-save")).toHaveCount(0);
+test("signed out on a deployment with both sign-ins, both are offered", async ({ page }) => {
+  await mockApi(page, { ...ME_OUT, providers: { github: true, gitlab: true } });
+  await page.goto("./#/app");
+  const cta = page.getByTestId("signin-cta");
+  await expect(cta.getByTestId("signin-github")).toHaveAttribute("href", /\/auth\/github\/login$/);
+  await expect(cta.getByTestId("signin-gitlab")).toHaveAttribute("href", /\/auth\/gitlab\/login$/);
+  await expect(cta).toContainText("Sign in with GitHub or GitLab");
+});
+
+test("signed in with GitLab and nothing connected, a maintainer connects a group and sees the webhook once", async ({ page }) => {
+  const mock = await mockApi(page, { ...ME_IN, provider: "gitlab", user: { login: "tanuki", name: null, avatarUrl: null }, orgs: [] });
+  await page.goto("./#/app");
+  await expect(page.getByTestId("no-orgs")).toContainText("GitLab groups you belong to");
+  const panel = page.getByTestId("gitlab-connect");
+  await expect(panel).toBeVisible();
+  await panel.getByLabel("Group or project path").fill("acme");
+  await panel.getByLabel("Access token").fill("glpat-secret");
+  await panel.getByRole("button", { name: "Connect" }).click();
+  await expect(page.getByTestId("gitlab-connected")).toContainText("acme is connected, with 2 projects");
+  await expect(page.getByTestId("gitlab-webhook-url")).toHaveText("https://docswatcher.test/webhooks/gitlab");
+  await expect(page.getByTestId("gitlab-webhook-token")).toHaveText("hook-secret-shown-once");
+  // The page keeps no copy of the access token once it is sent.
+  await expect(panel.getByLabel("Access token")).toHaveValue("");
+  expect(mock.posts).toContainEqual({ url: "api/gitlab/connections", body: { namespace: "acme", token: "glpat-secret" } });
+
+  // The webhook details fit a phone without scrolling sideways.
+  await page.setViewportSize({ width: 375, height: 800 });
+  const overflow = await page.evaluate(() => document.scrollingElement!.scrollWidth - window.innerWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test("signed in with GitHub, there is no GitLab connect panel", async ({ page }) => {
+  await mockApi(page, ME_IN);
+  await page.goto("./#/app");
+  await expect(page.getByTestId("org-dashboard")).toBeVisible();
+  await expect(page.getByTestId("gitlab-connect")).toHaveCount(0);
 });

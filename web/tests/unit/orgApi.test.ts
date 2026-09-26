@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
-  ApiError, changesIn, createOrgApi, normaliseFinding, openFindings, orgFinding, parseThresholds, providerRows, siteBase, splitEmails,
+  ApiError, changesIn, createOrgApi, normaliseFinding, openFindings, orgFinding, parseThresholds, providerRows, signInProviders, siteBase, splitEmails,
   type HorizonMonth, type RepoFinding,
 } from "../../app/utils/orgApi";
 
@@ -144,5 +144,34 @@ describe("createOrgApi", () => {
 
   it("points sign-in at the app beside the site", () => {
     expect(createOrgApi("https://host.test/deep/", fakeFetch({}).impl).loginUrl()).toBe("https://host.test/deep/auth/github/login");
+    expect(createOrgApi("https://host.test/deep/", fakeFetch({}).impl).loginUrl("gitlab")).toBe("https://host.test/deep/auth/gitlab/login");
+  });
+
+  it("carries the app's own explanation of a refusal", async () => {
+    const api = createOrgApi(BASE, fakeFetch({ "api/gitlab/connections": { status: 403, body: { message: "The token's role on acme is below Maintainer." } } }).impl);
+    const err = await api.connectGitLab("acme", "glpat-x").catch((e) => e);
+    expect(err).toBeInstanceOf(ApiError);
+    expect(err.status).toBe(403);
+    expect(err.message).toBe("The token's role on acme is below Maintainer.");
+  });
+
+  it("connects a GitLab group with the path and token in the body", async () => {
+    const { impl, calls } = fakeFetch({
+      "api/gitlab/connections": { status: 201, body: { id: -1, login: "acme", kind: "group", namespace: "acme", projects: 2, webhookUrl: "u", webhookToken: "w" } },
+    });
+    const c = await createOrgApi(BASE, impl).connectGitLab("acme", "glpat-x");
+    expect(c.webhookToken).toBe("w");
+    expect(calls[0]!.init.method).toBe("POST");
+    expect(JSON.parse(calls[0]!.init.body as string)).toEqual({ namespace: "acme", token: "glpat-x" });
+  });
+});
+
+describe("signInProviders", () => {
+  it("offers what the app says exists, and GitHub alone for an app from before GitLab", () => {
+    expect(signInProviders(null)).toEqual([]);
+    expect(signInProviders({ enabled: false, signedIn: false })).toEqual([]);
+    expect(signInProviders({ enabled: true, signedIn: false })).toEqual(["github"]);
+    expect(signInProviders({ enabled: true, signedIn: false, providers: { github: false, gitlab: true } })).toEqual(["gitlab"]);
+    expect(signInProviders({ enabled: true, signedIn: false, providers: { github: true, gitlab: true } })).toEqual(["github", "gitlab"]);
   });
 });

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  ApiError, changesIn, openFindings, orgFinding, providerRows, siteBase,
+  ApiError, changesIn, openFindings, orgFinding, PROVIDER_NAME, providerRows, siteBase,
   type BlastRadius, type FindingAction, type HorizonMonth, type MapNode, type Me, type OrgApi,
   type Overview, type RepoFinding, type RepoSummary,
 } from "~/utils/orgApi";
@@ -11,13 +11,15 @@ import { ingestEndpoint } from "~/utils/runtime";
  * Every repository, one view: the organisation dashboard for a signed-in person.
  *
  * It shows only what the server returns for this session, which is already narrowed to the
- * repositories GitHub says the person can see (docs/adr/0008-sign-in-with-github.md). Everything
- * is rendered as text.
+ * repositories GitHub or GitLab says the person can see (docs/adr/0008-sign-in-with-github.md,
+ * docs/adr/0011-gitlab.md). Everything is rendered as text.
  */
 const props = defineProps<{ me: Me; api: OrgApi }>();
 const emit = defineEmits<{ "signed-out": [] }>();
 
 const orgs = computed(() => props.me.orgs ?? []);
+const provider = computed(() => props.me.provider ?? "github");
+const providerName = computed(() => PROVIDER_NAME[provider.value]);
 const login = ref(orgs.value[0]?.login ?? "");
 
 const overview = ref<Overview | null>(null);
@@ -99,6 +101,7 @@ async function act(r: RepoFinding, action: FindingAction) {
     }
   } catch (e) {
     const text = e instanceof ApiError && e.status === 403 ? `You need write access to ${r.repoFullName} to do this.`
+      : e instanceof ApiError && e.status === 409 ? "Fix pull requests are GitHub only. On GitLab, the finding's issue and this dashboard carry it."
       : e instanceof ApiError && e.status === 404 ? "That finding is no longer there. Reload to see the latest."
       : e instanceof ApiError && e.status === 401 ? (expired.value = true, "Your session has ended. Sign in again to carry on.")
       : `That did not work (${e instanceof Error ? e.message : String(e)}).`;
@@ -183,7 +186,8 @@ const what = (r: RepoFinding) => contractLabel(r.finding.contract).key;
           <h1>Every repository, one view</h1>
           <p>
             Signed in as <span class="mono" data-testid="signed-in-as">{{ me.user?.login }}</span>.
-            You see the repositories GitHub lets you see, in organisations where DocsWatcher is installed.
+            You see the repositories {{ providerName }} lets you see, in organisations where DocsWatcher is
+            {{ provider === "gitlab" ? "connected" : "installed" }}.
           </p>
         </div>
         <div class="row org-controls">
@@ -200,12 +204,16 @@ const what = (r: RepoFinding) => contractLabel(r.finding.contract).key;
     </section>
 
     <p v-if="expired" class="section notice bad" role="alert">
-      Your session has ended. <a :href="api.loginUrl()">Sign in with GitHub again.</a>
+      Your session has ended. <a :href="api.loginUrl(provider)">Sign in with {{ providerName }} again.</a>
     </p>
 
     <section v-if="!orgs.length" class="section empty" data-testid="no-orgs">
       <h3>No organisation to show yet</h3>
-      <p>
+      <p v-if="provider === 'gitlab'">
+        None of the GitLab groups you belong to is connected to DocsWatcher on this deployment, or you
+        cannot read any of the projects it covers. A maintainer can connect one below, then sign in again.
+      </p>
+      <p v-else>
         None of the organisations you belong to has the DocsWatcher GitHub App installed on this
         deployment, or you cannot see any of the repositories it covers. Ask an organisation owner
         to install it, then sign in again.
@@ -343,6 +351,8 @@ const what = (r: RepoFinding) => contractLabel(r.finding.contract).key;
 
       <AlertSettings :login="login" :api="api" />
     </template>
+
+    <GitLabConnect v-if="provider === 'gitlab'" :api="api" />
   </div>
 </template>
 
