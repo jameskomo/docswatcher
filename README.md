@@ -91,9 +91,15 @@ Asked for "a script using gpt-4-turbo", Claude Code called `check_api` on its ow
 the model shuts down on 2026-10-23, naming the replacement. Offline, read-only, nothing leaves the
 machine. See [`docs/14-coding-agents.md`](./docs/14-coding-agents.md).
 
-**Watching a repository.** The GitHub App scans on every push, opens an issue per finding with
-the file and line, and can open a fix pull request when you add a label. Setup is in
-[`docs/07-getting-started.md`](./docs/07-getting-started.md).
+**Watching a repository.** The GitHub App, or a connected GitLab group, scans on every push to the
+default branch and opens an issue per finding with the file and line, with a check run on GitHub
+and a commit status on GitLab. On GitHub a label can also open a fix pull request. Sign in with
+GitHub or GitLab on the [dashboard](https://docswatcher.vukisha.co.ke/#/app) to see every
+repository's findings in one view, the blast radius of one shutdown, email and Slack alerts before
+the date, and, from your own OpenTelemetry, which deprecated calls production actually makes
+([`docs/13-runtime-observation.md`](./docs/13-runtime-observation.md)). Setup is in
+[`docs/07-getting-started.md`](./docs/07-getting-started.md); the
+[Teams page](https://docswatcher.vukisha.co.ke/#/teams) says how to start.
 
 ## Keeping test data out
 
@@ -132,7 +138,8 @@ shutdown on a timeline, whether or not you have scanned anything. Subscribe to i
 Calendar, Apple Calendar or Outlook ([`deprecations.ics`](https://docswatcher.vukisha.co.ke/feeds/deprecations.ics),
 or one provider at `/feeds/openai.ics`), follow it as an
 [Atom feed](https://docswatcher.vukisha.co.ke/feeds/deprecations.atom), or build on the
-[open JSON](https://docswatcher.vukisha.co.ke/feeds/deprecations.json).
+[open JSON](https://docswatcher.vukisha.co.ke/feeds/deprecations.json). Or ask for an email 30 and
+7 days before each date, confirmed from your inbox first, with a one-click unsubscribe.
 
 A scan of a public repository has a link that re-runs it for whoever opens it,
 `https://docswatcher.vukisha.co.ke/#/?repo=owner/name`, and a README badge that does the same.
@@ -146,7 +153,8 @@ day and opens an issue when one announces something new, so the records do not q
 
 ## How it is put together
 
-Four pieces: a browser scanner (`web/`), a CLI (`cli/`), a GitHub App (`app/`), and the open
+Four pieces: a browser scanner (`web/`), a CLI (`cli/`), a server app (`app/`) behind the GitHub
+App, GitLab, the dashboard and alerts, and the open
 knowledge base (`knowledge/`). The detection rules are declarative YAML shared by two
 independent engines — one in Java, one in TypeScript — and a parity check runs both over every
 fixture on each build and fails if their output differs by a byte. A finding you get in the

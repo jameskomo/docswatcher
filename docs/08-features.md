@@ -280,6 +280,10 @@ A native binary builds via `./mvnw -Pnative -pl cli -am package`, starts in unde
 
 Nuxt 4, exported as static files, with the engine running entirely in the browser.
 
+Pages: the scanner (`/`), the calendar (`/calendar`), the dashboard (`/app`), finding detail, CI
+(`/ci`), Agents (`/agents`), Teams (`/teams`) and About (`/about`). Every feature is named on the
+home page and linked from the footer, so none is reachable only by knowing its address.
+
 ### The scanner
 
 Three input modes on the landing page.
@@ -334,6 +338,13 @@ network, no CORS) gets its own message.
 
 **Local folder.** Reads a directory you pick. Nothing leaves the browser.
 
+**What DocsWatcher does.** Below the scan results, the home page has one card per capability, each
+linking to where it lives: scanning (the languages, and the provider and record counts read from
+the knowledge base, never written in), CI (the Action, the GitLab CI template with its Code
+Quality report, and the downloads), AI assistants (the MCP tools and Try it), the calendar with its
+feeds and email alerts, your own APIs (docs/19-your-own-apis.md), and teams (sign-in with GitHub or
+GitLab, the dashboard, alerts, runtime observation, the GitHub App and GitLab integration).
+
 ### The calendar
 
 `/calendar` lists every deprecation we track, grouped by the month it takes effect, with a toggle for ones already past. Generated from the knowledge base at build time. This is the public SEO surface described in the vision document.
@@ -342,7 +353,9 @@ Beside the calendar feeds, anyone can ask for **email alerts**: an address and, 
 provider. The app emails a confirmation link and nothing else until it is clicked. Then it emails
 30 and 7 days before each tracked shutdown in that provider, one digest a day at most, each with
 a one-click unsubscribe. Only the address, its providers and its confirmation state are kept, and
-there are no tracking pixels (ADR 0010).
+there are no tracking pixels (ADR 0010). Where the deployment cannot send email yet, the form shows
+the server's reason and points back at the calendar feed. A line under it sends anyone who wants
+alerts about their own repositories to the dashboard.
 
 ### The dashboard
 
@@ -401,19 +414,30 @@ with and without `check_api`, side by side, with every check it made. The browse
 provider directly and answers `check_api` itself; the key never reaches DocsWatcher. The model
 list is the key's own, with retiring models marked and never chosen by default. ADR 0006.
 
-### The CI and Teams pages
+### The CI, Teams and About pages
 
-`/ci` is the GitHub Action and plain-shell guide, with the upgrade notice for releases up to
-v0.2.1. `/teams` lists what stays free and what teams get, with an in-page early-access form
-that posts to the app (ADR 0005). It also carries the runtime observation setup guide: a Collector
+`/ci` is the GitHub Action, GitLab CI and plain-shell guide, with the upgrade notice for releases
+up to v0.2.1, and points at the GitHub App and GitLab integration for watching instead. `/teams`
+lists what stays free, then what teams get as built features, each card linking to where it lives:
+the dashboard, alerts before the date, the GitHub App and GitLab, runtime observation and your own
+APIs. "How to start" says how: an owner installs the GitHub App, or a GitLab maintainer connects a
+group from the dashboard, then everyone signs in. The in-page early-access form (ADR 0005) is for
+teams that want help getting started, the App's install link, or pricing. It also carries the runtime observation setup guide: a Collector
 config that keeps only outbound HTTP client spans and strips them to what DocsWatcher reads, the
 header capture settings for the Java, Python and Node SDKs, and what is sent and kept. The same
 guide sits in the dashboard, pointed at the deployment serving it.
 
+`/about` explains the problem and the scan, where code goes (nowhere, for the browser and CI; the
+App and GitLab integration clone on the server by design), and a "What does not exist yet" list
+kept in step with the "Not built yet" list in `docs/09-status.md`.
+
 ### The footer
 
-Every page ends with links to every feature: the pages, the three feeds, the source, the latest
-release, the documentation and the knowledge base.
+Every page ends with links to every feature, in four groups. Use it: the scanner, the calendar,
+email alerts, CI on GitHub and on GitLab, the AI assistant setup and Try it. For teams: sign-in
+(the dashboard), the Teams page, the runtime observation setup and early access. Subscribe and
+build on it: the three feeds, and the your-own-APIs and runtime observation docs. Open source: the
+source, the latest release, the documentation, the knowledge base and how it works.
 
 ### Presentation
 
@@ -432,6 +456,13 @@ Spring Boot 4 on Java 25. This is the backend for the GitHub App and for connect
 
 Deliveries are de-duplicated so a GitHub retry does not scan twice.
 
+`POST /webhooks/gitlab` takes GitLab's push and issue hooks. GitLab does not sign bodies, so the
+`X-Gitlab-Token` header must be the webhook token DocsWatcher issued to a connection. Only its
+SHA-256 is stored, and the comparison is constant-time. The connection's namespace bounds what the
+event may touch, judged by the stored project path, never the payload's. A project new to a
+connected group is checked with GitLab and adopted on its first push. Retries are de-duplicated on
+`Idempotency-Key` or `X-Gitlab-Event-UUID`.
+
 ### Alerts before the date
 
 A daily job (06:00 UTC) sends each organisation with alerts on one digest per channel: one Slack
@@ -445,14 +476,9 @@ the channel accepted it. A day the job missed is caught up once, with one warnin
 threshold, and a failed channel is retried the next day. Email goes through Brevo as plain text;
 Slack only to `https://hooks.slack.com/services/...`. Every email has a link that takes its
 address off the list. ADR 0010.
-`POST /webhooks/gitlab` takes GitLab's push and issue hooks. GitLab does not sign bodies, so the
-`X-Gitlab-Token` header must be the webhook token DocsWatcher issued to a connection. Only its
-SHA-256 is stored, and the comparison is constant-time. The connection's namespace bounds what the
-event may touch, judged by the stored project path, never the payload's. A project new to a
-connected group is checked with GitLab and adopted on its first push. Retries are de-duplicated on
-`Idempotency-Key` or `X-Gitlab-Event-UUID`.
 
 ### GitLab connections
+
 A GitLab group or project is connected with a group or project access token its maintainer creates
 for DocsWatcher. GitLab must confirm the token has the `api` scope and the Maintainer role. The
 token is stored AES-256-GCM encrypted under a key held in a secret file, never in plain text. A

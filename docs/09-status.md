@@ -4,10 +4,8 @@ Last updated 2026-09-24. Everything below was verified by running it on that dat
 
 ## One-line status
 
-The scanner works end to end from a browser, a command line, CI, a GitHub App and now a coding
-agent. The knowledge base is watched daily. What is thin is reach: 27 providers, eight languages
 The scanner works end to end from a browser, a command line, CI, a GitHub App, a connected GitLab
-group and a coding agent. The knowledge base is watched daily. What is thin is reach: fifteen providers, eight languages
+group and a coding agent. The knowledge base is watched daily. What is thin is reach: 27 providers, eight languages
 for call sites, and no native binary for Intel Macs.
 
 ## Built and verified
