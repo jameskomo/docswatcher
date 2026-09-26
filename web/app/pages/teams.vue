@@ -130,8 +130,9 @@ useHead({
         <h2>How to start</h2>
         <ol>
           <li>
-            <strong>GitHub.</strong> An organisation owner installs the DocsWatcher GitHub App on the
-            repositories to watch. If you do not have its install link, ask below and we will send it.
+            <strong>GitHub.</strong> An organisation owner
+            <a href="https://github.com/apps/docswatcher/installations/new" target="_blank" rel="noopener" data-testid="install-app">installs the DocsWatcher GitHub App</a>
+            on the repositories to watch.
             To run your own, <a :href="`${REPO}/blob/main/app/README.md`" target="_blank" rel="noopener">app/README.md</a> has the steps.
           </li>
           <li>
@@ -162,8 +163,8 @@ useHead({
       <section class="early" id="early-access" data-testid="early-access">
         <h2>Early access: a hand getting started, and pricing</h2>
         <p class="ink-soft">
-          Tell us about your repositories and we will help you set up, send the GitHub App's install
-          link, and talk about pricing for your team. The first teams get a founding price and a direct
+          Tell us about your repositories and we will help you set up and talk about pricing for your
+          team. The first teams get a founding price and a direct
           line to shape what gets built next. We only use this to reply to you.
         </p>
 

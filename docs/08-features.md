@@ -422,7 +422,7 @@ lists what stays free, then what teams get as built features, each card linking 
 the dashboard, alerts before the date, the GitHub App and GitLab, runtime observation and your own
 APIs. "How to start" says how: an owner installs the GitHub App, or a GitLab maintainer connects a
 group from the dashboard, then everyone signs in. The in-page early-access form (ADR 0005) is for
-teams that want help getting started, the App's install link, or pricing. It also carries the runtime observation setup guide: a Collector
+teams that want help getting started or pricing. It also carries the runtime observation setup guide: a Collector
 config that keeps only outbound HTTP client spans and strips them to what DocsWatcher reads, the
 header capture settings for the Java, Python and Node SDKs, and what is sent and kept. The same
 guide sits in the dashboard, pointed at the deployment serving it.
