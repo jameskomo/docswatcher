@@ -77,7 +77,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"gpt-9-imaginary\" matches none of DocsWatcher's 202 deprecation records across 15 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"gpt-9-imaginary\" matches none of DocsWatcher's 309 deprecation records across 27 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
@@ -85,7 +85,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"0.28\" matches none of DocsWatcher's 202 deprecation records across 15 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"0.28\" matches none of DocsWatcher's 309 deprecation records across 27 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
@@ -144,7 +144,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"openai==0.28\" matches none of DocsWatcher's 202 deprecation records across 15 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"openai==0.28\" matches none of DocsWatcher's 309 deprecation records across 27 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
@@ -184,7 +184,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"gpt-4-turbo\" matches none of DocsWatcher's 202 deprecation records across 15 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"gpt-4-turbo\" matches none of DocsWatcher's 309 deprecation records across 27 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
@@ -202,7 +202,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"stripe\" matches none of DocsWatcher's 202 deprecation records across 15 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"stripe\" matches none of DocsWatcher's 309 deprecation records across 27 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
@@ -254,7 +254,7 @@
       },
       "verdict": "NO_KNOWN_DEPRECATION",
       "matches": [],
-      "answer": "NO KNOWN DEPRECATION: \"discountNodes\" matches none of DocsWatcher's 202 deprecation records across 15 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
+      "answer": "NO KNOWN DEPRECATION: \"discountNodes\" matches none of DocsWatcher's 309 deprecation records across 27 providers (knowledge base {version}, last verified 2026-09-24). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {
