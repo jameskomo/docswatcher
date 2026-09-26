@@ -13,6 +13,16 @@
   in every email; plain text with no tracking. New public routes `POST /subscribe`,
   `/subscribe/confirm` and `/unsubscribe`. Email is sent through Brevo; without
   `docswatcher.brevo.api-key` the app starts and says email alerts are off.
+- **What actually runs.** The organisation dashboard shows, per repository, which deprecated
+  calls production made (endpoint, provider, calls, last seen, and the finding each confirms or
+  the provider's Sunset header) and which open endpoint findings production has never been seen
+  making. Telemetry comes from the customer's own OpenTelemetry Collector with a per-repository
+  ingest token, created and revoked on the dashboard by anyone with write access; only its hash
+  is stored, it can write only its own repository, and the owner token keeps working (migration
+  V6). A setup guide on the teams page and in the dashboard gives the Collector config, SDK
+  header capture for Java, Python and Node, and what is sent and kept.
+  `docs/13-runtime-observation.md` no longer suggests `http/json` for the Java and Python SDKs,
+  which cannot send it.
 - **GitLab CI template.** `include:` `ci/gitlab/docswatcher.gitlab-ci.yml` from a release tag.
   The job downloads the Linux binary, checks it against the release's `checksums.txt` and fails
   closed like the Action does. It fails the pipeline on a breaking finding and writes a Code

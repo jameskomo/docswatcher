@@ -108,6 +108,10 @@ A request with neither a token nor a live session gets 401.
 | GET | `/api/repos/{id}/inventory` | The stored inventory document for one repository | read |
 | GET | `/api/repos/{id}/findings` | Findings for one repository | read |
 | GET | `/api/repos/{id}/runtime` | Runtime observations for one repository | read |
+| GET | `/api/repos/{id}/runtime/summary` | Deprecated calls production made, findings never observed, when telemetry last arrived | read |
+| GET | `/api/repos/{id}/runtime/tokens` | The repository's live ingest tokens: prefix, label, creator, last use. Never the token | read |
+| POST | `/api/repos/{id}/runtime/tokens` | Creates an ingest token, body `{"label"}`; 201 with the secret, shown this once; 409 at 20 live tokens | write |
+| POST | `/api/repos/{id}/runtime/tokens/{tokenId}/revoke` | Revokes an ingest token; 204, or 404 if it is not a live token of this repository | write |
 | POST | `/api/repos/{id}/rescan` | Queues a manual scan | write |
 | POST | `/api/repos/{id}/findings/snooze` | Snoozes the finding named in the body `{"contract", "change", "days"}`; `days` defaults to 30 | write |
 | POST | `/api/repos/{id}/findings/not-in-prod` | Marks the finding named in the body `{"contract", "change"}` informational | write |
@@ -120,7 +124,7 @@ A request with neither a token nor a live session gets 401.
 | GET | `/api/setup/workflow.txt` | The same, as plain text | yes |
 | GET | `/api/early-access` | Early-access requests from the Teams page, newest first | no |
 | POST | `/api/alerts/run` | Runs the daily alert job now and returns what it sent. Idempotent, like the job | no |
-| POST | `/api/runtime/otlp/v1/traces` | OTLP/JSON trace ingest (docs/13-runtime-observation.md) | no |
+| POST | `/api/runtime/otlp/v1/traces` | OTLP/JSON trace ingest (docs/13-runtime-observation.md). Also accepts a repository's ingest token as the bearer, which pins every span to that repository | no |
 
 ### Not under `/api`
 

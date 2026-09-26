@@ -363,6 +363,13 @@ organisations, a picker switches between them.
 - **Warned before the date.** Where the organisation's alerts go: up to ten email addresses and a
   Slack incoming webhook, and how many days ahead (30 and 7 by default). Anyone who sees the
   organisation reads them; writers change them and can send a test. See section 8.
+- **What actually runs.** Per repository, from the customer's own OpenTelemetry: the deprecated
+  calls production made (endpoint, provider, calls in total and a day, last seen, and the finding
+  each confirms or the provider's own Sunset or Deprecation header), and the open endpoint
+  findings production has never been seen making. Model findings are counted, not listed as
+  unseen, because an HTTP span cannot show a model name. Members with write access create and
+  revoke the repository's ingest tokens here; a new token is shown once. Until telemetry arrives
+  the screen says so and opens the setup guide (docs/13-runtime-observation.md).
 
 What a person sees is a snapshot GitHub gave at sign-in, and it lasts eight hours. Their GitHub
 token is not kept.
@@ -393,7 +400,10 @@ list is the key's own, with retiring models marked and never chosen by default. 
 
 `/ci` is the GitHub Action and plain-shell guide, with the upgrade notice for releases up to
 v0.2.1. `/teams` lists what stays free and what teams get, with an in-page early-access form
-that posts to the app (ADR 0005).
+that posts to the app (ADR 0005). It also carries the runtime observation setup guide: a Collector
+config that keeps only outbound HTTP client spans and strips them to what DocsWatcher reads, the
+header capture settings for the Java, Python and Node SDKs, and what is sent and kept. The same
+guide sits in the dashboard, pointed at the deployment serving it.
 
 ### The footer
 
@@ -456,6 +466,16 @@ Snoozes and verdicts survive rescans because findings are keyed by repository, c
 Adding the fix label dispatches a `repository_dispatch` event into the customer's own repository, carrying the finding, the evidence as structural locators only — path, line and column, never the matched source line — and the migration block. A workflow the app serves at `/api/setup/workflow` runs a coding agent with the customer's own API key, applies the migration, runs the affected tests, and opens a pull request.
 
 **We never spend tokens on remediation.** The customer's agent, the customer's key, the customer's CI. We own the trigger and the context, which is the part that is hard.
+
+### Runtime observation
+
+`POST /api/runtime/otlp/v1/traces` takes OTLP/JSON from a customer's Collector and keeps one row
+per repository, day and endpoint, only for endpoints the scanner found or that carried a
+Deprecation or Sunset header. Each repository has its own ingest tokens, stored as SHA-256
+hashes: a token names its repository, so the telemetry need not, and it cannot write into any
+other repository or reach any other route. The owner token still works. The findings API adds a
+`runtime` block to a finding production has been seen making, and
+`/api/repos/{id}/runtime/summary` gives the dashboard its view (docs/13-runtime-observation.md).
 
 ## 9. The relay
 

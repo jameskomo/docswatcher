@@ -116,7 +116,7 @@ The agent reads code DocsWatcher does not control, so its limits are enforced by
 
 ## API
 
-All under `/api`, JSON. The owner authenticates with the bearer token. A signed-in member uses the session cookie and can use every route below except `/early-access`, and cannot use the OTLP ingest. The member sees only their organisations and repositories, and needs write access for the POSTs (ADR 0008).
+All under `/api`, JSON. The owner authenticates with the bearer token. A signed-in member uses the session cookie and can use every route below except `/early-access`, and cannot use the OTLP ingest. A repository's ingest token opens the OTLP ingest and nothing else, and pins every span to that repository. The member sees only their organisations and repositories, and needs write access for the POSTs (ADR 0008).
 
 | Method and path | Returns |
 |---|---|
@@ -133,6 +133,10 @@ All under `/api`, JSON. The owner authenticates with the bearer token. A signed-
 | `POST /findings/{repoId}/{contractId}/{changeId}/fix` | dispatches the fix workflow, returns the payload |
 | `POST /repos/{id}/findings/snooze`, `/not-in-prod`, `/fix` | the same three actions, with the finding in the body: `{"contract": "...", "change": "...", "days": 30}`. For contract ids with a slash |
 | `GET /repos/{id}/runtime` | runtime observations for the repository |
+| `GET /repos/{id}/runtime/summary` | deprecated calls production made, findings never observed, when telemetry last arrived |
+| `GET /repos/{id}/runtime/tokens` | the repository's live ingest tokens, without the tokens |
+| `POST /repos/{id}/runtime/tokens` | body `{"label": "..."}`; creates an ingest token and returns its secret once (write) |
+| `POST /repos/{id}/runtime/tokens/{tokenId}/revoke` | revokes one (write) |
 | `POST /repos/{id}/rescan` | queues a manual scan |
 | `GET /setup/workflow` | the fix workflow YAML |
 | `GET /early-access` | early-access requests, newest first |
