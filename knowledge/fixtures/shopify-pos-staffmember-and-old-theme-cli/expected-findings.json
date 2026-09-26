@@ -1,0 +1,10 @@
+[
+  {
+    "contract": "shopify:sdk_method:session.currentSession.staffMemberId",
+    "change": "shopify-pos-session-staffmemberid-removed-2026"
+  },
+  {
+    "contract": "shopify:sdk_package:@shopify/cli",
+    "change": "shopify-theme-cli-password-store-legacy-auth-unsupported-2026"
+  }
+]

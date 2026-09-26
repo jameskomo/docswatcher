@@ -1,0 +1,53 @@
+[
+  {
+    "id": "shopify:sdk_method:session.currentSession.staffMemberId",
+    "provider": "shopify",
+    "kind": "sdk_method",
+    "key": "session.currentSession.staffMemberId",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "src/Tile.tsx",
+        "line": 5,
+        "column": 19,
+        "snippet": "const staffId = session.currentSession.staffMemberId;",
+        "detector": "shopify.literal.pos-session-staffmemberid",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "shopify:sdk_package:@shopify/cli",
+    "provider": "shopify",
+    "kind": "sdk_package",
+    "key": "@shopify/cli",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 8,
+        "column": 6,
+        "snippet": "\"@shopify/cli\": \"^3.80.0\"",
+        "detector": "shopify.manifest.npm",
+        "layer": "manifest"
+      }
+    ]
+  },
+  {
+    "id": "shopify:sdk_package:@shopify/ui-extensions",
+    "provider": "shopify",
+    "kind": "sdk_package",
+    "key": "@shopify/ui-extensions",
+    "confidence": "high",
+    "evidence": [
+      {
+        "path": "package.json",
+        "line": 5,
+        "column": 6,
+        "snippet": "\"@shopify/ui-extensions\": \"^2026.7.0\"",
+        "detector": "shopify.manifest.npm",
+        "layer": "manifest"
+      }
+    ]
+  }
+]

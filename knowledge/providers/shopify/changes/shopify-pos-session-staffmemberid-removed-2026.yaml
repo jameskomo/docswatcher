@@ -1,0 +1,38 @@
+id: shopify-pos-session-staffmemberid-removed-2026
+provider: shopify
+kind: sunset
+severity: breaking
+title: "POS UI Extensions: session.currentSession.staffMemberId removed"
+summary: >
+  As of POS UI Extensions API version 2026-10 the static
+  session.currentSession.staffMemberId field is removed from the Session API.
+  It was deprecated in 2026-07 in favour of session.staffMember, a reactive
+  signal that updates when a different staff member pins into POS. Extensions
+  targeting 2026-07 and earlier are unaffected; the BaseData
+  session.staffMemberId available to receipt targets is separate and remains.
+
+affects:
+  - kind: sdk_method
+    match: "session.currentSession.staffMemberId"
+  - kind: api_version
+    match: "2026-10"
+
+announced: 2026-09-17
+effective: 2026-10-01
+
+sources:
+  - kind: changelog
+    url: https://shopify.dev/changelog/removed-session-currentsession-staffmemberid-from-pos-ui-extensions-2026-10
+    observed: 2026-09-26
+
+migration:
+  replacement: "session.staffMember.value?.id (reactive signal)"
+  guide: https://shopify.dev/changelog/removed-session-currentsession-staffmemberid-from-pos-ui-extensions-2026-10
+  effort: small
+  notes: >
+    Replace reads of session.currentSession.staffMemberId with
+    session.staffMember.value?.id before targeting 2026-10. To react to staff
+    changes, subscribe to the signal, or read .value during render in a Preact
+    component with @shopify/ui-extensions/preact imported.
+
+status: active

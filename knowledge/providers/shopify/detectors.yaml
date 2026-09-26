@@ -11,8 +11,21 @@ manifests:
     package: ShopifyAPI
   - ecosystem: rubygems
     package: shopify_api
+  - ecosystem: npm
+    package: "@shopify/cli"
+  - ecosystem: npm
+    package: "@shopify/ui-extensions"
 
 literals:
+  # POS UI Extensions: the static staff-member field removed in 2026-10
+  - id: shopify.literal.pos-session-staffmemberid
+    kind: sdk_method
+    files: ["**/*.{ts,tsx,js,jsx,mjs,cjs}"]
+    exclude: ["**/node_modules/**", "**/dist/**"]
+    pattern: 'session\.currentSession\.staffMemberId'
+    key: "session.currentSession.staffMemberId"
+    confidence: high
+
   - id: shopify.literal.api-version-path
     kind: api_version
     files: ["**/*"]

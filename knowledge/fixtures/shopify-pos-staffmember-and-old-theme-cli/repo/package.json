@@ -1,0 +1,10 @@
+{
+  "name": "pos-loyalty-extension",
+  "private": true,
+  "dependencies": {
+    "@shopify/ui-extensions": "^2026.7.0"
+  },
+  "devDependencies": {
+    "@shopify/cli": "^3.80.0"
+  }
+}
