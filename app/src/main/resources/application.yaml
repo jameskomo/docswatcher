@@ -57,6 +57,17 @@ docswatcher:
   notify:
     url: ${DOCSWATCHER_NOTIFY_URL:}
     token: ${DOCSWATCHER_NOTIFY_TOKEN:}
+  # Customer email: team alerts and public subscriptions (docs/adr/0010-alerts-before-the-date.md).
+  # The key belongs in /run/secrets/docswatcher.brevo.api-key; BREVO_API_KEY is for local runs.
+  # Blank: the app starts, says email alerts are off, and sends Slack alerts only.
+  brevo:
+    api-key: ${BREVO_API_KEY:}
+    sender-email: ${DOCSWATCHER_ALERTS_FROM:alerts@vukisha.co.ke}
+    sender-name: DocsWatcher
+    daily-limit: 300
+  alerts:
+    # When the daily alert job runs, in UTC. "-" turns it off.
+    cron: "0 0 6 * * *"
   knowledge:
     dir: ${DOCSWATCHER_KNOWLEDGE_DIR:}
   worker:

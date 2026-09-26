@@ -83,9 +83,12 @@ public class AccessInterceptor implements HandlerInterceptor, HandlerMethodArgum
         return false;
       }
     } else if (access.value() == MemberAccess.Level.WRITE) {
-      // An action with no repository in its path has nothing to check write access against.
-      response.sendError(HttpServletResponse.SC_FORBIDDEN);
-      return false;
+      // With no repository in the path, an organisation-wide setting needs write on one of the
+      // organisation's repositories; an action naming neither has nothing to check against.
+      if (!vars.containsKey("login") || !viewer.canWriteOrg(vars.get("login"))) {
+        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Needs write access to a repository in the organisation");
+        return false;
+      }
     }
     return true;
   }

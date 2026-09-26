@@ -16,3 +16,6 @@ docswatcher:
     origin: https://docswatcher.test
   worker:
     enabled: false
+  # Tests run the alert job themselves, as of the day they choose.
+  alerts:
+    cron: "-"

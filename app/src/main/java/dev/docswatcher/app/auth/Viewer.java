@@ -29,6 +29,13 @@ public sealed interface Viewer permits Viewer.Owner, Viewer.Member {
 
   boolean canWrite(long repoId);
 
+  /**
+   * Whether an organisation-wide setting may be changed: write or above on at least one of the
+   * organisation's repositories the viewer can see. The bar a repository action sets, applied to
+   * the organisation the repository belongs to.
+   */
+  boolean canWriteOrg(String login);
+
   /** True for the owner: no filtering at all, so queries can skip the per-repository check. */
   default boolean seesEverything() {
     return false;
@@ -38,6 +45,7 @@ public sealed interface Viewer permits Viewer.Owner, Viewer.Member {
     @Override public boolean canSeeOrg(String login) { return true; }
     @Override public boolean canRead(long repoId) { return true; }
     @Override public boolean canWrite(long repoId) { return true; }
+    @Override public boolean canWriteOrg(String login) { return true; }
     @Override public boolean seesEverything() { return true; }
   }
 
@@ -70,6 +78,16 @@ public sealed interface Viewer permits Viewer.Owner, Viewer.Member {
     @Override
     public boolean canWrite(long repoId) {
       return WRITE_OR_ABOVE.contains(permissions.get(repoId));
+    }
+
+    @Override
+    public boolean canWriteOrg(String login) {
+      for (UserSession.OrgAccess org : session.orgs()) {
+        if (org.login().equalsIgnoreCase(login) && org.repos().stream().anyMatch(r -> WRITE_OR_ABOVE.contains(r.permission()))) {
+          return true;
+        }
+      }
+      return false;
     }
   }
 }

@@ -1,16 +1,12 @@
 package dev.docswatcher.app.earlyaccess;
 
+import dev.docswatcher.app.config.PublicForms;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.Clock;
 import java.time.Duration;
-import java.time.Instant;
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,12 +30,10 @@ public class EarlyAccessController {
   static final int MAX_MESSAGE = 2000;
   static final int PER_WINDOW = 5;
   static final Duration WINDOW = Duration.ofHours(1);
-  private static final Pattern EMAIL = Pattern.compile("^[^\\s@]{1,64}@[^\\s@]{1,188}\\.[^\\s@]{2,63}$");
 
   private final EarlyAccessStore store;
   private final EarlyAccessNotifier notifier;
-  private final Clock clock;
-  private final Map<String, Deque<Instant>> recent = new ConcurrentHashMap<>();
+  private final PublicForms.RateLimit limit;
 
   @Autowired
   public EarlyAccessController(EarlyAccessStore store, EarlyAccessNotifier notifier) {
@@ -49,26 +43,26 @@ public class EarlyAccessController {
   EarlyAccessController(EarlyAccessStore store, EarlyAccessNotifier notifier, Clock clock) {
     this.store = store;
     this.notifier = notifier;
-    this.clock = clock;
+    this.limit = new PublicForms.RateLimit(PER_WINDOW, WINDOW, clock);
   }
 
   @PostMapping("/early-access")
   public ResponseEntity<Map<String, Object>> submit(@RequestBody Form form, HttpServletRequest request) {
-    if (!allowed(client(request))) {
+    if (!limit.allow(PublicForms.client(request))) {
       return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(Map.of("ok", false, "error", "Too many requests. Try again later."));
     }
     // A bot filled the field people never see. Say yes and store nothing, so it learns nothing.
     if (form.website() != null && !form.website().isBlank()) return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("ok", true));
 
-    String email = clean(form.email(), 254).toLowerCase(Locale.ROOT);
-    if (!EMAIL.matcher(email).matches()) {
+    String email = PublicForms.clean(form.email(), 254).toLowerCase(Locale.ROOT);
+    if (!PublicForms.isEmail(email)) {
       return ResponseEntity.badRequest().body(Map.of("ok", false, "error", "Please enter a valid email address."));
     }
-    String company = clean(form.company(), MAX_FIELD);
-    String repositories = clean(form.repositories(), MAX_FIELD);
-    String providers = clean(form.providers(), MAX_FIELD);
-    String interest = clean(form.interest(), MAX_FIELD);
-    String message = cleanText(form.message(), MAX_MESSAGE);
+    String company = PublicForms.clean(form.company(), MAX_FIELD);
+    String repositories = PublicForms.clean(form.repositories(), MAX_FIELD);
+    String providers = PublicForms.clean(form.providers(), MAX_FIELD);
+    String interest = PublicForms.clean(form.interest(), MAX_FIELD);
+    String message = PublicForms.cleanText(form.message(), MAX_MESSAGE);
     int requests = store.save(email, company, repositories, providers, interest, message);
     notifier.tell(new EarlyAccessNotifier.Lead(email, company, repositories, providers, interest, message, requests));
     return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("ok", true));
@@ -78,50 +72,5 @@ public class EarlyAccessController {
   @GetMapping("/api/early-access")
   public List<EarlyAccessStore.Request> list() {
     return store.all();
-  }
-
-  /** Cloudflare sets CF-Connecting-IP to the real client; behind the tunnel the socket address is not. */
-  static String client(HttpServletRequest request) {
-    String cf = request.getHeader("CF-Connecting-IP");
-    if (cf != null && !cf.isBlank()) return cf.trim();
-    return request.getRemoteAddr();
-  }
-
-  boolean allowed(String client) {
-    Instant now = clock.instant();
-    Deque<Instant> times = recent.computeIfAbsent(client, k -> new ArrayDeque<>());
-    synchronized (times) {
-      while (!times.isEmpty() && times.peekFirst().isBefore(now.minus(WINDOW))) times.pollFirst();
-      if (times.size() >= PER_WINDOW) return false;
-      times.addLast(now);
-    }
-    // Keep the map from growing without bound on a long-running server: forget clients whose
-    // newest request has left the window.
-    if (recent.size() > 10_000) {
-      Instant cutoff = now.minus(WINDOW);
-      recent.entrySet().removeIf(e -> {
-        synchronized (e.getValue()) {
-          Instant last = e.getValue().peekLast();
-          return last == null || last.isBefore(cutoff);
-        }
-      });
-    }
-    return true;
-  }
-
-  /** One line: trimmed, control characters replaced by spaces, and cut to a length. */
-  static String clean(String value, int max) {
-    if (value == null) return "";
-    return cut(value.replaceAll("\\p{Cntrl}", " ").strip(), max);
-  }
-
-  /** Free text: as {@link #clean}, but the line breaks someone typed are kept. */
-  static String cleanText(String value, int max) {
-    if (value == null) return "";
-    return cut(value.replace("\r\n", "\n").replaceAll("[\\p{Cntrl}&&[^\\n]]", " ").strip(), max);
-  }
-
-  private static String cut(String s, int max) {
-    return s.length() > max ? s.substring(0, max) : s;
   }
 }
