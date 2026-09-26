@@ -61,8 +61,8 @@ Ordered by what is most likely to cost a user today.
 5. **Alerts beyond email and Slack.** Microsoft Teams, webhooks to anything else, and alerts for
    runtime-only evidence are not built. Team alerts are sent from one app process; two processes
    could both send before either records.
-5. **Fix pull requests on GitLab.** A GitLab project gets issues, a commit status and the dashboard, but no fix pull request: the fix loop is a GitHub `repository_dispatch`, and a GitLab pipeline trigger would be its counterpart. Findings are not posted as merge request notes either; default-branch scans have no merge request, and the commit status is what merge requests show (ADR 0012).
-6. **Your own APIs in the App's dashboard.** Issues and check runs carry a team's own change records in full, but the dashboard and fix pull requests look change records up in the bundled knowledge, so they show such a finding by its change id. The App reads only the owner's `.docswatcher` repository.
+6. **Fix pull requests on GitLab.** A GitLab project gets issues, a commit status and the dashboard, but no fix pull request: the fix loop is a GitHub `repository_dispatch`, and a GitLab pipeline trigger would be its counterpart. Findings are not posted as merge request notes either; default-branch scans have no merge request, and the commit status is what merge requests show (ADR 0012).
+7. **Your own APIs in the App's dashboard.** Issues and check runs carry a team's own change records in full, but the dashboard and fix pull requests look change records up in the bundled knowledge, so they show such a finding by its change id. The App reads only the owner's `.docswatcher` repository.
 
 ## Technical notes
 

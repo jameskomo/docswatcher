@@ -43,6 +43,7 @@ class ScanIsolationIT extends PostgresTest {
   @Autowired ContractStore contracts;
   @Autowired FindingStore findings;
   @Autowired FakeGitHubClient github;
+  @Autowired dev.docswatcher.app.forge.Forges forges;
   @Autowired GitCloner cloner;
   @Autowired ObjectMapper mapper;
   @Autowired JdbcClient jdbc;
@@ -77,7 +78,7 @@ class ScanIsolationIT extends PostgresTest {
     source.commitFile("models.yaml", "model: gpt-4-turbo\n", "add model");
     ProcessScanEngine crashing = new ProcessScanEngine(new EngineScanEngine(properties, mapper),
         new ProcessScanEngine.Settings(CrashingScan.class.getName(), 128, Duration.ofMinutes(1), List.of()));
-    ScanRunner runner = new ScanRunner(properties, crashing, github, cloner, repos, contracts, findings, runs, mapper);
+    ScanRunner runner = new ScanRunner(properties, crashing, forges, cloner, repos, contracts, findings, runs, mapper);
     long id = runs.enqueue(9001, null, ScanRun.TRIGGER_INSTALL);
 
     runner.run(runs.claimNext().orElseThrow());

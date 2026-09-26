@@ -271,6 +271,8 @@ test("alerts: someone without write access sees the settings read-only", async (
   await expect(page.getByTestId("alerts-readonly")).toBeVisible();
   await expect(page.getByTestId("alerts-emails")).toBeDisabled();
   await expect(page.getByTestId("alerts-save")).toHaveCount(0);
+});
+
 test("signed out on a deployment with both sign-ins, both are offered", async ({ page }) => {
   await mockApi(page, { ...ME_OUT, providers: { github: true, gitlab: true } });
   await page.goto("./#/app");

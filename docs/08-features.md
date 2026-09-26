@@ -451,6 +451,7 @@ SHA-256 is stored, and the comparison is constant-time. The connection's namespa
 event may touch, judged by the stored project path, never the payload's. A project new to a
 connected group is checked with GitLab and adopted on its first push. Retries are de-duplicated on
 `Idempotency-Key` or `X-Gitlab-Event-UUID`.
+
 ### GitLab connections
 A GitLab group or project is connected with a group or project access token its maintainer creates
 for DocsWatcher. GitLab must confirm the token has the `api` scope and the Maintainer role. The
