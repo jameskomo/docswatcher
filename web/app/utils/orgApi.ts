@@ -1,4 +1,5 @@
 import type { Finding, Severity } from "~~/engine/types";
+import { normaliseRuntimeSummary, type CreatedToken, type IngestToken, type RuntimeSummary } from "./runtime";
 
 /**
  * The organisation dashboard's view of the app's API. docs/adr/0008-sign-in-with-github.md.
@@ -255,6 +256,14 @@ export function createOrgApi(base: string, fetchImpl: typeof fetch = fetch) {
     saveAlerts: (login: string, update: AlertUpdate) =>
       call<AlertSettings>(org(login, "alerts"), { method: "POST", body: JSON.stringify(update) }),
     testAlerts: (login: string) => call<AlertTestResult>(org(login, "alerts/test"), { method: "POST" }),
+    /* Runtime observation: what production calls, and the tokens its telemetry is sent with. */
+    runtimeSummary: async (repoId: number): Promise<RuntimeSummary> =>
+      normaliseRuntimeSummary(await call(`api/repos/${repoId}/runtime/summary`)),
+    ingestTokens: (repoId: number) => call<IngestToken[]>(`api/repos/${repoId}/runtime/tokens`),
+    createIngestToken: (repoId: number, label: string) =>
+      call<CreatedToken>(`api/repos/${repoId}/runtime/tokens`, { method: "POST", body: JSON.stringify({ label }) }),
+    revokeIngestToken: (repoId: number, tokenId: number) =>
+      call<void>(`api/repos/${repoId}/runtime/tokens/${tokenId}/revoke`, { method: "POST" }),
     /** Findings are named in the body: a contract id can hold a slash no path segment carries. */
     act: (repoId: number, action: FindingAction, f: Pick<Finding, "contract" | "change">, days?: number) =>
       call<Ack>(`api/repos/${repoId}/findings/${action}`, {

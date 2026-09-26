@@ -93,6 +93,17 @@ useHead({
         </div>
       </div>
 
+      <section class="runtime" id="runtime" data-testid="runtime-guide">
+        <h2>What actually runs: setting it up</h2>
+        <p>
+          Runtime observation reuses the OpenTelemetry you already run. There is no DocsWatcher
+          library and no code change beyond naming two response headers: add one exporter to your
+          Collector, and the dashboard shows which deprecated calls production really makes, how
+          often, and which findings it has never been seen making.
+        </p>
+        <RuntimeSetup />
+      </section>
+
       <section class="early" id="early-access" data-testid="early-access">
         <h2>Request early access</h2>
         <p class="ink-soft">
@@ -166,6 +177,9 @@ useHead({
 .free { display: grid; gap: var(--s2); }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: var(--s3); margin-top: var(--s3); }
 .card { border: 1px solid var(--hair); border-radius: var(--radius-sm); padding: var(--s3); display: grid; gap: 6px; }
+.runtime { margin-top: var(--s6); display: grid; gap: var(--s3); }
+.runtime > * { min-width: 0; }
+.runtime > p { max-width: var(--measure); }
 .early { margin-top: var(--s6); }
 .form { display: grid; gap: var(--s3); margin-top: var(--s3); max-width: 560px; }
 .form label, .form fieldset { display: grid; gap: 6px; }

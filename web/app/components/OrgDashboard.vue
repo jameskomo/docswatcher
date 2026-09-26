@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import {
-  ApiError, changesIn, openFindings, orgFinding, providerRows,
+  ApiError, changesIn, openFindings, orgFinding, providerRows, siteBase,
   type BlastRadius, type FindingAction, type HorizonMonth, type MapNode, type Me, type OrgApi,
   type Overview, type RepoFinding, type RepoSummary,
 } from "~/utils/orgApi";
 import { contractLabel, fmtDate } from "~/utils/format";
+import { ingestEndpoint } from "~/utils/runtime";
 
 /**
  * Every repository, one view: the organisation dashboard for a signed-in person.
@@ -112,6 +113,14 @@ async function openRepoQuietly(id: number) {
   await openRepo(id);
   outcome.value = keep;
 }
+
+/* From a runtime row to the findings it confirms: open that repository's list and go there. */
+async function showFinding(id: number) {
+  await openRepo(id);
+  await nextTick();
+  document.getElementById("repo-findings")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+const pageHref = () => (typeof location === "undefined" ? "http://localhost/" : location.href);
 
 /* The blast radius of one change. */
 const changeId = ref("");
@@ -287,6 +296,14 @@ const what = (r: RepoFinding) => contractLabel(r.finding.contract).key;
           <p v-if="repoFailed" class="notice bad" role="alert">{{ repoFailed }}</p>
           <OrgFindings v-else :findings="repoFindings" :busy="busy" :outcome="outcome" @act="act" />
         </div>
+      </section>
+
+      <section class="section" id="org-runtime">
+        <div class="section-head">
+          <h2>What actually runs</h2>
+          <p>Which deprecated calls production really makes, and how often, from the OpenTelemetry you already run.</p>
+        </div>
+        <OrgRuntime :api="api" :repos="repos" :endpoint="ingestEndpoint(siteBase(pageHref()))" @show-finding="showFinding" @expired="expired = true" />
       </section>
 
       <section class="section" id="blast-radius">
