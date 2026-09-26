@@ -1,0 +1,70 @@
+[
+  {
+    "id": "googleai:model:gemini-3.8-flash-lite-tts",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-3.8-flash-lite-tts",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "tts_and_live.py",
+        "line": 9,
+        "column": 50,
+        "snippet": "return client.models.generate_content(model=\"gemini-3.8-flash-lite-tts\", contents=text)",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "googleai:model:gemini-3.8-flash-tts",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-3.8-flash-tts",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "tts_and_live.py",
+        "line": 6,
+        "column": 50,
+        "snippet": "return client.models.generate_content(model=\"gemini-3.8-flash-tts\", contents=text)",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "googleai:model:gemini-3.8-live",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-3.8-live",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "tts_and_live.py",
+        "line": 11,
+        "column": 15,
+        "snippet": "LIVE_MODEL = \"gemini-3.8-live\"",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "googleai:model:gemini-3.8-live-extended-thinking",
+    "provider": "googleai",
+    "kind": "model",
+    "key": "gemini-3.8-live-extended-thinking",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "tts_and_live.py",
+        "line": 12,
+        "column": 24,
+        "snippet": "FALLBACK_LIVE_MODEL = \"gemini-3.8-live-extended-thinking\"",
+        "detector": "googleai.literal.model",
+        "layer": "literal"
+      }
+    ]
+  }
+]

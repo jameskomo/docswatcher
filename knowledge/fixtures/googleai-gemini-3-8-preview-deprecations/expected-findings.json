@@ -1,0 +1,18 @@
+[
+  {
+    "contract": "googleai:model:gemini-3.8-flash-lite-tts",
+    "change": "googleai-gemini-3-8-flash-lite-tts-deprecated-2026"
+  },
+  {
+    "contract": "googleai:model:gemini-3.8-flash-tts",
+    "change": "googleai-gemini-3-8-flash-tts-deprecated-2026"
+  },
+  {
+    "contract": "googleai:model:gemini-3.8-live",
+    "change": "googleai-gemini-3-8-live-deprecated-2026"
+  },
+  {
+    "contract": "googleai:model:gemini-3.8-live-extended-thinking",
+    "change": "googleai-gemini-3-8-live-extended-thinking-deprecated-2026"
+  }
+]

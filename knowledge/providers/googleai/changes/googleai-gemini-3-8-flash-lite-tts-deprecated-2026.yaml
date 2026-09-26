@@ -1,0 +1,31 @@
+id: googleai-gemini-3-8-flash-lite-tts-deprecated-2026
+provider: googleai
+kind: sunset
+severity: warning
+title: "gemini-3.8-flash-lite-tts deprecated, shutdown date not yet announced"
+summary: >
+  Google marked gemini-3.8-flash-lite-tts as deprecated on the Gemini API deprecations page on
+  2026-09-22. No shutdown date is announced yet; the page lists shutdown dates as
+  the earliest possible retirement once one appears. Treat new builds on this
+  model as short-lived and plan the move to a current model.
+
+affects:
+  - kind: model
+    match: "gemini-3.8-flash-lite-tts"
+
+announced: 2026-09-22
+
+sources:
+  - kind: provider_page
+    url: https://ai.google.dev/gemini-api/docs/deprecations
+    observed: 2026-09-26
+
+migration:
+  replacement: "the current equivalent Gemini model for this capability"
+  guide: https://ai.google.dev/gemini-api/docs/deprecations
+  effort: small
+  notes: >
+    Watch the deprecations page for the shutdown date; this record gains an
+    effective date the day Google announces one.
+
+status: active
