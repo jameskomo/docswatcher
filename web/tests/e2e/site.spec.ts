@@ -399,6 +399,8 @@ test("the calendar offers email alerts with double opt-in, and says so", async (
   await box.getByRole("textbox").fill("bad@example.test");
   await page.getByTestId("email-alerts-submit").click();
   await expect(page.getByTestId("email-alerts-error")).toContainText("Email alerts are not available right now.");
+  // The server's own explanation is shown as it is, not followed by the page's fallback sentence.
+  expect((await page.getByTestId("email-alerts-error").innerText()).match(/works meanwhile/g)?.length ?? 0).toBeLessThanOrEqual(1);
 
   // The provider chosen for the calendar feed carries over.
   await page.locator("#feed-provider").selectOption("openai");

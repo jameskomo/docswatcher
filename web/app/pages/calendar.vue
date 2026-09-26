@@ -58,9 +58,10 @@ async function subscribeByEmail() {
     });
     const data = await res.json().catch(() => ({}));
     if (res.ok && data.ok) { alertState.value = "sent"; return; }
-    alertError.value = typeof data.error === "string" ? data.error : "That did not go through.";
+    // The server says what went wrong in its own words; only its absence gets the page's fallback.
+    alertError.value = typeof data.error === "string" ? data.error : "That did not go through. The calendar feed above works meanwhile.";
   } catch {
-    alertError.value = "That did not go through.";
+    alertError.value = "That did not go through. The calendar feed above works meanwhile.";
   }
   alertState.value = "error";
 }
@@ -117,7 +118,7 @@ async function subscribeByEmail() {
           </button>
         </form>
         <p v-if="alertState === 'error'" class="notice bad t2" role="alert" data-testid="email-alerts-error">
-          {{ alertError }} The calendar feed above works meanwhile.
+          {{ alertError }}
         </p>
         <p class="t1 ink-faint">
           Double opt-in: you confirm from your inbox first. We keep only the address and the provider you chose,
