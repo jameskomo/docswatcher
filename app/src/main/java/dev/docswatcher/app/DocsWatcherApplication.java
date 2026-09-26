@@ -5,13 +5,14 @@ import dev.docswatcher.app.config.AppProperties;
 import dev.docswatcher.app.config.ScanIsolationProperties;
 import dev.docswatcher.app.config.ScanLimitsProperties;
 import dev.docswatcher.app.engine.ScanChild;
+import dev.docswatcher.app.gitlab.GitLabProperties;
 import java.util.Arrays;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties({AppProperties.class, ScanLimitsProperties.class, ScanIsolationProperties.class, OAuthProperties.class})
+@EnableConfigurationProperties({AppProperties.class, ScanLimitsProperties.class, ScanIsolationProperties.class, OAuthProperties.class, GitLabProperties.class})
 public class DocsWatcherApplication {
 
   public static void main(String[] args) {

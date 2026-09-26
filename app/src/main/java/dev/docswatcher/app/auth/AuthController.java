@@ -2,6 +2,7 @@ package dev.docswatcher.app.auth;
 
 import dev.docswatcher.app.config.AppProperties;
 import dev.docswatcher.app.github.GitHubUserApi;
+import dev.docswatcher.app.gitlab.GitLabProperties;
 import dev.docswatcher.app.store.InstallationStore;
 import dev.docswatcher.app.store.Repo;
 import dev.docswatcher.app.store.RepoStore;
@@ -55,10 +56,12 @@ public class AuthController {
   private final SessionStore sessions;
   private final InstallationStore installations;
   private final RepoStore repos;
+  private final GitLabProperties gitlab;
 
   public AuthController(OAuthProperties oauth, AppProperties properties, GitHubUserApi github, SessionStore sessions,
-      InstallationStore installations, RepoStore repos) {
+      InstallationStore installations, RepoStore repos, GitLabProperties gitlab) {
     this.oauth = oauth;
+    this.gitlab = gitlab;
     this.webOrigin = Cookies.stripSlash(properties.web().origin());
     this.github = github;
     this.sessions = sessions;
@@ -160,11 +163,16 @@ public class AuthController {
 
   /** Back to the dashboard, optionally saying why sign-in did not happen. Always clears the state cookie. */
   private ResponseEntity<Void> back(String problem, String sessionCookie) {
+    return back(webOrigin, Cookies.OAUTH, problem, sessionCookie);
+  }
+
+  /** The same for any provider's callback, clearing that provider's state cookie. */
+  static ResponseEntity<Void> back(String webOrigin, String stateCookie, String problem, String sessionCookie) {
     String target = webOrigin + "/#/app" + (problem == null ? "" : "?signin=" + problem);
     ResponseEntity.BodyBuilder response = ResponseEntity.status(HttpStatus.FOUND)
         .location(URI.create(target))
         .cacheControl(CacheControl.noStore())
-        .header(HttpHeaders.SET_COOKIE, Cookies.clear(Cookies.OAUTH));
+        .header(HttpHeaders.SET_COOKIE, Cookies.clear(stateCookie));
     if (sessionCookie != null) {
       response.header(HttpHeaders.SET_COOKIE, sessionCookie);
     }
@@ -178,7 +186,12 @@ public class AuthController {
   @GetMapping("/auth/me")
   public ResponseEntity<Map<String, Object>> me(HttpServletRequest request) {
     Map<String, Object> body = new LinkedHashMap<>();
-    body.put("enabled", oauth.enabled());
+    // enabled: any sign-in exists here. providers: which ones, so the site offers each (ADR 0011).
+    body.put("enabled", oauth.enabled() || gitlab.signInEnabled());
+    Map<String, Object> providers = new LinkedHashMap<>();
+    providers.put("github", oauth.enabled());
+    providers.put("gitlab", gitlab.signInEnabled());
+    body.put("providers", providers);
     Optional<UserSession> session = sessions.find(Cookies.read(request, Cookies.SESSION));
     body.put("signedIn", session.isPresent());
     session.ifPresent(s -> {
@@ -187,6 +200,7 @@ public class AuthController {
       user.put("name", s.name());
       user.put("avatarUrl", s.avatarUrl());
       body.put("user", user);
+      body.put("provider", s.provider());
       List<Map<String, Object>> orgs = new ArrayList<>();
       for (UserSession.OrgAccess o : s.orgs()) {
         Map<String, Object> org = new LinkedHashMap<>();
@@ -221,7 +235,7 @@ public class AuthController {
     }
   }
 
-  private static boolean constantTimeEquals(String a, String b) {
+  static boolean constantTimeEquals(String a, String b) {
     return MessageDigest.isEqual(a.getBytes(StandardCharsets.UTF_8), b.getBytes(StandardCharsets.UTF_8));
   }
 }

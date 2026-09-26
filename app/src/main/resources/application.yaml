@@ -48,6 +48,16 @@ docswatcher:
     snooze-label: docswatcher:snooze-30d
     not-in-prod-label: docswatcher:not-in-prod
     not-affected-label: docswatcher:not-affected
+  # GitLab (docs/adr/0011-gitlab.md): one instance, gitlab.com or self-managed. Sign-in needs the
+  # OAuth application's id and secret; connecting groups needs the token key, base64 of 32 random
+  # bytes that encrypts the groups' access tokens. Both secrets belong in /run/secrets/
+  # (docswatcher.gitlab.client-secret, docswatcher.gitlab.token-key), which win over the variables.
+  gitlab:
+    base-url: ${GITLAB_BASE_URL:https://gitlab.com}
+    client-id: ${GITLAB_CLIENT_ID:}
+    client-secret: ${GITLAB_CLIENT_SECRET:}
+    token-key: ${DOCSWATCHER_GITLAB_TOKEN_KEY:}
+    session-ttl: 8h
   api:
     token: ${DOCSWATCHER_API_TOKEN:}
     require-token: true

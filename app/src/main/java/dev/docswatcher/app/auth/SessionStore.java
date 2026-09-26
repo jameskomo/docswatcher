@@ -48,15 +48,21 @@ public class SessionStore {
 
   /** Stores a session and returns the value for the cookie. The value itself is never stored. */
   public String create(long githubId, String login, String name, String avatarUrl, List<UserSession.OrgAccess> orgs, Duration ttl) {
+    return create(githubId, login, name, avatarUrl, orgs, ttl, "github");
+  }
+
+  /** As above, for a person who signed in with {@code provider}: "github" or "gitlab". */
+  public String create(long userId, String login, String name, String avatarUrl, List<UserSession.OrgAccess> orgs, Duration ttl, String provider) {
     String token = randomToken();
     OffsetDateTime now = OffsetDateTime.now(clock).withOffsetSameInstant(ZoneOffset.UTC);
     jdbc.sql(
             """
-            insert into user_session (token_hash, github_id, login, name, avatar_url, access, created_at, expires_at)
-            values (:hash, :id, :login, :name, :avatar, cast(:access as jsonb), :now, :expires)
+            insert into user_session (token_hash, github_id, login, name, avatar_url, access, created_at, expires_at, provider)
+            values (:hash, :id, :login, :name, :avatar, cast(:access as jsonb), :now, :expires, :provider)
             """)
         .param("hash", hash(token))
-        .param("id", githubId)
+        .param("id", userId)
+        .param("provider", provider)
         .param("login", login)
         .param("name", name)
         .param("avatar", avatarUrl)
@@ -74,7 +80,7 @@ public class SessionStore {
     }
     return jdbc.sql(
             """
-            select github_id, login, name, avatar_url, access::text as access, created_at, expires_at
+            select github_id, login, name, avatar_url, access::text as access, created_at, expires_at, provider
             from user_session where token_hash = :hash and expires_at > :now
             """)
         .param("hash", hash(token))
@@ -86,7 +92,8 @@ public class SessionStore {
             rs.getString("avatar_url"),
             mapper.readValue(rs.getString("access"), ORGS),
             rs.getObject("created_at", OffsetDateTime.class),
-            rs.getObject("expires_at", OffsetDateTime.class)))
+            rs.getObject("expires_at", OffsetDateTime.class),
+            rs.getString("provider")))
         .optional();
   }
 

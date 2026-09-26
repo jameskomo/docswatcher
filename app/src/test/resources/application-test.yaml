@@ -9,6 +9,13 @@ docswatcher:
     client-secret: oauth-test-secret
     web-base: https://github.test
     api-base: https://api.github.test
+  gitlab:
+    # GitLabMock answers for this host, so nothing leaves the JVM.
+    base-url: https://gitlab.test
+    client-id: gitlab-test-client
+    client-secret: gitlab-oauth-test-secret
+    # Bytes 0 to 31. A test key, and only ever one.
+    token-key: AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=
   api:
     token: test-token
     require-token: true

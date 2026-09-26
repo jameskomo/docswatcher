@@ -14,7 +14,8 @@ public final class Dto {
 
   public record Overview(String login, int repos, long contracts, Map<String, Long> findingsBySeverity, LocalDate nearestEffective, String knowledgeVersion) {}
 
-  public record RepoSummary(long id, String fullName, String defaultBranch, String lastScannedSha, boolean production, long openFindings) {}
+  /** {@code provider} is where the repository lives: "github" or "gitlab". */
+  public record RepoSummary(long id, String fullName, String defaultBranch, String lastScannedSha, boolean production, long openFindings, String provider) {}
 
   /**
    * What telemetry saw for the endpoint behind a finding. Absent when nothing has been

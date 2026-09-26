@@ -19,6 +19,15 @@ public final class IssueText {
   }
 
   public static String issueBody(Repo repo, String sha, FindingDoc f, Optional<ChangeDoc> change, String fixLabel, String snoozeLabel, String notInProdLabel, String notAffectedLabel) {
+    return issueBody("https://github.com/" + repo.fullName() + "/blob/" + sha + "/", f, change, fixLabel, snoozeLabel, notInProdLabel, notAffectedLabel);
+  }
+
+  /**
+   * The issue body for any forge. {@code blobBase} is the web address of the scanned commit's
+   * files, ending in a slash ({@code Forge.blobBase}). A null {@code fixLabel} leaves the fix
+   * pull request out of the actions, for a forge that cannot dispatch one.
+   */
+  public static String issueBody(String blobBase, FindingDoc f, Optional<ChangeDoc> change, String fixLabel, String snoozeLabel, String notInProdLabel, String notAffectedLabel) {
     StringBuilder b = new StringBuilder();
     b.append("**Severity:** ").append(f.severity()).append("\n");
     if (f.effective() != null) {
@@ -51,12 +60,15 @@ public final class IssueText {
         b.append("- ...and ").append(f.evidence().size() - MAX_EVIDENCE_ROWS).append(" more\n");
         break;
       }
-      b.append("- [").append(mdText(e.path())).append(":").append(e.line()).append("](https://github.com/")
-          .append(repo.fullName()).append("/blob/").append(sha).append("/").append(urlPath(e.path())).append("#L").append(e.line())
+      b.append("- [").append(mdText(e.path())).append(":").append(e.line()).append("](").append(blobBase)
+          .append(urlPath(e.path())).append("#L").append(e.line())
           .append(") ").append(codeSpan(e.snippet())).append("\n");
     }
-    b.append("\n**Actions**: add the label `").append(fixLabel).append("` to open a fix PR, `")
-        .append(snoozeLabel).append("` to snooze, `").append(notInProdLabel).append("` if this code does not run in production, or `")
+    b.append("\n**Actions**: add the label `");
+    if (fixLabel != null) {
+      b.append(fixLabel).append("` to open a fix PR, `");
+    }
+    b.append(snoozeLabel).append("` to snooze, `").append(notInProdLabel).append("` if this code does not run in production, or `")
         .append(notAffectedLabel).append("` if the change does not affect it (closing this issue says the same; reopening it takes that back).\n");
     b.append("\n<!-- docswatcher-finding: ").append(f.id()).append(" -->\n");
     return b.toString();

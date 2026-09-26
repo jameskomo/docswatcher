@@ -41,9 +41,12 @@ public class RepoStore {
    * caller: full_name identifies a GitHub repository, not an owner of the data, and a deployment
    * can hold many installations the moment the App is installed more than once. Caller-supplied
    * names must use {@link #findByFullName(long, String)}.
+   *
+   * <p>GitHub repositories only: a GitLab project can carry the same path as a GitHub repository,
+   * and a name that matched both would be no answer at all.
    */
   public Optional<Repo> findByFullName(String fullName) {
-    return jdbc.sql("select * from repo where full_name = :n").param("n", fullName).query(Repo.class).optional();
+    return jdbc.sql("select * from repo where full_name = :n and provider = 'github'").param("n", fullName).query(Repo.class).optional();
   }
 
   /** Resolves a repository by name inside one installation. */

@@ -6,17 +6,19 @@ import java.time.Duration;
 import org.springframework.http.ResponseCookie;
 
 /**
- * The two cookies sign-in uses, and the one rule for writing them.
+ * The cookies sign-in uses, and the one rule for writing them.
  *
- * <p>Both carry the {@code __Host-} prefix, which the browser enforces: Secure, Path=/, no Domain.
- * So neither can be set by a sibling subdomain or read over plain HTTP. Both are HttpOnly, so page
+ * <p>All carry the {@code __Host-} prefix, which the browser enforces: Secure, Path=/, no Domain.
+ * So none can be set by a sibling subdomain or read over plain HTTP. All are HttpOnly, so page
  * script never sees them, and SameSite=Lax, so a cross-site POST arrives without them while the
- * top-level redirect back from GitHub still carries the OAuth one.
+ * top-level redirect back from GitHub or GitLab still carries the OAuth one.
  */
 public final class Cookies {
 
   public static final String SESSION = "__Host-docswatcher_session";
   public static final String OAUTH = "__Host-docswatcher_oauth";
+  /** GitLab's sign-in state, apart from GitHub's, so neither flow can finish the other. */
+  public static final String OAUTH_GITLAB = "__Host-docswatcher_oauth_gitlab";
 
   private Cookies() {}
 

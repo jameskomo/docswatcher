@@ -90,7 +90,7 @@ public class DashboardService {
     List<Dto.RepoSummary> out = new ArrayList<>();
     for (Repo r : visibleRepos(login, viewer)) {
       long open = findings.openForRepo(r.id()).stream().filter(f -> "open".equals(f.status())).count();
-      out.add(new Dto.RepoSummary(r.id(), r.fullName(), r.defaultBranch(), r.lastScannedSha(), r.production(), open));
+      out.add(new Dto.RepoSummary(r.id(), r.fullName(), r.defaultBranch(), r.lastScannedSha(), r.production(), open, r.provider()));
     }
     return out;
   }
@@ -105,7 +105,7 @@ public class DashboardService {
       InventoryDoc.Stats stats = last.map(ScanRun::statsJson).filter(s -> s != null && !s.equals("{}"))
           .map(s -> mapper.readValue(s, InventoryDoc.Stats.class)).orElse(new InventoryDoc.Stats(0, 0, 0, List.of()));
       return new InventoryDoc("1",
-          new RepoRefDoc("github", repo.owner(), repo.name(), "refs/heads/" + repo.defaultBranch(), repo.lastScannedSha()),
+          new RepoRefDoc(repo.provider(), repo.owner(), repo.name(), "refs/heads/" + repo.defaultBranch(), repo.lastScannedSha()),
           last.map(r -> r.finishedAt().toString()).orElse(null),
           new InventoryDoc.EngineInfo("docswatcher-engine-java", last.map(ScanRun::engineVersion).orElse(null), last.map(ScanRun::knowledgeVersion).orElse(null)),
           stats, docs);
