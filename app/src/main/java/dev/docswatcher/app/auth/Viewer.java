@@ -6,14 +6,15 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Who is asking, as far as the API is concerned. Exactly two kinds.
+ * Who is asking, as far as the API is concerned. Exactly three kinds.
  *
  * <p>The {@link Owner} holds the shared API token: the deployment's operator and its automation.
  * It sees everything, as the token always has. A {@link Member} signed in with GitHub and sees
  * only what GitHub said they could see: repositories they can reach through an installation of
- * this App. Every API request has one or the other, set by {@code ApiTokenFilter}.
+ * this App. An {@link Ingest} caller holds one repository's ingest token and can only post that
+ * repository's telemetry. Every API request has one of them, set by {@code ApiTokenFilter}.
  */
-public sealed interface Viewer permits Viewer.Owner, Viewer.Member {
+public sealed interface Viewer permits Viewer.Owner, Viewer.Member, Viewer.Ingest {
 
   /** The request attribute the filter stores the viewer under. */
   String ATTRIBUTE = Viewer.class.getName();
@@ -89,5 +90,16 @@ public sealed interface Viewer permits Viewer.Owner, Viewer.Member {
       }
       return false;
     }
+  }
+
+  /**
+   * A telemetry exporter holding one repository's ingest token (docs/13-runtime-observation.md).
+   * It reads nothing and acts on nothing: {@link AccessInterceptor} admits it only to a handler
+   * marked {@link IngestAccess}, and the ingest pins every span to {@link #repoId()}.
+   */
+  record Ingest(long repoId, long tokenId) implements Viewer {
+    @Override public boolean canSeeOrg(String login) { return false; }
+    @Override public boolean canRead(long id) { return false; }
+    @Override public boolean canWrite(long id) { return false; }
   }
 }

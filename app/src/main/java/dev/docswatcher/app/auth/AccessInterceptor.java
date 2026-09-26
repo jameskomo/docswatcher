@@ -43,6 +43,14 @@ public class AccessInterceptor implements HandlerInterceptor, HandlerMethodArgum
     if (viewer.seesEverything()) {
       return true;
     }
+    if (viewer instanceof Viewer.Ingest) {
+      // An ingest token posts one repository's telemetry and does nothing else.
+      if (handler instanceof HandlerMethod method && method.hasMethodAnnotation(IngestAccess.class)) {
+        return true;
+      }
+      response.sendError(HttpServletResponse.SC_FORBIDDEN);
+      return false;
+    }
     if (!(handler instanceof HandlerMethod method)) {
       boolean preflight = CorsUtils.isPreFlightRequest(request);
       if (!preflight) {

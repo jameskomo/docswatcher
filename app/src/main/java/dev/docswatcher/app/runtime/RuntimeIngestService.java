@@ -49,7 +49,21 @@ public class RuntimeIngestService {
   /** The outcome of one export, returned to the caller so a misconfiguration is visible immediately. */
   public record Result(int spans, int recorded, int skipped, int unattributed, String repo) {}
 
+  /** An export sent with the owner token: the repository is named by the payload or ?repo=. */
   public Result ingest(JsonNode payload, String repoOverride) {
+    return ingest(payload, repoOverride, null);
+  }
+
+  /**
+   * An export sent with an ingest token, which pins every span to the token's repository. The
+   * repository's name then acts as the envelope: a resource that names another one is skipped,
+   * never written anywhere, because a field in the message must not outrank the credential.
+   */
+  public Result ingestFor(Repo pinned, JsonNode payload) {
+    return ingest(payload, pinned.fullName(), pinned);
+  }
+
+  private Result ingest(JsonNode payload, String repoOverride, Repo pinned) {
     ProviderAttributor attributor = new ProviderAttributor(engine.providers());
     Counters counters = new Counters();
     Map<Long, Set<String>> contractIdsByRepo = new HashMap<>();
@@ -67,7 +81,9 @@ public class RuntimeIngestService {
         counters.skipped += countSpans(resourceSpan);
         continue;
       }
-      Optional<Repo> repo = repos.findByFullName(fullName);
+      // Pinned: the name already matched the token's repository, so it is that repository and
+      // no lookup by name can land on a namesake in another installation.
+      Optional<Repo> repo = pinned != null ? Optional.of(pinned) : repos.findByFullName(fullName);
       if (repo.isEmpty()) {
         counters.skipped += countSpans(resourceSpan);
         continue;

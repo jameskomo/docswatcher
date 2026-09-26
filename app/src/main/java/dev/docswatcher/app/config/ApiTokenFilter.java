@@ -5,6 +5,7 @@ import dev.docswatcher.app.auth.Cookies;
 import dev.docswatcher.app.auth.SessionStore;
 import dev.docswatcher.app.auth.UserSession;
 import dev.docswatcher.app.auth.Viewer;
+import dev.docswatcher.app.runtime.IngestTokenStore;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,7 +25,8 @@ import org.springframework.web.util.pattern.PathPatternParser;
 /**
  * Authentication for the dashboard API: who is asking, before any handler runs.
  *
- * <p>Two principals, never mixed. The shared bearer token is the deployment's owner and its
+ * <p>Two principals, never mixed, plus a third that only posts telemetry: a repository's ingest
+ * token, accepted on the OTLP route alone ({@link Viewer.Ingest}). The shared bearer token is the deployment's owner and its
  * automation, and sees everything, as it always has. Without a token, a signed-in session cookie
  * makes the caller a member, who sees only what GitHub said they could when they signed in
  * ({@link AccessInterceptor} enforces that per organisation and per repository). A member's
@@ -48,15 +50,20 @@ public class ApiTokenFilter extends OncePerRequestFilter {
    */
   private static final PathPattern API = PathPatternParser.defaultInstance.parse("/api/**");
 
+  /** The one route an ingest token opens (docs/13-runtime-observation.md). */
+  private static final PathPattern INGEST = PathPatternParser.defaultInstance.parse("/api/runtime/otlp/v1/traces");
+
   private static final Set<String> SAFE_METHODS = Set.of("GET", "HEAD", "OPTIONS");
 
   private final AppProperties.Api api;
   private final SessionStore sessions;
+  private final IngestTokenStore ingestTokens;
   private final String webOrigin;
 
-  public ApiTokenFilter(AppProperties properties, SessionStore sessions) {
+  public ApiTokenFilter(AppProperties properties, SessionStore sessions, IngestTokenStore ingestTokens) {
     this.api = properties.api();
     this.sessions = sessions;
+    this.ingestTokens = ingestTokens;
     this.webOrigin = properties.web().origin();
   }
 
@@ -84,6 +91,16 @@ public class ApiTokenFilter extends OncePerRequestFilter {
     }
   }
 
+  /** The OTLP route, matched the same way. Fails closed: an unparseable path is not the ingest route. */
+  private static boolean isIngestRequest(HttpServletRequest request) {
+    try {
+      return "POST".equals(request.getMethod())
+          && INGEST.matches(ServletRequestPathUtils.parse(request).pathWithinApplication());
+    } catch (RuntimeException e) {
+      return false;
+    }
+  }
+
   @Override
   protected void doFilterInternal(
       HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -91,6 +108,17 @@ public class ApiTokenFilter extends OncePerRequestFilter {
     String header = request.getHeader("Authorization");
     if (header != null) {
       // A caller that presents the token is judged on the token alone, never on a cookie too.
+      String bearer = header.startsWith("Bearer ") ? header.substring(7) : null;
+      // An ingest token is looked up only on the ingest route, and only for what it is: one
+      // repository's exporter. Checked before the owner token's configuration, so a deployment
+      // without an owner token still accepts its customers' telemetry.
+      if (bearer != null && bearer.startsWith(IngestTokenStore.PREFIX) && isIngestRequest(request)) {
+        Optional<IngestTokenStore.IngestToken> ingest = ingestTokens.authenticate(bearer);
+        if (ingest.isPresent()) {
+          pass(new Viewer.Ingest(ingest.get().repoId(), ingest.get().id()), request, response, chain);
+          return;
+        }
+      }
       if (!api.requireToken()) {
         pass(Viewer.OWNER, request, response, chain);
         return;
@@ -99,7 +127,7 @@ public class ApiTokenFilter extends OncePerRequestFilter {
         response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "DOCSWATCHER_API_TOKEN is not set");
         return;
       }
-      if (!header.startsWith("Bearer ") || !constantTimeEquals(header.substring(7), api.token())) {
+      if (bearer == null || !constantTimeEquals(bearer, api.token())) {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         return;
       }
