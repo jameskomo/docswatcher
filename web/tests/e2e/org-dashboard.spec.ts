@@ -33,6 +33,11 @@ const GPT = f(9001, "acme/checkout", "openai:model:gpt-4-turbo", "openai-gpt-4-t
 const GPT2 = f(9002, HOSTILE, "openai:model:gpt-4-turbo", "openai-gpt-4-turbo-shutdown", "gpt-4-turbo shut down", "breaking", SOON);
 const STRIPE = f(9001, "acme/checkout", "stripe:endpoint:POST /v1/sources", "stripe-sources-deprecated", "Sources API deprecated", "warning", LATER);
 
+const ALERTS = {
+  login: "acme", enabled: true, emails: ["ops@acme.test"], slack: { configured: true, hint: "…wxyz" },
+  thresholds: [30, 7], canEdit: true, emailAvailable: true, updatedBy: "octo",
+};
+
 interface Mock { me: object; posts: { url: string; body: any }[]; seen: string[] }
 
 async function mockApi(page: Page, me: object): Promise<Mock> {
@@ -52,6 +57,13 @@ async function mockApi(page: Page, me: object): Promise<Mock> {
     if (route.request().method() === "POST") {
       mock.posts.push({ url: path, body: route.request().postDataJSON() });
       if (path === "api/repos/9002/findings/fix") return route.fulfill({ status: 403 });
+      if (path === "api/orgs/acme/alerts") {
+        const body = route.request().postDataJSON();
+        if (body.emails.includes("bad")) return json(route, { error: "Not an email address: bad" }, 400);
+        return json(route, { ...ALERTS, enabled: body.emails.length > 0, emails: body.emails, thresholds: body.thresholds,
+          slack: body.slackWebhook === "" ? { configured: false } : ALERTS.slack });
+      }
+      if (path === "api/orgs/acme/alerts/test") return json(route, { emails: 1, slackMessages: 1, failures: 0 });
       return json(route, { status: path.endsWith("snooze") ? "snoozed" : "ok", detail: null });
     }
     switch (path) {
@@ -76,6 +88,10 @@ async function mockApi(page: Page, me: object): Promise<Mock> {
         return json(route, [GPT, STRIPE]);
       case "api/repos/9002/findings":
         return json(route, [GPT2]);
+      case "api/orgs/acme/alerts":
+        return json(route, ALERTS);
+      case "api/orgs/globex/alerts":
+        return json(route, { ...ALERTS, login: "globex", emails: [], slack: { configured: false }, canEdit: false, updatedBy: null });
       case "api/orgs/globex/overview":
         return json(route, { login: "globex", repos: 1, contracts: 1, findingsBySeverity: {}, knowledgeVersion: "2026.09.20" });
       case "api/orgs/globex/repos":
@@ -208,4 +224,45 @@ test("no horizontal scroll on the organisation dashboard at phone width", async 
   await expect(page.getByTestId("org-finding").first()).toBeVisible();
   const overflow = await page.evaluate(() => document.scrollingElement!.scrollWidth - window.innerWidth);
   expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test("alerts: a writer sees and saves the organisation's settings; the Slack webhook is never shown", async ({ page }) => {
+  const mock = await mockApi(page, ME_IN);
+  await page.goto("./#/app");
+  const alerts = page.getByTestId("org-alerts");
+  await expect(alerts).toContainText("Warned before the date");
+  await expect(page.getByTestId("alerts-emails")).toHaveValue("ops@acme.test");
+  await expect(page.getByTestId("alerts-thresholds")).toHaveValue("30, 7");
+  await expect(page.getByTestId("alerts-slack-set")).toContainText("…wxyz");
+  await expect(page.getByTestId("alerts-slack")).toHaveValue("");
+
+  // A refusal shows the server's reason, as text.
+  await page.getByTestId("alerts-emails").fill("bad");
+  await page.getByTestId("alerts-save").click();
+  await expect(page.getByTestId("alerts-outcome")).toHaveText("Not an email address: bad");
+
+  await page.getByTestId("alerts-emails").fill("ops@acme.test\nlead@acme.test, ops@acme.test");
+  await page.getByTestId("alerts-thresholds").fill("14, 3");
+  await page.getByTestId("alerts-save").click();
+  await expect(page.getByTestId("alerts-outcome")).toHaveText("Saved.");
+  // A blank webhook field is left out, so the saved one is kept.
+  expect(mock.posts.at(-1)).toEqual({ url: "api/orgs/acme/alerts", body: { enabled: true, emails: ["ops@acme.test", "lead@acme.test"], thresholds: [14, 3] } });
+
+  await page.getByTestId("alerts-slack-remove").check();
+  await page.getByTestId("alerts-save").click();
+  await expect(page.getByTestId("alerts-outcome")).toHaveText("Saved.");
+  expect(mock.posts.at(-1)!.body.slackWebhook).toBe("");
+  await expect(page.getByTestId("alerts-slack-set")).toHaveCount(0);
+
+  await page.getByTestId("alerts-test").click();
+  await expect(page.getByTestId("alerts-outcome")).toHaveText("Sent 1 email and a Slack message.");
+});
+
+test("alerts: someone without write access sees the settings read-only", async ({ page }) => {
+  await mockApi(page, ME_IN);
+  await page.goto("./#/app");
+  await page.getByTestId("org-select").selectOption("globex");
+  await expect(page.getByTestId("alerts-readonly")).toBeVisible();
+  await expect(page.getByTestId("alerts-emails")).toBeDisabled();
+  await expect(page.getByTestId("alerts-save")).toHaveCount(0);
 });

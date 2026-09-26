@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
-  ApiError, changesIn, createOrgApi, normaliseFinding, openFindings, orgFinding, providerRows, siteBase,
+  ApiError, changesIn, createOrgApi, normaliseFinding, openFindings, orgFinding, parseThresholds, providerRows, siteBase, splitEmails,
   type HorizonMonth, type RepoFinding,
 } from "../../app/utils/orgApi";
 
@@ -114,6 +114,32 @@ describe("createOrgApi", () => {
     const err = await api.act(9, "fix", { contract: "a:b:c", change: "d" }).catch((e) => e);
     expect(err).toBeInstanceOf(ApiError);
     expect(err.status).toBe(403);
+  });
+
+  it("reads and saves an organisation's alerts by POST, and carries the server's explanation of a refusal", async () => {
+    const settings = { login: "acme", enabled: true, emails: ["ops@acme.test"], slack: { configured: false }, thresholds: [30, 7], canEdit: true, emailAvailable: true };
+    const { impl, calls } = fakeFetch({
+      "api/orgs/acme%2Fx/alerts": { status: 200, body: settings },
+      "api/orgs/globex/alerts": { status: 400, body: { error: "Not an email address: x" } },
+      "api/orgs/acme%2Fx/alerts/test": { status: 200, body: { emails: 1, slackMessages: 0, failures: 0 } },
+    });
+    const api = createOrgApi(BASE, impl);
+    expect(await api.alerts("acme/x")).toEqual(settings);
+    await api.saveAlerts("acme/x", { enabled: true, emails: ["a@b.test"], thresholds: [30, 7], slackWebhook: "" });
+    expect(calls[1]!.init.method).toBe("POST");
+    expect(JSON.parse(String(calls[1]!.init.body))).toEqual({ enabled: true, emails: ["a@b.test"], thresholds: [30, 7], slackWebhook: "" });
+    expect((await api.testAlerts("acme/x")).emails).toBe(1);
+    const err = await api.saveAlerts("globex", { enabled: true, emails: ["x"], thresholds: [7] }).catch((e) => e);
+    expect(err).toBeInstanceOf(ApiError);
+    expect(err.status).toBe(400);
+    expect(err.detail).toBe("Not an email address: x");
+  });
+
+  it("splits typed addresses and days", () => {
+    expect(splitEmails(" a@b.test,\nc@d.test; a@b.test  ")).toEqual(["a@b.test", "c@d.test"]);
+    expect(splitEmails("")).toEqual([]);
+    expect(parseThresholds("30, 7")).toEqual([30, 7]);
+    expect(parseThresholds("30 days, 1.5, 7")).toEqual([30, 7]);
   });
 
   it("points sign-in at the app beside the site", () => {

@@ -382,3 +382,29 @@ test("the footer links every feature, and each page it names opens", async ({ pa
   await expect(page.getByTestId("early-access-form")).toBeVisible();
   expect(own(failed)).toEqual([]);
 });
+
+test("the calendar offers email alerts with double opt-in, and says so", async ({ page }) => {
+  const posts: any[] = [];
+  await page.route("**/subscribe", (route) => {
+    posts.push(route.request().postDataJSON());
+    const body = route.request().postDataJSON();
+    return body.email === "bad@example.test"
+      ? route.fulfill({ status: 503, contentType: "application/json", body: JSON.stringify({ ok: false, error: "Email alerts are not available right now." }) })
+      : route.fulfill({ status: 201, contentType: "application/json", body: JSON.stringify({ ok: true }) });
+  });
+  await page.goto("./#/calendar");
+  const box = page.getByTestId("email-alerts");
+  await expect(box).toContainText("no tracking pixels");
+
+  await box.getByRole("textbox").fill("bad@example.test");
+  await page.getByTestId("email-alerts-submit").click();
+  await expect(page.getByTestId("email-alerts-error")).toContainText("Email alerts are not available right now.");
+
+  // The provider chosen for the calendar feed carries over.
+  await page.locator("#feed-provider").selectOption("openai");
+  await expect(page.getByTestId("email-alerts-provider")).toHaveValue("openai");
+  await box.getByRole("textbox").fill("dev@example.test");
+  await page.getByTestId("email-alerts-submit").click();
+  await expect(page.getByTestId("email-alerts-sent")).toContainText("Check your inbox");
+  expect(posts.at(-1)).toEqual({ email: "dev@example.test", providers: ["openai"], website: "" });
+});

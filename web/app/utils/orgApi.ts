@@ -66,11 +66,49 @@ export type FindingAction = "snooze" | "not-in-prod" | "fix";
 
 export interface Ack { status: string; detail: unknown }
 
-/** Raised for any non-2xx answer, carrying the status so the page can say what it means. */
+/**
+ * Raised for any non-2xx answer, carrying the status so the page can say what it means, and the
+ * server's own explanation when it sent one ({"error": "..."}), which is shown as text.
+ */
 export class ApiError extends Error {
-  constructor(public status: number, message: string) {
+  constructor(public status: number, message: string, public detail: string | null = null) {
     super(message);
   }
+}
+
+/** An organisation's alert settings (docs/adr/0010-alerts-before-the-date.md). The Slack webhook itself is never sent back. */
+export interface AlertSettings {
+  login: string;
+  enabled: boolean;
+  emails: string[];
+  slack: { configured: boolean; hint?: string | null };
+  thresholds: number[];
+  /** Whether this person may change them: write access to one of the organisation's repositories. */
+  canEdit: boolean;
+  /** Whether this deployment can send email at all. */
+  emailAvailable: boolean;
+  updatedBy?: string | null;
+  updatedAt?: string | null;
+}
+
+/** What saving sends. `slackWebhook`: left out keeps the current one, "" removes it. */
+export interface AlertUpdate {
+  enabled: boolean;
+  emails: string[];
+  thresholds: number[];
+  slackWebhook?: string;
+}
+
+export interface AlertTestResult { emails: number; slackMessages: number; failures: number }
+
+/** Addresses typed one per line or separated by commas or spaces. */
+export function splitEmails(text: string): string[] {
+  return [...new Set(text.split(/[\s,;]+/).map((e) => e.trim()).filter(Boolean))];
+}
+
+/** "30, 7" to [30, 7]; anything that is not a whole number is dropped, and the server checks the rest. */
+export function parseThresholds(text: string): number[] {
+  return text.split(/[\s,;]+/).filter(Boolean).map(Number).filter((n) => Number.isInteger(n));
 }
 
 /** Fills in what the server leaves out, so components can rely on the engine's Finding shape. */
@@ -176,7 +214,11 @@ export function createOrgApi(base: string, fetchImpl: typeof fetch = fetch) {
       ...init,
       headers: { Accept: "application/json", ...(init?.body ? { "Content-Type": "application/json" } : {}), ...(init?.headers ?? {}) },
     });
-    if (!res.ok) throw new ApiError(res.status, `${res.status} ${res.statusText}`.trim());
+    if (!res.ok) {
+      const body = await res.json().catch(() => null);
+      const detail = body && typeof body.error === "string" ? body.error : null;
+      throw new ApiError(res.status, `${res.status} ${res.statusText}`.trim(), detail);
+    }
     if (res.status === 204) return undefined as T;
     return (await res.json()) as T;
   }
@@ -209,6 +251,10 @@ export function createOrgApi(base: string, fetchImpl: typeof fetch = fetch) {
       const list = await call<(RepoFinding & { finding: ServerFinding })[]>(`api/repos/${repoId}/findings`);
       return list.map(normaliseRepoFinding);
     },
+    alerts: (login: string) => call<AlertSettings>(org(login, "alerts")),
+    saveAlerts: (login: string, update: AlertUpdate) =>
+      call<AlertSettings>(org(login, "alerts"), { method: "POST", body: JSON.stringify(update) }),
+    testAlerts: (login: string) => call<AlertTestResult>(org(login, "alerts/test"), { method: "POST" }),
     /** Findings are named in the body: a contract id can hold a slash no path segment carries. */
     act: (repoId: number, action: FindingAction, f: Pick<Finding, "contract" | "change">, days?: number) =>
       call<Ack>(`api/repos/${repoId}/findings/${action}`, {

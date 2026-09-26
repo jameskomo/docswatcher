@@ -323,6 +323,8 @@ const what = (r: RepoFinding) => contractLabel(r.finding.contract).key;
           </ul>
         </div>
       </section>
+
+      <AlertSettings :login="login" :api="api" />
     </template>
   </div>
 </template>

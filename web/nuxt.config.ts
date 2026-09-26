@@ -50,6 +50,8 @@ export default defineNuxtConfig({
     devProxy: {
       "/api": { target: "http://localhost:8080/api", changeOrigin: false },
       "/auth": { target: "http://localhost:8080/auth", changeOrigin: false },
+      "/subscribe": { target: "http://localhost:8080/subscribe", changeOrigin: false },
+      "/unsubscribe": { target: "http://localhost:8080/unsubscribe", changeOrigin: false },
     },
   },
   typescript: { strict: true, typeCheck: false },

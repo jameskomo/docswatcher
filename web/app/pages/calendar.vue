@@ -39,6 +39,31 @@ const googleUrl = computed(() => `https://calendar.google.com/calendar/r?cid=${e
 // week sees nothing; saying where the next date is saves them wondering whether it worked.
 const feedDates = computed(() => all.filter((c) => c.effective && (!feedProvider.value || c.provider === feedProvider.value)));
 const feedUpcoming = computed(() => feedDates.value.filter((c) => c.effective! >= todayIso).sort((a, b) => (a.effective! < b.effective! ? -1 : 1)));
+
+// Email alerts (docs/adr/0010-alerts-before-the-date.md). The app sends a confirmation link and
+// nothing else until it is clicked. Posted relative to the page, like the early-access form.
+const alert = reactive({ email: "", provider: "", website: "" });
+const alertState = ref<"idle" | "sending" | "sent" | "error">("idle");
+const alertError = ref("");
+watch(feedProvider, (p) => { if (alertState.value !== "sent") alert.provider = p; });
+
+async function subscribeByEmail() {
+  alertState.value = "sending";
+  alertError.value = "";
+  try {
+    const res = await fetch(new URL("subscribe", location.href.split("#")[0]).toString(), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: alert.email, providers: alert.provider ? [alert.provider] : [], website: alert.website }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.ok) { alertState.value = "sent"; return; }
+    alertError.value = typeof data.error === "string" ? data.error : "That did not go through.";
+  } catch {
+    alertError.value = "That did not go through.";
+  }
+  alertState.value = "error";
+}
 </script>
 
 <template>
@@ -70,6 +95,33 @@ const feedUpcoming = computed(() => feedDates.value.filter((c) => c.effective! >
           Updates itself when the knowledge base changes, with reminders 30 and 7 days before each date.
           Also as an <a :href="`${base}feeds/deprecations.atom`" data-testid="feed-atom">Atom feed</a>
           and <a :href="`${base}feeds/deprecations.json`" data-testid="feed-json">open JSON</a>.
+        </p>
+      </div>
+
+      <div class="subscribe" data-testid="email-alerts">
+        <label for="alert-email" class="t2" style="font-weight: 600; color: var(--ink-max)">Or get an email 30 and 7 days before each date</label>
+        <p v-if="alertState === 'sent'" class="t2" role="status" data-testid="email-alerts-sent">
+          <strong>Check your inbox.</strong> We sent a link to confirm; nothing else is sent until you click it.
+        </p>
+        <form v-else class="row" style="gap: var(--s2); align-items: center; flex-wrap: wrap" @submit.prevent="subscribeByEmail" data-testid="email-alerts-form">
+          <input id="alert-email" class="input alert-email" type="email" v-model="alert.email" required maxlength="254"
+            autocomplete="email" name="email" placeholder="you@example.com" />
+          <select class="select" v-model="alert.provider" aria-label="Which provider's shutdowns to email about" data-testid="email-alerts-provider">
+            <option value="">All providers</option>
+            <option v-for="p in knowledge.providers" :key="p.info.id" :value="p.info.id">{{ p.info.name }}</option>
+          </select>
+          <!-- A field people never see. Bots fill it in; the server then does nothing. -->
+          <label class="trap" aria-hidden="true">Website <input v-model="alert.website" tabindex="-1" autocomplete="off" name="website" /></label>
+          <button class="btn solid" type="submit" :disabled="alertState === 'sending'" data-testid="email-alerts-submit">
+            {{ alertState === "sending" ? "Sending" : "Email me" }}
+          </button>
+        </form>
+        <p v-if="alertState === 'error'" class="notice bad t2" role="alert" data-testid="email-alerts-error">
+          {{ alertError }} The calendar feed above works meanwhile.
+        </p>
+        <p class="t1 ink-faint">
+          Double opt-in: you confirm from your inbox first. We keep only the address and the provider you chose,
+          send no tracking pixels, and every email has a one-click unsubscribe link.
         </p>
       </div>
     </section>
@@ -160,4 +212,6 @@ const feedUpcoming = computed(() => feedDates.value.filter((c) => c.effective! >
   border-radius: var(--radius-sm);
 }
 .subscribe .select { min-width: 0; max-width: 100%; }
+.subscribe .alert-email { flex: 1 1 220px; min-width: 0; max-width: 100%; }
+.trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 </style>
