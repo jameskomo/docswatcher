@@ -1,0 +1,1508 @@
+Skip to main content
+Build
+Get to market quickly and securely with products that can scale globally
+Go to Build
+Build Products
+App Check
+App Hosting
+Authentication
+Cloud Functions
+Cloud Storage
+SQL Connect
+Extensions
+Firestore
+Hosting
+Phone Number Verification
+Realtime Database
+Firebase AI Logic
+Generative AI
+Run
+Run your app with confidence and deliver the best experience for your users
+Go to Run
+Run Products
+A/B Testing
+App Distribution
+Cloud Messaging
+Crashlytics
+Google Analytics
+In-App Messaging
+Performance Monitoring
+Remote Config
+Test Lab
+Solutions
+Pricing
+Docs
+Overview
+Fundamentals
+AI
+Build
+Run
+Reference
+Samples
+Community
+Learn
+Stories
+Support
+/
+English
+Español – América Latina
+Indonesia
+Português – Brasil
+中文 – 简体
+日本語
+한국어
+Blog
+Go to console
+Sign in
+Support
+Build
+More
+Run
+More
+Solutions
+Pricing
+Docs
+More
+Community
+More
+Support
+Blog
+Go to console
+Developer Support
+Contact Support
+Scope of no-cost support
+Support Guides
+Overview
+FAQ
+Security checklist
+Launch checklist
+Firebase-related service accounts
+Troubleshoot initialization options
+Dynamic Links deprecation
+Deprecation FAQ
+Export Dynamic Links metadata
+Migrate to App Links & Universal Links
+Migrate from Parse
+Android
+iOS+
+Cloud Audit Logs
+Firebase Management
+Cloud Storage for Firebase
+Firebase Cloud Messaging
+Firebase App Hosting
+Firebase App Check
+Firebase Security Rules
+Firebase Realtime Database
+Android Device Streaming
+Recent Changes and Updates
+Release Notes
+iOS Release Notes
+Android Release Notes
+JavaScript Release Notes
+Flutter Release Notes
+Unity Release Notes
+C++ Release Notes
+Admin Node.js Release Notes
+Admin Java Release Notes
+Admin Python Release Notes
+Admin Go Release Notes
+Admin .NET Release Notes
+Admin Dart Release Notes
+Security Rules Release Notes
+Firebase CLI Release Notes
+Firebase Studio Release Notes
+Policies for changes and versioning
+Overview
+Introducing and communicating changes
+Versioning and maintenance
+Legal Information
+Terms of Service
+Paid Services Terms
+Data Processing and Security Terms
+Firebase: Standard Contractual Clauses
+Service Level Agreement for Hosting and Realtime Database
+Cloud Storage for Firebase Service Level Agreement
+Crashlytics and App Distribution Terms
+Firebase Subprocessors
+Privacy and Security Information
+Privacy and Security in Firebase
+Designate Data Protection Officers and EU Representatives
+Firebase Data Privacy Inquiries
+Manage Instance ID data
+Clear and export users' data
+Storing privacy settings with Firebase
+Build
+Go to Build
+Build Products
+App Check
+App Hosting
+Authentication
+Cloud Functions
+Cloud Storage
+SQL Connect
+Extensions
+Firestore
+Hosting
+Phone Number Verification
+Realtime Database
+Firebase AI Logic
+Generative AI
+Run
+Go to Run
+Run Products
+A/B Testing
+App Distribution
+Cloud Messaging
+Crashlytics
+Google Analytics
+In-App Messaging
+Performance Monitoring
+Remote Config
+Test Lab
+Overview
+Fundamentals
+AI
+Build
+Run
+Reference
+Samples
+Learn
+Stories
+Firebase
+Support
+Send feedback
+Firebase Admin Node.js SDK Release Notes
+Stay organized with collections
+Save and categorize content based on your preferences.
+To review release notes for the Firebase console and for other Firebase
+platforms and related SDKs, refer to the
+Firebase Release Notes .
+Version 14.5.0 - 23 September 2026
+Cloud Messaging
+Migrated the subscribeToTopic() and unsubscribeFromTopic()
+methods in the Messaging class from the legacy Instance ID API
+to the Cloud Messaging v1 topic
+subscription API.
+Added the subscribeToTopicLegacy() and
+unsubscribeFromTopicLegacy() methods, which continue to call the legacy
+Instance ID API. These methods are deprecated and will be removed in a future
+release.
+Version 14.4.0 - 10 September 2026
+Firebase ML
+Deprecated the Firebase ML module and its associated
+interfaces, classes, and methods ahead of the service turndown on
+June 15, 2027. If you host custom models,
+migrate to Cloud Storage for Firebase .
+Cloud Firestore
+Upgraded the @google-cloud/firestore dependency to v9.1.0.
+Cloud Storage
+Upgraded the @google-cloud/storage dependency to v8.1.0.
+Version 14.3.0 - 19 August 2026
+Cloud Firestore
+Upgraded the @google-cloud/firestore dependency to v8.7.1.
+Cloud Storage
+Upgraded the @google-cloud/storage dependency to v7.22.0.
+Firebase SQL Connect
+Added X-Firebase-Sqlconnect-Affinity header to outgoing requests
+to enable backend affinity routing to improve server resource usage efficiency
+and performance.
+Added X-Client-Version header to outgoing requests to enable
+usage tracking.
+Version 14.2.0 - 16 July 2026
+Firebase SQL Connect
+Refactored CRUD helpers to use GraphQL variables and @allow
+directive. This resolves a bug where enum fields were not serialized properly
+by the insert , insertMany , upsert , and upsertMany operations.
+Cloud Functions
+Deprecated the extensionId parameter in taskQueue() .
+Added FunctionScope type and updated taskQueue() to support
+explicit scoping ( current , global , or extension ). This optimizes scope
+resolution, improves task isolation for Firebase Extensions and simplifies
+code to be the same whether deployed in extensions or functions. Adopting
+this pattern is recommended to ensure compatibility with future updates.
+Version 14.1.0 - 24 June 2026
+Firebase SQL Connect
+Fixed the deserialization of gRPC error codes from
+Firebase SQL Connect emulator into detailed errors.
+Cloud Messaging
+Deprecated the token property along with the TokenMessage and
+legacy MulticastMessage types.
+Added FidMessage and FidMulticastMessage types as
+replacements, allowing you to target Firebase Installation IDs (FIDs) in
+Firebase Messaging.
+Updated the sendEachForMulticast() function to support both
+tokens and FIDs .
+Version 14.0.0 - 8 June 2026
+Dropped support for Node.js 18 and 20. You should use Node.js 22
+or higher when deploying the Admin SDK.
+Removed legacy namespace support. To import Admin SDK APIs you
+should use the ES module entry points.
+Removed the deprecated Instance ID API. This completes the
+migration to the replacement Firebase installations API, which you can
+use for deleting Firebase instance IDs and installation IDs.
+Revamped SDK-wide error handling by providing more options for
+detailed error information. This includes new error types and codes to allow
+for more advanced error handling logic. See the
+error handling guide for more details.
+Replaced usage of deprecated url.parse() with built-in Node.js
+URL module. Thanks kyungseopk1m for the
+contribution .
+Cloud Messaging
+Removed the deprecated legacy message types DataMessagePayload ,
+MessagingOptions , MessagingPayload , and NotificationMessagePayload .
+Mapped the topic subscription RESOURCE_EXHAUSTED server code to
+a more accurate TOPICS_SUBSCRIPTION_RATE_EXCEEDED SDK error code.
+Authentication
+Decoupled CreateRequest and UpdateRequest interfaces to correct
+misleading valid parameter types for each request type.
+Skipped project config resource name check when running in emulator.
+Thanks kyungseopk1m for the
+contribution .
+Cached the emulator host at instance construction time instead of at
+request time. Thanks
+daytonmux for the
+contribution .
+Cloud Functions
+Cached the emulator host at instance construction time instead of at
+request time. Thanks
+amfc for the
+contribution .
+Cloud Firestore
+Upgraded the google-cloud/firestore dependency to v8.6.0.
+Version 13.10.0 - 14 May 2026
+Replaced node-forge dependency with the built-in Node.js crypto
+module for private key validation. Thanks
+ido-seraphic for the
+contribution .
+Removed uuid dependency and replaced its usage with the built-in
+Node.js crypto module.
+Thanks gameroman for the contribution .
+Firebase App Check
+Added support for minting limited-use tokens and custom JTI.
+Version 13.9.0 - 7 May 2026
+Deprecated support for Node.js 20. Instead use Node.js 22 or
+higher when deploying the Admin SDK. Both Node.js 18 and Node.js 20 support
+will be dropped in the next major version.
+Firebase Remote Config
+Added optional exposurePercent field to ExperimentValue type
+to set the percentage of users exposed to an experiment.
+Version 13.8.0 - 09 April 2026
+Firebase Phone Number Verification
+Added a new PhoneNumberVerification.verifyToken() API to verify
+Firebase Phone Number Verification tokens.
+Cloud Messaging
+Added support for bandwidthConstrainedOk and
+restrictedSatelliteOk fields in AndroidConfig type.
+Version 13.7.0 - 26 February, 2026
+Upgraded @google-cloud/storage dependency to v7.19.0 .
+This addresses vulnerability CVE-2026-25128 in fast-xml-parser , a dependency
+of @google-cloud/storage . This fix also includes an update to TypeScript.
+Deprecated support for Node.js 18. Instead use Node.js 20 or
+higher when deploying the Admin SDK. Node.js 18 support will be dropped in the
+next major version.
+Firebase Remote Config
+Added support for Rollout and Personalization value types.
+Version 13.6.1 - 04 February, 2026
+Fixed a potential Regular Expression Denial of Service (ReDoS)
+vulnerability by replacing Regular Expression based URL validation with
+the built-in URL constructor.
+Firebase SQL Connect
+Fixed an issue that caused incorrect
+serialization of strings with special characters in mutation operations.
+Version 13.6.0 - 05 November, 2025
+Firebase SQL Connect
+Updated Firebase SQL Connect APIs to use the v1 service
+endpoint instead of the v1alpha endpoint.
+Added the new executeQuery() and executeMutation() APIs
+allowing for the execution of Firebase SQL Connect operations defined in
+GraphQL files. Additionally, you can generate a type-safe generated SDK for
+these GraphQL operations.
+Version 13.5.0 - 28 August, 2025
+Made the initializeApp() function idempotent to simplify
+initialization and prevent errors in environments with reused execution
+contexts. The function now returns an existing FirebaseApp instance
+if called multiple times with an identical configuration. An error will be
+thrown if an attempt is made to re-initialize an app with the same name but
+a different configuration.
+Cloud Messaging
+Support liveActivityToken field in FCM ApnsConfig type. Thanks
+janodetzel for the
+contribution .
+Version 13.4.0 - 12 May, 2025
+Firebase SQL Connect
+Added a specialized interface for bulk data operations,
+which exposes dedicated methods for
+mutation operations: insert , insertMany , upsert , and upsertMany .
+Version 13.3.0 - 22 April, 2025
+Cloud Messaging
+Added support for proxy field in FCM AndroidNotification .
+Fixed an issue which caused session errors to not be thrown when
+sending messages using HTTP/2.
+Unwrapped aggregated HTTP/2 session errors to surface the sub errors
+which caused them.
+Version 13.2.0 - 05 March, 2025
+Firebase Remote Config
+Fixed equality comparison for semantic version when the number of
+segments is equal to the max allowed segments.
+Added support for exporting a serialized config response from the
+Remote Config server side SDK.
+Firebase SQL Connect
+Fixed a bug that was causing credential lookup errors when
+connecting to the Firebase SQL Connect emulator.
+Added support for Firebase SQL Connect impersonation which
+allows for the execution of admin operations based on limited credentials on
+behalf of a specific user.
+Fixed a bug that was causing credential lookup errors when
+enqueueing tasks in emulator.
+Version 13.1.0 - 05 February, 2025
+Authentication
+Added UpdateProjectConfigRequest.mobileLinksConfig and
+ActionCodeSettings.linkDomain , allowing you to switch between
+Firebase Dynamic Link and Firebase Hosting domains for out-of-band
+email actions. You can also customize the Firebase Hosting domain
+used in these flows. As part of this change,
+ActionCodeSettings.dynamicLinkDomain has been deprecated.
+Version 13.0.2 - 19 December, 2024
+Authentication
+Fixed a credentials issue in the createCustomToken() API
+when the SDK is initialized with Google Application Default Credentials.
+Version 13.0.1 - 20 November, 2024
+Fixed an issue that occurred when initializing the SDK with the
+ServiceAccount type.
+Version 13.0.0 - 12 November, 2024
+Migrated credentials handling to use google-auth-library .
+The SDK now supports new authentication methods including
+Workload Identity Federation and service account impersonation.
+Dropped support for Node.js 14 and 16. You should use Node.js 18
+or higher when deploying the Admin SDK.
+Upgraded TypeScript to v5.5.4.
+Upgraded the @firebase/database-compat package to v2.
+Cloud Messaging
+Added the directBootOk field to the AndroidConfig type.
+Removed deprecated sendAll() , sendMulticast() , sendToDevice() , sendToDeviceGroup() , sendToTopic() , and sendToCondition() APIs.
+Firebase Remote Config
+Updated Firebase Remote Config condition evaluation hashing
+by removing the dependency on the farmhash-modern package.
+This change will impact random assignment when using the percentage condition .
+We recommend resolving any uses of the percent condition that may be
+sensitive to re-assignment before upgrading to this SDK version.
+Going forward, all assignments will continue to be persistent
+across future SDK versions.
+Version 12.7.0 - 24 October, 2024
+This version pins @firebase/database-compat to v1.0.8
+and @firebase/database-types to v1.0.5 to maintain compatibility with
+Node.js 14 and 16. Node.js 14 and 16 support is deprecated and Node.js 18+
+will be required in the next major version.
+Authentication
+Added reCAPTCHA SMS toll fraud protection configuration support
+for phone authentication.
+Cloud Functions
+Added support for both partial and full resource names when
+enqueueing tasks in emulator.
+Version 12.6.0 - 30 September, 2024
+Firebase SQL Connect
+Added the new executeGraphql() and executeGraphqlRead() APIs
+to perform administrative queries and mutations on a Firebase SQL Connect
+service.
+Added support for the DATA_CONNECT_EMULATOR_HOST environment
+variable.
+Authentication
+Use Math.floor() when setting validDuration variable in
+the createSessionCookie() API.
+Version 12.5.0 - 12 September, 2024
+Firebase App Check
+Added support for httpAgent in JwksFetcher . Thanks
+hermanho for the
+contribution .
+Remote Config
+Added support for custom conditions when configuring
+Remote Config server applications. This feature lets you send custom
+Remote Config parameter values to specific clients based on
+the conditions you define.
+Version 12.4.0 - 22 August, 2024
+Cloud Functions
+Added support for the CLOUD_TASKS_EMULATOR_HOST environment
+variable.
+Cloud Messaging
+sendToTopic() and sendToCondition() APIs are now deprecated.
+To send messages to topics and conditions use the send() API instead.
+Version 12.3.1 - 08 August, 2024
+Fixed the internal token handling method to return an existing
+promise to a token if one exists instead of creating a new token.
+Version 12.3.0 - 25 July, 2024
+Firebase Remote Config
+Replaced the long.js dependency with BigInt .
+Cloud Messaging
+Added HTTP/2 support for sendEach() and sendEachForMulticast() .
+To use the legacy HTTP/1.1 transport, use the enableLegacyTransport() method.
+The enableLegacyTransport() will be removed when the HTTP/2 transport
+implementation reaches the same stability as the legacy HTTP/1.1 implementation.
+Version 12.2.0 - 20 June, 2024
+Deprecated support for Node.js 16. Instead use Node.js 18 or
+higher when deploying the Admin SDK. Node.js 16 support will be dropped in the
+next major version.
+Fixed optional chaining in FirebaseError type that caused issues
+when using vitest .
+Added x-goog-user-project header to outgoing requests. Thanks
+foxrafa for the
+contribution .
+Firebase Remote Config
+Replaced the farmhash package with the farmhash-modern package
+to prevent errors when Python is not installed.
+Version 12.1.1 - 21 May, 2024 s
+Exported error classes for better error handling. Thanks
+IchordeDionysos for the
+contribution .
+Version 12.1.0 - 16 April, 2024
+Firebase Remote Config
+Added server-side Remote Config support.
+Version 12.0.0 - 07 December, 2023
+Breaking change: Upgraded the @google-cloud/firestore package to v7.
+This is a breaking change. Refer to the Cloud Firestore release notes for more details.
+Breaking change: Upgraded the @google-cloud/storage package to v7.
+This is a breaking change. Refer to the Cloud Storage release notes for more details.
+Breaking change: Upgraded TypeScript to v5.1.6 .
+Deprecated support for Node.js 14. Instead use Node.js 16 or
+higher when deploying the Admin SDK. Node.js 14 support will be dropped in the
+next major version.
+Cloud Firestore
+Upgraded the google-cloud/firestore dependency to v7.1.0 to
+support sum() and average() aggregation functions .
+Realtime Database
+Upgraded the @firebase/database-compat package to v1.
+Firebase ML
+Dropped AutoML model support.
+Version 11.11.1 - 23 November, 2023
+Cloud Firestore
+Upgraded the google-cloud/firestore dependency to v6.8.0 to
+support multiple named databases.
+Version 11.11.0 - 28 September, 2023
+Authentication
+Added email privacy support in project and tenant configuration.
+Version 11.10.1 - 13 July, 2023
+Realtime Database
+Fixed an issue which caused the incompatibility in Realtime Database
+types in version 11.10.0 .
+Version 11.10.0 - 12 July, 2023
+Caution: This version introduced a regression in Realtime Database that caused
+the incompatibility in Realtime Database types. Upgrade to 11.10.1 or later.
+Realtime Database
+This version contains a version bump in
+@firebase/database-compat and @firebase/database-types dependencies
+that causes an incompatibility in Realtime Database types.
+This issue was fixed in version 11.10.1 .
+Cloud Storage
+Added a new getDownloadURL() API.
+Cloud Functions
+Added the ability to name tasks by including an id when
+enqueueing tasks.
+Added the ability to delete an enqueued task if it has not
+yet completed.
+Headers passed to TaskQueue HTTPS handlers are now available in
+the context/event object.
+Cloud Firestore
+Added support for multiple named databases. This feature is
+currently in public preview.
+Authentication
+Added TotpInfo field to the UserRecord type.
+Fixed a memory leak in the internal http timeout handling code
+that affected the listUsers() API. Thanks
+adrianjost for the
+contribution .
+Version 11.9.0 - 30 May, 2023
+Authentication
+Added support for configuring password policy in project and tenant
+configurations.
+Cloud Firestore
+Exported Filter type from the Cloud Firestore API.
+Version 11.8.0 - 04 May, 2023
+Firebase App Check
+Added replay protection feature in the App Check verifyToken()
+API.
+Version 11.7.0 - 18 April, 2023
+Authentication
+Added reCAPTCHA configuration support.
+Cloud Messaging
+Added sendEach() and sendEachForMulticast() APIs.
+sendAll() and sendMulticast() APIs are now deprecated.
+Use sendEach() and sendEachForMulticast() APIs instead.
+Version 11.6.0 - 06 April, 2023
+Authentication
+Added TOTP as a multi-factor option in project and tenant
+configuration.
+Cloud Messaging
+Deprecated sendToDevice and sendToDeviceGroup methods and
+their response classes. These methods are removed in the next major version.
+Version 11.5.0 - 19 January, 2023
+Added support for initializing the SDK with service account
+impersonation in Application Default Credentials. Thanks
+blue-hope for the
+contribution .
+Cloud Firestore
+Fixed a caching issue in the Cloud Firestore API when
+initialized with the preferRest setting to force the use of REST transport.
+Version 11.4.1 - 22 December, 2022
+Updated the jsonwebtoken package to v9.0.0 to address
+security concerns.
+Version 11.4.0 - 15 December, 2022
+Cloud Firestore
+The Cloud Firestore API now supports the preferRest setting
+to force the use of REST transport until an operation requires gRPC.
+Cloud Messaging
+Increased the timeout in the Cloud Messaging batch send API to 15
+seconds to avoid duplicate notifications.
+Firebase ML
+Deprecated AutoML model support. AutoML model support will be
+removed in the next major version.
+Version 11.3.0 - 17 November, 2022
+Firebase Extensions
+Added a new Extensions API to access the Extensions
+runtime methods.
+Version 11.2.1 - 10 November, 2022
+Cloud Messaging
+Increased the timeout for Cloud Messaging requests to 15
+seconds to avoid duplicate notifications.
+Cloud Firestore
+Exposed 'ReadWriteTransactionOptions' from the firestore module.
+Thanks naodya for the
+contribution .
+Version 11.2.0 - 17 October, 2022
+Authentication
+Added SMS region config support for tenant and project
+configuration.
+Cloud Firestore
+Upgraded the @google-cloud/firestore dependency to v6.4.0 to
+support the COUNT queries API.
+Version 11.1.0 - 06 October, 2022
+Cloud Firestore
+Upgraded the @google-cloud/firestore dependency to v6.3.0.
+Cloud Storage
+Upgraded the @google-cloud/storage dependency to v6.5.2.
+Version 11.0.1 - 28 July, 2022
+The admin.securityRules() API now creates a new Security Rules
+release if one does not already exist.
+Authentication
+The toJSON() method in UserMetadata now includes
+lastRefreshTime in the returned JSON output.
+Version 11.0.0 - 16 June, 2022
+Breaking change: Dropped support for Node.js 12. Developers should use Node.js 14
+or higher when deploying the Admin SDK.
+Breaking change: Upgraded TypeScript to v4.6.4 .
+Breaking change: Upgraded the @google-cloud/firestore package to v5.
+This contains breaking changes. Refer to the Cloud Firestore release notes for more details.
+Breaking change: Upgraded the @google-cloud/storage package to v6.
+This contains breaking changes. Refer to the Cloud Storage release notes for more details.
+Version 10.3.0 - 09 June, 2022
+Deprecated support for Node.js 12. Instead use Node.js 14 or
+higher when deploying the Admin SDK. Node.js 12 support will be dropped in the
+next major version.
+Replaced the dicer package with @fastify/busboy to address
+security issues in dicer .
+Version 10.2.0 - 05 May, 2022
+Firebase App Check
+Updated Firebase App Check APIs to use the v1 service
+endpoint instead of the v1beta endpoint.
+Authentication
+Added the email action link generation APIs for creating links for
+the request type VERIFY_AND_CHANGE_EMAIL via
+auth.generateVerifyAndChangeEmailLink() .
+Cloud Functions
+Added an API to enqueue functions with Cloud Tasks.
+Version 10.1.0 - 21 April, 2022
+Upgraded the node-forge dependency to v1.3.1.
+Cloud Firestore
+Upgraded the @google-cloud/firestore dependency to v4.15.1.
+Cloud Storage
+Upgraded the @google-cloud/storage dependency to v5.18.3.
+Version 10.0.2 - 21 January, 2022
+Upgraded the node-forge dependency to v1.0.0, which includes fixes
+for a couple of known issues in previous package versions. (GitHub GHSA-5rrq-pxf6-6jx5 ,
+GitHub GHSA-gf8q-jrpm-jvxq )
+Version 10.0.1 - 15 December, 2021
+Authentication
+The createSessionCookie() API now correctly parses and maps
+USER_DISABLED server errors.
+Removed request body from the deleteTenant() API.
+Cloud Firestore
+Exposed BundleBuilder , DocumentChange , OrderByDirection ,
+SetOptions , and WhereFilterOp Firestore SDK types from the firestore
+module and the admin.firestore namespace.
+Version 10.0.0 - 14 October, 2021
+The Admin SDK now requires Node.js 12 or higher. Node.js 10
+support has been discontinued.
+The Admin SDK now exposes a series of ES module entry points.
+Developers are recommended to import Admin SDK APIs from these entry points.
+The namespaced version of the API will be removed in a future major release.
+Refer to the migration guide for details
+on how to update your existing code to use the new ES module entry points.
+The new module entry points can be used in native ESM runtimes.
+You can enable the native ESM support on a server running Node.js 12+ by
+setting the type: "module" parameter in your project's package.json file.
+See Node.js documentation
+for more details.
+Version 9.12.0 - 28 September, 2021
+Firebase Remote Config
+Added support for Parameter value data types .
+Realtime Database
+Refactored the admin.database() API to use the new
+@firebase/database-compat package under the hood. This helps avoid several
+dependency conflicts and type compilation errors when using the Firebase Web
+SDK packages alongside the Admin SDK.
+Version 9.11.1 - 19 August, 2021
+Authentication
+When checkRevoked is set to true , the verifyIdToken() and
+verifySessionCookie() APIs now throw an error if the user record is disabled.
+Version 9.11.0 - 15 July, 2021
+Firebase App Check
+The createToken() API now supports configuring the TTL of the
+returned Firebase App Check token.
+Version 9.10.0 - 24 June, 2021
+Authentication
+Redefined AuthProviderConfig , CreateMultiFactorInfoRequest and
+UpdateMultiFactorInfoRequest interfaces as TypeScript union types. This
+enables simpler and more idiomatic use of these types in developer
+applications.
+Firebase Installations
+Added a new admin.installations() API to replace the existing
+admin.instanceId() API.
+The admin.instanceId() API is now deprecated and
+the developers are advised to migrate to the admin.installations() API for
+deleting Firebase instance IDs and installation IDs.
+Version 9.9.0 - 26 May, 2021
+The Admin SDK now requires Node.js 10.13.0 or higher.
+Authentication
+Made multi-factor authentication uid optional for updateUser
+operations.
+Added support for configuring the authorization code flow for
+OIDC providers (previously only supported the idToken flow).
+Added OAuthResponseType for specifying the responseType in
+OIDC provider flow.
+Added INVALID_OAUTH_RESPONSETYPE and
+MISSING_OAUTH_CLIENT_SECRET error codes.
+Version 9.8.0 - 10 May, 2021
+Upgraded the @types/node dependency to v12.12.47.
+Thanks nikhilag for the
+contribution .
+Authentication
+The method generatePasswordResetLink() now throws
+an auth/email-not-found error code if no user exists for the
+specified email address.
+Realtime Database
+Upgraded the @firebase/database dependency to version 0.10.0. This
+makes the startAfter and endBefore query filters available for Admin SDK
+users.
+Firebase App Check
+Added Firebase abuse reduction support APIs.
+Version 9.7.0 - 27 April, 2021
+Cloud Storage
+Added support for the FIREBASE_STORAGE_EMULATOR_HOST environment
+variable.
+Realtime Database
+Fixed a token refresh livelock that affected the
+Cloud Functions for Firebase users.
+Version 9.6.0 - 29 March, 2021
+Improved OAuth 2.0 token caching and management. The SDK now treats any
+OAuth 2.0 token 5 minutes away from expiration as already expired, and proactively
+refreshes it. This helps avoid certain types of authorization-related race
+conditions.
+The periodic token refresher background task has been decoupled from
+the SDK core and moved into the RTDB module. This task no longer starts
+automatically unless the admin.database() API is explicitly invoked.
+Realtime Database
+Rules management APIs now support the Firebase emulator suite.
+Methods like getRules() and setRules() will automatically connect to the
+local emulator when the emulator mode is enabled.
+Version 9.5.0 - 10 February, 2021
+Authentication
+Added a new getUserByProviderUid() method to look up user
+accounts by their providers.
+The updateUser() method now supports linking a federated ID with
+a user account.
+Allowed enabling of anonymous provider via tenant configuration.
+The verifyIdToken() method now fully supports the Authentication
+emulator.
+Cloud Messaging
+Exported all message types so they can be used by consumers.
+Thanks BorntraegerMarc for the
+contribution .
+Version 9.4.2 - 09 December, 2020
+Cloud Messaging
+Support arbitrary custom values in the ApnsPayload type.
+Realtime Database
+Upgraded dependencies @firebase/database and
+@firebase/database-types to the latest available versions. This resolves an
+inconsistency in the published typings of the Database API.
+Version 9.4.1 - 13 November, 2020
+Firebase Remote Config
+Fixed a timestamp parsing issue in Remote Config template
+Version metadata that was causing Firebase Remote Config
+API operations to fail.
+Version 9.4.0 - 12 November, 2020
+Cloud Firestore
+Exposed several new types from the
+admin.firestore namespace.
+Newly exposed types include GrpcStatus , FirestoreDataConverter ,
+UpdateData , and more.
+Upgraded the @google-cloud/firestore dependency to v4.5.0.
+Authentication
+Fixed a bug that was causing credential lookup errors when invoking
+some APIs against the emulator.
+Version 9.3.0 - 22 October, 2020
+Authentication
+Added support for generating unsigned custom tokens for testing.
+Added support for verifying test ID tokens.
+Version 9.2.0 - 15 September, 2020
+Firebase ML
+Added support for creating, updating, getting, listing,
+publishing, unpublishing, and deleting Firebase-hosted custom ML models
+created with AutoML.
+Version 9.1.1 - 20 August, 2020
+Firebase Remote Config
+Added missing type definition for ListVersionsOptions . Thanks
+CodingAleCR for the
+contribution .
+Version 9.1.0 - 13 August, 2020
+Authentication
+Added the ability to enable/disable multi-factor authentication
+with SMS on a Google Cloud Identity Platform tenant. Existing APIs like
+createTenant() and updateTenant() now support configuring multi-factor
+authentication and testing phone number/code pairs on a specified tenant.
+Made displayName optional in AuthProviderConfig typings.
+Version 9.0.0 - 14 July, 2020
+The Admin SDK now requires Node.js 10 or higher. Node.js 8
+support has been discontinued.
+Upgraded dependency on the @google-cloud/firestore package to
+v4.
+Upgraded dependency on the @google-cloud/storage package to v5.
+Version 8.13.0 - 29 June, 2020
+Authentication
+Fixed a timestamp parsing issue in the
+UserMetadata.lastRefreshTime field.
+The lastRefreshTime field has been removed from
+the UserMetadataRequest type used in the importUsers() API. Setting this
+field is currently not supported in the Firebase Authentication backend.
+Added GetUsersResult and DeleteUsersResults interfaces to the
+exposed typings.
+Firebase Remote Config
+Added version management support for the admin.remoteConfig()
+API. This API now supports listVersions() , getTemplateAtVersion() , and
+rollback() operations to help developers programmatically manage their
+Remote Config templates.
+Version 8.12.1 - 08 May, 2020
+Authentication
+Fixed the typings of the UserMetadata type to avoid a potentially
+breaking change.
+Version 8.12.0 - 06 May, 2020
+Authentication
+Added getUsers() and deleteUsers() APIs for retrieving and
+deleting user accounts in bulk.
+Updated the typings of the customClaims attribute on UserRecord
+and UserImportRecord interfaces.
+Version 8.11.0 - 22 April, 2020
+Authentication
+Exposed email , email_verified , phone_number , and picture
+fields from the DecodedIdToken type.
+Realtime Database
+Upgraded @firebase/database dependency to v0.6.0, which provides a
+new admin.database.ServerValue.increment() function and fixed a database
+URL parsing bug to support domains with more than 3 components.
+Firebase ML
+Added a new admin.machineLearning() API for creating, updating,
+getting, listing, publishing, unpublishing, and deleting Firebase-hosted
+custom ML models.
+Firebase Remote Config
+Added a new admin.remoteConfig() API. This API enables Firebase
+developers to programmatically manage the set of JSON-formatted parameters and
+conditions known as the Remote Config template.
+Version 8.10.0 - 12 March, 2020
+Authentication
+Added multi-factor authentication support with SMS for Google
+Cloud Identity Platform .
+Existing APIs like createUser() and updateUser() now
+support configuring multi-factor authentication settings on user accounts.
+See documentation
+for more details and code samples.
+Updated typings of the UserRecord.customClaims attribute to allow
+indexing by string keys. Thanks wSedlacek for
+the contribution .
+Fixed a timestamp rounding error in the revokeRefreshTokens() API
+that caused some race conditions.
+Version 8.9.2 - 23 January, 2020
+Fixed a credential loading issue that prevented some functions
+from being deployed via the Firebase CLI.
+Version 8.9.1 - 15 January, 2020
+Authentication
+Fixed the inability to discover the project ID when running on GCP
+managed environments.
+Version 8.9.0 - 19 December, 2019
+Fixed a bug in the admin.instanceId().deleteInstanceId() API that
+caused errors even when the operation was completed successfully in the backend.
+Upgraded the @google-cloud/firestore dependency to v3.0.0. See the Firestore release
+notes for more
+details.
+Cloud Messaging
+The sendMulticast() API now correctly copies the fcmOptions when
+sending a message to multiple recipients.
+Realtime Database
+Upgraded the @firebase/database dependency to v0.5.17.
+Version 8.8.0 - 19 November, 2019
+Cloud Firestore
+Upgraded @google-cloud/firestore dependency version to 2.6.0.
+Thanks arjunyel for the
+contribution .
+Cloud Storage
+Upgraded @google-cloud/storage dependency version to 4.1.2. This
+version contains some minor breaking changes. Check the release
+notes of the
+dependency for more information. Thanks arjunyel
+for the
+contribution .
+Authentication
+The verifyIdToken() method now correctly uses the http.Agent
+configured during SDK initialization.
+Cloud Messaging
+Batch messaging APIs sendAll() and sendMulticast() now support
+sending up to 500 messages in a single call.
+Version 8.7.0 - 30 October, 2019
+Cloud Messaging
+Added a series of new parameters to the AndroidNotification class
+that allow further customization of notifications that target Android devices.
+Version 8.6.1 - 16 October, 2019
+Authentication
+UserRecord no longer exposes password hashes that are
+redacted due to lack of permissions in the service account credentials.
+Updated the typings of the setCustomUserClaims() API to accept
+null .
+Version 8.6.0 - 18 September, 2019
+Added a new admin.securityRules() API for managing Firebase
+security rules applied on services like Cloud Firestore and Cloud Storage .
+See the Firebase documentation to learn more about how to
+use the Admin SDK to manage and
+deploy security rules.
+Added getFirestoreRuleset() and getStorageRuleset() methods for
+retrieving rulesets that are currently in effect.
+Added releaseFirestoreRuleset() and releaseStorageRuleset()
+methods for creating new rulesets and applying them to Cloud Firestore and
+Cloud Storage .
+Added getRuleset() , createRuleset() and deleteRuleset()
+methods for managing the lifecycle of a ruleset.
+Cloud Messaging
+Added new APIs for specifying an image URL in notifications.
+Version 8.5.0 - 05 September, 2019
+Authentication
+Added multi-tenancy support to the authentication service (Google
+Cloud Identity Platform project required). Tenant related APIs are exposed via
+tenantManager() on
+the admin.auth interface.
+Added tenant management APIs authForTenant() , getTenant() ,
+listTenants() , deleteTenant() , createTenant() and updateTenant() to the
+newly defined TenantManager .
+Defined TenantAwareAuth interface retrieved via
+TenantManager#authForTenant() for managing users, configuring SAML/OIDC
+providers, generating email links for password reset, email verification, etc
+for specific tenants.
+Realtime Database
+Upgraded @firebase/database dependency version to 0.5.1. This helps
+avoid some peer dependency warnings that were observed during package
+installation.
+Version 8.4.0 - 21 August, 2019
+Cloud Messaging
+Added support for specifying Analytics labels for notifications.
+Thanks chemidy for the
+contribution .
+Version 8.3.0 - July 24, 2019
+Realtime Database
+Added an admin.database().getRules()
+method to retrieve the currently applied Realtime Database rules text.
+Added an admin.database().getRulesJSON()
+method to retrieve the currently applied Realtime Database rules as a
+parsed JSON object.
+Added an admin.database().setRules()
+method to update Realtime Database rules.
+Downgraded the dependency on the @firebase/app package
+to a dev dependency.
+Authentication
+Implemented additional argument validation in the
+admin.auth().importUsers() API.
+Cloud Storage
+Upgraded the @google-cloud/storage dependency to v3.0.0.
+This new major version drops support for Node.js versions older than v8.
+Since firebase-admin already supports only Node.js v8 and above,
+this does not have a noticeable impact on users of the Admin SDK.
+Version 8.2.0 - June 19, 2019
+Updated the metadata server URL (used by the application default
+credentials) to the v1 endpoint. This makes it possible to use the SDK
+in Google Kubernetes Engine again.
+Realtime Database
+Upgraded the @firebase/database dependency to v0.4.4.
+Firebase Cloud Messaging
+Gracefully handling array-like objects in messaging.sendAll() and
+messaging.sendMulticast() APIs.
+Version 8.1.0 - June 11, 2019
+The SDK now automatically retries HTTP calls failing due to 503
+errors.
+Project Management
+Added a new
+projectManagement.listAppMetadata()
+API to list the summarized details of up to 100 apps in a Firebase project.
+Added a new
+projectManagement.setDisplayName()
+API to update the display name of a Firebase project.
+Version 8.0.0 - May 23, 2019
+The Admin SDK no longer supports Node 6. Developers must use
+Node 8.13.0 or higher when deploying the Admin SDK.
+Cloud Firestore
+Upgraded the Cloud Firestore client dependency to
+v2.0.0 .
+This upgrade comes with a pure JS gRPC client implementation
+that is much smaller on disk.
+Cloud Storage
+Upgraded the Cloud Storage client dependency to
+v2.5.0 .
+Version 7.4.0 - May 21, 2019
+Support for Node 6 is now deprecated. Developers are recommended
+to use Node 8 or higher when deploying the Admin SDK. An upcoming release
+will completely drop Node 6 support.
+Cloud Firestore
+Upgraded the Cloud Firestore client dependency to
+v1.3.0 .
+This upgrade comes with a new API for executing collection group
+queries.
+Realtime Database
+Updated typings of the admin.database.ThenableReference type to
+extend from the built-in Promise type.
+Version 7.3.0 - April 17, 2019
+Authentication
+Added new APIs for managing SAML and OIDC provider
+configurations. These APIs support CRUD operations on auth provider
+configurations:
+auth.listProviderConfigs()
+auth.getProviderConfig()
+auth.deleteProviderConfig()
+auth.updateProviderConfig()
+auth.createProviderConfig()
+Version 7.2.0 - March 28, 2019
+Cloud Firestore
+Upgraded the Cloud Firestore client dependency to
+v1.2.0 .
+This upgrade exposes the v1beta and v1 clients, which provide direct access
+to the underlying Firestore and Firestore Admin RPCs. Please note that you
+must provide your Firebase credentials directly to these clients.
+Version 7.1.1 - March 20, 2019
+Firebase Cloud Messaging
+Fixed a bug in the FCM batch APIs that prevented them from
+correctly handling some message parameters like AndroidConfig.ttl .
+Version 7.1.0 - March 14, 2019
+Firebase Cloud Messaging
+A new
+messaging.sendMulticast()
+API for sending a message to a list of device registration tokens.
+A new
+messaging.sendAll()
+API for sending a list of messages as a single batch.
+Authentication
+Improved typings of the auth.UpdateRequest interface to clearly
+specify the nullable fields.
+Cloud Firestore
+Upgraded the Cloud Firestore client dependency to
+v1.1.0 .
+Version 7.0.0 - January 31, 2019
+Updated the Google Cloud Firestore client to v1.0.1. This contains breaking changes.
+Refer to the Cloud Firestore release notes
+for more details and migration instructions.
+Updated the Google Cloud Storage client to v2.3.0. This contains breaking changes.
+Refer to the Cloud Storage release notes
+for more details and migration instructions.
+Authentication
+The verifyIdToken() and verifySessionCookie() methods now return
+auth/id-token-expired and auth/session-cookie-expired error codes for expired JWTs.
+Credentials-related errors are now reported with additional helpful details.
+Version 6.5.1 - January 23, 2019
+Setting the GOOGLE_APPLICATION_CREDENTIALS environment
+variable to a refresh token file instead of a service account file
+is now supported. Thanks yinzara for the
+contribution .
+Implemented an environment check that is executed at
+package import time. The Admin SDK logs a warning if imported into a
+client environment such as a web browser.
+Version 6.5.0 - January 9, 2019
+A new shaCertificate() method for creating instances of
+admin.projectManagement.ShaCertificate .
+Authentication
+Fixed how the SDK parses the error codes sent by auth backend
+servers.
+Correctly marked optional fields in the
+UserRecord type.
+Version 6.4.0 - December 12, 2018
+AppOptions
+now accepts an optional http.Agent object. The
+http.Agent specified via this API is used when the SDK makes backend
+HTTP calls. This can be used when it is required to deploy the Admin SDK
+behind a proxy.
+admin.credential.cert() , admin.credential.applicationDefault() ,
+and admin.credential.refreshToken() methods now accept an http.Agent
+as an optional argument. If specified, the http.Agent is used
+when calling Google backend servers to fetch OAuth2 access tokens.
+Cloud Messaging
+The messaging.Aps
+type now supports configuring a critical alert sound.
+A new messaging.CriticalSound
+type has been introduced for this purpose.
+The messaging.AndroidNotification
+type now supports specifying a channelId
+field when sending messages to Android O clients.
+Version 6.3.0 - November 28, 2018
+A new admin.projectManagement()
+API for managing apps in a Firebase project.
+New listAndroidApps() and listIosApps() methods for
+listing the existing apps in a project.
+New createAndroidApp() and createIosApp() methods
+for creating new apps in a project.
+New AndroidApp
+and IosApp
+APIs for updating individual apps.
+Cloud Messaging
+ApsAlert type now supports specifying a subtitle.
+Thanks chemidy for the
+contribution .
+Version 6.2.0 - November 19, 2018
+Authentication
+Added the email action link generation APIs for creating links
+for password reset, email verification and email link sign-in via
+auth.generatePasswordResetLink() , auth.generateEmailVerificationLink()
+and auth.generateSignInWithEmailLink() .
+Refer documentation for more
+details and code samples.
+Cloud Firestore
+Upgraded Cloud Firestore client to v0.19.0.
+Exposed the Transaction type from the admin.firestore namespace.
+Cloud Messaging
+Improved error handling in FCM. The SDK now checks the key
+type.googleapis.com/google.firebase.fcm.v1.FcmError to set error code.
+Thanks chemidy for the
+contribution .
+Version 6.1.0 - October 22, 2018
+Upgraded the Cloud Firestore client from 0.16.0 to
+0.18.0 .
+Version 6.0.0 - August 9, 2018
+The Admin SDK no longer supports Node.js 4. Developers must use
+Node.js 6 or higher to deploy the Admin SDK.
+The Admin SDK now installs Cloud Firestore and Cloud Storage
+libraries as optional dependencies. SDK installation no longer fails when
+encountering errors from Cloud Firestore, Cloud Storage or gRPC dependencies.
+Upgraded the Cloud Firestore client from 0.15.4 to
+0.16.0 .
+This version contains a new array-contains query operator and
+FieldValue.arrayUnion() and FieldValue.arrayRemove() APIs.
+Version 5.13.1 - July 23, 2018
+Upgraded the Cloud Firestore client from 0.15.2 to
+0.15.4 .
+This version contains a bug fix that enables using it in environments
+where application default credentials are not available.
+Version 5.13.0 - July 17, 2018
+The Admin SDK can now read the Firebase/Google Cloud Platform
+project ID from both GCLOUD_PROJECT and GOOGLE_CLOUD_PROJECT environment
+variables.
+Upgraded the Cloud Firestore client from 0.14.0 to
+0.15.2 .
+This version of the Firestore client changes how date values are handled.
+Authentication
+The Admin SDK can now create custom tokens without being
+initialized with service account credentials.
+The SDK accepts a new serviceAccountId
+app option, which can be used to specify just the client email of a service
+account.
+When deployed in an environment managed by Google (e.g. Google
+Cloud Functions), the SDK can auto discover a service account ID without
+any explicit configuration.
+Realtime Database
+Updated typings of the admin.database.Query.once() method to
+return a more specific type.
+Cloud Messaging
+Updated typings of the admin.messaging.WebpushNotification type
+to include all supported notification fields.
+Version 5.12.1 - May 15, 2018
+Admin SDK now lazy loads all child namespaces and certain heavy
+dependencies for faster load times. This change also ensures that only
+the sources for namespaces that are actually used get loaded into the
+Node.js process.
+Upgraded the Cloud Firestore client from 0.13.0 to 0.14.0.
+Version 5.12.0 - April 05, 2018
+Authentication
+A new auth.createSessionCookie()
+method for creating a session cookie from a Firebase ID token.
+A new auth.verifySessionCookie()
+method for validating a given session cookie string.
+Cloud Messaging
+Added the mutableContent optional field to the
+messaging.Aps
+type. This can be used to set the mutable-content property when sending
+FCM messages to APNS targets.
+Added support for specifying arbitrary key-value fields in the
+messaging.Aps type.
+Version 5.11.0 - March 15, 2018
+Authentication
+A new auth.importUsers()
+method for importing users to Firebase Auth
+in bulk.
+Version 5.10.0 - March 08, 2018
+Upgraded the Realtime Database client from 0.1.11 to 0.2.0. This
+provides the ability to call
+admin.database().ref()
+with an existing reference as the argument.
+Upgraded the Cloud Firestore client from 0.12.0 to
+0.13.0 .
+Version 5.9.1 - February 28, 2018
+The admin.initializeApp() method can now be invoked without a
+credential option. The SDK uses Google Application Default Credentials
+when initialized this way.
+Upgraded the Cloud Firestore client from 0.11.1 to
+0.12.0 .
+Upgraded the Cloud Storage client from 1.2.1 to 1.6.0.
+Upgraded the Realtime Database client from 0.1.3 to 0.1.11.
+Version 5.9.0 - February 14, 2018
+Cloud Messaging
+A new messaging.send()
+method for sending FCM messages.
+Version 5.8.2 - January 30, 2018
+Exposed admin.firestore.DocumentReference and
+admin.firestore.DocumentSnapshot types from the Admin SDK typings.
+Upgraded Firestore dependency version to 0.11.2. This includes
+several bug fixes including a fix in the DocumentReference.update()
+operation.
+Version 5.8.1 - January 17, 2018
+Upgraded Firestore dependency version from 0.10.0 to 0.11.1.
+This includes several bug fixes in Cloud Firestore.
+Version 5.8.0 - January 11, 2018
+Initialization
+The admin.initializeApp()
+method can now be invoked without any arguments. This initializes an app
+using Google Application Default Credentials, and other
+AppOptions loaded from
+the FIREBASE_CONFIG environment variable.
+Authentication
+Upgraded the jsonwebtoken library to 8.1.0.
+Version 5.7.0 - January 04, 2018
+Authentication
+A new revokeRefreshTokens()
+method for revoking refresh tokens issued to a user.
+The verifyIdToken()
+method now accepts an optional checkRevoked argument, which can be used to
+check if a given ID token has been revoked.
+Version 5.6.0 - December 21, 2017
+A new admin.instanceId()
+API that facilitates deleting instance IDs and associated user data from
+Firebase projects.
+Updated the TypeScript typings for admin.AppOptions to reflect the
+introduction of the projectId option.
+Removed some unused third party dependencies.
+Version 5.5.1 - November 21, 2017
+Cloud Firestore
+Upgraded the Cloud Firestore client to the latest available
+version, which adds input validation to several operations, and retry logic
+to handle network errors.
+Realtime Database
+Fixed an issue in the TypeScript typings of the Realtime Database API.
+Version 5.5.0 - November 10, 2017
+Realtime Database
+app.database()
+method now optionally accepts a database URL. This feature can be used to
+access multiple Realtime Database instances from the same app.
+Upgraded the Realtime Database client to the latest available
+version.
+Cloud Firestore
+Upgraded the Cloud Firestore client to the latest available
+version.
+Version 5.4.3 - October 24, 2017
+Fixed a regression in module loading that prevented using
+the Admin SDK in environments like AWS Lambda. This regression was
+introduced in the 5.4.0 release, which added a new dependency to Firestore
+and gRPC. This fix lazily loads Firestore and gRPC, thus enabling
+Admin SDK usage in the affected environments as long as no explicit
+attempts are made to use the Firestore API.
+Version 5.4.2 - October 09, 2017
+Upgraded the Cloud Firestore client dependency to 0.8.2, which
+resolves an issue with saving objects with nested document references.
+Version 5.4.1 - October 03, 2017
+Upgraded the Firestore client dependency to 0.8.1, which resolves
+the installation issues reported in the Yarn environment.
+Version 5.4.0 - October 03, 2017
+A new admin.firestore()
+API that facilitates accessing Google Cloud Firestore
+databases using the
+@google-cloud/firestore
+library. See Set Up Your Node.js App for Cloud Firestore
+to get started.
+Version 5.3.0 - September 27, 2017
+SDK now retries outbound HTTP calls on all low-level I/O errors.
+Authentication
+A new setCustomUserClaims()
+method for setting custom claims on user accounts. Custom claims set via this
+method become available on the ID tokens of the corresponding users when they
+sign in. To learn how to use this API for controlling access to Firebase
+resources, see
+Control Access with Custom Claims and Security Rules .
+A new listUsers()
+method for listing all the users in a Firebase project in batches.
+Cloud Storage
+Declared a more concrete TypeScript return type ( Bucket ) for the
+bucket() method
+in the Cloud Storage API.
+Version 5.2.1 - August 16, 2017
+A bug in the TypeScript type declarations that come bundled with the
+SDK ( index.d.ts ) has been fixed.
+Version 5.2.0 - August 14, 2017
+A new Cloud Storage API
+that facilitates accessing Google Cloud Storage buckets using the
+@google-cloud/storage
+library.
+Authentication
+New type definitions for the arguments of createUser() and
+updateUser() methods.
+Cloud Messaging
+Redefined the arguments of sendToDevice() using intersection
+instead of overloading.
+Version 5.1.0 - July 25, 2017
+Authentication
+Added the method
+getUserByPhoneNumber()
+to the admin.auth interface. This method
+enables retrieving user profile information by a phone number.
+createUser()
+and updateUser() methods
+now accept a phoneNumber property, which can be used to create users with a phone
+number field and/or update the phone number associated with a user.
+Added the phoneNumber field to
+admin.auth.UserRecord ,
+which exposes the phone number associated with a user account.
+Added the phoneNumber field to
+admin.auth.UserInfo ,
+which exposes the phone number associated with a user account by a linked
+identity provider.
+Version 5.0.1 - July 12, 2017
+Improved the error messages thrown in the case of network and RPC
+errors. These errors now include outgoing HTTP request details that make
+it easier to localize and debug issues.
+Authentication
+Implemented support in the user management API for handling photo
+URLs with special characters.
+Version 5.0.0 - May 17, 2017
+Initialization
+The deprecated serviceAccount property in the
+admin.App.Options
+type has been removed in favor of the credential property.
+Initializing the SDK without setting a credential
+results in an exception.
+Initializing the SDK with a malformed private key string
+results in an exception.
+Authentication
+createdAt and lastSignedInAt properties in
+admin.auth.UserMetadata
+have been renamed to creationTime and lastSignInTime . Also these
+properties now provide UTC formatted strings instead of Date values.
+Version 4.2.1 - April 12, 2017
+Updated the SDK to periodically refresh the OAuth access token
+internally used by FirebaseApp . This reduces the number of authentication
+failures encountered at runtime by SDK components like Realtime Database .
+Version 4.2.0 - April 04, 2017
+Cloud Messaging
+Added the methods
+subscribeToTopic()
+and
+unsubscribeFromTopic()
+to the admin.messaging()
+service. The new methods allow subscribing to and unsubscribing from FCM
+topics via registration tokens.
+Version 4.1.4 - March 28, 2017
+Authentication
+Cleaned up a number of types to improve the log output, thereby
+making debugging easier.
+Realtime Database
+Fixed an issue which could cause infinite loops when using push()
+with no arguments.
+Version 4.1.3 - March 7, 2017
+Fixed incorrect usage of undefined - as opposed to void - in
+several places in the TypeScript typings.
+Added missing properties to the TypeScript typings for
+DecodedIdToken .
+Fixed issues when using some types with the TypeScript
+strictNullChecks option enabled.
+Removed incorrect admin.Promise type from the TypeScript typings
+in favor of the Node.js built-in Promise type, which the SDK actually uses.
+Added error codes to all app-level errors. All errors in the SDK
+now properly implement the
+FirebaseError interface.
+Improved error handling when initializing the SDK with a credential
+that cannot generate valid access tokens.
+Added new admin.database.EventType to the TypeScript typings.
+Realtime Database
+Improved how the Realtime Database reports errors when provided with
+various types of invalid credentials.
+Version 4.1.2 - March 2, 2017
+Authentication
+Improved input validation and error messages for all user
+management methods.
+verifyIdToken()
+now works with non-cert credentials, assuming the GCLOUD_PROJECT environment
+variable is set to your project ID, which is the case when running on Google
+infrastructure such as Google App Engine and Google Compute Engine.
+Realtime Database
+Added toJSON() methods to the DataSnapshot and Query objects
+to make them properly JSON-serializable.
+Cloud Messaging
+Improved response parsing when
+sendToDevice()
+and
+sendToDeviceGroup()
+are provided with unexpected inputs.
+Version 4.1.1 - February 14, 2017
+Added in missing TypeScript typings for the FirebaseError.toJSON()
+method.
+Authentication
+Fixed issue with
+createUser()
+which sometimes caused multiple users to share the same email.
+Version 4.1.0 - February 2, 2017
+Added in missing TypeScript typings for the toJSON() method off
+of several objects.
+Cloud Messaging
+A new
+admin.messaging() service
+allows you to send messages through
+Firebase Cloud Messaging . The new service
+includes the
+sendToDevice() ,
+sendToDeviceGroup() ,
+sendToTopic() ,
+and
+sendToCondition()
+methods.
+Version 4.0.6 - January 24, 2017
+Initialization
+Fixed an issue which caused importing the library via the ES2015
+import syntax ( import * as admin from "firebase-admin" ) to not work
+properly.
+Version 4.0.5 - January 17, 2017
+TypeScript support has been greatly improved. Typings for the
+Realtime Database are now available and all other known issues with incorrect or
+incomplete type information have been resolved.
+Initialization
+Fixed an issue which caused the SDK to appear to hang when provided
+with a credential that generated invalid access tokens. The most common cause
+of this was using a credential whose access had been revoked. Now, an error
+will be logged to the console in this scenario.
+Authentication
+The error message for an auth/internal-error error now includes
+the raw server response to more easily debug and track down unhandled errors.
+Fixed an issue that caused an auth/internal-error error to be
+thrown when calling
+getUser() or
+getUserByEmail()
+for a user without a creation date.
+Fixed an issue which caused an auth/internal-error error to be
+thrown when calling
+createUser() with
+an email that corresponds to an existing user.
+Fixed an issue which caused an auth/internal-error error to be
+thrown when calling Authentication methods with a credential with insufficient
+permission. Now, an auth/insufficient-permission error will be thrown
+instead.
+Version 4.0.4 - December 6, 2016
+Authentication
+Fixed an issue that caused several Authentication methods to throw
+an error when provided with inputs containing Unicode characters.
+Version 4.0.3 - November 21, 2016
+Initialization
+Fixed an issue that caused a null value for the
+databaseAuthVariableOverride property to be ignored when passed as part
+of the first argument to
+initializeApp() , which
+caused the app to still have full admin access. Now, passing this value has
+the expected behavior: the app has unauthenticated access to the
+Realtime Database , and behaves as if no user is logged into the app.
+Authentication
+Fixed an issue that caused an auth/invalid-uid error to
+be thrown for valid uid values passed to several Authentication methods.
+Version 4.0.2 - November 15, 2016
+Improved error messages throughout the Admin Node.js SDK.
+Upgraded dependencies so that the Admin Node.js SDK no longer
+throws warnings for using deprecated Buffer APIs in Node.js 7.x.x .
+Version 4.0.1 - November 9, 2016
+Fixed issue which caused the 4.0.0 release to not
+include the README.md and npm-shrinkwrap.json files.
+Version 4.0.0 - November 7, 2016
+The Admin Node.js SDK (available on npm as firebase-admin ) is a
+new SDK which replaces and expands the admin capabilities of the standard
+firebase npm module. See
+Add the Firebase Admin SDK to your Server to get
+started.
+This version does not include the README.md and
+npm-shrinkwrap.json files. This was fixed in version 4.0.1 .
+Initialization
+The serviceAccount property of the options passed as the
+first argument to
+initializeApp() has been
+deprecated in favor of a new credential property. See
+Initialize the SDK for more details.
+The new
+admin.credential.cert()
+method allows you to authenticate the SDK with a service account key file.
+The new
+admin.credential.refreshToken()
+method allows you to authenticate the SDK with a Google OAuth2 refresh token.
+The new
+admin.credential.applicationDefault()
+method allows you to authenticate the SDK with Google Application Default
+Credentials.
+Authentication
+A new Admin API for managing your Firebase Authentication users is now
+available. This API lets you manage your users without using their existing
+credentials, and without worrying about client-side rate limiting. The new
+methods included in this API are
+getUser() ,
+getUserByEmail() ,
+createUser() ,
+updateUser() , and
+deleteUser() . See
+Manage Users for more details.
+The
+createCustomToken()
+method is now asynchronous, returning a Promise<string> instead of a
+string .
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2026-09-24 UTC.
+Learn
+Developer guides
+SDK & API reference
+Samples
+Libraries
+GitHub
+Stay connected
+Check out the blog
+Find us on Reddit
+Follow on X
+Subscribe on YouTube
+Attend an event
+Support
+Contact support
+Stack Overflow
+Google group
+Release notes
+Brand guidelines
+FAQs
+Android
+Chrome
+Firebase
+Google Cloud Platform
+All products
+Terms
+Privacy
+Manage cookies
+English
+Español – América Latina
+Indonesia
+Português – Brasil
+中文 – 简体
+日本語
+한국어

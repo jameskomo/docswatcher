@@ -1,0 +1,97 @@
+Skip to main content
+Skip to footer
+Changelog
+Blog
+Docs
+Status
+Get Started
+Apps
+CMS
+Tooling
+Marketplace
+Create developer account with a HubSpot Developer account
+HubSpot Developer Changelog
+Home
+›
+HubSpot Developer Changelog
+Stay Updated with Our Latest Changes
+Posts by Tag
+span]:line-clamp-1 w-full min-h-[44px] touch-manipulation" aria-describedby="mobile-tag-dropdown-description">
+Use this dropdown to filter blog posts by tag. Select "All posts" to view all posts, or choose a specific tag to filter results.
+Announced (145)
+API (63)
+CMS (39)
+Contacts API (21)
+Developer Tools (20)
+Forms API (21)
+Logiciel CMS (19)
+New Functionality (23)
+Sunset (27)
+Upcoming (37)
+Latest Posts
+Announced Upcoming ( 2 )
+Legacy APIs and Apps: What's Going Unsupported and When
+Announced: Sep 15, 2026
+At Fall Spotlight on September 15, HubSpot is announcing the end of support for v1-v3 APIs, legacy public apps, and legacy private apps, all with a September 2027 enforcement date. If your integration or ...
+Read More
+Fall 2026 Spotlight - Developer / Builder Updates
+Announced: Sep 15, 2026
+This changelog rounds up the developer and builder updates in HubSpot's Fall Spotlight 2026 release: what's now generally available on Developer Platform version 2026.09, the new and
+Read More
+August 2026 Rollup
+Live: Jul 31, 2026
+Read More
+Legacy Private App Creation Being Disabled
+Announced: Aug 27, 2026
+HubSpot is permanently removing the ability to create new legacy, non-Project based, private apps through the account UI. Users needing similar functionality should use Service Keys, available via Developer Platform Projects version 2026.09 ...
+Read More
+Pipelines API V1 Sunset: December 4, 2026
+Announced: Aug 14, 2026
+HubSpot will sunset the Pipelines API V1 on December 4, 2026. After this date, the API will no longer be supported. If your integration relies on V1 endpoints, you'll need to migrate to the 2026-03 or ...
+Read More
+Node 18.x and 20.x Runtimes Deprecated for Chatflow Custom Code Snippets
+Announced: Aug 12, 2026
+Node 18.x and 20.x are being deprecated as supported runtimes for Chatflows custom code snippets. If you have bot code ...
+Read More
+Breaking Change: CRM API Write Validation Enforcement Starting with the 2026-09 API Version
+Announced: Aug 11, 2026
+Starting with the /2026-09/ API version shipping on September 8, 2026, HubSpot will enforce admin-configured validation rules on all CRM API write paths. If your integration creates or updates CRM records, please ...
+Read More
+July 2026 Rollup
+Live: Jul 31, 2026
+This month's updates include a raised owner property limit, larger Webhooks Journal batch sizes, and a new historical API usage chart — plus public betas for Contract Imports and the Payment Links API. Read on for the details.
+Read More
+Breaking Change: Pipeline and pipeline stage delete endpoints will validate references by default starting with the 2026-09 API version
+Live: Sep 8, 2026
+7/23/2026 Edit - The post has been updated to include the Deal object specific ...
+Read More
+Developer updates for June 2026
+Announced: Jun 29, 2026
+Read More
+1 2 3 4 5
+Next page
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline mobile-footer-first-trigger pt-0" data-radix-collection-item="">For Developers
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline" data-radix-collection-item="">Company
+For Developers
+Developer Tooling
+API Documentation
+Apps Documentation
+CMS Documentation
+Become a Partner
+HubSpot Developer Blog
+HubSpot Developer Changelog
+HubSpot Developer Community
+HubSpot Developer Newsletter
+HubSpot Academy
+Company
+About Us
+Careers
+Management Team
+Board of Directors
+Investor Relations
+Contact Us
+Copyright © 2026 HubSpot, Inc.
+Legal Stuff
+Privacy Policy
+Security
+Website Accessibility

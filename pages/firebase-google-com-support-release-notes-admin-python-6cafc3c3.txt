@@ -1,0 +1,822 @@
+Skip to main content
+Build
+Get to market quickly and securely with products that can scale globally
+Go to Build
+Build Products
+App Check
+App Hosting
+Authentication
+Cloud Functions
+Cloud Storage
+SQL Connect
+Extensions
+Firestore
+Hosting
+Phone Number Verification
+Realtime Database
+Firebase AI Logic
+Generative AI
+Run
+Run your app with confidence and deliver the best experience for your users
+Go to Run
+Run Products
+A/B Testing
+App Distribution
+Cloud Messaging
+Crashlytics
+Google Analytics
+In-App Messaging
+Performance Monitoring
+Remote Config
+Test Lab
+Solutions
+Pricing
+Docs
+Overview
+Fundamentals
+AI
+Build
+Run
+Reference
+Samples
+Community
+Learn
+Stories
+Support
+/
+English
+Español – América Latina
+Indonesia
+Português – Brasil
+中文 – 简体
+日本語
+한국어
+Blog
+Go to console
+Sign in
+Support
+Build
+More
+Run
+More
+Solutions
+Pricing
+Docs
+More
+Community
+More
+Support
+Blog
+Go to console
+Developer Support
+Contact Support
+Scope of no-cost support
+Support Guides
+Overview
+FAQ
+Security checklist
+Launch checklist
+Firebase-related service accounts
+Troubleshoot initialization options
+Dynamic Links deprecation
+Deprecation FAQ
+Export Dynamic Links metadata
+Migrate to App Links & Universal Links
+Migrate from Parse
+Android
+iOS+
+Cloud Audit Logs
+Firebase Management
+Cloud Storage for Firebase
+Firebase Cloud Messaging
+Firebase App Hosting
+Firebase App Check
+Firebase Security Rules
+Firebase Realtime Database
+Android Device Streaming
+Recent Changes and Updates
+Release Notes
+iOS Release Notes
+Android Release Notes
+JavaScript Release Notes
+Flutter Release Notes
+Unity Release Notes
+C++ Release Notes
+Admin Node.js Release Notes
+Admin Java Release Notes
+Admin Python Release Notes
+Admin Go Release Notes
+Admin .NET Release Notes
+Admin Dart Release Notes
+Security Rules Release Notes
+Firebase CLI Release Notes
+Firebase Studio Release Notes
+Policies for changes and versioning
+Overview
+Introducing and communicating changes
+Versioning and maintenance
+Legal Information
+Terms of Service
+Paid Services Terms
+Data Processing and Security Terms
+Firebase: Standard Contractual Clauses
+Service Level Agreement for Hosting and Realtime Database
+Cloud Storage for Firebase Service Level Agreement
+Crashlytics and App Distribution Terms
+Firebase Subprocessors
+Privacy and Security Information
+Privacy and Security in Firebase
+Designate Data Protection Officers and EU Representatives
+Firebase Data Privacy Inquiries
+Manage Instance ID data
+Clear and export users' data
+Storing privacy settings with Firebase
+Build
+Go to Build
+Build Products
+App Check
+App Hosting
+Authentication
+Cloud Functions
+Cloud Storage
+SQL Connect
+Extensions
+Firestore
+Hosting
+Phone Number Verification
+Realtime Database
+Firebase AI Logic
+Generative AI
+Run
+Go to Run
+Run Products
+A/B Testing
+App Distribution
+Cloud Messaging
+Crashlytics
+Google Analytics
+In-App Messaging
+Performance Monitoring
+Remote Config
+Test Lab
+Overview
+Fundamentals
+AI
+Build
+Run
+Reference
+Samples
+Learn
+Stories
+Firebase
+Support
+Send feedback
+Firebase Admin Python SDK Release Notes
+Stay organized with collections
+Save and categorize content based on your preferences.
+To review release notes for the Firebase console and for other Firebase
+platforms and related SDKs, refer to the
+Firebase Release Notes .
+Version 7.7.0 - 23 September 2026
+App Check
+Modified the app_check.verify_token() API so that it uses the
+v1beta endpoint instead of the v1 endpoint when replay protection is
+enabled.
+Cloud Messaging
+Migrated the subscribe_to_topic() and
+unsubscribe_from_topic() functions in the messaging module from the legacy
+Instance ID API to the Cloud Messaging v1 topic subscription API.
+Added the subscribe_to_topic_legacy() and
+unsubscribe_from_topic_legacy() functions, which continue to call the legacy
+Instance ID API. These functions are deprecated and will be removed in a
+future release.
+Version 7.6.0 - 17 September 2026
+App Check
+Added support for replay protection in the
+app_check.verify_token() API.
+Firebase ML
+Deprecated the Firebase ML module and its associated
+classes and functions ahead of the service turndown on
+June 15, 2027. If you host custom models,
+migrate to Cloud Storage for Firebase .
+Version 7.5.0 - 02 July 2026
+Cloud Messaging
+Deprecated the token parameter in Message class and the
+tokens parameter in MulticastMessage class. Use the new fid and fids
+parameters instead.
+Added support for sending messages to Firebase installation IDs
+(FIDs) using the new fid parameter in Message class
+and fids parameter in MulticastMessage class.
+Updated the send_each_for_multicast() and
+send_each_for_multicast_async() functions to support both token and fid
+target types.
+Version 7.4.0 - 09 April 2026
+Firebase Phone Number Verification
+Added a new phone_number_verification.verify_token() API to
+verify Firebase Phone Number Verification tokens.
+Version 7.3.0 - 19 March 2026
+Cloud Messaging
+Added support for bandwidth_constrained_ok and
+restricted_satellite_ok fields in FCM AndroidConfig .
+Fixed an issue where debug error logs were created when making calls
+to send_each_async and send_each_for_multicast_async .
+Thanks Plonq for the
+contribution .
+Version 7.2.0 - 25 February, 2026
+Cloud Functions
+Added Cloud Task emulator support when using the
+CLOUD_TASKS_EMULATOR_HOST environment variable.
+Fixed an issue during cold starts where credentials were not loaded
+before enqueuing the first task.
+Authentication
+Fixed an issue in the error code parsing logic where extra
+whitespace in error messages caused known error codes to be incorrectly mapped
+to unknown errors.
+Version 7.1.0 - 31 July, 2025
+Authentication
+Updated ActionCodeSettings to support link_domain , allowing
+you to customize the Firebase Hosting domain used in email action flows. As
+part of this change, dynamic_link_domain has been deprecated. Thanks
+huwmartin for The
+contribution .
+Version 7.0.0 - 17 July, 2025
+Dropped support for Python 3.7 and 3.8.
+Deprecated support for Python 3.9. Use Python 3.10 or higher when
+deploying the Admin SDK.
+Removed the dependency on google-api-python-client greatly
+reducing the SDK's bundle size.
+Upgraded google-cloud-firestore dependency version to to 2.21.0+.
+Upgraded google-cloud-storage dependency version to 3.1.1+.
+Upgraded google-api-core dependency version to 2.25.1+.
+Cloud Messaging
+Dropped support for send_all() and send_multicast() APIs. Use
+send_each() and send_each_for_multicast() APIs or their async counter
+parts send_each_async() and send_each_for_multicast_async() APIs instead.
+Firebase ML
+Dropped AutoML model support.
+Cloud Functions
+Replaced usage of deprecated datetime.utcnow() with
+datetime.now(timezone.utc) .
+Version 6.9.0 - 05 June, 2025
+Cloud Messaging
+Added support for live_activity_token field in FCM APNSConfig .
+Added send_each_async() and send_each_for_multicast_async()
+APIs with async and HTTP/2 support.
+Optimized success count calculation in BatchResponse . Thanks
+mingi3314 for the
+contribution .
+Version 6.8.0 - 24 April, 2025
+Deprecated support for Python 3.8. Use Python 3.9 or higher when
+deploying the Admin SDK.
+Cloud Messaging
+Added support for proxy field in FCM AndroidNotification .
+Version 6.7.0 - 12 March, 2025
+Remote Config
+Added support for configuring Remote Config
+server applications .
+Realtime Database
+Fixed a bug that caused reference listeners to ignore the database name
+set when connected to the Realtime Database emulator. Thanks
+aiueo-1234 for the
+contribution .
+Version 6.6.0 - 07 November, 2024
+Added support for passing google.auth typed credentials directly
+into initialize_app() .
+Cloud Firestore
+Upgraded the google-cloud-firestore dependency to v2.19.0 .
+Added support for multiple Cloud Firestore named databases.
+Version 6.5.0 - 11 March, 2024
+Added new exceptions to handle rate limiting auth errors. Thanks
+skion for the
+contribution .
+Exported rate limiting auth errors types
+TooManyAttemptsTryLaterError and ResetPasswordExceedLimitError .
+Cloud Functions
+Added an API to enqueue functions with Cloud Tasks.
+Version 6.4.0 - 23 January, 2024
+Cloud Messaging
+Exported send_each and send_each_for_multicast APIs from the
+Cloud Messaging module. Thanks
+MarcoTomasRodriguez for the
+contribution .
+Enabled the direct_boot_ok parameter for FCM Android config.
+Version 6.3.0 - 05 December, 2023
+Deprecated support for Python 3.7. Use Python 3.8 or higher when
+deploying the Admin SDK.
+Authentication
+Correctly catch DefaultCredentialsError when looking up
+project_id .
+Added optional clock_skew_seconds parameter for token generation
+in the verify_id_token() and verify_session_cookie() APIs. Thanks
+stillmatic for the
+contribution .
+App Check
+Add PyJWKClientError to raised errors documentation and handle
+possible uncaught errors.
+Version 6.2.0 - 22 June, 2023
+Cloud Messaging
+Added send_each() and send_each_for_multicast() APIs.
+send_all() and send_multicast() APIs are now deprecated. Use
+send_each() and send_each_for_multicast() APIs instead.
+Authentication
+Update Auth APIs to use v2 service endpoints.
+Version 6.1.0 - 02 February, 2023
+Cloud Firestore
+Upgraded the google-cloud-firestore dependency to v2.9.1 to
+support the COUNT queries API.
+Firebase ML
+Deprecated AutoML model support. AutoML model support will be
+removed in the next major version.
+Version 6.0.1 - 17 October, 2022
+App Check
+Included PyJWT dependency in the distribution artifacts.
+Version 6.0.0 - 06 October, 2022
+Dropped support for Python 3.6. Developers should use
+Python 3.7 or higher with the Admin SDK.
+App Check
+Added a new app_check.verify_token() API to verify App Check
+tokens.
+Version 5.4.0 - 22 September, 2022
+Deprecated support for Python 3.6. Developers are advised to use
+Python 3.7 or higher when deploying the Admin SDK.
+Authentication
+Fixed an incorrect key used to set memory_cost config in the
+auth.UserImportHash.standard_scrypt() API.
+Version 5.3.0 - 25 August, 2022
+Cloud Firestore
+Added asynchronous support for Cloud Firestore APIs.
+Version 5.2.0 - 15 December, 2021
+Authentication
+Added support for configuring the authorization code flow for OIDC
+providers.
+Version 5.1.0 - 04 November, 2021
+Authentication
+Added the ability to delete providers from a user record by
+passing a list of provider IDs to the update_user() API. Thanks
+hardikns for the
+contribution .
+Version 5.0.3 - 23 September, 2021
+Authentication
+Improved the performance of the list_users() API by reducing the
+amount of repeated processing that happens during pagination.
+Version 5.0.2 - 13 August, 2021
+Authentication
+When check_revoked is set to True , the verify_id_token()
+and verify_session_cookie() APIs now throw an error if the user record
+is disabled.
+Cloud Messaging
+Fixed a concurrency issue in the send_all() and send_multicast()
+APIs by instantiating a new googleapiclient transport instance for each
+invocation of those functions.
+Version 5.0.1 - 17 June, 2021
+Authentication
+Added the missing EMAIL_NOT_FOUND error code.
+Version 5.0.0 - 28 April, 2021
+Dropped support for Python 3.5. Developers should use Python 3.6
+or higher when deploying the Admin SDK.
+Upgraded google-cloud-firestore dependency version to to 2.1.0.
+Upgraded google-cloud-storage dependency version to 1.37.1.
+Upgraded google-api-core dependency version to 1.22.1.
+The SDK now accepts path-like objects in credential factory functions.
+Authentication
+Added Authentication emulator support via the FIREBASE_AUTH_EMULATOR_HOST
+environment variable. Thanks muru for the
+contribution .
+Version 4.5.3 - 18 March, 2021
+Authentication
+The Authentication API now respects the httpTimeout set in app options.
+Thanks daniellehanks for the
+contribution .
+Version 4.5.2 - 18 February, 2021
+Fixed a bug that prevented the proper operation of the SDK when used
+with certain versions of the urllib3 package. Thanks
+xmo-odoo for the
+contribution .
+Version 4.5.1 - 12 January, 2021
+Realtime Database
+Added support for handling RTDB URLs that point to instances hosted
+in non-US regions.
+Version 4.5.0 - 09 December, 2020
+Deprecated support for Python 3.5. Developers are advised to use
+Python 3.6 or higher when deploying the Admin SDK.
+Cloud Messaging
+The SDK now correctly handles low-level runtime errors raised by the
+googleapiclient package while sending batch requests.
+Version 4.4.0 - 15 September, 2020
+Firebase ML
+Added support for creating, updating, getting, listing,
+publishing, unpublishing, and deleting Firebase-hosted custom ML models
+created with AutoML.
+Version 4.3.0 - 14 May, 2020
+Authentication
+Added get_users() and delete_users() APIs for retrieving and
+deleting user accounts in bulk.
+Version 4.2.0 - 30 April, 2020
+Authentication
+Added a new tenant_mgt module that provides APIs for creating,
+updating, retrieving, and deleting authentication tenants.
+Added a new tenant_mgt.auth_for_tenant() function that returns a
+client object scoped to a specific tenant for performing tenant-aware user
+management operations.
+Added the auth.OIDCProviderConfig type and related functions to
+create, retrieve, update and delete OIDC auth provider configurations.
+Added the auth.SAMLProviderConfig type and related functions to
+create, retrieve, update and delete SAML auth provider configurations.
+Version 4.1.0 - 21 April, 2020
+Firebase ML
+Added a new ml
+module for creating, updating, getting, listing, publishing, unpublishing, and
+deleting Firebase-hosted custom ML models.
+See the Firebase documentation to learn more about how to
+use the Admin SDK
+to manage ML models.
+Version 4.0.1 - 26 March, 2020
+Cloud Messaging
+Returning more descriptive error messages from the topic management
+APIs.
+Realtime Database
+Fixed a regression in the listen() API that prevented its use in
+the v4.0.0 release.
+Version 4.0.0 - 24 February, 2020
+Python 2 and 3.4 are no longer supported. Developers must use
+Python 3.5 or higher when using the Python Admin SDK .
+Upgraded the cachecontrol dependency to the latest available.
+The Admin SDK now sets a default timeout of 120 seconds on all outgoing
+HTTP requests.
+Cloud Messaging
+The AndroidNotification class now correctly formats the event_time
+field sent to the Firebase Cloud Messaging service.
+Fixed an incorrect error message logged by the messaging module
+when calling the batch send APIs.
+Version 3.2.1 - 11 December, 2019
+Cloud Messaging
+Boolean parameters in AndroidNotification are now correctly encoded.
+Version 3.2.0 - 13 November, 2019
+Cloud Messaging
+Added a series of new parameters to the AndroidNotification class
+that allow further customization of notifications that target Android devices.
+Batch messaging APIs send_all() and send_multicast() now support
+sending up to 500 messages in a single call.
+Version 3.1.0 - 23 October, 2019
+Authentication
+Added auth.InsufficientPermissionError type to represent
+operations that fail due to the credential lacking a required permission.
+User management APIs now correctly raise
+auth.EmailAlreadyExistsError when an already in-use email address is specified
+for a user.
+Cloud Messaging
+Message class now implements the __str__() contract which can be
+used to obtain a string representation of a Message instance.
+Version 3.0.0 - 11 September, 2019
+Python 2.7 support is now deprecated. Developers are advised to use
+Python 3.4 or higher to run the Admin SDK.
+Removed old module-level exception types auth.AuthError ,
+db.ApiCallError , messaging.ApiCallError , instance_id.ApiCallError and
+project_management.ApiCallError .
+Added a new
+exceptions module
+that defines base exception types for the entire SDK. Public APIs now raise
+exceptions defined in the new exceptions module (or subtypes of them). This
+facilitates implementing fine-grained error handling logic for a wide range of
+scenarios that was not supported before. See the
+migration guide for
+instructions on how to port your existing error handling code.
+Upgraded google-cloud-firestore dependency version to to 1.14.0.
+Upgraded google-cloud-storage dependency version to 1.18.0.
+Project Management
+IosApp , IosAppMetadata and ShaCertificate types in the
+project_management
+module have been renamed to IOSApp , IOSAppMetadata and SHACertificate
+respectively.
+Authentication
+It is no longer possible to delete user properties with the
+update_user()
+API by setting properties to None . Setting properties to None leaves those
+properties unchanged. They must be explicitly set to auth.DELETE_ATTRIBUTE to
+delete them.
+Cloud Messaging
+Added support for sending an image URL in notifications. Thanks
+cchamm for the
+contribution .
+The deprecated WebpushFcmOptions type has been removed. Developers
+must use the PEP8 compliant type name WebpushFCMOptions instead.
+Version 2.18.0 - 21 August, 2019
+Cloud Messaging
+The WebpushFcmOptions type is now deprecated. Developers should use
+the PEP8 compliant type name WebpushFCMOptions instead.
+Added support for specifying the Analytics label for notifications.
+Thanks willawang8908 for the
+contribution .
+Added support for arbitrary key-value pairs in messaging.ApsAlert .
+Thanks viktorasl for the
+contribution .
+Realtime Database
+Developers can now test Realtime Database API calls by directing
+the SDK traffic to the RTDB emulator. Set the FIREBASE_DATABASE_EMULATOR_HOST
+environment variable to specify the emulator endpoint in host:port format.
+Version 2.17.0 - May 23, 2019
+Firebase Cloud Messaging
+A new
+messaging.send_multicast()
+API for sending a message to a list of device registration tokens. Thanks
+ZachOrr for the
+contribution .
+A new
+messaging.send_all()
+API for sending a list of messages as a single batch.
+Authentication
+A new auth.DELETE_ATTRIBUTE constant that
+can be used with the update_user() API to remove certain attributes from
+user accounts. This is now the preferred way to delete attributes like
+display_name , photo_url and custom_claims .
+Version 2.16.0 - February 21, 2019
+The Admin SDK now automatically retries HTTP requests on all 500
+and 503 errors, regardless of the HTTP method.
+The Admin SDK no longer bundles the integration module into the
+release artifact.
+Authentication
+Added the email action link generation APIs for creating links
+for password reset, email verification and email link sign-in.
+See documentation for more
+details and code samples. Thanks hardikns for the
+contribution .
+The user management API now uses the new Google Identity Toolkit
+REST API. Thanks hardikns for the
+contribution .
+Version 2.15.1 - January 23, 2019
+Implemented HTTP retries. The SDK now automatically retries
+HTTP calls on low-level connection and socket read errors as well as
+HTTP 500 and 503 errors.
+Version 2.15.0 - January 16, 2019
+Dropped support for Python 3.3. Developers on Python 3
+must use 3.4 or higher. Support for Python 2.7 has not changed.
+Declared a direct dependency on google-api-core[grpc]
+in order to resolve some long-standing Firestore installation
+problems.
+Cloud Messaging
+The messaging.Aps
+class now supports configuring a
+critical alert sound. A new
+messaging.CriticalSound
+class has been introduced for this purpose.
+messaging.WebpushConfig
+class now supports
+configuring additional FCM options for the features supported by
+the Firebase web SDK. A new
+messaging.WebpushFcmOptions
+class has been introduced for this purpose.
+Version 2.14.0 - December 04, 2018
+A new project_management
+API for managing apps in a Firebase project.
+New list_android_apps() and list_ios_apps() methods for
+listing the existing apps in a project.
+New create_android_app() and create_ios_app() methods
+for creating new apps in a project.
+New AndroidApp
+and IosApp
+APIs for updating individual apps.
+Realtime Database
+Fixed a performance issue in the db.listen() API
+where it was taking a long time to process large RTDB nodes.
+Fixed how the SDK handles special characters in node
+names.
+Cloud Messaging
+messaging.AndroidNotification type now supports
+specifying a channel_id when sending messages to Android O
+devices. Thanks chemidy for the
+contribution
+Improved error handling by requesting a more verbose
+error response from the FCM backend service.
+Authentication
+Fixed the property UserRecord.tokens_valid_after_time
+so that it always returns an integer, and never returns None .
+Version 2.13.0 - August 21, 2018
+Realtime Database
+The db.Reference
+type now provides a listen() API for
+receiving realtime update events from the Firebase Database.
+Thanks the-c0d3r and rizasif
+for the contributions .
+The db.reference()
+method now optionally takes a URL
+parameter. This can be used to access multiple Firebase Realtime Database
+instances in the same project more easily.
+Cloud Messaging
+The messaging.WebpushNotification
+type now supports additional parameters.
+Version 2.12.0 - July 17, 2018
+The Admin SDK can now read the Firebase/Google Cloud Platform
+project ID from both GCLOUD_PROJECT and GOOGLE_CLOUD_PROJECT environment
+variables.
+Authentication
+The Admin SDK can now create custom tokens without being
+initialized with service account credentials.
+The SDK now accepts a serviceAccountId app option,
+which can be used to set just the client email of a service account.
+When deployed in an environment managed by Google (e.g. Google
+App Engine), the SDK can auto discover a service account ID without
+any explicit configuration.
+Version 2.11.0 - May 31, 2018
+Authentication
+A new
+import_users()
+method for importing users to Firebase Auth
+in bulk.
+Realtime Database
+The Reference.update() method can now be invoked with
+dictionaries containing None values. Child keys with None values are
+deleted from the database.
+Version 2.10.0 - April 12, 2018
+Authentication
+A new create_session_cookie()
+method for creating a session cookie from a Firebase ID token.
+A new verify_session_cookie()
+method for validating a given session cookie string.
+The auth module now caches the public key certificates
+used to verify ID tokens and session cookies, thus avoiding a
+network call everytime a credential needs to be verified.
+Cloud Messaging
+Added the mutable_content optional field to the
+messaging.Aps
+type. This can be used to set the mutable-content property when sending
+FCM messages to APNs targets.
+Added support for specifying arbitrary key-value fields in the
+messaging.Aps type.
+Version 2.9.1 - March 15, 2018
+Cloud Messaging
+Improved error handling in the messaging.send()
+API. Exceptions raised by this API now contain the correct error codes
+as defined in the documentation .
+The messaging module now supports specifying an HTTP timeout
+for all egress requests. Pass the httpTimeout option
+to firebase_admin.initialize_app() before invoking any functions in
+messaging . Thanks carsongee for the
+contribution .
+Version 2.9.0 - February 14, 2018
+Cloud Messaging
+A new firebase_admin.messaging
+module for sending FCM messages and managing topic subscriptions.
+A new send()
+function for sending FCM messages.
+A new subscribe_to_topic()
+function for subscribing a list of device registration tokens to a
+FCM topic.
+A new unsubscribe_from_topic()
+function for unsubscribing a list of device registration tokens from a
+FCM topic.
+Authentication
+The verify_id_token()
+function now accepts an optional check_revoked parameter. When True , an
+additional check is performed to see whether the token has been revoked.
+A new revoke_refresh_tokens()
+function to invalidate all tokens issued to a user.
+A new tokens_valid_after_timestamp property has been added to the
+UserRecord
+class to indicate the time before which tokens are not valid.
+Version 2.8.0 - January 11, 2018
+Initialization
+The initialize_app()
+method can now be invoked without any arguments. This initializes an app
+using Google Application Default Credentials, and other
+options loaded from the FIREBASE_CONFIG environment variable.
+Realtime Database
+The db.Reference.get()
+method now accepts an optional shallow
+argument. If set to True this causes the SDK to execute a shallow read,
+which does not retrieve the child node values of the current reference.
+Version 2.7.0 - December 21, 2017
+A new instance_id
+API that facilitates deleting instance IDs and associated user data from
+Firebase projects.
+Version 2.6.0 - December 08, 2017
+Authentication
+Added the
+list_users()
+function to the firebase_admin.auth module. This function enables listing
+or iterating over all user accounts in a Firebase project.
+Added the
+set_custom_user_claims()
+function to the firebase_admin.auth module. This function enables setting
+custom claims on a Firebase user. The custom claims can be accessed via that
+user's ID token.
+Realtime Database
+Updated the start_at() , end_at() and equal_to() methods of
+the db.Query class
+so they can accept empty string arguments.
+Version 2.5.0 - November 07, 2017
+A new Firestore API
+that enables access to Cloud Firestore databases.
+Version 2.4.0 - September 21, 2017
+Realtime Database
+The db.Reference
+class now has a get_if_changed() method, which retrieves a
+database value only if the value has changed since last read.
+The options dictionary passed to
+initialize_app()
+function can now contain an httpTimeout option, which sets
+the timeout (in seconds) for outbound HTTP connections started by the SDK.
+Version 2.3.0 - August 30, 2017
+Realtime Database
+You can now get the ETag value of a database reference by passing
+etag=True to the get() method of a
+db.Reference
+object.
+The db.Reference
+class now has a set_if_unchanged() method, which you can use to write to a
+database location only when the location has the ETag value you specify.
+Fixed an issue with the transaction() method that prevented you
+from updating scalar values in a transaction.
+Version 2.2.0 - August 14, 2017
+A new Cloud Storage API
+that facilitates accessing Google Cloud Storage buckets using the
+google-cloud-storage
+library.
+Authentication
+A new user management API that allows provisioning and managing
+Firebase users from Python applications. This API adds get_user() ,
+get_user_by_email() , get_user_by_phone_number() , create_user() ,
+update_user() and delete_dser() methods
+to the firebase_admin.auth
+module.
+Realtime Database
+The db.Reference
+class now exposes a transaction() method, which can be used to execute atomic updates
+on database references.
+Version 2.1.1 - July 25, 2017
+Constructors of
+Certificate and
+RefreshToken
+credential types can now be invoked with either a file path or a parsed JSON object.
+This facilitates the consumption of service account credentials and refresh token
+credentials from sources other than the local file system.
+Better integration with the google-auth library for making authenticated
+HTTP requests from the SDK.
+Version 2.1.0 - June 28, 2017
+A new database API
+that facilitates basic data manipulation
+operations (create, read, update and delete), and advanced queries. Currently,
+this API does not support realtime event listeners. See
+Add the Firebase Admin SDK to your Server
+to get started.
+Version 2.0.0 - May 17, 2017
+This SDK has been migrated from oauth2client to the new
+google-auth library.
+Authentication
+This SDK now supports verifying ID tokens when initialized with
+application default credentials.
+Version 1.0.0 - April 04, 2017
+Initial release of the Admin Python SDK. See
+Add the Firebase Admin SDK to your Server
+to get started.
+Initialization
+Implemented the
+firebase_admin
+module, which provides the initialize_app() function for initializing the
+SDK with a credential.
+Implemented the
+firebase_admin.credentials
+module, which contains constructors for Certificate , ApplicationDefault
+and RefreshToken credential types.
+Authentication
+Implemented the
+firebase_admin.auth
+module, which provides create_custom_token() and verify_id_token()
+functions for minting custom authentication tokens and verifying Firebase ID
+tokens.
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2026-09-24 UTC.
+Learn
+Developer guides
+SDK & API reference
+Samples
+Libraries
+GitHub
+Stay connected
+Check out the blog
+Find us on Reddit
+Follow on X
+Subscribe on YouTube
+Attend an event
+Support
+Contact support
+Stack Overflow
+Google group
+Release notes
+Brand guidelines
+FAQs
+Android
+Chrome
+Firebase
+Google Cloud Platform
+All products
+Terms
+Privacy
+Manage cookies
+English
+Español – América Latina
+Indonesia
+Português – Brasil
+中文 – 简体
+日本語
+한국어

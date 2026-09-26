@@ -1,0 +1,71 @@
+Skip to main content
+Skip to footer
+Changelog
+Blog
+Docs
+Status
+Get Started
+Apps
+CMS
+Tooling
+Marketplace
+Create developer account with a HubSpot Developer account
+HubSpot Developer Changelog
+Home
+›
+HubSpot Developer Changelog
+›
+Extension: Contact Lists API (v1) sunset moved to April 30, 2026
+Announced: Sep 12, 2025
+Live: Apr 30, 2026
+We’ve extended the deprecation timeline for the Contact Lists API (v1) from September 30, 2025 to April 30, 2026 . After that date, v1 Lists endpoints will return HTTP 404. Please migrate to the Lists v3 API.
+What’s changing
+In our original announcement, Upcoming sunset: v1 Lists API , we set a September 30, 2025 deadline. That deadline is now extended:
+New deadline: April 30, 2026 (previously September 30, 2025).
+Impact: All but the three Contact Lists API (v1) endpoints will be removed on the deadline and begin returning HTTP 404 . The following three endpoints will continue to function, but will no longer return list membership :
+Get all contacts GET /contacts/v1/lists/all/contacts/all
+Get recently updated contacts : GET /contacts/v1/lists/recently_updated/contacts/recent
+Get recently created contacts : GET /contacts/v1/lists/all/contacts/recent
+Required action: Update any integrations, apps, or scripts to use the Lists v3 API for list creation, updates, reads, and membership operations.
+How to migrate: See the v1 → v3 migration guide for endpoint mappings, request/response differences, and examples.
+Additional effect on Contacts API (v1) reads
+As part of this sunset, the following Contacts API (v1) endpoints will continue to function but will no longer return list memberships starting on April 30, 2026:
+Get a contact by VID : GET /contacts/v1/contact/vid/:vid/profile
+Get a batch of contacts by VID : GET /contacts/v1/contact/vids/batch
+Get a contact by email address : GET /contacts/v1/contact/email/:contact_email/profile
+Get a batch of contacts by email address : GET /contacts/v1/contact/emails/batch
+Get a contact by user token : GET /contacts/v1/contact/utk/:contact_utk/profile
+Get a batch of contacts by user token : GET /contacts/v1/contact/byUtk/batch
+If your integration relies on list membership data from these endpoints, migrate to the Lists v3 API to retrieve membership information going forward.
+Recommended next steps:
+Audit your usage of v1 endpoints across services and jobs.
+Switch to v3 equivalents and validate behavior in non-production first.
+Update error handling to account for 404 responses on v1 Lists endpoints after the deadline and the removal of list memberships from the Contacts v1 reads listed above.
+When is it happening?
+This change goes into effect on April 30, 2026 . On that date, Contact Lists API (v1) endpoints excluding the exceptions listed above will be deprecated and return 404 responses, and the Contacts API (v1) read endpoints listed above will stop returning list memberships.
+Questions or comments? Join us in the developer forums .
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline mobile-footer-first-trigger pt-0" data-radix-collection-item="">For Developers
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline" data-radix-collection-item="">Company
+For Developers
+Developer Tooling
+API Documentation
+Apps Documentation
+CMS Documentation
+Become a Partner
+HubSpot Developer Blog
+HubSpot Developer Changelog
+HubSpot Developer Community
+HubSpot Developer Newsletter
+HubSpot Academy
+Company
+About Us
+Careers
+Management Team
+Board of Directors
+Investor Relations
+Contact Us
+Copyright © 2026 HubSpot, Inc.
+Legal Stuff
+Privacy Policy
+Security
+Website Accessibility

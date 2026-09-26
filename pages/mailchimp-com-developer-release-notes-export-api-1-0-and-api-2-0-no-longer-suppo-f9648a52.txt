@@ -1,0 +1,36 @@
+Skip to main content Products
+Mailchimp Marketing API
+Power timely, relevant marketing campaigns with custom data pulled directly from your app.
+Mailchimp Transactional
+Send targeted and event-driven messages to anyone, fast—with best-in-class deliverability.
+Mailchimp Open Commerce
+Control your commerce future with a modular, API-first commerce stack.
+Tools Release Notes Blog Sales: +1 (833) 799-4315
+Release Notes Scheduled
+June 1, 2023 Action Required
+Export API 1.0 and API 2.0 no longer supported
+Marketing
+What
+We retired API Export 1.0 and API 2.0 on June 1, 2023. We won’t support calls to these endpoints after the retirement date and will return an HTTP 410 status message. If your application or integration still makes use of these endpoints, you’ll need to update it to our Marketing API 3.0.
+Why
+We deprecated API Export 1.0 and API 2.0 on December 31, 2016 and have encouraged our developer community to upgrade to API 3.0 in the intervening time. Although we've continued to support the deprecated endpoints, they've seen increasing performance issues and it’s no longer viable to maintain them.
+Permalink
+Products
+Mailchimp Marketing API
+Mailchimp Transactional
+Mailchimp Open Commerce
+Resources
+Tools
+Release Notes
+API Status
+Partnerships
+Contact Us
+Join Mailchimp
+Explore how Mailchimp can bring together your customer data, marketing channels, and audience insights in a single platform.
+Create Account
+Visit Mailchimp
+Careers
+Privacy & Terms
+Read the documentation
+Help
+© 2001 - 2026 All Rights Reserved. Mailchimp ® is a registered trademark of The Rocket Science Group.

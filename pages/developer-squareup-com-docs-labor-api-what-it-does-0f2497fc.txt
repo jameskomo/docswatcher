@@ -1,0 +1,240 @@
+Search developer resources
+/
+Docs & Tools
+SDKs
+Support
+Partnerships
+Sign In
+Docs Home
+Dev Essentials
+Payments Commerce Customers Staff Merchants
+Release notes
+Docs
+Docs Home
+Dev Essentials
+Payments
+Commerce
+Customers
+Staff
+Merchants
+Release notes
+Overview
+Team
+Integration Guide
+Troubleshoot Team API
+Labor
+Time Tracking
+Start and End Timecards
+Add Breaks to Timecards
+Get Completed Timecards
+Scheduling
+Manage Scheduled Shifts
+Retrieve Scheduled Shifts
+Troubleshoot
+Webhooks
+/
+Staff
+Labor API
+Applies to: Labor API | Team API | Locations API | Webhooks | GraphQL
+Manage timecards and schedules for team members within a Square business.
+On this page
+Overview
+Time tracking
+Scheduling
+Integration with other Square APIs
+Migration notes
+See also
+Link to section
+Overview
+Use the Labor API to manage time tracking and scheduling for team members. Time-tracking features let you manage timecards to record hours worked (including breaks, wages, and declared cash tips) for labor cost reporting, payroll, and overtime management. Scheduling features let you manage team schedules using draft and published scheduled shifts.
+The Labor API integrates with the Team API and Locations API .
+In addition to calling the Labor API using REST calls or Square SDKs , developers can send GraphQL queries to get labor data in fewer, more compact data transfers. Developers can also subscribe to be notified about labor webhook events .
+Note
+The Labor API defines two types of objects; be careful not to confuse them:
+A ScheduledShift is used to manage team schedules.
+A Timecard represents a single work shift for a team member. Each Timecard captures:
+The actual time worked during one shift
+Information needed for payroll processing
+For example, if an employee works five different shifts in a week, they will have five separate Timecard records - one for each shift.
+Note: The older Shift object type is deprecated. Use Timecards instead. For information about migration, see Migration notes .
+Link to section
+Time tracking
+Use the Labor API to track actual hours worked by team members:
+Record timecard start and end times with breaks.
+Set hourly wage rates based on job assignments.
+Track declared cash tips.
+Retrieve timecard data for payroll and reporting.
+For more information, see Time Tracking with the Labor API .
+Link to section
+Scheduling
+Use the Labor API to manage team member schedules:
+Create and manage scheduled shifts.
+View and update scheduled shifts.
+Search scheduled shifts by team member, location, dates, and more.
+Get schedule details such as assigned jobs.
+For more information, see Scheduling with the Labor API .
+Link to section
+Integration with other Square APIs
+The Labor API integrates directly with the following Square APIs:
+Team API for team member, job, and wage management.
+Locations API for location management, such as setting the location's time zone.
+Applications can also integrate with these and other Square APIs for custom use cases, such as advanced operational analytics and reporting.
+Link to section
+Migration notes
+The following migration notes apply to the Labor API.
+Link to section
+Deprecated Shift endpoints, data types, and webhooks
+Deprecated in version: 2025-05-21
+Retired in version: 2026-05-21
+The Shift object is renamed to Timecard in Square API version 2025-05-21.
+As part of this process, all Shift endpoints ( /v2/labor/shifts/... ) are replaced by Timecard endpoints ( /v2/labor/timecards/... ) that provide the same functionality. In addition, all Shift -related data types and webhook events are deprecated and replaced by new Timecard equivalents. For a complete list, see Deprecated Shift items .
+Shift and Timecard endpoints operate on the same resources. For example, both SearchShifts and SearchTimecards return the same set of resources in the results. However, they're returned as Shift objects in the SearchShifts response and Timecard objects in the SearchTimecards response.
+At retirement, Shift endpoints become unavailable to all applications and return 410 GONE errors regardless of the Square-Version header in the request. Applications must migrate before the retirement date to avoid disruption.
+The following examples show the request and response format changes for each endpoint pair.
+Link to section
+CreateShift to CreateTimecard
+Changes:
+shift is renamed to timecard in the CreateTimecard request and response.
+employee_id (deprecated) isn't supported in the CreateTimecard request or returned in the response.
+CreateShift request (deprecated)
+Response
+Create shift
+cURL
+CreateTimecard request
+Response
+Create timecard
+cURL
+Link to section
+GetShift to RetrieveTimecard
+Changes:
+shift is renamed to timecard in the response.
+employee_id (deprecated) isn't returned in the response.
+GetShift request (deprecated)
+Response
+Get shift
+cURL
+RetrieveTimecard request
+Response
+Retrieve timecard
+cURL
+Link to section
+SearchShifts to SearchTimecards
+Changes:
+match_shifts_by in the workday filter is renamed to match_timecards_by .
+employee_ids (deprecated) isn't a supported filter in the request.
+shifts is renamed to timecards in the response.
+employee_id (deprecated) isn't returned in the response.
+SearchShifts request (deprecated)
+Response
+Search shifts
+cURL
+SearchTimecards request
+Response
+Search timecards
+cURL
+Link to section
+UpdateShift to UpdateTimecard
+Changes:
+shift is renamed to timecard in the request and response.
+employee_id (deprecated) isn't supported in the request or returned in the response.
+UpdateShift request (deprecated)
+Response
+Update shift
+cURL
+UpdateTimecard request
+Response
+Update timecard
+cURL
+Link to section
+DeleteShift to DeleteTimecard
+DeleteShift request (deprecated)
+Response
+Delete shift
+cURL
+DeleteTimecard request
+Response
+Delete timecard
+cURL
+Link to section
+Deprecated Shift items
+The following tables map deprecated Shift endpoints, data types, and webhook events to their Timecard replacements. Timecard replacements are available in Square API version 2025-05-21 and later.
+Endpoints
+Shift
+Timecard
+CreateShift
+CreateTimecard
+DeleteShift
+DeleteTimecard
+GetShift
+RetrieveTimecard
+SearchShifts
+SearchTimecards
+UpdateShift
+UpdateTimecard
+Objects and enums
+Shift
+Timecard
+Shift
+Timecard
+ShiftWage
+TimecardWage
+ShiftSort
+TimecardSort
+ShiftFilter
+TimecardFilter
+ShiftQuery
+TimecardQuery
+ShiftWorkday
+TimecardWorkday
+ShiftStatus
+TimecardStatus
+ShiftSortField
+TimecardSortField
+ShiftFilterStatus
+TimecardFilterStatus
+ShiftWorkdayMatcher
+TimecardWorkdayMatcher
+Webhook events
+Shift
+Timecard
+labor.shift.created
+labor.timecard.created
+labor.shift.updated
+labor.timecard.updated
+labor.shift.deleted
+labor.timecard.deleted
+Until Shift endpoints are retired, operations on a Shift or Timecard object triggers events for both resource types. For example, a successful CreateShift or CreateTimecard request triggers both labor.shift.created and labor.timecard.created events. Note that the new shift and new timecard have the same ID.
+To avoid receiving duplicate notifications (with different event IDs) for the same operation, subscribe to only one event type.
+Link to section
+See also
+Time Tracking with the Labor API
+Scheduling with the Labor API
+API Reference: Labor API
+On this page
+Overview Time tracking Scheduling Integration with other Square APIs Migration notes See also
+Development
+Guides
+API Reference
+API Explorer
+SDKs
+Sample apps
+System status
+Support
+Developer forums
+Developer blog
+YouTube
+X
+More
+Square Home
+Square Developer
+App Marketplace
+Partner with Square
+Solutions Partner Program
+Pricing
+Sales
+©
+2026
+Square, Inc.
+Developer terms of service
+Developer Integration and Marketing Agreement
+Privacy policy

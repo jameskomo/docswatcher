@@ -1,0 +1,66 @@
+Skip to main content
+Skip to footer
+Changelog
+Blog
+Docs
+Status
+Get Started
+Apps
+CMS
+Tooling
+Marketplace
+Create developer account with a HubSpot Developer account
+HubSpot Developer Changelog
+Home
+›
+HubSpot Developer Changelog
+›
+Reminder: Upcoming Sunset of v2 Owners API on August 30, 2024
+Announced: Jul 25, 2024
+Live: Mar 24, 2025
+In February 2024, we announced the sunset of the v2 Owners API . This is a reminder that on August 30, 2024 , we will be sunsetting v2 of the Owners API . To avoid disruptions, we strongly encourage users to migrate to v3 of the Owners API before this date. After the sunset date, all endpoints from https://api.hubapi.com/owners/v2 will return a 404 error response.
+Important note: This sunset was extended to March 24th, 2025. For more information, please refer to the latest changelog here .
+What's Changing?
+The data returned by both versions of the API is similar, but there are a few differences for the v3 API:
+The ID of the owner record in the ownerId field in v2 is replaced by the id field in v3.
+The remoteList and related remote IDs are no longer supported in the v3 API.
+The HubSpot user ID is included in the userId field instead of being included as a remote ID.
+Migration Steps
+Below are the listed ways we suggest migrating specific endpoints from Owners API v2 to Owners API v3 and any applicable changes to be aware of:
+GET api.hubspot.com/owners/v2/owners/{ownerId} to GET api.hubspot.com/crm/v3/owners/{ownerId}
+The ID values for owner records are the same between the API versions.
+GET /owners/v2/owners/ to GET /crm/v3/owners
+The v2 Owners API endpoint returns all owner records at once, while the v3 endpoint will only return up to 500 records at a time, so this migration requires you to implement paging to get all of the records.
+To page through all results, you'll need to use the paging data returned in the response. Use the paging.next.after field in the response as the value of the &after= query parameter in your next request to get the next page of results.
+This endpoint supports filtering by email, so you can search for a specific owner by email using the email= query parameter.
+Important Note
+Because the v3 Owners API uses pagination, you may need to make multiple API requests to obtain the complete list of owners. Therefore, it is crucial to monitor your usage to avoid hitting the rate limits.
+When is it Happening?
+This sunset goes into effect on August 30, 2024 . Read more about our v3 Owners API , view examples, and begin planning your migration to the new API version.
+Questions or Comments?
+We encourage you to share your thoughts and queries in the developer forums .
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline mobile-footer-first-trigger pt-0" data-radix-collection-item="">For Developers
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline" data-radix-collection-item="">Company
+For Developers
+Developer Tooling
+API Documentation
+Apps Documentation
+CMS Documentation
+Become a Partner
+HubSpot Developer Blog
+HubSpot Developer Changelog
+HubSpot Developer Community
+HubSpot Developer Newsletter
+HubSpot Academy
+Company
+About Us
+Careers
+Management Team
+Board of Directors
+Investor Relations
+Contact Us
+Copyright © 2026 HubSpot, Inc.
+Legal Stuff
+Privacy Policy
+Security
+Website Accessibility

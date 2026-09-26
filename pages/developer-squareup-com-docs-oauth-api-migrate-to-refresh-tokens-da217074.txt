@@ -1,0 +1,227 @@
+Search developer resources
+/
+Docs & Tools
+SDKs
+Support
+Partnerships
+Sign In
+Docs Home
+Dev Essentials
+Payments Commerce Customers Staff Merchants
+Release notes
+Docs
+Docs Home
+Dev Essentials
+Payments
+Commerce
+Customers
+Staff
+Merchants
+Release notes
+Get Started
+Create an Account and App
+Make your First API Call
+View the API Logs
+Verify the Payment
+What's Next
+Overview
+Build Basics
+Versioning
+Access Tokens
+Frontend and Backend Development
+General Development Concepts
+TLS and HTTPS
+Using the REST API
+Handling Errors
+Collecting Information
+Language Preferences
+Common Data Types
+Working with Dates
+Working with Monetary Amounts
+Working with Addresses
+Common Square API Patterns
+Custom Attributes
+Idempotency
+Pagination
+Optimistic Concurrency
+Clear Object Fields
+Square eCommerce APIs
+Square API Lifecycle
+Brand Guidelines
+Developer Tools
+Developer Console
+Square Dashboard
+Sandbox
+Test in Sandbox
+Sandbox Payments
+API Explorer
+API Logs
+Webhook Event Logs
+Webhooks
+Create a Notification URL
+Subscribe to Event Notifications
+Verify and Validate an Event Notification
+Manage Operations
+Move Event Notifications to Production
+Webhook Events Reference
+Troubleshooting
+Build a Developer Team
+Authentication
+Postman
+MCP Server
+Square SDKs
+Java
+Quickstart
+Common API Patterns
+Migration Guide
+.NET
+Quickstart
+Common API Patterns
+Migration Guide
+Node.js
+Quickstart
+Common API Patterns
+Migration Guide
+PHP
+Quickstart
+Common API Patterns
+Migration Guide
+Python
+Quickstart
+Common API Patterns
+Migration Guide
+Ruby
+Quickstart
+Common API Patterns
+Migration Guide
+Go
+Quickstart
+Sample Applications
+GraphQL
+GraphQL Basics
+Build your First Query
+GraphQL Explorer
+Query Examples
+Reporting API
+Getting Started
+Views
+Understanding Dynamic Schemas
+Metadata Discovery
+Query Construction
+Measures
+Dimensions
+Time Dimensions
+Segments
+Filters
+Ordering & Pagination
+Real-World Scenarios
+Working with Cubes
+Core Cubes
+Measure & Dimension Types
+Multi-Cube Joins
+Time Handling
+Schema Discovery
+Error Handling
+Best Practices
+OAuth
+Create Redirect URL and Authorization Page URL
+Receive Authorization and Manage OAuth Tokens
+Refresh and Revoke OAuth Tokens
+Token Introspection
+OAuth Best Practices
+Test Authorization
+Migrate to the Square API OAuth Flow
+Move OAuth to Production
+Permissions Reference
+Webhook Subscriptions
+Events
+Migrate from Deprecated APIs
+Deprecated Items
+API Migration Guides
+v1 Payments API
+v1 Refunds API
+Square Transactions API
+Migrate Employees to Team Members
+Migrate from CreateCheckout to CreatePaymentLink
+International Development
+Develop for Japan
+Compliance with Japan's Tax Invoice System
+Order Calculation Guide for Japan
+Migrate from Renew to Refresh OAuth Tokens
+Applies to: OAuth API
+Learn how to use the OAuth API to migrate your Square API authentication logic to use OAuth refresh tokens.
+On this page
+Overview
+Migrate from renewable to refreshable token
+Exchange a renewable token for a refreshable token
+Link to section
+Overview
+When updating your application to use Square API version 2019-03-13 or newer, your code must use the OAuth refresh token flow instead of the deprecated renew token flow. Renewable OAuth access tokens created with older versions of the Square API must be replaced by refreshable tokens before the older tokens expire.
+OAuth access tokens created using a Square API version prior to 2019-03-13 continue to work until they expire. However, RenewToken is deprecated in Square API version 2019-03-13. RenewToken is retired on 2024-04-17. If you haven't migrated your application to use refreshable tokens before that date, users will not be able to authorize your application to access their Square accounts.
+Link to section
+Migrate from renewable to refreshable token
+If your application caches and uses the deprecated renewable token, do the following steps to migrate to refreshable tokens:
+Call the ObtainToken endpoint with the grant_type parameter of migration_token , passing the old renewable token.
+Get the new OAuth token from the response.
+Get the refresh token from that same response.
+Cache both of tokens from the response securely.
+Note
+If your application calls ObtainToken with the migration_token parameter but for some reason cannot or does not store the response, it can repeat the call as long as the renewable OAuth token is still valid.
+Use the refreshable OAuth token flow with the following steps:
+Use the new OAuth token in all Square API rest calls.
+Before the OAuth token expires, refresh it by using the refresh_token grant type in the ObtainToken endpoint to get a new OAuth token.
+If token expires without being refreshed, use the authorization_code grant type to restart the authentication flow.
+For more information about the new OAuth flow, see OAuth API Overview .
+Link to section
+Exchange a renewable token for a refreshable token
+Use the following migration process to replace a renewable token with a refreshable token:
+In the Developer Console , make sure
+your application is using Square API version 2019-03-13 or later.
+POST a request to the
+ObtainToken endpoint. In the request body, specify the non-expired legacy access token as follows:
+Set the grant_type parameter to migration_token .
+Set the migration_token parameter to the non-expired renewable OAuth
+access token to migrate.
+cURL
+In the response, Square returns a new access token along with a refresh token. You should persist both the access token and refresh token and use these credentials going forward.
+{
+"access_token" : "{{REFRESHABLE_ACCESS_TOKEN}}" ,
+"token_type" : "bearer" ,
+"expires_at" : "2020-11-26T21:15:07Z" ,
+"merchant_id" : "{{MERCHANT_ID}}" ,
+"refresh_token" : "{{REFRESH_TOKEN}}"
+}
+Important
+The new access token expires 30 days after it's created. After it
+expires, you use the refresh token to generate a new access token by sending a request to the ObtainToken endpoint.
+If any of the preceding steps fail, you can safely repeat the process with the
+legacy access token you're trying to migrate. As long as the legacy token isn't expired, this process provides a replacement access token and refresh
+token.
+On this page
+Overview Migrate from renewable to refreshable token Exchange a renewable token for a refreshable token
+Development
+Guides
+API Reference
+API Explorer
+SDKs
+Sample apps
+System status
+Support
+Developer forums
+Developer blog
+YouTube
+X
+More
+Square Home
+Square Developer
+App Marketplace
+Partner with Square
+Solutions Partner Program
+Pricing
+Sales
+©
+2026
+Square, Inc.
+Developer terms of service
+Developer Integration and Marketing Agreement
+Privacy policy

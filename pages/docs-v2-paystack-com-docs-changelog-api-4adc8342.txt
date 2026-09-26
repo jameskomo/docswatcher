@@ -1,0 +1,166 @@
+docs
+Cancel
+No result found for:
+Docs API
+Sign up
+Search Menu
+Close
+Home
+Payments
+Overview
+Accept Payments
+Webhooks
+Verify Payments
+Payment Channels
+Recurring Charges
+Subscriptions
+Split Payments
+Multi-split Payments
+Dedicated Virtual Accounts
+Apple Pay
+Partial Debits
+Manage Disputes
+Refunds
+Test Payments
+Metadata
+Terminal
+Overview
+Invoice Payments
+Push Payment Requests
+Custom Apps
+Transfers
+Overview
+How Transfers Work
+Creating Transfer Recipients
+Single Transfers
+Bulk Transfers
+Managing Transfers
+Identity Verification
+Overview
+Verify Account Number
+Resolve Card BIN
+Validate Customer
+Libraries & Plugins
+Overview
+Libraries
+Plugins
+Guides
+Overview
+Accept Payments on your Vue App
+Accept Payments on your React App
+Accept Payments on your Android App
+Using the Paystack Checkout in a Mobile WebView
+Migrating from InlineJS V1 to V2
+API Changelog
+See API Reference
+API Changelog
+Stay up-to-date with the latest changes on our APIs
+Upcoming changes
+We are working on exciting features. While we work, keep building !
+October 2023
+The Initiate Bulk Charge API endpoint now allows you to use the same authorization code more than once as long as each code comes with a unique reference. We still return a 400 error if you pass duplicate authorization codes without unique references.
+September 2023
+We added the Pay with Transfer (PwT) channel to the Create Charge API endpoint. You can now tie an account number to a transaction for a limited period, allowing your customers to complete a transaction from their banking apps. The changes made are:
+The Create Charge API endpoint now takes a bank_transfer object that allows you set the configuration for the account to create. You can learn more on the Pay with Transfer section.
+We added a bank.transfer.rejected event which is sent when a customer sends an incorrect amount or when the customer has been flagged by our fraud system
+August 2023
+We added ghipss as a supported recipient type to the transfer recipient API endpoint. With this addition, Ghanaian merchants can now send money to bank accounts by creating recipients with their customer's bank details.
+April 2023
+We now return transfer references for bulk transfers. Previously, the response of the Bulk Transfer API request didn't come with either your custom or our generated reference . We've fixed this, making it easier for you to track your transfers.
+March 2023
+In order to remain compliant with our product offerings, we sunsetted one of our legacy integration rails that has no support for 3DS 2.0. The check authorization endpoint is powered by this rail and as a result, we deprecated the endpoint.
+June 2022
+We now make use of an unsigned 64-bit integer to represent transaction IDs. Merchants who store or make use of the transaction IDs need to
+ensure it is represented as an unsigned 64-bit integer . Here are some recommendations for some common tech stacks:
+Tech Stack
+Data Type
+Reference
+MySQL
+unsigned bigint
+MySQL doc
+PostgreSQL
+bigint
+PostgreSQL doc
+Java
+long
+Oracle doc
+C#
+unsigned long
+Microsoft doc
+C/C++
+unsigned long long
+Microsoft doc
+Golang
+uint64
+Golang doc
+Kotlin
+ulong
+Kotlin doc
+Swift
+uint64
+Swift doc
+We also made some changes to the Customer Validation API :
+We added a reason parameter to the customeridentification.failed webhook event. Merchants can use
+this parameter to find out the cause of a failed customer validation .
+We added middle_name as an optional parameter to the Customer Validation API . You can
+add this as an extra parameter when validating a customer's details.
+May 2022
+We added an endpoint to Requery Dedicated Virtual Accounts API . Merchants can use this endpoint to check a virtual account for new transactions that haven't been processed yet. Calling this endpoint will trigger a background requery process, and if any pending transactions are found, the transaction will be created, and the webhook notification will be sent to your server.
+February 2022
+We added first_name , last_name and phone to the request body of the Create Dedicated Virtual Account API . Merchants can use these parameters to update an existing customer's record and create a dedicated virtual account in one API call.
+December 2021
+We updated the statuses of refunds to better capture the state of a refund:
+pending : The refund initiated, waiting for response from the processor.
+processing : The refund has been received by the processor.
+processed : The refund has successfully been processed by the processor.
+failed : The refund cannot be processed. Your account is credited with refund amount.
+When a refund is initiated for a transaction, the transaction's status previously showed reversed regardless of whether the refund had been processed. We're now better reflecting the status of a transaction with the following:
+reversal pending : The refund is pending or still processing.
+reversed : The refund has been successfully processed.
+success : The refund failed and your account is credited with the refund amount.
+We now send webhook events to monitor the state of a refund:
+refund.pending
+refund.processing
+refund.processed
+refund.failed
+Check out the Refunds documentation to learn more about refunds and how to automate your refunds.
+November 2021
+We added three new statuses to the Subscription API :
+non-renewing : The subscription is still active but won't be charged on the next payment date and will be marked as completed.
+attention : The subscription is still active, but there was an issue while trying to charge the customer's card. The issue can be an
+expired card, insufficient funds, etc. We'll attempt charging the card again on the next payment date.
+cancelled : The subscription has been cancelled.
+Check the list of subscriptions statuses to learn more.
+October 2021
+We deprecated support for BVN type on the Customer Validation API . Going forward, we advise against using the type: "bvn" and value parameter in the request body in favour of Bank Account validation for existing and new customers.
+September 2021
+We added account_number to the request body of the Customer Validation API . This will require merchants to make use of Bank Account validation for existing and new customers.
+On this Page
+Upcoming changes
+October 2023
+September 2023
+August 2023
+April 2023
+March 2023
+June 2022
+May 2022
+February 2022
+December 2021
+November 2021
+October 2021
+September 2021
+Awesome! We’re happy it was ✨✨
+Help us fix that
+How can we make this page better?
+Your email (so we can reach you)
+Send my feedback
+Thanks for your feedback
+This page was
+👍🏾 Helpful
+👎🏾 Not Helpful
+Join Payslack
+Ask questions and discuss ideas with 2000+ developers on Slack
+Paystack CLI
+Learn how to use our CLI to improve your integration experience
+Need something else?
+If you have any questions or need general help, visit our support page

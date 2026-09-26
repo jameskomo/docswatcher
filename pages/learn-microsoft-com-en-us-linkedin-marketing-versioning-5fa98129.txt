@@ -1,0 +1,126 @@
+Skip to main content
+Skip to Ask Learn chat experience
+This browser is no longer supported.
+Upgrade to Microsoft Edge to take advantage of the latest features, security updates, and technical support.
+Download Microsoft Edge
+More info about Internet Explorer and Microsoft Edge
+Table of contents
+Exit editor mode
+Ask Learn
+Reading mode
+Table of contents
+Read in English
+Add
+Add to Plans
+Edit
+Copy Markdown
+Print
+Note
+Access to this page requires authorization. You can try signing in or changing directories .
+Access to this page requires authorization. You can try changing directories .
+LinkedIn Marketing API Versioning
+Feedback
+Summarize this article for me
+In this article
+Warning
+Deprecation Notice:
+The Marketing Version 202510 (Marketing October 2025) will be sunset on October 15, 2026. We recommend that you migrate to the latest versioned APIs to avoid disruptions. For information on all the supported versions, refer to the migrations documentation.
+If you haven’t yet migrated and have questions, submit a request on the LinkedIn Developer Support Portal .
+Overview
+LinkedIn Marketing APIs use versioning to provide stable and reliable integrations, even as new features are added. Versioning helps you plan, test, and update your integrations seamlessly, ensuring your applications keep working as the APIs evolve.
+Latest Version
+Version Name
+Version Header
+September 2026
+202609
+What’s changing
+LinkedIn’s Marketing APIs first versioned API release was June 2022 under a new base path: https://api.linkedin.com/rest/
+Our versioned API releases follow a monthly cycle. These API versions are supported and stable for a minimum of one year before sunset. The LinkedIn Marketing API Program supports versioning so API partners can release changes over time. This document explains how to use versioned APIs.
+Why are our APIs versioned?
+LinkedIn continuously improves our products, which means our APIs also evolve. We want our API partners to trust in stable integrations and reliable change schedules, so they can plan and execute more effectively.
+How your API client should use versioning
+HTTP headers are used for clients to indicate which API version implementation they expect. Include a request header with the key “Linkedin-Version” and set the value to the version (format: YYYYMM) to correspond with the documentation version you are referencing. Example: “Linkedin-Version: 202601” would indicate that you are using the version published in the month of January.
+curl -X POST 'https://api.linkedin.com/rest/adCampaigns' \
+-H 'X-Restli-Protocol-Version: 2.0.0' \
+-H 'Authorization: Bearer {INSERT_TOKEN}' \
+-H 'Content-Type: application/json' \
+-H 'Linkedin-Version: 202601' \
+--data '{
+"account": "urn:li:sponsoredAccount:123212321",
+"audienceExpansionEnabled": false,
+}'
+...
+Version Headers
+In many cases, the URL resource paths your integration uses may not change across versions, but the behavior of the individual API methods can change. New parameters or fields may be available on the response schemas.
+The API changes must include the Version Header for the version (release) that needs to be adopted. For the January 2026 Release, the versioned header would be: "Linkedin-Version": "202601" . Version headers are tied to the LinkedIn Marketing Solutions release year and month. The following table includes examples of version headers for recent versions:
+Version
+Version Header Values
+November 2025
+"Linkedin-Version": "202511"
+October 2025
+"Linkedin-Version": "202510"
+September 2025
+"Linkedin-Version": "202509"
+Versioned API Docs
+Each version of the LinkedIn Marketing API Program has distinct and comprehensive documentation covering all supported APIs.
+Each version includes a changelog that lists all changes from the previous version, indicating which resources have been updated or added. Initially, users have the option on each page in the marketing folder to view:
+Versioned content: “Marketing {Month} 202X”. The following image is an example of how to select the versioned content in the documentation.
+Version Cadence
+LinkedIn Marketing API Program publishes new versions monthly, and those versions are supported for a minimum of one (1) year.
+Individual API resources can evolve at different times (e.g. a reporting API may be updated one quarter a year). Each API resource has its own migration guide to help you navigate major updates.
+You can choose to integrate with the newest API changes as they are released or wait until you are ready - ensure it is within the one year change API support window.
+Expectations
+No unversioned calls
+LinkedIn expects every versioned API call to specify a version; the latest version is not applied by default. It is important to us that customers have the best possible experience with LinkedIn integrations. It is likely that customers have a great experience when the integration is being regularly maintained (at least once per year).
+Breaking Change Exceptions
+At times, LinkedIn may need to change APIs within the supported stable window.
+LinkedIn reserves the right to release a patch version to any API if required for any critical security, privacy issues, or bug fixes. While the likelihood of these scenarios is minimal, we work closely with partners to minimize the impact of any breaking changes.
+Frequently Asked Questions
+Which versions can I use?
+Use any version that has not been sunset. The documentation reflects all available API versions.
+How do I migrate from an older API version to a later version?
+To migrate your app from an older version to a later version, simply update the older version‘s YYYYMM formatted value in the header to the newer version’s value. For example, here’s how you can migrate from the January 2025 version to the January 2026 version.
+-H ‘Linkedin-Version: 202501’ to -H ‘Linkedin-Version: 202601’
+Reasons for migrating to a later version include:
+Avoiding service disruptions; it is important to upgrade to a newer supported version before the older version is no longer supported. We are committed to supporting each version for a minimum of one year.
+Utilizing new features that are not accessible in the older version.
+Which version of the API should I migrate to?
+While you can migrate to any later version of the API, migrating to the latest version comes with the following benefits:
+You can take advantage of all of our latest features.
+You have the option to wait up to one year before having to migrate again.
+What happens if the Version Header is missing in the request?
+An error response is returned when the version header is missing in the request. Refer to the sample response here .
+What happens if a deprecated Version Header is used in the request?
+An error response is returned when the version header is deprecated (e.g., 202401). Refer to the sample response here .
+Feedback
+Was this page helpful?
+Yes
+No
+Need help with this topic?
+Want to try using Ask Learn to clarify or guide you through this topic?
+Ask Learn
+Suggest a fix?
+Additional resources
+Last updated on
+2026-09-16
+In this article
+Was this page helpful?
+Need help with this topic?
+Want to try using Ask Learn to clarify or guide you through this topic?
+Ask Learn
+Suggest a fix?
+en-us
+Your Privacy Choices
+Theme
+Light
+Dark
+High contrast
+AI Disclaimer
+Previous Versions
+Blog
+Contribute
+Privacy
+Consumer Health Privacy
+Terms of Use
+Trademarks
+&copy; Microsoft 2026

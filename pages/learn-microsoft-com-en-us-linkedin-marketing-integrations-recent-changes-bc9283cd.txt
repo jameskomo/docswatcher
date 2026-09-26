@@ -1,0 +1,798 @@
+Skip to main content
+Skip to Ask Learn chat experience
+This browser is no longer supported.
+Upgrade to Microsoft Edge to take advantage of the latest features, security updates, and technical support.
+Download Microsoft Edge
+More info about Internet Explorer and Microsoft Edge
+Table of contents
+Exit editor mode
+Ask Learn
+Reading mode
+Table of contents
+Read in English
+Add
+Add to Plans
+Edit
+Copy Markdown
+Print
+Note
+Access to this page requires authorization. You can try signing in or changing directories .
+Access to this page requires authorization. You can try changing directories .
+Recent Marketing API Changes
+Feedback
+Summarize this article for me
+In this article
+Warning
+Deprecation Notice:
+The Marketing Version 202510 (Marketing October 2025) will be sunset on October 15, 2026. We recommend that you migrate to the latest versioned APIs to avoid disruptions. For information on all the supported versions, refer to the migrations documentation.
+If you haven’t yet migrated and have questions, submit a request on the LinkedIn Developer Support Portal .
+September 2026 - Version 202609 (Latest)
+Product & Platform Announcements
+Company Intelligence API : New campaignGroup , objectiveType , and seniority filters :
+Starting with the 202609 version, the accountIntelligence endpoint finder now supports filtering results by the following optional fields under filterCriteria: campaignGroup , objectiveType , or member seniority , in addition to the existing campaign filter. Only one of campaign , campaignGroup , objectiveType , or seniority can be passed in the filterCriteria parameter. Organic metrics are 0 when campaign, campaignGroup or objectiveType filter is used. The seniority filter is supported only with LAST_90_DAYS lookback window and when campaign , campaignGroup , and objectiveType aren't used in the filterCriteria. These fields are request-only and do not change the response schema. Versions 202608 and below do not support these filters.
+Ads Reporting API : New MEMBER_DESIGNATED_MARKET_AREA pivot :
+Starting with the 202609 version, in the adAnalytics endpoint's analytics finder, pivot.value parameter now supports MEMBER_DESIGNATED_MARKET_AREA , letting partners request analytics reports grouped by Nielsen Designated Market Area (DMA), consistent with other member demographic pivots such as MEMBER_REGION_V2 . Pivot items are returned as urn:li:geo:{id} URNs. You may use the /adTargetingEntities resource to resolve these geo URNs to DMA region names.
+When displaying results grouped by this pivot, you must display a "circle R" notice of registration immediately following each display of the DMA marks (that is, DMA®) and the statement "DMA® is a registered service mark of The Nielsen Company."
+Conversions API : New hashedFirstName and hashedLastName fields :
+Starting with the 202609 version, the userInfo object for the /conversionEvents endpoint supports two new optional fields for matching: hashedFirstName and hashedLastName , in addition to the existing plain text firstName and lastName fields. Before hashing, normalize the value to lowercase with no spaces or punctuation, and encode special characters as UTF-8. The result should be a SHA-256 HEX-encoded string of exactly 64 characters. A valid userInfo combination requires either firstName or hashedFirstName, together with either lastName or hashedLastName.
+Conversions API : New 180-day attribution window option :
+The postClickAttributionWindowSize and viewThroughAttributionWindowSize fields on the Conversion Rule schema in /conversions endpoint now support a 180 -day value, in addition to the existing 365 -day option, for the following conversion types: SUBMIT_APPLICATION , PURCHASE , ADD_TO_CART , QUALIFIED_LEAD , LEAD , MARKETING_QUALIFIED_LEAD , and SALES_QUALIFIED_LEAD . This update is available on all active versions. MARKETING_QUALIFIED_LEAD and SALES_QUALIFIED_LEAD conversion types are available starting with the 202608 version onwards.
+Version Sunset
+The monthly API versions below will be sunset and removed from the platform on the dates listed. For information on all the supported versions, refer to the migrations documentation. To avoid disruptions to your platform, please migrate to the latest API version launched today.
+202510 - Oct 15, 2026
+202511 - Nov 16, 2026
+August 2026 - Version 202608
+Product & Platform Announcements
+Matched Audiences API: Generally available to all qualified developers :
+Starting August 2026, the Matched Audiences API is now generally available for application to all qualified developers. You can apply for access directly from the Developer Portal.
+DMP Segments API: Cap on number of DMP Segments in ad account :
+Starting August 2026, each sponsored account is restricted to a maximum of 1,000 DMP segments for Matched Audiences ( USER , COMPANY , LIST_UPLOAD ) and Predictive Audiences. Requests to the /dmpSegments endpoint from ad accounts that exceed this threshold return a 429 error with the code SEGMENT_LIMIT_EXCEEDED . This update applies to all versions. To allocate space for additional segments, delete unused segments before creating new ones. See Delete DMP Segment for details.
+Dynamic UTM API: Ad account-level tracking parameter support :
+Starting with the 202608 version, the /adTrackingParameters endpoint now supports setting dynamic UTM tracking parameters at the ad account level using the sponsoredAccount member of the adEntity key, in addition to the existing sponsoredCampaign . Account-level parameters apply to creatives across all campaigns in the account. This is an additive, backward-compatible change.
+Conversions API: New conversion types for Marketing & Sales Qualified Leads :
+Starting with the 202608 version, the /conversions endpoint now supports MARKETING_QUALIFIED_LEAD and SALES_QUALIFIED_LEAD as granular conversion types in addition to the existing QUALIFIED_LEAD . Conversion events streamed on conversion rules with these new types are used in the qualified leads optimization goal for deeper funnel campaign optimization, similar to QUALIFIED_LEAD . See Qualified leads optimization goal for details.
+Conversions API: Additional use cases :
+Additional use cases published for the Conversions API, including qualified leads optimization, retargeting audiences, source data for predictive audiences, and conversion lift testing.
+Ad Accounts API: New productType and originatingCustomer fields :
+Starting with the 202608 version, the /adAccounts endpoint returns productType ( MARKETING_SOLUTIONS , TALENT_SOLUTIONS , LINKEDIN_ON_LINKEDIN ) and originatingCustomer (a urn:li:customer:{id} URN). Both fields apply to ENTERPRISE accounts only and are immutable once set at account creation. This is an additive, backward-compatible change.
+Campaign Groups API: New billing, beneficiary, and buying type fields :
+Starting with the 202608 version, the /adCampaignGroups endpoint supports billingReference , billingParentReference , beneficiaryReference (a union of company or organization ), and buyingType ( AUCTION or RESERVATION ). All four fields are immutable once set at campaign group creation; billingReference and billingParentReference apply to ENTERPRISE accounts only. In earlier versions, these fields are rejected with a 422 error. This is an additive, backward-compatible change.
+Version Sunset
+The monthly API versions below will be sunset and removed from the platform on the dates listed. For information on all the supported versions, refer to the migrations documentation. To avoid disruptions to your platform, please migrate to the latest API version launched today.
+202508 - Aug 17, 2026
+202509 - Sep 15, 2026
+202510 - Oct 15, 2026
+Reminders
+Starting Aug 31, 2026, LinkedIn will completely stop supporting Legacy Geo for Ads Targeting. Requests to create campaigns using legacy geo will result in a 400 error with the INVALID_VALUE_FOR_FIELD code. All partners and developers must use Bing-geo as previously published in this migration guide .
+The top-level location field (for example, "San Francisco Bay Area") is also being removed from /v2/me and /v2/people responses. Partners currently relying on location may begin receiving an empty or null value and should migrate to the geoLocation field (for example, request projection=(geoLocation(geo~,autoGenerated)) ), which is already available on both endpoints. See the Profile API documentation for guidance on using geoLocation with the geo~ projection to retrieve the location display name.
+July 2026 - Version 202607
+Product & Platform Announcements
+Predictive Audiences API: id field available in the response :
+Starting version 202607 , fetching a Predictive Audience (single or list) now returns its read-only id . Partners can now obtain the id for audiences created in Campaign Manager or the API, and use it to update them.
+Conversions API: New user identifier available for matching :
+A new optional user identifier SHA256_IP_ADDRESS is available in the userIds object in the Conversion Event User Schema for /rest/conversionEvents to match with the hashed IP address of the user using SHA256. This update is available on all active versions. This is in addition to the existing PLAINTEXT_IP_ADDRESS already available in plain text format. Currently, only IPv4 addresses are supported.
+Create and Manage Campaigns: creativeSelection in SPONSORED_INMAILS type campaigns with LEAD_GENERATION objective for Message & Conversation Ads :
+Starting July 2026, the adCampaigns API will support, as the default, OPTIMIZED for creativeSelection in SPONSORED_INMAILS type campaigns (Message Ads and Conversation Ads) with the LEAD_GENERATION objective. Previously, this combination was rejected with a 400 validation error and forced to ROUND_ROBIN . If your integration creates or updates SPONSORED_INMAILS campaigns with the LEAD_GENERATION objective without explicitly setting creativeSelection , the behavior will default to OPTIMIZED starting with the July 2026 release and will apply to all versions. To preserve even ad rotation, explicitly set creativeSelection as ROUND_ROBIN . Note: OPTIMIZED is only valid for the SPONSORED_INMAILS type with the LEAD_GENERATION objective — all other objectives in this type still reject it with a 400 error.
+Version Sunset
+The monthly API versions below will be sunset and removed from the platform on the dates listed. For information on all the supported versions, refer to the migrations documentation. To avoid disruptions to your platform, please migrate to the latest API version launched today.
+202507 - Jul 15, 2026
+202508 - Aug 17, 2026
+202509 - Sep 15, 2026
+June 2026 - Version 202606
+Product & Platform Announcements
+Company Intelligence API: 365-Day Lookback and Company Attribute Decoration :
+Starting with the version 202606, the /accountIntelligence endpoint adopts the following changes:
+filterCriteria.lookbackWindow : A new value LAST_365_DAYS is now supported alongside the existing LAST_7_DAYS , LAST_30_DAYS , LAST_60_DAYS , LAST_90_DAYS , and LAST_180_DAYS . When supplied, engagement and conversion metrics are aggregated over the trailing 365 days from the data calculation date, giving partners a full year of engagement history per target company. Versions 202605 and earlier continue to cap the window at 180 days.
+companySize : A StaffCountRange enum field representing the range of the number of staff employed by the target company. Possible values are: SIZE_1 , SIZE_2_TO_10 , SIZE_11_TO_50 , SIZE_51_TO_200 , SIZE_201_TO_500 , SIZE_501_TO_1000 , SIZE_1001_TO_5000 , SIZE_5001_TO_10000 , and SIZE_10001_OR_MORE . The field is response-only, included in the default projection, and defaults to $UNKNOWN when the target company has not declared a staff size.
+industry : An IndustryUrn field identifying the industry the target company is associated with based on its primary business activities and products (e.g., urn:li:industry:1). The field is response-only, included in the default projection, and defaults to urn:li:industry:0 when no industry has been assigned.
+countryCode : A string field representing the ISO country code of the target company's headquarters (e.g., "US", "GB"). The field is response-only, included in the default projection, and defaults to an empty string when the headquarters country is not available.
+costInLocalCurrencyPerPaidQualifiedLead : A double type field representing the cost per paid qualified lead (CPQL) attributed to the target company, in the advertiser's local currency. Derived as the ratio of total ad spend over the number of paid qualified leads collected from members of the target company within the lookback window. The field is response-only, included in the default projection, and defaults to 0.0 when no paid qualified leads have been attributed to the target company within the lookback window.
+Dynamic UTM API : Added dynamic tracking parameter support for CREATIVE_NAME :
+Starting with the version 202606 , the /adTrackingParameters endpoint now supports CREATIVE_NAME in addition to existing parameter values in dynamicTrackingParameters field. This will allow advertisers to track creative names along with their creative ID using Dynamic UTM that uses placeholder parameters which are automatically replaced with relevant values when an ad is served. Within Campaign Manager, this is already available within the URL tracking parameters under the Placement tab as {{CREATIVE_NAME}} .
+Conversation Ads API : Not Interested Call-to-Action (CTA) :
+A Not Interested CTA is automatically rendered on the firstMessageContent for SponsoredConversations . The CTA is applied to new and existing ads at render time and is not exposed in the API. Use test sends to preview the behavior. For ads created from Campaign Manager, GET requests to /conversationAds/{sponsoredConversationURN}/sponsoredMessageContents will now return a new NOT_INTERESTED value in the replyType field.
+Message Ads API : Not Interested Call-to-Action (CTA)
+A Not Interested CTA is automatically rendered on Message Ads . The CTA is applied to new and existing ads at render time and is not exposed in the API. Use test sends to preview the behavior.
+Version Sunset
+The monthly API versions below will be sunset and removed from the platform on the dates listed. For information on all the supported versions, refer to the migrations documentation. To avoid disruptions to your platform, please migrate to the latest API version launched today.
+202506 - Jun 15, 2026
+202507 - Jul 15, 2026
+202508 - Aug 17, 2026
+Reminders
+Change to Developer Support path : Please contact Developer Support via the Developer Support Request Form . This will be the primary way to reach Developer Support going forward. The Zendesk support path will sunset on June 30th. Please use the form for all new requests as we transition.
+May 2026 - Version 202605
+Product & Platform Announcements
+Events Management API : Off-Platform Event Support and Required End Dates
+Starting with the 202605 version, the /rest/events endpoint adopts the new Event schema with the following changes:
+hasDarkUgc : A boolean field indicating whether the event is backed only by a dark UGC post created through sponsored ad workflows. When true , the event has no LinkedIn Events Detail Page and is suppressed from all organic surfaces regardless of discoveryMode . The field is CREATE ONLY and defaults to false for regular page-backed events.
+endsAt : Now a required field on all event types. Create requests that omit endsAt will be rejected with a validation error. This is a breaking change introduced from 202605; versions 202604 and below continue to treat endsAt as optional.
+Event Ads API : Off-Platform Event Ads and Lead Generation Campaign Objective
+Starting with the 202605 version, the Event Ads API ( /rest/adAccounts/{adAccountId}/adCampaigns with format: SPONSORED_UPDATE_EVENT ) adds the following capabilities:
+objectiveType : LEAD_GENERATION is now a supported objective for Event Ad campaigns, alongside the existing BRAND_AWARENESS , WEBSITE_VISITS , and ENGAGEMENT objectives. The referenced event must have a lead gen form attached ( event.leadGenForm ) and be published ( event.ugcPost populated).
+Off-platform Event Ads : A new end-to-end flow is available for advertisers who want to run Event Ads without a LinkedIn Events Detail Page. Create the backing event with hasDarkUgc: true , then proceed with the standard campaign, dark post, and Event Ad creative steps. The ad redirects to the external URL regardless of event lifecycle stage.
+Conversions API : New user identifiers available for matching, updated required field validation for lead, and a new request parameter to fetch cross-account shared conversion rules
+New optional user identifiers in the userIds object in the Conversion Event User Schema for /rest/conversionEvents to improve match rates and attribution performance. This update is available on all active versions.
+PLAINTEXT_IP_ADDRESS : IP address of the user in plain text format. Currently, only IPv4 addresses are supported.
+GOOGLE_AID : The Google Advertising ID (GAID), a unique, user-resettable, and anonymous identifier for Android devices.
+Updated the required field validation in the Conversion Event User Schema for /rest/conversionEvents to allow sending conversion events with only lead as the user identifier. Previously, this returned a 400 validation error. This update is available on all active versions.
+The Find Conversion Rules by Ad Account API on /rest/conversions finder by account now supports an optional array parameter conversionOwnershipTypes accepting two possible values: OWNED and SHARED . The response body includes a new field ownershipType with one of those values in the conversion object. This allows fetching both owned conversions for the ad account and shared conversions across ad accounts within the same Business Manager. If this query parameter is not passed, only OWNED conversions are returned by default, preserving existing behavior for version 202604 and earlier.
+Predictive Audiences API : New method to Get all predictive audiences in the account
+Starting with the 202605 version, the Predictive Audiences API supports the GET_ALL method on /rest/dmpSegments/{dmpSegmentId}/businessObjectiveBasedAudiences , which retrieves all predictive audiences under a given parent DMP segment as a paginated collection.
+Ad Analytics API : New metric available for Appointments Scheduled from Lead Gen Forms
+Starting with the 202605 version, the AdAnalytics API supports a new metric appointmentsScheduled in the response for /rest/adAnalytics . This metric measures the number of appointments booked through Lead Gen campaigns.
+Company Intelligence API : Paid Video Views Metric
+Starting with the 202605 version, the /accountIntelligence endpoint now includes the following new field for campaign insights at the company level:
+paidVideoViews : A long type field representing the total count of paid video ad views from members of the target company. Counts are aggregated over the window specified in filterCriteria.lookbackWindow . The field is response-only, included in the default projection alongside the existing engagement metrics, and defaults to 0 when no paid video views have been attributed to the target company within the lookback window.
+Change to Developer Support path
+Starting May 15, 2026 , contact Developer Support via the Developer Support Request Form . This will be the primary way to reach Developer Support going forward. The Zendesk support path will sunset soon. Use the form for all new requests as we transition.
+Reapply to API Products from your Developer Portal
+Developers can now resubmit expired API access requests (that expire after 21 days) or those declined for insufficient details directly in the Developer Portal. A Reapply CTA replaces "Access denied", reloads the original form for edits, and creates a new case—no need to recreate the app or contact support.
+Breaking Changes
+Member Post Statistics API and Member Video Statistics API : Starting with the 202605 version, the /memberCreatorPostsAnalytics and /memberCreatorVideoAnalytics endpoints change the format of metricType in the response body from object to string to simplify parsing.
+Version Sunset
+The monthly API versions below will be sunset and removed from the platform on the dates listed. For information on all the supported versions, refer to the migrations documentation. To avoid disruptions to your platform, please migrate to the latest API version launched today.
+202505 - May 15, 2026
+202506 - Jun 15, 2026
+202507 - Jul 15, 2026
+Reminders
+Member Post Statistics API : New creator analytics metrics
+Starting with the 202604 version, the /memberCreatorPostAnalytics endpoint now supports new metrics:
+POST_SEND : Number of times post entities were sent via LinkedIn messaging.
+POST_SAVE : Number of times post entities were saved.
+LINK_CLICKS : Number of clicks on links within post entities.
+PREMIUM_CTA_CLICKS : Number of clicks on premium call-to-action buttons.
+FOLLOWER_GAINED_FROM_CONTENT : Number of new followers gained from post entities.
+PROFILE_VIEW_FROM_CONTENT : Number of profile views generated from post entities.
+April 2026 - Version 202604
+Product & Platform Announcements
+Member Post Statistics : New Creator Analytics Metrics
+The /memberCreatorPostAnalytics endpoint now supports new metrics:
+POST_SEND : Number of times post entities were sent via LinkedIn messaging.
+POST_SAVE : Number of times post entities were saved.
+LINK_CLICKS : Number of clicks on links within post entities.
+PREMIUM_CTA_CLICKS : Number of clicks on premium call-to-action buttons.
+FOLLOWER_GAINED_FROM_CONTENT : Number of new followers gained from post entities.
+PROFILE_VIEW_FROM_CONTENT : Number of profile views generated from post entities.
+Company Intelligence API : New 180-Day Lookback Window
+Starting with the 202604 version, the /accountIntelligence endpoint now supports a LAST_180_DAYS lookback window, extending the maximum range for filtering impression and engagement data from 90 to 180 days.
+New Integration Requirements Pages
+New requirement pages are now available to guide developers on the technical criteria for integrating with LinkedIn Marketing Solutions APIs. These requirements must be met as part of an organization pursuing partner certification.
+Community Management
+Event Management
+Conversions API
+Reporting
+Advertising
+Audience Insights
+Media Planning
+Company Intelligence
+Matched Audiences
+Lead Sync
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. For information on all the supported versions, refer to the migrations documentation. To avoid disruptions to your platform, please migrate to the latest API version launched today.
+202504 - Apr 15, 2026
+202505 - May 15, 2026
+202506 - Jun 15, 2026
+March 2026 - Version 202603
+Product & Platform Announcements
+Company Intelligence API : New Qualified Leads and Conversions Metrics
+Starting with the 202603 version, the /accountIntelligence endpoint's response now includes the following new fields for campaign insights at the company level:
+paidQualifiedLeads : A long value representing the number of qualified leads from the Conversions API attributed to the target company.
+conversions : A long value representing the count of conversions based on actions performed by a member after viewing or clicking on an ad. This includes both the Conversions API and Insights Tag conversions.
+Both fields are returned by default (included in the default projection) and will be present in the response, returning 0 when no data is available. These metrics correlate qualified leads and conversions with target companies to inform account-based marketing prioritization.
+Lead Sync API : Webhook validation is required for new lead notifications
+Starting March 16, 2026, we are enforcing webhook validation while sending push events for LEAD_ACTION type. New lead notifications will only be pushed to webhooks that have been validated. For more information, refer to the Webhook validation guide and FAQ guide .
+Ads Targeting Facets API : New Buyer Group Targeting Facet
+The Ad Targeting Facets API introduces a new buyerGroups facet. This feature allows advertisers to target audiences based on predefined buyer group categories. Each buyer group represents a standardized product category (Example: Cybersecurity Software).
+The buyerGroups facet supports the following finders on the /adTargetingEntities endpoint:
+adTargetingFacet: Retrieves the full list of available buyer group segments.
+typeahead: Searches for buyer group segments by keyword (Example: Query "software" returns matching product categories).
+Brand Lift Testing API : Maximum of 50 Campaign Groups per Test
+Brand Lift Tests are limited to 50 Campaign Groups maximum upon creation.
+Documentation Updates
+Event Management API : Field mutability and lifecycle update restrictions
+The revised Event fields documentation clarifies modification rules by classifying fields as READ ONLY , CREATE ONLY , or UPDATABLE . A critical change is the restriction that no fields, including the event name and description , can be updated after an event has begun. The documentation also indicates that live audio events are a deprecated feature.
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. For information on all the supported versions, refer to the migrations documentation.To avoid disruptions to your platform, please migrate to the latest API version launched today.
+202503 - Mar 16, 2026
+202504 - Apr 15, 2026
+202505 - May 15, 2026
+February 2026 - Version 202602
+Product & Platform Announcements
+Videos API : New Media Attribution Fields for Third-Party Integration
+Starting with the 202602 version, we have introduced two optional fields to the /videos endpoint's initializeUploadRequest: templateName and linkbackContext . Developers can now track and attribute videos created using third-party tools, companies, or templates. You can provide attribution metadata using the following optional fields:
+templateName : A string identifying the name of the template used to create the video (Example: "Sunshine birthday wishes").
+linkbackContext : A string that provides context for linking back to the original source, such as a URL pointing to the specific template or tool.
+These fields allow downstream systems to identify the source template or tool used during video creation and enable deep linking back to the original resource when needed. When a video is created with these attribution fields, LinkedIn can display the template name and provide a direct link to the source, enabling attribution and allowing advertisers and content creators to reference the tools or templates used during video creation.
+Ad Campaigns API & Ad Budget Pricing API : Qualified leads available as optimization target for Lead Generation campaign objective
+Starting with the 202602 version, we have introduced MAX_QUALIFIED_LEAD as a supported value for optimizationTargetType field used in the /adCampaigns and /adBudgetPricing endpoints when using LEAD_GENERATION as campaign objectiveType . This optimizes lead generation campaigns to target high-quality leads using qualified lead data sent from Conversions API (where conversion rule type must be QUALIFIED_LEAD ) or CRM data shared from Business Manager. Learn more here .
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202502 - Feb 16, 2026
+202503 - Mar 16, 2026
+202504 - Apr 15, 2026
+January 2026 - Version 202601
+Product & Platform Announcements
+Ad Analytics API : New Event and Video Watch Time metrics available
+Starting with the 202601 version, we have introduced two sets of new metrics to be returned for /AdAnalytics endpoint: EventWatchTime metrics and VideoWatchTime metrics.
+For events, API partners can now measure eventViews , eventWatchTime , averageEventWatchTime and costPerEventView , plus thresholded variants for audiences who watched over 15 seconds, 30 seconds, or 2 minutes. These signals help advertisers better understand audience quality and downstream engagement beyond basic view counts, making it easier to evaluate which events and audiences are driving meaningful attention.
+For video, the videoWatchTime and averageVideoWatchTime metrics are now available. These metrics provide additional data on the duration that sponsored videos are viewed, supporting more detailed analysis of video engagement and viewer retention.
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202501 - Jan 15, 2026
+202502 - Feb 16, 2026
+202503 - Mar 16, 2026
+November 2025 - Version 202511
+Product & Platform Announcements
+Predictive Audiences API : Create High-intent, AI-powered Custom Audiences
+The Predictive Audiences API allows the customers to combine their first-party or third-party data with LinkedIn's predictive AI modeling to build audience segments tailored to specific business needs. Customers can use company or contact lists as a seed source to identify prospects who are likely to engage and have high conversion propensity, improving campaign efficiency. Leverage it to automate audience expansion for bottom-funnel advertising strategies such as account-based marketing, re-engagement of valuable accounts, and activate AI-scored segments for customer campaigns and advertising workflows.
+The Predictive Audiences API is a private API available to developers with access to the Matched Audiences API. To request access, first submit an application for the Advertising API with an ads management or reporting use case. After approval, you can request access via the form . For more information, refer to the developer documentation and product spotlight .
+Ad Lift Tests API : Ad Lift Test Measurement by Campaign Groups
+The Ad Lift Tests API supports specifying multiple campaign groups in the liftEntity field when creating a new ad lift test using POST /adLiftTests. This enables measurement of the lift for specified campaign groups. Measurement of an individual campaign group is also supported through this field.
+Lead Sync API : Dynamic URL Tracking Parameters on Lead Gen Forms
+Hidden fields for Lead Gen Forms support dynamic URL tracking parameters, enabling automatic tracking of campaigns, creatives, and other sources to associate leads with a particular lead gen form. Dynamic URL tracking parameters allow advertisers to avoid duplicating forms due to static field limitations and integrate these fields with CRM or marketing automation platform for enhanced reporting and attribution. This improves overall campaign effectiveness. Customers gradually get access to the feature, with the 100% ramp planned for December 10, 2025. Learn more here .
+Member Authentication : Google and Apple Sign-In for Developer Applications
+Starting December 2, 2025, LinkedIn will support Sign in with Google and Sign in with Apple as new options for member authentication in developer applications, alongside the existing username/password method for OAuth 2.0 authorization requests. When users are redirected from your application to LinkedIn’s login page to see these additional choices and can select either to proceed. This experience will be available only on Desktop and Android web browsers.
+If your application uses the standard OAuth specification to initiate OAuth, signing in with Google or Apple should work without issues. To verify, please follow the instructions here to test these login options for your application. Additionally, note that the current login method (username/password) remains unchanged and will continue to function as usual. For further details, refer to the Authorization Code Flow documentation . If you wish to disable these login options for your developer application, submit a Developer Support request to the LinkedIn support team.
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202411 - Nov 17, 2025
+202501 - Jan 15, 2026
+202502 - Feb 16, 2026
+October 2025 - Version 202510
+Product & Platform Announcements
+Company Intelligence API : Prove Business Impact with Company-level Insights
+Newly launched Company Intelligence API enables partners to surface company-level engagement across paid and organic LinkedIn touchpoints. By consolidating signals at the company level, the API supports analysis of B2B buying decisions across multiple stakeholders and long sales cycles. Metrics include engagement score, paid impressions, paid clicks, leads, organic impressions, and organic engagements. The API supports attribution and analytics solutions, allowing integration of LinkedIn insights with CRM and analytics platforms and connecting engagement data to business outcomes such as pipeline and revenue.
+This is a private API available to qualified developers who meet additional access criteria. For more details, see the developer documentation here and product spotlight here . To apply for access, submit your request here .
+Ad Lift Tests API Updates :
+Ad Lift Test Schema : Starting with the 202510 version, the adLiftTests API includes a new optional field, reviewInfo , for Ad lift tests. This field indicates if the test content is under review, accepted, or rejected, and, if rejected, specifies the reasons. The reviewInfo field is absent if the Ads Review Team has not reviewed the test.
+Ad Lift Test Results : Starting with the 202510 version, the adLiftTestResults API includes demographic breakdowns of ad lift test results by MEMBER_AD_FORMAT , MEMBER_AD_FREQUENCY_RANGE , and MEMBER_AD_PLACEMENT_DOMAIN (Feed, LinkedIn Audience Network, Connected TV). Ad lift metrics can be segmented by ad format, impression frequency range, and placement domain using the API.
+Ad Analytics API : Dwell Time Metric Update
+We recently improved the accuracy of the averageDwellTime metric in the adAnalytics API, which measures the duration that more than 50% of an ad’s pixels remain visible in the viewport. With this updated methodology, reported Dwell Time may increase by approximately 25%, especially for in-feed and First Impression ads. Six months of historical data will be refreshed by October 16, 2025, to ensure consistency.
+No action is required from partners or customers. We recommend updating any previously exported reports that include Dwell Time to align with the updated data. This enhancement provides precise engagement insights to support performance analysis and campaign optimization.
+OAuth Token Usage : Monitor activity in the LinkedIn Developer Portal
+Starting September, the LinkedIn Developer Portal's Analytics dashboard includes a feature that lets developers monitor refresh token requests made by their applications. This update adds the ability to view OAuth token usage statistics for your application. To view this data, go to the Analytics tab in your developer application and look for OAuth Token Usage at the bottom. Note that daily statistics reset at midnight UTC.
+LinkedIn Ads Agreement : Updates to Improve Ad Performance
+LinkedIn is expanding its use of Microsoft data and customer tag data, which provide professional and B2B signals. This will help advertisers enhance their targeting, optimize campaigns with precision, and drive performance across the funnel. In addition, LinkedIn’s Ad Agreement will be updated on November 3, 2025, to state that LinkedIn and its affiliates, including Microsoft, may use Audience Data to improve advertising services. There will be no changes to APIs or partner integrations. For more details, please visit the Help Center .
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202410 - Oct 15, 2025
+202411 - Nov 17, 2025
+September 2025 - Version 202509
+Product & Platform Announcements
+Ad Account Trust Preferences API : Manage Publisher Restrictions at the Ad Account level .
+Starting with the 202509 version, we have introduced a new endpoint /adAccountTrustPreferences in the Advertising API that allows you to create and manage ad publisher restrictions at the ad account level. This endpoint can be used to apply or remove ALLOWLIST and BLOCKLIST of publishers for ad accounts, or to view the current ALLOWLIST and BLOCKLIST at the account level. Any ALLOWLIST/BLOCKLIST applied to an ad account will automatically apply to all new and existing campaigns within that account.
+Rate Limit Alert Notifications
+The LinkedIn Developer Platform has introduced a new email alert when your app reaches 75% of its daily application-level rate limit quota. The alert is designed to help you monitor and manage your API usage. All developer app admins will receive these emails which include details about their app(s), its client ID, the timestamp when the threshold was breached, the resource, method, and usage information as an attachment. For more details, see here .
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202409 - September 15, 2025
+202410 - October 15, 2025
+202411 - November 17, 2025
+Reminders
+Campaigns API : Political Advertising Declaration for EU-Targeted Campaigns .
+Starting October 10, 2025, advertisers running campaigns targeting the EU region must self-declare whether their ads qualify as political advertising under the EU's Transparency and Targeting of Political Advertising (TTPA) regulation. To support this requirement, Campaign Management Partners are now required to implement a self-declaration step in the LinkedIn campaign creation flow for EU-targeted campaigns. Partners must pass this information with LinkedIn via the politicalIntent field in the /adCampaigns schema.
+Although LinkedIn prohibits political advertising and will continue to do so, this update is required to ensure regulatory compliance and maintain a trusted platform for our members and customers. Please refer to the API documentation for more information.
+Matched Audiences API : Updated Endpoint for DMP Segment List Uploads .
+The DMP Segment List Uploads API endpoint for audience creation from static CSV files with POST /media/upload will sunset on September 16, 2025 . To avoid service interruption, developers using older versions of the DMP Segment List Uploads API should migrate to the POST /dmpSegments?action=generateUploadUrl endpoint, which is supported from version 202411 onward .
+Starting with the 202411 version, please follow the new DMP Segment List Upload API process, which is now a two-step workflow:
+Generate an upload URL using POST /dmpSegments?action=generateUploadUrl
+Upload your CSV file to the URL provided in the value field of the response body
+For information on all the supported versions, refer to the migrations documentation.
+August 2025 - Version 202508
+Product & Platform Announcements
+Campaigns API : Political Advertising Declaration for EU-Targeted Campaigns .
+Starting October 10, 2025, advertisers running campaigns targeting the EU region must self-declare if their ads qualify as political advertising under the EU's Transparency and Targeting of Political Advertising (TTPA) regulation. To facilitate this action, Campaign Management partners are now required to implement a self-declaration step in the LinkedIn campaign creation flow for campaigns targeting the EU region. Partners must pass back this information with LinkedIn via the politicalIntent field in the /adCampaigns schema.
+Although LinkedIn prohibits political advertising and will continue to do so, this update is required to ensure regulatory compliance and maintain a trusted platform for our members and customers.
+Conversions API Payload Builder : Enhanced Validation & Direct API Call Support .
+The Conversions API Payload Builder now supports capabilities to enable seamless and efficient integration process for Conversions API. Developers can build and validate syntactically correct /conversionEvents payloads, auto-generate JSON or cURL formats, and test them directly on LinkedIn Developer Portal via the new "Make an API Call" feature.
+This self-serve feature streamlines development effort by enabling OAuth access token generation through either a developer's own app (if API access is provisioned) or a LinkedIn-owned app. Refer to the technical documentation for implementation details.
+Developer AI Chatbot : Now on the LinkedIn Developer Website
+Our AI-powered chatbot support has expanded from the Developer platform to the LinkedIn Developer website , making it easier for developers to discover and learn more about LinkedIn API products and access relevant technical information to get started.
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202408 - Aug 18, 2025
+202409 - Sep 15, 2025
+202410 - Oct 15, 2025
+202411 - Nov 17, 2025
+Reminders
+Creatives API : Support for Innovid VAST Tags in Video Ads for CTV
+Starting with the 202507 version, partners can utilize VAST tags to streamline the setup and asset management of Connected TV (CTV) ad campaigns. The content field in the Creatives API schema now includes a new field, thirdPartyVastTagVideoAd , where you can provide a vastTagUrl from a third-party VAST tag vendor hosting the video content. Currently, only Innovid VAST tags are supported.
+VAST tags enhance efficiency of CTV campaigns by simplifying asset delivery and allowing for more creative flexibility, testing, and reporting. For complete CTV specifications, refer to the CTV Ads Specifications .
+July 2025 - Version 202507
+Product & Platform Announcements
+Creatives API : Support for Innovid VAST Tags in Video Ads for CTV
+Starting with the 202507 version, partners can utilize VAST tags to streamline the setup and asset management of Connected TV (CTV) ad campaigns. The content field in the Creatives API schema now includes a new field, thirdPartyVastTagVideoAd , where you can provide a vastTagUrl from a third-party VAST tag vendor hosting the video content. Currently, only Innovid VAST tags are supported.
+VAST tags enhance efficiency of CTV campaigns by simplifying asset delivery and allowing for more creative flexibility, testing, and reporting. For complete CTV specifications, refer to the CTV Ads Specifications .
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202407 - Jul 22, 2025
+202408 - Aug 15, 2025
+202409 - Sep 15, 2025
+Reminders
+Sunset of legacy Lead Sync APIs on July 31, 2025 .
+LinkedIn's legacy Lead Sync APIs will be fully sunset on July 31, 2025 . Legacy endpoints that will be sunset include: /adForms , /adFormResponses , /leadNotificationUrls . To prevent service disruptions and ensure access to the latest features, we recommend completing your migration using the migration guide before July 31, 2025.
+Consider implementing:
+In-product notifications to encourage customer action.
+A forced re-authentication flow to prompt customers to reconnect with the new API
+If the migration is not completed by the sunset date, customers will no longer be able to sync leads using the legacy Ads Lead Sync API and Events Lead Generation API , leading to significant disruptions in lead delivery and campaign workflows. Migrating to the new Lead Sync API provides access to new features, improved functionality, and enhanced performance. These include the ability to centralize lead collection from ads, events, and other organic sources via a single, streamlined API.
+Community Management API Enhancements : Empower Customers to Measure and Grow Influence
+Partners can provide detailed analytics on executive, employee, and brand engagement with LinkedIn audiences. These updates provide increased visibility into individual profile analytics, including metrics for content performance and follower growth, supporting improved influencer and creator strategies on LinkedIn.
+Key capabilities include:
+Content Analytics : Access granular metrics for member-generated content, including impressions, reach, and engagement (reactions, comments, reposts) across individual posts or aggregated content
+Follower Growth Tracking : Track follower trends over custom timeframes to uncover momentum, identify growth spikes, and assess engagement patterns.
+Video Insights : Measure short-form video performance, a popular content format on LinkedIn with metrics such as watch time, total views, and unique viewers.
+These enhancements support social media management tools, executive visibility platforms, and influencer analytics providers, enabling measurement and analysis of influence and impact on LinkedIn. For more details, refer to the community management use cases .
+June 2025 - Version 202506
+Product & Platform Announcements
+Member Follower Statistics API : Power your platform by integrating LinkedIn’s member follower statistics API to report insights on gained member followers for authenticated members and motivate members to create high-quality content on LinkedIn. Community Management API partners can now retrieve the total follower count of authenticated members from a new endpoint GET /memberFollowersCount that supports two query finders: q=me to query life-time followers count (starting with the 202504 version), and q=dateRange , to query time-bound followers count by date range (starting with the 202505 version). This API requires additional member consent from a new permission called r_member_profileAnalytics , which is included in the Community Management API. This endpoint is a “member profile” version of a similar endpoint for “organization” ( GET /organizationalEntityFollowerStatistics ).
+Member Post Statistics API : Power your platform by integrating LinkedIn’s member post statistics API to report insights on member single post performance, as well as aggregated member posts, and motivate members to create high-quality content on LinkedIn. Community Management API partners can now retrieve IMPRESSION, MEMBERS_REACHED, REACTION, COMMENT, or RESHARE of either a single member post or all aggregated posts of authenticated members, from a new endpoint, GET /memberCreatorPostAnalytics that supports two query finders: q=me , to query aggregated member posts statistics, and q=entity , to query a single member post statistics (starting with the 202506 version). This API requires additional member consent from a new permission called r_member_postAnalytics , which is included in the Community Management API.
+Member Video Statistics API : Power your platform by integrating LinkedIn’s member video statistics API to report insights on video performance of the member post and motivate members to create high-quality video content on LinkedIn. Community Management API partners can now retrieve VIDEO_PLAY, VIDEO_WATCH_TIME, or VIDEO_VIEWER of a single member video post from a new endpoint, GET /memberCreatorVideoAnalytics that supports one query finder q=entity to query a single member video post statistics (starting with the 202506 version). This API requires additional member consent from a new permission called r_member_postAnalytics , which is included in the Community Management API.
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202406 - Jun 16, 2025
+202407 - Jul 22, 2025
+202408 - Aug 15, 2025
+Reminders
+Sunset of Legacy Ad Lead Gen API on July 31, 2025 :
+Legacy endpoints that will be sunset: /adForms, /adFormResponses, /leadNotificationUrls. If not migrated to the new endpoints, follow the migration guide here .
+Ad Analytics API : Revenue Attribution Metrics now available .
+Partners now have access to key business outcome metrics through the Ad Analytics API, allowing you to demonstrate LinkedIn’s impact, optimize sales and marketing strategies, and enhance lower funnel efficiency and effectiveness. Starting with the 202505 version, by using the new query finder q=attributedRevenueMetrics on GET /adAnalytics endpoint for ACCOUNT, CAMPAIGN_GROUP, CAMPAIGN pivots, partners can provide a real-time view of LinkedIn’s influence on CRM events, such as the number of CRM leads, pipeline value, and revenue, to their customers.
+Additionally, we have introduced a new object revenueAttributionMetrics in the response schema, which includes several new fields for revenue attribution metrics for accounts that have connected their CRM with LinkedIn. We support CRM connections with Dynamics 365 , Salesforce and HubSpot .
+New Postman collection folder with sample requests for revenue attribution added here .
+Add Business Email to Linkedin Application : Do not miss critical LinkedIn communications.
+We recommend partners to add their preferred business email address to their LinkedIn application to stay informed about critical LinkedIn Developer platform and product updates, including migration or deprecation notices, new APIs, or changes to current APIs. This ensures that you don't miss important LinkedIn communications and helps prevent service interruptions, broken integrations, or loss of functionality.
+May 2025 - Version 202505
+Product & Platform Announcements
+LinkedIn Events Enhancements:
+Events Management API: Create LinkedIn Live Test Events .
+Partners can now create LinkedIn Live Events on their customer's LinkedIn company page for testing purposes using a new optional field called testEvent in the request schema for POST /events. The default value is set to false , and when set to true , if the event organizer is an organization, the event is treated as a test event visible only to that organization's page admins or those with a direct URL to the event page.
+Test events allow organizers to test connecting their live stream to their LinkedIn event without broadcasting to company page followers, preventing LinkedIn members from discovering it, receiving notifications, or accidentally joining. This setting can only be specified during event creation, and the visibility of the event can't be changed afterward.
+Creatives Management API: Add Video Preview to Event Ads .
+The POST /creatives endpoint now supports Event Ad creatives. For promoted LinkedIn Live events with registration forms, you can specify whether to display a video preview in the ad using the event ad boolean property hidePreviewVideo . This field is optional and defaults to false , which plays a 30-second preview of the event livestream or recording before viewers are asked to register.
+Providing a preview of the event content before requiring registration has been shown to increase views and registration submission rates. If an advertiser chooses to fully gate an event behind a registration form, the value of this property can be changed to true for existing creatives through partial-update requests . By changing this value to true , the target audience will be required to register for the event before seeing any part of the live stream or event recording.
+Learn more about how our new Event API offerings unlock the power of event marketing and help your customers stand out in the current landscape of B2B events with an elevated strategy and approach.
+Ad Analytics API : Launching Revenue Attribution Metrics
+We are excited to announce the availability of key business outcome metrics through the Ad Analytics API, enabling partners to demonstrate LinkedIn’s impact, optimize sales and marketing strategies, and enhance lower funnel efficiency and effectiveness. Starting with the 202505 version, by using the new query finder q=attributedRevenueMetrics on GET /adAnalytics endpoint for ACCOUNT, CAMPAIGN_GROUP, CAMPAIGN pivots, partners can provide a real-time view of LinkedIn’s influence on CRM events, such as the number of CRM leads, pipeline value, and revenue, to their customers.
+Additionally, we have introduced a new object revenueAttributionMetrics in the response schema, which includes several new fields for revenue attribution metrics for accounts that have connected their CRM with LinkedIn. We support CRM connections with Dynamics 365 , Salesforce and HubSpot .
+Conversions API : Support for 365-day Lookback Window .
+The Conversions API now allows you to set a 365-day conversion lookback window for postClickAttributionWindowSize and viewThroughAttributionWindowSize when creating a new conversion rule with POST /conversions for the following conversion types: SUBMIT_APPLICATION, PURCHASE, ADD_TO_CART, QUALIFIED_LEAD, and LEAD. For all other conversion types, allowed values remain the same (1, 7, 30, 90 days). We recommend using a longer conversion window to capture and attribute conversions from longer B2B sales cycles and ensure accurate attribution for infrequent conversions. This update has been released to all active versions.
+Add Business Email to LinkedIn Application : Do not miss critical LinkedIn communications .
+We are pleased to share that partners can now add their preferred business email address to their LinkedIn application to stay informed about critical LinkedIn Developer platform and product updates, including migration or deprecation notices, new APIs, or changes to current APIs. This ensure you don't miss important LinkedIn communications, preventing interrupted service, broken integrations, or loss of functionality.
+Verified on LinkedIn Pilot : Add LinkedIn Verification to your Platform .
+Partners now have the ability to leverage LinkedIn verification through Verified on LinkedIn feature. This enables their users to showcase their LinkedIn verification status on the partner platform, helping companies and users benefit from communities with known identities that foster trust and drive engagement. We are currently accepting requests to onboard new platforms. Submit your request here .
+Ad Account Users API Updates :
+Find Ad Account Users by Accounts Update:
+The GET /adAccountUsers endpoint with the q=accounts query parameter now limits user searches to only one ad account. It return matching results for only the first ad account ID, even if multiple ad account IDs are provided in the accounts query parameter. This change in behavior applies to all previous versions.
+Unversioned Ad Account Users API Sunset:
+Starting from July 1st 2025, the deprecated unversioned API for Ad Account Users will be sunset. Please note that any calls to the API will return a 4xx error. You are recommended to use the versioned Ad Account Users API for continued access.
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202405 - May 15, 2025
+202406 - Jun 16, 2025
+202407 - Jul 15, 2025
+Reminders
+Boost Event Reach and Results with LinkedIn Event Ads
+In a crowded content landscape, B2B events remain crucial for connecting with target audiences, generating quality leads, and boosting conversions. Overcome 'event fatigue' with smarter strategies and tools powered by our new Events offerings: Event Management and Event Ads APIs. A recent Salesforce case study demonstrated that leveraging LinkedIn Events resulted in a 30% cost reduction, a 24% increase in connection requests, and a 52% increase in InMail acceptance. Learn more here .
+Campaign Recommendations API Sunset: Starting with the 202503 version, the adCampaignRecommendations and adCampaignInsights APIs have been fully sunset. Please note that any calls to these APIs using a deprecated version header will return a 426 status code error .
+April 2025 - Version 202504
+Product & Platform Announcements
+Campaign Groups API : Campaign Group Budget Optimization With Daily Budget .
+Starting with the version 202504, we’ve added an optional dailyBudget field to the campaign group object in the request payload for POST /adCampaignGroups. This enhancement allows you to set or update the daily budget at the campaign group level via API, similar to LinkedIn Campaign Manager. When BudgetOptimizationStrategy = DYNAMIC is applied to a campaign group, budget optimization will be performed at the group level, and the daily budget will be shared among all campaigns within the campaign group.
+Posts API : Support for Buy/Shop Now Call to Action .
+Starting with the version 202504, partners can read and create Buy/Shop Now call to action (CTA) via the Posts API . Ecommerce advertisers frequently use this type of CTA to encourage their target audience to purchase their product or service. When contentCallToActionLabel is available, "BUY_NOW" and "SHOP_NOW" will be eligible inputs.
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202404 - Apr 15, 2025
+202405 - May 15, 2025 .
+202406 - Jun 16, 2025
+Reminders
+LinkedIn Ads Partner Product Showcase .
+We released our Q1 2025 Partner Product Showcase to keep our partners informed about our latest product innovations, platform enhancements, and efforts to help our partners grow and marketers do more on LinkedIn. Discover how our APIs can unlock new possibilities: the Event APIs can improve event ROI, the Conversions API facilitates full-funnel measurement, and the Connected TV API enables targeted campaigns on the fastest-growing media channel. Read more here .
+March 2025 - Version 202503
+Product & Platform Announcements
+Conversions API Enhancements :
+Access Token Generation in Campaign Manager for Direct API : Advertisers that directly send their conversions data to LinkedIn Conversions API without integrating through supported partner platforms will now have the ability to generate access tokens for authentication directly from their Campaign Manager Ad Account. They will no longer be required to create a developer application and apply to Conversions API. The generated access tokens will have no expiry. Learn more .
+Build Payload with ease ​ : We are making it easy for developers to build the payload body of /conversionEvents endpoint and bring the auto formatted, syntactically correct json/CURL to the API call.​ This aims to reduce developer's effort to build the payload​, minimize the number of errors a developer would encounter​ and make integration effort seamless & efficient.
+Ad Targeting Entities API : Filter Geographies Eligible for CTV-Only Campaigns .
+Starting with the 202503 version, we have introduced a new optional field useCase in the typeahead finder of the Ad Targeting Entities API . This update also includes the CONNECTED_TELEVISION_ONLY_CAMPAIGN value, which allows filtering for geo-targeting entities eligible for CTV-only campaigns. Utilizing this field will help you automatically align with LinkedIn’s CTV supported geo locations when changes are made.
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202404 - Apr 15, 2025
+202405 - May 15, 2025 .
+202406 - Jun 16, 2025
+Documentation Enhancements
+Audience Insights API Use Cases : Now Available .
+We’ve launched a new use cases page for the Audience Insights API. Please visit the page to explore how the API can be utilized.
+February 2025 - Version 202502
+Product & Platform Announcements
+Events Management API : Create and Manage LinkedIn Events .
+We are excited to announce that partners can now create, schedule, and manage LinkedIn Events, including LinkedIn Live events or external events on LinkedIn, through a new Event Management API . These events generate a dedicated event page on LinkedIn and are shared via a post with the followers of your customers’ company page, allowing LinkedIn members to easily discover your customers’ events, register, join live streams, and engage in post-event activities.
+Starting with the version 202502, we're introducing two exciting capabilities for event organizers:
+Three new methods, CREATE, DELETE, and PARTIAL_UPDATE,.
+are now available on /events in a new API product.
+A new permission rw_events is now available in the Events Management API to allow POST and DELETE methods requiring write access, while the GET /events API requires r_events permission to allow read only access. Developers can now request access to this new API product from their LinkedIn developer portal to include the rw_events permission in their Oauth flow and authenticate LinkedIn members to call these methods.
+Ability to create events with custom registration forms.
+When creating an event via the Event Management API, partners now have the ability to attach a custom registration form. This allows for a frictionless registration process for LinkedIn members and guarantees relevant information is collected for all attendees of the event.
+Beyond creating and scheduling events, the Event Management API enables partners to update event settings in real time, including modifying event content, start, and end times, etc. Partners can also delete events or use them for promotional purposes by leveraging the Event Ads API .
+DMP Segments Users API and DMP Segments Companies API : BATCH_CREATE Method Enhancements.
+The BATCH_CREATE method for streaming audience data of multiple users in POST /dmpSegments/users and multiple companies in POST /dmpSegments/companies has been enhanced. We now support partial batch request validation, allowing the processing of all valid elements in a batch sent in the request payload. Additionally, we return a batch response array with HTTP response status for each element, including batchIndex to specify the exact index of each invalid record in the array. These improvements have been applied to all past active versions starting January 22, 2025.
+Media Planning API : Forecast Cost-Per-KeyResult (CPX)
+Partners can now access forecast results for CPL (Cost-Per-Leads), CPR (Cost-Per-Reach), and CPM (Cost-Per-Thousand Impressions) directly through the Media Planning API. This functionality empowers users to visualize and analyze how these metrics interact with the traditional metrics such as reach, impressions, and lead. More details can be found here .
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202403 - Mar 17, 2025
+202404 - Apr 15, 2025
+202405 - May 15, 2025
+Reminders
+Event Ads API : Create and Manage Event Ads .
+The Event Ads API enables campaign management partners to seamlessly create and manage Event Ads for their customers. LinkedIn Event Ads allow for scaled distribution of events directly in the LinkedIn feed to a specified target audience driving engagement, registrations, and generating live (and post-live) views. Additionally, Event Ads have unique capabilities that make them compelling for event marketers:
+Dynamic creative rendering : Ad changes from an image to a live stream to a video replay based on the event phase.
+Accelerated delivery mechanism : Given the importance and timeliness of live events, Event Ad campaigns can leverage an accelerated delivery option as part of the bidding strategy to get the most eyes on the event while it’s live.
+Frictionless pre-event member experience : LinkedIn members can register for an event with a single click and registrants are notified when the event is starting to encourage attendance and engagement.
+Post-event retargeting : Partners can create audiences based on registrations, viewership, or engagement and continue moving them down the funnel.
+With the Event Ads API, partners can create ads for various event types, including LinkedIn Live events and external events, specify campaign objectives (e.g., brand awareness, website visits, engagement), set start and end times, and manage budgets. Audio Events are not currently supported.
+January 2025 - Version 202501
+Product & Platform Announcements
+Event Ads API : Create and Manage Event Ads .
+The Event Ads API enables campaign management partners to seamlessly create and manage Event Ads for their customers. LinkedIn Event Ads allow for scaled distribution of events directly in the LinkedIn feed to a specified target audience driving engagement, registrations, and generating live (and post-live) views. Additionally, Event Ads have unique capabilities that make them compelling for event marketers:
+Dynamic creative rendering : Ad changes from an image to a live stream to a video replay based on the event phase.
+Accelerated delivery mechanism : Given the importance and timeliness of live events, Event Ad campaigns can leverage an accelerated delivery option as part of the bidding strategy to get the most eyes on the event while it’s live.
+Frictionless pre-event member experience : LinkedIn members can register for an event with a single click and registrants are notified when the event is starting to encourage attendance and engagement.
+Post-event retargeting : Partners can create audiences based on registrations, viewership, or engagement and continue moving them down the funnel.
+With the Event Ads API, partners can create ads for various event types, including LinkedIn Live events and external events, specify campaign objectives (e.g., brand awareness, website visits, engagement), set start and end times, and manage budgets. Audio Events are not currently supported.
+Campaign Groups API : Budget Optimization Support .
+Starting with the 202501 version, we’ve introduced an optional budgetOptimization field to the campaign group object in the request payload for POST /adCampaignGroups. This feature allows you to modify the bid strategy and budget optimization strategy via API, similar to the support available in LinkedIn Campaign Manager. The bid strategy lets you select the bidding action strategy, while the budget optimization strategy determines how the budget is allocated across campaigns within campaign groups.
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202401 - Jan 22, 2025
+202402 - Feb 17, 2025
+202403 - Mar 17, 2025
+Reminders
+Events API : Updated Schema .
+Starting with the 202411 version, we've made significant improvements to the Events schema to enhance and streamline the developer experience. Please ensure to use the updated schema to prevent any issues with event lead syncing.
+Documentation Enhancements
+Media Planning API Use Cases : Now Available .
+We’ve launched a new use cases page for the Media Planning API. Please visit the page to explore how the API can be utilized.
+November 2024 - Version 202411
+Product & Platform Announcements
+Conversions API : External IDs Support
+Starting with the 202410 version, we’ve introduced an optional externalIds field to the user object in the request payload for POST /conversionEvents. This allows you to send unique custom identifiers (such as user IDs, loyalty membership IDs, and external cookie IDs) to improve signal quality, identity resolution, and match rates—all without repeatedly sending the same PII. If we match a LinkedIn member from user attributes in the event, the ‘externalIds’ provided will be associated with that member. For future events, simply sending ‘externalIds’ will enable us to match based on that identifier alone.
+Ad Previews API : Live Preview for Ad Creatives .
+Starting with the 202411 version, partners can preview ad creatives before the ads are created, through the Live Preview feature. We have introduced two new methods on /adPreviews endpoint:
+action=livePreviewForCreative and action=livePreviewForCreativeInline to support previews for both creatives and creative inline content. Embed the HTML iFrame tag returned in the response to render live preview for both Desktop and Mobile placements. This feature supports the following ad formats: Single image ad, Carousel ad, Video ad, Single job ad and Event ad.
+Ad Analytics API : New Metrics audiencePenetration and averageDwellTime
+We are introducing two new metrics via Ad Analytics API:
+Audience Penetration: This measures the approximate number of unique members reached by the advertiser divided by the approximate total target audience. Currently, this metric is not available at the creative level. Read more .
+Average Dwell Time: This measures the average time (in seconds) that users spend viewing the ad when at least 50% of the pixels are present on the screen. Learn more .
+Insight Tag Conversion Tracking API & Conversions API : New valueType Field
+Starting with the 202411 version, we have added an optional field valueType in request payload for POST /conversions. This allows you to specify whether the conversion value is fixed from the conversion rule config ( FIXED ) or dynamic from the conversion events streaming ( DYNAMIC ) to ensure accurate reporting and inform performance optimization.
+Events API : Updated Schema .
+Starting with the 202411 version, we've made significant improvements to the Events schema to enhance and streamline the developer experience. Please ensure to use the updated schema to prevent any issues with event lead syncing.
+Matched Audiences API : Updated endpoint for DMP Segment List Uploads .
+Starting with the 202411 version, the CSV List File Upload endpoint used for audience creation has migrated from POST /media/upload to POST /dmpSegments?action=generateUploadUrl endpoint. This is now a two-step process to first generate an upload URL and then upload a CSV file on the generated URL returned in the value field in the response body of POST /dmpSegments?action=generateUploadUrl . To avoid service interruption, partners using older versions of the DMP Segment List Uploads API should migrate to version 202411. More information can be found here .
+Media Planning API : Save and Retrieve Media Plans
+Starting with the 202411 version, Media Planning API will support saving and retrieving media plans via a new endpoint /mediaPlans. Use this endpoint to create and fetch media plans within an ad account. More details can be found here.
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202306 - Dec 16, 2024
+202307 - Dec 16, 2024
+202311 - Nov 15, 2024
+202312 - Dec 16, 2024
+202401 - Jan 15, 2025
+Reminders
+Sponsored Messaging in the European Union (EU)
+Starting October 2024, we enabled EU targeting for Sponsored Messaging campaigns including Message Ads & Conversation Ads, helping partners reach the target audience for their customer campaigns more effectively in the EU. Only EU members who agreed to receive Sponsored Messaging ads in their LinkedIn inbox, will be eligible to receive this ad type. Campaign setup, delivery, and reporting will function the same as all other Sponsored Messaging campaigns, now with the option to target within the EU. Learn more .
+While serving to eligible EU members is enabled automatically by LinkedIn, please ensure to update any platform validations or tooltips and external articles on your end to reflect this change.
+We encourage you to plan for Sponsored Messaging EU targeting with a test-and-learn approach. Because EU members can choose/update how they’d like to receive ads in their inbox at any time, you may find differences in audience size when using Sponsored Messaging ads compared to other formats.
+October 2024 - Version 202410
+Product & Platform Announcements
+Upcoming changes to Sponsored Messaging in the European Union (EU)
+Starting mid-October 2024, we'll enable EU targeting for Sponsored Messaging campaigns including Message Ads & Conversation Ads, helping partners reach the target audience for their customer campaigns more effectively in the EU. Only EU members who agreed to receive Sponsored Messaging ads in their LinkedIn inbox, will be eligible to receive this ad type. Campaign setup, delivery, and reporting will function the same as all other Sponsored Messaging campaigns, now with the option to target within the EU. Read more .
+While serving to eligible EU members is enabled automatically by LinkedIn, please ensure to update any platform validations or tooltips and external articles on your end to reflect this change.
+We encourage you to plan for Sponsored Messaging EU targeting with a test-and-learn approach. Because EU members can choose/update how they’d like to receive ads in their inbox at any time, you may find differences in audience size when using Sponsored Messaging ads compared to other formats.
+Creatives API : Creative Naming Support .
+Starting with the 202410 version, you can add creative names to your ads using the new name field in the Creatives API. This field is supported across all creative formats. We recommend adopting this approach as we plan to deprecate the legacy options like InMailContents API or the AdDirectSponsoredContents API in the near future.
+Ad Analytics API : Event Stage Reporting
+In order to enable more granular reporting for Event Ads, the Analytics and Statistics finders now support EVENT_STAGE as a new ad analytics pivot to get analytics data for Event Ads based on the Event stage.
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202306 - Dec 16, 2024
+202307 - Dec 16, 2024
+202308 - Aug 16, 2024
+202309 - Sep 16, 2024
+202310 - Oct 15, 2024
+202311 - Nov 15, 2024
+202312 - Dec 16, 2024
+Reminders
+Associate and Verify your App : LinkedIn Company Page .
+Please ensure that your developer app is associated with a LinkedIn Company Page to have access to the necessary features and functionality of LinkedIn Marketing API products. The organization that owns the Page you select will function as the publisher of the app. If you don’t have a Page, you have the option to create a Page . As a developer, you must send an app verification request to your organization’s Page super admin, who's responsible for approving or denying the request to associate an app with a LinkedIn Page. Read more .
+AdAccounts , Campaign Groups , Campaigns , Creative API: Adopt Cursor-based Pagination .
+Starting with the January 2024 version (202401) we moved from index-based to cursor-based pagination for better scalability of our platform. To properly paginate you'll need to use the pageSize and pageToken query parameters.
+September 2024 - Version 202409
+Product & Platform Announcements
+Connected TV (CTV) Campaigns: Brand Safety Capabilities
+Last month, we shared that our partners can now use the new boolean field connectedTelevisionOnly in Campaign API and Ad Supply Forecasts API to create and run Connected TV (CTV) video ad campaigns. LinkedIn Connected TV (CTV) ads help your customers reach their audience on a large-screen experience, using first-party data from our community of one billion professionals.
+Starting with the 202409 version, we're extending the brand safety capabilities for CTV via Publisher Lists . We have introduced a new field publisherListType in the request body schema for POST /globalPublisherList to specify CONNECTED_TELEVISION as a separate category from WEB_AND_APP for the type of publisher list to be downloaded. This enables your customers to download the list of Connected TV apps directly in your UI and access information such as Bundle ID, Publisher Name, Platform URL (when available), and IAB Categories.
+Please note, this new capability is available in addition to the following features for LAN that are available for CTV by default. Read more about the definitions and different use cases of these lists here .
+Creating and uploading a blocklist or allowlist.
+Applying a blocklist or allowlist.
+Applying IAB categories.
+Media Planning API : Forecast CTV Campaign Delivery
+Partners now have access to a new capability in LinkedIn’s Media Planning API to forecast CTV-only campaign delivery. Add an optional ctvOnly field in the API request to forecast CTV-only campaigns in your media plans.
+Conversions API : Auto-campaign Association :
+A new field autoAssociateCampaigns has been added to the request query parameters for POST /conversions. This field enables automatic association of all ACTIVE, PAUSED, and DRAFT campaigns with a conversion rule, ensuring only these associated campaigns are considered for reporting and optimization.
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202306 - Dec 16, 2024
+202307 - Dec 16, 2024
+202308 - Aug 16, 2024
+202309 - Sep 16, 2024
+202310 - Oct 15, 2024
+202311 - Nov 15, 2024
+Reminders
+Offline Conversions API Sunset:
+Last October, we launched the Conversions API , allowing our partners and customers to seamlessly connect both online and offline conversions directly to LinkedIn, replacing the legacy Offline Conversions API. If you're still integrated with the legacy Offline Conversions API, please migrate to the new Conversions API before October 15, 2024.
+AdCampaignRecommendation API Sunset:
+The AdCampaignRecommendation API endpoint was deprecated in July 2023 and has been sunset with no alternative endpoint. Please note any future calls to this API will return an error.
+August 2024 - Version 202408
+Product & Platform Announcements
+Campaign API and Ad Supply Forecasts API: Connected TV (CTV) Only Campaigns .
+We are excited to share that starting with the 202408 version, we have introduced a new boolean field connectedTelevisionOnly in the Campaign API and Ad Supply Forecasts . This new field enables the creation and delivery of Connected TV (CTV) video ad campaigns. LinkedIn Connected TV (CTV) ads help your customers reach their audience on a large-screen experience using first-party data from our community of one billion professionals. CTV campaign metrics are identical to existing video campaign metrics.
+Please note the requirements below and check out our recommendations to make the most out of LinkedIn CTV campaigns here .
+Ad Format: Video only.
+LinkedIn Placement: LAN (LinkedIn Audience Network) .
+Campaign Objective: Brand Awareness.
+Geo Eligibility: US & Canada.
+Language: English only.
+Campaign API : Frequency Cap Customization .
+Now use a new field optimizationPreference in the Campaign API to set a maximum campaign-level frequency to better manage reach and frequency outcomes. Frequency is defined as the number of times an ad is served to a LinkedIn member over a specific time period. Research has shown that frequency is a key factor in improving brand awareness from advertising campaigns and positively influences ad recall and purchase intent.
+With this new frequency control, you can set a maximum frequency value between 3 to 30 within a 7-day window. This capability is available for CTV campaigns with the brand awareness objective and is accessible via a limited beta for LinkedIn Feed and LAN (LinkedIn Audience Network) campaigns.
+Conversions API : Deprecating MQL and SQL Conversion Types
+Starting with the 202408 version, we'll no longer support MARKETING_QUALIFIED_LEAD and SALES_QUALIFIED_LEAD conversion types when creating a new conversion rule. We recommend using QUALIFIED_LEAD as the conversion type, which has been available since version 202405.
+Breaking Changes
+The monthly API versions listed below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched(202308) today. For information on all the supported versions, refer to the migrations documentation.
+202306 - Dec 16, 2024
+202307 - Dec 16, 2024
+202308 - Aug 16, 2024
+202309 - Sep 16, 2024
+202310 - Oct 15, 2024
+202311 - Nov 15, 2024
+Reminders
+AdAnalytics API : Reporting Changes to In-Feed Video & Sponsored Messaging
+Starting in July, we enhanced our measurement methodology for Video and Sponsored Messaging campaigns on LinkedIn.com and the LinkedIn mobile app to align more closely with industry standards. As a result, you may observe changes in your overall campaign reports.
+Video Campaigns
+Video ads that serve on LinkedIn.com and in the LinkedIn mobile app now report impressions and clicks only when they start to play. This may lead to a decrease in Video ad impressions, clicks, and CTRs reported for your customer campaigns, and CPMs, CPCs, and Video View Rates may increase. These changes apply to videos that run on LinkedIn feed only; campaigns utilizing LAN/CTV are not impacted.
+Sponsored Messaging
+Impressions, clicks, and related metrics (such as CPM and CPC) from Sponsored Messaging campaigns are no longer reported. However, historical data from your customer campaigns delivered before late July is not impacted. Continue to review sends and opens metrics under the “sends” and “opens” columns, respectively. We recommend that you utilize sends and opens metrics moving forward versus the historical data for impressions, clicks, and derived metrics.
+July 2024 - Version 202407
+Product & Platform Announcements
+AdAnalytics API : Reporting changes to In-Feed Video & Sponsored Messaging
+At LinkedIn, we're committed to delivering measurement solutions that meet or exceed industry standards. We are pleased to share that we have improved our measurement methodology for Video and Sponsored Messaging campaigns that serve on LinkedIn.com and in the LinkedIn mobile app to better align with the industry standards. Due to these changes you may see a change in your holistic campaign reports.
+Video Campaigns
+Beginning July 11, Video ads that serve on LinkedIn.com and in the LinkedIn mobile app will begin reporting impressions and clicks only when they begin to play. This may result in a decrease of Video ad impressions, clicks, and CTRs reported for your customer campaigns, and CPMs, CPCs, and Video View Rates may increase. These changes apply to videos that run on LinkedIn feed only, campaigns utilizing LAN/CTV won't be impacted.
+Sponsored Messaging
+Starting July 30, impressions, clicks, and related metrics (such as CPM and CPC) for Sponsored Messaging campaigns will no longer be reported. Historical data from campaigns prior to late July 2024 will remain unaffected. Still access sends and opens metrics under the "sends" and "opens" columns, respectively. We recommend using sends and opens metrics for future analysis instead of relying on historical data for impressions, clicks, and derived metrics.
+AdAnalytics API : New metrics available for Sponsored Newsletter Articles
+We're introducing two new metrics to the API: subscriptionClicks and viralSubscriptionClicks . The subscriptionClicks metric measures the number of members whose first click on the ad in the feed is the Subscribe button. Any clicks on +Subscribe on subsequent pages, for example, the newsletter article page or the newsletter landing page, aren’t counted as part of this metric. The viralSubscriptionClicks metric measures the number of members whose first click on the post is the Subscribe button that resulted from other members sharing a sponsored newsletter article with their network.
+Matched Audiences API and Conversions API : Email hashing guideline .
+To ensure the best audience match rates the following guidelines must be followed for email hashing:
+Convert all the email addresses to lowercase before hashing.
+Remove any whitespace in the email address and then generate appropriate hash.
+Leadgen Forms: Ability to apply custom Images
+We have introduced an enhancement to Leadgen Forms that allows advertisers to personalize their Leadgen Form backgrounds with custom images (for sponsored content only), instead of the form automatically defaulting to the ad image. However, please note that at the time of the initial rollout, partners or advertisers won't be able to edit custom images via API. If you would like to explore or leverage this new feature, we recommend utilizing LinkedIn Campaign Manager to create and edit your Leadgen Forms and offer a more tailored experience for your target audience.
+AdCampaignGroups API : Objective Type for Campaign Group .
+Campaign groups may now be created with objective type. If created with an objective type, then all campaigns in the group will share the same objective type. This field is optional and immutable once created.
+Engagement Retargeting API : New engagement source types
+We are introducing the ability to build retargeting audiences based on their engagement with the Document and Conversation ad formats. Once an engagement rule is created, these audiences will refresh automatically based on the trigger and time frame selected. Advertisers can use audience retargeting to stay top of mind and move their target audiences through the funnel.
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202308 - Aug 16, 2024
+202309 - Sep 16, 2024
+202310 - Oct 15, 2024
+Reminders
+AdAnalytics API : Reminder to switch to approximateMemberReach field
+As communicated in January 2024, approximateUniqueImpressions field has been deprecated and is replaced by the new API field approximateMemberReach . If you're still utilizing the old field, please note that we'll be updating the approximateUniqueImpressions measurement methodology to align more closely with approximateMemberReach. When this transition takes place in July, you may notice a change in the approximateUniqueImpressions field and we recommend that you switch to approximateMemberReach as soon as possible.
+June 2024 - Version 202406
+Product & Platform Announcements
+DMP Segments API: Field Removal .
+We have removed the accessPolicy field due to low usage. Please note that including this in your create or update requests will fail and the field will no longer be returned in the response from READs (e.g. GET, BATCH_GET, FINDER).
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202306 - December 16, 2024
+202307 - Dec 16, 2024
+202308 - Aug 16, 2024
+202309 - Sep 16, 2024
+Reminders
+Changes to Member Groups’ Targeting in the EEA and Switzerland
+As part of our ongoing efforts to provide a safe and trusted platform for members, we disabled Member Groups’ targeting within the European Economic Area (EEA) and Switzerland (CH) as of May 15, 2024. Our global advertising policies don't allow targeting sensitive groups on our platform, and this change further helps protect LinkedIn members, customers, and partners, as well as clarify LinkedIn's compliance with applicable laws in the region.
+As a reminder, if you have created campaigns before May 15 that target the EEA or CH using Member Groups’ targeting, they'll continue to deliver unless you make any edits. However, you won't be able to use this targeting facet for new campaigns targeting members residing in these regions. If your campaigns only target countries/regions outside the EEA and Switzerland, you're not impacted by this change.
+There are multiple ways advertisers can reach their desired audiences on LinkedIn and meet their marketing goals. We encourage you to review our targeting best practices to learn more about optimizing your campaigns.
+May 2024 - Version 202405
+Product & Platform Announcements
+Changes to Member Groups’ targeting in the EEA and Switzerland starting May 15, 2024 .
+As part of our ongoing efforts to provide a safe and trusted platform for members, we have decided to disable Member Groups’ targeting within the European Economic Area (EEA) and Switzerland (CH). We have global advertising policies in place that don't allow targeting sensitive groups on our platform. This decision helps protect LinkedIn members, customers, and partners as well as clarify LinkedIn's compliance with applicable laws in the region.
+Starting May 15, 2024, you may experience changes in the LinkedIn campaign creation process if you run campaigns targeting members residing in the European Economic Area (EEA) and Switzerland (CH). Please review the following to understand how this change impacts your customer campaigns:
+Campaigns
+Description
+Campaigns created before May 15 that target the EEA or CH AND Member Groups
+- Campaigns will continue to deliver and edits can continue to be made.
+- On or after May 15: Edits to these campaigns will require the removal of Member Groups or EEA & CH targeting to be able to save and activate.
+Campaigns created on or after May 15 that target the EEA or CH
+Member Groups’ targeting will no longer be available.
+If campaigns only target countries/regions outside the EEA and Switzerland, these changes don't apply. There are multiple ways advertisers can reach their desired audiences on LinkedIn and meet their marketing goals. We encourage you to review our targeting best practices to learn more.
+Conversions API : New Conversion Type
+Partners can access a new conversion type that has been added for creating conversion rules: QUALIFIED_LEAD with LinkedIn’s Conversions API .
+Ad Analytics API
+Reporting for Connected TV Ads .
+We have introduced CONNECTED_TV as an additional value supported on the IMPRESSION_DEVICE_TYPE pivot for both the analytics finder and the statistics finder. When this pivot is used, ad performance metrics will be grouped by the device type the ad made an impression on, such as DESKTOP_WEB , MOBILE_WEB , MOBILE_APP , CONNECTED_TV , and UNDETECTED. Learn more about the reporting by impression device type in Campaign Manager here .
+Reporting for New Qualified Leads Conversion Rule
+We have introduced new metrics qualifiedLeads and costPerQualifiedLead to the statistics finder. The qualifiedLeads metric will show the total count of qualified leads attributed to the entities in the given time range and costPerQualifiedLead will return the number of qualified leads divided by spend. Partners can now submit this new conversion rule, QUALIFIED_LEAD , through the Conversions API as noted above.
+Media Planning API : Forecast Lead Generation
+Partners now have access to a new capability in LinkedIn’s Media Planning API to forecast lead generation. With a deeper insight into forecasted leads you can now plan and launch more effective campaigns on LinkedIn. With this release version, we now also support negative targeting(exclude section) in our Media Planning targeting input. Get started today .
+Creatives API & Legacy Creatives API: Updates to Ad Creative Rejection Reasons .
+The description for a few existing rejection reasons have been updated along with a new rejection reason symbol, which could be returned as rejection reasons from the API: MISSING_UK_FCA_FINANCIAL .
+Campaign API : Updates to the Brand Safety Feature .
+The publisher blocklists and allowlists under the Brand Safety feature have been updated to include a validation logic to prevent incorrect application of blocklists and allowlists during the campaign creation or update process. For example, allowlists can only be applied as an allowlist. Read more about the definitions and different use cases of these lists here .
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202306 - December 16, 2024
+202307 - December 16, 2024
+202308 - Aug 16, 2024
+Reminders
+AdAccounts , Campaign Groups , Campaigns , Creative API : Adopt cursor-based pagination by May 31, 2024 to improve scalability of our platform
+We're moving from index-based to cursor-based pagination. You need to use pageToken returned in the previous call to get to the next set of results, instead of accessing a random page using start and count.
+Instead of start & count, pageToken, and pageSize will be used for pagination.
+PageSize will be used to specify the number of entities to be returned.
+NextPageToken is an opaque string that will be returned in the metadata and it represents the last entity in the response. It can be used to fetch the next set of results by passing it in “pageToken” in the next api call.
+Sorting will only be supported by ID. SortOrder will define the sorting order (Ascending/ Descending) of the results.
+Totals will no longer be supported as a query parameter.
+April 2024 - Version 202404
+Product & Platform Announcements
+Posts API : Capability to Fetch Celebration Posts
+API partners can now fetch celebration content type posts by using the latest 202404 version. Learn more here .
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate to the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202305 - May 15, 2024.
+202306 - December 16, 2024
+202307 - December 16, 2024
+Reminders
+AdAccounts , Campaign Groups , Campaigns , Creative API : Adopt cursor-based pagination by May 31, 2024 to improve scalability of our platform
+We're moving from index-based to cursor-based pagination. You need to use pageToken returned in the previous call to get to the next set of results, instead of accessing a random page using start and count.
+Instead of start & count, pageToken, and pageSize will be used for pagination.
+PageSize will be used to specify the number of entities to be returned.
+NextPageToken is an opaque string that will be returned in the metadata and it represents the last entity in the response. It can be used to fetch the next set of results by passing it in “pageToken” in the next api call.
+Sorting will only be supported by ID. SortOrder will define the sorting order (Ascending/ Descending) of the results.
+Totals will no longer be supported as a query parameter.
+Migrate to the new Lead Sync API by December 16, 2024: Collect leads from ads, events, and other organic sources via a single API
+The new Lead Sync API simplifies and enhances LinkedIn lead syncing capabilities by consolidating the legacy Ads Lead Sync and Events Lead Sync APIs into a single API. It provides the ability to collect leads from additional organic sources and offers customized form field mapping to ensure lead information gets mapped to the right system fields. If you’re integrated with any of the legacy APIs, you'll automatically have access to the new API and will need to migrate to the new API using the migration guide before December 16, 2024 when versions 202306 and 202307 will sunset. See our YouTube video covering the high level requirements of the migration.
+March 2024 - Version 202403
+Product & Platform Announcements
+Media Planning API : Improve Campaign Results by Optimizing Audiences and Budgets
+LinkedIn’s Media Planning API enables marketers to have a better understanding of investment delivery against valuable audiences and objectives. With a deeper insight into forecasted reach, impressions, and frequency by audience, along with the ability to compare reach & frequency across multiple channels and partners ​you can now plan and launch more successful campaigns on LinkedIn.​ Get started today.
+Campaign Recommendations: Endpoints to be Deprecated
+The adCampaignRecommendations and adCampaignInsights APIs let advertisers determine if active LinkedIn campaigns are achieving the desired reach and impact. Starting 202403 these API endpoints will be deprecated but you can continue to use 202402 or earlier versions until it's sunset in a year.
+LeadGenNotificationSubscription API : New Associated Entity Type
+Now access a new field LeadGenNotificationAssociatedEntity to support LeadGenNotificationSubscription creation by campaign. This would allow advertisers to receive lead notifications at a campaign level.
+Breaking Changes
+The monthly API versions below will be sunset and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202304 - April 15, 2024
+202305 - May 15, 2024.
+202306 - December 16, 2024
+Reminders
+LinkedIn in Europe: Changes for the Digital Markets Act
+Starting in February, LinkedIn made changes for members in the EEA and Switzerland to comply with new requirements imposed on us by the Digital Markets Act (DMA). We are providing the ability for members in these regions to choose whether to connect their core LinkedIn experience with LinkedIn marketing products and services in order to better tailor their experiences to their professional interests. As this new experience ramps to members, your customers may notice changes in LinkedIn campaign performance. For example, if you use LinkedIn Reporting API, they may notice fewer conversions reported based on how we apply modeling to report conversions from members residing in the EEA and Switzerland. Or if they use certain targeting facets such as inferred targeting or retargeting from company Page visits and events, they may observe decreased audience sizes that could result in changes to ROI.
+The changes you observe are a reflection of members in the EEA and Switzerland who have either not yet engaged with the new consent experience or have chosen not to connect their Marketing Solutions feature to their core LinkedIn experience. The impact is highly variable based on DMA consent rates, targeting usage & behaviors (e.g. AND vs OR, hyper targeting), budgets, and more. Read more about our approach to DMA here and how this may change our marketing solutions products and services here .
+AdAccounts , Campaign Groups , Campaigns , Creative API : Adopt cursor-based pagination by May 31, 2024 to improve scalability of our platform
+We're moving from index-based to cursor-based pagination. You need to use pageToken returned in the previous call to get to the next set of results, instead of accessing a random page using start and count.
+Instead of start & count, pageToken, and pageSize will be used for pagination.
+PageSize will be used to specify the number of entities to be returned.
+NextPageToken is an opaque string that will be returned in the metadata and it represents the last entity in the response. It can be used to fetch the next set of results by passing it in “pageToken” in the next api call.
+Sorting will only be supported by ID. SortOrder will define the sorting order (Ascending/ Descending) of the results.
+Totals will no longer be supported as a query parameter.
+February 2024 - Version 202402
+Product & Platform Announcements
+Conversions API (CAPI): Attribute LinkedIn campaigns to business outcomes
+Help your customers navigate measurement uncertainty and impending cookie deprecation with a solution designed to improve full funnel measurement and unlock optimization by connecting online and offline conversions to LinkedIn and using those insights to power campaign optimization. Explore CAPI benefits .
+New Lead Sync API: Collect more leads
+The Lead Sync API is easier to access than ever before and includes both organic and paid leads in a single API to help your customers collect leads from more LinkedIn sources. Check out what you can do with the new API .
+Breaking Changes
+The monthly API versions below will be deprecated and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate the latest API version launched today. For information on all the supported versions, refer to the migrations documentation.
+202303 - March 15, 2024
+202304 - April 15, 2024
+202305 - May 15, 2024.
+Reminders
+AdAccounts , Campaign Groups , Campaigns , Creative API: Adopt cursor-based pagination by May 31, 2024 to improve scalability of our platform
+We're moving from index-based to cursor-based pagination. You need to use pageToken returned in the previous call to get to the next set of results, instead of accessing a random page using start and count.
+Instead of start & count, pageToken, and pageSize will be used for pagination.
+PageSize will be used to specify the number of entities to be returned.
+NextPageToken is an opaque string which will be returned in the metadata and it represents the last entity in the response. It can be used to fetch the next set of results by passing it in “pageToken” in the next api call.
+Sorting will only be supported by id. SortOrder will define the sorting order (Ascending/ Descending) of the results.
+Totals will no longer be supported as a query parameter.
+Lookalike Audiences API: Sunset on February 29
+On February 29, 2024, we'll sunset the ability to create new Lookalike Audiences in both Campaign Manager and via API, as we evolve our audience solutions and invest in new solutions to help scale marketers’ first- and third-party data. Existing Lookalike Audiences can still be used in campaigns but won't be updated when the seed audience updates. Additionally, the following changes will impact existing audiences:
+If the LaL audience is not used in a draft or active campaign for 30 days, it will be ARCHIVED.
+If an LaL audience is ARCHIVED but added to a draft or active campaign, it will go back to BUILDING but it won't be regenerated. It reflects the original state of the LaL as it was prior to February 29.
+If an ARCHIVED LaL audience is EXPIRED, it's purged and can never be used again.
+Migrate to the new Lead Sync API: Collect leads from ads, events, and other organic sources via a single API
+The Ads Lead Sync and Events Lead Sync APIs will be deprecated and replaced with the new Lead Sync API. If you’re integrated with any of the legacy APIs, you'll automatically have access to the new API and will need to migrate to the new API using the migration guide before July 2024 when version 202307 sunsets. See our YouTube video covering the high level requirements of the migration.
+January 2024 - Version 202401
+Product & Platform Announcements
+AdAccounts , Campaign Groups , Campaigns , Creative API: Adopt cursor-based pagination by May 31, 2024
+We are moving from index-based to cursor-based pagination. You must use pageToken returned in the previous call to get to the next set of results, instead of accessing a random page using start and count.
+Instead of start & count, pageToken, and pageSize will be used for pagination.
+PageSize will be used to specify the number of entities to be returned.
+NextPageToken is an opaque string which will be returned in the metadata and it represents the last entity in the response. It can be used to fetch the next set of results by passing it in “pageToken” in the next API call.
+Sorting will only be supported by ID. SortOrder will define the sorting order (Ascending/ Descending) of the results.
+Totals will no longer be supported as a query parameter.
+We soon sunset index-based pagination from all API versions prior to 2024, so you need to migrate to any 2024 API version before then.
+Ad Preview API : Migrate to Latest Version
+On February 29, 2024 we'll sunset ads preview from all API versions before 202311. To continue to support ads preview, make sure to migrate to the latest version.
+Ad Analytics API : Upcoming Reach Metric Changes
+Starting in January 2024, approximateUniqueImpressions will be deprecated and the new API field will be called approximateMemberReach . As we move to a new metric measurement methodology, you may see some deviation between upcoming approximateMemberReach and old approximateUniqueImpressions for the same creative/campaign/campaign group with the same date range. Additionally, we'll be restricting the availability of approximateMemberReach metrics in the following ways:
+approximateMemberReach will only be supported with pivot(s): CREATIVE, CAMPAIGN, CAMPAIGN_GROUP, CAMPAIGN_TYPE, OBJECTIVE_TYPE and/or SERVING_LOCATION. All requests which supply additional pivot(s) won't include approximateMemberReach in the response.
+approximateMemberReach can be requested for date ranges with a maximum range of 92 days.
+approximateMemberReach won't be available for the current UTC day. The expected delay for current UTC day will be 24-48 hours. Requests which include today in the date range will only return reach for days where data exists.
+Page Statistics API : Improving location standardization for professional demographic analytics
+We replace the Page professional demographic breakdown by legacy geo region and country/region with the Bing Geo market area and country/region. This provide more accurate and comprehensive geographical data. As a result, pageStatisticsByRegion and pageStatisticsByCountry will be replaced with pageStatisticsByGeo and pageStatisticsByGeoCountry .
+Creatives API & Legacy Creatives API : Updates to Ad Creative Rejection Reasons
+We have added a new rejection reason symbol, which could be returned as rejection reasons from the API: MISINFORMATION .
+We have updated the description for below existing rejection reasons.
+PRESCRIPTION_DRUGS
+OVER_THE_COUNTER_DRUGS
+MEDICAL_DEVICES_AND_TREATMENTS
+ILLICIT_OR_RECREATIONAL_DRUGS_AND_RELATED_PRODUCTS
+LEGITSCRIPT_APPROVAL_MISSING
+PHARMACY_AND_TELEHEALTH
+Lookalike Audiences API : Sunset on February 29
+On February 29, 2024, we'll sunset the ability to create new Lookalike Audiences in both Campaign Manager and via API, as we evolve our audience solutions and invest in new solutions to help scale marketers’ first- and third-party data. Existing Lookalike Audiences can still be used in campaigns but won't be updated when the seed audience updates. Additionally, the following changes will impact existing audiences:
+If the LaL audience is not used in a draft or active campaign for 30 days, it will be ARCHIVED.
+If an LaL audience is ARCHIVED but added to a draft or active campaign, it will go back to BUILDING but it won't be regenerated. It reflects the original state of the LaL as it was prior to February 29.
+If an ARCHIVED LaL audience is EXPIRED, it's purged and can not be reused.
+Breaking Changes
+The monthly API versions below will be deprecated and removed from the platform on the dates listed. To avoid disruptions to your platform, please migrate the latest API version launched. For information on all the supported versions, refer to the migrations documentation.
+202302 - February 15, 2024
+202303 - March 15, 2024
+202304 - April 15, 2024
+Reminders
+Migrate to the new Lead Sync API: Collect leads from ads, events, and other organic sources via a single API
+The Ads Lead Sync and Events Lead Sync APIs will be deprecated and replaced with the new Lead Sync API. If you’re integrated with any of the legacy APIs, you'll automatically have access to the new API and will need to migrate to the new API using the migration guide before July 2024 when version 202307 sunsets. See our YouTube video covering the high-level requirements of the migration.
+Archived Marketing API Changes
+To learn more about the Marketing API changes from November 2023 and earlier, refer to:
+Marketing API Changes 2023
+Marketing API Changes 2022
+Marketing API Changes 2021
+Marketing API Changes 2020
+Marketing API Changes 2019
+Marketing API Changes 2018
+Feedback
+Was this page helpful?
+Yes
+No
+Need help with this topic?
+Want to try using Ask Learn to clarify or guide you through this topic?
+Ask Learn
+Suggest a fix?
+Additional resources
+Last updated on
+2026-09-16
+In this article
+Was this page helpful?
+Need help with this topic?
+Want to try using Ask Learn to clarify or guide you through this topic?
+Ask Learn
+Suggest a fix?
+en-us
+Your Privacy Choices
+Theme
+Light
+Dark
+High contrast
+AI Disclaimer
+Previous Versions
+Blog
+Contribute
+Privacy
+Consumer Health Privacy
+Terms of Use
+Trademarks
+&copy; Microsoft 2026

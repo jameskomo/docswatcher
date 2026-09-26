@@ -1,0 +1,518 @@
+Search developer resources
+/
+Docs & Tools
+SDKs
+Support
+Partnerships
+Sign In
+Docs Home
+Dev Essentials
+Payments Commerce Customers Staff Merchants
+Release notes
+Docs
+Docs Home
+Dev Essentials
+Payments
+Commerce
+Customers
+Staff
+Merchants
+Release notes
+Get Started
+Create an Account and App
+Make your First API Call
+View the API Logs
+Verify the Payment
+What's Next
+Overview
+Build Basics
+Versioning
+Access Tokens
+Frontend and Backend Development
+General Development Concepts
+TLS and HTTPS
+Using the REST API
+Handling Errors
+Collecting Information
+Language Preferences
+Common Data Types
+Working with Dates
+Working with Monetary Amounts
+Working with Addresses
+Common Square API Patterns
+Custom Attributes
+Idempotency
+Pagination
+Optimistic Concurrency
+Clear Object Fields
+Square eCommerce APIs
+Square API Lifecycle
+Brand Guidelines
+Developer Tools
+Developer Console
+Square Dashboard
+Sandbox
+Test in Sandbox
+Sandbox Payments
+API Explorer
+API Logs
+Webhook Event Logs
+Webhooks
+Create a Notification URL
+Subscribe to Event Notifications
+Verify and Validate an Event Notification
+Manage Operations
+Move Event Notifications to Production
+Webhook Events Reference
+Troubleshooting
+Build a Developer Team
+Authentication
+Postman
+MCP Server
+Square SDKs
+Java
+Quickstart
+Common API Patterns
+Migration Guide
+.NET
+Quickstart
+Common API Patterns
+Migration Guide
+Node.js
+Quickstart
+Common API Patterns
+Migration Guide
+PHP
+Quickstart
+Common API Patterns
+Migration Guide
+Python
+Quickstart
+Common API Patterns
+Migration Guide
+Ruby
+Quickstart
+Common API Patterns
+Migration Guide
+Go
+Quickstart
+Sample Applications
+GraphQL
+GraphQL Basics
+Build your First Query
+GraphQL Explorer
+Query Examples
+Reporting API
+Getting Started
+Views
+Understanding Dynamic Schemas
+Metadata Discovery
+Query Construction
+Measures
+Dimensions
+Time Dimensions
+Segments
+Filters
+Ordering & Pagination
+Real-World Scenarios
+Working with Cubes
+Core Cubes
+Measure & Dimension Types
+Multi-Cube Joins
+Time Handling
+Schema Discovery
+Error Handling
+Best Practices
+OAuth
+Create Redirect URL and Authorization Page URL
+Receive Authorization and Manage OAuth Tokens
+Refresh and Revoke OAuth Tokens
+Token Introspection
+OAuth Best Practices
+Test Authorization
+Migrate to the Square API OAuth Flow
+Move OAuth to Production
+Permissions Reference
+Webhook Subscriptions
+Events
+Migrate from Deprecated APIs
+Deprecated Items
+API Migration Guides
+v1 Payments API
+v1 Refunds API
+Square Transactions API
+Migrate Employees to Team Members
+Migrate from CreateCheckout to CreatePaymentLink
+International Development
+Develop for Japan
+Compliance with Japan's Tax Invoice System
+Order Calculation Guide for Japan
+/
+Dev Essentials
+/
+Migrate from Deprecated APIs
+/
+API Migration Guides
+Migrate from the Connect V1 Payments API
+Learn how to migrate from using the deprecated V1 Payments API to using the Square Payments API.
+On this page
+Overview
+Important dates
+V1 RetrievePayment endpoint
+V1 ListPayments endpoint
+Link to section
+Overview
+The following information helps you migrate from the Connect V1 Payments API to the correct Square API counterparts. For general guidance about the differences between Connect V1 and Square APIs, see General Guidance .
+Code relying on the following V1 Payments API endpoints must be updated to avoid breaking when the V1 Payments API reaches retirement:
+V1 RetrievePayment
+V1 ListPayment
+Link to section
+Important dates
+Deprecation: 2021-05-13
+Retirement: 2023-07-17
+Link to section
+Get help
+If you need help migrating to the Square API or need more time to complete your migration, contact Developer Support , join our Discord community , or reach out to your Square account manager.
+Link to section
+V1 RetrievePayment endpoint
+The RetrievePayment endpoint is replaced by the Square GetPayment endpoint. The following sections provide mapping information about the request fields, path parameters, and response fields.
+Link to section
+Path parameter mappings
+V1 RetrievePayment path parameter
+Square GetPayment path parameter
+location_id
+N/A
+payment_id
+Link to section
+Response field mappings
+The V1 RetrievePayment endpoint returns payment information as a set of fields in the response body, while the Square GetPayment endpoint returns a Payment object. This Payment object provides an order_id , if available, which you can use to retrieve the Order object.
+Important
+If you want to retrieve the associated Order , your application needs ORDERS_READ OAuth permission to call the RetrieveOrder endpoint.
+V1 RetrievePayment response field
+Mapping to Square Payment or Order object field
+id
+Payment.id
+merchant_id
+Payment.location_id
+created_at
+Payment.created_at
+creator_id
+Payment.team_member_id
+device
+Payment.device_details
+device.id
+Payment.device_details.device_id
+device.name
+Payment.device_details.device_name
+payment_url
+N/A. The field isn't available.
+receipt_url
+Payment.receipt_url
+inclusive_tax_money
+No direct field mapping. Instead, manually aggregate across the objects in Orders.taxes where OrderLineItemTax.type is INCLUSIVE.
+additive_tax_money
+No direct field mapping. Instead, manually aggregate across the objects in Orders.taxes where OrderLineItemTax.type is ADDITIVE.
+tax_money
+Order.total_tax_money
+tip_money
+Payment.tip_money
+discount_money
+Order.total_discount_money
+total_collected_money
+Order.net_amounts.total_money
+processing_fee_money
+Payment.processing_fee
+net_total_money
+This field represents the final balance of sale and return amounts, so the mapping varies by order type. For more information, see Mapping net_total_money .
+refunded_money
+Payment.refunded_money
+swedish_rounding_money
+Orders.rounding_adjuestment
+gross_sales_money
+Payment.total_money
+net_sales_money
+Calculate the value: Payment.total_money minus Order.total_tax_money .
+inclusive_tax
+No direct field mapping. Instead, manually aggregate across the objects in Orders.taxes where OrderLineItemTax.type is INCLUSIVE.
+additive_tax
+No direct field mapping. Instead, manually aggregate across the objects in Orders.taxes where OrderLineItemTax.type is ADDITIVE.
+tender
+There are no multiple tenders. The Payment represents a single tender.
+tenders.id
+Payment.id
+tenders.type
+Payment.source_type
+tenders.name
+There are no tenders in the Payment object. Instead, use source_type as tenders.name .
+tenders.employee_id
+Payment.team_member_id
+tenders.receipt_url
+Payment.receipt_url
+tenders.card_brand
+Payment.card_details.card.card_brand
+tenders.pan_suffix
+Payment.card_details.card.last_4
+tenders.entry_method
+Payment.card_details.entry_method
+tenders.payment_note
+Payment.note
+tenders.total_money
+Payment.total_money
+tenders.tendered_money
+Payment.cash_details.amount_money
+tenders.tendered_at
+Payment.created_at
+tenders.settled_at
+Payment.card_details.card_payment_timeline.captured_at
+tenders.change_back_money
+Payment.cash_details.change_back_money
+tenders.refunded_money
+Orders.refunds.amount_money
+tenders.is_exchange
+You can determine whether the order is an exchange order by verifying the presence of the line_items and returns in the Order object.
+refunds
+Retrieve Payment.refund_ids and then use the Refunds API to retrieve the PaymentRefund objects.
+refunds.type
+You can determine whether the refund is full or partial based on the refund amount ( PaymentRefund.amount_money ) relative to the original order ( Order.total_money ).
+refunds.reason
+PaymentRefund.reason
+refunds.refunded_money
+PaymentRefund.amount_money
+refunds.refunded_processing_fee_money
+PaymentRefund.processing_fee.amount_money
+refunds.refunded_tax_money
+Order.returns.return_amounts.tax_money
+refunds.refunded_additive_tax_money
+No direct field mapping. Instead, manually aggregate across the objects in Order.returns.return_taxes where return_taxes.type is ADDITIVE.
+refunds.refunded_additive_tax
+No direct field mapping. Instead, manually aggregate across the objects in Order.returns.return_taxes where return_taxes.type is ADDITIVE.
+refunds.refunded_inclusive_tax_money
+No direct field mapping. Instead, manually aggregate across the objects in Order.returns.return_taxes where return_taxes.type is INCLUSIVE.
+refunds.refunded_inclusive_tax
+No direct field mapping. Instead, manually aggregate across the objects in Order.returns.return_taxes where return_taxes.type is INCLUSIVE.
+refunds.refunded_tip_money
+Order.returns.return_amounts.tip_money
+refunds.refunded_discount_money
+Order.returns.return_amounts.tax_money
+refunds.refunded_surcharge_money
+Order.returns.return_amounts.service_charge_money
+refunds.refunded_surcharges
+Order.returns.return_service_charges
+refunds.created_at
+PaymentRefund.created_at
+refunds.processed_at
+N/A. This field isn't available.
+refunds.payment_id
+PaymentRefund.payment_id
+refunds.merchant_id
+PaymentRefund.location_id
+refunds.is_exchange
+You can determine whether the refund is related to an exchange by verifying the sum of the line_items.total_money with the sum of returns.return_amounts in the Order object.
+itemizations
+Order.line_items
+itemizations.name
+OrderLineItem.name
+itemizations.quantity
+OrderLineItem.quantity
+itemizations.itemization_type
+OrderLineItem.item_type
+itemizations.item_detail
+Use the OrderLineItem.catalog_object_id to retrieve the catalog information.
+itemizations.item_detail.category_name
+Use the OrderLineItem.catalog_object_id to retrieve the catalog information.
+itemizations.item_detail.sku
+N/A. Not available in a Payment or Order object.
+itemizations.item_detail.item_id
+OrderLineItem.catalog_object_id
+itemizations.item_detail.item_variation_id
+OrderLineItem.catalog_object_id
+itemizations.notes
+OrderLineItem.note
+itemizations.item_variation_name
+OrderLineItem.variation_name
+itemizations.total_money
+OrderLineItem.total_money
+itemizations.single_quantity_money
+OrderLineItem.base_price_money
+itemizations.gross_sales_money
+OrderLineItem.gross_sales_money
+itemizations.discount_money
+OrderLineItem.total_discount_money
+itemizations.net_sales_money
+No direct field mapping. Instead, add OrderLineItem.gross_sales_money and OrderLineItem.total_discount_money .
+itemizations.taxes
+OrderLineItem.applied_taxes.OrderLineItemAppliedTax
+itemizations.taxes.name
+Order.taxes.name
+itemizations.taxes.applied_money
+OrderLineItemAppliedTax.applied_money
+itemizations.taxes.rate
+Order.taxes.percentage
+itemizations.taxes.inclusion_type
+Order.taxes.type
+itemizations.taxes.fee_id
+OrderLineItem.applied_taxes.tax_uid
+itemizations.discounts
+OrderLineItem.applied_discounts.OrderLineItemAppliedDiscount
+itemizations.discounts.name
+Order.discounts.name
+itemizations.discounts.applied_money
+OrderLineItemAppliedDiscount.applied_money . Note that this amount is a positive integer, unlike the negative integer used for amount in the V1 Payments API.
+itemizations.discounts.discount_id
+OrderLineItemAppliedDiscount.discount_uid
+itemizations.modifiers
+OrderLineItem.modifiers.OrderLineItemModifier
+itemizations.modifiers.name
+OrderLineItemModifier.name
+itemizations.modifiers.applied_money
+OrderLineItemModifier.total_price_money
+itemizations.modifiers.modifier_option_id
+OrderLineItemModifier.catalog_object_id
+surcharge_money
+Order.total_service_charge_money
+surcharges
+Order.service_charges.OrderServiceCharge
+surcharges.name
+OrderServiceCharge.name
+surcharges.applied_money
+OrderServiceCharge.applied_money
+surcharges.rate
+OrderServiceCharge.percentage
+surcharges.amount_money
+OrderServiceCharge.amount_money
+surcharges.type
+OrderServiceCharge.type
+surcharges.taxable
+OrderServiceCharge.taxable
+surcharges.taxes
+OrderServiceCharge.applied_taxes
+surcharges.surcharge_id
+OrderServiceCharge.catalog_object_id
+is_partial
+To determine whether the order is partially paid, do the following:
+1. From the Payment object, get the order_id and retrieve the Order using the Orders API.
+2. For each tender in Order.tenders , get the payment_id and retrieve the Payment object.
+3. Aggregate the Payment.total_money values only for the completed payments ( Payment status is COMPLETED ).
+4. If the resulting sum is less than the Order.total_money , the order is partially paid.
+Link to section
+V1 ListPayments endpoint
+The ListPayments endpoint is replaced by the Square ListPayments endpoint. The following sections provide mapping information about the request fields, path parameters, and response fields.
+Important
+The ListPayments endpoint returns declined payments ( FAILED status). The V1 ListPayments endpoint doesn't return declined payments.
+Link to section
+Path parameter mappings
+The following table shows how the V1 ListPayments path parameters map to the Square ListPayments endpoint.
+V1 ListPayments path parameter
+Square ListPayments path parameter
+location_id
+Not available as a path parameter, but you can specify it as a location_id query parameter.
+Link to section
+Query parameter mappings
+The following table shows how the V1 ListPayments query parameters map to the Square ListPayments endpoint.
+V1 ListPayments query parameter
+Square ListPayments query parameter
+order
+sort_order
+begin_time
+end_time
+limit
+batch_token
+cursor
+include_partial
+N/A
+Link to section
+Response field mappings
+The V1 ListPayments endpoint returns payment information as an array of items in the response body, which are V1Payment objects. The Square ListPayments endpoint returns an array of Square Payment objects. The new Payment object provides an order_id , which you can use to retrieve the Order object.
+V1 ListPayments items response field
+Mapping to Square Payment or Order object field
+V1Payment
+Payment object
+id
+additive_tax
+No direct field mapping. Instead, manually aggregate across the objects in Orders.taxes where OrderLineItemTax.type is ADDITIVE.
+additive_tax_money
+No direct field mapping. Instead, manually aggregate across the objects in Orders.taxes where OrderLineItemTax.type is ADDITIVE.
+created_at
+creator_id
+team_member_id
+device
+device_details
+discount_money
+Order.total_discount_money
+gross_sales_money
+total_money
+inclusive_tax
+No direct field mapping. Instead, manually aggregate across the objects in Orders.taxes where OrderLineItemTax.type is INCLUSIVE.
+inclusive_tax_money
+No direct field mapping. Instead, manually aggregate across the objects in Orders.taxes where OrderLineItemTax.type is INCLUSIVE.
+is_partial
+To determine if the order isn't fully paid, do the following:
+1. From the Payment object, get the order_id and retrieve the Order using the Orders API.
+2. Check the order.state for COMPLETED . If not completed, the order is unpaid or partially paid.
+itemizations
+Order.line_items
+merchant_id
+location_id
+net_sales_money
+total_money minus Order.total_tax_money
+net_total_money
+This field represents the final balance of sale and return amounts, so the mapping varies by order type. For more information, see Mapping net_total_money .
+payment_url
+Not available.
+processing_fee_money
+processing_fee
+receipt_url
+refunded_money
+Order.return_amounts.total_money
+refunds
+Retrieve refund_ids and then use the Refunds API to retrieve the PaymentRefund objects.
+surcharge_money
+Order.total_service_charge_money
+surcharges
+Order.service_charges
+swedish_rounding_money
+Orders.rounding_adjuestment
+tax_money
+Order.total_tax_money
+tender
+Multiple tenders are represented in the Order.tenders field. The Payment represents a single tender.
+tip_money
+total_collected_money
+Order.net_amounts.total_money
+Link to section
+Mapping net_total_money
+In a V1 payment response, the net_total_money field represents the final balance of sale and return amounts. Mapping to the equivalent Order field depends on the type of order, as follows:
+Standard sale transactions - If the corresponding order contains a net_amounts field, use the following mapping:
+net_total_money = Order.net_amounts.total_money
+Standard return transactions - If the corresponding order contains a return_amounts field and the return amount is not zero, use the following mapping:
+net_total_money = Order.return_amounts.total_money Note that net_total_money amounts are negative for return orders but return_amounts.total_money amounts are positive.
+All other transactions - If the previous conditions don't apply, use the following mapping:
+net_total_money = Order.total_money
+On this page
+Overview Important dates V1 RetrievePayment endpoint V1 ListPayments endpoint
+Development
+Guides
+API Reference
+API Explorer
+SDKs
+Sample apps
+System status
+Support
+Developer forums
+Developer blog
+YouTube
+X
+More
+Square Home
+Square Developer
+App Marketplace
+Partner with Square
+Solutions Partner Program
+Pricing
+Sales
+©
+2026
+Square, Inc.
+Developer terms of service
+Developer Integration and Marketing Agreement
+Privacy policy

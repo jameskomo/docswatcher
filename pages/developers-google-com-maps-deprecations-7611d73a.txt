@@ -1,0 +1,738 @@
+Skip to main content
+Maps Platform
+Products
+Pricing
+Documentation
+Get Started
+Get Started with Google Maps Platform
+Capabilities Explorer
+Pricing & Billing
+Security & Compliance
+Reporting & Monitoring
+FAQ
+Support and Resources
+Customer Care
+Incident Management
+Maps
+Maps JavaScript API
+Maps SDK for Android
+Maps SDK for iOS
+Google Maps for Flutter
+Maps Embed API
+Maps Static API
+Street View Static API
+Maps URLs
+Aerial View API
+Elevation API
+Map Tiles API
+Maps Datasets API
+Web Components
+Routes
+Routes API
+Navigation SDK for Android
+Navigation SDK for iOS
+Navigation for Flutter
+Navigation for React Native
+Roads API
+Route Optimization API
+Analytics
+Google Earth
+Places Insights
+Population Dynamics Insights
+Street View Insights
+Roads Management Insights
+Places
+Places API (New)
+Places SDK for Android
+Places SDK for iOS
+Places Library, Maps JavaScript API
+Geocoding API
+Geolocation API
+Address Validation API
+Time Zone API
+Places Aggregate API
+Isochrones API
+Environment
+Air Quality API
+Pollen API
+Solar API
+Weather API
+Solutions
+Architecture Center
+Industry solutions
+Maps Builder agent
+WordPress Users
+Additional Resources
+API Security Best Practices
+Digital Signature Guide
+Map Coverage Details
+Optimization Guide
+Mobile OS and software support
+Launch stages
+Legacy products
+Deprecations
+URL Encoding
+Blog
+Community
+GitHub
+YouTube
+LinkedIn
+Discord
+Innovators
+Issue Tracker
+/
+English
+Deutsch
+Español
+Français
+Indonesia
+Português – Brasil
+Русский
+中文 – 简体
+日本語
+한국어
+Sign in
+Documentation
+Maps Platform
+Products
+Pricing
+Documentation
+More
+Blog
+Community
+More
+Google Maps Platform Documentation
+Get started
+Get started with Google Maps Platform
+Get and use a Maps Demo Key
+Capabilities Explorer
+Map IDs
+FAQ
+Support and resources
+Customer Care
+Resources for AI
+Overview
+Agent skills
+Agentic UI toolkit (experimental)
+Overview
+Getting started
+Code Assist toolkit (experimental)
+Overview
+Configure with Gemini CLI
+MCP Reference overview
+Tools
+retrieve-instructions
+retrieve-google-maps-platform-docs
+Maps Grounding Lite
+Overview
+Attribution guidelines
+Resolution APIs (experimental)
+Reference
+MCP reference
+Overview
+search_places
+lookup_weather
+compute_routes
+resolve_maps_urls
+resolve_names
+REST reference
+Overview
+resolveNames
+resolveMapsUrls
+Maps in AI Studio
+Best practices
+API security best practices
+Digital signature guide
+Optimization guide
+Optimizing Web Service usage
+Security & compliance
+Overview
+Security guidance
+Services in scope
+Incident management
+Trust Center
+Utilities
+Encoded Polyline Algorithm format
+Interactive Polyline Utility
+Terms & policies
+Google Maps Platform Terms
+European Economic Area (EEA) Terms
+EEA FAQ
+Additional resources
+Asset Tracking Plan
+Deprecations
+Domains
+Launch stages
+Legacy products
+Map coverage details
+Mobile OS and software support
+Pre-launch checklist
+Premium Plan
+Project roles comparison
+Root CA migration FAQ
+URL encoding
+WordPress users
+Get Started
+Get Started with Google Maps Platform
+Capabilities Explorer
+Pricing & Billing
+Security & Compliance
+Reporting & Monitoring
+FAQ
+Support and Resources
+Customer Care
+Incident Management
+Maps
+Maps JavaScript API
+Maps SDK for Android
+Maps SDK for iOS
+Google Maps for Flutter
+Maps Embed API
+Maps Static API
+Street View Static API
+Maps URLs
+Aerial View API
+Elevation API
+Map Tiles API
+Maps Datasets API
+Web Components
+Routes
+Routes API
+Navigation SDK for Android
+Navigation SDK for iOS
+Navigation for Flutter
+Navigation for React Native
+Roads API
+Route Optimization API
+Analytics
+Google Earth
+Places Insights
+Population Dynamics Insights
+Street View Insights
+Roads Management Insights
+Places
+Places API (New)
+Places SDK for Android
+Places SDK for iOS
+Places Library, Maps JavaScript API
+Geocoding API
+Geolocation API
+Address Validation API
+Time Zone API
+Places Aggregate API
+Isochrones API
+Environment
+Air Quality API
+Pollen API
+Solar API
+Weather API
+Solutions
+Architecture Center
+Industry solutions
+Maps Builder agent
+WordPress Users
+Additional Resources
+API Security Best Practices
+Digital Signature Guide
+Map Coverage Details
+Optimization Guide
+Mobile OS and software support
+Launch stages
+Legacy products
+Deprecations
+URL Encoding
+GitHub
+YouTube
+LinkedIn
+Discord
+Innovators
+Issue Tracker
+Home
+Products
+Google Maps Platform
+Documentation
+Send feedback
+Deprecations
+Stay organized with collections
+Save and categorize content based on your preferences.
+Page Summary
+outlined_flag
+Google Maps Platform is deprecating and decommissioning various features across Maps, Routes, and Places, with most deprecations lasting 12 months.
+Developers should migrate from legacy renderers and styling in the Maps SDK for Android and iOS to their modern equivalents.
+The Places SDK is undergoing changes, with several fields and methods deprecated in favor of newer alternatives like locationBias and locationRestriction .
+Obsolete features like the Local Context Library and Gaming Services have been decommissioned due to limited adoption.
+Developers must update their applications to avoid disruptions, referencing the provided migration guides and detailed deprecation timelines.
+This page lists all Google Maps Platform products and features which are
+currently in a deprecation period. This includes products under Maps, Routes,
+and Places.
+How deprecation works
+The deprecation period for a product, feature, or version begins on the
+announcement date for the deprecation. The product, feature, or version will
+continue to be available throughout the deprecation period (typically 12
+months). Once the deprecation period has elapsed, the product, feature, or
+version is expected to be decommissioned, and will no longer be available.
+Project Owners with monitored email addresses receive proactive notifications
+about changes that impact each of their projects. Stay
+informed
+about major updates, deprecations, and other changes.
+Key Term: Deprecated indicates that the product or feature should no longer
+be used. Reasons for this may include:
+A better alternative is available.
+The product or feature is nearing or at end of support.
+The product or feature is scheduled for decommissioning.
+Key Term: Decommissioned indicates that the product or feature is no longer
+available. Calling decommissioned software can result in unpredictable behavior
+or invalid responses.
+Deprecation in SDK versions
+In SDKs and the Maps JavaScript API, feature deprecations are tied
+to version availability. New major versions declare breaking changes including
+feature deprecations and release notes indicate the maximum supporting version
+of each deprecated feature. You can continue to use the deprecated feature for
+as long as its maximum supporting SDK version is available. To upgrade to the
+next major version of the SDK, you must remove use of the deprecated feature
+from your code or migrate to its replacement.
+Learn more about Maps JavaScript API version
+availability , which follows a
+quarterly release and decommissioning schedule.
+See guidance on managing version dependencies with the
+Maps SDK for Android ,
+Maps SDK for iOS ,
+Places SDK for Android , and
+Places SDK for iOS .
+Active deprecations
+This section lists all products and features which are currently in a
+deprecation period.
+KML Layer (Deprecated as of April 30, 2026)
+The KmlLayer class is deprecated. For new projects, we recommend using
+alternative methods to display KML data on the map. See the KML Layer Migration Guide for details.
+Data-driven styling for datasets : Upload your KML data as a dataset and
+use data-driven styling. Read the Datasets
+Overview .
+Third-party libraries : Use third-party libraries to parse KML and
+display it using the Data layer or other overlays.
+Heatmap Layer (Deprecated as of May 27, 2025)
+The Heatmap Layer functionality in the Maps JavaScript API is no longer supported due to low customer
+usage. This API was deprecated in May 2025 and is unavailable as of May 2026.
+Applications currently using the Heatmap Layer to display heatmaps based on data points will need to be updated.
+As a replacement for the Heatmap Layer, consider using third-party library integrations like deck.gl, which offers a HeatmapLayer implementation. You can find more information in the deck.gl documentation .
+Maps SDK for Android legacy renderer (Deprecated as of March 4, 2024)
+To provide an improved user experience and app performance, apps built with the
+Maps SDK for Android have been automatically updated to the latest
+renderer . The legacy renderer is
+deprecated and is scheduled for decommissioning in April 2025. Follow
+the decommissioning progress in public issue
+404999856 .
+Maps SDK for iOS: setMetalRendererEnabled (As of v9.0.0)
+Since Apple has deprecated OpenGL support as of iOS 12 (2018), support for the
+OpenGL renderer and the setMetalRendererEnabled boolean in the Maps SDK for
+iOS is deprecated as of v9.0.0 , and will be unsupported in the major version
+that will be released in the second quarter of 2025.
+Instead, use the Metal renderer, which has been default since Maps SDK for iOS
+v8.0.0, and remove setMetalRendererEnabled from your codebase.
+google.maps.Marker in the Maps JavaScript API (Deprecated as of February 2024)
+Advanced Markers (google.maps.marker.AdvancedMarkerElement) are better than
+google.maps.Marker in almost every way: easier to use, more performant, more
+accessible, more feature-rich, and more customizable. google.maps.Marker in the
+Maps JavaScript API is deprecated as of 3.56.
+What do I need to do? Instead, use
+google.maps.marker.AdvancedMarkerElement .
+The minimum version of the Maps JavaScript API with
+google.maps.marker.AdvancedMarkerElement is 3.53.2. At this time,
+google.maps.Marker is not scheduled to be discontinued, but
+google.maps.marker.AdvancedMarkerElement is recommended over google.maps.Marker.
+While google.maps.Marker will continue to receive bug fixes for any major
+regressions, existing bugs in google.maps.Marker won't be addressed. At least 12
+months notice will be given before support is discontinued.
+GoogleMapsM4B SDK (Deprecated as of February 2024)
+To streamline the SDK, the obsolete GoogleMapsM4B module in the
+Maps SDK for iOS is deprecated as of February 2024, and will be
+unsupported in the major version that will be released in the second quarter of
+2025.
+Since the GoogleMapsM4B module is related to an obsolete billing plan, it is
+safe to remove dependencies on the legacy GoogleMapsM4B module in your app. If
+you use CocoaPods to install the Maps SDK for iOS, remove the
+GoogleMapsM4B pod from the list of dependencies in your Podfile. If you
+manually install the Maps SDK for iOS, remove the GoogleMapsM4B
+framework from your project.
+Bounds, location, and radius in the Maps JavaScript API Place Autocomplete Service (Deprecated as of May 2023)
+For the Place Autocomplete Service in the Maps JavaScript API, the
+following request options are deprecated as of May 2023: bounds, location, and
+radius. Use locationBias and locationRestriction instead.
+The feature will continue to work, and 12 months notice will be given before
+support is discontinued.
+Places compatibility library for Places SDK for Android (As of March 31, 2022)
+All versions of the Places compatibility library for
+Places SDK for Android are deprecated as of March 31, 2022. We are
+freezing development of the Places compatibility library on
+Places SDK for Android v2.6.0 (specified in dependencies as
+com.google.android.libraries.places:places-compat:2.6.0 ).
+No new versions of this library will be released after this date. The only way
+to access features and bug fixes in Places SDK for Android
+above Version 2.6.0 will be to use the Places SDK for Android.
+The Places compatibility library was introduced in January 2019 to facilitate
+the migration from the legacy SDK (available in Play Services) to the standalone
+Places SDK for Android.
+Follow the migration
+guide to use the
+Places SDK for Android directly. Some status codes, method names, and
+Autocomplete class names are different between the Places compatibility library
+and the Places SDK for Android. See the
+Versions documentation for
+specifying and maintaining dependencies on versions of the
+Places SDK for Android.
+There is no plan to decommission the Places compatibility library at this time.
+However, if you choose to continue using available versions of the Places
+compatibility library, note the limitations on supporting old versions of an
+SDK .
+Content Security Policy update
+(March 21, 2022 - May 2023)
+Support for websites using Content Security Policy
+(CSP) that don't specify googleapis.com in the
+Maps JavaScript API is deprecated as of v3.49, and will be
+unsupported beginning with v3.50. The last supporting version, v3.49, will be
+decommissioned in Q2 2023 after which the Maps JavaScript API will
+reject all requests using CSP directives that don't specify googleapis.com.
+To avoid disruption of your website experience, specify googleapis.com in your
+CSP . All currently
+available versions of the Maps JavaScript API support CSP.
+Places SDK for iOS
+`GMSPlaceField` now uses the `NS_OPTIONS` macro (As of v4.0.0)
+Starting with Places SDK for iOS
+v4.0.0 , GMSPlaceField now uses the
+NS_OPTIONS macro instead of NS_ENUM for better Swift support. Read more
+about Migrating to GMSPlaceField as
+NS_OPTIONS .
+To continue using GMSPlaceField as NS_ENUM , specify
+v3.10.0 or earlier in your
+dependencies .
+Places SDK for iOS methods:
+setAutocompleteBoundsUsingNorthEastCorner:SouthWestCorner,
+initWithBounds:filter (v3.10.0 - v4.0.0)
+The
+setAutocompleteBoundsUsingNorthEastCorner:SouthWestCorner
+helper method is deprecated as of
+v3.10.0 , and is unsupported in
+v4.0.0
+and higher. Instead, use
+locationBias ,
+or
+locationRestriction .
+The
+initWithBounds:filter
+method is deprecated as of v3.10.0 , and is unsupported in
+v4.0.0 and higher. Instead, use
+initWithFilter:
+in GMSAutocompleteFetcher .
+The maximum supporting version for these deprecated methods is
+v3.10.0 .
+For details about replacement methods, see Appendix
+1 .
+GMSCoordinateBounds in Place Autocomplete (v3.9.0 - v4.0.0)
+Several properties andparameters using
+GMSCoordinateBounds
+in the Places SDK for iOS Autocomplete service, are deprecated as of
+v3.9.0 , and are unsupported in
+v4.0.0
+and higher. The maximum supporting version for the deprecated
+properties and parameters is v3.10.0 .
+Bounds in GMSAutocompleteViewController
+The following GMSAutocompleteViewController properties are deprecated:
+GMSAutocompleteViewController.autocompleteBounds
+GMSAutocompleteViewController.autocompleteBoundsMode
+For equivalent functionality, use
+GMSAutocompleteViewController.autocompleteFilter ,
+with either
+GMSAutocompleteFilter.locationBias
+or
+GMSAutocompleteFilter.locationRestriction .
+The minimum version of the Places SDK for iOS with these
+replacement properties is v3.8.0.
+Bounds in findAutocompletePredictionsFromQuery and autocompleteQuery
+Parameters bounds and boundsMode for:
+findAutocompletePredictionsFromQuery:bounds:boundsMode:filter:SessionToken:callback
+- autocompleteQuery:bounds:filter:callback
+autocompleteQuery:bounds:boundsMode:filter:callback
+For equivalent functionality, use
+findAutocompletePredictionsFromQuery:filter:sessionToken:callback
+with either
+GMSAutocompleteFilter.locationBias
+or
+GMSAutocompleteFilter.locationRestriction .
+The minimum version of the Places SDK for iOS with these
+replacement properties is v3.8.0 .
+For details about replacement methods, see Appendix
+1 .
+Places field GMSPlace.openNowStatus (v3.0.0 - v4.0.0)
+The Places field and property GMSPlace.openNowStatus in the
+Places SDK for iOS is deprecated as of
+v3.0.0 , and is unsupported in
+v4.0.0 and higher. The maximum
+supporting version for the deprecated field is
+v3.10.0 .
+Instead, use functions GMSPlace.isOpen or
+GMSPlace.isOpenAtDate .
+The minimum version of the Places SDK for iOS with these replacement functions
+is v3.3.0 .
+Places field: permanently_closed (Deprecated on May 26, 2020)
+The Places field permanently_closed in the Places API
+and Places Library, Maps JavaScript API is deprecated, and shouldn't be used.
+Instead, use
+business_status
+(Places API) or
+business_status
+(Places Library)
+to get the operational status of businesses. The minimum version of
+Places Library, Maps JavaScript API with business_status is
+v3.40 .
+Places fields open_now , utc_offset (Deprecated on November 20, 2019)
+The Places fields open_now and utc_offset in the
+Places Library, Maps JavaScript API are deprecated as of
+November 20, 2019, and shouldn't be used.
+These fields are only deprecated in the Places Library, Maps JavaScript API.
+The open_now field has been replaced by
+PlaceResult.opening_hours.isOpen()
+in Place Details. For Nearby Search and Text Search, use the openNow:true
+request parameter to filter for places that are currently open. No
+equivalent is provided for Find Place . To get this value, you must now make
+a Place Details request.
+The utc_offset field has been replaced by
+PlaceResult.utc_offset_minutes
+in Place Details.
+See Places Field
+Migration to learn
+more.
+Maps JavaScript API: google.maps.event.addDomListener() and google.maps.event.addDomListenerOnce() (Deprecated on April 7, 2022)
+The functions
+google.maps.event.addDomListener()
+and
+google.maps.event.addDomListenerOnce()
+in the Maps JavaScript API are deprecated, and shouldn't be
+used. Instead, use the standard
+addEventListener()
+method.
+These methods will continue to work and there is no plan to decommission them.
+Completed deprecations
+This section lists all products and features which have been decommissioned.
+These products and features are no longer available.
+Drawing Library (May 2026)
+Drawing Library functionality in the Maps JavaScript API is no longer supported. This API was deprecated in August 2025 and is unavailable as of May 2026. Customers and applications relying on Drawing Library for their use cases need to switch to using alternatives, for example Terra Draw .
+45° Imagery (May 2026)
+As of version 3.65, released in May 2026, Maps JavaScript API satellite and
+hybrid map types no longer automatically switch to 45° Imagery at higher zoom
+levels. Where 45° Imagery is available, the map shows the top-down satellite
+view even as the user zooms in. Calls to map.setTilt(45) are also ineffective.
+Customers and applications relying on 45° Imagery for their use cases need to
+switch to alternatives, for example 3D
+maps .
+Local Context Library, Maps JavaScript API (Deprecated as of v3.51.2)
+Due to the limited adoption of this beta feature,
+Local Context Library was discontinued in January
+2024.
+If you are interested in building a
+Local Context Library-like experience yourself, we
+suggest that you check out the "Neighborhood Discovery" solution in Quick
+Builder or use the
+Places Library , Maps JavaScript API.
+Code samples and
+codelabs
+for the Places Library can help you.
+Legacy cloud-based maps styling (March 18, 2024 - March 25, 2025)
+On March 25, 2025 the legacy map styles automatically migrated to the
+next-generation of cloud-based maps styling. Some styling changes may
+result from this automatic migration.
+See Update a map style to the latest
+version to
+avoid any disruption in your map styles.
+Google Maps Platform gaming services
+(October 18, 2021 - December 31, 2022)
+Since the introduction of our gaming services in 2018, we were proud to launch
+innovative new game experiences for developers. While we remain dedicated to
+supporting the developer community, we've decommissioned Google Maps Platform
+gaming services as of December 31, 2022 due to limited adoption.
+Maps Module in google.load (October 13, 2020 -October 13, 2021)
+The service that provided the "Maps" module for
+google.load
+was deprecated as of October 13, 2020, and turned off on
+October 13, 2021. Subsequent requests to load the "Maps" module
+in google.load will result in an error, and no map will load. See the
+Migration Guide for
+more information.
+Obsolete place IDs (March 16, 2021 - January 13, 2025)
+As of January 13, 2025, certain obsolete place IDs
+are no longer accepted by all Google Maps Platform APIs other than Places API
+(legacy), Maps Embed, NavSDK, and Maps URLs. After
+January 13, 2025, any requests made using obsolete place IDs are
+rejected and return error code INVALID_REQUEST . To prevent user
+experience degradation, refresh
+all obsolete place IDs .
+Maps SDK for iOS v2.5 and lower (January 2022 - January 2023)
+The Maps SDK for iOS v2.5 and lower were decommissioned in January
+2023 which raised the minimum OS supported by Maps SDK for iOS to iOS
+8 and the minimum supported IDE to Xcode 8.
+Google encourages you to specify
+and use the latest version of the Maps SDK for
+iOS .
+Maps JavaScript API v2 (May 19, 2010 - May 26, 2021)
+Version 2 of the Maps JavaScript API is no longer available as of
+May 26, 2021. As a result, your site's v2 maps will stop working, and will
+return JavaScript errors. To continue using maps on your site, migrate to the
+Maps JavaScript API v3. Learn more about upgrading Your Maps JavaScript API
+Application from v2 to v3 .
+Places fields: reference , id , alt_id , scope (September 3, 2019 - August 10, 2020)
+The Places fields id , alt_id , and scope are no longer available as of
+August 10, 2020. The Places field reference is deprecated, and shouldn't be
+used.
+The id response field has been replaced by the place_id response field.
+The reference response field has been replaced by the place_id response,
+and shouldn't be used.
+the alt_id and scope fields have no equivalent, as they were only used
+for the Place Add service which was turned off in July 2018.
+See Place field
+migration for details.
+iOS version 10, ARMv7 32-bit architecture in Maps SDK for iOS 5.0
+As of Maps SDK for iOS version
+5.0 , iOS 10 and the ARMv7 32-bit
+architecture are no longer supported.
+Places SDK for iOS
+With the release of Places SDK for iOS
+5.0 , GMSCoordinateBounds is
+decommissioned, replaced by GMSPlacesViewportInfo .
+Fusion Tables Layer (Experimental) (December 3, 2018 - December 3, 2019)
+The Fusion Tables Layer in the Maps JavaScript API was turned off on December 3,
+2019, and is no longer available as of version 3.38 (3.37 is the last version to
+support fusion tables). Learn
+more .
+Places SDKs for Android and iOS (January 29, 2019 - July 29, 2019)
+Effective January 29, 2019, the upgraded Places SDKs for Android
+and iOS replaced the existing versions of the Places SDKs. The current versions
+of the Places SDK for iOS, the Places SDK for Android, and
+the Place Picker, were deprecated as of January 29, 2019, and were
+turned off on July 29, 2019.
+Update to the latest Places SDK for iOS
+version .
+Update to the latest Places SDK for Android
+version .
+The Place Picker is no longer available as of July 29, 2019.
+Place Add and Place Delete (June 30, 2017 - June 30, 2018)
+Effective June 30, 2018, the Place Add and Place Delete features have been
+turned off, and are no longer available.
+Unsupported Place Search queries
+in the Places API and Places Library, Maps JavaScript API
+(March 31, 2022 - March 31, 2023)
+Unsupported Place Search queries for Text Search, Nearby Search, and Find Place
+in the Places API and Places Library, Maps JavaScript API
+are deprecated as of March 31, 2022 and will
+receive INVALID_REQUEST error responses beginning on
+March 31, 2023.
+The Places API and
+Places Library, Maps JavaScript API
+support three methods to find places: Text
+Search , Nearby
+Search , and Find
+Place . Each method
+accepts requests with supported combinations of parameters, and rejects most
+requests with combinations of parameters that are not supported.
+A few combinations of unsupported parameters have not been properly rejected to
+date:
+Text Search requests with an empty or missing query parameter and without
+a supported type parameter.
+Text Search requests with query=* .
+Nearby Search requests with keyword=* .
+Nearby Search requests with name=* .
+Find Place requests with input=* .
+These unsupported Place Search requests must be replaced with one of the
+following:
+Nearby Search requests
+without the keyword (or name ) parameter can be used to find nearby
+establishments. It is recommended to also use the type parameter with one
+supported type (see Table 1: Place
+types ). This
+provides the closest match to the current behavior of Text Search requests
+with an empty or missing query parameter.
+Geocoding API
+requests with the latlng parameter can be used to find the nearest
+addresses. This provides the closest match to the current behavior of:
+Text Search requests with query=* .
+Nearby Search requests with keyword=* .
+Nearby Search requests with name=* .
+Find Place requests with input=* .
+Appendix 1: Summary of Places SDK for iOS deprecated API replacements
+The following table shows the replacement method to use for each deprecated
+method or property.
+Deprecated method/property
+Use instead
+setAutocompleteBoundsUsingNorthEastCorner:SouthWestCorner
+(in GMSAutocompleteViewController )
+locationRestriction and
+locationBias
+setAutocompleteBoundsUsingNorthEastCorner:SouthWestCorner
+(in GMSAutocompleteResultsViewController )
+locationRestriction and
+locationBias
+setAutocompleteBoundsUsingNorthEastCorner:SouthWestCorner
+(in GMSAutocompleteTableDataSource )
+locationRestriction and
+locationBias
+initWithBounds:filter
+(in GMSAutocompleteFetcher )
+initWithFilter:
+autocompleteBounds
+and autocompleteBoundsMode
+(in GMSAutocompleteViewController )
+GMSAutocompleteViewController.autocompleteFilter
+with either locationBias
+or locationRestriction .
+findAutocompletePredictionsFromQuery:bounds:boundsMode:filter:SessionToken:callback ,
+autocompleteQuery:bounds:filter:callback , and
+autocompleteQuery:bounds:boundsMode:filter:callback
+(in GMSPlacesClient )
+findAutocompletePredictionsFromQuery:filter:sessionToken:callback , with either
+locationBias or
+locationRestriction .
+The minimum version of the Places SDK for iOS with the
+replacement properties is v3.8.0 .
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2026-09-24 UTC.
+Platform Status
+Find out about platform incidents and outages.
+Support
+Get help from the Support team.
+Discord
+Chat with fellow developers about Google Maps Platform.
+Issue Tracker
+Something wrong? Send us a bug report!
+Learn More
+FAQ
+Capabilities Explorer
+Getting started
+API security best practices
+Platforms
+Android
+iOS
+Web
+Web Services
+Product Info
+Pricing and Plans
+Contact Sales
+Support
+Terms of Service
+Android
+Chrome
+Firebase
+Google Cloud Platform
+Google AI
+All products
+Terms
+Privacy
+Manage cookies
+English
+Deutsch
+Español
+Français
+Indonesia
+Português – Brasil
+Русский
+中文 – 简体
+日本語
+한국어

@@ -1,0 +1,507 @@
+Skip to main content
+Build
+Get to market quickly and securely with products that can scale globally
+Go to Build
+Build Products
+App Check
+App Hosting
+Authentication
+Cloud Functions
+Cloud Storage
+SQL Connect
+Extensions
+Firestore
+Hosting
+Phone Number Verification
+Realtime Database
+Firebase AI Logic
+Generative AI
+Run
+Run your app with confidence and deliver the best experience for your users
+Go to Run
+Run Products
+A/B Testing
+App Distribution
+Cloud Messaging
+Crashlytics
+Google Analytics
+In-App Messaging
+Performance Monitoring
+Remote Config
+Test Lab
+Solutions
+Pricing
+Docs
+Overview
+Fundamentals
+AI
+Build
+Run
+Reference
+Samples
+Community
+Learn
+Stories
+Support
+/
+English
+Deutsch
+Español – América Latina
+Français
+Indonesia
+Italiano
+Polski
+Português – Brasil
+Tiếng Việt
+Türkçe
+Русский
+עברית
+العربيّة
+فارسی
+हिंदी
+বাংলা
+ภาษาไทย
+中文 – 简体
+中文 – 繁體
+日本語
+한국어
+Blog
+Go to console
+Sign in
+Support
+Build
+More
+Run
+More
+Solutions
+Pricing
+Docs
+More
+Community
+More
+Support
+Blog
+Go to console
+Developer Support
+Contact Support
+Scope of no-cost support
+Support Guides
+Overview
+FAQ
+Security checklist
+Launch checklist
+Firebase-related service accounts
+Troubleshoot initialization options
+Dynamic Links deprecation
+Deprecation FAQ
+Export Dynamic Links metadata
+Migrate to App Links & Universal Links
+Migrate from Parse
+Android
+iOS+
+Cloud Audit Logs
+Firebase Management
+Cloud Storage for Firebase
+Firebase Cloud Messaging
+Firebase App Hosting
+Firebase App Check
+Firebase Security Rules
+Firebase Realtime Database
+Android Device Streaming
+Recent Changes and Updates
+Release Notes
+iOS Release Notes
+Android Release Notes
+JavaScript Release Notes
+Flutter Release Notes
+Unity Release Notes
+C++ Release Notes
+Admin Node.js Release Notes
+Admin Java Release Notes
+Admin Python Release Notes
+Admin Go Release Notes
+Admin .NET Release Notes
+Admin Dart Release Notes
+Security Rules Release Notes
+Firebase CLI Release Notes
+Firebase Studio Release Notes
+Policies for changes and versioning
+Overview
+Introducing and communicating changes
+Versioning and maintenance
+Legal Information
+Terms of Service
+Paid Services Terms
+Data Processing and Security Terms
+Firebase: Standard Contractual Clauses
+Service Level Agreement for Hosting and Realtime Database
+Cloud Storage for Firebase Service Level Agreement
+Crashlytics and App Distribution Terms
+Firebase Subprocessors
+Privacy and Security Information
+Privacy and Security in Firebase
+Designate Data Protection Officers and EU Representatives
+Firebase Data Privacy Inquiries
+Manage Instance ID data
+Clear and export users' data
+Storing privacy settings with Firebase
+Build
+Go to Build
+Build Products
+App Check
+App Hosting
+Authentication
+Cloud Functions
+Cloud Storage
+SQL Connect
+Extensions
+Firestore
+Hosting
+Phone Number Verification
+Realtime Database
+Firebase AI Logic
+Generative AI
+Run
+Go to Run
+Run Products
+A/B Testing
+App Distribution
+Cloud Messaging
+Crashlytics
+Google Analytics
+In-App Messaging
+Performance Monitoring
+Remote Config
+Test Lab
+Overview
+Fundamentals
+AI
+Build
+Run
+Reference
+Samples
+Learn
+Stories
+Firebase
+Support
+Send feedback
+Dynamic Links Deprecation FAQ
+Stay organized with collections
+Save and categorize content based on your preferences.
+Note: Firebase Dynamic Links is deprecated and shouldn't be used in new projects. The service will be shutting down soon.
+We launched Firebase Dynamic Links over 7 years ago to make URLs more powerful -
+for example, dynamically changing the destination of a link based on run-time
+conditions.
+Over the years, the web and mobile ecosystems have evolved with technologies
+such as App Links , Google Play Instant
+, Universal Links , and App Clips and have
+made user journeys across apps and the web more seamless and predictable for
+your app users. We believe you and your users will benefit more from
+adopting these technologies directly and continuing to move the ecosystem
+forward. However, alongside these new changes, the original native APIs that
+Firebase Dynamic Links were built on also evolved and presented new challenges.
+For example, ecosystem changes impacted our ability to provide a consistently
+stable experience for one of Firebase Dynamic Links’ core features - giving app
+users a smooth transition into the app post-install, regardless of platform.
+Instead of continuing to support a less than ideal experience, we have decided
+to sunset Firebase Dynamic Links, and to refocus our resources on solving other
+developer pain points.
+We understand that this change will require your time to evaluate and adopt
+alternative solutions or platform providers in the market.
+We are continuing to evolve Firebase to meet your needs as the ecosystem
+continues to evolve and change. We'll continue to launch new features and
+updates across Firebase products, and are committed to helping
+you excel in your app development journeys.
+What do I need to know?
+On August 25th, 2025, Firebase Dynamic Links will shut down. All links served by
+Firebase Dynamic Links (both hosted on custom domains and page.link subdomains)
+will stop working and you will no longer be able to create new links.
+To help you decide how to migrate from Firebase Dynamic Links, we will continue
+to update this FAQ document with additional information for you to consider, as
+well as provide migration guides for different migration scenarios that might
+match the way you use Firebase Dynamic Links today.
+We will also continue to update this guide with more FAQs as the deprecation
+moves forward towards the August 25th, 2025 sunset date and we discover any
+additional issues as we help support you in your migration efforts.
+See the FAQs below to help answer some of your most important questions.
+To start your migration, please take a look at "How should I migrate
+from the service" FAQ further below.
+When will Firebase Dynamic Links stop working?
+On August 25th, 2025, Firebase Dynamic Links will shut down. All links served
+by Firebase Dynamic Links (both those hosted on custom domains and on page.link
+subdomains) will stop working.
+How much time will I have to migrate?
+You have until August 25th, 2025 to complete your migration.
+Will new and existing links continue to work?
+Yes, your new and existing links will continue to work until the Dynamic Links
+service is shut down on August 25th, 2025.
+Will I be able to keep or transfer the automatically provisioned .page.link domains used for links?
+No, once the Firebase Dynamic Links service is shut down any .page.link domains
+will no longer be available. We recommend looking through this question list to
+evaluate how to best migrate from the service ,
+and if full-feature parity is needed, following this guidance
+on exporting your metadata and migrating to another deep linking service
+provider using a new domain.
+What will happen to my links and in my app(s) when Firebase Dynamic Links is sunset (on August 25th, 2025)?
+When Firebase Dynamic Links is sunsetted, you can expect that:
+All links clicked will return a HTTP 404 status response to end users.
+All HTTP requests to:
+https://firebasedynamiclinks.googleapis.com/v1/shortLinks (Short Links API)
+https://firebasedynamiclinks.googleapis.com/v1/SHORT_DYNAMIC_LINK/linkStats
+(Link Stats API)
+will return a 400/403 HTTP Status response.
+The error responses above will begin gradually on August 25, 2025 until
+eventually reaching 100% error response rates after the sunset date has passed.
+The following behavior based on which SDK platform version and API call made
+in your app:
+iOS
+Use case
+API call
+Status code
+Behavior
+Will your app crash?
+Create Short Link
+shorten (Swift)
+shortenUrl (Swift)
+shortenWithCompletion (Objective-C)
+403
+Error is emitted with failure reason
+No*
+First Open Attribution
+Gets called automatically on FirebaseApp.configure
+(Swift)
+/ FIRApp.configure (Objective-C)
+400
+No errors are emitted, but an FDL object is sent back with empty data
+No*
+Reopen Attribution
+handleUniversalLink (Swift)
+handleUniversalLink (Objective-C)
+400
+Error is emitted with failure reason
+No*
+Android
+Use case
+API call
+Status code
+Behavior
+Will your app crash?
+Create Short Link
+buildShortDynamicLink (Kotlin)
+buildShortDynamicLink (Java)
+403
+Error is emitted with failure reason
+No*
+First Open Attribution
+getDynamicLink(getIntent()) (Kotlin)
+getDynamicLink(getIntent()) (Java)
+400
+Task returns a success response, but FDL data will be empty
+No*
+Reopen Attribution
+getDynamicLink(getIntent()) (Kotlin)
+getDynamicLink(getIntent()) (Java)
+400
+Task returns a success response, but FDL data will be empty
+No*
+Accept Invitation
+AppInvite module in Google Play Services invoked when handling intent
+redirection (from *.page.link or custom domain)
+400
+Shows a spinner when Google Play Services is invoked and disappears when
+a 400 response is returned
+No*
+Note: The SDKs themselves will not cause your app to crash. Your application
+code must handle the changed API responses.
+How should I migrate from the service?
+We've found that different developers have different needs when it comes to
+using Firebase Dynamic Links.
+Depending on your own use cases and evaluation of your Firebase Dynamic Links
+usage, it’s likely one of the scenarios below will match with your needs.
+What should I do if I need full feature parity with Firebase Dynamic Links?
+For this scenario, we recommend you use other deep-linking service providers /
+vendors, such as Adjust, Airbridge, AppsFlyer, Bitly, Branch, Kochava, Singular,
+and other similar providers in the market. (Note, these providers have not been
+vetted by Google, but do provide similar functionality to Firebase Dynamic
+Links).
+You can also export your
+deep-link metadata , which can make it easier to migrate your links to
+whichever provider you choose.
+To help find a provider with matching features to Firebase Dynamic Links, refer
+to the following list of features below.
+Firebase Dynamic Links Features:
+Routes users to the correct store for their device from a single click (and
+falls back to a webpage if needed)
+Provides users with a continuation of journey after downloading and installing
+your app view a deferred deep link
+Provides users with a contextual experience via deep-linked content in your
+app (when already installed)
+Provides analytics data related to dynamic link click events
+Provides the ability to create short-link URLs
+Provides the ability to add metadata to links for social sharing
+Note: If you are using custom domains for your Firebase Dynamic Links and intend
+to use the same domain and same path prefix for your links with another
+provider, you may need to
+update your FDL rewrite rules in your firebase.json file and redeploy to
+Firebase Hosting .
+What if I only care about deep-linking to my app after it has already been installed?
+For this scenario, we recommend using App Links and Universal
+Links which are platform-supported ways for developers to
+provide deep-linking experiences for their users.
+Check out this guide for
+more details on how to migrate to using App Links and Universal Links .
+This guide also describes how to optionally use Firebase Hosting to host the
+necessary domain and asset link verification files on the domain you plan to use
+for your new links (e.g. assetlinks.json file for App Links,
+apple-app-site-association file for Universal Links).
+What if my app no longer needs features from Firebase Dynamic Links and doesn’t need a replacement for it?
+For this scenario, you may not need to take any action in your app to handle
+the upcoming sunset, however we recommend:
+Reviewing your existing Firebase Dynamic Links following the guide on exporting your link metadata to ensure your
+users and app will not be impacted once the links are no longer being served.
+Deleting your Firebase Dynamic Links URL prefixes in the
+Firebase console . Note: URL prefix domains will automatically be deleted
+after August 25th, 2025.
+Removing the Firebase Dynamic Links SDK from your apps.
+If you see a migration scenario that doesn't cover your own needs, please reach out to let us know
+What should I do after I complete my migration?
+Once you have finished
+migrating from Firebase Dynamic Links , make sure to delete all your URL
+domain prefixes (FDL domains) associated with your previous Firebase Dynamic
+Links in your project.
+You can do this by:
+Navigating to the Firebase Dynamic Links section in the Firebase console
+Selecting the URL prefix you want to delete from the left-hand side selector
+Clicking on the three dots menu next to the 'New Dynamic Link' button
+Selecting 'Delete URL Prefix'
+Entering the URL prefix to confirm you want to delete it, and clicking on
+'Delete URL Prefix'
+Once you have finished deleting all URL domain prefixes, your Firebase project
+will be marked as having completed the migration from Firebase Dynamic Links.
+This will also remove the pop-up reminder you may have seen in the Firebase
+console for your project.
+Note that this action will delete all your Firebase Dynamic Links once
+completed, so make sure you have fully migrated from the service before deleting
+your URL domain prefixes.
+Will I still be able to use the Firebase Dynamic Links APIs?
+The Firebase Dynamic Links APIs for
+Short Links and Analytics
+will remain available until the sunset date on August 25th, 2025.
+After that date these APIs will no longer be available for use, and
+the service will be
+shut down .
+How can I export my link metadata?
+Please refer to the guide on
+exporting your link metadata for instructions on how to export your link
+metadata.
+How can I get my Firebase Dynamic Links link analytics data?
+You can use the export guide
+to retrieve your Firebase Dynamic Links metadata, which includes the link itself.
+You can use the Firebase
+Dynamic Links Analytics API to retrieve link statistics data for each of
+your Firebase Dynamic Links. This Analytics API is limited to ~5 QPS. For an
+example on how to operate within that request limit when using the API, please
+refer to this
+Cloud
+Task sample .
+You can also use Google Analytics and
+export your data for a subset of link analytics data, including App Updates
+events which are unique to Google Analytics.
+If you require a higher request rate to help with your migration, please contact
+us at Firebase Support .
+What will happen to existing links metadata after the sunset date (August 25th, 2025)?
+Your domain and link metadata will be marked for deletion on August 25th, 2025
+and purged in accordance with
+our data retention policy .
+Firebase Dynamic Links impacts on Firebase Authentication flows
+I want to enable email link authentication in Firebase Authentication for my project. Will I need to onboard Firebase Dynamic Links?
+No, you don't need to onboard Firebase Dynamic Links as onboarding is no longer
+possible. Instead, you can follow the updated guides on getting started with
+email link authentication to enable and implement it for your project:
+iOS guide
+Android guide
+See full list of
+actions
+that are impacted by this change.
+How are the following Authentication features impacted: email link authentication, password reset, and email verification?
+Email link authentication and your out of band email actions with Firebase will
+continue to work, however you will need to upgrade to the latest
+Firebase Authentication SDKs and migrate to the new solution in order to continue
+using these actions after the Firebase Dynamic Links service is shut down on August
+25, 2025.
+You can follow the guides linked below for instructions on how to complete the
+migration:
+iOS guide
+Android guide
+See a full list of actions that are impacted by this.
+Important: If you have older versions of your app that do not use the new
+version of the Authentication SDK, these specific Authentication features will
+no longer work in those older app versions after the Dynamic Links shutdown.
+How are OAuth flow implementations with Firebase Authentication Android SDK versions below v20.0.0 or BoM versions below 26.0.0 impacted?
+You will need to update to the latest Firebase Authentication Android SDK (at
+least v20.0.0) in order to continue using your OAuth flow implementation in your
+Android apps.
+Are Firebase Authentication email actions on web apps impacted?
+No. Firebase Dynamic Link deprecation only impacts handling incoming URLs on mobile devices.
+How are implementations using the Firebase JS SDK libraries to authenticate OAuth providers in a Cordova app impacted?
+The Firebase JS SDK uses Firebase Dynamic Links to implement OAuth
+authentication flows in Cordova apps. You will need to modify your
+implementation of the flow by carrying out the OAuth flow manually and passing
+the resulting OAuth credential to Firebase to complete the authentication flow.
+See the Cordova guide for more details.
+What are some alternative options to Firebase Dynamic Links?
+Please see the
+"How should I migrate from the service" FAQ which details different
+migration scenarios and provides migration guides for various alternatives
+available.
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2026-09-24 UTC.
+Learn
+Developer guides
+SDK & API reference
+Samples
+Libraries
+GitHub
+Stay connected
+Check out the blog
+Find us on Reddit
+Follow on X
+Subscribe on YouTube
+Attend an event
+Support
+Contact support
+Stack Overflow
+Google group
+Release notes
+Brand guidelines
+FAQs
+Android
+Chrome
+Firebase
+Google Cloud Platform
+All products
+Terms
+Privacy
+Manage cookies
+English
+Deutsch
+Español – América Latina
+Français
+Indonesia
+Italiano
+Polski
+Português – Brasil
+Tiếng Việt
+Türkçe
+Русский
+עברית
+العربيّة
+فارسی
+हिंदी
+বাংলা
+ภาษาไทย
+中文 – 简体
+中文 – 繁體
+日本語
+한국어

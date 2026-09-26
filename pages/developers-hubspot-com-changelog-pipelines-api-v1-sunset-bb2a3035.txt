@@ -1,0 +1,52 @@
+Skip to main content
+Skip to footer
+Changelog
+Blog
+Docs
+Status
+Get Started
+Apps
+CMS
+Tooling
+Marketplace
+Create developer account with a HubSpot Developer account
+HubSpot Developer Changelog
+Home
+›
+HubSpot Developer Changelog
+›
+Pipelines API V1 Sunset: December 4, 2026
+Announced: Aug 14, 2026
+HubSpot will sunset the Pipelines API V1 on December 4, 2026 . After this date, the API will no longer be supported. If your integration relies on V1 endpoints, you'll need to migrate to the 2026-03 or newer version before the deadline to avoid disruption.
+What's Changing
+The Pipelines API V1 is being permanently retired. Any calls to V1 endpoints will stop working after December 4, 2026.
+We recommend migrating to the Pipelines API 2026-09 version , which becomes generally available on September 9, 2026 and is the latest version of this API. Review the linked API reference to understand the updated endpoints, request/response shapes, and any behavioral differences that may affect your integration.
+We recommend auditing your codebase for any V1 Pipelines API calls and completing your migration well ahead of the December 4 deadline.
+When is it happening?
+This API will sunset on December 4, 2026 . V1 endpoints will stop responding after this date.
+Questions or comments? Join us in the developer forums.
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline mobile-footer-first-trigger pt-0" data-radix-collection-item="">For Developers
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline" data-radix-collection-item="">Company
+For Developers
+Developer Tooling
+API Documentation
+Apps Documentation
+CMS Documentation
+Become a Partner
+HubSpot Developer Blog
+HubSpot Developer Changelog
+HubSpot Developer Community
+HubSpot Developer Newsletter
+HubSpot Academy
+Company
+About Us
+Careers
+Management Team
+Board of Directors
+Investor Relations
+Contact Us
+Copyright © 2026 HubSpot, Inc.
+Legal Stuff
+Privacy Policy
+Security
+Website Accessibility

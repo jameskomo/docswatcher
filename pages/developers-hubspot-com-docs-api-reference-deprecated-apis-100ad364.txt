@@ -1,0 +1,62 @@
+Documentation Index
+Fetch the complete documentation index at: /docs/llms.txt
+Use this file to discover all available pages before exploring further.
+Skip to main content
+HubSpot docs home page
+Search...
+⌘ K Ask Assistant ⌘ I
+Changelog
+Sign up
+Search...
+Navigation
+Sunsetted and deprecated APIs
+close
+On this page
+Sunsetted APIs
+Deprecated APIs
+Sunsetted and deprecated APIs
+Learn about the APIs that HubSpot has sunsetted and deprecated.
+The APIs listed in the sections below will not receive future updates to functionality, and in some cases, will be fully sunsetted and unavailable for use in your integrations.
+It’s highly recommended that you subscribe to the HubSpot Developer Changelog to follow along with the latest updates, breaking changes, and other significant changes to functionality.
+​
+Sunsetted APIs
+The following APIs have been fully removed, and will return an error when making a call to their associated endpoints.
+API
+Sunset date
+Notes
+HubDB v2
+December 16, 2024
+Continue working with HubDB via the HubDB v3 API instead, which includes many performance, usability, and API consistency improvements over v2.
+CMS performance
+April 9, 2024
+For website analytics data, use the analytics API .
+Ecommerce bridge
+February 28, 2023
+Integrations should switch to using HubSpot’s CRM v3 APIs , with calls authenticated by an app . Learn more in the changelog announcement .
+Accounting extension
+February 28, 2023
+Integrations should switch to using HubSpot’s CRM v3 APIs , with calls authenticated by an app . Learn more in the changelog announcement .
+Marketing calendar
+August 31, 2023
+You can continue to use the marketing calendar in HubSpot .
+Contact lists v1
+April 30, 2026
+Create and manage contact lists with the latest lists API . Learn more in the changelog announcement .
+​
+Deprecated APIs
+The legacy endpoints listed below will not be getting a version update. These endpoints are functional and stable, but won’t be updated beyond their current version. HubSpot will continue to support them for the foreseeable future and will announce any future changes with ample notice on HubSpot’s Developer Changelog .
+API
+Notes
+Social media
+Includes the following endpoints:
+GET /broadcast/v1/channels/setting/publish/current
+GET /broadcast/v1/broadcasts
+GET /broadcast/v1/broadcasts/:broadcast_guid
+POST /broadcast/v1/broadcasts
+DELETE /broadcast/v1/broadcasts/:broadcast_guid
+Last modified on September 2, 2026
+Was this page helpful?
+Yes No
+facebook instagram youtube x linkedin medium
+Assistant
+Responses are generated using AI and may contain mistakes.

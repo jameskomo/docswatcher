@@ -1,0 +1,77 @@
+Search developer resources
+/
+Docs & Tools
+SDKs
+Support
+Partnerships
+Sign In
+Docs Home
+Dev Essentials
+Payments Commerce Customers Staff Merchants
+Release notes
+Docs
+Docs Home
+Dev Essentials
+Payments
+Commerce
+Customers
+Staff
+Merchants
+Release notes
+Overview
+Square APIs and SDKs
+Mobile SDKs
+Web SDKs
+Web Payments SDK
+App Marketplace Requirements
+/
+Square APIs and SDKs
+2023-07-06 Changelog
+Documentation
+Connect v1
+RETIRED
+Link to section
+Version summary
+Square Version : 2023-06-08
+Java : 30.0.1.20230608
+.NET : 28.0.1
+Node.js : 28.0.1
+PHP : 28.0.1.20230608
+Python : 28.0.1.20230608
+Ruby : 29.0.1.20230608
+Link to section
+Details
+Link to section
+API updates
+Connect V1 Payments API:
+The retirement date for the V1 Payments API is extended to July 17, 2023. For more information, see Migrate from the Connect V1 Payments API .
+Link to section
+Documentation updates
+Subscriptions API:
+CreateSubscription endpoint. The plan_id field was marked as DEPRECATED . It's now RETIRED and removed from public documentation. Use the plan_variation_id field instead.
+Development
+Guides
+API Reference
+API Explorer
+SDKs
+Sample apps
+System status
+Support
+Developer forums
+Developer blog
+YouTube
+X
+More
+Square Home
+Square Developer
+App Marketplace
+Partner with Square
+Solutions Partner Program
+Pricing
+Sales
+©
+2026
+Square, Inc.
+Developer terms of service
+Developer Integration and Marketing Agreement
+Privacy policy

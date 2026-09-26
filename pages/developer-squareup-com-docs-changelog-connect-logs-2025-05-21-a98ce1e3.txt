@@ -1,0 +1,117 @@
+Search developer resources
+/
+Docs & Tools
+SDKs
+Support
+Partnerships
+Sign In
+Docs Home
+Dev Essentials
+Payments Commerce Customers Staff Merchants
+Release notes
+Docs
+Docs Home
+Dev Essentials
+Payments
+Commerce
+Customers
+Staff
+Merchants
+Release notes
+Overview
+Square APIs and SDKs
+Mobile SDKs
+Web SDKs
+Web Payments SDK
+App Marketplace Requirements
+/
+Square APIs and SDKs
+2025-05-21 Changelog
+Square
+Documentation
+Catalog API
+GraphQL
+Labor API
+Payments API
+BETA
+DEPRECATED
+Link to section
+Version summary
+Square Version : 2025-05-21
+Java : 44.2.0.20250521
+.NET : 41.2.0
+Node.js : 42.3.0
+PHP : 42.2.0.20250521
+Python : 42.1.0.20250521
+Ruby : 42.2.0.20250521
+Go : v1.5.0
+Link to section
+Details
+Link to section
+New releases
+Square MCP Server
+The Square MCP Server is now available. Control and interact with your Square account using AI assistants like Goose .
+Link to section
+API updates
+Catalog API:
+Improved control over modifier customization and modifier quantities. This enables item customizations such as adding multiple flavored syrup options to coffee drinks or mixing proteins or toppings in a customizable meal bowl. You can now set minimum and maximum values for modifiers at the modifier list level. Previously, these settings could only be configured at the item level. For more information, see Enable Item Customization with Modifiers .
+CatalogModifier
+New fields: hidden_online and on_by_default .
+CatalogModifierList
+New fields: allow_quantities , min_selected_modifiers , max_selected_modifiers , and hidden_from_customer .
+Deprecated fields: selection_type and max_quantity .
+CatalogItemModifierListInfo
+New fields: allow_quantities , is_conversational , and hidden_from_customer_override .
+Deprecated fields: hidden_from_customer .
+CatalogModifierOverride
+New fields: hidden_online_override and on_by_default_override .
+Deprecated fields: hidden_online and on_by_default .
+GraphQL:
+Square GraphQL queries now support the following Square graphs for Labor data:
+scheduledShifts - Retrieves draft and scheduled shifts from team member schedules.
+timecards - Retrieves timecards that track the hours worked by team members. This entry point replaces the deprecated shifts entry point.
+Labor API:
+New scheduling capabilities - Added ScheduledShift -related endpoints, data types, and webhook events (in Beta) that allow you to manage team schedules using draft and published scheduled shifts. For more information, see Scheduling with the Labor API .
+The following are new ScheduledShift endpoints:
+CreateScheduledShift
+UpdateScheduledShift
+PublishScheduledShift
+BulkPublishScheduledShifts
+RetrieveScheduledShift
+SearchScheduledShifts
+Shift deprecation - All Shift -related endpoints, data types, and webhook events are deprecated and replaced by new Timecard equivalents, which provide the same functionality for tracking hours worked by team members. For more information, see Time Tracking with the Labor API and Migration notes .
+The following are new Timecard endpoints:
+CreateTimecard - Replaces CreateShift .
+UpdateTimecard - Replaces UpdateShift .
+DeleteTimecard - Replaces DeleteShift .
+RetrieveTimecard - Replaces GetShift .
+SearchTimecards - Replaces SearchShifts .
+Payments API:
+CreatePayment endpoint - When a Square gift card payment fails due to a lack of funds on the gift card, the GIFT_CARD_AVAILABLE_AMOUNT error containing the remaining gift card balance is now always returned along with the INSUFFICIENT_FUNDS error. Previously, GIFT_CARD_AVAILABLE_AMOUNT was returned only for partial authorization payments. For more information, see Troubleshoot the Payments API . This change applies to all Square API versions.
+Learn about versioning for the Square API and SDKs .
+Development
+Guides
+API Reference
+API Explorer
+SDKs
+Sample apps
+System status
+Support
+Developer forums
+Developer blog
+YouTube
+X
+More
+Square Home
+Square Developer
+App Marketplace
+Partner with Square
+Solutions Partner Program
+Pricing
+Sales
+©
+2026
+Square, Inc.
+Developer terms of service
+Developer Integration and Marketing Agreement
+Privacy policy

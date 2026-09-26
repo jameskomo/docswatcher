@@ -1,0 +1,83 @@
+Skip to main content
+Skip to footer
+Changelog
+Blog
+Docs
+Status
+Get Started
+Apps
+CMS
+Tooling
+Marketplace
+Create developer account with a HubSpot Developer account
+HubSpot Developer Changelog
+Home
+›
+HubSpot Developer Changelog
+›
+Legacy APIs and Apps: What's Going Unsupported and When
+Announced: Sep 15, 2026
+At Fall Spotlight on September 15, HubSpot is announcing the end of support for v1-v3 APIs, legacy public apps, and legacy private apps, all with a September 2027 enforcement date. If your integration or app uses any of these, you have a 12-month window to migrate.
+This changelog covers v1-v3. Support for v4 is ending on its own separate timeline, March 30, 2027, which was announced earlier this year. See the previously published v4 changelog for that timeline.
+This post covers breaking changes only. For everything new and non-breaking in this release, including the APIs reaching general availability, the updated APIs, the new public betas, and the latest AI builder tools, see the Fall Spotlight 2026 developer rollup .
+What's Changing
+Three simultaneous announcements share the same enforcement date: September 2027.
+1. API versions v1-v3 are going unsupported
+Endpoints using numbered version paths, /v1/ , /v2/ , and /v3/ , will move to unsupported status. HubSpot will no longer release bug fixes, reliability improvements, or security updates for these versions. After September 2027, these endpoints will be unsupported. (Support for v4 is ending separately on March 30, 2027, announced earlier this year. See the v4 support timeline .)
+Migrate directly from any legacy version to date-based versioning (DBV). Do not use v3 or v4 as an intermediate step. See the DBV migration guide for the full process, including endpoints where the response shape changes, not just the URL path.
+2. Legacy public apps are going unsupported
+Public apps created before June 23, 2026 use HubSpot's pre-Projects app architecture. These apps move to unsupported status on September 15, with enforcement in September 2027. To remain listed in the Marketplace and retain certification, migrate to the current Projects-based app model. See the app migration guide .
+3. Legacy private apps must migrate
+Private apps built before the Projects-based private app model was introduced must also migrate to Projects-based private apps by September 2027. This is a separate announcement from the public app change.
+If you're building a new private integration, use Service Keys (now available) instead of creating a new legacy private app. Service Keys are the recommended path for lightweight integrations, internal tools, and AI agent integrations, with no full OAuth backend required. See the Service Keys documentation .
+Note: legacy private app creation is disabled on September 28, 2026 for new accounts and October 26, 2026 for existing accounts.
+For marketplace apps: two compliance requirements
+Apps in the HubSpot Marketplace must meet both requirements to remain listed and retain certification. They apply independently, so you need to address both.
+Using unsupported API versions (v1-v4) after September 2027 : your app loses its certification status.
+Running on legacy app architecture (pre-Projects) after September 2027 : your app is eligible for delisting.
+Projects 2025.2 is going unsupported. Apps on the Projects 2025.2 framework, or older, need to migrate to the current version (2026.09) by March 2027.
+An app that has migrated to Projects but still calls v1-v4 APIs is still at risk of losing certification. An app using date-based APIs but still on legacy app architecture is still at risk of delisting.
+How to prepare
+Check which APIs your apps use. Starting September 15, the developer home tasks card shows "X of your apps use APIs becoming unsupported" and links to the migrations tab. Note: detection checks API calls at runtime, not your source code. Runtime calls to legacy endpoints will be flagged even if your codebase has been updated.
+Check your app architecture. Go to your Developer Home or Projects list to confirm whether your apps are Projects-based or legacy.
+Check your private apps. If you have any private apps created before the Projects-based private app model, those also need to migrate.
+Migrate using the guides. The DBV migration guide covers API versioning. The app migration guide covers app architecture.
+Watch the developer changelog for endpoint documentation. Not all legacy replacement paths are finalized yet. The March 2027 DBV release will include full per-endpoint replacement documentation for every legacy API. You have until September 2027, so plan your timeline accordingly.
+When is it happening?
+Date
+Milestone
+September 15, 2026
+All three changes announced; 12-month migration window opens
+September 28, 2026
+Legacy private app creation ends for new accounts
+October 26, 2026
+Legacy private app creation ends for existing accounts
+September 2027
+Enforcement; legacy APIs unsupported, legacy public apps and private apps also unsupported
+Starting September 15, the developer home tasks card is the fastest way to see your specific impact. Migration guides are available for API versioning and app architecture .
+Questions? Join the migration discussion in the developer forums .
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline mobile-footer-first-trigger pt-0" data-radix-collection-item="">For Developers
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline" data-radix-collection-item="">Company
+For Developers
+Developer Tooling
+API Documentation
+Apps Documentation
+CMS Documentation
+Become a Partner
+HubSpot Developer Blog
+HubSpot Developer Changelog
+HubSpot Developer Community
+HubSpot Developer Newsletter
+HubSpot Academy
+Company
+About Us
+Careers
+Management Team
+Board of Directors
+Investor Relations
+Contact Us
+Copyright © 2026 HubSpot, Inc.
+Legal Stuff
+Privacy Policy
+Security
+Website Accessibility

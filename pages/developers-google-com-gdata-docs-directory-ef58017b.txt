@@ -1,0 +1,211 @@
+Skip to main content
+Data APIs
+/
+English
+Deutsch
+Español
+Español – América Latina
+Français
+Indonesia
+Italiano
+Polski
+Português – Brasil
+Tiếng Việt
+Türkçe
+Русский
+עברית
+العربيّة
+فارسی
+हिंदी
+বাংলা
+ภาษาไทย
+中文 – 简体
+中文 – 繁體
+日本語
+한국어
+Sign in
+Home
+Guides
+Samples
+Articles
+Data APIs
+Home
+Guides
+Samples
+Articles
+Google Data APIs
+API Directory
+Client Library Downloads
+Google Data Protocol
+Developer's Guide
+JSON Alt Type
+Batch Processing
+Protocol Version 2.0
+Protocol Basics
+Protocol Reference
+Common Elements
+Protocol Version 1.0
+Protocol Basics
+Protocol Reference
+Common Elements
+Authentication
+Overview
+ClientLogin
+OAuth
+AuthSub Overview
+AuthSub In JavaScript
+AuthSub In ActionScript
+Other Topics
+Using the JS Client Library
+Resumable Upload
+Home
+Products
+Google Data APIs
+Guides
+GData API Directory
+Stay organized with collections
+Save and categorize content based on your preferences.
+Page Summary
+outlined_flag
+Many of the Google APIs listed that used the Google Data Protocol are deprecated, obsolete, or have been replaced by newer APIs.
+Several APIs implementing or previously implementing the Google Data Protocol have been shut down with no direct replacement.
+Some listed Google Data APIs have been replaced by newer Google APIs that do not utilize the Google Data Protocol.
+Warning : Several of the APIs listed on this page are
+deprecated or obsolete, and some have been replaced with Google APIs that do
+not use the Google Data Protocol.
+The following Google services provide APIs that implement, or used to
+implement, the Google Data (GData) Protocol.
+API
+GData Status
+See Also
+Google Analytics Data Export API
+Replaced by Google
+Analytics Core Reporting API (starting at version 2.4).
+Migration
+Guide: Moving from v2.3 APIs to v2.4 & v3.0
+G Suite Provisioning API
+Shut down.
+Replaced by the Admin SDK
+Directory API .
+Current G Suite APIs
+Google Base Data API
+Not available since June 1, 2011. Replaced by the
+Content API for Shopping .
+New
+Shopping APIs and Deprecation of the Base API
+Blogger Data API
+Replaced by the latest Blogger API .
+Google Book Search API
+Shut down. Replaced by Google Books API Family .
+Google
+books API searching by ISBN (on Stack Overflow)
+Google Calendar API v2
+Shut down. Replaced by latest Google
+Calendar API .
+Google Code Search Data API
+Shut down in Jan 15, 2012. No replacement API.
+A
+fall sweep (Google blog post)
+Google Contacts API
+Contacts API is deprecated and is schedule to be shut down on June 15, 2021. Replaced by Google People API .
+Google Contacts API
+Google People API
+Google Documents List Data API
+Shut down. Replaced by Google Drive API .
+Google Finance Portfolio Data API
+Shut down. No replacement API.
+Spring
+cleaning for some of our APIs (Google blog post)
+Google Health Data API
+The product was
+discontinued
+as of January 1, 2013. No replacement API.
+An
+update on Google Health and Google PowerMeter
+Google Maps Data API
+Deprecated.
+Replaced by Google Maps API
+Web Services .
+Picasa Web Albums Data API
+Shut down. Replaced by the Google Photos Library API .
+Google Project Hosting Issue Tracker API
+Shut down on June 14, 2013. No replacement API.
+Winter
+cleaning (Google blog post)
+Google Sidewiki Data API
+Product discontinued. No replacement API.
+A
+fall spring-clean (Google blog post)
+Google Sites Data API
+GData version is still live. No replacement API.
+What is the Google Sites API?
+Google Spreadsheets Data API
+Deprecated. Replaced by the Google Sheets API v4 .
+Google Sheets API V3 Migration Guide
+Google Translator Toolkit Data API
+Product discontinued. No replacement API.
+Google Search Console Data API
+Deprecated. Replaced by the latest
+Search Console API .
+Quickstart:
+Run a Search Console App in Java
+YouTube Data API
+Deprecated in March 4, 2014, but continues to work as per
+deprecation policy . Replaced by
+YouTube Data API (v3) .
+YouTube Data API Migration Guide
+Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2023-11-03 UTC.
+Engage
+Google Developer Program
+Google Developer Groups
+Google Developer Experts
+Accelerators
+Google Cloud & NVIDIA
+Connect
+Blog
+Bluesky
+Instagram
+LinkedIn
+X (Twitter)
+YouTube
+Build
+Android
+Chrome
+Firebase
+Google AI Studio
+Google Antigravity
+Google Cloud
+Google Play
+View all
+Android
+Chrome
+Firebase
+Google Cloud Platform
+Google AI
+All products
+Terms
+Privacy
+Manage cookies
+English
+Deutsch
+Español
+Español – América Latina
+Français
+Indonesia
+Italiano
+Polski
+Português – Brasil
+Tiếng Việt
+Türkçe
+Русский
+עברית
+العربيّة
+فارسی
+हिंदी
+বাংলা
+ภาษาไทย
+中文 – 简体
+中文 – 繁體
+日本語
+한국어

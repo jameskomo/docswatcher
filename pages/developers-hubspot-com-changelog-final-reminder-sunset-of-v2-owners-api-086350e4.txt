@@ -1,0 +1,68 @@
+Skip to main content
+Skip to footer
+Changelog
+Blog
+Docs
+Status
+Get Started
+Apps
+CMS
+Tooling
+Marketplace
+Create developer account with a HubSpot Developer account
+HubSpot Developer Changelog
+Home
+›
+HubSpot Developer Changelog
+›
+Final Reminder: Sunset of v2 Owners API
+Announced: Feb 19, 2025
+Live: Mar 24, 2025
+The v2 Owners API will officially be sunset on March 24th, 2025 , with no further extensions. After this date, all v2 Owners API endpoints will be fully sunset and return a 404 error response. This marks the final stage of our transition to the more efficient and feature-rich v3 Owners API .
+The initial sunset of the v2 Owners API was announced on February 20, 2024 , with a planned sunset date of August 30th, 2024. However, we were able to offer an unannounced additional 6-month grace period for customers, extending the sunset date to provide extra time for migration from the v2 to v3 Owners API.
+This is the final reminder to ensure users migrate to the v3 Owners API before the March 24th, 2025, deadline.
+What's changing?
+All v2 Owners API endpoints will be deprecated and return a 404 error. Below is a list of key differences between the v2 and v3 APIs and considerations when migrating to the v3 API.
+Owner ID
+v2: ownerId
+v3: id or userId
+The values of the ownerId field in v2 are the same as the id field in v3. To assign an owner to a CRM record, you can use the Properties API to set the hubspot_owner_id property.
+Remote ID
+The Remote.Id property in the Owner and Remote data types are deprecated as we align with a new simplified database schema.
+Pagination
+v2: Returns all owner records at once (single request).
+v3: Returns 500 records at a time (single request).
+To page through the results, you’ll use the paging.next.after field in the response and the &after= query parameter in the subsequent requests to get the next page of results.
+Filtering by Email
+The v3 API supports filtering owners by email using the email= query parameter.
+Important Notes
+Due to the v3 API's use of pagination, you may need multiple API requests to retrieve all owners, which could increase your API usage. Monitor your usage to avoid exceeding rate limits . Also, if your integration relies on accessing the full list of owners in a single request (v2 behavior), ensure you update your code to handle paging for v3.
+Please ensure your integrations, workflows, and applications are fully transitioned to the v3 Owners API to avoid disruption. For additional guidance, please refer to the v3 Owners API documentation .
+When is it happening?
+The final sunset date for the v2 Owners API is March 24th, 2025 . All v2 Owners API endpoints will return a 404 error after this date. Please ensure your systems and integrations are fully migrated by then to avoid any disruptions.
+Questions or comments? Join us in the developer forums for a peer-to-peer discussion.
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline mobile-footer-first-trigger pt-0" data-radix-collection-item="">For Developers
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline" data-radix-collection-item="">Company
+For Developers
+Developer Tooling
+API Documentation
+Apps Documentation
+CMS Documentation
+Become a Partner
+HubSpot Developer Blog
+HubSpot Developer Changelog
+HubSpot Developer Community
+HubSpot Developer Newsletter
+HubSpot Academy
+Company
+About Us
+Careers
+Management Team
+Board of Directors
+Investor Relations
+Contact Us
+Copyright © 2026 HubSpot, Inc.
+Legal Stuff
+Privacy Policy
+Security
+Website Accessibility

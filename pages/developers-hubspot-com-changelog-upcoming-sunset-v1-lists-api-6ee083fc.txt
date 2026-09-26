@@ -1,0 +1,80 @@
+Skip to main content
+Skip to footer
+Changelog
+Blog
+Docs
+Status
+Get Started
+Apps
+CMS
+Tooling
+Marketplace
+Create developer account with a HubSpot Developer account
+HubSpot Developer Changelog
+Home
+›
+HubSpot Developer Changelog
+›
+Upcoming Sunset: V1 Contact Lists API
+Announced: May 9, 2024
+Live: Apr 30, 2026
+Edit: we have extended the sunset date from May 30, 2025 to April 30, 2026 to allow more time for migrations. The below has been updated to reflect this change. See the latest announcement for details.
+What’s changing?
+The V1 Contact Lists API will sunset on April 30, 2026. After this date, calls made to the v1 endpoints will no longer function. We're sunsetting the V1 Contact Lists API to focus our development efforts on the improved V3 Lists API , which offers a richer and more comprehensive experience.
+What this means for developers
+The following endpoints will be deprecated and begin returning a 404 error beginning April 30, 2026. Developers leveraging these endpoints will need to update to the corresponding newer version.
+Create a new contact list: POST /contacts/v1/lists
+Get all contact lists : GET/contacts/v1/lists
+Get a contact list by ID : GET /contacts/v1/lists/:list_id
+Update a contact list : POST /contacts/v1/lists/:list_id
+Delete a contact list : DELETE /contacts/v1/lists/:list_id
+Get a group of contact lists : GET /contacts/v1/lists/batch
+Get static contact lists: GET /contacts/v1/lists/static
+Get dynamic/active contact lists : GET /contacts/v1/lists/dynamic
+Get contacts in a list : GET /contacts/v1/lists/:list_id/contacts/all
+Get recently added contacts from a list : GET /contacts/v1/lists/:list_id/contacts/recent
+Add existing contacts to a list : POST /contacts/v1/lists/:list_id/add
+Remove an existing contact from a list : POST /contacts/v1/lists/:list_id/remove
+This sunset will affect the data returned from certain V1 Contacts API endpoints. These endpoints will continue to function, but will no longer return list memberships:
+Get a contact by VID : GET /contacts/v1/contact/vid/:vid/profile
+Get a batch of contacts by VID : GET /contacts/v1/contact/vids/batch
+Get a contact by email address : GET /contacts/v1/contact/email/:contact_email/profile
+Get a batch of contacts by email address : GET /contacts/v1/contact/emails/batch
+Get a contact by user token : GET /contacts/v1/contact/utk/:contact_utk/profile
+Get a batch of contacts by user token : GET /contacts/v1/contact/byUtk/batch
+In an effort to assist with the transition, we have added a guide to our V3 lists documentation that maps the sunsetting endpoints to their replacements.
+Why is this happening?
+Lists have scaled to support new filtering criteria like custom behavioral events, while also expanding the objects it supports. To support these enhancements, it was time to move forward with a new API to better enable developers to harness the power of the HubSpot CRM.
+The V3 Lists API provides significant enhancements over v1, including:
+Support for managing lists containing Contacts, Deals, Companies, and Custom Objects (v1 was limited to Contacts).
+Advanced filtering options, including custom behavioral events.
+For a complete overview of the v3 Lists API functionalities and detailed documentation, please refer to the official documentation .
+Migration Steps
+To ensure a smooth transition, we encourage all developers currently using the V1 Lists API to migrate to v3 before the sunset date. As mentioned earlier, a migration guide has been added to the V3 lists overview .
+Support
+We understand that a transition like this can involve questions. The additional guidance in the documentation should provide answers to most questions, but in the event that you have additional questions, we have created a slack channel in the HubSpot Developer Slack group that we will be monitoring to help with any questions you may have regarding this transition. If you are a member of the Slack group, use this link to join the #lists-api-v3 channel . If you are not a member, please follow this link to join then navigate #lists-api-v3 channel in Slack.
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline mobile-footer-first-trigger pt-0" data-radix-collection-item="">For Developers
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline" data-radix-collection-item="">Company
+For Developers
+Developer Tooling
+API Documentation
+Apps Documentation
+CMS Documentation
+Become a Partner
+HubSpot Developer Blog
+HubSpot Developer Changelog
+HubSpot Developer Community
+HubSpot Developer Newsletter
+HubSpot Academy
+Company
+About Us
+Careers
+Management Team
+Board of Directors
+Investor Relations
+Contact Us
+Copyright © 2026 HubSpot, Inc.
+Legal Stuff
+Privacy Policy
+Security
+Website Accessibility

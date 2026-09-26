@@ -1,0 +1,854 @@
+Search developer resources
+/
+Docs & Tools
+SDKs
+Support
+Partnerships
+Sign In
+Docs Home
+Dev Essentials
+Payments Commerce Customers Staff Merchants
+Release notes
+Docs
+Docs Home
+Dev Essentials
+Payments
+Commerce
+Customers
+Staff
+Merchants
+Release notes
+Overview
+Square APIs and SDKs
+Mobile SDKs
+Web SDKs
+Web Payments SDK
+App Marketplace Requirements
+/
+Release Notes
+Square APIs and SDKs
+Updates
+All
+Select all
+2026-09-16
+Latest
+Square
+Documentation
+Transactions API
+2026-08-19
+Square
+Documentation
+2026-07-15
+Square
+Documentation
+2026-05-20
+Square
+Documentation
+Payments API
+Refunds API
+2026-04-21
+Square
+Documentation
+Reporting API
+2026-01-22
+Square
+Documentation
+Bank Accounts API
+Catalog API
+Mobile Authorization API
+Reader SDK
+OAuth API
+Orders API
+Payments API
+Terminal API
+2025-10-16
+Square
+Documentation
+Channels API
+Transfer Orders API
+2025-09-24
+Square
+Documentation
+Devices API
+Subscriptions API
+2025-08-20
+Square
+Documentation
+In-App Payments SDK
+Web Payments SDK
+Payments API
+2025-07-16
+Square
+Documentation
+2025-06-18
+Square
+Documentation
+GraphQL
+Labor API
+Square SDK
+RETIRED
+2025-05-21
+Square
+Documentation
+Catalog API
+GraphQL
+Labor API
+Payments API
+BETA
+DEPRECATED
+2025-04-16
+Square
+Documentation
+Catalog API
+Invoices API
+Locations API
+Square SDK
+Terminal API
+Webhooks
+App Marketplace Requirements
+2025-03-19
+Square
+Documentation
+Cards API
+Invoices API
+Java
+.NET
+Square SDK
+Terminal API
+BETA
+2025-02-20
+Square
+Documentation
+Mobile Authorization API
+Refunds API
+Square SDK
+Terminal API
+DEPRECATED
+2025-01-23
+Square
+Documentation
+Customers API
+Mobile Payments SDK
+Node.js
+Reader SDK
+Webhooks
+DEPRECATED
+RETIRED
+2024-12-18
+Square
+Documentation
+Customers API
+GraphQL
+Payments API
+Team API
+Terminal API
+Web Payments SDK
+BETA
+DEPRECATED
+2024-11-20
+Square
+Documentation
+Customers API
+Mobile Payments SDK
+Refunds API
+Web Payments SDK
+2024-10-17
+Square
+Documentation
+Customers API
+Gift Card Activities API
+In-App Payments SDK
+Refunds API
+Web Payments SDK
+2024-09-19
+Square
+Bookings API
+Customers API
+Orders API
+Payments API
+2024-08-21
+Square
+Documentation
+Catalog API
+Payments API
+Refunds API
+GA
+2024-07-17
+Square
+Documentation
+Web Payments SDK
+GraphQL
+BETA
+2024-06-04
+Square
+Events API
+Mobile Payments SDK
+BETA
+2024-05-15
+Square
+Documentation
+Catalog API
+Customers API
+2024-04-17
+Square
+Documentation
+Bookings API
+Catalog API
+OAuth API
+RETIRED
+2024-03-20
+Square
+Documentation
+Payments API
+Payouts API
+2024-02-22
+Square
+Documentation
+Catalog API
+Customers API
+Payouts API
+Webhook Subscriptions API
+BETA
+2024-01-18
+Square
+Documentation
+Catalog API
+GraphQL
+Invoices API
+Loyalty API
+Orders API
+2023-12-13
+Square
+Documentation
+Catalog API
+Checkout API
+Terminal API
+BETA
+DEPRECATED
+2023-11-15
+Square
+Documentation
+Labor API
+2023-11-01
+Documentation
+2023-10-18
+Square
+Bookings API
+Devices API
+Subscriptions API
+BETA
+2023-09-25
+Square
+Documentation
+Bookings API
+Devices API
+Inventory API
+Webhooks
+BETA
+2023-09-06
+Documentation
+2023-08-16
+Square
+Documentation
+Bookings API
+Booking Custom Attributes API
+Catalog API
+Gift Cards API
+Locations API
+Loyalty API
+Orders API
+Payments API
+DEPRECATED
+2023-08-02
+Documentation
+2023-07-20
+Square
+Documentation
+Customers API
+Invoices API
+Terminal API
+Webhooks
+DEPRECATED
+2023-07-06
+Documentation
+Connect v1
+RETIRED
+2023-06-08
+Square
+Documentation
+Checkout API
+GraphQL
+Labor API
+OAuth API
+Payouts API
+Subscriptions API
+Team API
+Terminal API
+Webhook Subscriptions API
+BETA
+2023-05-17
+Square
+Documentation
+Cash Drawer Shifts API
+Catalog API
+Inventory API
+Invoices API
+Loyalty API
+Merchant Custom Attributes API
+Point of Sale API
+BETA
+DEPRECATED
+2023-04-19
+Square
+Catalog API
+Checkout API
+Loyalty API
+OAuth API
+Orders API
+Terminal API
+2023-03-15
+Square
+Documentation
+OAuth API
+2023-02-01
+Documentation
+2023-01-19
+Square
+Gift Card Activities API
+Location Custom Attributes API
+OAuth API
+BETA
+Documentation
+2022-12-14
+Square
+Customers API
+OAuth API
+Refunds API
+Webhooks
+BETA
+2022-11-16
+Square
+Booking Custom Attributes API
+Catalog API
+Checkout API
+Customers API
+Loyalty API
+Order Custom Attributes API
+Orders API
+Terminal API
+Square Payment Form
+Documentation
+BETA
+RETIRED
+2022-10-19
+Square
+Customers API
+Invoices API
+Locations API
+Orders API
+Payouts API
+Refunds API
+2022-10-05
+Documentation
+2022-09-22
+Payments API
+Web Payments SDK
+Checkout API
+2022-09-21
+Square
+Gift Card Activities API
+Invoices API
+OAuth API
+Connect v1
+DEPRECATED
+Documentation
+2022-08-23
+Payments API
+2022-08-17
+Square
+Checkout API
+Customer Custom Attributes API
+Customers API
+Gift Card Activities API
+Locations API
+Loyalty API
+Payments API
+Terminal API
+Webhook Subscriptions API
+BETA
+DEPRECATED
+2022-08-03
+Documentation
+2022-07-20
+Square
+Catalog API
+Customer Custom Attributes API
+OAuth API
+Orders API
+BETA
+DEPRECATED
+2022-06-29
+Documentation
+2022-06-16
+Square
+Bookings API
+Gift Card Activities API
+Gift Cards API
+Inventory API
+Payments API
+Payouts API
+Terminal API
+Documentation
+2022-06-02
+Documentation
+2022-05-12
+Square
+Bookings API
+Checkout API
+Custom Attributes
+Customer Custom Attributes API
+Gift Cards API
+GraphQL
+Locations API
+Payments API
+Terminal API
+Documentation
+BETA
+2022-04-20
+Square
+Catalog API
+Inventory API
+Orders API
+Payouts API
+Terminal API
+BETA
+2022-04-06
+Documentation
+2022-03-16
+Square
+Customers API
+Customer Groups API
+Subscriptions API
+Vendors API
+BETA
+2022-03-02
+Documentation
+2022-02-16
+Square
+Payments API
+Web Payments SDK
+Locations API
+Subscriptions API
+Orders API
+Loyalty API
+Inventory API
+Documentation
+BETA
+2022-02-02
+Documentation
+2022-01-20
+Square
+Loyalty API
+Locations API
+Merchants API
+Catalog API
+Bookings API
+RETIRED
+2021-12-15
+Square
+Invoices API
+Catalog API
+Cards API
+RETIRED
+2021-11-17
+Square
+Cards API
+Bookings API
+Subscriptions API
+2021-10-20
+Square
+Payments API
+Transactions API
+Customers API
+Invoices API
+Subscriptions API
+Catalog API
+Refunds API
+DEPRECATED
+2021-09-15
+Square
+Invoices API
+Orders API
+Team API
+Terminal API
+2021-09-01
+Documentation
+2021-08-18
+Square
+Customers API
+Invoices API
+Loyalty API
+2021-08-04
+Documentation
+2021-07-21
+Square
+Loyalty API
+Inventory API
+Subscriptions API
+Payments API
+Locations API
+Orders API
+Documentation
+DEPRECATED
+2021-07-08
+Square
+Catalog API
+2021-06-16
+Square
+Cards API
+Catalog API
+Customers API
+Disputes API
+Gift Card Activities API
+Gift Cards API
+Inventory API
+Invoices API
+Loyalty API
+Subscriptions API
+BETA
+DEPRECATED
+Documentation
+2021-05-18
+Documentation
+2021-05-13
+Square
+Sites API
+Snippets API
+Loyalty API
+Payments API
+Connect v1
+Documentation
+DEPRECATED
+RETIRED
+2021-04-21
+Square
+Customers API
+Invoices API
+Loyalty API
+Inventory API
+Catalog API
+Subscriptions API
+Team API
+BETA
+RETIRED
+2021-04-07
+Square
+Locations API
+2021-03-17
+Square
+Invoices API
+Terminal API
+Payments API
+Documentation
+2021-02-26
+Square
+Customers API
+Orders API
+Payments API
+Connect v1
+Documentation
+BETA
+DEPRECATED
+RETIRED
+2021-01-21
+Square
+Invoices API
+Locations API
+Documentation
+BETA
+DEPRECATED
+2020-12-16
+Square
+Customers API
+Loyalty API
+Invoices API
+Orders API
+Catalog API
+Bookings API
+Documentation
+BETA
+DEPRECATED
+2020-12-02
+Square
+In-App Payments SDK
+Square Payment Form
+2020-11-18
+Square
+Bookings API
+Payments API
+Orders API
+Documentation
+BETA
+2020-10-28
+Square
+Locations API
+Terminal API
+Loyalty API
+Invoices API
+Orders API
+BETA
+2020-10-14
+Documentation
+2020-09-23
+Square
+Invoices API
+Payments API
+Refunds API
+Documentation
+BETA
+2020-09-09
+Documentation
+2020-08-26
+Square
+Labor API
+Orders API
+Employees API
+Documentation
+DEPRECATED
+RETIRED
+2020-08-12
+Square
+Subscriptions API
+Catalog API
+Documentation
+BETA
+2020-07-22
+Square
+Catalog API
+Inventory API
+Locations API
+Merchants API
+Orders API
+Terminal API
+Invoices API
+Documentation
+BETA
+DEPRECATED
+2020-07-08
+Documentation
+2020-06-25
+Square
+Catalog API
+Payments API
+Team API
+2020-06-10
+Catalog API
+Customers API
+Labor API
+Payments API
+Refunds API
+Square
+2020-05-28
+Square
+Customers API
+Orders API
+Loyalty API
+Documentation
+BETA
+DEPRECATED
+2020-05-13
+Square
+2020-04-22
+Square
+Catalog API
+Customer Groups API
+Customer Segments API
+Customers API
+Devices API
+OAuth API
+Orders API
+Payments API
+Terminal API
+Webhooks
+BETA
+DEPRECATED
+2020-03-25
+Square
+Payments API
+Merchants API
+BETA
+2020-02-26
+Square
+Bank Accounts API
+Cash Drawer Shifts API
+Catalog API
+Checkout API
+Customers API
+Disputes API
+Orders API
+Webhooks
+BETA
+DEPRECATED
+Connect v1
+2020-02-12
+Connect v2
+Transactions API
+Payments API
+2020-01-22
+Connect v2
+Employees API
+Refunds API
+2019-12-17
+Connect v2
+Cash Drawer Shifts API
+BETA
+2019-12-11
+Payments API
+2019-11-20
+Connect v1
+DEPRECATED
+Labor API
+Locations API
+2019-11-13
+Square Payment Form
+2019-10-23
+Connect v2
+Catalog API
+Merchants API
+2019-09-25
+Locations API
+Payments API
+Catalog API
+2019-08-15
+Connect v2
+Locations API
+Orders API
+Payments API
+Refunds API
+Transactions API
+BETA
+DEPRECATED
+2019-07-24
+Connect v2
+Catalog API
+BETA
+2019-06-12
+Connect v2
+Catalog API
+Inventory API
+Locations API
+Orders API
+Transactions API
+Webhooks
+BETA
+2019-05-08
+Connect v2
+Inventory API
+Locations API
+Orders API
+BETA
+2019-04-24
+Connect v1
+Connect v2
+Employees API
+2019-04-10
+Connect v1
+Connect v2
+Catalog API
+Orders API
+2019-03-27
+Connect v2
+Catalog API
+RETIRED
+2019-03-13
+Connect v2
+Employees API
+Labor API
+2019-02-13
+Connect v2
+Orders API
+BETA
+2018-12-12
+Connect v2
+Customers API
+2018-12-05
+Connect v2
+Customers API
+2018-09-18
+Connect v2
+Customers API
+Inventory API
+2018-07-12
+Connect v2
+2018-06-28
+Connect v1
+Connect v2
+Customers API
+2018-05-24
+Connect v1
+Connect v2
+Customers API
+2018-04-09
+Connect v1
+Connect v2
+Transactions API
+2017-11-10
+Connect v1
+Connect v2
+Catalog API
+Locations API
+Transactions API
+2017-11-02
+Connect v2
+Square Payment Form
+Transactions API
+2017-10-30
+Connect v2
+2017-09-27
+Connect v2
+Checkout API
+2017-09-13
+Transactions API
+Locations API
+Orders API
+Connect v2
+2017-08-22
+Locations API
+Connect v2
+2017-06-22
+Checkout API
+2017-05-23
+Catalog API
+Connect v2
+2016-03-30
+Point of Sale API
+Connect v2
+2016-02-16
+Locations API
+Connect v1
+Development
+Guides
+API Reference
+API Explorer
+SDKs
+Sample apps
+System status
+Support
+Developer forums
+Developer blog
+YouTube
+X
+More
+Square Home
+Square Developer
+App Marketplace
+Partner with Square
+Solutions Partner Program
+Pricing
+Sales
+©
+2026
+Square, Inc.
+Developer terms of service
+Developer Integration and Marketing Agreement
+Privacy policy

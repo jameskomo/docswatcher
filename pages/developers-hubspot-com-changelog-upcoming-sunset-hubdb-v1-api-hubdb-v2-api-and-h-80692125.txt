@@ -1,0 +1,59 @@
+Skip to main content
+Skip to footer
+Changelog
+Blog
+Docs
+Status
+Get Started
+Apps
+CMS
+Tooling
+Marketplace
+Create developer account with a HubSpot Developer account
+HubSpot Developer Changelog
+Home
+›
+HubSpot Developer Changelog
+›
+Upcoming Sunset: HubDB v1 API, HubDB v2 API, and HubDB JavaScript Client
+Announced: Oct 19, 2023
+Live: Jan 31, 2024
+On Jan 31, 2024, we will be sunsetting the following items in relation to HubDB:
+HubDB API v1
+HubDB API v2
+HubDB JavaScript Client
+We encourage users to migrate the HubDB v3 API . This API includes many performance, usability, and API consistency improvements over the v1 and v2 API. This includes:
+Tables are required to have both a name and label .
+Support for both table id and name in the url paths.
+GET row endpoints return column name instead of id in the values field. Also, POST , PUT , and PATCH row endpoints require column name instead of id in values field.
+Row update PATCH endpoints now accept sparse updates, which allows you to specify only the column values that you need to update, unlike the previous version where you had to specify all the column values.
+Removed the GET , UPDATE , and DELETE endpoints for a single cell in a row in favor of the row update PATCH endpoints.
+Import endpoint now supports an optional field idSourceColumn to make it easier to update existing rows, along with existing fields in the JSON-formatted options.
+Clone endpoint requires a new name and new label .
+Read more about our HubDB v3 API , view examples, and begin planning your migration to the new version.
+Discuss this change on our community post here.
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline mobile-footer-first-trigger pt-0" data-radix-collection-item="">For Developers
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline" data-radix-collection-item="">Company
+For Developers
+Developer Tooling
+API Documentation
+Apps Documentation
+CMS Documentation
+Become a Partner
+HubSpot Developer Blog
+HubSpot Developer Changelog
+HubSpot Developer Community
+HubSpot Developer Newsletter
+HubSpot Academy
+Company
+About Us
+Careers
+Management Team
+Board of Directors
+Investor Relations
+Contact Us
+Copyright © 2026 HubSpot, Inc.
+Legal Stuff
+Privacy Policy
+Security
+Website Accessibility

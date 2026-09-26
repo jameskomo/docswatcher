@@ -1,0 +1,134 @@
+Groups
+Conversations
+All groups and messages
+Send feedback to Google
+Help
+Training
+Sign in
+Groups
+Firebase Google Group
+Conversations
+About
+Privacy &bull; Terms
+
+
+
+
+[Action Required] Update your apps to the latest Firebase Cloud Messaging APIs and SDKs
+4,609 views
+Skip to first unread message
+
+Biel Frontera Gayá
+unread,
+Jun 22, 2023, 5:23:11 AM 6/22/23
+
+
+
+Reply to author
+Sign in to reply to author
+Forward
+Sign in to forward
+Delete
+You do not have permission to delete messages in this group
+Copy link
+Report message
+Show original message
+Either email addresses are anonymous for this group or you need the view member email addresses permission to view the original message
+to Firebase Google Group
+Hi All,
+We have received this email:
+"We’re writing to let you know that starting June 20, 2024 the legacy Firebase Cloud Messaging (FCM) APIs will be discontinued.
+What do you need to know?
+On June 20, 2024, we’re reducing the number of Firebase Cloud Messaging (FCM) legacy register APIs and legacy send APIs that provide similar functionality. This step will allow us to provide you with a more consistent experience and align with Google security standards to improve security, reliability and performance.
+Because of these API decommissions, some already-deprecated SDKs and features will stop working after June 20, 2024.
+Please consult the tables below to find which Firebase Cloud Messaging (FCM) APIs and corresponding services/SDKs/features will be discontinued and replaced with new alternatives.
+Discontinued Send API
+Decommissioned service
+New alternative
+Legacy HTTP Protocol
+Sending messages via the Legacy HTTP API.
+Send messages via the HTTP v1 API.
+XMPP Protocol
+Sending upstream and downstream messages via the XMPP API.
+Send downstream messages via the HTTP v1 API.
+Send upstream messages via HTTP/ gRPC directly from the App to your server.
+Batch send API
+Including multiple send requests in a single HTTP request to FCM known as Batch Send.
+Send messages via the HTTP v1 API, which has been optimized for fanout performance
+Discontinued Register API
+Decommissioned SDK
+New alternative
+GCM register API
+Google Cloud Messaging(GCM) SDKs (deprecated in 2018).
+Latest FCM Android SDK.
+Legacy Web register API
+FCM JS SDK version<7.0.0 (deprecated in 2019)
+Latest FCM JS SDK.
+Instance ID Server API for Web
+No SDK related to this API.
+Latest FCM JS SDK.
+Discontinued Feature
+Decommissioned service
+New alternative
+Server keys
+Authenticating requests with server keys.
+Authenticate requests with access tokens generated from authorized service accounts
+iOS Direct Channel
+Sending messages via FCM’s direct channel to iOS devices while they are running in the foreground.
+All iOS messages will be sent via APNS channel.
+What do you need to do?
+Take the following actions before June 20, 2024 , to ensure that you have access to the latest supported features and to reduce the risk of future decommissions affecting your usage:
+Follow the instructions described in Firebase FAQ to migrate your individual APIs.
+Update to the latest versions of Firebase SDKs .
+Platform
+Recommended FCM SDK version
+Android
+>= 23.1.2
+iOS
+>= 10.10.0
+Web (Javascript)
+>= 9.22.1
+Your Firebase project(s) that use Firebase Cloud Messaging APIs are listed below:
+XXXX(xxxxxxx)
+Your recent usage of impacted APIs/features: Admin SDK(batch send API)
+"
+We are using this dependency to send messages via firebase:
+< dependency >
+< groupId > com.google.firebase </ groupId >
+< artifactId > firebase-admin </ artifactId >
+< version > 9.0.0 </ version >
+</ dependency >
+Would it be enough to increase the version of this dependency? The is available version 9.1.1.
+Thanks for advance.
+Best regards.
+Biel.
+james jim
+unread,
+Jun 26, 2023, 4:31:56 AM 6/26/23
+
+
+
+Reply to author
+Sign in to reply to author
+Forward
+Sign in to forward
+Delete
+You do not have permission to delete messages in this group
+Copy link
+Report message
+Show original message
+Either email addresses are anonymous for this group or you need the view member email addresses permission to view the original message
+to Firebase Google Group
+use Version 9. 2. 0
+
+ Reply all
+ Reply to author
+ Forward
+
+0 new messages
+
+Search
+Clear search
+Close search
+Google apps
+Main menu

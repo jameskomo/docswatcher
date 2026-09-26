@@ -1,0 +1,467 @@
+Documentation Index
+Fetch the complete documentation index at: /llms.txt
+Use this file to discover all available pages before exploring further.
+Skip to main content
+X home page
+X API
+Documentation
+API Reference
+Changelog
+Search...
+⌘ K
+Support
+Developer Console
+X home page
+Search or ask...
+Navigation
+Overview
+General
+Developer Console
+Forums
+GitHub
+Overview
+Fundamentals
+Posts
+Search
+Post Counts
+Filtered Stream
+Timelines
+Post Lookup
+Bookmarks
+Manage Posts
+Reposts
+Quotes
+Hide replies
+Articles
+Introduction
+POST
+Create draft Article
+POST
+Publish Article
+Users
+User Lookup
+Search
+Follows
+Mutes
+Blocks
+Affiliates
+Direct Messages
+Manage
+Lookup
+Blocks
+Likes
+Introduction
+Guides
+GET
+Get Users Liked Posts
+GET
+Get Posts Liking Users
+POST
+Like Post
+DEL
+Unlike Post
+Lists
+Lookup Lists
+Lookup List Posts
+Manage Lists
+List Members
+Pinned Lists
+Spaces
+Introduction
+Spaces Lookup
+Search Spaces
+Communities
+Communities Lookup
+Search Communities
+Community Notes
+Community Notes API for X API v2
+Quickstart
+GET
+Search Eligible Posts
+GET
+Search Community Notes Written
+POST
+Create Community Notes
+DEL
+Delete a Community Note
+POST
+Evaluate Community Notes
+Trends
+Personalized Trends
+News
+Introduction
+GET
+Get news stories by ID
+GET
+Search News
+Media
+Introduction
+Upload
+Metadata
+X Activity
+Introduction
+Quickstart
+Event payloads
+GET
+Activity Stream
+POST
+Create X activity subscription
+DEL
+Deletes X activity subscription
+DEL
+Delete X activity subscriptions by IDs
+GET
+Get X activity subscriptions
+PUT
+Update X activity subscription
+Usage
+Introduction
+GET
+Get Usage
+GET
+Get usage credits
+Stream Connections
+Introduction
+GET
+Get Connection History
+DEL
+Terminate connections by endpoint
+DEL
+Terminate multiple connections
+DEL
+Terminate all connections
+Compliance
+Batch Compliance
+Compliance streams
+Webhooks
+Introduction
+Quickstart
+POST
+Create webhook
+DEL
+Delete webhook
+GET
+Get webhook
+PUT
+Validate webhook
+POST
+Create replay job for webhook
+Overview
+Copy page Copy page
+The v2 Search Tweets endpoint will eventually replace the standard v1.1 search/posts endpoint and. Reference for the X API v2 standard tier covering migrate.
+Copy page Copy page
+​
+Comparing X API’s Search Posts endpoints
+The v2 Search Tweets endpoint will eventually replace the standard v1.1 search/posts endpoint and enterprise Search API . If you have code, apps, or tools that use an older version of a X search endpoint and are considering migrating to the newer X API v2 endpoints, then this guide is for you.
+​
+Recent search comparison
+The following table compares the various types of recent search endpoints:
+Description
+Standard v1.1
+X API v2
+Host domain
+https://api.x.com
+Endpoint path
+/1.1/search/tweets.json
+/2/tweets/search/recent
+Authentication
+OAuth 1.0a User Context
+OAuth 2.0 App-Only
+OAuth 1.0a User Context
+OAuth 2.0 Authorization Code with PKCE
+OAuth 2.0 App-Only
+Timestamp format
+YYYYMMDD
+YYYY-MM-DDTHH:mm:ssZ
+ISO 8601 / RFC 3339
+Returns Posts that are no older than
+7 days
+HTTP methods supported
+GET
+Default request rate limits
+180 requests per 15 min with OAuth 1.0a User Context
+450 requests per 15 min with OAuth 2.0 App-Only
+Self-serve:
+60 requests per 15 min with OAuth 2.0 App-Only
+60 requests per 15 min with OAuth 1.0a User Context
+60 requests per 15 min with OAuth 2.0 Authorization Code with PKCE
+Offers fully unwound URLs
+✔
+Maximum Posts per response (default)
+100 (15)
+100 (10)
+Post JSON format
+Standard v1.1 format
+X API v2 format (determined by fields and expansions request parameters, not backward-compatible with v1.1 formats)
+To learn more about how to migrate from the Standard v1.1 format to the X API v2 format, please visit our data formats migration guide .
+Supports selecting which fields return in the payload
+✔
+Supports requesting and receiving annotations
+✔
+Supports requesting specific metrics within Post object
+✔
+Supports the conversation_id operator and field
+✔
+Provides Post edit history
+✔
+JSON key name for Post data array
+statuses
+data
+JSON key name for pagination
+search_metadata.next_results
+meta.next_token
+Supports navigating archive by time range
+✔
+Time resolution of time-based requests
+day
+second
+Timezone
+UTC
+Request parameters for navigating by time
+until
+start_time
+end_time
+Request parameters for navigating by Post ID
+since_id
+max_id
+since_id
+until_id
+Request parameter for pagination
+Provides URL-encoded query
+next_token
+Requires the use of credentials from a developer App associated with a Project
+✔
+​
+Full-archive search comparison
+The following table compares the various types of full-archive search endpoints:
+Description
+Enterprise
+X API v2
+Host domain
+https://gnip-api.x.com
+https://api.x.com
+Endpoint path
+/search/fullarchive/accounts/:account_name/:label
+/2/tweets/search/all
+Authentication
+Basic auth
+OAuth 2.0 App-Only
+Timestamp format
+YYYYMMDDHHMM
+YYYY-MM-DDTHH:mm:ssZ
+ISO 8601 / RFC 3339
+Returns Posts that are no older than
+The full archive since March 2006
+HTTP methods supported
+GET
+POST
+GET
+Default request rate limits
+The per minute rate limit will vary by partner as specified in your contract.
+20 requests per sec with Basic auth
+300 requests per 15 min with OAuth 2.0 App-Only
+1 requests per 1 sec with OAuth 2.0 App-Only
+Offers fully unwound URLs
+✔
+Posts per response
+Maximum: 500
+Default: 100
+Maximum: 500
+Default: 10
+Post JSON format
+Native Enriched or Activity Streams format
+X API v2 format (determined by fields and expansions request parameters)
+Supports selecting which fields return in the payload
+✔
+Supports requesting and receiving annotations
+✔
+Supports requesting specific metrics within Post object
+✔
+Supports the conversation_id operator and field
+✔
+Provides Post edit history
+✔
+JSON key name for Post data array
+results
+data
+JSON key name for pagination
+next
+meta.next_token
+Time resolution of time-based requests
+second
+Timezone
+UTC
+Supports navigating archive by Post ID
+✔
+Request parameters for navigation by time
+fromDate
+toDate
+start_time
+end_time
+Request parameters for navigating by Post ID
+since_id
+until_id
+Request parameter for pagination
+next_token
+Requires the use of credentials from a developer App associated with a Project that has Academic Research access
+✔
+Filtering operator comparison
+The four different versions (standard, enterprise, and v2) of search Posts differ in which operators are available, and also have varying levels of operator availability within each version, which are explained below.
+Enterprise
+There are no sub-tiers of enterprise operators
+X API v2
+Self-serve: Available when using any Project
+Enterprise: Available when using a Project
+You can learn more about each of these sets of operators in their respective guides:
+Enterprise operators
+X API v2 operators
+Now that we understand the different operator levels within X API v2, here is the table that maps out operator availability for search Posts (note that if the cell is left blank, the operator is not available):
+Search operator
+Standard
+Enterprise
+v2
+keyword
+Available
+q:keyword
+Available
+emoji
+Available
+q:😄
+Available
+”exact phrase”
+Available
+#
+Available
+$
+Available
+@
+Available
+from:
+Available
+to:
+Available
+url:
+Available
+retweets_of:
+Available
+context:
+Available
+entity:
+Self-serve - Only available with recent search
+conversation_id:
+Available
+place:
+Available
+place_country:
+Available
+point_radius:
+geocode parameter
+Available
+bounding_box:
+Available
+is:retweet
+filter:retweets
+Available
+is:reply
+Available
+is:quote
+Available
+is:verified
+Available
+-is:nullcast
+Available
+has:hashtags
+Available
+has:cashtags
+Available
+has:links
+filter:links
+Available
+has:mentions
+Available
+has:media
+filter:media
+Available
+has:images
+filter:images, filter:twimg
+Available
+has:videos
+filter:videos
+filter:native_video
+Available
+has:geo
+Available
+lang:
+lang - can be used as an operator or a parameter
+Available
+has:profile_geo
+Available
+profile_country
+Available
+profile_locality
+Available
+profile_region
+Available
+proximity
+Available
+:(
+Available
+:)
+Available
+?
+Available
+filter:periscope
+Available
+list:
+Available
+filter:replies
+Available
+filter:pro_video
+Available
+filter:social
+Available
+filter:trusted
+Available
+filter:follows
+Available
+filter:has_engagement
+Available
+include:antisocial
+Available
+include:offensive_user
+Available
+include:antisocial_offensive_user
+Available
+include:sensitive_content
+Available
+source:
+Available
+min_replies:
+Available
+min_retweets:
+Available
+Available as min_reposts:
+min_faves:
+Available
+Available as min_likes:
+card_name:
+Available
+card_domain:
+Available
+Other migration resources
+X API migration hub
+Check out some sample code for these endpoints
+Search Posts: Standard v1.1 to X API v2
+Search Posts: Enterprise to X API v2
+⌘ I
+On this page
+Comparing X API’s Search Posts endpoints
+Recent search comparison
+Full-archive search comparison
+X home page
+x github
+Resources
+Status Incidents
+Legal
+Terms of Service Privacy Policy Cookies Developer Terms
+x github

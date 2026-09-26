@@ -1,0 +1,228 @@
+Search developer resources
+/
+Docs & Tools
+SDKs
+Support
+Partnerships
+Sign In
+Docs Home
+Dev Essentials
+Payments Commerce Customers Staff Merchants
+Release notes
+Docs
+Docs Home
+Dev Essentials
+Payments
+Commerce
+Customers
+Staff
+Merchants
+Release notes
+Get Started
+Create an Account and App
+Make your First API Call
+View the API Logs
+Verify the Payment
+What's Next
+Overview
+Build Basics
+Versioning
+Access Tokens
+Frontend and Backend Development
+General Development Concepts
+TLS and HTTPS
+Using the REST API
+Handling Errors
+Collecting Information
+Language Preferences
+Common Data Types
+Working with Dates
+Working with Monetary Amounts
+Working with Addresses
+Common Square API Patterns
+Custom Attributes
+Idempotency
+Pagination
+Optimistic Concurrency
+Clear Object Fields
+Square eCommerce APIs
+Square API Lifecycle
+Brand Guidelines
+Developer Tools
+Developer Console
+Square Dashboard
+Sandbox
+Test in Sandbox
+Sandbox Payments
+API Explorer
+API Logs
+Webhook Event Logs
+Webhooks
+Create a Notification URL
+Subscribe to Event Notifications
+Verify and Validate an Event Notification
+Manage Operations
+Move Event Notifications to Production
+Webhook Events Reference
+Troubleshooting
+Build a Developer Team
+Authentication
+Postman
+MCP Server
+Square SDKs
+Java
+Quickstart
+Common API Patterns
+Migration Guide
+.NET
+Quickstart
+Common API Patterns
+Migration Guide
+Node.js
+Quickstart
+Common API Patterns
+Migration Guide
+PHP
+Quickstart
+Common API Patterns
+Migration Guide
+Python
+Quickstart
+Common API Patterns
+Migration Guide
+Ruby
+Quickstart
+Common API Patterns
+Migration Guide
+Go
+Quickstart
+Sample Applications
+GraphQL
+GraphQL Basics
+Build your First Query
+GraphQL Explorer
+Query Examples
+Reporting API
+Getting Started
+Views
+Understanding Dynamic Schemas
+Metadata Discovery
+Query Construction
+Measures
+Dimensions
+Time Dimensions
+Segments
+Filters
+Ordering & Pagination
+Real-World Scenarios
+Working with Cubes
+Core Cubes
+Measure & Dimension Types
+Multi-Cube Joins
+Time Handling
+Schema Discovery
+Error Handling
+Best Practices
+OAuth
+Create Redirect URL and Authorization Page URL
+Receive Authorization and Manage OAuth Tokens
+Refresh and Revoke OAuth Tokens
+Token Introspection
+OAuth Best Practices
+Test Authorization
+Migrate to the Square API OAuth Flow
+Move OAuth to Production
+Permissions Reference
+Webhook Subscriptions
+Events
+Migrate from Deprecated APIs
+Deprecated Items
+API Migration Guides
+v1 Payments API
+v1 Refunds API
+Square Transactions API
+Migrate Employees to Team Members
+Migrate from CreateCheckout to CreatePaymentLink
+International Development
+Develop for Japan
+Compliance with Japan's Tax Invoice System
+Order Calculation Guide for Japan
+/
+Dev Essentials
+Migrate from Deprecated APIs
+Learn about depreciated APIs and how to migrate your code to use the replacement Square APIs.
+On this page
+Overview
+Current status
+Where can I get help?
+What happens if I call an API after retirement?
+Link to section
+Overview
+The following sections list the Square APIs that are deprecated and scheduled for retirement and where you can get help migrating from deprecated APIs. For information about the path from API deprecation to retirement, see Square API Lifecycle .
+Link to section
+Current status
+The following Square APIs are deprecated and scheduled for retirement or recently retired and no longer supported. For detailed guidance about migrating your code to use the replacement Square API, refer to the migration guide provided in the table for the deprecated API.
+Link to section
+Deprecated
+The following Square APIs and SDKs are deprecated.
+API
+Replacement
+Deprecation
+Retirement
+Employees
+Team API
+Migration guide
+2020-08-26
+2021-08-26
+Transactions
+Payments API
+Migration guide
+2019-08-15
+TBD
+Reader SDK
+Mobile Payments SDK
+Migration guide
+2025-02-20
+2025-12-31
+Mobile Authorization
+Mobile Payments SDK
+Migration guide
+2025-02-20
+2025-12-31
+Note
+Square APIs that are in the General Availability (GA) or Beta state might have deprecated endpoints and webhooks or deprecated objects, fields, enums, and values .
+Link to section
+Where can I get help?
+If you have questions or need help migrating from deprecated APIs, contact Developer Support , join our Discord community , or reach out to your Square account manager.
+Link to section
+What happens if I call an API after retirement?
+Your code will break .
+Retired functionality cannot be used, regardless of the Square-Version provided during the API call. REST calls that attempt to use retired functionality return errors. Square SDKs released on or after retirement don't include retired features.
+On this page
+Overview Current status Where can I get help? What happens if I call an API after retirement?
+Development
+Guides
+API Reference
+API Explorer
+SDKs
+Sample apps
+System status
+Support
+Developer forums
+Developer blog
+YouTube
+X
+More
+Square Home
+Square Developer
+App Marketplace
+Partner with Square
+Solutions Partner Program
+Pricing
+Sales
+©
+2026
+Square, Inc.
+Developer terms of service
+Developer Integration and Marketing Agreement
+Privacy policy

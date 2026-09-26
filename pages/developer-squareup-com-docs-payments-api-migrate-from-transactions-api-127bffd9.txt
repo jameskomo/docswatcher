@@ -1,0 +1,451 @@
+Search developer resources
+/
+Docs & Tools
+SDKs
+Support
+Partnerships
+Sign In
+Docs Home
+Dev Essentials
+Payments Commerce Customers Staff Merchants
+Release notes
+Docs
+Docs Home
+Dev Essentials
+Payments
+Commerce
+Customers
+Staff
+Merchants
+Release notes
+Get Started
+Create an Account and App
+Make your First API Call
+View the API Logs
+Verify the Payment
+What's Next
+Overview
+Build Basics
+Versioning
+Access Tokens
+Frontend and Backend Development
+General Development Concepts
+TLS and HTTPS
+Using the REST API
+Handling Errors
+Collecting Information
+Language Preferences
+Common Data Types
+Working with Dates
+Working with Monetary Amounts
+Working with Addresses
+Common Square API Patterns
+Custom Attributes
+Idempotency
+Pagination
+Optimistic Concurrency
+Clear Object Fields
+Square eCommerce APIs
+Square API Lifecycle
+Brand Guidelines
+Developer Tools
+Developer Console
+Square Dashboard
+Sandbox
+Test in Sandbox
+Sandbox Payments
+API Explorer
+API Logs
+Webhook Event Logs
+Webhooks
+Create a Notification URL
+Subscribe to Event Notifications
+Verify and Validate an Event Notification
+Manage Operations
+Move Event Notifications to Production
+Webhook Events Reference
+Troubleshooting
+Build a Developer Team
+Authentication
+Postman
+MCP Server
+Square SDKs
+Java
+Quickstart
+Common API Patterns
+Migration Guide
+.NET
+Quickstart
+Common API Patterns
+Migration Guide
+Node.js
+Quickstart
+Common API Patterns
+Migration Guide
+PHP
+Quickstart
+Common API Patterns
+Migration Guide
+Python
+Quickstart
+Common API Patterns
+Migration Guide
+Ruby
+Quickstart
+Common API Patterns
+Migration Guide
+Go
+Quickstart
+Sample Applications
+GraphQL
+GraphQL Basics
+Build your First Query
+GraphQL Explorer
+Query Examples
+Reporting API
+Getting Started
+Views
+Understanding Dynamic Schemas
+Metadata Discovery
+Query Construction
+Measures
+Dimensions
+Time Dimensions
+Segments
+Filters
+Ordering & Pagination
+Real-World Scenarios
+Working with Cubes
+Core Cubes
+Measure & Dimension Types
+Multi-Cube Joins
+Time Handling
+Schema Discovery
+Error Handling
+Best Practices
+OAuth
+Create Redirect URL and Authorization Page URL
+Receive Authorization and Manage OAuth Tokens
+Refresh and Revoke OAuth Tokens
+Token Introspection
+OAuth Best Practices
+Test Authorization
+Migrate to the Square API OAuth Flow
+Move OAuth to Production
+Permissions Reference
+Webhook Subscriptions
+Events
+Migrate from Deprecated APIs
+Deprecated Items
+API Migration Guides
+v1 Payments API
+v1 Refunds API
+Square Transactions API
+Migrate Employees to Team Members
+Migrate from CreateCheckout to CreatePaymentLink
+International Development
+Develop for Japan
+Compliance with Japan's Tax Invoice System
+Order Calculation Guide for Japan
+/
+Dev Essentials
+/
+Migrate from Deprecated APIs
+/
+API Migration Guides
+Migrate from the Transactions API
+Learn how to migrate from the Transactions API to the Payments API.
+On this page
+Overview
+Migration benefits
+General guidance
+Code migration to use the Payments API and Refunds API
+Access old transactions using the Payments API and Refunds API
+Link to section
+Overview
+The Transactions API previously allowed you to create online payments. The API had limitations that prevented Square from adding features and flexibility that customers requested. As a result, Square split the API into the new Payments API and a more robust Orders API. Square continues to enhance these APIs, offering you the flexibility to use the two APIs together or separately.
+The Transactions API is deprecated. As of September 16, 2026, its write operations ( Charge , CreateRefund , CaptureTransaction , and VoidTransaction ) are retired. Use the Payments API and Refunds API for new payment processing and refunds. Read operations remain available for historical transaction data. If you're using Square SDKs, you need to update the SDK to version 2.20190814.0 or later (or 2.22.0 or later if you're using the .NET SDK) to use the Payments API and Refunds API. For more information, see Square SDKs changelog .
+Link to section
+Migration benefits
+The Payments API and Refunds API provide these benefits:
+Support for refunds up to 1 year after the payment is taken.
+Support for paying with Square gift cards and other payment methods.
+Support for collecting tips at the time of payment.
+Additional information about CVV and AVS statuses and improved card decline reasons.
+Link to section
+General guidance
+The following payment processing general guidelines apply:
+Use the Square Payments API and Refunds API to process payment when developing new applications.
+You can continue to use payment tokens with the Payments API. There is no change to how you use the Square payments form or In-App Payments SDK to generate a payment token.
+Refunds of cash and external type payments taken before 2021 are available in the Square Orders API. These aren't available using the Payments API ( GetPaymentRefund or ListPaymentRefunds ). For more information, see Access old transactions using the Payments API and Refunds APIs .
+You can provide feedback by contacting Developer Support or joining our Discord community .
+Link to section
+Code migration to use the Payments API and Refunds API
+The following examples show how to move common payment processing tasks from the Transactions API to the Payments API .
+Link to section
+Example 1: Payment using a secure token
+The following Transactions API Charge request charges $1 USD to the payment source identified by a payment token. In the request:
+The endpoint URL includes the seller location.
+The Authorization header provides the seller access token.
+card_nonce in the body identifies the payment source.
+delay_capture in the body is set to false to request immediate payment completion.
+curl https://connect.squareup.com/v2/locations/ { LOCATION_ID } /transactions \
+-X POST \
+-H 'Square-Version: 2021-06-16' \
+-H 'Authorization: Bearer {ACCESS_TOKEN}' \
+-H 'Content-Type: application/json' \
+-d '{
+"idempotency_key": "{UNIQUE_KEY}",
+"amount_money": {
+"amount": 100,
+"currency": "USD"
+},
+"card_nonce": "cnon:CBASEIFNPdBL1ZkxDB36example",
+"note": "this is a test",
+"delay_capture": false
+}'
+After receiving the request, Square charges the payment source and deposits the funds in the Square account of the seller. The response shows the tender status as CAPTURED , indicating that the payment source was successfully charged.
+To migrate the preceding example to use the Payments API (CreatePayment endpoint), note the following differences between the Transactions API and the Payments API:
+Action
+Transactions API
+( Charge endpoint)
+Payments API
+(CreatePayment endpoint)
+Specifying the payment method
+Depending on the payment method, the endpoint supports different fields in the request, such as card_nonce or customer_card_id .
+The endpoint supports only one field ( source_id ) to specify a payment source regardless of whether it is a card on file or a payment token.
+Specifying the location
+The endpoint requires the seller location as part of the endpoint URL.
+The endpoint supports the optional location_id field in the request body. If it isn't specified, the default seller location (oldest active) is assumed.
+Delaying capture (obtain only payment authorization)
+The endpoint supports the delay_capture field, which you set to true .
+The endpoint supports the autocomplete field, which you set to false to request only authorization.
+Behavior of the amount_money field
+The amount_money field includes the tip amount. To get the base amount of the transaction, subtract the tip amount.
+The amount_money field excludes the tip amount. The total_money field represents the total amount of the transaction including tip and fees.
+idempotency_key length
+Max length is 192
+Max length is 45
+The following is a Payments API example using the CreatePayment endpoint to charge $1 USD:
+Create payment
+cURL
+For information about the payment object in the response, see Payment .
+Link to section
+Example 2: Payment using a card on file
+The Payments API CreatePayment endpoint supports the source_id field to set a payment source, which can be a card on file ID or a payment token.
+The following Transactions API charge request charges $1 USD to the payment source identified by a card on file. In the request:
+customer_card_id identifies the payment source, which is the ID of a card on file.
+customer_id identifies the customer to whom the card on file is attached.
+curl https://connect.squareup.com/v2/locations/ { LOCATION_ID } /transactions \
+-X POST \
+-H 'Square-Version: 2021-06-16' \
+-H 'Authorization: Bearer {ACCESS_TOKEN}' \
+-H 'Content-Type: application/json' \
+-d '{
+"idempotency_key": "{UNIQUE_KEY}",
+"amount_money": {
+"amount": 100,
+"currency": "USD"
+},
+"customer_card_id": "ccof:65aSD6rnUryWexample",
+"customer_id":"SV2K57WMQCS7QAMKKZQexample",
+"note": "this is a test",
+"delay_capture": false
+}'
+The following is an equivalent example that uses the Payments API CreatePayment endpoint to charge $1 USD:
+Create payment
+cURL
+Link to section
+Example 3: Refund a payment
+The following Transactions API CreateRefund request refunds $1 USD. In the request:
+The endpoint URL provides both the transaction ID and seller location.
+The Authorization header provides the access token of the seller. Square takes funds out of the Square account of the seller to refund the customer.
+tender_id in the body provides the payment ID being refunded.
+curl https://connect.squareup.com/v2/locations/ { LOCATION_ID } /transactions/ { TRANSACTION_ID } /refund \
+-X POST \
+-H 'Square-Version: 2021-06-16' \
+-H 'Authorization: Bearer {ACCESS_TOKEN}' \
+-H 'Content-Type: application/json' \
+-d '{
+"idempotency_key": "{UNIQUE_KEY}",
+"tender_id": "EKR9mDvBetVQVMKNeexample",
+"reason": "testing create refund",
+"amount_money": {
+"amount": 100,
+"currency": "USD"
+}
+}'
+To migrate the preceding example to use the Refunds API RefundPayment endpoint, note the following differences between the Transactions API the and Refunds API:
+Action
+Transactions API
+( CreateRefund endpoint)
+Refunds API
+(RefundPayment endpoint)
+Specifying the payment method
+Supports the tender_id field in the request body.
+Supports the payment_id field in the request body. To refund transaction tenders, provide the tender_id value in the payment_id field.
+Seller location and transaction ID.
+The endpoint requires this information as part of the endpoint URL.
+The ID of the original Payment is provided.
+The following is an equivalent example that uses the Refunds API ( RefundPayment endpoint) to refund $1 USD:
+Refund payment
+cURL
+For more information about the Refund object in the response, see PaymentRefund .
+Link to section
+Example 4: Payments with delay capture
+The following Transactions API Charge endpoint request charges $1 USD to a card on file. The request specifies delay_capture=true in the body to obtain an authorization to charge the card.
+curl https://connect.squareup.com/v2/locations/ { LOCATION_ID } /transactions/ { TRANSACTION_ID } /refund \
+-X POST \
+-H 'Square-Version: 2021-06-16' \
+-H 'Authorization: Bearer {ACCESS_TOKEN}' \
+-H 'Content-Type: application/json' \
+-d '{
+"idempotency_key": "{UNIQUE_KEY}",
+"customer_card_id" : "ccof:65aSD6rnUryWexample",
+"customer_id" : "SV2K57WMQCS7QAMKKZQexample",
+"reason": "a reason",
+"amount_money": {
+"amount": 100,
+"currency": "USD"
+},
+"delay_capture": true
+}'
+To migrate the preceding example to use the Payments API ( CreatePayment endpoint), note the following differences between the Transactions API and the Payments API:
+Action
+Transactions API
+( Charge endpoint)
+Payments API
+(CreatePayment endpoint)
+Specifying the delayed capture option
+Supports the delay_capture field in the request body. Set it to true if you want only payment authorization.
+Supports the autocomplete payment in the request body. Set it to false if you want only payment authorization.
+Follow-up options
+For delayed-capture transactions, CaptureTransaction completed the payment and VoidTransaction canceled it. These endpoints are retired.
+Use the CompletePayment and CancelPayment endpoints.
+The following is an equivalent example using the Payments API CreatePayment endpoint to charge $1 USD and requests delayed capture by setting the autocomplete parameter to false in the request body:
+Create payment
+cURL
+For information about the Payment object in the response, see Payment .
+Link to section
+Example 5: Collect a developer application fee
+This example assumes that the application developer collects a fee for each payment processed on behalf of the seller (known as an application fee). After processing the payment, Square splits the payment funds between the application developer account (who gets the application fee) and the seller (who gets the rest of the funds minus the Square payment processing charges).
+In the example, the seller and developer have separate Square accounts.
+The following Transactions API Charge endpoint request charges $1 USD and gives $0.20 USD to the developer. The seller gets the rest of the amount (minus the Square payment processing fee). In the request:
+The endpoint URL specifies the seller location.
+The additional_recipient field in the body specifies the application fee and location of the application developer.
+The Authorization header specifies the OAuth access token that identifies the seller and developer accounts. Square uses this information when splitting the payment.
+curl https://connect.squareup.com/v2/locations/ { LOCATION_ID } /transactions \
+-X POST \
+-H 'Square-Version: 2021-06-16' \
+-H 'Authorization: Bearer {ACCESS_TOKEN}' \
+-H 'Content-Type: application/json' \
+-d '{
+"idempotency_key": "{UNIQUE_KEY}",
+"amount_money": {
+"amount": 100,
+"currency": "USD"
+},
+"additional_recipients": [
+{
+"location_id": "P8DDS5P8JN70N",
+"description": "Application fees",
+"amount_money": {
+"amount": 20,
+"currency": "USD"
+}
+],
+"customer_card_id": "ccof:65aSD6rnUryWzHexample",
+"customer_id" : "SV2K57WMQCS7QAMKKZQA4example"
+}'
+To migrate the preceding example to use the Payments API ( CreatePayment endpoint), note the following differences between the Transactions API and the Payments API:
+Action
+Transactions API
+Charge endpoint)
+Payments API
+(CreatePayment endpoint)
+Specifying an additional recipient who gets a portion of the payment
+Supports the additional_recipient field with the payment amount they receive.
+Supports the app_fee_money field to specify the application fee for the developer.
+Specifying the seller location
+Set the seller location in the endpoint URL.
+You can include the location_id in the request body to specify the seller location. If it isn't specified, the default location is assumed.
+Specifying an additional recipient location
+Include the location_id in the additional_recipient field for the developer location.
+The Payments API assumes the default location.
+The following example uses the Payments API CreatePayment endpoint to charge $1 USD and gives $0.20 USD to the developer:
+Create payment
+cURL
+For more information, see Collect Application Fees .
+Link to section
+Access old transactions using the Payments API and Refunds API
+You might have old transactions created with the Transactions API. This section explains how you can get these transactions using the Payments API, Refunds API, or Orders API.
+This is an example Transaction object created by the Transactions API Charge endpoint. The transaction has Tender and Refund objects.
+{
+"transaction" : {
+"id" : "5apT3UsV4eJW2GpWyWkAtLmeV" ,
+"location_id" : "X9XWRESTK1CZ1" ,
+"created_at" : "2019-10-21T18:54:01Z" ,
+"tenders" : [
+{
+"id" : "sOt7GR6knQVf8tcZwQd3rsMF" ,
+"location_id" : "X9XWRESTK1CZ1" ,
+"transaction_id" : "5apT3UsV4eJW2GpWyWkAtLmeV" ,
+"created_at" : "2019-10-21T18:54:00Z" ,
+...
+}
+] ,
+"refunds" : [
+{
+"id" : "MnBifltgmC7XJAClam95S" ,
+"location_id" : "X9XWRESTK1CZ1" ,
+"transaction_id" : "5apT3UsV4eJW2GpWyWkAtLmeV" ,
+"tender_id" : "sOt7GR6knQVf8tcZwQd3rsMF" ,
+"created_at" : "2019-10-21T19:10:40Z" ,
+...
+}
+] ,
+...
+}
+The following guidelines describe how the Payments API and Refunds API get these old transactions.
+Transactions are now returned as orders - Use the Orders API to access the old transactions. The Transaction.id from the previous example maps to an Order.id . The following BatchRetrieveOrders can return old transactions as shown. The request specifies a list of order IDs, one of which is also the ID of an old transaction.
+Batch retrieve orders
+cURL
+The response includes three Order objects, one of which represents the old transaction.
+Transaction tenders of all types (card, cash, or other) are now payments - Regardless of the Transaction.Tender.type (Tender ) type (card, cash, or other types), each tender is available as a Payment object. The Tender.id maps to Payment.id . The Payments API (GetPayment and ListPayments endpoints) returns these tenders as Payment objects. The following is an example ListPayments request:
+List payments
+cURL
+The response can include payments created with the Payments API CreatePayment endpoint and tenders created with the Transactions API charge .
+Refunds of transaction tenders of all types (card, cash, or other) can be accessed using the Refunds API - Regardless of the Transaction.Tender.type (Tender ) type (card, cash, or other), you can access the tender refunds using the Refunds API. The refund ID is the concatenation of the tender ID and refund ID with an underline (for example, Tender.id_Refund.id ).
+The following GetPaymentRefund request retrieves refund information about an old transaction. The request specifies the <Tender.id>_<Refund.id> as the refund ID in the endpoint URL.
+List payment refunds
+cURL
+Note
+Refunds of cash and external type payments taken before 2021 are available in the Orders API but they aren't available using the Payments API ( GetPaymentRefund or ListPaymentRefunds ). Using the Orders API, you first retrieve the old transaction by specifying the transaction ID as the order ID. You then search the Order object for refunds.
+On this page
+Overview Migration benefits General guidance Code migration to use the Payments API and Refunds API Access old transactions using the Payments API and Refunds API
+Development
+Guides
+API Reference
+API Explorer
+SDKs
+Sample apps
+System status
+Support
+Developer forums
+Developer blog
+YouTube
+X
+More
+Square Home
+Square Developer
+App Marketplace
+Partner with Square
+Solutions Partner Program
+Pricing
+Sales
+©
+2026
+Square, Inc.
+Developer terms of service
+Developer Integration and Marketing Agreement
+Privacy policy

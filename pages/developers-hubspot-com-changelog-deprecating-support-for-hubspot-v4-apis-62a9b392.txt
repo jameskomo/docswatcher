@@ -1,0 +1,69 @@
+Skip to main content
+Skip to footer
+Changelog
+Blog
+Docs
+Status
+Get Started
+Apps
+CMS
+Tooling
+Marketplace
+Create developer account with a HubSpot Developer account
+HubSpot Developer Changelog
+Home
+›
+HubSpot Developer Changelog
+›
+Deprecating Support for HubSpot v4 APIs
+Announced: May 21, 2026
+Live: Mar 30, 2027
+On March 30, 2027, HubSpot v4 APIs will move to an unsupported state. After that date, v4 APIs will no longer receive updates, bug fixes, or stability guarantees from HubSpot.
+What’s changing?
+As part of HubSpot’s transition to date-based versioning (announced in March of 2026) the legacy semantic API version v4 is moving out of support. The legacy semantic API version v4 is being phased out in favor of the current date-based versions.
+This means:
+v4 APIs will become unsupported on March 30, 2027.
+Unsupported versions may continue to function for some period of time, but they are not guaranteed to remain stable or available.
+Apps and integrations that continue relying on unsupported v4 APIs may experience degraded performance or outages.
+What does this mean for developers?
+If your app or integration currently uses v4 APIs (e.g., /crm/v4/), you should plan to migrate to the latest date-based versioned API before March 30, 2027. The current recommended target is API version 2026-03.
+To prepare:
+Inventory any applications, integrations, or internal tooling that still call v4 APIs.
+Update those integrations to use a supported date-based API version.
+Validate and roll out the new version before the end-of-support date to avoid disruption.
+For Marketplace apps , this also affects certification and recertification . Apps using unsupported API versions that no longer meet the latest requirements may be denied certification or recertification, and non-functional apps may be removed from the HubSpot Marketplace.
+Why is HubSpot making this change?
+This change is part of HubSpot’s broader shift to date-based API versioning, which is designed to give developers clearer version boundaries, more predictable support timelines, and a more consistent upgrade path. It also helps reduce unexpected changes for end users by making version adoption more explicit and intentional.
+When is it happening?
+The end-of-support date for v4 APIs is March 30, 2027. We strongly recommend completing your API migration before that date.
+Helpful resources
+API Reference: Latest Overview
+A Developer’s Guide to HubSpot’s Date-Based API Versioning
+HubSpot Date-based API Versioning Migration Playbook
+Introducing Date-Based API Versioning
+Questions or comments? If you need help understanding HubSpot’s date-based versioning model or planning your migration, review the resources above and follow future updates in the HubSpot Developer Changelog or join the community forum for a peer-to-peer discussion .
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline mobile-footer-first-trigger pt-0" data-radix-collection-item="">For Developers
+svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline" data-radix-collection-item="">Company
+For Developers
+Developer Tooling
+API Documentation
+Apps Documentation
+CMS Documentation
+Become a Partner
+HubSpot Developer Blog
+HubSpot Developer Changelog
+HubSpot Developer Community
+HubSpot Developer Newsletter
+HubSpot Academy
+Company
+About Us
+Careers
+Management Team
+Board of Directors
+Investor Relations
+Contact Us
+Copyright © 2026 HubSpot, Inc.
+Legal Stuff
+Privacy Policy
+Security
+Website Accessibility

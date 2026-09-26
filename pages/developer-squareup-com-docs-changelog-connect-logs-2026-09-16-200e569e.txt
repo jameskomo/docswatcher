@@ -1,0 +1,74 @@
+Search developer resources
+/
+Docs & Tools
+SDKs
+Support
+Partnerships
+Sign In
+Docs Home
+Dev Essentials
+Payments Commerce Customers Staff Merchants
+Release notes
+Docs
+Docs Home
+Dev Essentials
+Payments
+Commerce
+Customers
+Staff
+Merchants
+Release notes
+Overview
+Square APIs and SDKs
+Mobile SDKs
+Web SDKs
+Web Payments SDK
+App Marketplace Requirements
+/
+Square APIs and SDKs
+2026-09-16 Changelog
+Square
+Documentation
+Transactions API
+Link to section
+Version summary
+Square Version : 2026-09-16
+Java : 48.0.0.20260916
+.NET : 47.0.0
+Node.js : 46.0.0
+PHP : 47.0.0.20260916
+Python : 46.0.0.20260916
+Ruby : 47.0.0.20260916
+Go : v5.0.0
+Link to section
+Details
+Link to section
+API updates
+Transactions API
+The Charge , CreateRefund , CaptureTransaction , and VoidTransaction write operations are retired. Read operations remain available for historical transaction data. Use the Payments API and Refunds API for payment processing and refunds. Migrate from the Transactions API
+Development
+Guides
+API Reference
+API Explorer
+SDKs
+Sample apps
+System status
+Support
+Developer forums
+Developer blog
+YouTube
+X
+More
+Square Home
+Square Developer
+App Marketplace
+Partner with Square
+Solutions Partner Program
+Pricing
+Sales
+©
+2026
+Square, Inc.
+Developer terms of service
+Developer Integration and Marketing Agreement
+Privacy policy

@@ -1,0 +1,1563 @@
+Documentation Index
+Fetch the complete documentation index at: /llms.txt
+Use this file to discover all available pages before exploring further.
+Skip to main content
+X home page
+X API
+Documentation
+API Reference
+Changelog
+Search...
+⌘ K
+Support
+Developer Console
+X home page
+Search or ask...
+Navigation
+Changelog
+X API changelog and release notes
+Developer Console
+Forums
+GitHub
+Changelog
+Overview
+Changelog
+X API changelog and release notes
+Copy page Copy page
+Release notes and version history for the X API v2, Enterprise APIs, Ads API, SDKs, streaming, webhooks, and the developer platform.
+Copy page Copy page
+To subscribe to updates, please “Turn on notifications” for @API . You can also follow this changelog in your feed reader via the RSS feed .
+​
+Sep 21, 2026
+X API v2
+​
+Migrate OAuth 1.0a user tokens to OAuth 2.0 with token exchange
+Apps with existing OAuth 1.0a users can now exchange each user’s stored OAuth 1.0a access token and secret for an OAuth 2.0 access token and refresh token, with no consent screen or re-authorization. Send grant_type=urn:ietf:params:oauth:grant-type:token-exchange to POST /2/oauth2/token ; the granted scopes are derived from the permissions the user originally authorized, and offline.access is always included. See Migrating OAuth 1.0a user tokens to OAuth 2.0 for the request format, permission-to-scope mapping, rate limits, and error handling.
+​
+Sep 17, 2026
+X Ads API
+​
+Conversion API Google Tag Manager server-side template
+Advertisers can now send website conversions through the official X Ads Conversion API (Official) tag in a Google Tag Manager server container, without writing Conversion API request code. See Set up the Conversion API with Google Tag Manager for Pixel ID, access token, event mapping, and Pixel + Conversion API deduplication steps. The template is published in the Google Tag Manager Community Template Gallery .
+​
+Sep 16, 2026
+X Ads API
+​
+REGIONS segmentation for Analytics
+Asynchronous analytics jobs now support REGIONS as a segmentation_type . The country parameter is required when requesting a regional breakdown. See Metrics and Segmentation for the full list of enabled segmentation types.
+​
+Sep 15, 2026
+X Ads API
+​
+Lead Generation API
+We documented the Lead Generation API for Lead Gen campaigns. You can now create and manage native lead forms, attach a form to a card with the LEAD_FORM destination, and export submitted leads as JSON, CSV, or XLSX.
+POST /12/accounts/:account_id/lead_forms creates a form (introduction, fields, privacy policy, and optional thank-you page)
+POST /12/accounts/:account_id/cards accepts destination type LEAD_FORM
+POST /12/accounts/:account_id/ad-export/api/v1/exports with entity_type=leads exports submissions for a form and time window
+The Leads API requires the Campaign user permission. Lead exports are restricted to account administrators.
+​
+Sep 1, 2026
+X API v2
+​
+Media upload and Post-create size and duration limits
+We documented the size and duration limits that apply when uploading media and when attaching it to a Post. Upload and POST /2/tweets are separately enforced. Limits follow the authenticated user’s X Premium / verified status and media_category , not your developer API plan.
+Default accounts: Post video up to 20 minutes and 8 GB ( tweet_video / amplify_video )
+X Premium / verified: Post video up to 125 minutes and 16 GB
+Direct Message video is unchanged: 140 seconds / 512 MB default, 10 minutes / 1 GB Premium
+Exceeding the posting user’s duration cap returns 403 This user is not allowed to post a video longer than N minutes.
+The chunked upload quickstart now uses the v2 paths ( POST /2/media/upload/initialize , /{id}/append , /{id}/finalize ) instead of the previous command-style POST /2/media/upload flow.
+​
+Aug 13, 2026
+X Ads API
+​
+Updated video_total_views definition
+We updated the definition of the video_total_views metric in the VIDEO metrics group of the X Ads API Analytics endpoints . It now reports views that are 100% in-view for at least 3 seconds, plus any view where a user manually clicks the play button. The previous definition (at least 50% in-view for 2 seconds, per the MRC standard) no longer applies. The prior “100% in-view for 3 seconds” definition remains available as the video_3s100pct_views metric, and you can continue bidding on it via the VIEW_3S_100PCT bid unit.
+​
+Jul 21, 2026
+X API v2
+​
+Mute and block events for X Activity API
+Today, we added mute and block events to the X Activity API . You can now subscribe by User ID to receive real-time notifications when a user mutes or unmutes ( mute.mute , mute.unmute ) or blocks or unblocks ( block.block , block.unblock ) another user. These are private events: they require user-context (OAuth 2.0) authentication with the mute.read or block.read scope, respectively, and the user_id filter matches the user performing the action.
+​
+Jun 11, 2026
+X API v2
+​
+Articles draft and publish endpoints
+Today, we added new endpoints for drafting and publishing Articles via the X API.
+​
+Jun 4, 2026
+X API v2
+​
+Post create and delete events for X Activity API
+Today, we added post.create and post.delete events to the X Activity API . You can now subscribe by User ID to receive real-time notifications when a user creates or deletes a Post. For basic per-user post activity, use XAA. For advanced keyword filtering and the full set of Filtered Stream operators, continue to use the Filtered Stream .
+​
+Jun 3, 2026
+X API v2
+​
+paid_partnership Post field
+Added support for the paid_partnership field on Posts.
+When creating a Post via POST /2/tweets , set "paid_partnership": true to indicate the Post is a paid partnership (i.e., the author is disclosing that it contains paid promotion). The Post will be labeled as a paid promotion.
+When reading Posts, request tweet.fields=paid_partnership to retrieve the value ( true if the author has disclosed the Post as containing paid promotion).
+​
+May 4, 2026
+X API v2
+​
+Search endpoints migrating to new search index
+Today, we migrated the X API v2 search endpoints ( /2/tweets/search/recent , /2/tweets/search/all , /2/tweets/counts/recent , /2/tweets/counts/all ) to the new X core platform search index. This brings major performance improvements, dramatically fewer 503 errors, and three new precision operators: min\_likes: , min\_replies: , and min\_reposts: . Note: retweets are no longer returned in keyword-based search results (the Filtered Stream is unchanged). Learn more here .
+​
+Apr 16, 2026
+X API
+​
+X API pricing update: Owned Reads now $0.001
+Effective April 20, 2026, we introduced new “Owned Reads” pricing at $0.001 per resource (1,000 for $1 ) for qualifying endpoints when accessing your own data:
+GET /2/users/{id}/bookmarks , /blocking , /muting , /pinned_lists , /tweets , /mentions , /liked_tweets , /followers , /following , /owned_lists , /followed_lists , and /list_memberships . We also updated writes — POST /2/tweets is now $0.015 per post, and Posts containing a URL are $0.20 per Post (summoned replies remain $0.01 ). Following, Likes, and Quote-Posts via the API have been removed from all self-serve tiers. Learn more here .
+​
+Mar 20, 2026
+X API v2
+​
+Deprecation of Account Activity replay endpoint
+Today, we announced the deprecation of POST /2/account_activity/replay/webhooks/{webhook_id}/subscriptions/all , effective March 25, 2026 at 12:00 PM ET. Use the new consolidated POST /2/webhooks/replay endpoint instead — it provides identical functionality. Learn more here .
+​
+Mar 18, 2026
+X API v2
+​
+Direction filter for X Activity API subscriptions
+Today, we added an optional direction filter to X Activity API subscriptions. Subscribers can now scope DM and chat events to sent , received , or both, reducing noise when only outgoing or incoming events are needed.
+​
+Mar 13, 2026
+X API v2
+​
+Updates to event types format in the X Activity API
+Today, we announced changes to event type naming in the X Activity API, effective March 18, 2026. PascalCase event types (e.g., ProfileBioUpdate ) are being deprecated in favor of a dot-separated lowercase format (e.g., profile.update.bio ). Update any filtering, switch statements, or deserialization logic that relies on the old values. Learn more here .
+​
+Mar 11, 2026
+X API v2
+​
+Legacy Direct Message events in the X Activity API
+Today, we added legacy DM events ( dm.received , dm.sent , dm.read , dm.indicate_typing ) to the X Activity API . This brings DM event delivery from the Account Activity API into the lower-latency XAA pipeline.
+​
+Feb 23, 2026
+X API v2
+​
+Addressing LLM-generated spam
+Today, we made changes to reduce automated, low-quality replies on X. Programmatic replies via POST /2/tweets are now only permitted when the original Post’s author has “summoned” the replier (by @mentioning that account or quoting one of its Posts). Additional restrictions apply to programmatically @mentioning or quoting users. These changes affect self-serve tiers only — Enterprise access is not impacted. Learn more here .
+​
+Feb 6, 2026
+X API
+​
+Launch of X API Pay-Per-Use pricing
+Today, we officially launched X API Pay-Per-Use pricing — a flexible credit-based model built for indie builders, startups, and hobbyists. Highlights:
+A new Developer Console at console.x.com
+The XDK (X Developer Kit) with first-party Python and TypeScript SDKs
+An interactive Playground for testing
+An MCP server for AI models
+Earn up to 20% back in xAI/Grok API credits on every dollar spent on the X API
+Public Utility Apps continue to receive free scaled access. Recently active Legacy Free tier users receive a one-time $10 voucher. Basic and Pro plans remain available, and existing subscribers can opt in to Pay-Per-Use. Learn more here .
+​
+Jan 28, 2026
+X API v2
+​
+Spaces events in the X Activity API
+Today, we added Spaces lifecycle events ( spaces.start , spaces.end ) to the X Activity API . Subscribe by User ID to be notified in real time when a Space starts or ends.
+​
+Jan 19, 2026
+X API v2
+​
+Deprecating count-based operators
+Today, we deprecated the min\_likes , min\_replies , and min\_reposts operators on /2/tweets/search/recent and /2/tweets/search/all . This change does not affect the equivalent operators in the Filtered Stream. We are evaluating how to best re-enable these in the future. Learn more here .
+​
+Jan 15, 2026
+X API v2
+​
+OAuth 2.0 support added to Account Activity API v2
+Today, we added full OAuth 2.0 support to the Account Activity API v2 . Developers can now create subscriptions using OAuth 2.0 with fine-grained scopes (e.g., follow.read ) instead of the all-or-nothing OAuth 1.0a permission model. Existing OAuth 1.0a-based integrations continue to work without disruption — when present, OAuth 1.0a permissions fully override OAuth 2.0 scopes. Learn more here .
+​
+Dec 23, 2025
+X API
+​
+Introducing X API Playground
+Today, we introduced the X API Playground — a self-hosted local server that emulates X API v2 endpoints. Develop and test integrations without making real API calls or hitting rate limits. Includes realistic mock data, state persistence, OpenAPI validation, rate-limit simulation, and a web UI. Install with go install github.com/xdevplatform/playground/cmd/playground@latest . Learn more here .
+​
+Nov 19, 2025
+X API v2
+​
+Launch of news endpoints
+Today, we launched the new News endpoints in the X API v2:
+GET /2/news/search — returns trending news stories matching a search query
+GET /2/news/{id} — looks up a specific news story by ID
+Both endpoints support news.fields for selecting fields like name , summary , contexts , cluster\_posts\_results , and last\_updated\_at\_ms . Learn more here .
+​
+Nov 3, 2025
+X API v2
+​
+Launch of the Python and TypeScript XDKs
+Today, we launched the official first-party Python and TypeScript XDKs (X Developer Kits) for the X API v2. The XDKs handle authentication (Bearer Token, OAuth 2.0 PKCE, OAuth 1.0a), automatic pagination, real-time streaming with reconnect handling, and comprehensive coverage of all v2 endpoints. Install with pip install xdk or npm install @xdevplatform/xdk . Learn more here .
+​
+Oct 27, 2025
+X API v2
+​
+Keyword filtering for X Activity API subscriptions
+Today, we added keyword filtering to X Activity API subscriptions. In addition to filtering by User ID, subscribers can now narrow event delivery further by keyword — useful for News events and other event types where high event volumes warrant additional filtering.
+​
+Oct 24, 2025
+X API v2
+​
+Verified badge, affiliate badge, and handle update events in the X Activity API
+Today, we expanded the X Activity API to deliver additional profile-related event types:
+profile.update.verified — when a user’s verification status changes
+profile.update.affiliate — when a user’s affiliate badge changes
+profile.update.screenname — when a user changes their @handle
+​
+Oct 20, 2025
+X API
+​
+X API Pay-Per-Use pricing pilot
+Today, we announced a limited closed pilot for a new credit-based, usage-based pricing model. Developers buy credits upfront and are charged per request — no fixed subscription fees and no monthly object caps. Initial pilot rates: 0.005 / P o s t R e a d , 0.005/Post Read, 0.005/ P os tR e a d , 0.01/User Read, 0.01 / D M E v e n t R e a d , 0.01/DM Event Read, 0.01/ D ME v e n tR e a d , 0.01/Content Create, 0.01 / D M I n t e r a c t i o n , 0.01/DM Interaction, 0.01/ D M I n t er a c t i o n , 0.015/User Interaction. Learn more here .
+​
+Oct 18, 2025
+X API v2
+​
+Launch of the X Activity API open beta
+Today, we launched the open beta of the X Activity API — a new suite of endpoints for subscribing to real-time activity events on X with sub-second latency. Subscribe to profile event types ( ProfileBioUpdate , ProfilePictureUpdate , ProfileBannerUpdate , ProfileGeoUpdate , ProfileUrlUpdate ), filter by User ID, and receive matching events via persistent HTTP stream ( GET /2/activity/stream ) or webhooks. Subscriptions are managed via POST /2/activity/subscriptions . Learn more here .
+​
+Oct 3, 2025
+X API v2
+​
+Post editing via the X API
+Today, we launched the ability to programmatically edit recent Posts via the X API. Use the existing POST /2/posts endpoint with a new edit_options object containing previous_post_id . Requirements: the authenticated user must have X Premium, the Post must be your own, and it must have been created within the last hour. See the updated Create or Edit Post docs. Learn more here .
+​
+Sep 19, 2025
+X API v2
+​
+Connections API for managing active streaming connections
+Today, we launched the Connections API for managing active streaming connections programmatically:
+GET /2/connections — list active and historical streaming connections
+DELETE /2/connections/all — terminate all active streaming connections for the app
+DELETE /2/connections/{endpoint_id} — terminate connections for a specific streaming endpoint
+DELETE /2/connections — terminate specific connections by UUID
+This helps developers resolve “TooManyConnections” errors and clean up stale connections without waiting for timeouts.
+​
+Sep 17, 2025
+X API v2
+​
+Community Notes: evaluate note endpoint
+Today, we added the POST /2/evaluate_note endpoint to the Community Notes API . AI Note Writers can now evaluate a drafted note before submission to receive signals about its potential helpfulness, claim/opinion alignment, and other model feedback.
+​
+Sep 9, 2025
+X API v2
+​
+Launch of the Filtered Stream Webhooks API
+Today, we launched the Filtered Stream Webhooks API , which delivers matching public Posts asynchronously to a registered webhook instead of requiring a persistent connection. Rules are managed using the existing /2/tweets/search/stream/rules endpoints, and matching Posts (including edit history) are delivered as JSON to your webhook. Available to Enterprise developers; supports 25,000+ rules per project with rules up to 2,048 characters. Learn more here .
+​
+Aug 22, 2025
+X API v2
+​
+Removal of like and follow endpoints from Free tier
+To combat abuse, platform manipulation, and fake engagement, we removed POST /2/users/:id/likes and POST /2/users/:id/following from the X API Free tier, effective immediately. Paid tiers (Basic, Pro, Enterprise) are unaffected. Learn more here .
+​
+Aug 6, 2025
+X API v2
+​
+PowerStream rules lookup endpoint
+Today, we added the GET /2/powerstream/rules endpoint, allowing PowerStream customers to programmatically retrieve the rules configured against their PowerStream instances.
+​
+Jul 28, 2025
+X API v2
+​
+Broadcasting community posts via share_with_followers
+Today, we added a new optional share_with_followers boolean parameter to POST /2/tweets . When posting with a community_id and share_with_followers: true , the community Post is also broadcast to the authenticated user’s followers’ timelines — matching the “Also share with followers” checkbox on x.com.
+​
+Jul 8, 2025
+X API v2
+​
+Launch of the Community Notes API
+Today, we launched the Community Notes API — a new suite of endpoints for AI Note Writers to programmatically participate in Community Notes:
+GET /2/notes/search/posts_eligible_for_notes — search Posts eligible to receive a Community Note
+GET /2/notes/search/notes_written — retrieve notes previously written by the authenticated AI Note Writer
+POST /2/notes — submit a Community Note
+Access requires X Developer AI enrollment and Community Notes AI Note Writer approval.
+​
+Jun 3, 2025
+X API
+​
+Change to DM events behavior
+Today, we made a change to X API V2 DM Events behavior. With the new change participant_ids array will only be included for ParticipantsJoin and ParticipantsLeave events, and it will list only the participants who joined or left at the time of the event. The MessageCreate event will no longer include the participant_ids array. Learn more here .
+​
+May 20, 2025
+X API
+​
+Launch of Account Activity API endpoints
+Today, we launched new X API v2 Account Activity API endpoints . Learn more here .
+​
+Apr 30, 2025
+X API
+​
+Improvements to media upload endpoint
+We made a few improvements to media upload endpoint to improve the developer experience. We introduced Dedicated Endpoints for Chunked Media Upload Media Upload endpoints . Learn more here .
+​
+Apr 3, 2025
+X API
+​
+Support for email address retrieval with OAuth 2.0
+Today, we added support for email address retrieval with OAuth 2.0 in X API V2. Learn more here .
+​
+Feb 18, 2025
+X API
+​
+Changes to user affiliation data
+Today, we made changes to X API V2 User Affiliation Data. With the new change affiliation.user_id will return an array of user_ids. Earlier it used to return a single user_id as a string, even if a user had multiple affiliations. Learn more here .
+​
+Jan 16, 2025
+X API
+​
+Launch of media upload endpoints
+Today, we launched new X API v2 Media Upload endpoints . Learn more here .
+​
+Jan 13, 2025
+Documentation
+​
+Launch of new documentation site
+Today, we launched our new X Developer Platform documentation site, https://docs.x.com .
+​
+Dec 17, 2024
+X API
+​
+Launch of xurl tool
+Today, we launched xurl , a new tool that simplifies API testing for X developers, which now supports OAuth 2.0.
+​
+Nov 22, 2024
+X API v2
+​
+Addition of community ID tweet field
+Today, we added the community_id Tweet Field to the X API v2. Learn more about it here .
+​
+Sep 23, 2024
+X API v2
+​
+Addition of DM blocking endpoints
+Today, we added the DM blocking and DM unblocking endpoints to the X API v2.
+​
+Aug 20, 2024
+X API v2
+​
+Support for longform posts
+Today, we added the ability to create longform Posts with a length of 25k instead of 4k.
+​
+Aug 9, 2024
+X API v2
+​
+Support for long form posts
+Today, we added the ability to create long form Posts using the X API v2
+​
+Aug 2, 2024
+X API v2
+​
+Retrieve user affiliation
+Today, we added the ability to retrieve a User’s affiliation programmatically using the X API v2
+​
+Jul 26, 2024
+X API v2
+​
+Get article metadata
+Today, we added the ability to get Article metadata using the X API v2
+​
+Jun 17, 2024
+X API v2
+​
+Get profile image and cover picture
+Today, we added the ability to get profile Image and cover picture URL via the X V2 API
+​
+Jan 16, 2024
+X API v2
+​
+Addition of connection status field
+Today, we added the connection_status field in the X API v2. Learn more about it here .
+​
+Dec 12, 2023
+X API v2
+​
+Addition of trends lookup endpoint
+Today, we added the Trends lookup endpoint in the X API v2. Learn more about it here .
+​
+Dec 8, 2023
+X API v2
+​
+Addition of users search endpoint
+Today, we added the Users Search endpoint in the X API v2. Learn more about it here .
+​
+Nov 29, 2023
+X API v2
+​
+Get DM permissions
+Today, we added the ability to the get DM permissions via the X API v2. Learn more about it here .
+​
+Nov 20, 2023
+X API v2
+​
+Launch of subscription type field
+Today, we launched a subscription_type field on the User object in the X API v2. Learn more about it here .
+​
+Nov 2, 2023
+X API v2
+​
+Get posts usage endpoint
+Today, we launched an endpoint to programmatically get your posts usage in the X API v2. Learn more about it here .
+​
+Sep 28, 2023
+X API v2
+​
+Launch of reposts lookup endpoint
+Today, we launched an endpoint to lookup reposts of a post in the X API v2. Learn more about it here .
+​
+Sep 28, 2023
+X API v1.1
+​
+Deprecation of search endpoints
+Today, we are deprecating the search/tweets, users/search, and geo/search endpoints in the X API v1.1. Learn more here .
+​
+Sep 21, 2023
+X API: Enterprise
+​
+Deprecation of Replay API endpoint
+Today, we are deprecating the Replay API endpoint from the enterprise X API. You can use the recovery feature instead.
+​
+Aug 1, 2023
+X API v1.1
+​
+Deprecation of historical Powertrack endpoints
+Today, we are deprecating the Historical Powertrack and Insights track endpoints from the enterprise X API.
+​
+Jun 26, 2023
+X API v2
+​
+Removal of follows endpoints from Basic and Pro Tiers
+Today, we are removing the Follows and List Follows endpoints from the Basic and Pro tiers of the X API v2.
+​
+Jun 12, 2023
+X API v2
+​
+Removal of manage blocks endpoint
+Today, we are removing the Manage Blocks endpoint from X API v2.
+​
+May 31, 2023
+X API v2
+​
+Support for Bookmarks count and long posts
+Today, we added support for retrieving bookmarks count and the ability to retrieve posts with more than 280 characters in the X API v2.
+​
+Mar 14, 2023
+X API v1.1
+​
+Deprecation of Statuses/Filter endpoint
+Today, we are deprecating the statuses/filter endpoint in the X API v1.1 Developers can use the filtered stream endpoint in the X API v2.
+​
+Jan 5, 2023
+X API v2
+​
+Support for view counts
+Today, we are adding support for view counts in the X API v2. A new field called impression_count is made available in the public_metrics of the post payload.
+​
+Dec 21, 2022
+X API v2
+​
+Addition of verified type field
+Today, we are adding a verified_type user field to the X API v2 that indicates the type of verification a user account has (blue, business, government or none).
+​
+Dec 20, 2022
+X API v2
+​
+Removal of source field
+Today, we are removing the source field from the post payload in the X APIs.
+​
+Oct 27, 2022
+X API v2
+​
+Addition of Direct Messages endpoints
+Today, we are adding six v2 Direct Messages endpoints. This release includes three GET methods for retrieving Direct Message conversation events and three POST methods for creating new Direct Messages. These methods support group conversations for the first time. Please visit our blog post to learn more about this update.
+​
+Sep 29, 2022
+X API v2
+​
+Support for edited post metadata
+Today, we are adding the ability for developers to retrieve edited post metadata using the X API v2. Please visit our blog post to learn more about this update.
+​
+Aug 3, 2022
+X API v2
+​
+Addition of filtering operator aliases
+Filtering/query operator “aliases” were added to search and filtered stream endpoints, across enterprise, premium, and v2. In many cases, the operator refers to posts instead of statuses, e.g. “in_reply_to_tweet_id” as an alias for “in_reply_to_status_id.” In other cases, the new operator alias adds more clarity to the matching performed. For example., since posts can only have one video attachment, a new “has:video_link” alias is provided for “has:videos.” Check out the v2 filtered stream operator table to see more examples.
+​
+Jul 27, 2022
+X API v2
+​
+Updates to reverse chronological home timeline
+Beginning today, the reverse chronological home timeline v2 endpoint can return every post created on a timeline over the last 7 days and the most recent 800 regardless of the creation date.
+​
+Jul 19, 2022
+X API v2
+​
+New filtering operators for Filtered Stream
+Today, 10 new v2 filtering operators are now available to all developers building with the filtered stream endpoints, and another 10 are now more widely available. Please visit our blog post to learn more about this update.
+​
+Jun 16, 2022
+X API v2
+​
+Updates to streaming endpoints latency
+Today, we’re making updates to the streaming endpoints in the X API v2 to reduce the latency by 50%.
+​
+May 23, 2022
+X API v2
+​
+Enabling v1.1 media endpoints in Essential Access
+Today, we’re enabling the v1.1 media endpoints in Essential access of the X API v2. Please visit our forum announcement to learn more about this update.
+​
+May 19, 2022
+X API v2
+​
+Launch of Reverse Chronological Home Timeline endpoint
+Today, we’re launching a new endpoint that enables you to retrieve a collection of the most recent posts and reposts posted by who you follow. Please visit our forum announcement to learn more about this launch. Along with the new endpoints, the variants field is now available for the media object . This will give you the type of content attached with the URL.
+​
+Mar 24, 2022
+X API v2
+​
+Launch of Bookmarks endpoints
+Today, we’re launching new endpoints that enable you to manage and lookup Bookmarks using the X API v2. The Bookmarks feature has long been available in the X app, but until now, there hasn’t been an endpoint that allows you to retrieve, create or build solutions to manage your Bookmarks via the API. Please visit our forum announcement to learn more about this launch.
+​
+Mar 17, 2022
+X API v2
+​
+Launch of quotes lookup endpoint
+Today, we’re launching the quotes lookup endpoint that lets you get the quotes for a post ID. To learn more about this launch, please visit our forum announcement to learn more about this launch.
+​
+Feb 3, 2022
+Documentation
+​
+Updates to documentation navigation
+We’ve heard your feedback. Finding content in our documentation could be difficult, and it was confusing when you clicked on a link and were taken to an entirely different side navigation. Today, we’ve released an updated docs navigation that enables you to browse the full offering of the X Developer Platform from a single side navigation. With this launch, we eliminated redundant pages, removed confusing icons, and improved how you can interact with the different elements within the navigation. If you have any feedback, please let us know via our feedback channel .
+​
+Jan 20, 2022
+X API v2
+​
+Improvements to reposts and likes lookup endpoints
+Today, we’re launching improvements to the reposts lookup and the Likes lookup endpoints, allowing you to get back the complete list of accounts who have Liked or reposted a post, not just the last 100 accounts to do so. To learn more about this launch, please visit our forum announcement to learn more about this launch.
+​
+Dec 14, 2021
+X API v2: Authentication
+​
+Support for OAuth 2.0 authentication
+Today, all developers can now authenticate using OAuth 2.0 by selecting OAuth 2.0 as an authentication method in the Developer Console. We’ve added support for confidential and public clients and all relevant v2 endpoints to use this authentication method as part of this release. OAuth 2.0 is an industry-standard authorization protocol that provides developers more control over an application’s scopes and improves authorization flows across multiple devices. In other words, developers building applications for people on X will have more control over the information their App requests from its users, so that you only have to ask your end-users for the data and information you need. This modern authorization protocol will allow you to present your end-users with a more streamlined consent flow for authorizing your app, which only displays the specific scopes you have requested from them. To learn more about this launch, please visit our forum announcement.
+​
+Nov 15, 2021
+X API v2: Early Access
+​
+Major platform updates to X API v2
+Major platform updates: X API v2 is now the primary version, new Essential and Elevated access, and Policy changes Today, we are announcing that X API v2 is now the primary version of the X API. We have launched enough endpoints and functionality into X API v2 to satisfy the needs of 90% of all existing Apps built on the X API. We are launching the following changes today to further improve upon the X API v2 developer experience:
+Fast and free Essential access to the API, and free Elevated access to developers who have had their use cases approved. We have a lot more details on these access levels available on our About the X API page.
+We are removing language in our Developer Policy that restricted how you build with X’s core features, and limited the number of users you can support through your app.
+We are opening up our platform to encourage you to build tools and products that make X better, healthier, and extend the public conversation. See a list of solutions we’d love to see you build .
+Specifically, we’ve removed terms that restricted replication of the X experience, including X’s core features as well as terms that required permission to have high numbers of user tokens.
+We know that building solutions that help people on X often means a developer has to build (or replicate) some of the things that are available on X. These changes to our Developer Policy are intended to drive clarity for the developer ecosystem and provide an open API platform that makes it easier for developers to build, innovate, and make an impact on the public conversation.
+We go into a lot more detail on this launch and the X API launches that led to this moment in our forum post . In addition to exploring earlier changelog entries, we’ve put together some key resources that you can review to understand what all has released to X API v2 to-date:
+X API endpoint map
+About the X API
+​
+Nov 15, 2021
+X API v2: Early Access
+​
+Launch of list lookup endpoints
+Today, we’re launching the new List lookup endpoints to X API v2. These endpoints will allow users to retrieve details on specified Lists such as followers, members, posts and more. The data retrieved can be used to build solutions that solve for curation, analysis and discoverability use cases and needs. In addition to new List endpoints, a new list: operator has been made available at the Academic Research access level. This will be available to use on search posts and post counts. To learn more about this launch, please visit our forum announcement .
+​
+Nov 15, 2021
+X API v2: Early Access
+​
+Additions to Spaces endpoints
+We are adding functionality to the Spaces endpoint to return the list of people who purchased a ticket to a Space, as well as support for Topics. To learn more about this launch, please visit our forum announcement .
+​
+Nov 3, 2021
+X API v2: Early Access
+​
+Launch of manage posts endpoints
+Today, we’re launching new manage posts endpoints to the X API v2. In addition to post and post delete functionality, we’ve added the ability to post polls, tag people in images, create posts with reply settings, and post to Super Followers. To learn more about this launch, please visit our forum announcement .
+​
+Oct 12, 2021
+X for Websites
+​
+Changes to embedded buttons
+Today, we’re making some changes to X’s embedded buttons. Buttons are now more rounded to match X.com buttons and we’ve (very slightly) updated our color palette. To learn more about this launch, please visit our forum announcement .
+​
+Sep 29, 2021
+X API v2: Early Access
+​
+Launch of lists endpoint group
+Today, we’re launching the new Lists endpoint group to X API v2. These endpoints will allow you to build solutions that curate and organize posts based on preferences, interests, groups, or topics. To learn more about this launch, please visit our forum announcement .
+​
+Sep 22, 2021
+X API v2: Early Access
+​
+Launch of mutes lookup endpoint
+Today, we’re launching the new mutes lookup endpoint to the X API v2. This endpoint will allow authenticated users to retrieve and get information on the accounts they have muted. To learn more about this launch, please visit our forum announcement .
+​
+Sep 9, 2021
+OAuth 2.0 beta now available
+​
+Launch of OAuth 2.0 beta
+Today, we’re launching a beta of OAuth 2.0 and fine-grained scopes on the X API v2. Developers interested in shaping the future of OAuth 2.0 on the X Developer Platform, can request access to the OAuth 2.0 beta. OAuth 2.0 is the industry standard for authentication and will allow for a more modern authorization experience. The OAuth 2.0 beta lets you test this new functionality in a v2 Project and associated App and give us feedback before a General Availability release. However, since this implementation of OAuth 2.0 is currently in development, we strongly recommend that you refrain from testing on a public, production environment, or app. To learn more about this launch, please visit our forum announcement.
+​
+Aug 25, 2021
+Batch compliance endpoints now available in X API v2
+​
+Launch of Batch Compliance endpoints
+Today, we’re launching the new batch compliance endpoints to the X API v2 to make it easier for developers using the X API to keep their X data in compliance with our Developer Agreement and Policy . These endpoints allow developers and researchers to batch upload large amounts of post or User IDs and understand what action is needed to ensure that their datasets reflect user intent and the current state of the content on X. To learn more about this launch, please visit our forum announcement .
+​
+Aug 18, 2021
+Spaces endpoints now available in X API v2
+​
+Launch of Spaces endpoints
+Today, we’re launching the new Spaces endpoints and a new top-level Spaces data dictionary to the X API v2. The Spaces endpoints enable you to lookup Spaces by Space ID or user ID, or using keywords, hashtags, or usernames of people mentioned in a title. The new data dictionary contains relevant information about a Space such as its title, ticketed status, and participant metrics; all user IDs can be expanded into full objects. To learn more about this launch, please visit our forum announcement .
+​
+Aug 16, 2021
+New data object to help clarify video view limitation for Engagement API
+​
+New object for video views limitation
+Previously, when you requested video view metrics using the enterprise Engagement API on posts that are older than 1800 days old, we delivered a zero value without much context. Today, we will start delivering a new object in these cases called unsupported_for_video_views_tweet_ids, which will include a comma-separated list of post IDs that are older than 1800 days old. You will still receive all other requested metrics for these posts in a separate object. To learn more about this launch, please visit our forum announcement .
+​
+Aug 11, 2021
+Media alt text field now available in X API v2
+​
+Addition of alt text field
+Today, we are making the alt_text field available in the X API v2 media object, in order to enable developers to build more consciously for accessibility. To request this field, you must pass the expansions=attachments.media_keys parameter, as well as the media.fields=alt_text parameter. If included in your request, this field will return the alt text for any posts that include images with alt text. To learn more about this launch, please visit our forum announcement .
+​
+Jul 14, 2021
+reposts now available in X API v2
+​
+Launch of reposts endpoints
+Today, we’re launching new reposts endpoints to X API v2. Developers can now use these endpoints to repost or undo a repost on behalf of an authenticated user, or to look up who reposted a given post. To learn more about this launch, please visit our forum announcement .
+​
+Jun 30, 2021
+Manage mutes now available in X API v2
+​
+Launch of manage mutes endpoints
+Today, we’re launching new manage mutes endpoints to the X API v2. These endpoints will allow authenticated users to mute or unmute accounts. To learn more about this launch, please visit our forum announcement . We have now reduced the max_results that can deliver with the full-archive search endpoint when you are requesting the context_annotations field with the tweet.fields parameter to 100, meaning that you can only pull up to 100 posts with the field per page.
+​
+Jun 29, 2021
+Redundant connections and backfill are now available with v2 filtered stream and sampled stream
+​
+Reliability features for streaming endpoints
+Today, we are launching two reliability streaming features for X API v2’s filtered stream and sampled stream called backfill and redundant connections, which are now available on the Academic Research product track. The redundant connections feature enables you to connect to a given stream two times, which can help to ensure that you maximize streaming up-time in case one of your streams experiences a disconnection. Backfill can be utilized by adding the backfill_minutes parameter and a whole number between one and five to your streaming request, and allows you to request missed data that might have resulted from a disconnected stream. To learn more about this launch, please visit our forum announcement .
+​
+Jun 24, 2021
+post counts now available in X API v2
+​
+Launch of post counts endpoints
+Today, we’re launching the new post counts endpoints to the X API v2. This includes two different endpoints: Recent post counts, which is available to all product tracks, and full-archive post counts, which is currently only available to the Academic Research Product Track. You can use these endpoints to receive the count of posts that matches a specified query. To learn more about this launch, please visit our forum announcement .
+​
+Jun 21, 2021
+Improvements to Teams Functionality
+​
+Improvements to teams
+Today, we’re launching key improvements to the functionality of teams based on feedback we’ve heard from the community. We have updated the style and design of the team page. We also made changes to the invitation flow to make it easier to invite team members or to learn more about why an invitation might have failed. If you have a team account you can check out the changes by viewing the teams page of the Developer Console. To learn more about teams check out our documentation on the subject and related FAQ . To learn more about this launch, please visit our forum announcement .
+​
+Jun 18, 2021
+Retiring the standard v1.1 GET /help/configuration endpoint
+​
+Retirement of configuration endpoint
+Today, we retired the standard v1.1 GET /help/configuration endpoint. To learn more about this launch, please visit our forum announcement .
+​
+May 26, 2021
+Consolidating the oEmbed endpoint
+​
+Consolidation of oembed endpoint
+Today, we’re sharing that the v1.1 oEmbed endpoint will be retired and removed on November 23, 2021, so that new features can be supported in a consistent manner. After that date, the only official and supported API endpoint for X oEmbeds (embedded posts and timelines) will be via publish.x.com/oembed. To learn more about this launch, please visit our forum announcement .
+​
+May 20, 2021
+Blocks and Likes lookup available in X API v2
+​
+Launch of blocks and likes lookup endpoints
+Today, we’re launching the new blocks and Likes lookup endpoints to the X API v2. These endpoints enable you to use the v2 API to get information about which posts an account has liked, what users have liked a post, and who you or an authenticated user has blocked. To learn more about this launch, please visit our forum announcement .
+​
+Apr 22, 2021
+Manage Likes available in X API v2
+​
+Launch of manage likes endpoints
+Today, we’re launching the new manage Likes endpoints to the X API v2. These endpoints enable you to use the v2 API to like and unlike posts. To learn more about this launch, please visit our forum announcement .
+​
+Apr 7, 2021
+Manage blocks available in X API v2
+​
+Launch of manage blocks endpoints
+Today, we’re launching the new manage blocks endpoints to the X API v2. These endpoints enable you to block or unblock accounts on behalf of a user using user IDs. To learn more about this launch, please visit our forum announcement .
+​
+Mar 3, 2021
+Removing support for Embedded Like, Collection, and Moment Timelines
+​
+Removal of support for embedded timelines
+Today we’re sharing our plans for the future of embedded timeline widgets . On June 23rd 2021, we plan to retire the Likes, Collections, and Moments timelines. We recommended you use the Profile and Lists timelines, which we’re updating to become faster, easier to use, and more up-to-date with X features and functionality. You can learn more about this change in our forum announcement .
+​
+Feb 10, 2021
+Manage follows available in X API v2
+​
+Launch of manage follows endpoints
+Today, we’re launching the new manage follows endpoints to the X API v2. These endpoints enable you to follow or unfollow accounts on behalf of a user using their user ID. This launch comes just a few months after the launch of the follows lookup endpoints, which allow you to retrieve an account’s followers and who they are following. To learn more about this launch, please visit our forum announcement .
+​
+Jan 26, 2021
+Introducing the X API v2 Academic Research product track
+​
+Introduction of Academic Research product track
+Today, we are introducing the new Academic Research product track to X API v2 . This update introduces a new application process for Academic Researchers that will provide those that are approved with an Academic Research Project that will unlock greater access and advanced functionality. With the new Academic Research product track, you will be able to access the following:
+The new X API v2 full-archive search endpoint , which is only available to the Academic Research product track at this time.
+An increased post cap of 10 million, up from the 500,000 that is available to the Standard product track at the Basic access level .
+New filter operators available to recent search , full-archive search , and filtered stream , including $ (aka cashtag), bio (only available via filtered stream), bio_name (only available via filtered stream), bio_location (only available via filtered stream), place , place_country , point_radius , bounding_box , -is:nullcast , has:cashtags and has:geo .
+An increased rule limit for filtered stream of 1,000 concurrent rules, up from the 25 that is available to the Standard product track at the Basic access level.
+An increased query and rule character limit of 1,024 characters long, up from the 512 character limit that is available to the Standard product track at the Basic access level
+To learn more about this launch, please visit our forum announcement .
+​
+Dec 18, 2020
+Conversation reply settings post field for v2 X API
+​
+Addition of reply settings field
+Today we are launching a new field in the post object called reply_settings. This field is available on all X API v2 endpoints that return posts including post lookup, hide replies, recent search, sampled stream, filtered stream, follows lookup, user post timeline, and user mention timeline endpoints or by expanding the post object in any endpoint. This field indicates how the post author has allowed others to reply to their posts, whether it’s everyone, just the people they mention in the post, or those they follow. The field values returned by the reply_settings field include everyone , mentionedUsers , and following . If no conversation controls are set for the post, this will still show up in the post object with everyone value for the field.
+​
+Dec 17, 2020
+User post timeline and user mention timeline available in X API v2
+​
+Launch of user post and mention timeline endpoints
+Today, we’re launching the new user post timeline and user mention timeline endpoints to the X API v2. These endpoints enable you to request the posts composed by, or mentioning, a specified account on X. Learn more in the forum post announcement.
+​
+Dec 17, 2020
+Follows lookup available in the X API v2
+​
+Launch of follows lookup endpoints
+Today, we’re launching the new follows lookup endpoints to the X API v2. These endpoints enable you to retrieve an account’s followers and who they are following using their user ID. Learn more in the forum post announcement.
+​
+Nov 16, 2020
+Retiring some Labs v2 endpoints
+​
+Retirement of Labs v2 endpoints
+Retired Labs v2 recent search and hide replies endpoints We have retired the following endpoints. If you were using the Labs versions of these endpoints, you can use the linked migration guides to update your integration to start using the new X API v2 versions:
+Recent search v2
+Hide replies v2
+We also have additional details about migration to the new X API v2 via our migration hub . If you have any questions, please reach out to our Labs forum category .
+​
+Oct 12, 2020
+Retiring some Labs v1 endpoints
+​
+Retirement of Labs v1 endpoints
+On August 12th, 2020, we launched the new X API v2: Early access. With this release, we graduated several endpoints to X API v2 from the Labs program, and announced that the Labs version of the endpoints would remain in a deprecated state for 60 days before retiring them. Today marks 60 days since the launch, meaning that we have retired the following endpoints. If you are using the Labs versions of these endpoints, you can use the linked migration guides to update your integration to start using the new X API v2 versions:
+post metrics v1
+Filtered stream v1
+Sampled stream v1
+We also have additional details about migration to the new X API v2 via our migration hub . If you have any questions, please reach out to our Labs forum category .
+​
+Sep 3, 2020
+post consumption status bar added to the new Developer Console experience
+​
+Addition of post consumption status bar
+In the main dashboard page of the new Developer Console, you can now check your usage towards the post cap of 500,000 posts per month. This cap is applied at the Project level, across the following v2 endpoints in Basic access: filtered stream, and recent search. In order to see this feature and use the new v2 endpoints, you will need to activate the new Developer Console experience .
+​
+Aug 19, 2020
+Hide replies available in v2 X API
+​
+Launch of Hide Replies endpoint
+Today, we’re launching the new hide replies endpoint into the v2 X API. This endpoint enables you to hide abusive, distracting, or misleading replies to posts – a crucial piece to improving the health of the public conversation. Learn more in the forum post announcement. The same endpoint in X Developer Labs is now deprecated, and it will be retired in 90 days. Learn how to migrate to the v2 endpoint.
+​
+Aug 12, 2020
+X API v2: Early Access released
+​
+Early access to X API v2 endpoints
+Today we announced Early Access to the first endpoints of the new X API ! The new X API features a new API foundation which will allow us to deliver new functionality faster; an updated data format and new functionality that gives you more control over which fields you receive; new post, user, and media fields; and a set of updated endpoints that enable you to listen to and analyze posts, including the following:
+post lookup
+User lookup
+Recent search
+Filtered stream
+Sampled stream
+You can find a full list of the new functionality available, and find migration resources on our X API v2: Early Access docs page . Learn more about what we have planned in our “ Guide to the future of the X API ”.
+​
+Aug 12, 2020
+Deprecating certain Labs endpoints
+​
+Deprecation of Labs endpoints
+We are deprecating certain Labs endpoints due to the launch of their X API v2 replacements in this release. The following Labs v1 endpoints will be retired 60 days from today’s release:
+post metrics v1
+Filtered stream v1
+Sampled stream v1
+The following Labs v2 endpoint will be retired 90 days from today’s release:
+Recent search v2
+​
+Jul 13, 2020
+Improvements to Hide replies
+​
+Improvements to hide replies
+We added the ability to unhide a reply. Additionally, previously unhidden replies can now be hidden again via this endpoint. Get more details in the Hide replies documentation .
+​
+Jul 8, 2020
+Retiring certain Labs v1 endpoints
+​
+Retirement of Labs v1 endpoints
+Today we are retiring the Labs v1 posts and users, hide replies, and recent search endpoints. You can read more about our Labs v1 plan in our forum announcement .
+​
+Jul 7, 2020
+quotes available for the /totals endpoint
+​
+Addition of quote tweets metric
+Today, the quote_tweets metric is now available for ‘unowned’ posts via the /totals endpoint. This means that you can access the quote count for all posts by using app-only authentication. You can read more about this change in our forum post .
+​
+Jul 1, 2020
+Adding two new posts metrics
+​
+Addition of new post metrics
+Today we are adding two new non-public metrics subfields, user_profile_clicks and url_link_clicks , to the post object in the X Developer Labs post lookup endpoints. They will be returned when using the tweet.fields parameter with any of the following values: non_public_metrics , organic_metrics , or promoted_metrics . To learn more, please visit the post lookup API reference
+​
+Jun 15, 2020
+Changes to X web, iOS and Android repost counts
+​
+Changes to repost counts
+Starting today, X web, iOS and Android will be showing the total ‘reposts and comments’ count per post. Using the X API, the total ‘reposts and comments’ number matching the X interface can be calculated by adding the retweet_count and quote_count when available. Additionally quote_count will be the total unique accounts that have quoted the post, rather than the total posts quoting the post. For more details, please see our forum post .
+​
+May 28, 2020
+Defining organic and promoted metrics groupings for post and media objects
+​
+Organic and promoted metrics groupings
+We are adding organic_metrics and promoted_metrics to the post and media objects in the post lookup endpoints.
+​
+May 6, 2020
+Metrics in posts and recent search endpoints
+​
+Addition of metrics to endpoints
+We are adding metrics to the post and media objects in the post lookup and recent search endpoints. You can read more about these changes in our forum announcement
+​
+Apr 29, 2020
+COVID-19 Stream and Compliance endpoints
+​
+Launch of COVID-19 endpoints
+Today we are launching a new COVID-19 stream endpoint and an accompanying compliance endpoint. You can read more about these changes in our forum announcement.
+​
+Mar 31, 2020
+PowerTrack's Replay API now delivers current user profile data
+​
+Updates to Replay API user profiles
+Starting today, the Replay API will deliver user profile objects that reflect the referenced user at the time the Replay API is running. This change to deliver current user profile objects is similar to the recent Historical PowerTrack update below from Nov. 25, 2019.
+​
+Mar 23, 2020
+post annotations in posts and recent search endpoints
+​
+Addition of post annotations
+We are adding annotations to the post object in the posts and recent search endpoints. You can read more about this change in our forum announcement .
+​
+Mar 10, 2020
+Major updates to the X Developer Policy
+​
+Updates to developer policy
+Today, we announced a significant update to the Developer Policy . We encourage you to read more about this via our forum and blog posts, and to review the revised policy. The Developer Policy is one of the foundations for your use of the X API and it is important to understand your commitments.
+​
+Feb 26, 2020
+Introducting the hide replies endpoint
+​
+Launch of Hide Replies endpoint
+We want to help people feel safe and comfortable having conversations on X. As part of that, today we’re excited to give post authors more control over the conversations they start by supporting the hide replies feature with a new endpoint . You can read more about this new endpoint in our forum announcement .
+​
+Feb 25, 2020
+v2 of Labs endpoints: posts and Users, Recent Search, Hide Replies
+​
+Release of v2 Labs endpoints
+Today, we are bringing our posts and Users, Recent Search and Hide Replies endpoints to v2 of Labs. We are deprecating Labs v1 endpoints and will fully retire them 90 days after this initial release. We will also keep our v1 documentation available for this duration. You can provide us feedback on this versioning strategy via our feedback channel . We’re releasing the following changes to posts and Users:
+Introduce fields as a query parameter
+Remove formats as a query parameter
+Add path variable for single ID lookup in posts and Users
+Adjusting the path and query parameters for single and multi-username lookup in GET /users
+Change field name stats to public_metrics
+Other changes include:
+Remove the most_recent_tweet_id expansion in Users
+Remove HTML tags from the source field in posts to make that field easier to parse
+The core search, pagination and other functionality of Recent Search will stay the same. We have put together some migration materials for when you update from v1 to v2. You can read more about this change in our forum announcement .
+​
+Feb 7, 2020
+X API: Enterprise
+​
+Addition of drop/undrop events to Compliance Firehose
+Today we added new drop/undrop event types to the Compliance Firehose API. You can read more about them in our documentation.
+​
+Jan 21, 2020
+X API: Standard v1.1
+​
+Changes to access token management
+Today, we’re making changes to the way that Access Tokens and Access Token Secrets are presented and managed within the applications Dashboard on developer.x.com . In order to make API integrations more secure, we will no longer show the Access Token and Access Token Secret on the Dashboard beyond the first time that these values are generated. After the first time, these credentials can not be retrieved. You will be able to regenerate the tokens on the Dashboard, but this will invalidate your current token and secret. You can read more about this change in our forum announcement .
+​
+Jan 15, 2020
+X API: Standard v1.1
+​
+Removal of SPDY support
+Starting January 15, 2020, all connections to the X API (and all other X domains) will no longer support SPDY connections. You can read more about this change in our forum announcement .
+​
+Jan 6, 2020
+New Recent search endpoint available in Labs
+​
+Launch of recent search endpoint in Labs
+Today, we are releasing a new endpoint to search for posts posted in the last 7 days . Learn more about this launch via our forum announcement.
+​
+Dec 29, 2019
+X API: Standard v1.1
+​
+Update to Twurl CLI
+A new updated major release of our X API CLI, [twurl](https://github.com/twitter/twurl) , is now available. This release includes a number of bug fixes and enhancements and introduces Bearer Token support which helps to add functionality around the Premium and X Developer Labs endpoints. Read more in our forum post .
+​
+Dec 10, 2019
+post annotations added to the post Object for sampled stream and filtered stream endpoints in Labs
+​
+Addition of post annotations in streams
+Today in X Developer Labs, we are releasing new metadata elements to the default post payload. These new fields, rendered as part of the post payload, will provide more contextual information about the post. Learn more about this launch via our forum announcement .
+​
+Nov 25, 2019
+X API: Enterprise v1.1
+​
+Updates to Historical PowerTrack user profiles
+Today, we’re updating our “batch historical posts” endpoint (Historical PowerTrack) to provide user profile location, bio description, and display name information that reflects values in place at the time of the job processing. When the updated user objects are delivered, there will be a new “updated” string array in the User/Actor object. There are up to three possible values: name, description, location: "updated": ["name", "description", "location"] See the documentation on Historical PowerTrack’s data format for more details.
+​
+Oct 29, 2019
+X API: Premium v1.1
+​
+Addition to Account Activity API
+Today, we’re releasing a new feature to the Account Activity API that will provide developers with the ability to view whether an account that mentions your subscribed user is blocked. You can read more about the user_has_blocked data object structure and check out our forum announcement for more details.
+​
+Oct 22, 2019
+New sampled stream endpoint available in Labs
+​
+Launch of sampled stream endpoint in Labs
+Today, we are releasing a new endpoint to stream a sample of all public posts in real-time, as they are posted. Learn more about this launch via our forum announcement.
+​
+Sep 18, 2019
+New filtered stream endpoint available in Labs
+​
+Launch of Filtered Stream endpoint in Labs
+Today, we are releasing a new streaming endpoint to retrieve posts, and an endpoint to manage your filters in X Developer Labs. With these endpoints, you will be able to retrieve up to 500,000 posts per month (maximum 50 posts per second); you can set up to 10 filter rules on your stream (these can be applied at the same time). Learn more about this launch via our forum announcement . Requests parameters documented in the API reference pages are now clearly marked as either optional or required. Additionally, API reference pages will describe a JSON body payload when this is allowed by a request.
+​
+Aug 27, 2019
+New post metrics are now available in Labs
+​
+Launch of post metrics in Labs
+You can now retrieve engagement data for any post or list of posts from owned/authorized accounts. The posts you query must be no older than 30 days and cannot be reposts. GET /tweets/metrics/private supports the following metrics:
+impressions
+reposts
+quotes
+likes
+replies
+video views
+video view quartiles (where the requester is also the author of the media)
+Learn more about this launch via our forum announcement .
+​
+Aug 15, 2019
+X API: Standard v1.1
+​
+Changes to DM permissions
+Starting today, applications that need to create Direct Messages will be required to have “Read, Write, and Direct Messages” app permissions (RW+DM). Applications attempting to create Direct Messages with only the RW app permission will receive the following error: {"code": 93,"message": "This application is not allowed to access or delete your direct messages."} You can learn more about this change via our forum announcement .
+​
+Aug 12, 2019
+New expansion for GET /users: pinned post in X Developer Labs
+​
+Addition of pinned post expansion
+pinned_tweet_id will expand a user’s pinned post through our user object expansion.
+​
+Jul 31, 2019
+New metadata available for quote counts
+​
+Addition of quote counts metadata
+Developers can use the new Labs endpoints to pull counts of quotes.
+​
+Jul 31, 2019
+New expansion for GET /users: most recent post
+​
+Addition of most recent post expansion
+most_recent_tweet_id will expand a user’s most recent post through our user object expansion. Learn more about this launch via our forum announcement .
+​
+Jul 25, 2019
+X API: Standard v1.1
+​
+Requirement for TLS 1.2
+Today, all connections to the X API (and all other X domains) will require TLS 1.2. You can read more about this change in our forum announcement .
+​
+Jul 15, 2019
+X API: Premium v1.1
+​
+New Account Activity API endpoint
+Starting today, we are introducing the new Account Activity API endpoint to deactivate user subscriptions using application-only OAuth. This new endpoint offers developers the convenience of only having to provide a bearer token to deactivate a subscription, without requiring the subscribed user’s access token. We are immediately marking the existing enterprise Account Activity API endpoint used to deactivate user subscriptions with 3-Legged OAuth as deprecated. The endpoint will be retired and no longer be available starting from January 15, 2020. Developers can learn more about this API in our documentation .
+​
+Jun 20, 2019
+New expansions for GET /tweets: referenced author and mentioned user
+​
+New expansions for tweets endpoint
+We added two new expansions to the GET /tweets endpoint: entities.mentions.username will expand the username of any recognized user mention in a post into a full user object. referenced_tweets.id.author_id expands the ID of the author of any referenced post, when one of the posts requested is a repost, Quoted post or Reply. This expansion will also expand the referenced post ID into a full object.
+​
+Jun 11, 2019
+GET /tweets and GET /users are now supported in Labs
+​
+Support for tweets and users endpoints in Labs
+The first two endpoints are now available via the Labs portal. Make sure you have an approved developer account and have applied for Labs access to get started with these endpoints. Key differences from equivalent v1.1 functionality include:
+Single endpoint for single object “show” function and batch “lookups”
+Expansion parameters support the inclusion of additional objects as part of one request (e.g. mentioned users, referenced posts, e.g.)
+Format parameters support different data projections with more or less verbose payloads
+Rate limiting is at the app level, regardless of auth method (user context or bearer token)
+Learn more about this launch via our forum announcement .
+​
+Jun 10, 2019
+X API: Standard v1.1
+​
+Retirement of terms and privacy endpoints
+We have fully retired the Terms of Service and Privacy Endpoints. The current status of our Privacy Policy and Terms of Service is best served by our up-to-date web pages. You can learn more about this change via our forum announcement .
+​
+May 21, 2019
+X API: Standard v1.1
+​
+Changes to user object fields
+Today some user object fields, including user.lang, will start returning ‘null’ for updated metadata fields previously announced in our forum post . Developers can learn about this change through our documentation.
+​
+May 20, 2019
+X API: Enterprise v1.1
+​
+Launch of Account Activity Replay API
+Starting today, we are introducing the Account Activity Replay API , a data recovery tool available with the enterprise tier of the Account Activity API The Account Activity Replay API allows you to retrieve events from as far back as five days. It should be utilized to recover data in scenarios where your webhook server misses events Developers can learn more about this API in our documentation .
+​
+May 6, 2019
+X API: Standard v1.1
+​
+Support for native media in quotes
+Starting today, native media (photos, videos, and GIFs) can be added to quotes on X, which will be shown as additional media metadata in the entities sections of quote payloads. Developers can learn more about this in our documentation .
+​
+Feb 13, 2019
+X API: Enterprise v1.1
+​
+Addition of is:reply operator
+Today, the operator is:reply becomes available to use with the enterprise search APIs and the paid version of the premium search endpoints . The is:reply Boolean operator can be used to filter all replies to posts, or to filter out explicit replies that match a rule. This operator functions in the same way as the is:quote operator. Remember that, with the Search API, all ‘is:’ and ‘has:’ operators must be used in conjunction with a standalone operator like a keyword or hashtag. You can learn more about this operator in the documentation .
+​
+Feb 6, 2019
+X API: Premium v1.1
+​
+Changes to expanded URL enrichment
+Today, the expanded URL enrichment will no longer contain the unwound URL object and metadata (including the title and description fields) for URLs linking to posts, Moments, or profiles. Please note that other URLs (to websites, etc.) will continue to be enriched with this metadata, and the url, expanded_url, and display_url will still be available. This change applies to Decahose , PowerTrack , Historical PowerTrack , and the Search APIs .
+​
+Nov 29, 2018
+X API: Enterprise v1.1
+​
+Addition of is:reply operator in PowerTrack
+Today, we are introducing a new operator, is:reply, to help you narrow conversations to those you care about most. You can now filter out replies from your results (in addition to the pre-existing ability to filter out reposts, is:retweet, and Quoted posts, is:quote). This new operator is available today within PowerTrack , Historical PowerTrack , and Replay . The is:reply Boolean operator can be used to filter all replies to posts, or to filter out explicit replies that match a rule. This operator functions in the same way as the is:quote operator. You can learn more about this operator in the documentation .
+​
+Nov 19, 2018
+X API: Standard v1.1
+​
+Access to apps in Developer Console
+Today, we’ve added the ability for developers to view and edit their existing X apps via the X app dashboard on developer.x.com as long as they’re logged into their X account. Previously, you could only view and edit your existing X apps on developer.x.com if you had applied or been approved for a developer account . You still must have an approved developer account to be able to create new X apps.
+​
+Nov 7, 2018
+X API: Standard v1.1
+​
+Support for video subtitles
+Today, we are announcing that advertisers and publishers are now able to add subtitle files (SRT) to their videos via ads.x.com, Media Studio and our publisher upload API. Subtitles will be viewable on auto-playing video (when no sound is available) on Android and Web. We will release the functionality for iOS in the coming weeks. To read more about the new subtitles endpoints, please review their respective API reference pages:
+POST media/subtitles-create
+POST media/subtitles-delete
+​
+Nov 5, 2018
+X API: Premium v1.1
+​
+Update to Account Activity API endpoint
+Today we are announcing an update to the Account Activity API endpoint, GET subscriptions/count . To enable greater visibility into your billing details and use of the API, beginning today, you can programmatically pull the number of provisioned subscriptions associated with your Account Activity API instance within the JSON. This means you can now see both what your provisioned number of subscriptions are, and how close you are to hitting that limit via the GET subscriptions/count API endpoint. This update has been documented with the Account Activity API documentation .
+​
+Oct 22, 2018
+X API: Standard v1.1
+​
+New rate limits on POST endpoints
+Today we are implementing new app-level rate limits on several of our standard POST endpoints:
+POST statuses/update
+POST statuses/retweet/:id
+POST favorites/create
+POST direct_messages/events/new
+POST friendships/create
+You can read more about this change in our forum announcement .
+​
+Oct 10, 2018
+X API: Standard v1.1
+​
+Update to twitter-text library
+Today, we are announcing an update to the twitter-text library to account for the recent changes to the way that X counts emojis. If an emoji previously counted as more than two characters, its count will now be reduced to just two characters to allow for users to make the most out of their 280 characters. You can read more about this change in our forum announcement .
+​
+Sep 17, 2018
+X API: Standard v1.1
+​
+Retirement of legacy DM endpoints
+We have fully retired the legacy Direct Message endpoints. You can find a list of the retired DM endpoints, as well as their replacements on this page . You can learn more about this update via our forum announcement .
+​
+Sep 11, 2018
+X API: Standard v1.1
+​
+Changes to DM media access
+Today, we are implementing some changes to the process where you retrieve attached media from Direct Messages . We will no longer support accessing media_url or media_url_https via an authenticated www.x.com session. The request to fetch media_url_https MUST always be signed with the user’s access token using OAuth 1.0A. You can learn more about this update via our forum announcement .
+​
+Aug 23, 2018
+X API: Enterprise v1.1
+​
+Retirement of user and site streams
+We have fully retired User Streams and Site Streams . You can learn more about this update via our forum announcement .
+​
+Aug 20, 2018
+X API: Enterprise v1.1
+​
+New version of Usage API
+Today we are launching a new version of the Usage API. With this update, we’re making the API more stable by moving to a new system. With the system update, users will experience a data “hole” as developers will only be able to pull data back to May 1, 2018. Therefore for the upcoming year, they will be missing out on a few months of historical data (until June 2019). A product name is changing within the Usage API from Historical PowerTrack Subscription to Historical PowerTrack 2.0 which will make the product naming consistent with the rest of our user-facing wording. Customers will receive the exact same data in the same format with the update. You will see this change within the products.type JSON object. If you have any questions, please reach out to your account manager.
+​
+Aug 16, 2018
+X API: Standard v1.1
+​
+API deprecations
+The Account Activity API DM Beta product was fully retired today. The following services and endpoints will experience degraded service starting today:
+User Streams
+Site Streams
+GET direct_messages
+GET direct_messages/sent
+GET direct_messages/show
+POST direct_messages/new
+POST direct_messages/destroy
+User Streams and Site Streams will be fully retired on August 23rd. The legacy Direct Messages endpoints will be fully retired on September 17th. You can learn more about this update via our forum announcement .
+​
+Jul 24, 2018
+X API: Standard v1.1
+​
+Changes to app creation and rate limits
+As of today, you will no longer be able to create new X apps via apps.x.com . You will now be redirected to either your Developer Console account or, if you don’t have a Developer Console account yet, to the page where you can apply . We also announced that we will be implementing new app-level rate limits to the following POST endpoints on September 10th, 2018.
+POST statuses/update
+POST statuses/retweet:id
+POST friendships/create
+POST favorites/create
+POST direct_messages/events/new
+Finally, we are introducing a new option for people to report suspected violations of our platform policies to you for review. You can learn more about all of these updates via our blog post .
+​
+Jun 21, 2018
+X API: Standard v1.1
+​
+App management in Developer Console
+If you have a Developer Console account, you can now create and manage your X apps . Please read our forum post for more details.
+​
+Jun 12, 2018
+X API: Standard v1.1
+​
+Changes to Sign in with X and Account Activity
+Today, we started requiring that you register the callback URLs that you use with the Sign in with X process. You can read more about this update here . We also announced the addition of the tweet_delete_events activity to the Account Activity API. This new activity will be sent for those corresponding deleted events to enable developers to more easily provide a compliant experience for their customers and application users. You can read more about this new activity in our forum post or on our documentation .
+​
+May 25, 2018
+X API: Standard v1.1
+​
+Updates to terms and policies
+Today, we made some changes to our Terms of Service , Privacy Policy , and X Developer Agreement that include privacy, security, and data protection updates. Please read our forum post for more details.
+​
+May 23, 2018
+X API: Standard v1.1
+​
+Timezone fields made private
+Today, the timezone values in X user objects became private fields. From here on out, all* time_zone and utc_offset data objects will return as null. Please read our forum post for more details.
+* They will continue to be available on the account/settings endpoint, for authenticated users only.
+​
+May 21, 2018
+X API: Enterprise v1.1
+​
+Removal of Klout data
+Today, we removed all Klout data from post payloads as part of our GDPR updates.
+​
+May 14, 2018
+X API: Standard v1.1
+​
+Changes to profile background and Account Activity
+Today, we are changing all instances of profile_background_image_url and profile_background_image_url_https to their default values. Please read our forum post for more details. In addition to the above change, we are adding a new field to the Account Activity API payloads to reference which subscription the activity was delivered for. This JSON object is called for_user_id and will include the subscribed user’s ID who produced that activity as its value. You can see some examples of this new JSON object in our account activity objects page.
+​
+May 10, 2018
+X API: Standard v1.1
+​
+Changes to quote payload rendering
+Today, we are adding a change to the way that URLs will be rendered in the quote payload. We’re adding a new entity called the “quoted_status_permalink” entity to ensure the quoted post can be referenced and we will be removing the t.co link from the quoted post “text” field. With the new format, the t.co link is no longer appended to the “text” field of the quoted post in the “quoted_status” object. Further, we will no longer put the quoted post t.co url, expanded_url, and display_url in the ‘urls’ entity. Instead, these will be added to a new “quoted_status_permalink” object with “url”, “expanded”, and “display” URL attributes. This means that the “quoted_status_permalink” object will be reserved for the t.co link back to the quoted post, whereas the “entities.urls” array can be used to identify any links shared within the original post or quote. Please read our forum post and updated documentation for more details.
+​
+Apr 30, 2018
+X for Websites
+​
+Deprecation of X Kit
+The announcement of X Kit deprecation, after October 31, 2018 X Kit will no longer be actively maintained. Please read our blog post for more details.
+​
+Apr 24, 2018
+X API: Standard v1.1
+​
+Platform updates for GDPR
+Today we announced several updates to the platform related to GDPR. Please read our forum post for more details.
+​
+Mar 1, 2018
+X API: Enterprise v1.1
+​
+Addition of additional media info object
+The addition of a new object to the post payload – additional_media_info object – and also restricting some video details (video_info) for promoted posts where advertisers have requested we limit video playback to X owned clients. You can find additional information about this change at the following link: Extended Entities Objects > post with native video .
+​
+Feb 1, 2018
+X API: Premium v1.1
+​
+Launch of premium full-archive search
+Launch of the premium full-archive search endpoint .
+​
+Dec 19, 2017
+X API: Premium v1.1
+​
+Launch of Account Activity APIs
+Launched both ( All Activities ) and ( Direct Messages ) Standard beta Account Activity APIs, read more about this launch on our blog . Announced User streams & Site streams deprecation and sunset date of Tuesday June 19, 2018.
+​
+Dec 15, 2017
+X API: Standard v1.1
+​
+Update to twitter-text library
+Version 2.0 of twitter-text is now available on GitHub . This update addresses the change in our character limit that was rolled out on November 7th, 2017. To learn more about this update, please visit our forum .
+​
+Nov 14, 2017
+X API: Premium v1.1
+​
+Launch of premium APIs
+Launched the Premium APIs. These new APIs build on the quality and stability of our enterprise data platform, and make it available more widely via a tiered pricing model. For the first time, you can start to search across 30 days of posts (instead of the limited 7 days of data on the standard endpoint), and optionally, you can also access our premium enrichments for profile geo, URL expansion, and poll data. Here’s a taste of some of the new features:
+More posts per request (Sandbox + Premium)
+A far more rich query language enabling more complex queries (Sandbox + Premium)
+A counts endpoint that returns time-series counts of posts (Premium)
+Metadata enrichments, such as expanded URLs and Profile Geo (Premium)
+Read more about this launch on our blog .
+​
+Nov 7, 2017
+X API: Standard v1.1
+​
+Launch of 280 character posts
+Official launch of 280 character posts in languages where cramming was an issue. Please see our forum announcement or official blog post for further reference.
+​
+Nov 1, 2017
+X API: Standard v1.1
+​
+Removal of DM commands in Statuses/Update
+The ability to send Direct Messages via the statuses/update API endpoint has been completely removed, and the enable_dm_commands and fail_dm_commands parameters will no longer have any effect. Read more about this update on our forum .
+​
+Oct 11, 2017
+X API: Standard v1.1
+​
+Changes to OAuth login flow
+A change was made to X’s backend OAuth API endpoints which altered the behaviour of the /oauth/authenticate endpoint to match that of the /oauth/authorize endpoint. Read more about this update on our forum .
+​
+Oct 10, 2017
+X API: Enterprise v1.1
+​
+Updates to Engagement API metrics
+The Engagement API was updated to use the same metrics aggregation methodology in use by the X analytics dashboard. Read more about this update on our forum .
+​
+Oct 1, 2017
+X API: Standard v1.1
+​
+Changes to DM commands failure
+The default value of the fail_dm_commands parameter within the DM statuses/update endpoint has been switched to true . All status updates intended as Direct Messages will start to return errors (unless enable_dm_commands is false , in which case the post will be posted). Read more about this update on our forum .
+​
+Sep 26, 2017
+X API: Standard v1.1
+​
+Treatment of 280 character tweets
+The response payload for 280 character tweets will be treated the same way as long tweets. Read more about this update on our forum .
+​
+Sep 11, 2017
+X API: Standard v1.1
+​
+Addition of additional media info
+Adding new data to the post payload ( additional_media_info object ) and also restricting some video details ( video_info ) for promoted posts where advertisers have requested we limit video playback to X owned clients. You can find additional information about this change at the following link: Extended Entities Objects > post with native video
+​
+Aug 7, 2017
+X API: Enterprise v1.1
+​
+End of support for url_contains operator in 30-Day Search
+30-Day and Full-Archive Search ended support for url_contains: operator. Deprecation of this operator was announced as part of the Gnip 2.0 migration in August 2016. Any Search query using the url_contains: Operator will be rejected as invalid.
+​
+Jul 6, 2017
+X API: Enterprise v1.1
+​
+Upcoming removal of url_contains operator in search APIs
+The 30-Day Search API (both 30-Day and Full-Archive) will no longer support the url_contains: operator beginning 30 days from today, or after August 4, 2017 (Support of url_contains: will actually end with the first deploy after that date). Deprecation of this operator was announced as part of the Gnip 2.0 migration in August 2016. When Operator support is ended, any query using the url_contains: will be rejected as invalid.
+​
+Jun 2, 2017
+X API: Standard v1.1
+​
+Retirement of xAuth
+The xAuth authentication mechanism has been removed from all X APIs. Read more about this update on our forum .
+​
+May 8, 2017
+X API: Standard v1.1
+​
+HTTP headers forced to lowercase
+All HTTP headers have been forced into lowercase ( content-type , x-rate-limit-remaining , x-access-level etc). Read more about this update on our forum .
+​
+May 5, 2017
+X API: Standard v1.1
+​
+Optional parameters for DM commands
+The optional enable_dm_commands parameter to statuses/update will enable applications to remove DM command support early, before the transition period ends. The default value is true (i.e. current legacy behavior), but this may be set to false to get the new, post-November 1 behavior. The optional fail_dm_commands parameter to statuses/update will make DM commands return HTTP 403 (error code 151) from the API when set to true . The default value is false . Read more about this update on our forum .
+​
+Apr 25, 2017
+X API: Enterprise v1.1
+​
+Support for emojis in rules
+Rules with emojis are now available in the enterprise Search APIs
+​
+Apr 6, 2017
+X API: Standard v1.1
+​
+Wider availability of Direct Message APIs
+Access to several new Direct Message APIs are now more widely available. Read more about this update on our blog .
+​
+Mar 9, 2017
+X API: Standard v1.1
+​
+Retirement of MPEG-DASH video support
+MPEG-DASH URLs (.mpd) has been removed from the payload of a post that contains video. Read more about this update on our forum .
+​
+Feb 22, 2017
+X API: Enterprise v1.1
+​
+New enrichments and payload changes
+New Enrichment! Poll Metadata is now available through our enterprise APIs. See the documentation for more details. New payload field: Image Alt-Text (description) field may be present in the entities.media[] and extended_entities.media[] section of the payload if a user chooses the “Add description” option when adding a photo to a post. This is available in enriched native format only. Default payload format: Newly created streams on Gnip products will now default to original format JSON.
+​
+Jan 23, 2017
+X API: Enterprise v1.1
+​
+Updates to Historical PowerTrack and Replay API
+Historical PowerTrack API & Replay API
+quote filtering is now supported
+Quoted posts are now fully rehydrated within HPT and Replay post payloads
+​
+Jan 17, 2017
+X API: Enterprise v1.1
+​
+New payload fields for counts
+New payload fields: quote_count and reply_count are now available in native enriched format payloads across Realtime and Historical APIs
+​
+Dec 20, 2016
+X API: Enterprise v1.1
+​
+Support for geo operators in Full-Archive Search
+Full-Archive Search API (FAS):
+Added support for additional geo operators:
+place:
+place_country:
+has:profile_geo:
+profile_country:
+profile_region:
+profile_locality:
+​
+Dec 5, 2016
+X API: Enterprise v1.1
+​
+Rule management by ID in PowerTrack
+Rule management (GET and DELETE) by Rule ID is now available for PowerTrack 2.0 and PowerTrack Replay 2.0
+​
+Nov 10, 2016
+X API: Enterprise v1.1
+​
+Support for geo operators in 30-Day Search
+30-Day Search API:
+Added support for additional geo operators:
+place:
+place_country:
+has:profile_geo:
+profile_country:
+profile_region:
+profile_locality:
+⌘ I
+On this page
+Sep 21, 2026
+Sep 17, 2026
+Sep 16, 2026
+Sep 15, 2026
+Sep 1, 2026
+Aug 13, 2026
+Jul 21, 2026
+Jun 11, 2026
+Jun 4, 2026
+Jun 3, 2026
+May 4, 2026
+Apr 16, 2026
+Mar 20, 2026
+Mar 18, 2026
+Mar 13, 2026
+Mar 11, 2026
+Feb 23, 2026
+Feb 6, 2026
+Jan 28, 2026
+Jan 19, 2026
+Jan 15, 2026
+Dec 23, 2025
+Nov 19, 2025
+Nov 3, 2025
+Oct 27, 2025
+Oct 24, 2025
+Oct 20, 2025
+Oct 18, 2025
+Oct 3, 2025
+Sep 19, 2025
+Sep 17, 2025
+Sep 9, 2025
+Aug 22, 2025
+Aug 6, 2025
+Jul 28, 2025
+Jul 8, 2025
+Jun 3, 2025
+May 20, 2025
+Apr 30, 2025
+Apr 3, 2025
+Feb 18, 2025
+Jan 16, 2025
+Jan 13, 2025
+Dec 17, 2024
+Nov 22, 2024
+Sep 23, 2024
+Aug 20, 2024
+Aug 9, 2024
+Aug 2, 2024
+Jul 26, 2024
+Jun 17, 2024
+Jan 16, 2024
+Dec 12, 2023
+Dec 8, 2023
+Nov 29, 2023
+Nov 20, 2023
+Nov 2, 2023
+Sep 28, 2023
+Sep 21, 2023
+Aug 1, 2023
+Jun 26, 2023
+Jun 12, 2023
+May 31, 2023
+Mar 14, 2023
+Jan 5, 2023
+Dec 21, 2022
+Dec 20, 2022
+Oct 27, 2022
+Sep 29, 2022
+Aug 3, 2022
+Jul 27, 2022
+Jul 19, 2022
+Jun 16, 2022
+May 23, 2022
+May 19, 2022
+Mar 24, 2022
+Mar 17, 2022
+Feb 3, 2022
+Jan 20, 2022
+Dec 14, 2021
+Nov 15, 2021
+Nov 3, 2021
+Oct 12, 2021
+Sep 29, 2021
+Sep 22, 2021
+Sep 9, 2021
+Aug 25, 2021
+Aug 18, 2021
+Aug 16, 2021
+Aug 11, 2021
+Jul 14, 2021
+Jun 30, 2021
+Jun 29, 2021
+Jun 24, 2021
+Jun 21, 2021
+Jun 18, 2021
+May 26, 2021
+May 20, 2021
+Apr 22, 2021
+Apr 7, 2021
+Mar 3, 2021
+Feb 10, 2021
+Jan 26, 2021
+Dec 18, 2020
+Dec 17, 2020
+Nov 16, 2020
+Oct 12, 2020
+Sep 3, 2020
+Aug 19, 2020
+Aug 12, 2020
+Jul 13, 2020
+Jul 8, 2020
+Jul 7, 2020
+Jul 1, 2020
+Jun 15, 2020
+May 28, 2020
+May 6, 2020
+Apr 29, 2020
+Mar 31, 2020
+Mar 23, 2020
+Mar 10, 2020
+Feb 26, 2020
+Feb 25, 2020
+Feb 7, 2020
+Jan 21, 2020
+Jan 15, 2020
+Jan 6, 2020
+Dec 29, 2019
+Dec 10, 2019
+Nov 25, 2019
+Oct 29, 2019
+Oct 22, 2019
+Sep 18, 2019
+Aug 27, 2019
+Aug 15, 2019
+Aug 12, 2019
+Jul 31, 2019
+Jul 25, 2019
+Jul 15, 2019
+Jun 20, 2019
+Jun 11, 2019
+Jun 10, 2019
+May 21, 2019
+May 20, 2019
+May 6, 2019
+Feb 13, 2019
+Feb 6, 2019
+Nov 29, 2018
+Nov 19, 2018
+Nov 7, 2018
+Nov 5, 2018
+Oct 22, 2018
+Oct 10, 2018
+Sep 17, 2018
+Sep 11, 2018
+Aug 23, 2018
+Aug 20, 2018
+Aug 16, 2018
+Jul 24, 2018
+Jun 21, 2018
+Jun 12, 2018
+May 25, 2018
+May 23, 2018
+May 21, 2018
+May 14, 2018
+May 10, 2018
+Apr 30, 2018
+Apr 24, 2018
+Mar 1, 2018
+Feb 1, 2018
+Dec 19, 2017
+Dec 15, 2017
+Nov 14, 2017
+Nov 7, 2017
+Nov 1, 2017
+Oct 11, 2017
+Oct 10, 2017
+Oct 1, 2017
+Sep 26, 2017
+Sep 11, 2017
+Aug 7, 2017
+Jul 6, 2017
+Jun 2, 2017
+May 8, 2017
+May 5, 2017
+Apr 25, 2017
+Apr 6, 2017
+Mar 9, 2017
+Feb 22, 2017
+Jan 23, 2017
+Jan 17, 2017
+Dec 20, 2016
+Dec 5, 2016
+Nov 10, 2016
+X home page
+x github
+Resources
+Status Incidents
+Legal
+Terms of Service Privacy Policy Cookies Developer Terms
+x github

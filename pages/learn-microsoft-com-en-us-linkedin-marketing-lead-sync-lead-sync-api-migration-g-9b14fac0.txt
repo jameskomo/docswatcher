@@ -1,0 +1,420 @@
+Skip to main content
+Skip to Ask Learn chat experience
+This browser is no longer supported.
+Upgrade to Microsoft Edge to take advantage of the latest features, security updates, and technical support.
+Download Microsoft Edge
+More info about Internet Explorer and Microsoft Edge
+Table of contents
+Exit editor mode
+Ask Learn
+Reading mode
+Table of contents
+Read in English
+Add
+Add to Plans
+Edit
+Copy Markdown
+Print
+Note
+Access to this page requires authorization. You can try signing in or changing directories .
+Access to this page requires authorization. You can try changing directories .
+Lead Sync API Migration
+Feedback
+Summarize this article for me
+In this article
+Warning
+Deprecation Notice:
+The Marketing Version 202510 (Marketing October 2025) will be sunset on October 15, 2026. We recommend that you migrate to the latest versioned APIs to avoid disruptions. For information on all the supported versions, refer to the migrations documentation.
+If you haven’t yet migrated and have questions, submit a request on the LinkedIn Developer Support Portal .
+LinkedIn Marketing Solutions released a new Lead Sync API product in July 2023. This migration guide facilitates the onboarding of existing developers to the new product and endpoints.
+If you fall into one or more of the following categories, this migration guide is for you:
+Currently have access to the legacy Ads Lead Sync API and/or Events Lead Generation API and sync leads.
+Currently have access to the Advertising API and create forms.
+Note
+There are no schema changes for the Events Lead Generation API.
+Permissions for Lead Sync API
+With the launch of the new Lead Sync API, we're introducing the following new permissions and endpoints to simplify syncing leads across different lead types:
+Old API endpoint
+Old Permission Name
+Supported Lead Types
+Last Supported Version
+Last Supported Version will stop working on
+/adFormQuestions
+r_ads_leadgen_automation
+SPONSORED
+202307
+July 31, 2025
+/adForms
+r_ads_leadgen_automation
+SPONSORED
+202307
+July 31, 2025
+/adFormResponses
+r_ads_leadgen_automation
+SPONSORED
+202307
+July 31, 2025
+/adForms/Consents
+r_ads_leadgen_automation
+SPONSORED
+202307
+July 31, 2025
+/leadNotificationUrls
+r_ads_leadgen_automation
+SPONSORED
+202307
+July 31, 2025
+/leadGenFormQuestions
+r_events_leadgen_automation
+EVENT
+202307
+July 31, 2025
+/leadGenForms
+r_events_leadgen_automation
+EVENT
+202307
+July 31, 2025
+/eventFormResponses
+r_events_leadgen_automation
+EVENT
+202307
+July 31, 2025
+/leadGenFormLegalInfo
+r_events_leadgen_automation
+EVENT
+202307
+July 31, 2025
+/eventLeadNotifications
+r_events_leadgen_automation
+EVENT
+202307
+July 31, 2025
+/leadGenFormVersions
+r_events_leadgen_automation
+EVENT
+202307
+July 31, 2025
+/events
+r_events_leadgen_automation
+EVENT
+202306
+July 31, 2025
+New API
+New Permission Name
+Supported Version starts from
+/leadForms
+r_marketing_leadgen_automation
+rw_ads
+r_ads
+202307
+/leadFormResponses
+r_marketing_leadgen_automation
+202307
+/leadNotifications
+r_marketing_leadgen_automation
+202307
+/events
+r_events
+202307
+AdFormResponses API → LeadFormResponses API
+Workflow Changes
+The new Lead Sync API supports fetching different types of leads based on the request (e.g., SPONSORED, EVENTS, etc.).
+The new associatedEntity field represents the entity from which the lead is collected. For example, in the Sponsored use case, associatedEntity is the corresponding SponsoredCreativeUrn ad; for the Event use case, associatedEntity is the corresponding EventUrn .
+The /leadFormResponses API supports two different types of owners. For the Sponsored use case, the owner is SponsoredAccountUrn . For organic use cases, such as Event lead sync, the owner is [OrganizationUrn](../pages-profiles/organizations.md) .
+Schema Changes
+Schema
+AdFormResponses API
+LeadGenFormResponses API
+id
+adFormUrn
+versionedLeadGenFormUrn
+sponsoredAccountUrn
+LeadGenFormOwner: SponsoredAccountUrn for sponsored use case; OrganizationUrn for other use cases.
+SponsoredCampaignUrn
+SponsoredLeadMetadata: SponsoredCampaignUrn for sponsored use case. Currently, no other metadata information is collected for non-sponsored use cases.
+SponsoredCreativeUrn
+associatedEntity union:
+- SponsoredCreativeUrn for sponsored use case
+- OrganizationUrn for company page use case
+- EventUrn for event use case
+- StandardizedProductUrn for product page use case
+- OrganizationLandingPageUrn for landing page use case.
+leadType
+testLead
+submittedAt
+AdForms API → LeadForms API
+Workflow Changes
+The new API supports both sponsored (previously called adForms) and organic LeadGen Forms with a single integration.
+The SponsoredAccount field has been removed in favor of an owner record which is a union of SponsoredAccountUrn and an [OrganizationUrn](../pages-profiles/organizations.md) .
+Sponsored forms have a sponsored account as an owner, whereas organic forms have organization as the owner.
+Form fields now support multi-locale strings. This means instead of providing just string values, marketers need to provide both the locale and string value.
+For example, a question field of a form created in English locale:
+"question": {
+"localized": {
+"en_US": "Last Name"
+}
+Here Last Name is the question string value to be used for en_US locale.
+For example, a question field of a form being created in Spanish locale:
+"question": {
+"localized": {
+"es_ES": "Apellido"
+}
+Here Apellido is the question string value to be used for es_ES locale.
+The Finder API supports fetching forms under either a sponsored account or an organization (for organic forms).
+Schema Changes
+Schema
+AdForms API
+LeadForms API
+Notes
+id
+id & versionId
+id is still the unique identifier of the form. versionId is for managing form edits.
+locale
+creationLocale
+reviewInfo
+changeAuditStamps
+Flattened and simplified to created and lastModified fields
+status
+state
+SUBMITTED maps to PUBLISHED
+DRAFT maps to DRAFT
+ARCHIVED maps to ARCHIVED
+form.hiddenFields
+hiddenFields
+account
+owner. Union of SponsoredAccountUrn for sponsored use cases, [OrganizationUrn](../pages-profiles/organizations.md) for other use cases.
+form.name
+name
+form field
+Renamed to content
+- headline and description are now multi-locale strings
+Within form.questions :
+- question is now a multi-locale string
+- typeSpecificQuestionDetails renamed to questionDetails
+- questionSubmissionCriteria is a new field to set up question submission criteria
+- label is a new field that serves as a unique identifier within the form to specify the question
+form.consents , form.privacyPolicy , form.legalDisclaimer
+Moved under content.legalInfo
+- legalDisclaimer is now a multi-locale string
+- privacyPolicy renamed to privacyPolicyUrl
+Within form.consents :
+- consentId renamed to id
+- consentRequired renamed to checkRequired
+- consent is now a multi-locale string
+form.landingPage , form.thankYouMessage , form.thankYouPageCallToAction
+Moved under content.postSubmissionInfo
+- thankYouMessage is now a multi-locale string
+LeadNotificationUrls → LeadNotifications API
+Workflow Changes
+LeadNotifications API supports storing notification URLs (webhooks) that are not associated with specific ad entities (the old API requires an account, campaign, or creative to be tied to the notification object).
+Supports storing notification URLs at varying levels of granularity, most notably at the form level.
+Supports storing URLs for the same form/owner under different lead types, such as SPONSORED and EVENT.
+Supports push notifications for both lead submissions and deletions.
+Schema Changes
+Schema
+LeadNotificationUrls API
+LeadNotifications API
+Notes
+createdTime
+occurredAt
+accountUrn
+owner
+For the SPONSORED lead type, the owner is a sponsored account URN. For all other lead types, the owner is an organization URN.
+campaignUrn
+Removed.
+Only sponsored leads have a campaignUrn; in this case, the campaign and related sponsored metadata can be obtained by fetching the lead directly.
+creativeUrn
+associatedEntity
+For the SPONSORED lead type, the creative URN is returned via the associatedEntity field. For other lead types, this field may resolve to other URNs.
+formUrn
+leadGenForm
+This is a VersionedLeadGenFormUrn instead of an AdFormUrn .
+adFormResponseUrn
+leadGenFormResponse
+This is a LeadGenFormResponseUrn instead of an AdFormResponseUrn .
+N/A
+type
+Always set to "LEAD_ACTION".
+N/A
+leadType
+Type of the lead; set to "SPONSORED" for sponsored leads.
+N/A
+leadAction
+Action performed on the lead; either "CREATED" or "DELETED".
+Notification Payload
+LeadNotificationUrls API
+LeadNotifications API
+Notes
+createdTime
+occurredAt
+accountUrn
+owner
+For the SPONSORED lead type the owner is a sponsored account URN. For all other lead types the owner is an organization URN.
+campaignUrn
+Removed.
+Only sponsored leads have a campaignUrn, in this case the campaign and related sponsored metadata can be obtained by fetching the lead directly.
+creativeUrn
+associatedEntity
+For the SPONSORED lead type the creative URN is returned via the associatedEntity field. For other lead types this field may resolve to other urns.
+formUrn
+leadGenForm
+This is a VersionedLeadGenFormUrn instead of an AdFormUrn .
+adFormResponseUrn
+leadGenFormResponse
+This is a LeadGenFormResponseUrn instead of an AdFormResponseUrn
+N/A
+type
+Always is set to "LEAD_ACTION"
+N/A
+leadType
+Type of the lead, is set to "SPONSORED" for sponsored leads
+N/A
+leadAction
+Action performed on the lead, is either "CREATED" or "DELETED"
+For example, consider the following JSON in the old payload format:
+{
+"createdTime": 1489428028784,
+"accountUrn": "urn:li:sponsoredAccount:67890",
+"campaignUrn": "urn:li:sponsoredCampaign:789012",
+"creativeUrn": "urn:li:sponsoredCreative:11223344",
+"formUrn": "urn:li:adForm:123456",
+"adFormResponseUrn": "urn:li:adFormResponse:abc123-abab-abab-abab-abc123abc123"
+}
+The equivalent JSON in the new payload format would look like:
+{
+"type": "LEAD_ACTION",
+"leadGenFormResponse": "urn:li:leadGenFormResponse:abc123-abab-abab-abab-abc123abc123",
+"leadGenForm": "urn:li:versionedLeadGenForm:(urn:li:leadGenForm:123456, 1)",
+"owner": { "sponsoredAccount": "urn:li:sponsoredAccount:67890" },
+"associatedEntity": { "sponsoredCreative": "urn:li:sponsoredCreative:11223344" },
+"leadType": "SPONSORED",
+"leadAction": "CREATED",
+"occurredAt": 1489428028784
+}
+Duplicate Webhooks
+Please note that legacy webhooks (LeadNotificationUrls) will continue to receive notifications in the old payload format until the legacy APIs reach end of life. This means that you'll receive duplicate notifications if you have also subscribed using the same parameters via the new LeadNotifications API. Proper deduplication logic should be put in place.
+Setting up a webhook via LeadNotificationUrls API vs LeadNotifications API
+LeadNotificationUrls API create request for a sponsored account webhook.
+curl
+curl -X POST 'https://api.linkedin.com/rest/leadNotificationUrls' \
+-H 'X-Restli-Protocol-Version: 2.0.0' \
+-H 'Authorization: Bearer {INSERT_TOKEN}' \
+-H 'Linkedin-Version: {version number in the format YYYYMM}' \
+-H 'Content-Type: application/json' \
+--data '{
+"key": {
+"developerApplication": "urn:li:developerApplication:12345",
+"sponsoredEntity": "urn:li:sponsoredAccount:67890"
+},
+"status": "ACTIVE",
+"url": "[https://www.example.com](https://eogi5ry4pv6izmq.m.pipedream.net)"
+}'
+LeadNotifications API create request for a sponsored account webhook.
+curl
+curl -X POST 'https://api.linkedin.com/rest/leadNotifications' \
+-H 'X-Restli-Protocol-Version: 2.0.0' \
+-H 'Authorization: Bearer {INSERT_TOKEN}' \
+-H 'Linkedin-Version: {version number in the format YYYYMM}' \
+-H 'Content-Type: application/json' \
+--data '{
+"webhook": "https://eogi5ry4pv6izmq.m.pipedream.net",
+"owner": {
+"sponsoredAccount": "urn:li:sponsoredAccount:67890"
+},
+"leadType": "SPONSORED"
+}'
+FAQ
+Q: If my developer app already had access to the legacy APIs and permissions, do I need to request access to the new Lead Sync API?
+No. Your existing developer app should already have access to the new endpoints and permissions.
+Q: What if I’ve migrated to the new lead sync APIs but I haven't migrated any existing webhook subscriptions yet? This means I’m still receiving the legacy webhook notification payload but using the new Lead Sync APIs to get back the form response data. Can I use the new GET /leadFormResponses/{id} endpoint using the id in the legacy webhook notification payload? E.g. urn:li:adFormResponse:abc123-abab-abab-abab-abc123abc123
+Yes, however please note that the new /leadFormResponses/{id} endpoint takes in an ID, abc123-abab-abab-abab-abc123abc123, and not a URN.
+Response Decoration Migration
+Below are examples of the top API response decoration usage and how to achieve the same results using the new Lead Sync APIs. Some fields are not returned by default in the API response. Therefore, to retrieve all required fields, you need to use field projection . Field projection allows you to specify exactly which fields you want included in the API response.
+If the additional metadata you need is still not returned, you may need to make a separate API request. For example, to retrieve the campaign group, make an API request to the GET campaign by ID endpoint and refer to the campaignGroupInfo field.
+Response decoration migration for adFormResponses API
+adFormResponses
+leadFormResponses
+field projection example
+form~(form(hiddenFields, landingPage, name, id))
+form.hiddenFields --> form.hiddenFields[]
+form.landingPage -->
+form.content.postSubmissionInfo.callToAction.callToActionTarget.landingPageUrl
+form.name --> form.name
+form.id --> form.id
+fields=form:(hiddenFields,name,id,content:(postSubmissionInfo:(callToAction:(callToActionTarget:(landingPageUrl)))))
+question~(name, question, typeSpecificQuestionDetails, predefinedField, questionId)
+question.name --> form.content.questions[].name
+question.question --> form.content.questions[].question
+question.typeSpecificQuestionDetails --> form.content.questions[].questionDetails
+question.predefinedfield --> form.content.questions[].predefinedField
+question.questionId --> form.content.questions[].questionId
+fields=form:(content:(questions))
+consent~(content, consentId, consentRequired)
+consent.content --> form.content.legalInfo.consents[].consent
+consent.consentId --> form.content.legalInfo.consents[].Id
+consent.consentRequired --> form.content.legalInfo.consents[].checkRequired
+fields=form:(content:(legalInfo:(consents)))
+account~(id, name)
+account.id --> owner.sponsoredAccount (parse out just the numbers)
+account.name --> ownerInfo.sponsoredAccountInfo.name
+fields=owner,ownerInfo:(sponsoredAccountInfo)
+campaign~(id, name, type)
+campaign.id --> leadMetadataInfo.sponsoredLeadMetadataInfo.campaign.id (parse out just the numbers)
+campaign.name --> leadMetadataInfo.sponsoredLeadMetadataInfo.campaign.name
+campaign.type --> leadMetadataInfo.sponsoredLeadMetadataInfo.campaign.type
+fields=leadMetadataInfo:(sponsoredLeadMetadataInfo:(campaign:(id,name,type)))
+creative~(id, intendedStatus, content)
+creative.id --> associatedEntityInfo.associatedCreative.id (parse out just the numbers)
+creative.intendedStatus --> associatedEntityInfo.associatedCreative.intendedStatus
+creative.content --> associatedEntityInfo.associatedCreative.content.reference (make additional API call to the /posts endpoint to get additional metadata if required)
+fields=associatedEntityInfo:(associatedCreative:(id,intendedStatus,content:(reference)))
+Response decoration migration for eventFormResponses API
+eventFormResponses
+leadFormResponses
+field projection example
+form~(hiddenFields, landingPage, name, id)
+form~.hiddenFields --> form.hiddenFields[]
+form~.landingPage --> form.content.postSubmissionInfo.callToAction.landingPageUrl
+form~.name --> form.name
+form~.id --> form.id
+fields=form:(hiddenFields,name,id,content:(postSubmissionInfo:(callToAction:(callToActionTarget:(landingPageUrl)))))
+event~(name,id)
+event~.name --> make an additional api call to the /events endpoint using the id
+event~.id --> id
+/leadFormResponses?fields=id
+question~(name)
+question~.name --> form.content.questions[].name
+fields=form:(content:(questions))
+The examples in the table above are very specific to show how granular you can get with field projection. However, for the data we want, getting that granular isn't necessary. The following example simplifies the request, since the JSON response needs to be parsed either way. fields=ownerInfo,associatedEntityInfo,leadMetadataInfo,owner,leadType,versionedLeadGenFormUrn,id,submittedAt,testLead,formResponse,form:(hiddenFields,creationLocale,name,id,content) .
+Feedback
+Was this page helpful?
+Yes
+No
+Need help with this topic?
+Want to try using Ask Learn to clarify or guide you through this topic?
+Ask Learn
+Suggest a fix?
+Additional resources
+Last updated on
+2026-04-16
+In this article
+Was this page helpful?
+Need help with this topic?
+Want to try using Ask Learn to clarify or guide you through this topic?
+Ask Learn
+Suggest a fix?
+en-us
+Your Privacy Choices
+Theme
+Light
+Dark
+High contrast
+AI Disclaimer
+Previous Versions
+Blog
+Contribute
+Privacy
+Consumer Health Privacy
+Terms of Use
+Trademarks
+&copy; Microsoft 2026

@@ -1,62 +1,97 @@
----
-title: >-
-The automaticDiscounts query is removed in API version 2027-01 - Shopify
-developer changelog
-description: >-
-Shopify’s developer changelog documents all changes to Shopify’s platform.
-Find the latest news and learn about new platform opportunities.
-source_url:
-html: >-
-https://shopify.dev/changelog/automaticdiscounts-query-is-removed-in-api-version-2027-01
-md: >-
-https://shopify.dev/changelog/automaticdiscounts-query-is-removed-in-api-version-2027-01.md
-metadata:
-effectiveApiVersion: 2027-01
-affectedApi:
-- displayName: Admin GraphQL API
-handle: admin-graphql
-primaryTag:
-displayName: API
-handle: api
-secondaryTag:
-displayName: Breaking API Change
-handle: breaking-api-change
-indicatesActionRequired: true
-createdAt: '2026-09-17T07:43:02-04:00'
-postedAt: '2026-09-18T12:00:00-04:00'
-updatedAt: '2026-09-18T17:06:18-04:00'
-effectiveAt: '2026-09-18T12:00:00-04:00'
----
+Skip to main content
+Apps
+Storefronts
+Agents
+References
+Changelog
+Ask assistant /
+Help
+•
+Log in
+Collapse sidebar
+Changelog
+Search changelog
+Subscribe
+All posts
+Blog & announcements
+Release notes
 September 18, 2026
-# The `automaticDiscounts` query is removed in API version 2027-01
-DateSeptember 18, 2026
-Version[2027-01](https://shopify.dev/changelog?api_version=2027-01)
-Flags[Breaking API Change](https://shopify.dev/changelog?filter=breaking-api-change)[Action required](https://shopify.dev/changelog?action_required=true)
-SurfacesAPI
-Affected APIs[Admin GraphQL API](https://shopify.dev/changelog?api_type=admin-graphql)
-The deprecated `automaticDiscounts` query is removed from the GraphQL Admin API in version `2027-01`. If your app reads a shop’s automatic discounts through `automaticDiscounts`, you need to move to the `discountNodes` query with a `method:automatic` filter before you upgrade to `2027-01`. Apps on `2026-10` and earlier keep working unchanged while those versions are supported.
-## What changed
-As of API version `2027-01`, `automaticDiscounts` no longer exists on `QueryRoot`. Requests that include `automaticDiscounts` on `2027-01` return a validation error instead of data. The `DiscountAutomaticConnection` and `DiscountAutomaticEdge` types are also removed, because no other fields in the schema return them.
-Use `discountNodes` instead, with `query: "method:automatic"`. It returns a connection of `DiscountNode` objects, each exposing the discount itself on the `discount` field. `discountNodes` accepts filters similar to the removed query, including `status`, `discount_type`, `discount_class`, `created_at`, and `starts_at`. For details on how to combine filters, see the [Shopify API search syntax](https://shopify.dev/docs/api/usage/search-syntax).
-***
-**Note:** The \ \ automatic\ Discount\ Nodes\ \ query is also deprecated in favor of \ \ discount\ Nodes\ \ . If you migrate to \ \ automatic\ Discount\ Nodes\ \ , you’ll need to migrate again later when that query is removed.
-***
-You can call `discountNodes` to read both code-based and automatic discounts through one query, with a single filter vocabulary.
-## Who's affected
-This removal affects any app that calls `automaticDiscounts` and requests API version `2027-01` or later, including apps pinned to `unstable` once `2027-01` is the latest version. It also affects tooling and generated types that reference `DiscountAutomaticConnection` or `DiscountAutomaticEdge`.
-Apps that request `2026-10` or earlier continue to work as long as those versions are supported. Apps that already read automatic discounts through `discountNodes` don’t need to change anything. Apps that use `automaticDiscountNodes` aren’t affected by this specific removal, but should plan to move to `discountNodes`.
-If your app doesn’t call `automaticDiscounts`, you don’t need to take action for this change.
-## Why this matters
-`discountNodes` is one query surface for all discounts, automatic and code-based. You use the same search syntax and pagination pattern across discount types. If your app needs both methods, you read a single paginated list instead of merging separate query results, and new automatic discount types don’t require new query fields.
-## Breaking changes and migrations
-When you request API version `2027-01` or later, any query that includes `automaticDiscounts` fails validation. Types that depend on `DiscountAutomaticConnection` or `DiscountAutomaticEdge` also break when you regenerate code against `2027-01`.
+The automaticDiscounts query is removed in API version 2027-01
+Install AI Toolkit Ask about this page Copy MD
+Date September 18, 2026
+Version 2027-01
+Flags Breaking API Change Action required
+Surfaces API
+Affected APIs Admin GraphQL API
+The deprecated automatic Discounts query is removed from the GraphQL Admin API in version 2027-01 . If your app reads a shop’s automatic discounts through automatic Discounts , you need to move to the discount Nodes query with a method:automatic filter before you upgrade to 2027-01 . Apps on 2026-10 and earlier keep working unchanged while those versions are supported.
+What changed
+As of API version 2027-01 , automatic Discounts no longer exists on Query Root . Requests that include automatic Discounts on 2027-01 return a validation error instead of data. The Discount Automatic Connection and Discount Automatic Edge types are also removed, because no other fields in the schema return them.
+Use discount Nodes instead, with query: "method:automatic" . It returns a connection of Discount Node objects, each exposing the discount itself on the discount field. discount Nodes accepts filters similar to the removed query, including status , discount _type , discount _class , created _at , and starts _at . For details on how to combine filters, see the Shopify API search syntax .
+Note
+The automatic Discount Nodes query is also deprecated in favor of discount Nodes . If you migrate to automatic Discount Nodes , you’ll need to migrate again later when that query is removed.
+Note :
+The automatic Discount Nodes query is also deprecated in favor of discount Nodes . If you migrate to automatic Discount Nodes , you’ll need to migrate again later when that query is removed.
+Note: The <code><span class="PreventFireFoxApplyingGapToWBR">automatic<wbr/>Discount<wbr/>Nodes</span></code> query is also deprecated in favor of <code><span class="PreventFireFoxApplyingGapToWBR">discount<wbr/>Nodes</span></code>. If you migrate to <code><span class="PreventFireFoxApplyingGapToWBR">automatic<wbr/>Discount<wbr/>Nodes</span></code>, you’ll need to migrate again later when that query is removed.
+You can call discount Nodes to read both code-based and automatic discounts through one query, with a single filter vocabulary.
+Who's affected
+This removal affects any app that calls automatic Discounts and requests API version 2027-01 or later, including apps pinned to unstable once 2027-01 is the latest version. It also affects tooling and generated types that reference Discount Automatic Connection or Discount Automatic Edge .
+Apps that request 2026-10 or earlier continue to work as long as those versions are supported. Apps that already read automatic discounts through discount Nodes don’t need to change anything. Apps that use automatic Discount Nodes aren’t affected by this specific removal, but should plan to move to discount Nodes .
+If your app doesn’t call automatic Discounts , you don’t need to take action for this change.
+Why this matters
+discount Nodes is one query surface for all discounts, automatic and code-based. You use the same search syntax and pagination pattern across discount types. If your app needs both methods, you read a single paginated list instead of merging separate query results, and new automatic discount types don’t require new query fields.
+Breaking changes and migrations
+When you request API version 2027-01 or later, any query that includes automatic Discounts fails validation. Types that depend on Discount Automatic Connection or Discount Automatic Edge also break when you regenerate code against 2027-01 .
 To migrate:
-1. Search your app for `automaticDiscounts`, including generated GraphQL types and any references to `DiscountAutomaticConnection` or `DiscountAutomaticEdge`.
-2. Replace the query with `discountNodes` and pass `query: "method:automatic"`. Move your existing inline fragments one level deeper, onto the `discount` field of `DiscountNode`.
-3. Regenerate your GraphQL types or schema snapshot against `2027-01` so your types match the new shape.
-4. Test against `2027-01` in a development store and confirm that the results match what your app returned on `2026-10`.
+Search your app for automatic Discounts , including generated GraphQL types and any references to Discount Automatic Connection or Discount Automatic Edge .
+Replace the query with discount Nodes and pass query: "method:automatic" . Move your existing inline fragments one level deeper, onto the discount field of Discount Node .
+Regenerate your GraphQL types or schema snapshot against 2027-01 so your types match the new shape.
+Test against 2027-01 in a development store and confirm that the results match what your app returned on 2026-10 .
 Here’s the same request, before and after:
-```graphql
+Copy
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+# Before, on 2026-10 and earlier
+query {
+automaticDiscounts ( first : 10 ) {
+nodes {
+... on DiscountAutomaticBxgy {
+title
+status
+}
+# After, on 2027-01
+query {
+discountNodes ( first : 10 , query : "method:automatic" ) {
+nodes {
+id
+discount {
+... on DiscountAutomaticBxgy {
+title
+status
+}
 # Before, on 2026-10 and earlier
 query {
 automaticDiscounts(first: 10) {
@@ -75,15 +110,34 @@ discount {
 title
 status
 }
-```
-The inline fragments carry over unchanged. You move them from the `nodes` under `automaticDiscounts` to the `discount` field of each `DiscountNode`. If your app reads more than one automatic discount type, add one inline fragment per type on `discount`, or select shared fields through the interfaces those types implement.
-If you can’t migrate before `2027-01`, keep your app on `2026-10` or an earlier supported version that still includes `automaticDiscounts` until you complete the change.
-## Action required
-Before you upgrade your app to API version `2027-01`, update any queries that call `automaticDiscounts` to use `discountNodes` with `query: "method:automatic"`, and regenerate your types against `2027-01`. If you upgrade without migrating, those queries return validation errors and your app no longer reads automatic discounts.
-You can confirm the migration worked by running your updated queries against a development store on `2027-01` and checking that the automatic discount data matches what you saw on `2026-10`.
-If your app doesn’t call `automaticDiscounts`, you can upgrade to `2027-01` without changes.
-## Related docs
-* [Discount nodes query in the GraphQL Admin API](https://shopify.dev/docs/api/admin-graphql/latest/queries/discountNodes)
-* [DiscountNode object reference](https://shopify.dev/docs/api/admin-graphql/latest/objects/DiscountNode)
-* [Build discounts in Shopify apps](https://shopify.dev/docs/apps/build/discounts)
-* [API versioning in Shopify](https://shopify.dev/docs/api/usage/versioning)
+The inline fragments carry over unchanged. You move them from the nodes under automatic Discounts to the discount field of each Discount Node . If your app reads more than one automatic discount type, add one inline fragment per type on discount , or select shared fields through the interfaces those types implement.
+If you can’t migrate before 2027-01 , keep your app on 2026-10 or an earlier supported version that still includes automatic Discounts until you complete the change.
+Action required
+Before you upgrade your app to API version 2027-01 , update any queries that call automatic Discounts to use discount Nodes with query: "method:automatic" , and regenerate your types against 2027-01 . If you upgrade without migrating, those queries return validation errors and your app no longer reads automatic discounts.
+You can confirm the migration worked by running your updated queries against a development store on 2027-01 and checking that the automatic discount data matches what you saw on 2026-10 .
+If your app doesn’t call automatic Discounts , you can upgrade to 2027-01 without changes.
+Related docs
+Discount nodes query in the GraphQL Admin API
+DiscountNode object reference
+Build discounts in Shopify apps
+API versioning in Shopify
+Was this page helpful?
+Yes No
+Updates
+Developer changelog
+Shopify Editions
+Business growth
+Shopify Partners Program
+Shopify App Store
+Shopify Academy
+Legal
+Terms of service
+API terms of use
+Privacy policy
+Partners Program Agreement
+Shopify
+About Shopify
+Shopify Plus
+Careers
+Investors
+Press and media

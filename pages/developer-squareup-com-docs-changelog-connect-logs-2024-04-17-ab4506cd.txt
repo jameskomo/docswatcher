@@ -1,0 +1,84 @@
+Search developer resources
+/
+Docs & Tools
+SDKs
+Support
+Partnerships
+Sign In
+Docs Home
+Dev Essentials
+Payments Commerce Customers Staff Merchants
+Release notes
+Docs
+Docs Home
+Dev Essentials
+Payments
+Commerce
+Customers
+Staff
+Merchants
+Release notes
+Overview
+Square APIs and SDKs
+Mobile SDKs
+Web SDKs
+Web Payments SDK
+App Marketplace Requirements
+/
+Square APIs and SDKs
+2024-04-17 Changelog
+Square
+Documentation
+Bookings API
+Catalog API
+OAuth API
+RETIRED
+Link to section
+Version summary
+Square Version : 2024-04-17
+Java : 39.0.0.20240417
+.NET : 36.0.0
+Node.js : 36.0.0
+PHP : 36.0.0.20240417
+Python : 36.0.0.20240417
+Ruby : 37.0.0.20240417
+Link to section
+Details
+Link to section
+API Updates
+Bookings API
+UpdateBooking endpoint - Disallows updates of a booking's appointment segments after a deposit is made for the booking.
+Catalog API
+CatalogModifierList and CatalogCategory objects - Supports having custom attributes according to the CatalogCustomAttributeDefinition specification. For more information, see Add Custom Attributes .
+OAuth API
+RenewToken endpoint - Retired . For information about refreshing an expiring token, see Refresh the access token regularly .
+Link to section
+Documentation updates
+Square SDKs
+Quickstarts for Java , .NET , Node.js , PHP , Python , and Ruby - Updated the sample code to demonstrate the use of Bearer Auth credentials in the client.
+Development
+Guides
+API Reference
+API Explorer
+SDKs
+Sample apps
+System status
+Support
+Developer forums
+Developer blog
+YouTube
+X
+More
+Square Home
+Square Developer
+App Marketplace
+Partner with Square
+Solutions Partner Program
+Pricing
+Sales
+©
+2026
+Square, Inc.
+Developer terms of service
+Developer Integration and Marketing Agreement
+Privacy policy

@@ -155,7 +155,7 @@ March 31, 2023
 New chatters endpoint
 API
 6
-766
+767
 April 24, 2023
 Legacy Chatters endpoint and detecting bots
 API

@@ -1,0 +1,379 @@
+Skip to main content
+Maps Platform
+Products
+Pricing
+Documentation
+Get Started
+Get Started with Google Maps Platform
+Capabilities Explorer
+Pricing & Billing
+Security & Compliance
+Reporting & Monitoring
+FAQ
+Support and Resources
+Customer Care
+Incident Management
+Maps
+Maps JavaScript API
+Maps SDK for Android
+Maps SDK for iOS
+Google Maps for Flutter
+Maps Embed API
+Maps Static API
+Street View Static API
+Maps URLs
+Aerial View API
+Elevation API
+Map Tiles API
+Maps Datasets API
+Web Components
+Routes
+Routes API
+Navigation SDK for Android
+Navigation SDK for iOS
+Navigation for Flutter
+Navigation for React Native
+Roads API
+Route Optimization API
+Analytics
+Google Earth
+Places Insights
+Population Dynamics Insights
+Street View Insights
+Roads Management Insights
+Places
+Places API (New)
+Places SDK for Android
+Places SDK for iOS
+Places Library, Maps JavaScript API
+Geocoding API
+Geolocation API
+Address Validation API
+Time Zone API
+Places Aggregate API
+Isochrones API
+Environment
+Air Quality API
+Pollen API
+Solar API
+Weather API
+Solutions
+Architecture Center
+Industry solutions
+Maps Builder agent
+WordPress Users
+Additional Resources
+API Security Best Practices
+Digital Signature Guide
+Map Coverage Details
+Optimization Guide
+Mobile OS and software support
+Launch stages
+Legacy products
+Deprecations
+URL Encoding
+Blog
+Community
+GitHub
+YouTube
+LinkedIn
+Discord
+Innovators
+Issue Tracker
+/
+English
+Deutsch
+Español
+Français
+Indonesia
+Português – Brasil
+Русский
+中文 – 简体
+日本語
+한국어
+Sign in
+Documentation
+Maps Platform
+Products
+Pricing
+Documentation
+More
+Blog
+Community
+More
+Google Maps Platform Documentation
+Get started
+Get started with Google Maps Platform
+Get and use a Maps Demo Key
+Capabilities Explorer
+Map IDs
+FAQ
+Support and resources
+Customer Care
+Resources for AI
+Overview
+Agent skills
+Agentic UI toolkit (experimental)
+Overview
+Getting started
+Code Assist toolkit (experimental)
+Overview
+Configure with Gemini CLI
+MCP Reference overview
+Tools
+retrieve-instructions
+retrieve-google-maps-platform-docs
+Maps Grounding Lite
+Overview
+Attribution guidelines
+Resolution APIs (experimental)
+Reference
+MCP reference
+Overview
+search_places
+lookup_weather
+compute_routes
+resolve_maps_urls
+resolve_names
+REST reference
+Overview
+resolveNames
+resolveMapsUrls
+Maps in AI Studio
+Best practices
+API security best practices
+Digital signature guide
+Optimization guide
+Optimizing Web Service usage
+Security & compliance
+Overview
+Security guidance
+Services in scope
+Incident management
+Trust Center
+Utilities
+Encoded Polyline Algorithm format
+Interactive Polyline Utility
+Terms & policies
+Google Maps Platform Terms
+European Economic Area (EEA) Terms
+EEA FAQ
+Additional resources
+Asset Tracking Plan
+Deprecations
+Domains
+Launch stages
+Legacy products
+Map coverage details
+Mobile OS and software support
+Pre-launch checklist
+Premium Plan
+Project roles comparison
+Root CA migration FAQ
+URL encoding
+WordPress users
+Get Started
+Get Started with Google Maps Platform
+Capabilities Explorer
+Pricing & Billing
+Security & Compliance
+Reporting & Monitoring
+FAQ
+Support and Resources
+Customer Care
+Incident Management
+Maps
+Maps JavaScript API
+Maps SDK for Android
+Maps SDK for iOS
+Google Maps for Flutter
+Maps Embed API
+Maps Static API
+Street View Static API
+Maps URLs
+Aerial View API
+Elevation API
+Map Tiles API
+Maps Datasets API
+Web Components
+Routes
+Routes API
+Navigation SDK for Android
+Navigation SDK for iOS
+Navigation for Flutter
+Navigation for React Native
+Roads API
+Route Optimization API
+Analytics
+Google Earth
+Places Insights
+Population Dynamics Insights
+Street View Insights
+Roads Management Insights
+Places
+Places API (New)
+Places SDK for Android
+Places SDK for iOS
+Places Library, Maps JavaScript API
+Geocoding API
+Geolocation API
+Address Validation API
+Time Zone API
+Places Aggregate API
+Isochrones API
+Environment
+Air Quality API
+Pollen API
+Solar API
+Weather API
+Solutions
+Architecture Center
+Industry solutions
+Maps Builder agent
+WordPress Users
+Additional Resources
+API Security Best Practices
+Digital Signature Guide
+Map Coverage Details
+Optimization Guide
+Mobile OS and software support
+Launch stages
+Legacy products
+Deprecations
+URL Encoding
+GitHub
+YouTube
+LinkedIn
+Discord
+Innovators
+Issue Tracker
+Home
+Products
+Google Maps Platform
+Documentation
+Send feedback
+Legacy products and features
+Stay organized with collections
+Save and categorize content based on your preferences.
+Page Summary
+outlined_flag
+This page lists Google Maps Platform products and features transitioning to Legacy status, an intermediate step before deprecation.
+Legacy services are not available in new Cloud projects but remain fully supported for existing projects.
+While Legacy services will eventually be turned down, there's no set date, and a 12-month notice will be provided before decommissioning.
+Several services in Routes and Places product areas are scheduled to become Legacy on March 1, 2025, with migration guides and new service options available.
+This topic lists all Google Maps Platform products and features that are
+currently, or scheduled to be, in the
+Legacy stage.
+How Legacy status works
+Legacy is an intermediate lifecycle step to ease the transition between
+Generally Available services and Deprecated services.
+Legacy-marked services will be officially feature frozen, and new feature
+requests will only be considered for updated non-Legacy services.
+Legacy-marked services will retain full support.
+Existing projects already using Legacy services can continue to do so.
+While we envision that Legacy services will be turned down in the coming
+years, there is no date yet for when this will happen.
+Subject to the Google Maps Platform Terms of
+Service Deprecation
+Policy, we will provide at least a 12-month notice prior to the decommission of
+the services.
+Active services with Legacy status
+This section lists all products and features which are either Legacy or
+scheduled to be in Legacy.
+Product Area
+Legacy Service Name
+Legacy Date
+New Service Name
+Migration guide
+Routes
+Distance Matrix API
+March 1, 2025
+Routes API
+Guide
+Directions API
+March 1, 2025
+JavaScript
+Distance Matrix Service
+March 1, 2025
+RouteMatrix Class
+Guide
+JavaScript Directions Service
+March 1, 2025
+Route Class
+Guide
+Places
+Places API
+March 1, 2025
+Places API (New)
+Guide
+JavaScript Places Service
+March 1, 2025
+Place Class
+Guide
+Places SDK for Android
+March 1, 2025
+Places SDK for Android (New)
+Guide
+Places SDK for iOS
+March 1, 2025
+Places SDK for iOS (New)
+Guide
+LegacyApiNotActivatedMapError
+Google throws this error when your application is querying a legacy API ( Places
+API , Directions API , or Distance Matrix
+API ) that is not enabled on your project. In most cases, keep legacy APIs
+disabled on new projects.
+If you own the application that's throwing this error, use the equivalent new
+API instead.
+If you don't own the application that's throwing this error, report this issue
+to your application provider by sharing this URL with them, and follow their
+instructions to upgrade to a new version. As a short-term solution, consider
+activating the legacy API(s):
+Places API
+Directions API
+Distance Matrix API
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2026-09-24 UTC.
+Platform Status
+Find out about platform incidents and outages.
+Support
+Get help from the Support team.
+Discord
+Chat with fellow developers about Google Maps Platform.
+Issue Tracker
+Something wrong? Send us a bug report!
+Learn More
+FAQ
+Capabilities Explorer
+Getting started
+API security best practices
+Platforms
+Android
+iOS
+Web
+Web Services
+Product Info
+Pricing and Plans
+Contact Sales
+Support
+Terms of Service
+Android
+Chrome
+Firebase
+Google Cloud Platform
+Google AI
+All products
+Terms
+Privacy
+Manage cookies
+English
+Deutsch
+Español
+Français
+Indonesia
+Português – Brasil
+Русский
+中文 – 简体
+日本語
+한국어

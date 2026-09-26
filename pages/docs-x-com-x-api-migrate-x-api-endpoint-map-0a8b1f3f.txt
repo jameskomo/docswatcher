@@ -1,0 +1,226 @@
+Documentation Index
+Fetch the complete documentation index at: /llms.txt
+Use this file to discover all available pages before exploring further.
+Skip to main content
+X home page
+X API
+Documentation
+API Reference
+Changelog
+Search...
+⌘ K
+Support
+Developer Console
+X home page
+Search or ask...
+Navigation
+X API endpoint map: v1.1 and Enterprise to v2
+General
+Developer Console
+Forums
+GitHub
+Overview
+Fundamentals
+Posts
+Search
+Post Counts
+Filtered Stream
+Timelines
+Post Lookup
+Bookmarks
+Manage Posts
+Reposts
+Quotes
+Hide replies
+Articles
+Introduction
+POST
+Create draft Article
+POST
+Publish Article
+Users
+User Lookup
+Search
+Follows
+Mutes
+Blocks
+Affiliates
+Direct Messages
+Manage
+Lookup
+Blocks
+Likes
+Introduction
+Guides
+GET
+Get Users Liked Posts
+GET
+Get Posts Liking Users
+POST
+Like Post
+DEL
+Unlike Post
+Lists
+Lookup Lists
+Lookup List Posts
+Manage Lists
+List Members
+Pinned Lists
+Spaces
+Introduction
+Spaces Lookup
+Search Spaces
+Communities
+Communities Lookup
+Search Communities
+Community Notes
+Community Notes API for X API v2
+Quickstart
+GET
+Search Eligible Posts
+GET
+Search Community Notes Written
+POST
+Create Community Notes
+DEL
+Delete a Community Note
+POST
+Evaluate Community Notes
+Trends
+Personalized Trends
+News
+Introduction
+GET
+Get news stories by ID
+GET
+Search News
+Media
+Introduction
+Upload
+Metadata
+X Activity
+Introduction
+Quickstart
+Event payloads
+GET
+Activity Stream
+POST
+Create X activity subscription
+DEL
+Deletes X activity subscription
+DEL
+Delete X activity subscriptions by IDs
+GET
+Get X activity subscriptions
+PUT
+Update X activity subscription
+Usage
+Introduction
+GET
+Get Usage
+GET
+Get usage credits
+Stream Connections
+Introduction
+GET
+Get Connection History
+DEL
+Terminate connections by endpoint
+DEL
+Terminate multiple connections
+DEL
+Terminate all connections
+Compliance
+Batch Compliance
+Compliance streams
+Webhooks
+Introduction
+Quickstart
+POST
+Create webhook
+DEL
+Delete webhook
+GET
+Get webhook
+PUT
+Validate webhook
+POST
+Create replay job for webhook
+X API endpoint map: v1.1 and Enterprise to v2
+Copy page Copy page
+Comprehensive map of Standard v1.1 and Enterprise endpoints alongside their X API v2 equivalents to plan and execute your migration to v2.
+Copy page Copy page
+The following table maps the X API v2 endpoints to the corresponding standard v1.1, and enterprise endpoints. To learn more about each of these versions and tiers, please visit our X API getting started guide .
+You’ll notice that we still have several items marked as [Coming Soon] . If you notice anything within this table that is marked as [Replacement Under Consideration] or [No Replacement Planned] , and you would like to see us release a v2 version of that endpoint, please let us know via our community forum or your enterprise account manager.
+Standard v1.1
+Enterprise
+X API v2
+Posts
+GET statuses/show
+GET statuses/lookup
+Posts lookup
+POST statuses/update
+POST statuses/destroy/:id
+Manage Posts
+GET statuses/user_timeline
+GET statuses/mentions_timeline
+GET statuses/home_timeline
+Timelines
+- User Post timeline
+- User mention timeline
+- Reverse chronological home timeline
+GET search/tweets
+Search API
+- 30 day
+- Full-archive
+Search Tweets
+- Recent search
+- 30 day [No Replacement Planned]
+- Full-archive search
+Search API
+- 30 day
+- Full-archive
+Tweet counts
+- Recent Tweet counts
+- 30 day [No Replacement Planned]
+- Full-archive Tweet counts
+GET statuses/filter
+PowerTrack API
+Filtered stream
+- Connect to stream
+- Add/delete rules
+- Retrieve rules
+GET statuses/sample (1%)
+Decahose API
+Firehose API
+Volume stream
+- 1% sampled stream
+- 10% decahose stream
+- 100% firehose stream
+GET statuses/retweeters/:ids
+GET statuses/retweets/:id
+Retweets lookup
+Quote Tweets lookup
+POST statuses/retweet/:id
+POST statuses/unretweet/:id
+Manage Retweets
+- Retweet a Tweet
+- Undo a Retweet
+GET favorites/list
+Likes lookup
+- Posts liked by a user
+- Users who have liked a Post
+POST favorites/create
+POST favorites/destroy
+Manage Likes
+- Like a Post
+- Unlike a Post
+Hide replies
+⌘ I
+X home page
+x github
+Resources
+Status Incidents
+Legal
+Terms of Service Privacy Policy Cookies Developer Terms
+x github

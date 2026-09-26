@@ -1,0 +1,257 @@
+Skip to main content
+Skip to Ask Learn chat experience
+This browser is no longer supported.
+Upgrade to Microsoft Edge to take advantage of the latest features, security updates, and technical support.
+Download Microsoft Edge
+More info about Internet Explorer and Microsoft Edge
+Table of contents
+Exit editor mode
+Ask Learn
+Reading mode
+Table of contents
+Read in English
+Add
+Add to Plans
+Edit
+Copy Markdown
+Print
+Note
+Access to this page requires authorization. You can try signing in or changing directories .
+Access to this page requires authorization. You can try changing directories .
+Migrations
+Feedback
+Summarize this article for me
+In this article
+Warning
+Deprecation Notice:
+The Marketing Version 202510 (Marketing October 2025) will be sunset on October 15, 2026. We recommend that you migrate to the latest versioned APIs to avoid disruptions. For information on all the supported versions, refer to the migrations documentation.
+If you haven’t yet migrated and have questions, submit a request on the LinkedIn Developer Support Portal .
+There will be periodic changes to LinkedIn Marketing Developer Platform APIs that require updating your application.
+API Migration Status
+Migration
+Sunset Date
+Version Status
+Developers using LinkedIn Marketing APIs version 202609 (September 2026) to migrate to the latest versions.
+September 15, 2027
+Active
+Developers using LinkedIn Marketing APIs version 202608 (August 2026) to migrate to the latest versions.
+August 17, 2027
+Active
+Developers using LinkedIn Marketing APIs version 202607 (July 2026) to migrate to the latest versions.
+July 15, 2027
+Active
+Developers using LinkedIn Marketing APIs version 202606 (June 2026) to migrate to the latest versions.
+June 15, 2027
+Active
+Developers using LinkedIn Marketing APIs version 202605 (May 2026) to migrate to the latest versions.
+May 15, 2027
+Active
+Developers using LinkedIn Marketing APIs version 202604 (April 2026) to migrate to the latest versions.
+April 15, 2027
+Active
+Developers using LinkedIn Marketing APIs version 202603 (March 2026) to migrate to the latest versions.
+March 16, 2027
+Active
+Developers using LinkedIn Marketing APIs version 202602 (February 2026) to migrate to the latest versions.
+February 15, 2027
+Active
+Developers using LinkedIn Marketing APIs version 202601 (January 2026) to migrate to the latest versions.
+January 15, 2027
+Active
+Developers using LinkedIn Marketing APIs version 202511 (November 2025) to migrate to the latest versions.
+November 16, 2026
+Active
+Developers using LinkedIn Marketing APIs version 202510 (October 2025) to migrate to the latest versions.
+October 15, 2026
+Active
+Developers using LinkedIn Marketing APIs version 202509 (September 2025) to migrate to the latest versions.
+September 15, 2026
+Deprecated
+Developers using LinkedIn Marketing APIs version 202508 (August 2025) to migrate to the latest versions.
+August 17, 2026
+Deprecated
+Developers using LinkedIn Marketing APIs version 202507 (July 2025) to migrate to the latest versions.
+July 15, 2026
+Deprecated
+Developers using LinkedIn Marketing APIs version 202506 (June 2025) to migrate to the latest versions.
+June 15, 2026
+Deprecated
+Developers using LinkedIn Marketing APIs version 202505 (May 2025) to migrate to the latest versions.
+May 15, 2026
+Deprecated
+Developers using LinkedIn Marketing APIs version 202504 (April 2025) to migrate to the latest versions.
+April 15, 2026
+Deprecated
+Developers using LinkedIn Marketing APIs version 202503 (March 2025) to migrate to the latest versions.
+March 16, 2026
+Deprecated
+Developers using LinkedIn Marketing APIs version 202502 (February 2025) to migrate to the latest versions.
+February 16, 2026
+Deprecated
+Developers using LinkedIn Marketing APIs version 202501 (January 2025) to migrate to the latest versions.
+January 15, 2026
+Deprecated
+Developers using LinkedIn Marketing APIs version 202411 (November 2024) to migrate to the latest versions.
+November 17, 2025
+Deprecated
+Developers using LinkedIn Marketing APIs version 202410 (October 2024) to migrate to the latest versions.
+October 15, 2025
+Deprecated
+Developers using LinkedIn Marketing APIs version 202409 (September 2024) to migrate to the latest versions.
+September 15, 2025
+Deprecated
+Developers using LinkedIn Marketing APIs version 202408 (August 2024) to migrate to the latest versions.
+August 18, 2025
+Deprecated
+Developers using LinkedIn Marketing APIs version 202407 (July 2024) to migrate to the latest versions.
+July 22, 2025
+Deprecated
+Developers using LinkedIn Marketing APIs version 202406 (June 2024) to migrate to the latest versions.
+June 16, 2025
+Deprecated
+Developers using LinkedIn Marketing APIs version 202405 (May 2024) to migrate to the latest versions.
+May 15, 2025
+Deprecated
+Developers using LinkedIn Marketing APIs version 202404 (April 2024) to migrate to the latest versions.
+April 15, 2025
+Deprecated
+Developers using LinkedIn Marketing APIs version 202403 (March 2024) to migrate to the latest versions.
+March 17, 2025
+Deprecated
+Developers using LinkedIn Marketing APIs version 202402 (February 2024) to migrate to the latest versions.
+February 18, 2025
+Deprecated
+Developers using LinkedIn Marketing APIs version 202401 (January 2024) to migrate to the latest versions.
+January 22, 2025
+Deprecated
+Developers using LinkedIn Marketing APIs unversioned to migrate to the latest versions.
+December 16, 2024
+Deprecated
+Developers using LinkedIn Marketing APIs version 202311 (November 2023) to migrate to the latest versions.
+November 15, 2024
+Deprecated
+Developers using LinkedIn Marketing APIs version 202310 (October 2023) to migrate to the latest versions.
+October 15, 2024
+Deprecated
+Developers using LinkedIn Marketing APIs version 202309 (September 2023) to migrate to the latest versions.
+September 16, 2024
+Deprecated
+Developers using LinkedIn Marketing APIs version 202308 (August 2023) to migrate to the latest versions.
+August 16, 2024
+Deprecated
+Developers using LinkedIn Marketing APIs version 202307 (July 2023) to migrate to the latest versions.
+December 16, 2024
+Deprecated
+Developers using LinkedIn Marketing APIs version 202306 (June 2023) to migrate to the latest versions.
+December 16, 2024
+Deprecated
+Developers using LinkedIn Marketing APIs version 202305 (May 2023) to migrate to the latest versions.
+June 17, 2024
+Deprecated
+Developers using LinkedIn Marketing APIs version 202304 (April 2023) to migrate to the latest versions.
+April 15, 2024
+Deprecated
+Developers using Ads Lead Sync or Events Lead sync API migrating to the new Lead Sync API or Developers creating Lead Gen Forms via API
+December 16, 2024
+N/A
+Developers using LinkedIn Marketing APIs version 202303 (March 2023) to migrate to the latest versions.
+March 15, 2024
+Deprecated
+Developers using LinkedIn Marketing APIs version 202302 (February 2023) to migrate to the latest versions.
+Feb 15, 2024
+Deprecated
+Developers using LinkedIn Marketing APIs version 202301 (January 2023) to migrate to the latest versions.
+Jan 16, 2024
+Deprecated
+Developers using LinkedIn Marketing APIs version 202212 (December 2022) to migrate to the latest versions.
+Jan 16, 2024
+Deprecated
+Developers using LinkedIn Marketing APIs version 202211 (November 2022) to migrate to the latest versions.
+Jan 16, 2024
+Deprecated
+Developers using LinkedIn Marketing APIs version 202210 (October 2022) to migrate to the latest versions.
+Jan 16, 2024
+Deprecated
+Developers using legacy Offline Conversions API to migrate to the new Conversions API.
+November 15, 2023
+Deprecated
+Developers using LinkedIn Marketing APIs version 202209 (September 2022) to migrate to the latest versions.
+September 15, 2023
+Deprecated
+Developers using LinkedIn Marketing APIs version 202208 (August 2022) to migrate to the latest versions.
+August 16, 2023
+Deprecated
+Developers using LinkedIn Marketing APIs version 202207 (July 2022) to migrate to the latest versions.
+July 25, 2023
+Deprecated
+Developers using LinkedIn Marketing APIs version 202206 (June 2022) to migrate to the latest versions.
+June 15, 2023
+Deprecated
+Developers using LinkedIn Marketing APIs for community management solutions migrating to the new Community Management API.
+June 30, 2023
+N/A
+Content APIs are replacing APIs such as assets, adInMailContentsV2 , adCreativesV2 , ugcPosts , sponsoredConversations .
+June 30, 2023
+N/A
+Developers using the unversioned APIs to migrate to the new versioned APIs.
+June 30, 2023
+N/A
+Error Message and Code Updates.
+Ongoing
+N/A
+Deprecating filter.industry for Company Search API to use filter.industryV2 .
+June 30, 2022
+N/A
+New Max Request Length Limits.
+April 30, 2022
+N/A
+Removing totalBudget and totalBudgetEndsAt fields from Ad Accounts V2 .
+October 30, 2020
+N/A
+Ad Campaigns V2 requires campaignGroup field.
+October 30, 2020
+N/A
+Required to select Specific Ad Analytics fields.
+September 30, 2020
+N/A
+Removal of adAudienceMatches endpoint.
+March 31, 2020
+N/A
+Bing Geo Migration.
+March 31, 2020
+N/A
+Rich Media Platform Deprecation.
+March 30, 2020
+N/A
+Feedback
+Was this page helpful?
+Yes
+No
+Need help with this topic?
+Want to try using Ask Learn to clarify or guide you through this topic?
+Ask Learn
+Suggest a fix?
+Additional resources
+Last updated on
+2026-09-16
+In this article
+Was this page helpful?
+Need help with this topic?
+Want to try using Ask Learn to clarify or guide you through this topic?
+Ask Learn
+Suggest a fix?
+en-us
+Your Privacy Choices
+Theme
+Light
+Dark
+High contrast
+AI Disclaimer
+Previous Versions
+Blog
+Contribute
+Privacy
+Consumer Health Privacy
+Terms of Use
+Trademarks
+&copy; Microsoft 2026

@@ -1,0 +1,4224 @@
+Skip to main content
+Maps Platform
+Products
+Pricing
+Documentation
+Get Started
+Get Started with Google Maps Platform
+Capabilities Explorer
+Pricing & Billing
+Security & Compliance
+Reporting & Monitoring
+FAQ
+Support and Resources
+Customer Care
+Incident Management
+Maps
+Maps JavaScript API
+Maps SDK for Android
+Maps SDK for iOS
+Google Maps for Flutter
+Maps Embed API
+Maps Static API
+Street View Static API
+Maps URLs
+Aerial View API
+Elevation API
+Map Tiles API
+Maps Datasets API
+Web Components
+Routes
+Routes API
+Navigation SDK for Android
+Navigation SDK for iOS
+Navigation for Flutter
+Navigation for React Native
+Roads API
+Route Optimization API
+Analytics
+Google Earth
+Places Insights
+Population Dynamics Insights
+Street View Insights
+Roads Management Insights
+Places
+Places API (New)
+Places SDK for Android
+Places SDK for iOS
+Places Library, Maps JavaScript API
+Geocoding API
+Geolocation API
+Address Validation API
+Time Zone API
+Places Aggregate API
+Isochrones API
+Environment
+Air Quality API
+Pollen API
+Solar API
+Weather API
+Solutions
+Architecture Center
+Industry solutions
+Maps Builder agent
+WordPress Users
+Additional Resources
+API Security Best Practices
+Digital Signature Guide
+Map Coverage Details
+Optimization Guide
+Mobile OS and software support
+Launch stages
+Legacy products
+Deprecations
+URL Encoding
+Blog
+Community
+GitHub
+YouTube
+LinkedIn
+Discord
+Innovators
+Issue Tracker
+/
+English
+Deutsch
+Español
+Español – América Latina
+Français
+Indonesia
+Italiano
+Polski
+Português – Brasil
+Tiếng Việt
+Türkçe
+Русский
+עברית
+العربيّة
+فارسی
+हिंदी
+বাংলা
+ภาษาไทย
+中文 – 简体
+中文 – 繁體
+日本語
+한국어
+Sign in
+Web
+Maps JavaScript API
+Get Started
+Contact sales
+Guides
+Reference
+Samples
+Resources
+Legacy
+Maps Platform
+Products
+Pricing
+Documentation
+More
+Guides
+Reference
+Samples
+Resources
+Legacy
+Blog
+Community
+More
+Support
+Support options
+FAQ
+Stay informed
+Error messages
+Browser support
+Release notes
+Release notes - Cloud-based maps styling
+Billing and monitoring
+Usage and billing
+Reporting and monitoring
+Policies and terms
+Content security policy guide
+Policies and attributions
+Terms of service
+Get Started
+Get Started with Google Maps Platform
+Capabilities Explorer
+Pricing & Billing
+Security & Compliance
+Reporting & Monitoring
+FAQ
+Support and Resources
+Customer Care
+Incident Management
+Maps
+Maps JavaScript API
+Maps SDK for Android
+Maps SDK for iOS
+Google Maps for Flutter
+Maps Embed API
+Maps Static API
+Street View Static API
+Maps URLs
+Aerial View API
+Elevation API
+Map Tiles API
+Maps Datasets API
+Web Components
+Routes
+Routes API
+Navigation SDK for Android
+Navigation SDK for iOS
+Navigation for Flutter
+Navigation for React Native
+Roads API
+Route Optimization API
+Analytics
+Google Earth
+Places Insights
+Population Dynamics Insights
+Street View Insights
+Roads Management Insights
+Places
+Places API (New)
+Places SDK for Android
+Places SDK for iOS
+Places Library, Maps JavaScript API
+Geocoding API
+Geolocation API
+Address Validation API
+Time Zone API
+Places Aggregate API
+Isochrones API
+Environment
+Air Quality API
+Pollen API
+Solar API
+Weather API
+Solutions
+Architecture Center
+Industry solutions
+Maps Builder agent
+WordPress Users
+Additional Resources
+API Security Best Practices
+Digital Signature Guide
+Map Coverage Details
+Optimization Guide
+Mobile OS and software support
+Launch stages
+Legacy products
+Deprecations
+URL Encoding
+GitHub
+YouTube
+LinkedIn
+Discord
+Innovators
+Issue Tracker
+reviews Get a Maps Demo Key : Try out select Maps JavaScript API and Places UI Kit features at no cost with a Maps Demo Key—no billing information required.
+Home
+Products
+Google Maps Platform
+Documentation
+Web
+Maps JavaScript API
+Resources
+Send feedback
+Maps JavaScript API Release Notes
+Stay organized with collections
+Save and categorize content based on your preferences.
+Page Summary
+outlined_flag
+The Google Maps JavaScript API changelog documents updates, bug fixes, deprecations, and new features across various API versions.
+Key changes include enhanced accessibility, performance improvements, visual updates, and advanced features like Advanced Markers and data-driven styling.
+Support for older technologies like Internet Explorer 11 has been dropped in favor of newer technologies like WebGL 2.0.
+Updates focus on improved developer experience, user accessibility, and platform stability through bug fixes and feature enhancements.
+Users should consult the changelog and documentation for detailed information about specific changes and their impact.
+Subscribe
+to these release notes.
+The Maps JavaScript API team regularly updates the API with new
+features, bug fixes, and performance improvements. You can indicate which
+version of the API to load within your application by specifying it in the
+v parameter of the Maps JavaScript API bootstrap
+request. Read more about
+versioning .
+This changelog lists releases by date and version number, along with
+associated changes.
+To receive updates on new Maps API versions, please subscribe to the
+google-maps-js-api-v3-notify group.
+As of August 26, 2021 starting with the beta channel, Maps JavaScript API
+may make additional calls to report telemetry information for the purpose of calculating the SLO
+(Service Level Objective) of several features. You may need to update your Content Security Policy
+to ensure these calls are not blocked at browser-level. For more information, please see the
+FAQ .
+3.66.6c
+22 September, 2026
+Changes:
+Fixed an issue where PlaceAutocompleteElement did not display its clear button when populated programmatically via constructor options or the value property.
+[alpha channel] Removed colorScheme from google.maps.routes.RoutePolyline3DOptions . Route3DElement now tracks the effective color scheme of the parent Map3D.
+[beta channel] Fixed memory leaking in Street View Panorama rendering lifecycle.
+[beta channel] PlaceLinkElement default icons may be hidden with the default-icon-hidden attribute, allowing for text-only place links.
+3.66.4d
+9 September, 2026
+Changes:
+[alpha channel] AutofitsCamera minimum range changed from 2,000 meters to 80 meters.
+Deprecated AdvancedMarkerElement.addListener() and legacy events ( click , dragstart , drag , dragend ). Use standard addEventListener() with gmp- prefixed events instead.
+3.66.3d
+2 September, 2026
+Changes:
+[alpha channel] Added the trafficPolylinesDisabled field to RoutePolyline3DOptions . This allows developers to disable traffic-aware polylines when creating 3D route polylines.
+[alpha channel] Optimize Route3DElement to avoid unnecessary backend requests when toggling trafficPolylinesDisabled.
+3.66.2d
+26 August, 2026
+Changes:
+[alpha channel] Removed Route 3D icons from font loading and moved them into embedded SVG assets to avoid complications when loading the Material Symbols font more than once.
+[beta channel] Adds Places UI Kit advanced components: AdvancedPlaceDetailsElement , AdvancedPlaceDetailsCompactElement , PlaceLinkElement , PlaceButtonElement , PlaceNameElement , AdvancedPlaceListElement , AdvancedPlaceSearchElement
+Added a tooltip to transit line names in order to see the full name even when it is truncated.
+Added removeEventListener typings for custom web components.
+Fixed an issue where VoiceOver displayed a focus outline on visually hidden screen reader elements for route markers
+3.66.1a
+17 August, 2026
+Changes:
+Fixed accessibility behavior of static Place card images by adding fallback labels and removing redundant keyboard focus stops.
+3.65.12f
+6 August, 2026
+Changes:
+[alpha channel] Adds <gmp-label-3d> ( google.maps.maps3d.Label3DElement ) to the alpha channel of the 3D Maps JS API. Developers can now use the new element to declare label text and independently configure its collision behavior separately from its linked 3D marker elements (such as <gmp-marker-3d> and <gmp-marker-3d-interactive> ).
+Provide unique accessible names for More Options buttons across Place Details widgets.
+[alpha channel] Improved Route 3D travel mode error messages for when TravelMode.TWO_WHEELER is used outside of alpha/beta
+[alpha channel] The Route3D component now supports the trafficPolylinesDisabled property. This allows developers to disable traffic aware polylines when using TRAFFIC_AWARE or TRAFFIC_AWARE_OPTIMAL routing options.
+[alpha channel] AutofitsCamera northern bounds padding increased to prevent default pin cropping.
+Fixed an issue where Street View Pegman could not be dragged onto the map on touch screen devices.
+3.65.11b
+27 July, 2026
+Changes:
+[alpha channel] Enhanced Route3D popover to show non-transit icons (bicycling, driving, two-wheeler, and walking).
+[alpha channel] Route.createWaypointMarkers creates markers for the origin and destination, with default styling applied unless a customOverride function is specified. Intermediate waypoints are not currently supported.
+3.65.10a
+22 July, 2026
+Changes:
+Fixed an issue where Maps JS loaded the Material Symbols Outlined font in a way that could impact the same font loaded on the base page.
+Fixed an issue where PlaceAutocompleteElement submitted an empty value on form POST when initialized with options.value or modified programmatically via the value property.
+Updated 3D map tilt and heading UI controls to re-enable if camera restriction range is increased.
+3.65.8c (Rolled back)
+7 July, 2026
+Changes:
+[alpha channel] Route3DElement renders additional polyline and popover data for transit routes.
+Added support for internalUsageAttributionIds to the address validation API. This property allows API call attribution to specific packages or OSS libraries.
+Updated the default info window for POI clicks on 2D Maps to use Place Widgets.
+Improved the reliability of Street View panoramas under high-traffic conditions.
+3.65.6a
+25 June, 2026
+Changes:
+[beta channel] Updated the default Info Window for POI clicks on 2D maps to use Place Widgets.
+Fixed a bug where the 3D map would occasionally throw an error at extreme fov values.
+Updated default Route markers to no longer use the deprecated glyph PinElement option.
+3.65.5e
+17 June, 2026
+Changes:
+Fixed typings for OverlayView.getMap()
+Updated typings for BasicPlaceAutocompleteElement and PlaceAutocompleteElement to indicate that the constructor options parameter is optional
+3.65.3b
+4 June, 2026
+Changes:
+The DrawingManager functionality in the Maps JavaScript API is no longer available. For more info, see https://developers.google.com/maps/deprecations .
+Improved color contrast for the Map's copyright dialog in dark mode.
+Disable 3D Map rotation controls when heading limits are reached.
+Fixed an issue where the Place Autocomplete mobile input field overlapped the iOS system status bar/safe area. Note: the fix works when viewport-fit=cover is set in the viewport meta tag.
+Added support for internalUsageAttributionIds to the Maps 3D JavaScript API. This property allows developers to attribute API calls to specific packages or OSS libraries.
+Added support for internalUsageAttributionIds to Places (New) API. This property allows developers to attribute API calls to specific packages or OSS libraries.
+[alpha channel] Narrowed getter types of Route3DElement properties to match setter normalization.
+[alpha channel] Route3DElement exposes routes, fallbackInfo, and geocodingResults properties.
+3.65.2d
+27 May, 2026
+Changes:
+Fixed an issue with the zoom button when zooming out on a map with restricted bounds.
+The Places library has introduced transitStation to places.
+Added support for internalUsageAttributionIds in the Routes library. This property allows developers to attribute API calls to specific packages or OSS libraries.
+3.65.1c
+20 May, 2026
+Changes:
+The Google logo will now be dark gray on a white background for Roadmap and Terrain in light mode, regardless of whether a map ID or custom styling is provided.
+[alpha channel] Route3DElement dispatches gmp-load and gmp-error events after a successful and erroneous Routes API calls, respectively.
+Fixed incorrect documentation stating that matches are highlighted in the secondary text of autocomplete predictions. Matches are only highlighted in the main text, reflecting Places API Autocomplete behavior.
+Improved color inheritance for Place Autocomplete prediction items so they gracefully inherit the color set on the parent element.
+Added 'input-icon' and 'clear-icon' slots to both PlaceAutocompleteElement and BasicPlaceAutocompleteElement for icon customization.
+Exposed prediction-item-secondary-text and prediction-item-nonmatch shadow parts for both BasicPlaceAutocomplete and PlaceAutocomplete prediction items, enabling custom styling for unmatched main text and secondary text.
+Add no-clear-button attribute and noClearButton property to both PlaceAutocompleteElement and BasicPlaceAutocompleteElement to allow hiding the clear button
+The Heatmap Layer functionality in the Maps JavaScript API is now decommissioned.
+Improved error handling for map config retrieval.
+45 degree imagery is now decommissioned for raster maps.
+Added missing classes to the PlacesLibrary documentation. Also documented the toString() method on FormattableText .
+Improved accessibility of 'Report a map error' links.
+3.64.12d
+6 May, 2026
+Changes:
+The equals() method of LatLng now accepts LatLngLiteral objects instead of throwing an error. The documentation for LatLng and LatLngAltitude equals() now also accurately reflects that the existing tolerance level of 1e-9.
+[alpha channel] Map3DElement with autofits children now initially renders with RELATIVE_TO_GROUND altitude mode, which supports showing higher elevation areas on load for cases when the camera properties are pre-defined rather than applied using flyCameraTo . Also, on initial load of Map3DElement , if the map has children which use the AutofitsCamera API that are still working, the initial map render is deferred until they all finish working, and the camera snaps regardless of the fly-to animation setting; subsequent camera updates respect the fly-to setting.
+[alpha channel] Polygon3DElement adds the autofitsCamera property to support automatic camera fitting.
+3.64.11d
+29 April, 2026
+Changes:
+[alpha channel] MarkerElement adds the autofitsCamera property to support automatic camera fitting of the marker.
+Fixed an issue in PlaceAutocompleteElement where the prediction item icon would not render in Safari browser.
+The Places library has introduced isPureServiceAreaBusiness to places. It is now possible to request results for pure service area businesses by setting pureServiceAreaBusinessesIncluded on Place Autocomplete (data API and widgets) and Text Search requests.
+The Places library has introduced addressDescriptor , containingPlaces , and timeZone to places.
+The Places library has introduced futureOpeningDate to places. It is now possible to request results for businesses that have not yet opened by setting futureOpeningBusinessesIncluded on Place Autocomplete (data API and widgets), Nearby Search, and Text Search requests.
+The Google logo will now be the same for Roadmap light with or without a map id or custom styling. Previously, we were showing the dark mode Google logo for all Roadmap maps using a map id. To maintain the white Google logo, users should switch to dark mode.
+Added focus-ring as CSS Shadow Part in both PlaceAutocompleteElement and BasicPlaceAutocompleteElement.
+Added new FuelType DIESEL_PLUS and E100 . Added new EVConnectorType NACS .
+Added value, placeholder, disabled, readonly, no-input-icon and maxlength attributes to PlaceAutocompleteElement and BasicPlaceAutocompleteElement.
+Added a 'description' property to both PlaceAutocompleteElement and BasicPlaceAutocompleteElement to provide additional context for screen reader users.
+Narrowed the declared type of LatLngAltitudeLiteral.altitude to not allow null or undefined. Corrected the declared return type of DirectionalLocation.toJSON().
+3.64.9c
+14 April, 2026
+Changes:
+TypeScript declarations now correctly differentiate the types of property getters and setters (including readonly properties without setters).
+3.64.8b
+8 April, 2026
+Changes:
+[alpha channel] Route3DElement, Marker3DElement and Polyline3DElement with autofitsCamera will not cause camera updates when removed from the DOM. For Route3DElement, errors or empty responses have no effect on the camera. Also, changing autofitsCamera from true to false on a given element will not update the camera to exclude that element, but it will opt the element out of future camera updates.
+The zIndex of an AdvancedMarkerElement is now determined by its explicitly set value or, by default, by its vertical pixel position. Explicit values take precedence over the default. To avoid markers lower on the screen without a zIndex unexpectedly overlap those with one, we recommend applying zIndex consistently across all markers.
+TypeScript declarations now include an interface mapping HTML tag names to JS classes ( google.maps.HTMLElementTagNameMap and the global HTMLElementTagNameMap ), an interface mapping HTML tag names to each JS class's EventMap ( google.maps.HTMLElementEventMapTagNameMap ), an interface of all custom CSS properties ( google.maps.CSSProperties ), and each string-based enum has a string union type defined (as ${EnumName}String ) and that string union is used for that enum throughout the declarations. addEventListener() is also overloaded on each custom element with its EventMap types, and google.maps.importLibrary() is overloaded to correctly type each returned library for the passed in library name.
+3.64.7d
+1 April, 2026
+Changes:
+The mapId property can now be updated dynamically after Map3DElement initialization, eliminating the need for Map3DElement re-instantiation.
+[alpha channel] Added a new Route3DElement for rendering routes on 3D maps.
+[alpha channel] Added a new Route.create3DPolylines() and Route.createPopover() APIs.
+[alpha channel] Added a new spherical.traversePath() API.
+[alpha channel] Added a new autofitsCamera API to Marker3DElement , Polyline3DElement , and Route3DElement , with new autofitsCameraAnimation API for Map3DElement .
+[alpha channel] Added a new CirclePathElement for rendering circles with Polygon3DElement .
+[alpha channel] A new ROADMAP map mode is now available on 3D Maps in the alpha channel.
+Fixed a bug where StreetView pegman did not work correctly on mobile devices when in a map attached to a DOM element created in a different frame context from the Maps JS library code.
+3.64.6d
+26 March, 2026
+Changes:
+Fixed an issue where pressing Enter would not submit a containing form of Place Autocomplete elements if no prediction was highlighted.
+Fixed a race condition causing FlattenerElement to fail to draw on 3D Maps.
+Fixed a bug where touch-handling on mobile devices did not work correctly when a map was attached to a DOM element that was created in a different iframe context from the Maps JS library code.
+3.64.5d
+18 March, 2026
+Changes:
+The weekly channel now features several 3D Maps updates, including the new MarkerElement and FlattenerElement . Additionally, we’ve added cameraPosition and fov properties, plus altitudeMode support for the flyCameraTo and flyCameraAround methods.
+The Places library has introduced currentOpeningHours , regularSecondaryOpeningHours , and currentSecondaryOpeningHours for identified places. The currentOpeningHours provide opening hours for the upcoming week including any exceptional hours like holidays. The secondary hours are different from a place's main hours and indicate the hours for things like a place's drive through, pickup, or takeout.
+Fixed an issue in 3D maps where the link to Google Maps was sometimes not updating correctly after the map moved.
+3.64.4d
+12 March, 2026
+Changes:
+Sync InfoWindow map property on position change to fix the issue that caused unnecessary console warnings.
+Fixes an issue where programmatic fov updates to Map3DElement would occasionally be dropped.
+The flyCameraAround method on Map3DElement now accepts Number.Infinity for the repeatCount parameter, allowing for endless animation.
+3.64.3a
+2 March, 2026
+Changes:
+The Maps Embed API now use Places UI Kit to display place details.
+[beta channel] The cameraPosition property previously introduced on Map3DElement in 3.64.2 is now also supported in the flyCameraTo target. Please see 3D Maps in Maps JavaScript for more information.
+3.64.2b
+26 February, 2026
+Changes:
+google.maps.DirectionsService , google.maps.DirectionsRenderer , and google.maps.DistanceMatrixService are deprecated as of February 25th, 2026. At this time, they are not scheduled to be discontinued and will continue to receive bug fixes for any major regressions. At least 12 months notice will be given before support is discontinued. Please see legacy for additional details (including newer, recommended alternatives).
+[beta channel] Introduced a new MarkerElement allowing you to display custom HTML content within markers on 3D Map. Additionally, a new FlattenerElement can now flatten 3D meshes in specific areas.
+[beta channel] Map3DElement has been updated with fov and cameraPosition properties, while the flyCameraTo and flyCameraAround methods now support altitudeMode . Please see 3D Maps in Maps JavaScript for more information.
+Fixed a bug that caused creating a PinElement using document.createElement('gmp-pin') to throw a NotSupportedError .
+3.64.1c
+19 February, 2026
+Changes:
+Update collision when AdvancedMarkerElement resizes.
+3.63.14d
+5 February, 2026
+Changes:
+The Places library has introduced new options for identifying a place when requesting data. In addition to using id , you can now specify a resourceName to initialize a Place object.
+The Places library has introduced subDestinations for identified places. These subDestinations provide more specific destinations for users who are searching within a large or complex place like an airport, national park, university, or stadium.
+Fixed an issue where Map3D required an altitude to be specified when setting the center property in JS (now defaults to 0).
+The Place object from PlaceDetailsElement and PlaceDetailsCompactElement now includes a googleMapsLinks property, which provides URLs for deep-linking into Google Maps for a variety of actions. This includes URIs for viewing the place, getting directions, viewing photos, reading existing reviews, and writing a new review.
+3.63.13
+29 January, 2026
+Changes:
+The Maps Embed API no longer shows hover cards when placing the mouse cursor over POIs.
+Adds console warnings for misconfigured Places UI Kit (Place Details + Place Search) elements
+PlaceDetailsElement will now show AI generated place summaries when available.
+An AI-generated review summary is now available for the PlaceDetailsElement.
+3.63.10a
+13 January, 2026
+Changes:
+Fixed an issue which prevented scroll and click gestures inside popovers.
+resourceName and shortFormattedAddress fields are now available through the Places API
+3.63.9d
+8 January, 2026
+Changes:
+PlaceSearchElement shows non-photo content slightly faster while photos are loading. Photo fade-in animations are refined across Places UI Kit.
+Improve the performance when rendering Polylines on a tilted map.
+Fixed a bug where the 3D map camera did not update when set programmatically under certain conditions.
+Small performance improvement loading photos for PlaceDetailsElement and PlaceSearchElement .
+Clarified the behavior of the draggable property in MapOptions to better explain user interaction constraints.
+Enforces beta channel access for possibleNextAction in the Address Validation library
+Add placeholder property and HTML attribute support to PlaceAutocompleteElement
+PlaceAutocompleteElement now supports customization for more standard CSS font properties, including: font, font-size, font-family, font-weight, line-height, font-style, and color. Default font-size now becomes 16px.
+Add value property and HTML attribute support to PlaceAutocompleteElement
+Optimize image loading in Places UI Kit.
+Added CSS Part input to the PlaceAutocompleteElement
+3.63.5d
+11 December, 2025
+Changes:
+Launches Address Validation API in Maps JavaScript API
+mapTypeId now defaults to MapTypeId.ROADMAP when set to null or undefined, fixing an issue that could cause map tiles not to load.
+Hide the review section in PlaceDetailsElement if the place is not ratable.
+Improved color contrast for Google logo shown on google.maps.Map with custom styling
+Vector maps now use the same satellite imagery as raster maps allowing for a higher visual fidelity.
+3.63.4a
+4 December, 2025
+Changes:
+--gmp-mat-spacing-medium now applies to the inner container padding for PlaceDetailsCompactElement horizontal view.
+Fixed an issue with 3D Map shifting on MacOS Safari when interacting with UI controls.
+language and region properties can now be dynamically changed on Map3DElement without a need to re-create a map.
+3.63.1b
+20 November, 2025
+Changes:
+Fixed an issue where the Info Window was incorrectly positioned when attached to an AdvancedMarkerElement .
+Made PlaceAutocompleteElement 's clear button visible only when input has text.
+Made orientation attribute matching case-insensitive in PlaceDetailsCompactElement styles.
+Added an ability to disable panning the map when PopoverElement is open on 3D Maps.
+Fixed a bug that prevents the use of addEventListener() on the PinElement .
+Modals dialogs (such as the keyboard shortcuts dialog on the map and the disclosures dialog in Places UI Kit) now close with a click outside of the content area.
+Place data now includes informational AI-generated summaries for reviews and nearby amenities. New properties are evChargeAmenitySummary, neighborhoodSummary, generativeSummary and reviewSummary.
+3.62.13e
+6 November, 2025
+Changes:
+Fixed a memory leak issue when a PopoverElement is dynamically added and removed to/from the DOM.
+Fixed a memory leak issue when a Map3DElement is dynamically added and removed to/from the DOM.
+Fixed alignment of rounded image corners with rounded container corners when using a thick border in PlaceDetailsCompactElement .
+3.62.12c
+30 October, 2025
+Changes:
+[alpha channel] Removed the experimental ElevationElement .
+Added CSS variables for background-color , border-radius , box-shadow , and padding to Map 3D PopoverElement .
+Places UI Kit photo lightboxes no longer close when clicking outside the photo.
+3.62.11d
+23 October, 2025
+Changes:
+[alpha channel] Make dark mode work for highlighting place contextual list items.
+Added anchorLeft and anchorTop properties to AdvancedMarkerElementOptions .
+<gmp-pin> web component is now available. Use the new glyphSrc property to provide an image URL for the glyph, or the glyphText property to display text. The glyph property is now deprecated on the PinElement .
+Prevents the InfoWindow from unexpectedly showing when an associated AdvancedMarker is created outside the viewport.
+3D Maps is now available in the weekly channel. This release includes a new compass control and simplified default UI controls; support for Cloud-based map styling, and cooperative gesture handling; improved localization with new language and region properties on the Map3DElement , as well as accessibility improvements for basemap labels. See 3D Maps in Maps JavaScript for more information.
+Improved memory management for Map 3D to avoid out of memory issues on iOS devices.
+Launched Routes JS . Allows developers to make Routes API calls and draw routes with Maps JS API.
+3.62.9c
+9 October, 2025
+Changes:
+Added anchorTop and anchorLeft properties to the AdvancedMarkerElement . This enables changing a marker's anchor point to something other than the default bottom middle.
+3.62.8d
+2 October, 2025
+Changes:
+New camera controls enabled for the Maps Embed API.
+[beta channel] defaultUIDisabled property in Map3DElement class and Map3DElementOptions interface has been replaced with defaultUIHidden . defaultUIDisabled will continue to function in the beta channel.
+[beta channel] rounds property in FlyAroundAnimationOptions interface has been replaced with repeatCount . rounds will continue to function in the beta channel.
+mapMode property is now deprecated on the PlaceContextualElement .
+3.62.7e
+25 September, 2025
+Changes:
+Enable highlighting markers for PlaceContextualElement.
+3.62.6d
+18 September, 2025
+Changes:
+[beta channel] Clarify Route error messages.
+[beta channel] Support Place resource names in Route requests.
+[beta channel] Allow creating Route polylines from RouteLeg paths.
+3.62.5d
+10 September, 2025
+Changes:
+[beta channel] The coordinates property in Polyline3DElement has been replaced with path , which is now available as an HTML attribute. The outerCoordinates property on Polygon3DElement has been replaced with path , which is now available as an HTML attribute. The innerCoordinates property on Polygon3DElement has been replaced by innerPaths . All "coordinates" properties on these two elements have been deprecated but will continue to function in the beta channel.
+3.62.3c
+3 September, 2025
+No public-facing changes.
+3.62.2c
+28 August, 2025
+Changes:
+The Drawing Library is deprecated. See https://developers.google.com/maps/deprecations for more information.
+3.62.1
+21 August, 2025
+Changes:
+[beta channel] Added sessionToken and placeAutocompleteElement as optional options for the Address Validation API for session management in AddressValidation.fetchAddressValidation()
+[beta channel] Launched Routes JS . Allows developers to make Routes API calls and draw routes with Maps JS API.
+3.61.14
+7 August, 2025
+Changes:
+Fixes an issue where the photo lightbox wasn't available in the Place Details Compact element when in horizontal mode.
+3.61.12c
+31 July, 2025
+Changes:
+Added documentation for additional fields in PlaceAutocompleteElementOptions and BasicPlaceAutocompleteElementOptions.
+Resolved an issue where Advanced Markers would briefly flash and then disappear when panned offscreen.
+Added googleMapsLinks to the Place class.
+3.61.11a
+24 July, 2025
+Changes:
+Add originalText and originalTextLanguageCode to the Place Review class.
+[alpha channel] Enable mapMode for PlaceContextual Maps Grounding Widget. Allows users to switch between ROADMAP, HYBRID and NONE.
+[beta channel] The Map3DElement now fires an event if the map fails to initialize, e.g. from lack of WebGL support in the user's browser.
+45° Imagery on Map is now deprecated. See Deprecations – 45° Imagery for more information.
+3.61.10d
+17 July, 2025
+Changes:
+The Basic Place Autocomplete Widget is now available in the weekly channel.
+[alpha channel] Remove experimental PlaceListElement.
+Add PlaceSearchElement and associated config / request elements.
+Additional style tokens for PlaceDetailsElement and PlaceDetailsCompactElement.
+3.61.9a
+10 July, 2025
+Changes:
+Updated markers to prevent repeated navigation instructions on each item when using a screen reader. Instruction is now announced only once each time entering the group.
+Fixed a contrast issue for the keyboard shortcut dialog in dark mode.
+Enable border, border radius, widget background color and color scheme customization support for Place Autocomplete Element. The Place Autocomplete Element now automatically respects dark mode - to disable, apply color-scheme: light in CSS.
+Added googleMapsURI fields to Place Photo and Review classes.
+[beta channel] Add PossibleNextAction enum to Address Validation API.
+3.61.7a
+1 July, 2025
+Changes:
+The Heatmap Layer functionality in the Maps JavaScript API is no longer supported. This API was deprecated in May 2025 and will be made unavailable in a later version of the Maps JavaScript API, releasing in May 2026. For more info, see https://developers.google.com/maps/deprecations ).
+Fixes issue in GA preventing processing of clicks on POIs that were hidden by custom styling.
+[beta channel] Added extra handling for WebGL context loss in 3D maps. 3D maps will now try to restore themselves when the WebGL context is restored.
+3.61.6d
+26 June, 2025
+Changes:
+Add internalUsageAttributionIds to Map3DElement and Map3DElementOptions.
+3.61.5a
+17 June, 2025
+Changes:
+Enable support for string "IP_BIAS" for LocationBias for Places Autocomplete.
+Fixed a documentation error for SearchNearbyRequest . The default value for SearchNearbyRequest.RankPreference is POPULARITY , not DISTANCE .
+3.61.4a
+12 June, 2025
+Changes:
+Added RPCStatus enum to describe status codes returned by certain web services.
+3.61.3b
+5 June, 2025
+No public-facing changes.
+3.61.2
+29 May, 2025
+Changes:
+Added PlaceDetailsElement, PlaceDetailsCompactElement and associated config elements. Removed PlaceDetailsSize.
+Fixed an issue with PlaceAutocompleteElement where selecting an IME entry caused the element to select a prediction item.
+3.61.1
+22 May, 2025
+Changes:
+[beta channel] Fix missing location/viewport on PlaceDetailsCompactElement place output.
+Street-level details are available in covered cities.
+3.60.12
+8 May, 2025
+Changes:
+[beta channel] Added support for the Address Validation API in the Maps JavaScript API.
+Fixed an issue with network calls from contexts without Origin headers.
+3.60.11 (Rolled back)
+1 May, 2025
+Changes:
+[beta channel] Add PlaceDetailsCompactElement and associated config elements.
+Fix StreetViewPanoramaOptions.zoomControl = false not working for Street View maps.
+3.60.10
+24 April, 2025
+Changes:
+[beta channel] 3D Maps is now available in the beta channel. This release includes accessibility improvements as well as new interactive elements for polylines, polygons and 3D models. Additionally, a new PopoverElement is now available for displaying custom HTML content on 3D Maps. Please see 3D Maps in Maps JavaScript for more information.
+3.60.9
+17 April, 2025
+Changes:
+[alpha channel] Launch PlaceContextualElement to unrestricted experimental.
+[alpha channel] 3D models are now rendered with an image-based lighting (IBL) by default on 3D Maps.
+3.60.8
+9 April, 2025
+Changes:
+[beta channel] LocalContext API has now been completely removed. Attempting to instantiate LocalContextMapView now throws an error. See https://developers.google.com/maps/deprecations#localcontext-deprecation for more information.
+Fixed a bug that caused weird behavior when dragging Advanced Markers on touch devices.
+Increased the opacity of the Cooperative Gesture Handling overlay so that the text on it meets contrast requirements over all areas of the map.
+Add support for PostalAddress in the Places API.
+Ensures that static map overlay at startup is the same colorScheme as the underlying map.
+3.60.7b
+3 April, 2025
+Changes:
+The Place Autocomplete Widget is now available in the weekly channel.
+3.60.6
+27 March, 2025
+Changes:
+Fixed an issue on Safari where pages using overscroll-behavior would not scroll properly.
+Fixed the flickering when adding a lot of Advanced Markers with collision behavior enabled.
+Added support for PriceRange in Places.
+3.60.5 (Rolled back)
+20 March, 2025
+Changes:
+Fixed a bug that prevented the page from being able to be scrolled when clicking or touching Advanced Markers.
+Fixed a bug that caused the fullscreen mode not to work properly in <gmp-map> .
+Fixed a bug where the Info Window of a hidden Advanced Marker was still visible.
+Custom styled maps in Roadmap will not lose their custom styling when the Bicycling layer is added.
+3.60.4
+11 March, 2025
+Changes:
+Custom styles and background colors are applied to the specific map type and color scheme for which the style is defined (initially, this will be limited to Roadmap and Roadmap Dark). The Transit layer will maintain any custom styling for the selected map type.
+3.60.3 (Rolled back)
+5 March, 2025
+Changes:
+Fixed a bug that caused the directions panel not to show up.
+3.60.2
+27 February, 2025
+Changes:
+Places: Added support for EV connector type NACS (SAE J3400).
+Released gmp-map and gmp-advanced-marker HTML elements to GA.
+3.60.1
+20 February, 2025
+Changes:
+[alpha channel] altitudeMode on Polygon3DElement and Polyline3DElement now defaults to CLAMP_TO_GROUND .
+[alpha channel] A new mode option on Map3DElement has now to be set for 3D Map to be rendered (2 new values HYBRID and SATELLITE are available). The existing defaultLabelsDisabled option is removed, please set the mode to either HYBRID or SATELLITE .
+[beta channel] Background color will return to default or color set in MapOptions if it was not specifically set for a particular map type.
+[beta channel] Raster custom styles should apply only to the map type that the style has been assigned to.
+Fixed an issue where Advanced Markers would shift when dragged in fullscreen mode. Also fixed an issue with the StreetView pegman having an offset when dragged in fullscreen mode.
+Replace the default zoom control with the new camera control, which contains both pan and zoom buttons.
+Update the zoom button icons to align with the new pan button icons.
+3.59.8
+6 February, 2025
+Changes:
+Customers can now access TransitFare values as text.
+[alpha channel] Launched the new AirQualityMeterElement: <gmp-air-quality-meter>.
+[alpha channel] Using the PlaceAutocompleteElement will now require Places API (New) be enabled on the Google Cloud Project.
+.
+[alpha channel] PlaceAutocompleteElement: The gmp-placeselect event is replaced by gmp-select, and provides a PlacePredictionSelectEvent object instead of a PlaceAutocompletePlaceSelect object.
+[alpha channel] PlaceAutocompleteElement: The gmp-requesterror event is replaced by gmp-error, and provides an Event object instead of a PlaceAutocompleteRequestErrorEvent object.
+[alpha channel] PlaceAutocompleteElement: componentRestrictions is replaced by includedRegionCodes.
+[alpha channel] PlaceAutocompleteElement: types is replaced by includedPrimaryTypes.
+3.59.7
+30 January, 2025
+Changes:
+[beta channel] Roadmap and dark-mode roadmap background colors set for custom styles should be rendered behind tiles and past map margins.
+[beta channel] A custom styled roadmap (or dark-mode roadmap) will maintain its custom styling when a transit layer is added, rather reverting back to the default base map style.
+Maps that are in dark mode will now remain in dark mode when the transit layer is added.
+3.59.6
+23 January, 2025
+No public-facing changes.
+3.59.5
+16 January, 2025
+Changes:
+Fixed a bug which caused uncaught errors thrown when creating a custom Street View panorama.
+3.59.4a
+9 January, 2025
+Changes:
+Fixed a bug which caused uncaught errors thrown when traffic layer is enabled.
+[beta channel] Resolves an issue where PlaceAutocompleteElement did not yield focus correctly.
+[beta channel] Atomic map features will be shown in supporting cities at z17 and deeper.
+3.59.3
+12 December, 2024
+Changes:
+Firebase App Check now available to use with Maps JS API and Places JS.
+3.59.2
+5 December, 2024
+Changes:
+[alpha channel] Atomic map features will be shown in supporting cities at z17 and deeper.
+Adds a usage attribution ID to the initializer, which helps Google understand which libraries
+and samples are helpful to developers, such as usage of a marker clustering library. To opt out of
+sending the usage attribution ID, it is safe to delete this property or replace the value with an
+empty string. Changes to this value after instantiation may be ignored.
+You can now use Firebase App Check to
+protect against malicious requests. Learn more about using App Check with Places
+and using App Check with Maps .
+3.59.1
+21 November, 2024
+Changes:
+[beta channel] Fixed an issue where zoom control is missing from Street View.
+Fixed a bug where legacy markers that are not clickable still dispatch the click event.
+Fixed a bug that caused the Advanced Markers not to update the pixel position when switching to a custom map type.
+A console warning is now logged when applying default or custom map types and styles with a map ID. When a map ID is present, map styles are controlled via cloud console, and cloud styling is only currently supported on roadmap map types.
+Style camera control move buttons on hover in dark mode.
+Address fitBounds padding issue when using very small bounds.
+3.58.11a
+31 October, 2024
+Changes:
+[beta channel] Fixed a bug that caused the StreetView pegman to be unusable on the web component map.
+Prevented screen readers from focusing on the scroll message when it's hidden on an Embed API map.
+3.58.10
+24 October, 2024
+Changes:
+Resolved an issue that caused an exception when accessing session storage.
+3.58.9 (Rolled back)
+17 October, 2024
+Changes:
+[alpha channel] Custom images and SVGs can now be used for markers rendered on 3D Maps.
+3.58.8
+10 October, 2024
+Changes:
+Removed an incorrect WebGLOverlayView console warning.
+Fixed an issue where Chrome was erroneously showing a blue focus line around the map if it was the first element on the page to be interacted with a pointer or mouse.
+Added ODRD vehicle and fleet location providers for Mobility Services JavaScript Fleet Tracking.
+3.58.7
+3 October, 2024
+No public-facing changes.
+3.58.6
+25 September, 2024
+Changes:
+[alpha channel] Removed *Opacity properties from Polyline3DElement and Polygon3DElement . Alpha values can be specified in corresponding *Color properties using #rgba , #rrggbbaa , rgba(r, g, b, a) or rgb(r g b / a) color formats.
+[alpha channel] Default UI controls, markers, 3D models and preset camera animation functions are now available to use with 3D Maps in the Experimental release.
+Fixed a bug that caused custom map types cannot be switched between each other on vector maps.
+Use high-DPI satellite imagery for devices with high pixel density.
+3.58.5a
+19 September, 2024
+No public-facing changes.
+3.58.4a
+12 September, 2024
+No public-facing changes.
+3.58.3
+5 September, 2024
+No public-facing changes.
+3.58.2
+29 August, 2024
+Changes:
+The text glyph of the PinElement now scales with the PinElement and its default color matches the default glyphColor of the PinElement .
+3.58.1a
+22 August, 2024
+Changes:
+[beta channel] Replace the Zoom control with the Camera Control by default. The Camera Control features both zoom and pan controls.
+Publish cameraControl and cameraControlOptions properties to MapOptions .
+Allow color scheme (light or dark) to be set at map instantiation.
+Update Map types control to wrap to a new line if the map width is too small
+Integrated a new labeler for rendering the Vector Maps labels.
+The new basemap colors are now the default in the v=weekly channel for developers not using map IDs. See https://developers.google.com/maps/new-basemap-style-opt-in for more information.
+3.57.13
+8 August, 2024
+Changes:
+[beta channel] Added Address Descriptors to Geocoding response for Reverse Geocoding, Forward Geocoding, and Place ID Lookup.
+3.57.12
+1 August, 2024
+Changes:
+[beta channel] Added Address Descriptors to Geocoding response for Reverse Geocoding, Forward Geocoding, and Place ID Lookup.
+[beta channel] Allow color scheme (light or dark) to be set at map instantiation.
+Decrease latency of IconMouseEvent when a feature is clicked in vector maps
+3.57.10
+25 July, 2024
+Changes:
+[beta channel] Added Address Descriptors to Geocoding response for Reverse Geocoding, Forward Geocoding, and Place ID Lookup.
+Added several attributes for primary types and display names to the Place class.
+3.57.9
+18 July, 2024
+Changes:
+Improved the accessibility of the Street View pegman control.
+3.57.8b
+11 July, 2024
+No public-facing changes.
+3.57.7
+4 July, 2024
+Changes:
+Add EV options and fuel options to Place class properties. Enable EV search options for Place.searchByText.
+3.57.6a
+27 June, 2024
+No public-facing changes.
+3.57.5
+20 June, 2024
+No public-facing changes.
+3.57.4
+13 June, 2024
+Changes:
+[beta channel] Integrated a new labeler for rendering the Vector Maps labels.
+InfoWindow has new property isOpen to indicate if it is open on either a Map or Street View.
+Fixed incorrect reference documentation for the Place Autocomplete PlacePrediction class.
+3.57.3a
+6 June, 2024
+[beta channel] Added Address Descriptors to Geocoding response for Reverse Geocoding, Forward Geocoding, and Place ID Lookup.
+3.57.2
+28 May, 2024
+Changes:
+Fixed a bug where map type control in web component doesn't open menus.
+Fixed a bug that caused AdvancedMarkerElement's drag indicator to be missing.
+Add autocomplete functionality to the new Place API.
+Map raster tiles are now served in WebP image format.
+Updated documentation for Place.searchByText and Place.searchNearby to point to the correct fields list.
+New InfoWindow close button and an optional header are now available in the weekly channel.
+3.57.0
+24 May, 2024
+No public-facing changes.
+3.56.12a
+9 May, 2024
+Changes:
+Fix a bug that caused AdvancedMarkerElement 's drag indicator to be missing.
+3.56.11
+2 May, 2024
+Changes:
+[beta channel] <gmp-map> will now also default to vector mode when there is map ID set, but there is no explicit rendering type set on the map ID (e.g. DEMO_MAP_ID).
+3.56.10
+25 April, 2024
+Changes:
+[beta channel] PlaceAutocompleteElement's gmp-placeselect event now bubbles.
+[beta channel] New InfoWindow close button and an optional header are now available.
+[beta channel] Improved keyboard and single-pointer accessibility features for the Street View pegman control.
+Fixed the memory leak issue caused by removing Advanced Markers.
+Fixed an issue where circles didn't draw a smooth perimeter.
+Added API to set vector mode during google.maps.Map instantiation (mapId not required).
+3.56.8
+11 April, 2024
+Changes:
+Fixed a memory leak issue when using AdvancedMarkerElement .
+3.56.7
+4 April, 2024
+Changes:
+Add searchNearby function to the new Place class.
+3.56.6
+28 March, 2024
+Changes:
+[beta channel] Map raster tiles are now served in WebP image format.
+Fixed info window anchor positioning for on-map POIs on vector maps.
+Fixed a bug that displayed the AdvancedMarkerElement without a set position.
+Added a "close" event to the InfoWindow API.
+3.56.5
+21 March, 2024
+Changes:
+[beta channel] The new basemap colors are now the default for developers not using map IDs. See https://developers.google.com/maps/new-basemap-style-opt-in for more information.
+Fixed the Info Window's base position for Vector Map's labels and icons.
+3.56.4
+14 March, 2024
+No public-facing changes.
+3.56.3
+7 March, 2024
+No public-facing changes.
+3.56.1
+22 February, 2024
+Changes:
+Fixed a documentation error in Place.searchByText's "fields" parameter.
+[beta channel] Creates a default slot in <gmp-map> and allows creating custom elements to wrap Maps JavaScript API Web Components.
+Add parking options to the new Place class API.
+Deprecate google.maps.Marker. Please use google.maps.marker.AdvancedMarkerElement instead. At this time, google.maps.Marker is not scheduled to be discontinued, but google.maps.marker.AdvancedMarkerElement is recommended over google.maps.Marker. While google.maps.Marker will continue to receive bug fixes for any major regressions, existing bugs in google.maps.Marker will not be addressed. At least 12 months notice will be given before support is discontinued. Please see https://developers.google.com/maps/deprecations for deprecation details.
+Add additional attributes to the new Place class API.
+Add payment options to the new Place class API.
+3.55.11a
+15 February, 2024
+Changes:
+Prevent maps from automatically scrolling into view when clicked.
+3.55.11
+8 February, 2024
+Changes:
+[alpha channel] Removed inputElement property from PlaceAutocompleteElement.
+[alpha channel] Add CSS Parts for Place Autocomplete Element
+[beta channel] PlaceAutocompleteElement is now available in Preview (v=beta)
+Add accessibility options to the Places V2 API.
+3.55.10
+1 February, 2024
+Changes:
+[beta channel] Deprecate SearchByTextRequest.rankBy. Please use SearchByTextRequest.rankPreference instead.
+[beta channel] Place.findPlaceFromQuery and Place.findPlaceFromPhoneNumber are no longer available; use Place.searchByText instead.
+Fixing Usage tracking per channel.
+Enable traffic-aware polylines for Trip and Vehicle location providers in JavaScript Journey Sharing.
+The new Place class is now available in the weekly channel.
+Deprecate Place.openingHours. Please use regularOpeningHours instead.
+3.55.9
+25 January, 2024
+Changes:
+[beta channel] Fixes an issue where the keyboard shortcuts dialog couldn't be closed when pressing the Esc key on MapElement .
+Added a new URL parameter loading=async to the bootstrap URL for direct script loading. This indicates that the Maps JavaScript API has not been loaded synchronously and that no JavaScript code is triggered by the script's load event. It is highly recommended to set this to async whenever possible, for improved performance.
+3.55.8
+18 January, 2024
+Changes:
+[alpha channel] Now sending session token as part of PlaceAutocompleteElement requests.
+[beta channel] Introduces a new property gmpClickable in AdvancedMarkerElement . This is a breaking change for users who register the gmp-click event using addEventListener() in the beta channel. To receive the gmp-click event on click, set gmpClickable property to true or add gmp-clickable attribute to the web component. For users who use addListener() to register the gmp-click event, you don't need to make any change at this time.
+3.55.7
+11 January, 2024
+Changes:
+[beta channel] The element property of AdvancedMarkerElement now points to the instance of AdvancedMarkerElement .
+[beta channel] Advanced Markers can now customize their content with child nodes.
+Fixes a bug where pan and zoom keyboard shortcuts didn't work after clicking on the map.
+Enable polyline customization for JavaScript Journey Sharing.
+[alpha channel] Add the types, requestedLanguage, requestedRegion, and name attributes to PlaceAutocomplete
+[beta channel] Fixed the bug that caused Advanced Marker element not to be created when calling document.createElement('gmp-advanced-marker') .
+3.55.3
+30 November, 2023
+No public-facing changes.
+3.55.2
+23 November, 2023
+Changes:
+Fixed a bug that was causing style-related CSP errors in Street View
+3.55.1
+16 November, 2023
+No public-facing changes.
+3.54.12a
+8 November, 2023
+Changes:
+Fixed a bug that caused WebGLOverlayView not to render in certain situations.
+3.54.12
+2 November, 2023
+Changes:
+[alpha channel] Update Place Autocomplete to be a web component. This is a breaking change. Please see https://developers.google.com/maps/documentation/javascript/reference/places-widget#PlaceAutocompleteElement for updated usage info.
+[alpha channel] Update Place Autocomplete Element focus management
+[beta channel] Expose gmp-zoomchange event in MapElements
+Enable MapTypeControl HORIZONTAL_BAR to automatically handle RTL layout contexts.
+3.54.11
+26 October, 2023
+Changes:
+Fixed an issue where setting up controls on a map could throw an error.
+Add the ability to restrict Street View imagery to only official Google sources, via StreetViewLocationRequest and StreetViewControlOptions.
+3.54.10
+18 October, 2023
+Changes:
+[beta channel] MapElement now adjusts its controls layout automatically for left-to-right or right-to-left based on its computed direction style. Slots are also available for adding custom controls. ControlPosition now supports logical values for LTR/RTL layout support. Maps Embed API also now adjusts its controls layout automatically for left-to-right or right-to-left based on the language.
+[beta channel] MapElement now has delegatesFocus enabled
+3.54.9
+12 October, 2023
+[beta channel] Adds editorial summary to the Places v2 API.
+3.54.7a
+28 September, 2023
+Changes:
+Added support for multiple location providers in Journey Sharing JavaScript.
+3.54.6
+21 September, 2023
+Changes:
+google.maps.FeatureLayer responds to mousemove events.
+Added google.maps.FeatureType.SCHOOL_DISTRICT, so School Districts are supported in data-driven styling.
+3.54.5
+14 September, 2023
+Changes:
+[beta channel] Fixed a bug that caused AdvancedMarkerElement's addEventListener() to be unavailable.
+3.54.4
+7 September, 2023
+Changes:
+The Google logo will not overlap with copyright info on the Map as often.
+3.54.2
+24 August, 2023
+Changes:
+Fixed bug in DirectionsRenderer where Map would not load if zoom and center was not set before
+rendering DirectionsResult.
+3.54.1
+18 August, 2023
+Changes:
+Upgrades Maps JavaScript API to support ECMAScript 2020 natively.
+Advanced Markers are now rendered more clearly.
+The map is disabled when Array.from is overridden with an implementation that does not support iterables.
+Fixed the focus which was lost when the zoom buttons were disabled at the limit levels.
+3.53.13
+27 July, 2023
+Changes:
+[beta channel] Attributions in the new Place class have been refactored. PhotoAttribution is now AuthorAttribution . author is now displayName . authorURI is now uri . photoURI {?string} is now available on AuthorAttribution . Photo.attributions is now Photo.authorAttributions . Review.authorAttribution {?AuthorAttribution} replaces Photo.author/authorURI/authorPhotoURI .
+[beta channel] Added required field textQuery and deprecating query in Place class searchByText() method.
+Adjusted the info window's anchor offset for raster map's labels and icons.
+3.53.12
+20 July, 2023
+Changes:
+[beta channel] Added ODRD vehicle and fleet location providers for JavaScript Journey Sharing - Fleet tracking.
+Updated the warning message when the argument passed to the LatLng() constructor is ignored.
+Deprecated Marker.collisionBehavior in favor of AdvancedMarkerElement.collisionBehavior .
+3.53.11
+13 July, 2023
+Changes:
+Function isLocationOnEdge() now returns true when the specified point is close enough to either the start or the edge of a polyline.
+Adds an error log to let developers know when the vector map fails to load and falls back to a raster map.
+3.53.7
+15 June, 2023
+Changes:
+[alpha channel] Update the Place Autocomplete Element to better support screen readers and other assistive technologies.
+3.53.5
+1 June, 2023
+Changes:
+Allow passing Node element to Advanced Marker's content property.
+Improved the performance of Advanced Markers collision behavior.
+Added a new field for DeliveryVehicleStop in JavaScript Journey Sharing.
+3.53.4a
+24 May, 2023
+Bug fixes:
+Fixed the flickering issue that happened on the vector map.
+Fixed incorrect Date calculation when accounting for different timezones in the getNextOpeningTime() place method.
+Corrected an erroneous type in VehicleJourneySegment for Journey Sharing.
+3.53.3
+18 May, 2023
+Changes:
+[alpha channel] Fixed a bug where Place autocomplete element would not restore original text if you used arrow keys to highlight a prediction and then clicked escape.
+[alpha channel] Updated Place Autocomplete Prediction Styles to ensure ellipsis shows on text overflow.
+[beta channel] Local Context now shows a notice that contextual information about places on the Local Context map will be going away soon.
+Fixed a bug where the StreetView pegman would not show a hover-on-drag preview unless it had been returned to the dock at least once first.
+Deprecated bounds, location, and radius for Place Autocomplete Service. Use locationBias and locationRestriction instead.
+3.53.2
+4 May, 2023
+Changes:
+[beta channel] Data-driven styling for Datasets is available
+[beta channel] <gmp-map> and <gmp-advanced-marker> Web components are now available.
+Added TimeWindow as a field to Task and TaskTrackingInfo in JavaScript Journey Sharing.
+AdvancedMarkerElement and PinElement released to the weekly channel.
+Data-driven styling for Boundaries released to weekly channel.
+getMapCapabilities and the mapcapabilities_changed event are released to weekly channel.
+3.53.1a
+27 April, 2023
+Changes:
+Updated Place Autocomplete Service to support locationBias and locationRestriction
+[beta channel] Published documentation on Place v2 toJSON method.
+[beta channel] Fixed Advanced Marker dragging when the map is wrapped.
+[beta channel] Data-driven styling PlaceFeature.fetchPlace displayNames will be in the end-user's language.
+[beta channel] AdvancedMarkerView and PinView have been renamed to AdvancedMarkerElement and PinElement.
+[beta channel] Fixed an issue where AdvancedMarkers and Pins would sometimes be available without explicitly loading them. Please remember to always load the "marker" library before accessing these classes.
+[beta channel] AdvancedMarker position now normalized to a LatLngAltitude.
+[beta channel] Decommissions the Advanced Marker draggable property in favor of gmpDraggable .
+3.52.9
+13 April, 2023
+Changes:
+[beta channel] Changing the value of Place property "priceLevel" from a number to a string. Possible values for "priceLevel" are now: "FREE", "INEXPENSIVE", "MODERATE", "EXPENSIVE", "VERY_EXPENSIVE".
+[beta channel] Deprecate AdvancedMarkerView.draggable in favor of gmpDraggable.
+[beta channel] Removing 'icon' property and fieldname from Place class. Developers are encouraged to use 'svgIconMaskURI' instead.
+[beta channel] AdvancedMarkerView's title property now only accepts a string. Titles can be removed with an empty string.
+[beta channel] Add 'svgIconMaskURI' as a supported field name for Place.fromPlaceFrom methods.
+[beta channel] Changed the Place class property from userRatingsCount to userRatingCount
+Improved the printing of errors when logged to the console.
+Bug fixes:
+Fixes a bug where closing InfoWindow was causing an error.
+3.52.8
+6 April, 2023
+Changes:
+Added pollingIntervalMillis as a public field of polling location providers in
+JavaScript Journey Sharing.
+[beta channel] Changed the Place class JSON response from snake_case to lowerCamelCase.
+Bug fixes:
+Fixed a bug where Place Review's publishTime were showing the wrong date.
+Fixed an issue where creating custom elements would be globally broken.
+[beta channel] Fixed a bug that caused the Advanced Markers to disappear when the map is
+wrapping.
+3.52.6
+23 March, 2023
+Changes:
+[alpha channel] Place Autocomplete Widget (New) Experimental is released.
+Releases JavaScript Journey Sharing to the weekly channel.
+3.52.5
+16 March, 2023
+Changes:
+[beta channel] Data-driven styling: Removed NEIGHBORHOOD, ADMINISTRATIVE_AREA_LEVEL_3,
+ADMINISTRATIVE_AREA_LEVEL_4, and SUBLOCALITY_LEVEL_1 FeatureTypes.
+Bug fixes:
+Fixed a bug where TypeScript interfaces were empty for libraries used by importLibrary().
+3.52.4
+9 March, 2023
+Changes:
+[beta channel] Suppresses Advanced Marker's click event when a marker is being dragged.
+3.52.3
+2 March, 2023
+Changes:
+[beta channel] Adds TaskTrackingInfo entities for JavaScript Journey Sharing.
+[beta channel] Upgrades Maps JavaScript API to support ECMAScript 2020 natively.
+Bug fixes:
+Fixes a memory leak that could happen when adding and removing markers to/from the map.
+Fixes a bug that caused the interactive element to be clickable when beneath a clickable
+Advanced Marker on touch devices.
+3.52.2
+23 February, 2023
+Changes:
+[beta channel] Data-driven styling: Remove PlaceFeature.displayName property.
+[beta channel] Fix WebGLOverlayViews not being removed correctly when calling setMap(null)
+Fixed a bug that complains the search library is unknown.
+Fixed a bug where the InfoWindow close button was invisible when in a shadow root.
+To improve Core Web Vitals and reduce unnecessary data transfer, Maps JS now defers the loading of map tiles until the map is nearing the viewport. Maps that are created within the page's initial viewport should see no difference.
+3.52.1
+16 February, 2023
+Changes:
+Adds the importLibrary() function, which provides the ability to dynamically load libraries at runtime.
+[beta channel] Enable InfoWindow's auto-pan feature when opened on an Advanced Marker.
+[beta channel] made certain fields in Journey Sharing library data objects non-nullable
+[beta channel] Data-driven styling: The NEIGHBORHOOD, ADMINISTRATIVE_AREA_LEVEL_3, ADMINISTRATIVE_AREA_LEVEL_4, and SUBLOCALITY_LEVEL_1 FeatureTypes are deprecated. They will be removed in March 2023.
+3.51.8
+2 February, 2023
+Changes:
+Beta channel: Support rendering Advanced Markers on custom map types.
+The latest copy of the inline bootstrap loader will now reuse CSP nonces found elsewhere in the document.
+3.51.7
+26 January, 2023
+Changes:
+Beta channel: Data-driven styling: Added the fetchPlace method to get the display name of a
+PlaceFeature. The PlaceFeature.displayName property will be deprecated, and removed in February
+2023.
+3.51.6
+19 January, 2023
+Bug fixes:
+Fixes an issue with Advanced Markers, where removing a marker with collision from the map
+could sometimes result in a ghost marker element left behind in the DOM.
+3.51.5
+12 January, 2023
+Changes:
+Corrects the type of element on AdvancedMarkerView, PinView, and
+LocalContextMapView, from Element to HTMLElement | SVGElement to more
+closely represent the requisite element type.
+Bug fixes:
+Fixes a bug when using an Advanced Marker with an InfoWindow, where the InfoWindow might not
+open after dragging the marker using the keyboard.
+3.51.4
+5 January, 2023
+Changes:
+Beta channel: Add new attributes to place class
+Beta channel: Data-driven styling FeatureMouseEvent.features array may contain more than one feature if there are multiple under the click, and all FeatureLayer click listeners under a click will be triggered.
+Beta channel: Throw error for invalid arguments to google.maps.Map.getFeatureLayer.
+Corrects the pixel position of Advanced Markers on a fullscreen map.
+Changes map mouse events to now ignore mouse button clicks that happen while another mouse button is already being pressed.
+Fixes a bug that caused the Advanced Markers to disappear when zooming in the map.
+Improves the performance when zooming in the map with many Advanced Markers.
+Updates StreetViewPanoramaOptions documentation to clarify that clickToGo is not available with custom panoramas.
+Improves performance when creating LatLngBounds, including via Map.getBounds().
+Updates the WebGLOverlayView reference for onAdd and onRemove.
+Adds fixed marker styling customization for Journey Sharing.
+3.51.3
+8 December, 2022
+Changes:
+Fixes a bug that caused a marker not to give up its keyboard focus when it's outside of the map viewport.
+Beta channel: Introduces the Place class, a new simpler API supporting modern usage patterns such as Promises. The Place class includes some new data fields.
+Beta channel: Fixes a bug that caused Advanced Markers not to render when passing a Map that is wrapped in a Proxy.
+Beta channel: Adds trip location provider marker customization for JavaScript Journey Sharing.
+3.51.2
+01 December, 2022
+Changes:
+Beta channel: google.maps.importLibrary() API is now available.
+Beta channel: Deprecated : Local Context is deprecated, and no longer
+recommended for new websites. The feature will continue to work, and 12 months notice will be
+given before support is discontinued. If you are interested in building a Local Context-like
+experience yourself, we suggest that you check out the "Neighborhood Discovery" solution in
+Quick Builder or use
+the Places Library, Maps JavaScript API .
+Code samples and codelabs for the Places Library can help you.
+Beta channel: To improve Core Web Vitals and reduce unnecessary data transfer, Maps JS now defers the
+loading of map tiles until the map is nearing the viewport. Maps that are created within the
+page's initial viewport should see no difference.
+Beta channel: Adds an event for polling state changes for Journey Sharing location providers.
+Beta channel: Adds styling customization functions for Journey Sharing. Deprecated older setup methods.
+Adds keyboard accessibility to the steps of the directions panel. Directions can now be
+navigated with the tab key, and selected with the space or enter keys.
+google.maps.geometry.spherical.computeArea() now accepts LatLngBounds
+and Circle s. LatLngBounds can now be constructed with a
+LatLngBoundsLiteral .
+Adds alt text to images in DirectionRenderer 's suggested routes
+panel.
+3.51.1
+17 November, 2022
+Changes:
+Beta channel: Place class in the Places Library is released.
+Beta channel: Adds styling customization functions for Journey Sharing. Older setup methods are deprecated.
+Internet Explorer 11 is now decommissioned in the Maps Embed API.
+The Google logo in the Maps Embed API changes style when using the Hybrid or Satellite map types for increased visibility
+Improved Advanced Markers load performance.
+Makes a drawing "undo" button keyboard accessible and screen reader friendly.
+Makes directions renderer's markers keyboard accessible and screen reader friendly.
+Adds an ARIA description to the Map scale control.
+Enable keyboard focus and interaction for the map's scale control.
+Introduces a language parameter to Geocoder JS API. Maps JS API no longer considers US as a default region in Geocoder if it's not explicitly specified.
+Introduces a language parameter to Directions JS API.
+Introduces a language parameter to Distance Matrix JS API.
+Bug fixes:
+Fixes a bug that caused the keyboard focus to redirect to the marker when an info window is opened.
+Fixes a bug that caused markers not to be focusable.
+3.51
+16 November, 2022
+Changes:
+The weekly channel was updated to version 3.51.
+The quarterly channel was updated to version 3.50.
+Versions 3.49 and 3.48 are still available when requested by number.
+3.50.12a
+7 November, 2022
+Changes:
+Fixes an issue where google.maps.event.addListenerOnce and
+google.maps.event.addDomListenerOnce have incorrect this binding.
+3.50.12
+03 November, 2022
+Changes:
+Beta channel: Advanced Markers now support altitude when used on oblique maps.
+3.50.11
+27 October, 2022
+Changes:
+Beta channel: An error is now logged when data-driven styling feature layers become unavailable.
+Beta channel: Performance improvements for default Advanced Markers loading.
+3.50.10
+20 October, 2022
+Bug fixes:
+Fixes InfoWindow right and bottom padding on iOS.
+3.50.9
+13 October, 2022
+Changes:
+Selected steps are now highlighted in the directions panel.
+Fixes the TypeScript typing for the PinView constructor.
+Fixes the TypeScript typing for the LagLngAltitude constructor.
+Updates the default marker icon image in DirectionsRenderer .
+3.50.8
+6 October, 2022
+Changes:
+Beta channel: Advanced
+Markers Preview is released.
+Beta channel: Introduces documentation for isAdvancedMarkersAvailable on the
+getMapCapabilities() return object.
+Adds "This field is read-only." to the API description of LocalContextMapView
+and to the element property of LocalContextMapViewOption
+Bug fixes:
+Colors in JSON Custom Styles now use the default style's opacity rather than a forced 100%
+opacity.
+3.50.7
+29 September, 2022
+Changes:
+Screen reader now reads the instructions on how to interact with Map and Street View.
+Adds tilt and rotate keyboard shortcuts to the keyboard shortcuts dialog.
+3.50.6
+22 September, 2022
+Bug fixes:
+Fixes a bug where Voice Over on iOS could navigate through elements underneath the keyboard
+shortcuts dialog.
+Adds alt text to the static map image.
+Changes:
+An error is now logged to the console when map.getMapCapabilities() is called,
+and has an error.
+3.50.5
+15 September, 2022
+Changes:
+Add MAX_BOUNDS constant for LatLngBounds to indicate the maximum LatLng bounds for maps
+Allows screen readers to perform click actions on default markers.
+3.50.3
+1 September, 2022
+Changes:
+Beta channel: Updates JavaScript Journey Sharing's DeliveryVehicle class to
+include custom attributes.
+Fixes a bug in which there was an incorrect LatLng in an event after a map was tilted.
+3.50.2
+25 August, 2022
+Changes:
+Beta channel: Changed FleetEngineDeliveryFleetLocationProvider to accept a string delivery vehicle filter.
+Updates the default marker icon image.
+3.50.1
+18 August, 2022
+Changes:
+Beta channel: Introduces map capability APIs ( getMapCapabilities and mapcapabilities_changed event)
+to the beta channel.
+Beta channel: Introduces a language parameter to google.maps.Geocoder .
+Beta channel: Introduces a language parameter to google.maps.DistanceMatrixService .
+Beta channel: Introduces a language parameter to google.maps.DirectionsService .
+Fixes a bug where a region code was ignored in multiple Places JS APIs. Introduces language and region parameters to various Place JS APIs.
+Removes support in the Maps JavaScript API Streetview for websites without googleapis.com domain
+in the Content Security Policy settings. Please consult the Content Security Policy Guide
+for more information.
+3.49.12
+4 August, 2022
+Changes:
+Adds DEMO_MAP_ID , a map ID which can be used for code samples that require a map
+ID. This map ID is not intended for use in production applications and cannot be used for
+features that require cloud configuration (such as Cloud Styling).
+Clarify that FleetEngineDeliverFleetLocationProvider.locationRestriction is
+needed to start tracking.
+3.49.11
+28 July, 2022
+Changes:
+google.maps.VehicleType can now be referenced as a runtime enum.
+3.49.10
+21 July, 2022
+Changes:
+NaN values are rejected for width or height when validating marker icon size, marker icon
+scaled size, or infowindow size.
+Fixes a bug where the motion tracking control was not visible on iOS devices in Street View.
+Fixes a bug wher hover text for directions was cut off for RTL languages in the Embed API.
+Makes the transit Info Window more accessible and screen reader friendly.
+3.49.9
+14 July, 2022
+Changes:
+Clarifies the use of ID fields in Journey Sharing location providers.
+3.49.8
+7 July, 2022
+Changes:
+Makes Street View navigation links keyboard accessible and screen reader friendly.
+Introduces a new focus method on StreetViewPanorama .
+3.49
+23 June, 2022
+Changes:
+Beta channel: Data-driven
+styling for Google boundaries is released.
+Bug fixes:
+Makes the BusinessStatus enum accessible via google.maps.places.BusinessStatus .
+3.49.5
+16 June, 2022
+Changes:
+Adds a keyboard shortcuts control and dialog to Street View, improving the
+discoverability of keyboard shortcuts.
+Bug fixes:
+Fixes a bug that caused a form to submit when closing Street View.
+3.49.4
+9 June, 2022
+Changes:
+Moves WebGLOverlayView , CameraParams , LatLngAltitude ,
+moveCamera , fractional zoom, and getVisibleRegion into the weekly
+channel.
+The default Street View panorama for Map now automatically manages focus when
+opened. This is the new default behavior.
+The Street View panorama now automatically restores focus when closed (if possible).
+Street View can now be closed by pressing the ESC key (when the close button is enabled).
+geometry.spherical.computeSignedArea() and geometry.spherical.computeArea()
+have been optimized for increased robustness and accuracy.
+3.49.3a
+2 June, 2022
+Changes:
+Improved color contrast for the Street View motion tracking control.
+Made the motion tracking control in Street View keyboard accessible and screen reader friendly.
+The MapsNetworkError , MapsRequestError , and MapsServerError classes are now publicly exposed and documented.
+3.49.2
+26 May, 2022
+Changes:
+Improved color contrast for the Street View motion tracking control.
+Made the motion tracking control in Street View keyboard accessible and screen reader friendly.
+The MapsNetworkError , MapsRequestError , and MapsServerError
+classes are now publicly exposed and documented.
+3.49.1
+19 May, 2022
+Changes:
+Beta channel: Fixes a bug where a region code was ignored in multiple Places JS APIs. Introduces language and region parameters to various Place JS APIs.
+Improves color contrast for full screen and compass controls in the dark mode.
+Makes Street View compass control, close button, and address link control, accessible and screen reader friendly.
+3.49
+12 May, 2022
+Changes:
+The weekly channel updates to version 3.49.
+The quarterly channel updates to version 3.48.
+Versions 3.47 and 3.46 are still available when requested by number.
+Version 3.45 is deleted, and can no longer be used.
+3.48.11
+28 April, 2022
+Changes:
+Place Autocomplete can now accept more types.
+Learn more .
+isFractionalZoom was moved into the weekly channel.
+3.48.9
+14 April, 2022
+Changes:
+Beta Channel: Enables WebGL 2.0 for WebGLOverlayView .
+Beta Channel: Includes the
+JourneySharing
+library into the Maps JavaScript API TypeScript types, externs,
+and reference documentation.
+The functions google.maps.event.addDomListener() and
+google.maps.event.addDomListenerOnce() are deprecated, and
+should not be used. Instead, use the standard addEventListener()
+method. These methods will continue to work and there is no plan to
+decommission them.
+Adds title and aria-label to Street View marker
+icon.
+Adds aria-pressed attribute to the Fullscreen control.
+Improves the spacing of the dropdown for the Map Type control.
+Updates aria labels for the Map Type dropdown control.
+Bug fixes:
+Removes a non-allowed aria-expanded attribute from a default
+map type control.
+3.48.8
+7 April, 2022
+Changes:
+Improves color contrast on Maps JS API and Embed API Google logo.
+3.48.7a
+31 March, 2022
+Changes:
+Beta Channel: Removes the deprecated WebGL Overlay View APIs.
+Enables updated basemap
+for Maps JavaScript API customers. The updated basemap, which
+is already in use on consumer Google Maps, provides a richer, more detailed
+basemap particularly with regard to natural features of the land.
+Bug fixes:
+Reverts a previous fix for map.fitBounds()
+(ease the viewport transition for short distances), pending analysis.
+Fixes color contrast issues on the Map Type control in high color
+contrast mode.
+Matches accessible names of Map type control checkboxes with
+corresponding visual labels.
+Fixes color contrast issues on info windows in high color contrast mode.
+3.48.6
+24 March, 2022
+Changes:
+Fixes map.fitBounds() to ease the viewport transition for
+short distances.
+3.48.5
+17 March, 2022
+Changes:
+Safari only: Ensures close button and content container are auto focused
+on open .
+Bug fixes:
+Fixes a color contrast issue for the "View on Google Maps" link on
+s InfoWindow s.
+Fixes a color contrast issue for the "View on Google Maps" link on the
+StreetViewPanorama address control.
+3.48.4
+10 March, 2022
+Changes:
+Introduces a new visible event for
+InfoWindow .
+Introduces a new focus method on
+InfoWindow .
+3.48.3
+3 March, 2022
+Changes:
+Beta Channel: Enables the new service calling style in the Maps JavaScript API
+Street View service. You may need to update your
+Content Security Policy
+to ensure these calls are not blocked at browser-level.
+Introduced a new ariaLabel property for InfoWindow .
+3.48.1
+17 February, 2022
+Changes:
+Beta Channel: Added support for setting global experience IDs. Please see API reference documentation here .
+Beta Channel: The first and second parameters of fromLatLngAltitude will now be merged into a LatLngAltitude instead of a LatLng and a number .
+Renamed LatLng 's noWrap parameter to noClampNoWrap .
+Screen reader now reads the instructions on how to navigate the markers when a marker receives focus.
+The Maps JavaScript API now reports telemetry information. You may need to update your Content Security Policy to ensure these calls are not blocked at browser-level. For more information, please see the FAQ .
+This version does not support Internet Explorer. To continue supporting Internet Explorer 11, specify v=3.47 which will be available until November 2022.
+3.48
+10 February, 2022
+Changes:
+The weekly channel was updated to version 3.48.
+The quarterly channel was updated to version 3.47.
+Versions 3.46 and 3.45 are still available when requested by number.
+3.47.6
+20 January, 2022
+Bug fixes:
+Fixed an issue where the page scrolled to the top when the keyboard
+shortcuts control has focus.
+3.47.4
+6 January, 2022
+Changes:
+Beta Channel: WebGLOverlayView API update for Beta - deprecate all classes and methods with "gl" in their name in favor of new ones with "GL" in the name, deprecate WebglCameraParams in favor of the new CameraParams class (that subclasses CameraOptions).
+Updated PlaceOpeningHours method documentation to reflect that exceptional hours are not used in their calculations.
+3.47.3
+09 December, 2021
+Changes:
+LatLng , LatLngBounds , and Circle now accept an instance
+of the same class in the constructor.
+3.47.2
+02 December, 2021
+Changes:
+LatLngLiteral is now allowed as a parameter wherever
+LatLng is allowed for
+projections .
+Bug fixes:
+Fixed some rendering issues which could occur at smaller scale values
+(less than 1.0).
+3.47.1
+18 November, 2021
+Changes:
+LatLngLiteral is now allowed as a parameter wherever
+LatLng is allowed in the geometry library.
+Added a new onGIStateUpdateRequest API for WebGL support in the Maps JavaScript API.
+Fixed color contrast on the error screen.
+Internet Explorer 11 is now decommissioned in v=beta. The last version of
+the Maps JavaScript API to support Internet Explorer 11 is
+v3.47. Support for Internet Explorer 11 will be entirely discontinued in
+November 2022.
+Maps no longer receive Tab focus when the keyboardShortcuts
+map option is set to false .
+Zoom In and Zoom Out buttons are now disabled when the respective maximum
+or minimum zoom level is reached.
+Converted the MapType control to use semantic elements to
+improve the accessibility and screen reader experience in the Maps Embed API.
+Added alt text to the icon on the error screen.
+Various general code health improvements.
+Bug fixes:
+Replace non-WCAG-compliant controlHeight and controlWidth
+attributes with compliant data-* attributes.
+3.47
+11 November, 2021
+Changes:
+The weekly channel was updated to version 3.47.
+The quarterly channel was updated to version 3.46.
+Version 3.45 is still available when requested by number.
+Version 3.44 was deleted, and can no longer be used.
+3.46.12
+04 November, 2021
+Bug fixes:
+Updated the Map Type menu bar with more accurate ARIA labels.
+Embed API: Added ARIA labels to several links, for an improved screen
+reader experience.
+Embed API: Fixed color contrast for some text items.
+Fixed the type of google.maps.Marker.MAX_ZINDEX in externs.
+3.46.11
+28 October, 2021
+Changes:
+Converted getters and setters to use goog.a11y.aria. This will help to
+protect against misspellings.
+3.46.8
+7 October, 2021
+Changes:
+Local Context: Removed attribution link from Local Context InfoWindow photos.
+3.46.6
+23 September, 2021
+Changes:
+Fixed a bug where the map cursor shows a hand when the map is not draggable.
+3.46.5
+16 September, 2021
+Bug fixes:
+Fixed a bug with a color contrast ratio in the Place autocomplete widget.
+3.46.3
+02 September, 2021
+Changes:
+Scroll instructions are now displayed above open InfoWindow s
+and CustomOverlay s.
+3.46.2
+26 August, 2021
+Changes:
+Beta Channel: Telemetry information is now reported. You may need to
+update your Content Security Policy to ensure these calls are not blocked at
+browser-level. For more information, please see the FAQ .
+3.46
+18 August, 2021
+Version 3.46 of the Maps JavaScript API is now available.
+See the Versioning guide.
+Changes:
+Added two new fields to PlaceResult , icon_mask_base_uri and
+icon_background_color .
+The weekly channel was updated to version 3.46.
+The quarterly channel was updated to version 3.45.
+Version 3.44 is still available when requested by number.
+Version 3.43 was deleted, and can no longer be used.
+Deprecations:
+Support for Internet Explorer is being deprecated. Beginning in August 2021 with
+Maps JavaScript API v3.46,
+Internet Explorer 11 users will see a warning message at the top of maps. The last
+version of the Maps JavaScript API to support Internet Explorer 11 is v3.47.
+Support for Internet Explorer 11 will be entirely discontinued in November 2022.
+Bug fixes:
+Fixed a bug where a polygon's vertex was shifted at certain zoom levels.
+Fixed a bug where content of multiple Info Windows overlapped each other.
+3.45.8
+29 July, 2021
+Changes:
+Embed API: On embedded maps, the zoom level is retained after being redirected to the
+directions page.
+3.45.7
+22 July, 2021
+Changes:
+Support for IE11 is deprecated. Maps in IE11 will now display a banner in
+the beta channel.
+Updated the "Get Directions" link in embedded maps to be more accurate.
+Bug fixes:
+Fixed an issue where the getFeatureById() method could not
+retrieve features with an id of 0.
+Fixed an issue where an UNKNOWN ERROR/SERVICE BACKGROUND ERROR
+is thrown if the ComponentRestriction value is undefined or null.
+3.45.6a
+15 July, 2021
+Changes:
+When opened, focus is now managed to the InfoWindow container when the first focusable control
+is not in the InfoWindow viewport or when disableAutoPan=true .
+Bug fixes:
+Fixed a bug where unfinished poly drawing is completed automatically when drawing manager is
+removed and re-added to the map.
+Fixed a bug where the string 'Directions' is truncated in 'Embed a map' pop-up
+in some languages.
+3.45.5
+01 July, 2021
+Changes:
+Updated URL for Maps Studio
+in typings and JS API.
+Bug fixes:
+Fixed an unhandled Promise rejection when providing callback.
+3.45.4
+24 June, 2021
+Changes:
+Fixed a bug that caused the keyboard shortcuts dialog to open on form
+submit.
+Fixed a bug where the "Keyboard shortcuts" button was out of
+alignment.
+Removed objects accidentally added to window (Spherical,
+PolylineCodec, PolyGeometry). These objects should be accessed at their fully
+qualified namespace instead.
+3.45.3
+16 June, 2021
+Bug fixes:
+Updated InfoWindow ,
+so that focus does not move when open() is called within the
+same run loop as map instantiation.
+Changes:
+Updated the InfoWindowOpenOptions
+API reference section with more detailed information.
+Fixed focus rings when using keyboard navigation (Tab + Option) in Safari.
+3.45.2
+10 June, 2021
+Bug fixes:
+Fixed an issue where the Map Type control was not properly overlaid
+by the keyboard shortcut dialog's background in Embed API.
+Fixed an issue that could cause an error when loading font CSS styles.
+Fixed a bug where flickering could occur when panning the Map with an
+open InfoWindow.
+Changes:
+Added the InfoWindowOpenOptions.map property.
+3.45.1
+3 June, 2021
+Changes:
+Added documentation for animations, icons, label, and opacity properties
+to the Data.StyleOptions
+interface.
+Redesigned the copyright dialog for better accessibility support.
+InfoWindows will now automatically manage focus when opened. This represents the new default behavior.
+Added the InfoWindowOpenOptions API, allowing developers to control how focus is managed when opening InfoWindows.
+InfoWindows can now be closed by pressing the ESC key.
+InfoWindows are now announced as a "dialog" when using screen readers.
+Polyfill isolation is now enabled; this change prevents the Maps API
+internal polyfills from being installed on the host page.
+Bug fixes:
+Fixed an issue where a map focus ring would appear when switching browser
+tabs.
+Fixed an issue where the focus ring for map controls, marker elements,
+and map type control submenu items, incorrectly appeared with mouse
+interaction in some browsers.
+New features:
+Enabled support for Promises
+in Directions, Distance Matrix, Elevation, Geocoder, Maximum Zoom Imagery,
+StreetView, and AutcompleteService.getPlacePredictions()
+services.
+Added keyboard shortcuts control and dialog on the map to improve
+discoverability of keyboard shortcuts.
+Vector maps are now available in the weekly channel (basic features only;
+WebGL features are available in the beta channel).
+3.44.14
+13 May, 2021
+Changes:
+A warning is now logged to the console when InfoWindow.open()
+is called without an associated Map or StreetView instance.
+3.44.12
+28 April, 2021
+Bug fixes:
+Fixed an issue where removed or hidden optimized markers are added back
+to the map after changing to a new map type.
+Local Context:
+Added support for arrays that don't have an @@iterator
+method defined as a valid placeTypePreferences value.
+3.44.11a
+20 April, 2021
+Changes:
+Improved performance for creating custom markers with Icon objects.
+Prevent focus from moving to the map type dropdown menus when hovering
+over a button.
+Bug fixes:
+Fixed a bug where an error could occur when loading static markers prior
+to initializing the base map.
+3.44.9
+8 April, 2021
+Bug fixes:
+Fixed a bug where Map controls were keyboard accessible when Street View
+is enabled.
+3.44.8
+1 April, 2021
+Changes:
+Local Context Library: Moved the Google logo in the Place Details View to
+the bottom of the contents.
+3.44.7
+25 March, 2021
+Changes:
+Keyboard focus now returns to the appropriate element when the InfoWindow
+is closed.
+3.44.4
+4 March, 2021
+Changes:
+45&deg; imagery
+is now available in a wider range of zoom levels, and the rotation control
+now includes both clockwise and anti-clockwise buttons.
+Bug fixes:
+Fixed a memory leak that could happen when rendering the map repeatedly.
+Fixed a memory leak that could happen when adding or removing circles or
+rectangles on the map.
+3.44.2
+25 February, 2021
+Changes:
+Fixed a bug where the Places Autocomplete getPlacePredictions
+function call incorrectly points to the wrong endpoint in the beta channel.
+3.44.1
+18 February, 2021
+Changes:
+LocalContext Place Chooser buttons are now disabled when reloading the
+places shown.
+Non-optimized markers are now focusable and keyboard accessible.
+Beta Channel: Removed objects accidentally added to window ( Spherical ,
+PolylineCodec , PolyGeometry ). These objects should
+be accessed at their fully qualified namespace instead.
+Turned on Polyfill Isolation in Beta channel. This means that the
+Maps JavaScript API will no longer install polyfills into the
+host page.
+3.43.8a
+25 February, 2021
+Only the quarterly channel was updated. Changes:
+Fixed a memory leak issue when rendering a map multiple times
+3.43.8
+5 February, 2021
+Changes:
+Added beta support for Promises
+in AutocompleteService.getPlacePredictions() .
+Bug fixes:
+Fixed an issue where Markers with labels intercepted click
+events, even when clickable was set to false.
+3.43.7a
+28 January, 2021
+Bug fixes:
+Fixed various issues related to the drawing of polylines.
+3.43.6
+21 January, 2021
+Bug fixes:
+Fixed a bug where geojson polygon holes were sometimes being filled in.
+Fixed a bug that caused the overlay disappear when switching between map
+and street view.
+3.43.5
+14 January, 2021
+Changes:
+Changed checkboxes in menus to be more accessible with screen readers.
+Increased the size of the floors buttons for indoor Street View panoramas.
+Fixed the position of mobile motion tracking controls in Street View.
+Bug fixes:
+Keyboard menu button now triggers the contextmenu event.
+Fixed a bug where the fullscreen control did not work properly when
+switching between the Map and Street View in some situations.
+Fixed an issue with screen readers not being able to navigate to markers
+within the map.
+Fixed a bug that caused the place icon to disappear in LocalContext's place marker.
+3.43.3
+9 December, 2020
+Changes:
+Renamed the google.maps.MouseEvent interface to google.maps.MapMouseEvent
+and added a domEvent property, providing direct access to the
+underlying event from the DOM.
+Improved memory behavior of polygon overlays.
+Canvas memory is now explicitly released to avoid Safari memory issues.
+Bug fixes:
+Fixed a bug where the Fullscreen control stopped working when switching
+between Map and Street View in some situations.
+Fixed a bug where an error was logged in console on marker's click event.
+Fixed a bug where the size of a marker's clickable area was drawn too
+large.
+Fixed a bug with polyfill conflicts that affected Symbols on IE11.
+3.43.2
+1 December, 2020
+Changes:
+Adds the contextmenu event, as a better alternative to the rightclick event.
+The contextmenu event adds the capability to respond to ctrl-click on macOS.
+Adds accessibility attributes to non-optimized markers when title
+or label are provided.
+Adds more ARIA labels and roles for MapType controls, for an improved
+screen reader experience.
+Improved screen reader support for MapType controls. When the user
+navigates away from the control, the dropdown menu automatically closes.
+Corrects the number of items reported by screen readers in the dropdown menu;
+this prevents the line separator from being counted as a list item.
+Adds a focus ring within the map element, to indicate keyboard
+focus when focused via keyboard interaction.
+Adds additional keyboard controls to the MapType controls.
+The dropdown options now automatically close when the control loses focus.
+The up and down arrow keys open the dropdown, and the Escape button closes it.
+Home and End keys move to the first and last items in the dropdown, respectively.
+Bug fixes:
+Fixed a bug where canceling a marker animation could, under some circumstances,
+cause that particular marker to terminate future animations early.
+3.43.1a
+20 November, 2020
+Changes:
+Adds a className property to the MarkerLabel interface
+to set the CSS class of the label element.
+Adds beta support for Promises
+in the Maximum Zoom Imagery Service .
+Add beta support for Promises
+in the StreetView service.
+Added accessibility text to non-optimized markers when title or label are provided.
+Removed the aria-pressed label from the MapType control dropdown menu button, to improve accessibility.
+Converted DropdownMenu and DropdownMenuItem to sematic elements to improve accessibility.
+Changed copyright element text to meet color contrast standards.
+Dropdown menus can now be opened and closed by using the enter key or the space bar.
+Dropdown menu items can now be focused.
+Local Context Library: Carousel control buttons are now disabled when they would have no effect,
+and no longer overlap the first or last item in the list.
+Bug fixes:
+Fixed a bug that could happen when GroundOverlays cross the 180
+degree meridian.
+Keyboard shortcuts are no longer disabled by default when disableDefaultUI is set to true .
+Fixed a bug where screen reader text was incorrect for map toggle buttons.
+Adds accessibility name and type to Map .
+Fixed interface documentation that incorrectly showed some optional properties as required.
+Fixed a bug where the noWrap LatLng constructor param, was ignored when passed a LatLngLiteral .
+3.43
+18 November 2020
+Version 3.43 of the Maps JavaScript API is now available.
+See the Versioning guide.
+The weekly channel was updated to version 3.43.
+The quarterly channel was updated to version 3.42.
+Version 3.41 is still available when requested by number.
+Version 3.40 was deleted, and can no longer be used.
+3.42.9
+15 October, 2020
+Changes:
+Fixed a bug where a wrong checkbox's state was communicated by a screen reader.
+Fixed an issue with Map controls, where the Tab/Shift+Tab was in the wrong order.
+Converted map buttons from div to native button, for improved accessibility.
+Tilt is now restricted depending on zoom level for WebGL maps.
+Fixed fullscreen button partially disappearing on Internet Explorer when controlSize is less than 27.
+3.42.8
+7 October, 2020
+Changes:
+Added beta support for promises
+in the Directions service .
+Geocoder componentRestrictions now performs validation
+checks for empty strings.
+Fixed a bug where the marker label was covered by the custom marker
+symbol on Safari.
+Support for updated Place icons
+1 October, 2020
+The icons returned with Place Details and Place Search requests have been
+updated to use new icon glyphs . No
+action is required, the new glyphs will display automatically.
+3.42.7
+29 September, 2020
+Changes:
+Fixed a bug where the word order was wrong for RTL (right-to-left)
+languages on the "Report a map error" control tooltip.
+Centered marker label for RTL text direction.
+3.42.6
+21 September, 2020
+Changes:
+Added beta support for promises
+in the Distance Matrix service .
+3.42.5
+16 September, 2020
+Changes:
+Updated LatLngBounds.union method to handle cases when two
+bounds are over 180 degrees.
+3.42.4
+8 September 2020
+Changes:
+An error is now logged to the console when an invalid Date.now()
+implementation is detected.
+Added beta support for Promises in Elevation service methods.
+Introduced a new InfoWindow.minWidth property for specifying
+the minimum width for an InfoWindow .
+Fixed a bug where directions routes became blurred after changing the
+destination.
+3.42
+19 August 2020
+Version 3.42 of the Maps JavaScript API is now available.
+See the Versioning guide.
+Changes:
+InfoWindows now have a default max width of 648px which can be overridden by setting the
+InfoWindow maxWidth property. The width of an InfoWindow can now exceed 648px but will still
+be limited by the width of the map. (Previously, Infowindows were always restricted to the
+lesser of 648px or the map width.)
+Prevent flickering of the default-styled render while rendering large GeoJson data sets.
+The weekly channel was updated to version 3.42.
+The quarterly channel was updated to version 3.41.
+Version 3.40 is still available when requested by number.
+Version 3.39 was deleted, and can no longer be used.
+3.41.7
+22 July 2020
+Fixed:
+Fixed a bug where setting the clickableIcons property to
+false had no effect when using Cloud Styling.
+3.41.5
+6 July 2020
+Changes:
+Fixes trusted types violation.
+3.41.2
+27 May 2020
+Changes:
+The Places field permanently_closed in the Places Library,
+Maps JavaScript API is deprecated .
+3.41
+20 May 2020
+Version 3.41 of the Maps JavaScript API is now available.
+See the Versioning guide.
+The weekly channel was updated to version 3.41.
+The quarterly channel was updated to version 3.40.
+Version 3.39 is still available when requested by number.
+Version 3.38 was deleted, and can no longer be used.
+3.40.11
+28 April 2020
+Changes:
+Adds a new field, business_status , to Place Search and Place
+Details results. Use this field instead of permanently_closed .
+Fixes an incorrect console warning when requesting (new) PlaceResult.utc_offset_minutes ;
+a warning is now returned for PlaceResult.utc_offset , which has been
+deprecated .
+3.40.9
+14 April 2020
+Changes:
+Map now throws an easier to diagnose InvalidValueError if passed a mapDiv
+that is not an Element.
+The Chrome browser autofilling an address into google.maps.places.Autocomplete
+should no longer trigger an autocomplete request to the server (which will
+avoid billing).
+Made the maxWidth property more accurate. Before this change,
+if you specified the maxWidth of an InfoWindow to be
+100, the actual maximum width of the InfoWindow would be 94px.
+After this change the maximum width would actually be 100px.
+Fixes a memory leak issue with paint request builder when using markers and
+map bounds.
+3.40.6
+24 March 2020
+Changes:
+Fixed the truncated text in the travel time field for IE11.
+3.40.4
+10 March 2020
+Changes:
+Fixes bug where calling setTilt() twice would skew the Map.
+3.40.2
+23 February 2020
+Changes:
+Hidden iframe within Map removed from tab navigation.
+3.40.1
+18 February 2020
+Changes:
+Do not warn about InvalidVersion for v=beta.
+Fixes a problem with scrolling when Street View is displayed.
+3.40
+11 February 2020
+Version 3.40 of the Maps JavaScript API is now available.
+See the Versioning guide.
+The weekly channel was updated to version 3.40.
+The quarterly channel was updated to version 3.39.
+Version 3.38 is still available when requested by number.
+Version 3.37 was deleted, and can no longer be used.
+3.39.6
+08 January 2020
+Version 3.39.6 of the Maps JavaScript API is now available.
+See the Versioning guide.
+Fixed:
+For Directions requests, ZERO_RESULTS are now logged to the
+console, and no longer result in an error log.
+3.39
+20 November 2019
+Version 3.39 of the Maps JavaScript API is now available.
+See the Versioning guide.
+Changes:
+Internet Explorer 10 is no longer supported (3.38 was the last version to
+support it).
+AutocompletePrediction now returns the straight-line distance
+to the selected place, from the specified origin lat/lng.
+Deprecations:
+The Places fields open_now and utc_offset are
+deprecated as of November 20, 2019, and will be turned off
+on February 20, 2021. See Places Field Migration
+to learn more.
+The weekly channel was updated to version 3.39.
+The quarterly channel was updated to version 3.38.
+Version 3.37 is still available when requested by number.
+Version 3.36 was deleted, and can no longer be used.
+3.38
+20 August 2019
+Version 3.38 of the Maps JavaScript API is now available.
+See the Versioning guide.
+The weekly channel was updated to version 3.38.
+The quarterly channel was updated to version 3.37.
+Version 3.36 is still available when requested by number.
+Version 3.35 was deleted, and can no longer be used.
+Fusion tables can no longer be used (3.37 was the last version to support it).
+Support for Internet Explorer 10 is now deprecated, and will end between
+November 2019 and May 2020 depending on the release channel
+or version number you use.
+3.37
+15 May 2019
+Version 3.37 of the Maps JavaScript API is now available.
+See the Versioning guide.
+The weekly channel was updated to version 3.37.
+The quarterly channel was updated to version 3.36.
+Version 3.35 is still available when requested by number.
+Version 3.34 was deleted, and can no longer be used.
+Internet Explorer 9 can no longer be used (3.34 was the last version to support it).
+3.36
+14 February 2019
+Version 3.36 of the Maps JavaScript API is now available.
+See the Versioning guide.
+Changes:
+New features added:
+You can now change the size of map controls, using
+MapOption.controlSize .
+You can now restrict map bounds, using
+MapOptions.restriction .
+Infowindow has been improved.
+The weekly channel was updated to version 3.36.
+The quarterly channel was updated to version 3.35.
+Version 3.34 is still available when requested by number.
+Version 3.33 was deleted, and can no longer be used.
+3.35
+29 January 2019
+Changes:
+The API can now return the total number of reviews for each place.
+Added support for Plus codes . Plus codes
+are short codes that provide an address for every location in the world, even
+in areas where traditional street addresses don't exist.
+Internet Explorer 9 is no longer supported.
+Deprecations:
+The placeIdOnly parameter for Autocomplete is deprecated.
+The Fusion Tables Layer in the Maps JavaScript API is deprecated as of December 3, 2018.
+The Fusion Tables Layer will be completely turned off on December 3, 2019,
+and will no longer be available after that date.
+Learn more .
+13 November 2018
+Version 3.35 of the Maps JavaScript API is now available.
+See the Versioning guide.
+Changes:
+The weekly channel was updated to version 3.35.
+The quarterly channel was updated to version 3.34.
+Version 3.33 is still available when requested by number.
+Version 3.32 was deleted, and can no longer be used.
+3.34
+14 August 2018
+Version 3.34 of the Maps JavaScript API is now available.
+See the Versioning guide.
+Changes:
+New version names have been implemented.
+You can now specify release channels or version numbers:
+The weekly channel was updated to version 3.34.
+The quarterly channel was updated to version 3.33.
+Version 3.32 is still available.
+Version 3.31 was deleted, and can no longer be used.
+Customers specifying versions 3.0 to 3.31 will receive their default channel instead,
+either the weekly channel or the quarterly channel
+(see the Versioning guide).
+A larger control UI is now enabled.
+With the increase in touch operations on various devices,
+we adjusted the control UI to fit for both finger touches and mouse clicks.
+(It's possible to opt out by loading the API with v=quarterly, v=3.33, or v=3.32.)
+3.33
+11 June 2018
+Changes:
+Place
+Details requests now support using fields to specify the types of place data to return.
+Two new Find Place requests are now available:
+Find Place from Query
+Find Place from Phone Number
+Place autocomplete now supports session-based billing.
+16 May 2018
+Version 3.33 of the Maps JavaScript API is now available as the experimental version.
+See the guide to API versioning .
+Changes:
+The new renderer is now
+the default.
+The new base map is now
+the default.
+3.32
+13 February 2018
+Changes:
+A new experimental renderer
+is now available.
+A new experimental base map
+is now available.
+3.31
+13 February 2018
+Changes:
+Make the first 256 Markers DOM Markers by default, then make subsequent
+markers Tile Markers. Current default is all Tile Markers.
+At high zoom levels (zoomed in) when dragging Pegman, prefer the
+NEAREST , rather than the Google-selected BEST
+panorama.
+gestureHandling: none now works the same as draggable:
+false when changed inside a mousedown handler (it now takes effect on
+mousedown ).
+21 November 2017
+Version 3.31 of the Maps JavaScript API is now available as the experimental version.
+See the guide to API versioning .
+Changes:
+The region field is now returned with Place Details requests.
+3.30
+16 August 2017
+Version 3.30 of the Maps JavaScript API is now available as the experimental version.
+See the guide to API versioning .
+Changes:
+The fullscreen button is now enabled by default on desktop.
+This version introduces the gestureHandling
+property for desktop applications that enable user interaction using a mouse scroll wheel or
+touchpad. To control how users interact with a map, it is recommended that you use the
+gestureHandling
+property instead of the scrollwheel ,
+disableDoubleClickZoom ,
+and draggable
+properties.
+3.29
+16 May 2017
+Version 3.29 of the Maps JavaScript API is now available as the
+experimental version. See the guide to
+API versioning .
+Changes:
+The format of the pano ID for user generated (custom) Street View panoramas has changed due to
+underlying infrastructure updates. This slightly increases the number of available panoramas.
+Requests for user generated (custom) panoramas using the old pano ID in the
+Maps JavaScript API still work. If you try to find a panorama using the
+position property of the
+StreetViewPanoramaOptions
+object, your result will contain the new pano ID. There is no requirement to map the old and
+new pano IDs, as both will remain valid.
+If you depend on pano ID parsing and/or verification logic, note that the format of pano
+IDs may change.
+You can report any issues using the
+issue tracker .
+Updates on the fitBounds
+method of the google.maps.Map class.
+To change the viewport while a map is hidden, you can now set the map to
+visibility: hidden , thereby ensuring that the map div has an actual size.
+3.28
+18 April 2017
+The draggable
+property of the MapOptions object is deprecated . To disable dragging
+of the map on desktop devices, use the
+gestureHandling
+property and set it to none .
+15 February 2017
+Version 3.28 of the Maps JavaScript API is now available as the
+experimental version. See the guide to
+API versioning .
+Changes:
+Signed-in maps are no longer supported in version 3.28 and higher of the
+Maps JavaScript API.
+3.27
+2 February 2017
+Fixed:
+Issue 11331 : text inside InfoWindow cannot be selected
+10 January 2017
+You can now restrict Autocomplete predictions to only surface from multiple
+countries. You can do this by specifying up to 5 countries in the
+componentRestrictions
+field of the
+AutocompleteOptions .
+15 November 2016
+Version 3.27 of the Maps JavaScript API is now available as the
+experimental version. (See the guide to
+API versioning .)
+Changes:
+A new gestureHandling option in the MapOptions
+object helps you optimise your users' experience when interacting with the
+map on mobile devices. The available values are:
+greedy : The map always pans (up or down, left or
+right) when the user swipes (drags on) the screen. In other words, both a
+one-finger swipe and a two-finger swipe cause the map to pan.
+cooperative : The user must swipe with one finger to scroll
+the page and two fingers to pan the map. If the user swipes the map with one
+finger, an overlay appears on the map, with a prompt telling the user to use
+two fingers to move the map. View the sample above on a
+mobile device to see cooperative mode in action.
+none : The map is not pannable or pinchable.
+auto (default): The behavior is either
+cooperative or greedy , depending on whether the
+page is scrollable or not.
+For more details and examples, see the
+developer's guide .
+The fullscreen control is visible by default on mobile devices, so users
+can easily enlarge the map. When the map is in fullscreen mode, users can
+pan the map using one or two fingers. Note: iOS doesn't
+support the fullscreen feature. The fullscreen control is therefore not
+visible on iOS devices.
+Signed-in maps deprecated
+6 October 2016
+The signed-in feature is deprecated .
+Versions 3.27 and earlier of the Maps JavaScript API continue to support
+signed-in maps. A future version will no longer support signed-in maps, but will continue to
+support features that save a place to Google Maps using an info window
+or the SaveWidget .
+Read more about
+signed-in maps .
+Change in via waypoints in Directions service response
+29 August 2016
+The
+via_waypoints
+field in the Directions service response contains an array of waypoints that
+were not specified in the original request. The via_waypoints
+field will continue to appear in the draggable directions response, but is
+deprecated in the alternative route response . Version 3.27
+will be the last version of the API that supports via_waypoints
+in alternative routes.
+The recommended approach is to request alternative routes, then display
+all routes as non-draggable plus the main route as draggable. Users can drag
+the main route until it matches an alternative route. The
+via_waypoints field is available on the resulting route (dragged
+by the user).
+3.26
+18 August 2016
+Version 3.26 of the Maps JavaScript API is now available as the
+experimental version. (See the guide to
+API versioning .)
+Changes:
+A new Street View renderer brings rendering improvements, including
+smoother transitions and animations, improved object modeling, better
+support for mobile, and clearer controls. See the details on the
+Google
+Geo Developers Blog .
+The API now supports device orientation events in Street View, so users
+on mobile devices can look around by moving their phones. As a developer,
+you can enable or disable this feature. See the
+developer's
+guide for details.
+3.25
+25 May 2016
+Version 3.25 of the Maps JavaScript API is now available as the
+experimental version. (See the guide to
+API versioning .)
+Internet Explorer 9 support ends
+2 May 2016
+As of April 30th, 2016, Internet Explorer 9 is no longer officially
+supported by the Maps JavaScript API. See the list of
+supported
+browsers .
+3.24
+14 April 2016
+Changes:
+You can now disable the clickability of map icons. A map icon represents a
+point of interest, also known as a POI. See the
+setClickableIcons method on google.maps.Map .
+31 March 2016
+Fixed:
+Issue 9507 : Links in Street View now work again in Safari.
+28 March 2016
+Fixed:
+Issue 9394 : Info windows automatically close when the user opens an
+info window for a base map icon, and vice versa.
+Show a white Google logo when the base map is styled using the
+styles property on the map (previously, the logo became white
+only when applying a style using a StyledMapType).
+18 March 2016
+Fixed:
+Issue 9424 : new LatLng({lat: 0, lng: 0})
+Fixed mouse panning with the new Street View renderer (with
+google.maps.streetViewViewer = 'photosphere' ).
+15 February 2016
+Changes:
+The ability to opt out of the new controls using
+google.maps.controlStyle = 'azteca' has been removed.
+3.23
+18 January 2016
+Changes:
+This release includes a new full-screen control for the map. Users can
+click the control to maximize the map so that it takes up the entire screen.
+By default, this control is turned off. You can enable it in
+MapOptions , and configure it using the
+FullscreenControlOptions . Its default position is
+RIGHT_TOP .
+The full-screen control for Street View is enabled by default. You can
+disable it via StreetViewPanoramaOptions and configure it
+using the FullscreenControlOptions . Its default position is now
+RIGHT_TOP .
+4 January 2016
+Fixed:
+Issue 9009 : When synthesizing mouse events from touch, use the left
+button instead of the middle button, for compatibility with jQuery.
+Issue 4201 : The API no longer makes use of eval() .
+Therefore, it is now possible to use the API without the
+unsafe-eval
+Content
+Security Policy directive.
+21 December 2015
+Changes:
+Map Option to disable the sign in button for signed in maps (it will show
+the avatar for logged in users, it will still allow to sign in via signed in
+actions (e.g. starring) but it will no longer have the button to sign in on
+the map when this option is set).
+The interface for text search requests has changed. The types
+parameter is deprecated as of March 1, 2016, replaced by a new
+type parameter which only supports one type per search request.
+Additionally, the establishment , food , and
+grocery_or_supermarket types will no longer be supported as
+search parameters (however these types may still be returned in the results of
+a search). Requests using the legacy types parameter will be
+supported until March 1, 2017, after which all text searches must use the new
+implementation.
+2 December 2015
+Changes:
+The Autocomplete constructor verifies that it is given an
+input element.
+Base map point of interest info windows show the same content in
+non-signed-in mode as signed-in mode.
+Google
+Maps API externs for the Closure Compiler now specify a type (number
+or string) for enums.
+25 November 2015
+Changes:
+Added .toJSON() methods to LatLng and
+LatLngBounds objects. These are intended to be used via
+JSON.stringify() .
+19 November 2015
+Changes:
+White google logo for styled maps
+Fixed:
+Issue 8674 : Bug: Protect against img { max-width: 100%; }
+3.22
+7 January 2016
+Fixed:
+Issue 9009 : When synthesizing mouse events from touch, use the left
+button instead of the middle button, for compatibility with jQuery.
+10 November 2015
+Changes:
+The Directions service and the Distance Matrix service now return
+the predicted time in traffic (in response field
+duration_in_traffic ) when the travel mode is driving. To
+receive predicted travel times, include a
+drivingOptions
+object literal in the request, specifying a current or future
+departureTime . You can also specify a trafficModel
+of optimistic, pessimistic, or best guess (default), to influence the
+assumptions used when calculating the travel time. For details, see the
+developer's guide for the
+Directions
+service and the
+Distance
+Matrix service . Note: The
+duration_in_traffic is available only to
+Google Maps Platform Premium Plan customers.
+Deprecated:
+The durationInTraffic request field is now
+deprecated . It was previously the recommended way for
+Google Maps Platform Premium Plan customers to specify whether the result should
+include a duration that takes into account current traffic conditions. You
+should now use the drivingOptions field instead.
+5 November 2015
+Deprecated:
+The AdSense library has been deprecated since May 2015, and is no longer
+available in the experimental version of the
+Maps JavaScript API. The library will be removed from the
+release and frozen versions of the API soon. An alternative solution is
+Google AdSense. See the guide to
+creating an
+AdSense ad unit .
+22 September 2015
+Changes:
+Added support for place IDs when making directions and distance matrix
+requests: DirectionsRequest.origin ,
+DirectionsRequest.destination and
+DirectionsWaypoint.location now accept
+Place
+objects, and DistanceMatrixRequest.origins and
+DistanceMatrixRequest.destinations now accept an array of
+Place
+objects.
+15 September 2015
+Changes:
+The default position and appearance has changed for many of the controls
+on the map and on Street View panoramas. The user experience is now
+consistent regardless of whether a map is using
+signed-in mode mode or
+not, and is also more consistent with the Google Maps website. If you want
+to continue using the earlier set of controls for a while, you can set
+google.maps.controlStyle = 'azteca' in v3.22.
+The new Full Screen control in Street View allows the user to
+open the Street View panorama in fullscreen mode.
+Deprecated:
+The Overview Map control is no longer available.
+The Pan control on the map is no longer available. To pan the view, users
+click and drag, or swipe, the map. (Note that the Pan control in Street
+View remains available.)
+The Zoom control is available in only one style, and
+google.maps.ZoomControlStyle is therefore no longer available.
+1 September 2015
+Changes:
+Added LatLngBounds literals
+Fixed issue with overly broad CSS classes
+Improved tile loading after the map is resized
+Internet Explorer 8 support ends
+31 August 2015
+As of August 31st, 2015, Internet Explorer 8 is no longer officially
+supported by the Maps JavaScript API. See the list of
+supported
+browsers . For information on Microsoft's browser support policy, see the
+IEBlog
+post of August 7, 2014 .
+3.21
+5 August 2015
+Changes:
+Performance improvement: only load visible tiles
+Numerous docs improvements
+21 July 2015
+Changes:
+Markers with Labels launched
+Fixed: iOS7 Out of Memory Error for poly on very high definition screens
+Touch Event Fixes on IE10+
+Error verification on Developer provided inputs now output to the console
+rather than throwing an error.
+6 July 2015
+Fixed:
+Issue
+8159 : Bug: incorrect rendering of StrokePosition.OUTSIDE
+17 June 2015
+Changes:
+Fixed:
+Issue 6321 :
+Bug: "Uncaught TypeError: Cannot read property 'x' of undefined"
+only in Android/iOs browsers
+2 June 2015
+Changes:
+Deprecated: CloudLayer, PanoramioLayer
+Fixed: Issue
+8098 : Bug: Weighted Heatmap does not render correctly with one point
+2 June 2015
+Changes:
+adds ability to Geocode a placeId to an address/latlng
+returns placeIds via the Geocoding API
+28 May 2015
+Changes:
+Fixed:
+Issue 6358 : SVG
+Path Notation does not render correctly on HDPI devices
+19 May 2015
+Fixed:
+Issue
+7673 : Controls loose position after map type dropdown used
+Issue 7589 :
+Pegman jumps when the map is resized.
+3.20
+24 April 2015
+Fixed:
+Increase in terrain max zoom and loading high dpi tiles even at max
+zoom.
+13 April 2015
+Fixed:
+Issue
+7820 : Cursors not working on pages loaded from file://
+Issue 7591 :
+Bug: StreetViewService.getPanoramaByLocation fails when radius argument is not
+an integer
+25 March 2015
+Fixed:
+Issue 7733 :
+Bug: KML Ground/Images- Overlays are Suddenly Very Low Resolution
+Save Widget text better aligned with star icon
+17 March 2015
+Fixed:
+Issue
+7756 : Bug: Safari 8 performance regression
+Removed demographics layer
+Improvements to InfoWindow chrome
+17 February 2015
+The current Maps JavaScript API experimental version (3.19) will
+become the release version.
+Version 3.17 will be removed. Requests for
+3.17 or any prior version will now be served version 3.18.
+Versioning documentation is available at:
+https://developers.google.com/maps/documentation/javascript/versions
+Available versions after rollover:
+Experimental: 3.20
+Release: 3.19
+Frozen: 3.18
+3.19
+24 April 2015
+Fixed:
+Cursors in signed-in mode.
+19 March 2015
+Fixed:
+Issue 7756 :
+Bug: Safari 8 performance regression
+20 January 2015
+Fixed:
+Issue 7475 :
+Bug: phantomjs TypeError: Unable to delete property
+13 on January 2015
+Fixed:
+tiles are now hidden from screen readers
+17 December 2014
+Fixed:
+Issue
+6917 : Bug: Shapes don't respect map's 'draggable'
+property
+Issue 7445 :
+Bug: Presentation faults when using the signed-in feature of the v3 Maps API
+02 December 2014
+Fixed:
+Issue 7390 :
+Bug: weather.com hyperlinks not working
+Issue 7376 :
+Bug: WebGL has been turned off (now re-enabled)
+ES6 naming clash with
+Symbol
+25 November 2014
+Fixed:
+Issue
+7333 : Bug: caret of infowindow is broken in IE9
+3.18
+04 December 2014
+Fixed:
+Issue 7390 :
+Bug: weather.com hyperlinks not working
+18 September 2014
+Fixed:
+Issue 7136 :
+Multiple marker titles not working in Firefox
+09 September 2014
+Fixed:
+Issue 7098 :
+Setting streetview POV heading throws an error
+26 August 2014
+3.18 released to experimental.
+3.17 is now stable.
+3.17
+20
+August 2014
+Fixed:
+Issue 6937 :
+Regression in 3.17: Cannot read property "remove" of undefined (in
+Places)
+12 August 2014
+Fixed:
+Issue
+6968 : Bug: Keyboard arrow keys not working with v=3.exp
+31 July 2014
+Added:
+Map Panes given explicit documentation for how DOM events
+propagate through them.
+overlayMouseTarget pane added.
+07 July 2014
+Added:
+toGeoJson added to Data Layers and individual Data Layer
+Features, allowing export of geometry to GeoJSON.
+24 June 2014
+Added:
+place_id , a unique identifier for a place, added to the
+Places
+Library for Autocomplete and Place Details.
+overview_path
+added to
+DirectionsRoute , providing an encoded polyline representing
+the entire course of the route.
+26
+May 2014
+Added:
+sensor parameter is no longer required
+in the Maps API URL.
+20 May 2014
+3.17 released to experimental.
+3.16
+15 April
+2014
+Fixed:
+Markers now have opacity that matches other geometry
+types -
+https://developers.google.com/maps/documentation/javascript/3.exp/reference#MarkerOptions
+08 April 2014
+Added:
+Map pans on mouse move while drawing.
+Fixed:
+Accept LatLngLiteral in more locations.
+InfoWindow resizes
+itself when Roboto has finished loading (
+Issue 5713 )
+31 March 2014
+Fixed:
+Semi-transparent KML layers no longer transparent on IE 8 (
+Issue 6540 )
+26 March 2014
+Fixed:
+Removed event.returnValue calls in Chrome to prevent console
+warnings.
+Pinch-to-zoom does not work in IE11 (
+Issue 5747 )
+18 March 2014
+Added:
+Data Layer launched -
+https://developers.google.com/maps/documentation/javascript/datalayer
+12 March 2014
+Added:
+LatLngLiteral support in most places where google.maps.LatLng is
+accepted -
+https://developers.google.com/maps/documentation/javascript/3.exp/reference#LatLngLiteral
+24 February 2014
+Added:
+Support for ferries in Distance Matrix and Directions services.
+17 February 2014
+3.16 released to experimental.
+3.15
+03 March 2014
+Fixed:
+Reenable hardware acceleration in Chrome Windows and Linux
+now that Chrome bug is fixed (
+https://code.google.com/p/chromium/issues/detail?id=336676 )
+10 February 2014
+Fixed:
+Disable all tile hardware acceleration on Chrome/Linux to work
+around
+larger Chrome hardware acceleration issue.
+03 February 2014
+Fixed:
+Scroll wheel does not work in IE 11 (
+Issue 5944 )
+29 January 2014
+Fixed:
+Disable all tile hardware acceleration on Chrome/Windows to work
+around
+larger Chrome hardware acceleration issue. (
+Issue
+6219 )
+22 January 2014
+Fixed:
+Temporarily disable hardware acceleration on
+Chrome/Windows when the drawing manager is loaded to work around Chrome issue:
+https://code.google.com/p/chromium/issues/detail?id=336676 (
+Issue 6224 )
+16 January 2014
+Fixed:
+Visual Refresh CSS made less specific to override fewer user-set
+styles.
+27 November 2013
+Fixed:
+Creating marker after instantiating map throws 'contains'
+undefined error (
+Issue 5798 )
+19 November 2013
+Fixed:
+Directions panel maneuver icons are not properly displayed in
+Firefox
+3.14
+10 September 2013
+Fixed:
+Links in official Google info windows do not open in new
+tabs/windows
+(
+Issue 5794 )
+15 August 2013
+Visual
+refresh becomes the default map rendering mode in release version of the API.
+DynamicMapsEngineLayer: feature reporting for vector, imagery, and KML
+layers
+3.13
+25 June 2013
+Added:
+DynamicMapsEngineLayer
+11 June 2013
+Added:
+'disableDefaultUI' option to
+StreetViewPanoramaOptions
+Fixed:
+Bug: Custom Street View panoramas and 90 degrees down (
+Issue 4875 )
+3.12
+04 June 2013
+Fixed:
+Infowindow domready doesn't fire when visualRefresh=true (
+Issue
+5415 )
+Bug: visualRefresh info windows on iOS (
+Issue 5396 )
+15 May 2013
+Added:
+Google Maps visual refresh:
+https://developers.google.com/maps/documentation/javascript/basics#VisualRefresh
+29 April 2013
+Fixed:
+Removed markers stay on the map on Android and Dolphin browsers
+3.11
+19 February 2013
+Fixed:
+Changing DrawingMode while drawing causes error
+Clicking
+on
+steps in the directions panel changes zoom
+12 February 2013
+Fixed:
+Undraggable polygon can be dragged through a draggable polygon with
+touch input (
+Issue 4868 )
+Transit icons incorrect in Route Alternatives Panel when
+travelMode
+switched (
+Issue
+4581 )
+panTo(latLng) does not always center map exactly at
+latLng under some conditions
+29 January 2013
+Added:
+added StreetViewCoverageLayer for adding the coverage layer
+programmatically
+Exposed StreetViewPov for StreetViewPanoramas
+Fixed:
+Increased memory usage when using V3.8 of Google
+Maps JavaScript leads to a crash (observed in IE 9, Chrome, etc.) (
+Issue 4162 )
+Drop-down (select) menu in InfoWindow won't follow map
+pan on
+Firefox
+22 January 2013
+Added:
+draggable option to polylines, polygons, circles,
+rectangles
+price_level field in PlaceResult
+15 January 2013
+Fixed:
+Repeating Polyline icons are drawing incorrectly for some polylines
+(
+Issue 4333 )
+07 January 2013
+Fixed:
+Scrolling the map scrolls the page too (
+Issue 1605 ,
+Issue 3652 )
+17 December 2012
+Added:
+New Languages: Urdu & Icelandic
+Fixed:
+blurred/hazy maps in IE9 after navigation (
+Issue 3875 )
+17 December 2012
+Added:
+New Languages: Urdu & Icelandic
+Fixed:
+blurred/hazy maps in IE9 after navigation (
+Issue 3875 )
+10 December 2012
+Added:
+ability to load images with the crossorigin attribute set
+Fixed:
+issues showing markers with remote images in
+closeups (
+Issue 4616 )
+JS error when reshowing symbols on polylines on IE 7/8
+03 December 2012
+Fixed:
+Markermanager library not working with the Maps API JS v3 (
+Issue 4543 )
+27 November 2012
+Added:
+using High DPI canvas on High DPI devices for optimized markers
+Fixed:
+MapTypeControl did not clear styles (
+Issue 4588 )
+3.10
+04 February 2013
+Fixed:
+Increased memory usage when using V3.8 of
+Google Maps JavaScript? leads to a crash (observed in IE 9, Chrome, etc.) (
+Issue 4162 )
+25 September 2012
+Added:
+Indoor Street View
+fixedRotation option to IconSequence
+"Time in Current Traffic" to Directions
+11 September, 2012
+New:
+Added StrokePosition to polygons, rectangles, circles
+computeOffsetOrigin to geometry library
+Four new languages
+to
+the API: Afrikaans, Amharic, Swahili, Zulu
+28 August, 2012
+Added:
+types to Places API textSearch
+Fixed:
+Symbol
+object cannot be passed to MarkerOptions under GWT
+Regression: Pinch to
+zoom on iOS 5 when page scrolled (
+Issue
+4046 )
+14 August, 2012
+Noticeable changes:
+Modify the interface to KmlLayer to accept
+url as an MVC property, rather than a constructor argument.
+3.9
+10 September 2012
+Fixed:
+Symbol object cannot be passed to MarkerOptions under GWT
+Regression: Pinch to zoom on iOS 5 when page scrolled (
+Issue 4046 )
+9 August, 2012
+Fixed:
+Syntax error on Android 3.x
+31 July, 2012
+Noticeable changes:
+Hide Street View overlay on
+custom projections
+Fixed:
+Marker symbols do not fire
+events on safari when the scale is > 35
+click event not raised for
+markers on a custom map (map type + projection)
+25 July, 2012
+Fixed:
+componentRestrictions on Autocomplete (
+Issue
+4302 )
+17 July, 2012
+Fixed:
+Text box is not clickable in InfoWindow on IE
+bounds_changed should fire before zoom_changed (
+Issue 1399 )
+Map option backgroundColor not preserved after Streetview
+invoked
+Switching from Styled map to satellite unnecessarily loads the map
+tiles
+Map draggable/scrollwheel properties ignored in drawing mode (
+Issue 4012 )
+LatLngBounds should return a full longitude range when more
+than one
+copy of the world is shown
+Don't draw empty shape when double
+clicking (
+Issue 3964 )
+Superfluous marker events on click (
+Issue 3911 )
+Noticeable changes:
+Renamed search and query endpoints
+to nearbySearch and textSearch
+10
+July, 2012
+Noticeable changes:
+Make
+google.maps.event.removeListener() accept null as argument
+27 June, 2012
+Added:
+TRANSIT DirectionsMode:
+http://mapsplatform.googleblog.com/2012/06/public-transit-routing-and-layer-now.html
+Pagination, Reviews, textSearch to Places API:
+http://mapsplatform.googleblog.com/2012/07/add-flexible-search-and-google-reviews.html
+Noticeable changes:
+Recognize 'transparent' as a
+color.
+23 June, 2012
+Added:
+Symbols
+HeatmapLayer
+http://mapsplatform.googleblog.com/2012/06/powerful-data-visualization-with.html
+New styler options "weight" and "color":
+http://mapsplatform.googleblog.com/2012/06/google-maps-api-now-with-even-more.html
+15 May, 2012
+Added:
+Country
+restriction for Autocomplete (AutocompleteOptions.componentRestrictions) (
+Issue 3899 )
+Regions and Cities type filters
+3.8
+1 May, 2012
+Fixed:
+Deleted markers sometimes reappear (
+Issue 4087 )
+Marker shadows sometimes do not render (
+Issue 3993 )
+23 April, 2012
+Fixed:
+Pegman stays on map with custom map type after closing Street View (
+Issue 4076 )
+Removed animated markers cannot be re-added to the map (
+Issue 4052 )
+18 April, 2012
+Fixed:
+Weather info window always shows raining icon on Firefox (
+Issue 4063 )
+Added:
+orderBy, limit and offset for FusionTablesLayer
+(
+Issue
+3557 )
+10 April, 2012
+Fixed:
+Aerial imagery shown even if aerial not available for
+whole viewport (
+Issue 3913 )
+3 April, 2012
+Added:
+WeatherLayer and CloudLayer (
+Issue 3555 )
+DemographicsLayer
+Fixed:
+Tile boundaries
+visible for polys on IE 9 Quirks
+Markers jumping around when panning in
+Canvas Street View
+28 March, 2012
+Fixed:
+Use lowercase tag names to be XHTML compliant (
+Issue
+3868 )
+Changed the zooming behavior for Apple trackpads to
+make it less sensitive (
+Issue 2416 )
+20 March, 2012
+Fixed:
+Creating a marker with a shadow image that doesn't exist causes
+errors (
+Issue
+4014 )
+Added:
+Click-to-go/Click-to-zoom in
+Street View (
+Issue 2447 )
+Noticeable changes:
+Disabled double-click to zoom by
+default in Street View
+6 March, 2012
+Fixed:
+Error in OverviewMapControl when zooming in very quickly
+(
+Issue 3882 )
+Error in IE when map div removed from page (
+Issue
+3971 )
+Scaled markers rendering incorrectly on IE < 9 (
+Issue
+3912 ,
+Issue 3908 )
+Added:
+opacity to GroundOverlay (
+Issue 2767 )
+utc_offset and opening_hours to PlaceResult (
+Issue 2431 )
+clickToGo option to StreetViewPanoramaOptions (
+Issue 2447 )
+21 February, 2012
+Fixed:
+Blurry maps on IE 9 (
+Issue 3875 )
+Polyline consisting of collinear edges in LatLng space
+incorrectly
+simplified (
+Issue 3739 )
+Added:
+google.maps.geometry.poly.containsLocation() and
+isLocationOnEdge() (
+Issue
+1978 )
+February 15, 2012
+Fixed:
+Regression: Scaled markers rendered incorrectly with
+invalid "size" parameter (
+Issue 3908 )
+Map stuck in editing mode when setEditable(false) called while
+user is
+dragging control point (
+Issue 3842 )
+Noticeable changes:
+Cross-fade between Street View
+panoramas.
+3.7
+February 7, 2012
+Fixed:
+Marker flickers at final position before drop animation
+(
+Issue
+3608 )
+Opening InfoWindow and setting zoom at the same time
+results in incorrect map center (
+Issue 3738 )
+Ignore right click when dragging markers (
+Issue 3237 )
+Marker title sometimes does not appear on Firefox (
+Issue 3773 )
+Noticeable changes:
+Scaled markers now rendered in
+Canvas where available
+Added:
+setOpacity() for ImageMapType
+(
+Issue 3125 )
+setOpacity() for GroundOverlay (
+Issue
+2767 )
+"tilesLoaded" event for ImageMapType (
+Issue
+1744 )
+stop() to MouseEvent, which stops event propagation (
+Issue 2172 )
+January 31, 2012
+Fixed:
+Fixed: Wrong Korean tiles after panning around the world (
+Issue 2722 )
+Fixed: Cannot drop pegman accurately to display StreetView (
+Issue 3861 )
+Added "visible" property for polys (
+Issue
+2861 )
+panTo and panBy animated even when viewports far apart
+(Regression)
+January 24, 2012
+Fixed:
+Mouse events bubble through an InfoWindow (
+Issue 3573 )
+Enabled CSS transforms on IE9
+Added imageDateControl
+to
+StreetViewPanorama
+Enabled Canvas Street View on IE 9, Opera and
+Safari/Windows
+January 16, 2012
+Fixed:
+Pegman should not be draggable in drawing mode
+Correctly fire events, respecting zIndex of polys and other layers
+Add KmlLayer "status" property (
+Issue 3015 )
+January 10, 2012
+Fixed:
+Show pegman if disableDefaultUI is true and streetViewControl is
+true
+December 7, 2011
+Fixed:
+Controlled access highways can be styled separately from highways
+(road.highway.controlled_access)
+place_changed fired when user presses
+"Enter" on Autocomplete (
+Issue 3407 )
+November 28, 1011
+Fixed:
+Reposition Autocomplete when window resized. "resize"
+event
+can be triggered on Autocomplete object.
+November 22, 2011
+Fixed:
+InfoWindow content size now computed taking into account cascading
+styles
+Aerial map rotation control doesn't match the heading on
+map creation
+November 7, 2011
+Noticeable changes:
+New visual style of default controls
+Editable shapes (polygons, polylines, circles, rectangles)
+New
+DrawingManager for adding new overlays
+New PlaceResult fields: website
+and international_phone_number
+New ElevationResult field: resolution
+Fixed:
+Start and end icons in directions results now
+render with transparent background in IE 7+
+3.6
+October 31, 2011
+Fixed:
+Error when Maps API used with Prototype Library on IE7
+October 25, 2011
+Fixed:
+Errors when KmlLayer map changed before layer finished loading
+Memory leak in IE when adding and removing polys
+October 18, 2011
+Noticeable changes:
+Added keyword field to PlaceSearchRequest
+Removed road
+lines from Street View
+October 10,
+2011
+Fixed:
+Address is too long in the Street View preview
+September 27, 2011
+Fixed:
+Overview map control updates center and zoom together if zoom has
+changed
+September 27, 2011
+Fixed:
+Double-fetch of initial tiles in Chrome
+Memory
+leaks while panning
+Don't drop Street View pegman when panning to
+area out of coverage
+Regression: GroundOverlays that cross -180
+longitude disappearing
+Regression: Map center incorrect when opening
+info window while panning and zooming
+Noticeable changes:
+Show Street View previews while pegman is dragged
+September 20, 2011
+Fixed:
+Memory leak in Chrome/Windows when rendering markers using Canvas
+Marker rendering for aerial view with heading of 90 or 270 degrees
+Noticeable changes:
+Default Google map types cannot be
+accessed through the map type registry (prevents access to map tiles)
+Rotation animations when leaving and entering aerial imagery
+September 12, 2011
+Resolved issues:
+Marker stuck in raised position after tooltip appears on Firefox
+4+ (
+Issue 3334 )
+Noticeable changes:
+GeocoderResult.formatted_address
+not documented
+September 6, 2011
+Fixed:
+Select element (drop down) info window does not follow map
+pan in Firefox
+Tiles in Korea on some mobile devices
+August 29, 2011
+Noticeable changes:
+Allow custom controls to have a higher z-index than API
+controls
+Links take users to correct language version of
+maps.google.com
+Do not open an InfoWindow over a KML feature if there
+is no info window html, name, or description.
+Fixed Regression: high
+DPI tiles broken
+August 24, 2011
+Resolved issues:
+Hardware acceleration disabled for Chrome/Mac:
+fixes marker rendering issue and overlay clicking (
+Issue 3544 ,
+Issue 3551 )
+Pinch-to-zoom fixed for Android when the page has been
+scrolled (
+Issue 3373 )
+Noticeable changes:
+Business icons are now on by
+default.
+August 17, 2011
+Noticeable changes:
+Clickable map icons for points of interests.
+Styles can be set in MapOptions and applied across all default map
+types.
+Pegman appears on custom map types unless explicitly disabled.
+3.5
+August 10, 2011
+Fixed:
+Markers stuck in drag up position when dragged to horizon in Street
+View
+Street View not resizing when map or window resized
+Street
+View with a shared InfoWindow crashes browser
+August 2, 2011
+Resolved issues:
+Hyperlinks in info window on IE don't work (
+Issue 3503 )
+Scale control does not print (
+Issue 2966 )
+Regression: Error when using OverviewMapControl with styled
+maps (
+Issue 3489 )
+Noticeable changes:
+Context menu on most controls now
+disabled on right click.
+Street View Panorama/Map inside an InfoWindow
+does not pan when mousing over InfoWindow
+Now possible to scroll an
+InfoWindow on iPad
+July 18, 2011
+Resolved issues:
+Event LatLng incorrect when page is scrolled on
+iOS >= 4.1 (
+Issue 3373 )
+July 11, 2011
+Resolved issues:
+Fixed:
+<select> not clickable within infowindow on touch
+device (
+Issue 3232 )
+Fixed: Click not fired on map after right click if
+MapOptions.draggable
+is false (
+Issue 3071 )
+Noticeable changes:
+Markers with same z-index are now
+ordered consistently across tile boundaries
+Now possible to to scroll
+in infowindow on iOS
+Markers and polys are now repainted when the map’s
+projection changes
+July 5, 2011
+Resolved issues:
+Fixed: Marker cursor not displayed when map is
+not draggable (
+Issue 3120 )
+Noticeable changes:
+Added ability to style the Places
+Autocomplete control and dropdown
+Places Autocomplete widget preserves
+description returned by server after user selects a suggestion
+June 30, 2011
+Resolved issues:
+Fixed: Initial map tiles would be double fetched
+Fixed:
+maptypeid_changed event was fired multiple times when the map was created after
+3.4 (
+Issue 3051 )
+Noticeable changes:
+Places autocomplete was changed to
+append to the body rather than the inputs parent
+BOTTOM_RIGHT now
+positions correctly
+June 8, 2011
+Resolved issues:
+Fixed: Zoom no longer animated if change in zoom
+level greater than 2 (
+Issue
+3033 )
+Noticeable changes:
+Fixed:
+OverlayView.set('map', foo) is now the same as OverlayView.setMap
+Removed GeocoderRequest’s "language" option
+May 17, 2011
+Resolved issues:
+Fixed: Streetview rendering issue in IE7 (
+Issue 3272 )
+Noticeable changes:
+Enabled fade transitions for map
+tiles when loading and changing map type.
+May 7, 2011
+No noticeable changes.
+3.4
+May 7, 2011
+No noticeable changes.
+May 6, 2011
+Resolved issues:
+Fixed: Street view panorama does not display in IE7 (
+Issue 3272 )
+Fixed: Semi-transparent PNG with ImageMapType loses
+transparency in IE7
+and IE8 (
+Issue 3275 )
+Noticeable changes:
+Distance Matrix Service
+April 14, 2011
+Resolved issues:
+Fixed: Support named CSS colors for poly strokeColor and
+fillColor
+Fixed: Polygon not visible if the strokeOpacity is set to 0.0
+(
+Issue 3241 )
+Fixed: Errors in IE8 upon panning with AdUnit visible (
+Issue
+3159 )
+Allow Terrain and Hybrid map without Map and Satellite
+in the map type control (
+Issue 3089 )
+High DPI tiles are loaded for high DPI screens (
+Issue 2614 )
+Noticeable changes:
+Aerial tilt defaults to 45 degrees
+when aerial imagery is enabled and available
+Pinch behavior has been
+improved on the iPad
+Renamed DirectionsTravelMode and
+DirectionsUnitSystem to TravelMode and UnitSystem (old names remain backwards
+compatible)
+April 14, 2011
+Resolved issues:
+Fixed: Marker icon and shadow no longer
+transparent on IE6
+Fixed: Markers no longer flicker on zoom
+Fixed: Rendering of polygons across tile boundaries near the
+north/south poles
+Noticeable changes:
+Polylines and
+Polygons now rendered in Canvas where possible.
+LatLngs for events on
+polylines and polygon borders now snap to the nearest point on the line.
+April 5, 2011
+Resolved issues:
+panTo doesn't animate on touch devices (
+Issue 3066 )
+Marker.MAX_ZINDEX is undefined (
+Issue 3184 )
+March 28, 2011
+Resolved issues:
+Can't change heading in Street View when in satellite mode
+(
+Issue 3174 )
+Map broken when VML disabled (
+Issue 3119 )
+Noticeable changes:
+Street view road overlay now shows
+in obliques mode
+March 22, 2011
+Resolved issues:
+Pegman shows in custom map types (
+Issue 3154 )
+Noticeable changes:
+Fixed: Giant markers are clipped at
+tile boundaries
+Fixed: Street view overlay in obliques mode
+Fixed: Overview map control shows in print mode
+March 17, 2011
+Resolved issues:
+45 Degree imagery (
+Issue 2412 )
+Overview map control (
+Issue
+1470 )
+Support animated gifs - 'optimized' option
+added (
+Issue
+3095 )
+Marker.getVisible() returns undefined (
+Issue 3114 )
+Noticeable changes:
+Fixed: Circles and rectangles
+ignore zIndex
+Fixed: Mouse events trigger events twice when Marker is
+animating
+Fixed: Styled maps do not use styles if map type added to
+registry after map type id set
+Fixed: Non-styled map types adopt the
+style of a Styled Map Type
+Markers now fire MouseEvents, not DOM events
+March 11, 2011
+Resolved issues:
+Double clicking on a marker no
+longer zooms the map (
+Issue 3090 )
+Anchor point with custom marker shadow now works (
+Issue 3112 )
+Noticeable changes:
+Panoramio Layer
+Directions
+marker z-indexing fixed
+Default shadow position fixed
+March 2, 2011
+Noticeable changes:
+Markers now rendered in Canvas/VML where available
+Bigger
+click
+targets for polylines, polygons, KML on touch-enabled devices
+February 22, 2011
+Resolved issues:
+InfoWindow anchor exposed via 'anchorPoint' MVC
+property (
+Issue
+2860 )
+Fixes Hybrid at zoom level 0 and 1 (
+Issue 3062 )
+Circle/Rectangle fixed if added/removed quickly to map (
+Issue 3052 )
+draggable: false fixed on touch devices (
+Issue 3044 )
+February 18, 2011
+Resolved issues:
+Markers in Street View are only shrunk, not enlarged (
+Issue 2969 )
+Draggable directions now work when routeIndex is not 0 (
+Issue 2995 )
+Conflict between Flash and map dragging fixed (
+Issue 2956 )
+When mapTypeId is changed in maptypeid_changed listener, the
+map type
+control is now consistent
+Noticeable changes:
+Labels
+are now on by default when Satellite mode clicked from map type control
+February 8, 2011
+Noticeable changes:
+New hierarchical map type controls - they're
+touch-friendly!
+New logo ( Issue
+2574 )
+MarkerShape.coord renamed to MarkerShape.coords to match HTML
+<area> coords attribute
+3.3
+March 17, 2011
+Resolved issues:
+Polygon not rendering
+February 8, 2011
+Resolved issues:
+Tile requests not being cancelled in Chrome (
+Issue 3011 )
+rightclick event not being fired in FF/Mac (
+Issue 2920 )
+Text rendering issues in Safari/Mac (
+Issue 3024 )
+Directions maps not printing in IE correctly
+January 21, 2011
+Noticeable changes:
+MVCArrays are now accepted in spherical geometry library
+Fix cross showing under a marker while being dragged in IE6
+z-index is no longer set on the map container div
+January 17, 2011
+Resolved issues:
+Fixed an issue where incorrect timing for zoom_changed caused
+incorrect results for fromLatLngToContainerPixel (
+Issue 2539 )
+January 6, 2011
+Resolved issues:
+Geometry library added - provides spherical geometry and
+polyline encoding utilities (
+Issue
+2540 ,
+Issue 2595 ,
+Issue
+2246 )
+Ability to set the min/max zoom level on the map (
+Issue 1624 )
+Noticeable changes:
+Zoom and pan controls have been
+separated (no more navigation control). These can be configured separately.
+New touch-friendly zoom control on touch devices
+Contents
+of
+an MVCArray can now be cleared by calling clear()
+Fixed memory leak
+when adding and removing markers in IE8
+Faster rendering of polys with
+improved simplification algorithm
+December 23rd, 2010
+Resolved issues:
+Waypoint click handlers
+fixed in draggable directions (
+Issue 2871 )
+December 21st, 2010
+Resolved issues:
+Added momentum to the map when dragging (
+Issue 2592 )
+Fixed CSS error in Street View (
+Issue
+2666 )
+Fixed JS error when showing a InfoWindow with a Map
+width of 0 in IE (
+Issue 2536 )
+Noticeable changes:
+On touch devices, we will now
+display a touch-friendly zoom control whether ZOOM_PAN or SMALL navigation
+control is requested. If the device supports multi-touch in the browser, no zoom
+control will be displayed, as zooming is accomplished through pinching.
+December 9th, 2010
+Resolved issues:
+InfoWindows now print nicely in IE (
+Issue 1343 )
+Fixed opacity in IE8 for ImageMapType
+Noticeable changes:
+A cross will be displayed beneath Markers with a custom icon
+when dragged, and raiseOnDrag is enabled
+December 5th, 2010
+Resolved issues:
+Provide an interface for discovering the maximum zoom level at a
+given location for satellite imagery. (
+Issue 2049 )
+Add an option (raiseOnDrag) to enable/disable animations when
+a marker
+is dragged. (
+Issue 2910 )
+Noticeable changes:
+Markers now lift when dragged, and
+bounce when dropped.
+Marker animations can be controlled
+programmatically with the setAnimation function.
+November 28th, 2010
+Resolved issues:
+maptypeid_changed no longer fires twice (
+Issue 2449 )
+The "size" property of a MarkerImage object is now
+accessible
+(
+Issue 2465 )
+Marker shape references the icon rather than the sprite (
+Issue 2629 )
+Panning the map on marker drag has been improved for smaller
+maps (
+Issue
+2868 )
+Noticeable changes:
+Maps can now be printed
+without enabling printing of background images
+Fixed bug where
+draggable direction markers were draggable when 'draggable' was set to
+false
+November 16th, 2010
+Changed issues:
+Issue 2076 :
+Provide a way to give a InfoWindow to the DirectionsRenderer (
+Issue 2076 )
+Issue 2524 :
+Implement streetViewControlOptions
+Issue 2557 : Add
+disable zoom to Street view
+Noticeable changes:
+Fixed
+bug that caused a new window to open in FF when a marker if shift-clicked.
+Letter marker icons were lost when markerOptions were specified with
+the DirectionsRenderer
+3.2
+November 11th,
+2010
+Noticeable changes:
+Fixed bug where polygons were
+clipped/truncated with RTL on IE7/IE8
+Fixed bug that caused checkboxes
+to be hidden on Safari 5 because of 3d transformations
+Geodesic
+polylines that spanned the equator lacked detail
+Added control
+positions for LEFT_CENTER, LEFT_BOTTOM, RIGHT_CENTER, RIGHT_BOTTOM.
+Renamed control positions LEFT to LEFT_TOP, RIGHT to RIGHT_TOP, TOP
+to
+TOP_CENTER and BOTTOM to BOTTOM_CENTER
+October 11th, 2010
+Changed issues:
+Issue 2478 :
+Streetview - Compass Misalignment/Missing in some browsers
+Issue 2528 :
+ImageMapTypeOptions opacity broken in IE8
+Issue 2661 :
+Infowindow - Right click on an input field does not display context menu
+Issue
+2741 : Marker placement not working on iOS 4 following map pan
+Noticeable changes:
+Street View is enabled by default
+Fixed bug where 'this' wasn't being passed to
+.getTileUrl
+InfoWindow domready event is now triggered after the window
+is visible
+September 28th, 2010
+Changed issues:
+Issue 2712 :
+Memory Leaks (add/remove markers, show/hide markers, zoom/pan map)
+Noticeable changes:
+V2 and V3 maps work better when
+both are on the same page
+Fixed error in HTML5 Street View when dragged
+quickly downwards
+September 16th, 2010
+Changed issues:
+Issue 2701 :
+Initial Street View Navigator Control Heading Doesn't Follow POV
+September 14th, 2010
+Changed issues:
+Issue 157 :
+Support draggable driving directions
+Issue 1852 :
+'rightclick' event on a google.maps.Marker is fired up without an
+argument
+Issue
+2673 : Pegman disappears after position change
+Noticeable changes:
+Marker performance has been
+improved
+August 31st, 2010
+Changed issues:
+Issue
+2658 : Tall Info Windows
+Noticeable changes:
+Geodesics have been improved for higher zooms
+August 24th, 2010
+Changed issues:
+Issue 2648 :
+Trigger map resize event causes error in Firefox in V3.2.1
+Noticeable changes:
+When zooming in or out repeatedly
+(such as when using a scroll wheel), we now load fewer tiles from the
+intermediate zoom levels.
+August 16th, 2010
+Changed issues:
+Issue 2416 :
+Apple Magic Mouse Panning and Zooming too Sensitive
+Issue 2606 :
+Setting draggable: false on a map disables links
+Issue 2640 :
+Memory not cleared with browser refreshes / onunload (IE)
+Noticeable changes:
+StreetView markers are scaled
+according to their distance
+Zoom slider updates on pan
+August 9th, 2010
+Noticeable changes:
+Deprecated properties KMLMouseEvent.position and
+FusionTablesMouseEvent.position have been removed. Use .latLng instead
+Deprecated property StreetViewService.getNearestPanorama has been
+removed. Use .getPanoramaByLocation instead
+3.1
+September 28th, 2010
+Noticeable changes:
+Fixed issue where directions with the same
+origin and destination threw a JS error
+August 9th, 2010
+Noticeable changes:
+Changing an OverlayView's Map has been fixed
+Calling GroundOverlay.setMap(null) is fixed
+IE no longer
+leaks
+memory zooming/panning
+August 5th, 2010
+Changed issues:
+Issue
+2588 : Calling setVisible(false) on Panorama object with a listener
+attached causes a JS error in IE
+Noticeable changes:
+Markers disappearing in IE6 on zoom change has been fixed
+Jul 29, 2010
+Changed issues:
+Issue
+2337 : Lost Polyline
+Issue 2497 :
+Clickable option is not honored for Circle
+Noticeable changes:
+Custom panorama 'originHeading' has been deprecated in
+favour
+of 'centerHeading'
+Korean hybrid tiles now display roads
+Clicks now pass though non-clickable polygons on the map
+Jul 22, 2010
+Changed issues:
+Issue 1856 :
+Support polygon rendering in Opera
+Issue 2159 :
+Dragend event is triggered after zoom using the scrollwheel
+Issue
+2385 : At deeper zoom levels, GroundOverlay goes black in Internet
+Explorer
+Issue 2337 :
+Lost Polyline
+Issue 2427 :
+Dragging with an info window open on auto-pan causes "hanging" markers
+Issue 2493 :
+Markers aren't correctly cleared in IE7
+Issue 2500 :
+Cropped MarkerImage When Using !Marker.setIcon(<scaled MarkerImage>) for
+Existing Marker
+Issue 2549 : CSS
+for Google's dropdown menu generates warning
+Noticeable changes:
+A click event is no longer fired when a polygon is dragged
+Clicking on a Form select element that expands outside of a
+InfoWindow
+no longer fires a map click
+Clicking on a KML overlay no longer fires a
+map click event
+Streetview is now automatically panned to fit an
+InfoWindow on screen
+KML and FusionTables MouseEvent LatLng changed
+from 'position' to 'latLng'
+Android zoom controls
+no longer pass click to the map
+Jun
+17, 2010
+Changed issues:
+Issue 2346 :
+Option to disable smooth animation
+Noticeable changes:
+Fixed marker flicker bug
+InfoWindow domready event
+triggering
+has been improved
+DirectionsRoute.bounds is now exposed
+Jun 11, 2010
+Changed issues:
+Issue 2389 :
+Street View doesn't work in IE7
+Issue 2460 : Bug
+in pegman positioning
+Noticeable changes:
+Fixed marker memory
+leak
+First geocode latency has been improved
+Provided access
+to the
+StreetViewService
+3.0
+May 18, 2010
+Changed issues:
+Issue
+2037 : GPolylineOptions geodesic
+Noticeable changes:
+Fixed bug to correctly Google copyright on custom map type
+Added geodesic property to Polygons and Polylines
+Added
+clickable option to Polygons and Polylines
+Added clickable option to
+GroundOverlay
+May 13, 2010
+Changed issues :
+Issue
+1724 : Incorrect infoWindow size/margins when setting the content
+through an element, rather than string
+Noticeable changes:
+Fixed bug where ground overlays were cropped prematurely when
+crossing
+the dateline
+Marker setIcon now works with \ in the url
+Polygon and Polyline mouseout event triggers in IE
+Changing a
+marker icon no longer flickers
+May 7, 2010
+Changed issues :
+Issue 1458 :
+Feature request: KML support in Google API v3
+Issue 1658 : Add
+Traffic Overlay
+Issue 2209 :
+Stack overflow
+Issue
+2254 : Multiple calls "setMap(gMap)" and
+"setMap(null)" on Circle object changes it's stroke and fill
+opacity
+Noticeable changes:
+Added
+KML and GeoRSS Layers
+Added
+Ground Overlays
+Added new layers:
+Traffic and
+Bicycling
+Added "suppressBicyclingLayer"
+property against
+DirectionsRendererOptions
+Fixed bug to ensure zoom
+layer is correctly referenced when MapType changes
+Renamed
+DirectionsResult property "start/end_point" to
+"start/end_location"
+Renamed DirectionsLeg property
+"start/end_geocode" with "start/end_address"
+Renamed DirectionsRoute "optimized_waypoint_order"
+property
+with "waypoint_order"
+Removed support for old directions
+property names (setTripIndex, getTripIndex, hideTripList,
+provideTripAlternatives) and continue logging warnings. Also removes conversion
+of routes to legs to steps and trips to routes to steps.
+Updated
+GeocoderGeometry.latLng to GeocoderGeometry.location
+April 30, 2010
+Changed issues :
+Issue 2230 : Map
+initializes without intended custom projection
+Noticeable changes:
+Clicking on the map now focuses the keyboard
+iPad
+pinch-to-zoom is now supported
+April
+26, 2010
+Changed issues :
+Issue 1826 : Add
+mouseover and mouseout events on Polygons and Polylines
+Issue
+2177 : map.setZoom(z) not working properly during the
+'maptypeid_changed' event
+Issue 2247 :
+hideRouteList option on DirectionsRenderer doesn't work as expected
+Noticeable changes:
+Fixed bug where custom icons
+disappear off the bottom of the map during pan
+April 13, 2010
+Changed issues :
+Issue 2275 :
+MarkerImage cannot be reused
+Issue 2181 :
+When you add a google.maps.Marker and then use your mouse scroll wheel to zoom
+in or out, the marker is hidden
+April
+11, 2010
+No noticeable changes or changed issues.
+April 5, 2010
+Changed issues :
+Issue 1976 :
+Custom icon & draggable marker issues
+Issue 2107 :
+Draggable marker vanishes when dragged off the map
+Issue 2181 : The
+projection property of the basemaps is not present
+Noticeable changes:
+Exposed the directions overview polyline in DirectionsRoute as
+overview_path.
+Exposed the Map's current projection as a read only
+property.
+Mar 23, 2010
+Noticeable changes:
+Elevation is now exposed in the API
+Improved tile
+loading for slow internet connections.
+Mar 15, 2010
+Noticeable changes:
+Polygons now correctly repaint when styles are changed.
+Deprecated warning messages via console.log are given when old style
+'Directions' are used.
+Mar 10, 2010
+Changed issues :
+Issue
+1801 : Polyline/polygon zIndex
+Issue 2144 :
+DirectionsRequest should provide avoidHighways option
+Issue 2207 :
+Bug: Polyline gets filled in IE
+Issue 2113 :
+Polylines broken in FF on high zoom levels after Jan release
+Noticeable changes:
+Added
+bicycling directions !
+Added new
+DirectionsRequest options :
+avoidHighways
+avoidTolls
+optimizeWaypoints
+Improved Polygon/Polyline
+rendering speeds
+Renamed the following Directions objects. Old names
+remain supported.
+DirectionsRoute to
+DirectionsLeg
+DirectionsTrip to
+DirectionsRoute
+Mar 3, 2010
+Changed issues :
+Issue 2136 :
+Obfuscate Properties in google.maps.MarkerImage which should not be referenced
+Noticeable changes:
+Map jump-jump bug fixed.
+Zooming twice in succession has been improved.
+Marker drag
+event .latLng is no longer obfuscated.
+Feb 26, 2010
+Changed issues :
+Issue 1651 :
+mousemove / mouseover / mouseout for map canvas
+Issue 2142 :
+DirectionsRendererOptions should allow users to suppress markers entirely
+Issue 2148 :
+event.latLng Missing!
+Issue 2109 :
+Bug: NavigationControlStyle.ZOOM_PAN doesn't display correctly in IE8
+Issue 2153 :
+MVCArray.push() does not return new length
+Noticeable changes:
+Add opacity to ImageMapType.
+Fixed the bug where
+rightclick on
+a rectangle/circle was not being fired.
+Info window's content
+events are no longer being removed on hide.
+Feb 8, 2010
+Changed issues :
+Issue 2135 :
+Bug: If you reuse a Polygon's MVCArray in a Polyline, the Polyline is
+closed.
+Noticeable changes:
+Added new
+Rectangle class
+Added new
+Circle class
+Fixed memory leak when creating then
+removing a marker.
+Stopped annotating the MVCArray of LatLngs to close
+Polygons, as that causes Polylines which share the same MVCArray to be closed
+too (see
+Issue 2135 )
+Fixed a bug which sometimes hid onscreen markers if the
+map's zoom
+was set to its current value.
+Fixed ImageMapType to display correctly
+on Android.
+Changed the polygon clipping scheme to allow polygons which
+contain the north or south pole.
+Increased the latitude range of
+MercatorProjection to the maximum possible subject to floating point precision.
+January 28, 2010
+Changed issues :
+Issue
+1367 : Feature Request: Expose LayoutManager for developers to place
+DIVs in the "control flow"
+Issue 1916 :
+Feature Request: Add ability to scale MarkerImage
+Issue 1443 :
+extend() and union() should return the LatLngBounds object
+Issue 1997 :
+Documentation of 'size' MapOption
+Issue
+2074 : Map doesn't render when the world map fits the exact
+dimensions of the map container
+Noticeable changes:
+Added support for Indic languages:
+bn, gu, kn, ml, mr, ta,
+te
+Added new static methods to the
+event namespace :
+addListenerOnce
+addDomListenerOnce
+Added new 'encoded_lat_lngs'
+property to the
+DirectionsStep object to expose the set of latlngs in
+compressed ASCII format
+Improved performance by removing offscreen
+marker DOM elements
+Fixed panning bug in Google Chrome
+Fixed
+pinch-zooming bug on the iPhone
+January 19, 2010
+Changed issues :
+Issue 1422 :
+Feature Request: Let developers create custom map types
+Issue
+1523 : Feature request: fromContainerPixelToLatLng (and vice versa)
+Issue
+1443 : extend() and union() should return the LatLngBounds object
+Issue
+1960 : bug: incomplete information using provideTripAlternatives
+Issue 1675 :
+Tutorial Documentation Error
+Issue 1676 :
+Tutorial Documentation Error - Control Options
+Issue 1856 :
+Polygons not rendering in Opera!!!
+Issue 1954 : The
+Bulgarian language localization is not correct.
+Issue 1976 :
+Bug: Custom icon & draggable marker issues
+Issue 2063 :
+Variable Name Collisions when Minifying OverlayView Subclasses
+Noticeable changes:
+Released support for custom map
+types, including base map types, overlay map types, and projection:
+http://code.google.com/apis/maps/documentation/v3/overlays.html#CustomMapTypes
+New ImageMapType object to support custom map tiles
+http://code.google.com/apis/maps/documentation/v3/reference.html#ImageMapType
+December 17, 2009
+Noticeable changes:
+Fixed initial jerk occurring before a map
+panning animation begins.
+Fixed map jumping to different location when
+zooming past the max zoom level using Scrollwheel or DoubleClick.
+Copyright, MapType and Navigation controls resizes to suit map size.
+Old style getters, setters, and event names are officially
+deprecated
+and no longer defined.
+December 10, 2009
+Changed issues :
+Issue 1820 :
+Zoom in with scroll wheel seems to zoom beyond max zoom level and
+"skip/jump" the map's position
+Issue 1743 :
+Scroll zooming causes the map to move to a completely different location
+Other noticeable changes:
+Added new method
+panToBounds .
+Added new map animation. Affects
+dragging, panning, zooming, and calls to setCenter/setZoom in all browsers.
+Added a console log warning message if
+deprecated methods are being used.
+November 25, 2009
+Changed issues :
+Issue 1696 :
+Feature Request: map control placement
+Issue 1909 :
+getBounds corruption after map center changed
+Issue 1938 :
+map.setOptions fails to recognise control options
+Other noticeable changes:
+Added RTL support to enable the following languages:
+Arabic, Farsi, Hebrew
+Exposed lat_lngs property for DirectionsResult
+steps.
+November 11, 2009
+Changed issues :
+Issue 1742 :
+Custom icon marker always appears on top of default marker
+Other noticeable changes:
+Added support for three new languages.
+Basque
+Galician
+Tagalog
+October 29, 2009
+Changed issues :
+Issue 1421 :
+Feature Request: Add a Directions class to API v3
+Other noticeable changes:
+Reference documentation updated with
+DirectionsRenderer and
+DirectionsService
+October 26, 2009
+Changed issues :
+Issue 1647 :
+Feature Request: Provide an event for infowindow dom ready
+Issue 1710 :
+ability to cancel user zoom event on double click
+Other noticeable changes:
+JS Error is thrown when invalid arguments are passed
+into new google.maps.LatLng()
+Fixed bug: static map was loading twice
+on map load
+October 15, 2009
+Changed issues :
+Issue 1525 :
+get_bounds error at low zoom levels
+Issue 1757 :
+fitBounds() doesn't work across the 180 meridian
+Issue 1790 :
+map.setOptions cannot set the cursor
+Issue 1767 :
+BugProblem with event propagation
+Other noticeable changes:
+Documentation updates:
+New method exposed:
+LatLngBounds.isEmpty()
+Sorted all methods, events, properties, and
+constants by name
+Fixed incorrect types in polyline and polygon option
+properties
+September 28, 2009
+Improvements to poly rendering performance.
+Fixed issue
+with JS warning for SVGView.
+September
+22, 2009
+Changed issues :
+Issue 1420 :
+Feature: Add Polyline class to API
+Issue 1371 :
+map.bounds_changed event fires repeatedly when the map is moving
+Issue 1700 :
+Incorrect location in click after zoom out in Firefox 3.5
+Issue 1702 :
+Incorrect latLng reported in click & dblclick events when there is a scroll
+offset in a parent element
+Issue
+1723 : Map jumps when dragging on iPhone
+Other noticeable changes:
+Launched polylines and polygons! These allow you to
+draw lines or filled regions on the map, specify stroke and fill styles, and
+support most mouse events (i.e. no mouseover yet). They work in all supported
+browsers (IE6.0+, Firefox 2.0+, Safari 3.1+, Chrome), which includes supported
+mobile devices.
+Added two new sections to the developer guide for
+Polylines and
+Polygons .
+Added two new classes to the API Reference
+for
+Polylines and
+Polygons .
+Added new Map event "idle",
+fired when the map hasn't moved for a bit. Resolves
+Issue
+1371 .
+Fixed incorrect LatLng values being returned from the
+click events.
+Fixed pinch zoom bug on the iPhone. See
+Issue 1723 .
+September 10, 2009
+Changed issues :
+Issue 1659 :
+Incorrect latLng reported in click & dblclick events after panning, Firefox
+3.5
+Issue 1621 :
+getting wrong location after click on map in ie8 with dooctype
+Issue 1642 :
+InfoWindow overflow:auto
+Issue 1531 :
+height of infoWindow grows with each open
+Other noticeable changes:
+Syntax modified for get/set methods and event names as
+specified below. Old syntax remains supported to stay backwards compatible. For
+example:
+set_funBoat() => setFunBoat()
+get_funBoat()
+=> getFunBoat()
+funBoat_changed => funboat_changed
+Added new method "onAdd" to the OverlayView
+interface,
+which gets called when panes and projection are first initialized. This
+addresses
+Issue 1377 .
+OverlayView interface's "remove" method has
+been renamed
+to "onRemove". Old name remains supported to stay backwards
+compatible.
+September 2, 2009
+Changed issues :
+Issue 1525 :
+get_bounds error at low zoom levels
+Issue 1596 :
+Panning past the northern or southern edge of the world returns an error
+Issue 1643 :
+Bug: Map scroll wheels unnecessarily
+Issue 1379 : I
+can't see Korea map data in V3
+Other noticeable changes:
+Enabled continuous scrollwheel and double-click zoom on Chrome,
+Safari
+4, and Firefox 3.5
+Improved map dragging performance
+Double-click now centers the map after zooming
+August 24, 2009
+Changed issues :
+Issue 1567 :
+map.set_center to a nearby location does not work.
+Issue 1605 :
+Scrolling the map scrolls the page too
+Issue 1467 : Pan
+Map Function + Animation
+Other noticeable changes:
+Enabled scrollwheel zoom by default. To disable it, set Map
+option's scrollwheel property to false.
+Documentation updated to
+include panTo and panBy functions.
+August 14, 2009
+Changed issues :
+Issue 1575 : Bug
+in draggable markers method set_draggable()
+Other noticeable changes:
+Scrollwheel zoom has been enabled.
+Fixed issue
+affecting iPhones where map jumps occur after drag.
+August 4, 2009
+Changed issues :
+Issue
+1393 : Allow draggable markers
+Issue 1448 :
+Bug: API v3 needs a checkResize() function (or equivalent)
+Issue 1404 :
+Error with cursor in Opera
+Issue 1514 :
+MapType select arrow displayed incorrectly with HTML 4.01 strict
+Issue 1426 :
+InfoWindow z-index control
+Other noticeable changes:
+Pinching and dragging on the iPhone should be more robust.
+Added zIndex setters and getters to InfoWindow objects.
+Documentation changes:
+Marker get_draggable and
+set_draggable methods added
+Marker drag, dragstart, dragend,
+draggable_changed events added
+Marker draggable property added
+Info Window get_zIndex and set_zIndex methods added
+Info
+Window zIndex_changed event added
+Info Window zIndex property added
+July 13, 2009
+Changed issues :
+Issue 1415 :
+infowindow content: selectable true/ false
+Issue 1432 :
+Mouseout event doesn't trigger after set_icon is called
+Issue
+1365 : Map Type Controls render incorrectly with strict doctype
+Other noticeable changes:
+Developers no longer need to
+specify size for a MarkerImage, the API will detect it when not provided. On a
+related note, the size, anchor, and origin arguments for MarkerImage are all
+optional.
+Developers no longer need to call OverlayView.call(this) in
+an OverlayView subclass's constructor.
+The OverlayView
+"changed" methods were removed from the interface. This should not
+affect developer's code, as these methods weren't actually used
+before.
+The partialmatch option was removed from Geocoder Request
+objects. If a developer continues to pass it, it will have no effect on the
+query.
+June 12, 2009
+Changed issues:
+Issue 1363 :
+Bug: Map click events are not dispatched on the iPhone
+Other noticeable changes:
+Large zoom control is clickable in all browsers
+Infowindow "clears" the large zoom control, positioning
+itself fully inside the map and controls
+Mobile copyright uses pretty
+images
+Tiles load from the center instead of the top left
+Users can no longer select the text of the map type buttons, or any
+of
+the control images
+The main library is smaller by ~1.9 KB
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2026-09-24 UTC.
+Stack Overflow
+Ask a question under the google-maps tag.
+GitHub
+Fork our samples and try them yourself.
+Discord
+Chat with fellow developers about Google Maps Platform.
+Issue Tracker
+Something wrong? Send us a bug report!
+Learn More
+FAQ
+Capabilities Explorer
+Tutorials
+Platforms
+Android
+iOS
+Web
+Web Services
+Product Info
+Pricing and Plans
+Contact Sales
+Support
+Terms of Service
+Android
+Chrome
+Firebase
+Google Cloud Platform
+Google AI
+All products
+Terms
+Privacy
+Manage cookies
+English
+Deutsch
+Español
+Español – América Latina
+Français
+Indonesia
+Italiano
+Polski
+Português – Brasil
+Tiếng Việt
+Türkçe
+Русский
+עברית
+العربيّة
+فارسی
+हिंदी
+বাংলা
+ภาษาไทย
+中文 – 简体
+中文 – 繁體
+日本語
+한국어
