@@ -81,6 +81,19 @@ docswatcher:
     max-files: 20000
     max-total-mb: 200
     max-seconds: 600
+    # Where scans run (ScanIsolationProperties, docs/adr/0010-scans-in-their-own-process.md).
+    # process: each scan in a JVM of its own, started from this app's own jar, so a parser crash or
+    # a runaway scan ends that process and fails that run, never the web server. It costs a process
+    # start per scan (about 0.6 to 1.5 s). in-process: in this JVM, as before.
+    isolation: ${DOCSWATCHER_SCAN_ISOLATION:process}
+    process:
+      heap-mb: 1024
+      # Unset: max-seconds plus 60 s. Past it the scan process is killed and the run fails.
+      # timeout-seconds: 660
+      # jvm-options: []
+    # Unset: the scan timeout plus two clone timeouts plus ten minutes. A run still running after
+    # that was left by a process that stopped; it is failed and queued again once.
+    # reclaim-after-seconds: 1500
 
 ---
 spring:

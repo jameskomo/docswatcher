@@ -13,28 +13,25 @@ import dev.docswatcher.engine.Json;
 import dev.docswatcher.engine.Knowledge;
 import dev.docswatcher.engine.Matcher;
 import dev.docswatcher.engine.OwnKnowledge;
-import dev.docswatcher.engine.Provider;
 import dev.docswatcher.engine.RepoRef;
 import dev.docswatcher.engine.ScanLimits;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Component;
 import tools.jackson.databind.ObjectMapper;
 
 /**
  * Adapter over the engine library. Engine objects never leave this class: results are
  * serialised with the engine's own JSON writer and parsed into the app's schema records,
  * so the seam is the inventory document exactly as the architecture doc describes.
+ *
+ * <p>Scans run in the calling JVM. {@link ProcessScanEngine} runs the same {@link ScanJob} in a
+ * process of its own instead; {@link ScanEngineConfig} picks one.
  */
-@Component
-@ConditionalOnProperty(name = "docswatcher.engine.enabled", havingValue = "true", matchIfMissing = true)
 public class EngineScanEngine implements ScanEngine {
 
   private final Knowledge knowledge;
-  private final Engine engine;
+  private final Path knowledgeDir;
   private final ObjectMapper mapper;
   private final ScanLimits limits;
   private final List<ChangeDoc> changes;
@@ -44,7 +41,6 @@ public class EngineScanEngine implements ScanEngine {
     this(properties, mapper, ScanLimits.DEFAULT);
   }
 
-  @Autowired
   public EngineScanEngine(AppProperties properties, ObjectMapper mapper, ScanLimitsProperties limits) {
     this(properties, mapper, limits.limits());
   }
@@ -52,8 +48,8 @@ public class EngineScanEngine implements ScanEngine {
   public EngineScanEngine(AppProperties properties, ObjectMapper mapper, ScanLimits limits) {
     this.limits = limits;
     String dir = properties.knowledge().dir();
-    this.knowledge = dir == null || dir.isBlank() ? Knowledge.bundled() : Knowledge.load(Path.of(dir));
-    this.engine = new Engine(knowledge);
+    this.knowledgeDir = dir == null || dir.isBlank() ? null : Path.of(dir);
+    this.knowledge = knowledgeDir == null ? Knowledge.bundled() : Knowledge.load(knowledgeDir);
     this.mapper = mapper;
     this.changes = List.of(mapper.readValue(Json.write(knowledge.changes()), ChangeDoc[].class));
     this.providers = List.of(mapper.readValue(Json.write(knowledge.providers()), ProviderDoc[].class));
@@ -61,9 +57,7 @@ public class EngineScanEngine implements ScanEngine {
 
   @Override
   public InventoryDoc scan(Path repoRoot, RepoRefDoc repo) {
-    RepoRef ref = new RepoRef(repo.host(), repo.owner(), repo.name(), repo.ref(), repo.sha());
-    Inventory inventory = engine.scan(repoRoot, ref, List.of(), limits);
-    return mapper.readValue(Json.write(inventory), InventoryDoc.class);
+    return read(ScanJob.run(knowledge, repoRoot, ref(repo), List.of(), false, limits, LocalDate.now())).inventory();
   }
 
   @Override
@@ -75,20 +69,29 @@ public class EngineScanEngine implements ScanEngine {
 
   @Override
   public OwnScan scanWithOwnRecords(Path repoRoot, RepoRefDoc repo, List<OwnRecords> shared) {
-    LocalDate today = LocalDate.now();
-    List<OwnKnowledge.Source> sources = OwnKnowledge.sources(repoRoot,
-        shared.stream().map(s -> new OwnKnowledge.Source(s.label(), s.dir())).toList());
-    OwnKnowledge.Result own = OwnKnowledge.merge(knowledge, sources, today);
-    Knowledge k = own.knowledge();
-    RepoRef ref = new RepoRef(repo.host(), repo.owner(), repo.name(), repo.ref(), repo.sha());
-    Inventory inventory = new Engine(k).scan(repoRoot, ref);
-    var findings = Matcher.match(inventory, k, today, false);
-    List<ChangeDoc> ownChanges = own.ok() ? List.of(mapper.readValue(Json.write(own.changes()), ChangeDoc[].class)) : List.of();
-    List<String> ownProviders = own.ok() ? own.providers().stream().map(Provider::id).toList() : List.of();
-    return new OwnScan(
-        mapper.readValue(Json.write(inventory), InventoryDoc.class),
-        List.of(mapper.readValue(Json.write(findings), FindingDoc[].class)),
-        ownProviders, ownChanges, own.errors(), own.warnings());
+    return read(ScanJob.run(knowledge, repoRoot, ref(repo), sources(shared), true, limits, LocalDate.now()));
+  }
+
+  /** The knowledge directory this engine was built from, or null for the bundled knowledge. */
+  public Path knowledgeDir() {
+    return knowledgeDir;
+  }
+
+  public ScanLimits limits() {
+    return limits;
+  }
+
+  /** Parses a {@link ScanJob} document, wherever it was produced, into the app's records. */
+  public OwnScan read(String scanJobJson) {
+    return mapper.readValue(scanJobJson, OwnScan.class);
+  }
+
+  static RepoRef ref(RepoRefDoc repo) {
+    return new RepoRef(repo.host(), repo.owner(), repo.name(), repo.ref(), repo.sha());
+  }
+
+  static List<OwnKnowledge.Source> sources(List<OwnRecords> shared) {
+    return shared.stream().map(s -> new OwnKnowledge.Source(s.label(), s.dir())).toList();
   }
 
   @Override

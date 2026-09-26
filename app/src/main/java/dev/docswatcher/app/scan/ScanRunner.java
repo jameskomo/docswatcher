@@ -1,6 +1,7 @@
 package dev.docswatcher.app.scan;
 
 import dev.docswatcher.app.config.AppProperties;
+import dev.docswatcher.app.engine.ProcessScanEngine;
 import dev.docswatcher.app.engine.ScanEngine;
 import dev.docswatcher.app.github.GitHubClient;
 import dev.docswatcher.app.model.ContractDoc;
@@ -69,8 +70,10 @@ public class ScanRunner {
         scan(run, repo);
       }
     } catch (Exception e) {
-      log.warn("scan_run {} failed: {}", run.id(), e.toString());
-      runs.fail(run.id(), e.toString());
+      // A scan process's failure is already written for people; anything else keeps its type.
+      String error = e instanceof ProcessScanEngine.ScanProcessException ? e.getMessage() : e.toString();
+      log.warn("scan_run {} failed: {}", run.id(), error);
+      runs.fail(run.id(), error);
     }
   }
 

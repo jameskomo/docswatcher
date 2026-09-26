@@ -19,3 +19,6 @@ docswatcher:
   # Tests run the alert job themselves, as of the day they choose.
   alerts:
     cron: "-"
+  # The engine is off here (tests use a fake); a test of the scan process builds its own.
+  scan:
+    isolation: in-process
