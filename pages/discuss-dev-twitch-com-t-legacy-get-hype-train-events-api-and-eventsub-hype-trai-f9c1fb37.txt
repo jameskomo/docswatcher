@@ -50,7 +50,7 @@ June 6, 2021
 HypeTrain API pagination
 API
 2
-442
+444
 December 23, 2020
 Get all users that contributed to a Hype Train
 API
@@ -60,7 +60,7 @@ February 2, 2025
 Twitch Hype Train
 API
 9
-2302
+2303
 March 28, 2022
 Home
 Categories

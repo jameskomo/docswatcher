@@ -125,7 +125,7 @@ Shopify releases a new API version every three months at 5pm UTC on the first da
 Version
 2025 2026 2027
 Q1 Q2 Q3 Q4 Q1 Q2 Q3 Q4 Q1 Q2 Q3 Q4
-September 25, 2026
+September 26, 2026
 Unstable In development
 2026-10 Release candidate RC Stable Unsupported
 2026-07 Latest stable RC Stable Unsupported
@@ -185,7 +185,7 @@ Anchor to Deprecation practices Deprecation practices
 When part of a Shopify API becomes unnecessary, unsafe, or outdated, it's deprecated across all supported stable versions and announced in the developer changelog with migration guidance. Deprecated fields or types are removed in a subsequent release—for example, something deprecated in 2026-10 might be removed in 2027-01 . Because versions overlap by at least nine months, you'll always have time to update before removal.
 An entire API can be deprecated, not only parts of one. A deprecated API stays available but is unsupported, and it can stop working at any time, so migrate to the supported alternative as soon as one is announced.
 Deprecations are communicated through one or more of the following:
-The API health report lists resources that require changes.
+Your app's alerts in the Dev Dashboard flag deprecated calls and the deadline for fixing them.
 Deprecation warnings appear in API client tools like the GraphiQL Explorer .
 A notice is posted in the developer changelog .
 The API reference is updated with deprecated fields and alternatives.

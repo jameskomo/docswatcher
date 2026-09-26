@@ -182,6 +182,9 @@ Home
 Blogs
 Editions
 AWS Developer Tools Blog
+Introducing SDK Client Warm-Up feature in the AWS SDK for Java 2.x
+by John Viegas on 25 SEP 2026 in AWS Java Development , AWS Lambda , AWS SDK for Java , Java , Technical How-to Permalink Share
+The first service call from an application that uses the AWS SDK for Java 2.x takes longer than subsequent calls. This problem is known as cold start. The new SDK client warm-up feature reduces cold-start latency. One call to SdkWarmUp.warmUp() during application startup exercises the SDK request path before your first service call. With AWS […]
 AWS CRT for JavaScript and AWS IoT Device SDK for JavaScript v2 align with the Node.js release schedule
 by Rakshilkumar Modi on 23 SEP 2026 in Announcements , Developer Tools , JavaScript , Open Source Permalink Share
 The AWS CRT for JavaScript is adopting a policy that aligns with the official Node.js release schedule, providing a predictable timeline for when support for older Node.js versions is dropped. The AWS IoT Device SDK for JavaScript v2 is built on top of AWS CRT for JavaScript, so it shares the same minimum Node.js version. […]
@@ -209,9 +212,6 @@ If you’ve been managing multiple AWS Tools for PowerShell modules individually
 Announcing General Availability of DynamoDB Mapper for Kotlin
 by Ian Botsford on 03 AUG 2026 in Amazon DynamoDB , Announcements , Kotlin Permalink Share
 DynamoDB Mapper for Kotlin is now generally available, giving Kotlin developers a fully idiomatic way to read, write, and query Amazon DynamoDB using natural Kotlin data types without managing low-level API details. Since the Developer Preview launch in October 2024, we’ve added significant new capabilities based on community feedback including the updateItem operation, batch and […]
-AWS Durable Execution SDK for .NET now Generally Available
-by Garrett Beatty on 03 AUG 2026 in .NET , Announcements , AWS .NET Development , AWS SDK for .NET Permalink Share
-The AWS Lambda Durable Execution SDK for .NET is now generally available. AWS Lambda now supports durable executions for .NET, joining the existing Python, TypeScript, and Java SDKs. You install the SDK from NuGet, write your workflows in familiar C#, and deploy them with the AWS Extensions for .NET CLI – the same tools you […]
 ← Older posts
 Create an AWS account
 Learn

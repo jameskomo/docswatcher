@@ -31,6 +31,12 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Sep.25 Improvement
+Updates to GitHub Copilot for Slack and Microsoft Teams
+collaboration tools
+copilot
+...
++1
 Sep.21 Release
 Refreshed repository pull requests page generally available
 collaboration tools
@@ -59,9 +65,6 @@ ecosystem & accessibility
 enterprise management tools
 ...
 +2
-Aug.25 Improvement
-Block users directly from security advisories
-collaboration tools
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.
 Enter your email *

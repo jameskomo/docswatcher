@@ -27,6 +27,7 @@ Conversation Intelligence
 Extract context from real-time conversations
 Conversation Relay
 Build advanced voice AI for natural conversations
+Try the demo
 Conversations
 Communications
 Messaging
@@ -78,6 +79,8 @@ Optimize ad spend
 Support and sales
 Voice AI
 AI agent productivity
+|
+Try the demo
 IVR
 Contact center
 Customer data management
@@ -123,6 +126,22 @@ Twilio.org
 Investor relations
 Press and media
 Events
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+2026 Gartner® Magic Quadrant™ for CPaaS 1
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+Twilio was once again named a Leader and positioned highest for our Ability to Execute.
+Read now
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+1 Gartner®, Magic Quadrant™ for Communications Platform as a Service, By Lisa Unden-Farboud et. al, May 18, 2026
 Resources
 Developers
 Documentation
@@ -208,6 +227,7 @@ Conversation Intelligence
 Extract context from real-time conversations
 Conversation Relay
 Build advanced voice AI for natural conversations
+Try the demo
 Conversations
 Communications
 Messaging
@@ -259,6 +279,8 @@ Optimize ad spend
 Support and sales
 Voice AI
 AI agent productivity
+|
+Try the demo
 IVR
 Contact center
 Customer data management
@@ -304,6 +326,22 @@ Twilio.org
 Investor relations
 Press and media
 Events
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+2026 Gartner® Magic Quadrant™ for CPaaS 1
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+Twilio was once again named a Leader and positioned highest for our Ability to Execute.
+Read now
+<title>An icon of a outbound link arrow</title>
+<path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+">
+1 Gartner®, Magic Quadrant™ for Communications Platform as a Service, By Lisa Unden-Farboud et. al, May 18, 2026
 Resources
 Developers
 Documentation
@@ -449,6 +487,18 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Sep 25, 2026
+GA
+Voice API
+Twilio Voice React Native SDK adds Expo Support
+The Twilio Voice React Native SDK now supports Expo, the framework most new React Native apps start from.
+Learn more
+Sep 24, 2026
+Studio
+Conversation Memory
+Twilio Profiles widgets are now available in Studio
+Twilio Studio now includes two widgets for working with Twilio Profiles directly from a flow: Resolve Profile and Create or Update Profile.
+Learn more
 Sep 23, 2026
 Voice API
 Conference list endpoint will default to in-progress conferences only on September 30, 2026
@@ -497,19 +547,6 @@ Sep 08, 2026
 Webhook Configuration API is now in Public Beta
 Using the Webhook Configuration API, customers can configure how Twilio authenticates and delivers outbound webhooks, per URL. The API consists of two resources: Webhook Settings and Webhook Rules.
 Webhook Settings hold the authentication and connection configuration. Customers can secure endpoints with OAuth 2.0. Twilio fetches an access token from the customer's authorization server using the client credentials flow and sends it as a Bearer token in the Authorization header of every webhook or with Shared Key signatures. Customers can also configure delivery behavior like timeouts and retries.
-Learn more
-Sep 04, 2026
-GA
-Elastic SIP trunking
-Voice API
-International Call Forwarding - Compliance Blocking for Spain & France
-In Spain and France, an incoming call intended for a non-Spanish or non-French destination that is then forwarded internationally while presenting a Spanish or French domestic caller ID is now blocked, in line with local regulatory requirements.
-Learn more
-Sep 02, 2026
-Verify
-Verify Custom Templates are now Generally Available
-Verify Custom Templates give you the flexibility and security to use custom SMS/RCS and Voice message templates beyond standard defaults or pre-approved options .
-To learn more about how to create a custom template for your business needs, check out our support guide .
 Learn more
 Loading
 Error: Unable to load changelog

@@ -65,9 +65,9 @@ Change type
 Action required
 Breaking change
 Deprecated
-July 21, 2026
-Full-stack capabilities to power app analytics
-Shopify Analytics is now a full-stack platform for apps. Model, query, embed, and enrich analytics on Shopify without managing your own data infrastructure.
+September 25, 2026
+The new Dev Dashboard: your command center for building
+One home for your apps and the stores you work in: Designed to make your everyday easier.
 Read the full story
 Changelog
 Search changelog
@@ -129,9 +129,18 @@ Latest 2026-07
 Release candidate 2026-10
 September 2026
 Surface
+09.25
+AI Toolkit skills have been consolidated to shopify
+Action required AI Toolkit
+09.25
+Shopify Payments Balance Transaction GraphQL type supports currency conversion type
+Admin GraphQL API
 09.24
 Polaris 2.0 release candidate
 Polaris
+09.23
+Query SP Fee Details with the GraphQL Admin API
+Admin GraphQL API
 09.22
 Events subscription query complexity limit is changing to 100 points
 Breaking changes Events & webhooks
@@ -295,6 +304,9 @@ Events & webhooks
 07.21
 Liquid templates can now compose pages with blocks and partials
 Liquid
+07.21
+Full-stack capabilities to power app analytics
+Shopify Analytics is now a full-stack platform for apps. Model, query, embed, and enrich analytics on Shopify without managing your own data infrastructure.
 07.17
 Physical inventory feature preview
 Admin GraphQL API
@@ -420,18 +432,6 @@ Admin Extensions
 06.17
 Apps can now open Shopify’s file picker with the Intents API
 Tools
-06.17
-Admin GraphQL API now supports app-owned delivery profiles that cover all shippable items
-Admin GraphQL API
-06.17
-Define and set metafields on inventory transfers in the GraphQL Admin API
-Admin GraphQL API
-06.17
-Purchase-type filtering now enforced for app discounts
-Admin GraphQL API
-06.17
-Hydrogen developer preview
-Hydrogen
 Load more
 Updates
 Developer changelog
