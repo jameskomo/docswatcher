@@ -173,10 +173,10 @@ class ProcessScanEngineIT {
     assertThat(took).isBetween(Duration.ofSeconds(3), Duration.ofSeconds(20));
     long grandchild = Long.parseLong(Files.readString(report).strip());
     // Killed with its parent, not left behind as an orphan.
-    for (int i = 0; i < 50 && ProcessHandle.of(grandchild).map(ProcessHandle::isAlive).orElse(false); i++) {
+    for (int i = 0; i < 50 && running(grandchild); i++) {
       Thread.sleep(100);
     }
-    assertThat(ProcessHandle.of(grandchild).map(ProcessHandle::isAlive).orElse(false)).isFalse();
+    assertThat(running(grandchild)).isFalse();
   }
 
   @Test
@@ -216,5 +216,19 @@ class ProcessScanEngineIT {
     List<String> names = Files.readAllLines(report);
     // No token, key or database password of the server's reaches a process that reads outsiders' code.
     assertThat(names).isSubsetOf("PATH", "LANG", "LC_ALL", "TZ", "TMPDIR");
+  }
+
+  /**
+   * Whether a process is still running. A killed process whose new parent has not collected it yet
+   * is a zombie: it runs nothing, but Java still reports it alive, and how soon it is collected
+   * depends on what the test runs under.
+   */
+  private static boolean running(long pid) throws java.io.IOException {
+    if (!ProcessHandle.of(pid).map(ProcessHandle::isAlive).orElse(false)) return false;
+    Path stat = Path.of("/proc", Long.toString(pid), "stat");
+    if (!Files.exists(stat)) return true;
+    String s = Files.readString(stat);
+    // The state is the first field after the command name, which is in parentheses.
+    return s.charAt(s.lastIndexOf(')') + 2) != 'Z';
   }
 }

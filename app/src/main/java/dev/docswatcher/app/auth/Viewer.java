@@ -101,5 +101,6 @@ public sealed interface Viewer permits Viewer.Owner, Viewer.Member, Viewer.Inges
     @Override public boolean canSeeOrg(String login) { return false; }
     @Override public boolean canRead(long id) { return false; }
     @Override public boolean canWrite(long id) { return false; }
+    @Override public boolean canWriteOrg(String login) { return false; }
   }
 }
