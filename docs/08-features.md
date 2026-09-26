@@ -166,20 +166,32 @@ Open source, community-editable, and the part that is hardest to copy.
 
 | Provider | Change records |
 |---|---|
+| LinkedIn Marketing API | 50 |
 | OpenAI | 42 |
 | Mistral AI | 41 |
 | Azure OpenAI | 35 |
 | Shopify | 16 |
+| Cohere | 15 |
 | Meta Graph API | 15 |
 | Google AI | 13 |
+| Google Maps Platform | 11 |
 | Twitch | 11 |
 | Anthropic | 10 |
 | PayPal | 7 |
+| HubSpot | 6 |
+| X (Twitter) API | 5 |
+| Discord API | 4 |
+| Firebase | 4 |
+| Square | 4 |
+| YouTube Data API | 4 |
 | AWS SDK | 3 |
 | GitHub | 2 |
+| Salesforce | 2 |
 | SendGrid | 2 |
 | Slack | 2 |
 | Twilio | 2 |
+| Mailchimp | 1 |
+| Paystack | 1 |
 | Stripe | 1 |
 
 Every record was researched from the provider's own deprecation page or changelog and carries its source URL and the date observed.
@@ -226,8 +238,8 @@ Warnings: an individual `affects` entry that no fixture exercises.
 
 ```
 $ knowledge/scripts/validate
-Knowledge 2026.09.24: 15 providers, 202 change records, 68 fixtures
-OK · 0 errors, 1 warnings
+Knowledge 2026.09.26: 27 providers, 309 change records, 111 fixtures
+OK · 0 errors, 20 warnings
 ```
 
 ## 5. Two engines and parity

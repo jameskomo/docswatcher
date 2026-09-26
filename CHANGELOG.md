@@ -20,6 +20,26 @@
   `docswatcher validate .docswatcher` checks them. Invalid records are always reported: the CLI
   exits 3 and names every error. See `docs/19-your-own-apis.md`.
 - A `.docswatcher/` directory is no longer scanned as code.
+- **Twelve new providers** (knowledge 2026.09.26: 27 providers, 309 change records, 111 fixtures):
+  - Square: the v1 Payments API, OAuth RenewToken, Transactions API writes and the Labor shift
+    endpoints.
+  - Paystack: the deprecated Check Authorization endpoint.
+  - X (Twitter) API: v1.1 media upload, search, statuses/filter and oEmbed, and the Account
+    Activity replay route.
+  - LinkedIn Marketing API: the sunset of every monthly `Linkedin-Version` from 202206 to 202609,
+    and the legacy Lead Sync APIs.
+  - YouTube Data API: `relatedToVideoId`, `comments.markAsSpam`, `commentThreads.update` and the
+    v2 GData feeds.
+  - Discord API: API and Gateway v6, v7 and v8, Create Guild for apps, and the old pin routes.
+  - Mailchimp: Marketing API 2.0 and Export API 1.0.
+  - Google Maps Platform: the Legacy Places, Directions and Distance Matrix web services, and
+    Maps JavaScript API removals (Drawing library, heatmap layer, `Marker`, `KmlLayer` and more).
+  - Firebase: Dynamic Links, the legacy FCM APIs, and the Admin SDK's removed send methods.
+  - Salesforce: API versions 21.0 to 30.0, and SOAP `login()`.
+  - HubSpot: Contact Lists v1, HubDB v2, Owners v2, Pipelines v1, and the end of numbered API
+    versions.
+  - Cohere: model retirements (Embed v2.0, Rerank v2.0, Aya 8B, legacy Command models) and the
+    deprecated v1 endpoints.
 
 ## 0.3.1 (2026-09-24)
 

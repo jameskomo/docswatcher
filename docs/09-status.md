@@ -5,14 +5,14 @@ Last updated 2026-09-24. Everything below was verified by running it on that dat
 ## One-line status
 
 The scanner works end to end from a browser, a command line, CI, a GitHub App and now a coding
-agent. The knowledge base is watched daily. What is thin is reach: fifteen providers, eight languages
+agent. The knowledge base is watched daily. What is thin is reach: 27 providers, eight languages
 for call sites, and no native binary for Intel Macs.
 
 ## Built and verified
 
 | Component | State | Evidence |
 |---|---|---|
-| Knowledge base | 15 providers, 202 change records, 68 fixtures | `knowledge/scripts/validate` reports 0 errors |
+| Knowledge base | 27 providers, 309 change records, 111 fixtures | `knowledge/scripts/validate` reports 0 errors |
 | Java engine | 3 detection layers, exclusion rules, matcher, validator, `Matcher.lookup` | 198 tests pass |
 | TypeScript engine | Same three layers and the same exclusion rules, runs in the browser | Part of the 99 TypeScript unit tests below |
 | Two-engine parity | Byte-identical output on every fixture | `npm run parity` passes |
@@ -51,7 +51,7 @@ The two zero-finding repositories are as important as the others. They are evide
 Ordered by what is most likely to cost a user today.
 
 1. **Native binary for Intel Macs.** Releases ship native binaries for Linux x64, macOS arm64 and Windows x64, and a portable jar. GraalVM Community no longer builds for macOS x64, so an Intel Mac needs the jar and Java 25, which is a poor first step for someone adding an MCP server to their editor.
-2. **Providers.** Fifteen. Azure OpenAI, Mistral, Meta Graph, PayPal and Twitch were added on 2026-09-24. Some of what they deprecate has no date to record: PayPal publishes no removal date for any deprecated REST resource, Azure OpenAI none for its dated api-versions, and Meta's Instagram and Page Insights metric removals are field names, which no contract kind describes. Each further provider is a `provider.yaml`, a detector table and change records.
+2. **Providers.** Twenty-seven. Azure OpenAI, Mistral, Meta Graph, PayPal and Twitch were added on 2026-09-24; Square, Paystack, X, LinkedIn, YouTube, Discord, Mailchimp, Google Maps Platform, Firebase, Salesforce, HubSpot and Cohere on 2026-09-26. Salesforce names a release rather than a day for its retirements, so its two records carry no effective date. Some of what they deprecate has no date to record: PayPal publishes no removal date for any deprecated REST resource, Azure OpenAI none for its dated api-versions, and Meta's Instagram and Page Insights metric removals are field names, which no contract kind describes. Each further provider is a `provider.yaml`, a detector table and change records.
 3. **Knowledge watch coverage.** It watches pages already cited. A provider's brand-new deprecation page is found only if its changelog, which is watched, links to it.
 4. **Status badge with a count.** Deliberately not built; see ADR 0004.
 5. **Your own APIs in the App's dashboard.** Issues and check runs carry a team's own change records in full, but the dashboard and fix pull requests look change records up in the bundled knowledge, so they show such a finding by its change id. The App reads only the owner's `.docswatcher` repository.
