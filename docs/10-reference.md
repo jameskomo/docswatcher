@@ -79,7 +79,7 @@ Served by the app module. Base path `/api`. All responses are JSON.
 
 ### Authentication
 
-Two principals (ADR 0008).
+Two principals (ADR 0008, ADR 0011).
 
 **The owner** holds the bearer token from `DOCSWATCHER_API_TOKEN` and sees everything:
 
@@ -90,6 +90,7 @@ curl -H "Authorization: Bearer $DOCSWATCHER_API_TOKEN" localhost:8080/api/orgs/a
 A request that presents an `Authorization` header is judged on the token alone. `docswatcher.api.require-token` is `true` by default and `false` under the `dev` profile. If the token is required but unset, requests that present one get 503 rather than being let through.
 
 **A member** is signed in with GitHub and presents the `__Host-docswatcher_session` cookie. A member sees only the organisations and repositories GitHub listed for them at sign-in, and can reach only endpoints marked `@MemberAccess` (the Member column below). Every other endpoint answers a member with 403. An organisation or repository outside the member's access answers 404. Organisation-wide answers count only the member's repositories. POST endpoints need write, maintain or admin on the repository, or, for an organisation-wide setting, on at least one of the organisation's repositories. They also need an `Origin` equal to `DOCSWATCHER_WEB_ORIGIN`, or `Sec-Fetch-Site: same-origin`.
+**A member** is signed in with GitHub or GitLab and presents the `__Host-docswatcher_session` cookie. A member sees only the organisations and repositories their provider listed for them at sign-in, and can reach only endpoints marked `@MemberAccess` (the Member column below). Every other endpoint answers a member with 403. An organisation or repository outside the member's access answers 404. Organisation-wide answers count only the member's repositories. POST endpoints need write, maintain or admin on the repository (on GitLab: Developer, Maintainer or Owner). They also need an `Origin` equal to `DOCSWATCHER_WEB_ORIGIN`, or `Sec-Fetch-Site: same-origin`.
 
 A request with neither a token nor a live session gets 401.
 
@@ -115,11 +116,14 @@ A request with neither a token nor a live session gets 401.
 | POST | `/api/repos/{id}/rescan` | Queues a manual scan | write |
 | POST | `/api/repos/{id}/findings/snooze` | Snoozes the finding named in the body `{"contract", "change", "days"}`; `days` defaults to 30 | write |
 | POST | `/api/repos/{id}/findings/not-in-prod` | Marks the finding named in the body `{"contract", "change"}` informational | write |
-| POST | `/api/repos/{id}/findings/fix` | Dispatches the fix workflow for the finding named in the body | write |
+| POST | `/api/repos/{id}/findings/fix` | Dispatches the fix workflow for the finding named in the body. 409 for a GitLab project, which has no fix dispatch | write |
 | POST | `/api/findings/{repoId}/{contractId}/{changeId}/snooze` | Snoozes a finding | write |
 | POST | `/api/findings/{repoId}/{contractId}/{changeId}/not-in-prod` | Marks a finding informational | write |
 | POST | `/api/findings/{repoId}/{contractId}/{changeId}/not-affected` | Marks a finding not affected: the change does not touch this code | write |
 | POST | `/api/findings/{repoId}/{contractId}/{changeId}/fix` | Dispatches the fix workflow | write |
+| GET | `/api/gitlab/connections` | Connected GitLab groups and projects: `{id, login, kind, namespace, projects, tokenExpiresAt, connectedBy, createdAt, webhookUrl}`. A member gets those of organisations they can see | yes, filtered |
+| POST | `/api/gitlab/connections` | Connects the namespace in the body `{"namespace", "token"}` with a maintainer's access token (`api` scope, Maintainer role). 201 with `webhookToken`, shown once; 200 when it was already connected (the token is replaced); 400, 403 or 503 with `{"message"}` | yes: the token is the authority |
+| POST | `/api/gitlab/connections/{id}/disconnect` | Removes the connection and everything scanned through it. 204. A member needs a GitLab sign-in and the Maintainer role on the namespace | owner, or GitLab maintainer |
 | GET | `/api/setup/workflow` | The GitHub Actions workflow a customer installs | yes |
 | GET | `/api/setup/workflow.txt` | The same, as plain text | yes |
 | GET | `/api/early-access` | Early-access requests from the Teams page, newest first | no |
@@ -131,6 +135,7 @@ A request with neither a token nor a live session gets 401.
 | Method | Path | Purpose |
 |---|---|---|
 | POST | `/webhooks/github` | GitHub App events. Verifies `X-Hub-Signature-256`, responds 202 |
+| POST | `/webhooks/gitlab` | GitLab push and issue hooks. `X-Gitlab-Token` must be a connection's webhook token, or 401. Retries are dropped on `Idempotency-Key` or `X-Gitlab-Event-UUID`. Responds 202 (ADR 0011) |
 | POST | `/early-access` | The Teams page form. Public: validated, rate-limited per client, honeypot-checked; one row per email (ADR 0005) |
 | POST | `/subscribe` | The calendar's email alerts: `{"email", "providers": [ids], "website"}`. Public: validated, rate-limited per client (five an hour), honeypot-checked. Sends one confirmation email, at most once an hour per address, and answers 201 `{"ok": true}` whatever the address's state. 400 for an invalid address or an unknown provider id, 503 when email is not configured (ADR 0010) |
 | GET | `/subscribe/confirm?token=` | The confirmation link: a page with a Confirm button. Changes nothing, so a mail scanner fetching it subscribes nobody. 400 once the link's seven days are over |
@@ -139,7 +144,9 @@ A request with neither a token nor a live session gets 401.
 | POST | `/unsubscribe?token=` | The same, for RFC 8058 one-click unsubscribe from a mail program |
 | GET | `/auth/github/login` | Starts sign-in with GitHub: a 302 to GitHub with a state and a PKCE challenge, both remembered in `__Host-docswatcher_oauth`. 503 when sign-in is not configured (ADR 0008) |
 | GET | `/auth/github/callback` | GitHub returns here. Checks the state, exchanges the code, records the person's access, sets `__Host-docswatcher_session`, and redirects to `/#/app`. On failure it redirects to `/#/app?signin=denied`, `failed` or `unavailable` |
-| GET | `/auth/me` | `{enabled, signedIn, user, orgs, expiresAt}`. Always 200, never cached |
+| GET | `/auth/gitlab/login` | Starts sign-in with GitLab: a 302 to `{base-url}/oauth/authorize` with `scope=read_api`, a state and a PKCE challenge, remembered in `__Host-docswatcher_oauth_gitlab`. 503 when not configured (ADR 0011) |
+| GET | `/auth/gitlab/callback` | GitLab returns here. As the GitHub callback, with access taken from the connected projects the person is a member of at Reporter or above |
+| GET | `/auth/me` | `{enabled, providers: {github, gitlab}, signedIn, provider, user, orgs, expiresAt}`. `enabled` is true when any sign-in exists. Always 200, never cached |
 | POST | `/auth/logout` | Ends the session and clears the cookie. 204. Same-origin only |
 | GET | `/actuator/health` | Liveness |
 
@@ -164,6 +171,10 @@ Read by the app module. Defaults come from `app/src/main/resources/application.y
 | `GITHUB_CLIENT_ID` | empty | The GitHub App's client id, for sign-in (`docswatcher.github.client-id`) |
 | `GITHUB_CLIENT_SECRET` | empty | The App's client secret. In production it is a file secret, `docswatcher.github.client-secret`, which takes precedence. Either value blank: sign-in answers 503 |
 | `GITHUB_WEB_BASE` | `https://github.com` | Where sign-in happens and the code is exchanged. Override for GitHub Enterprise |
+| `GITLAB_BASE_URL` | `https://gitlab.com` | The GitLab instance (`docswatcher.gitlab.base-url`): sign-in, clones and API calls all go here. A self-managed instance by its web address, relative root included |
+| `GITLAB_CLIENT_ID` | empty | The GitLab OAuth application's id (`docswatcher.gitlab.client-id`) |
+| `GITLAB_CLIENT_SECRET` | empty | Its secret. In production a file secret, `docswatcher.gitlab.client-secret`. Either blank: GitLab sign-in answers 503 |
+| `DOCSWATCHER_GITLAB_TOKEN_KEY` | empty | Base64 of 32 random bytes that encrypts connected groups' access tokens (AES-256-GCM). In production a file secret, `docswatcher.gitlab.token-key`. Blank or malformed: connecting answers 503 and GitLab scans fail. Changing it makes every stored token unreadable, so reconnect each group |
 | `DOCSWATCHER_NOTIFY_URL` | empty | The `notify/` Worker that emails each early-access request. Empty: stored, not emailed |
 | `DOCSWATCHER_NOTIFY_TOKEN` | empty | Bearer token for that Worker. In production it is a file secret, `docswatcher.notify.token` |
 | `BREVO_API_KEY` | empty | Brevo API key for alert email, for local runs. In production it is a file secret, `docswatcher.brevo.api-key`, which takes precedence. Empty: the app logs that email alerts are off, `/subscribe` answers 503, and team alerts go to Slack only |
@@ -187,6 +198,7 @@ Where scans run is set under `docswatcher.scan` too (ADR 0011):
 A scan process gets only `PATH`, `LANG`, `LC_ALL`, `TZ` and `TMPDIR` from the environment, and none of the App's secrets. A run it could not finish fails with a sentence in its `error`: `The scan process crashed (signal 11)`, `The scan ran out of memory (its process may use 1024 MB)`, `The scan took longer than 660 s and its process was stopped`, or `The scan failed: ` and the exception. The last 16 KB of its output are logged.
 
 `docswatcher.github.session-ttl` (default `8h`) sets how long a signed-in session lasts.
+`docswatcher.github.session-ttl` (default `8h`) sets how long a signed-in session lasts; `docswatcher.gitlab.session-ttl` (default `8h`) does the same for GitLab sign-ins.
 
 Label names are configurable under `docswatcher.github` (`fix-label`, `snooze-label`, `not-in-prod-label`, `not-affected-label`) and default to:
 
@@ -197,7 +209,7 @@ Label names are configurable under `docswatcher.github` (`fix-label`, `snooze-la
 | `docswatcher:not-in-prod` | `not_in_prod` | Informational: the code does not run in production |
 | `docswatcher:not-affected` | `not_affected` | The change does not touch this code; no longer fails the check run |
 
-Closing a finding's issue by hand also sets `not_affected`; reopening it sets `open`. Closes sent by the App's own bot account (it closes an issue when the evidence disappears) are ignored. Every label, close and reopen needs write permission or above from the sender, and fails closed. All four statuses survive rescans; a finding whose evidence disappears becomes `fixed` whatever its status.
+Closing a finding's issue by hand also sets `not_affected`; reopening it sets `open`. Closes sent by the App's own bot account (it closes an issue when the evidence disappears) are ignored. Every label, close and reopen needs write permission or above from the sender, and fails closed. GitLab issues take the same labels, closes and reopens from Developer and above, except `docswatcher:fix`; closes by the access token's bot user are ignored. All four statuses survive rescans; a finding whose evidence disappears becomes `fixed` whatever its status.
 
 The web site reads `NUXT_PUBLIC_RELAY_URL`. Leave it empty to use jsDelivr and the GitHub API instead of a relay.
 
@@ -210,6 +222,25 @@ None of 2026-03-10's breaking changes touch what DocsWatcher reads. The app read
 GitHub Enterprise Server only accepts versions it knows. A server that predates 2026-03-10 rejects the header with `400`, so `GITHUB_API_BASE` needs a release that supports it.
 
 To move to a newer version, read GitHub's [breaking changes](https://docs.github.com/en/rest/about-the-rest-api/breaking-changes) against the fields above, change the three constants, and update the tests that assert them.
+
+## GitLab REST API
+
+The app calls GitLab's REST API v4 at `{GITLAB_BASE_URL}/api/v4` (`GitLabApi`), with `Authorization: Bearer`. Sign-in spends the person's OAuth token (`read_api`) and drops it. Everything else spends the connection's access token (`api`).
+
+| Call | Used for | Reads |
+|---|---|---|
+| `POST /oauth/token` | Sign-in code exchange, with the PKCE verifier | `access_token` |
+| `GET /user` | Who signed in | `id`, `username`, `name`, `avatar_url` |
+| `GET /projects?membership=true&simple=true&min_access_level=20,30,40` | A signed-in person's read, write and maintain | `id` |
+| `GET /personal_access_tokens/self` | Checking a connection's token | `user_id`, `scopes`, `active`, `revoked`, `expires_at` |
+| `GET /groups/:path`, `GET /projects/:id-or-path` | Resolving a namespace, adopting a project, a rename | `id`, `full_path`; `id`, `path_with_namespace`, `default_branch` |
+| `GET /groups/:id/projects?include_subgroups=true&archived=false` | A group's projects at connect time | as above |
+| `GET /(groups\|projects)/:id/members/all/:user_id` | A role, inherited membership included (404 is none) | `access_level` |
+| `POST /projects/:id/issues` | A finding's issue, labels comma-joined | `iid` |
+| `POST /projects/:id/issues/:iid/notes`, `PUT /projects/:id/issues/:iid` | Saying why, then `state_event=close` | nothing |
+| `POST /projects/:id/statuses/:sha` | The DocsWatcher commit status | nothing |
+
+Paged lists follow `X-Next-Page`, 100 per page, at most 50 pages. Clones go to `{GITLAB_BASE_URL}/{path}.git` over HTTPS with the access token, never to an address from a payload.
 
 ## Maven commands
 

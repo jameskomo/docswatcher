@@ -348,17 +348,21 @@ there are no tracking pixels (ADR 0010).
 
 `/app` has two faces.
 
-**Signed in with GitHub: every repository, one view.** Sign-in uses the DocsWatcher GitHub App's
-own OAuth client (ADR 0008). The dashboard then covers every organisation where the App is
-installed, limited to the repositories GitHub lets the person see. If there are several
-organisations, a picker switches between them.
+**Signed in with GitHub or GitLab: every repository, one view.** Sign-in with GitHub uses the
+DocsWatcher GitHub App's own OAuth client (ADR 0008). The dashboard then covers every organisation
+where the App is installed, limited to the repositories GitHub lets the person see. Sign-in with
+GitLab uses a GitLab OAuth application with the `read_api` scope (ADR 0011). It covers the
+connected groups, limited to the projects where the person is Reporter or above. If there are
+several organisations, a picker switches between them.
 
 - **Overview.** Repositories, external contracts, open breaking findings and warnings, and the next deadline.
 - **The provider map and the horizon** for the whole organisation, the same components as a single scan.
 - **Repositories with open findings.** Open one to see its findings, each with three actions:
   snooze for 30 days, mark as not running in production, or request a fix pull request. The
-  actions need write access to the repository, the same bar as the issue labels. Otherwise the
-  row says so.
+  actions need write access to the repository (Developer on GitLab), the same bar as the issue
+  labels. Otherwise the row says so. A fix pull request is GitHub only, and a GitLab row says so.
+- **Connect a GitLab group.** Signed in with GitLab, a maintainer enters a group or project path
+  and an access token (Maintainer role, `api` scope). DocsWatcher shows the webhook to add, once.
 - **The blast radius of one shutdown.** Pick a change and see every repository and location it touches.
 - **Warned before the date.** Where the organisation's alerts go: up to ten email addresses and a
   Slack incoming webhook, and how many days ahead (30 and 7 by default). Anyone who sees the
@@ -371,11 +375,12 @@ organisations, a picker switches between them.
   revoke the repository's ingest tokens here; a new token is shown once. Until telemetry arrives
   the screen says so and opens the setup guide (docs/13-runtime-observation.md).
 
-What a person sees is a snapshot GitHub gave at sign-in, and it lasts eight hours. Their GitHub
-token is not kept.
+What a person sees is a snapshot GitHub or GitLab gave at sign-in, and it lasts eight hours.
+Their token is not kept.
 
 **Signed out: the last scan run in this browser**, as before. Where sign-in is configured, a
-"Sign in with GitHub to see your organisation" invitation sits above it. On a copy of the site
+"Sign in with GitHub to see your organisation" invitation sits above it, with a GitLab button
+beside it where GitLab sign-in is configured too. On a copy of the site
 with no app behind it, the invitation does not appear.
 
 - **The provider map.** Every external service as a node, sized by call sites, coloured by health. The picture most engineering leads have never seen of their own system.
@@ -418,7 +423,8 @@ Light and dark themes from CSS custom properties, a phone-width layout with no h
 
 ## 8. The server app
 
-Spring Boot 4 on Java 25. This is the GitHub App backend.
+Spring Boot 4 on Java 25. This is the backend for the GitHub App and for connected GitLab groups
+(ADR 0011).
 
 ### Webhooks
 
@@ -439,12 +445,25 @@ the channel accepted it. A day the job missed is caught up once, with one warnin
 threshold, and a failed channel is retried the next day. Email goes through Brevo as plain text;
 Slack only to `https://hooks.slack.com/services/...`. Every email has a link that takes its
 address off the list. ADR 0010.
+`POST /webhooks/gitlab` takes GitLab's push and issue hooks. GitLab does not sign bodies, so the
+`X-Gitlab-Token` header must be the webhook token DocsWatcher issued to a connection. Only its
+SHA-256 is stored, and the comparison is constant-time. The connection's namespace bounds what the
+event may touch, judged by the stored project path, never the payload's. A project new to a
+connected group is checked with GitLab and adopted on its first push. Retries are de-duplicated on
+`Idempotency-Key` or `X-Gitlab-Event-UUID`.
+### GitLab connections
+A GitLab group or project is connected with a group or project access token its maintainer creates
+for DocsWatcher. GitLab must confirm the token has the `api` scope and the Maintainer role. The
+token is stored AES-256-GCM encrypted under a key held in a secret file, never in plain text. A
+connection is stored like an installation and its projects like repositories, so every scan,
+finding and dashboard query is shared with GitHub. Connecting the same path again replaces the
+token. Removing a connection needs the owner or a GitLab Maintainer of the namespace.
 
 ### The scan worker
 
 A polling loop over the `scan_run` table using `SELECT ... FOR UPDATE SKIP LOCKED`, running on virtual threads. There is no queue service, which is deliberate: a table and a loop are free and sufficient.
 
-Each run does a shallow clone at the commit, scans, matches, upserts contracts by repository and id, reconciles findings, posts a check run, and opens one issue per new finding. A finding closes as fixed when its evidence is gone from a later scan. A scan stopped by a scan limit closes nothing: what it did not see is carried forward until a complete scan.
+Each run does a shallow clone at the commit, scans, matches, upserts contracts by repository and id, reconciles findings, posts a check run (a `DocsWatcher` commit status on GitLab), and opens one issue per new finding. The scan reaches GitHub or GitLab through a small `Forge` interface, so everything else is the same code for both. A finding closes as fixed when its evidence is gone from a later scan. A scan stopped by a scan limit closes nothing: what it did not see is carried forward until a complete scan.
 
 A rematch re-runs the matcher over stored contracts without cloning, which is what happens when the knowledge base updates.
 
@@ -458,6 +477,8 @@ A rematch re-runs the matcher over stored contracts without cloning, which is wh
 | `docswatcher:not-affected` | Marks it not affected: the change does not touch this code |
 
 Closing a finding's issue by hand says the same as the not-affected label, and reopening the issue opens the finding again. The App's own closes, sent when evidence disappears, are told apart by their bot sender and ignored. Every command needs write permission from the person who sent it.
+
+On GitLab, the same labels, closes and reopens work from Developer and above, except the fix label. DocsWatcher's own closes come from the access token's bot user and are ignored.
 
 Snoozes and verdicts survive rescans because findings are keyed by repository, contract, and change together. A not-affected finding stays recorded but no longer fails the check run.
 

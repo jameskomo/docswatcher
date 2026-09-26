@@ -108,7 +108,7 @@ Two other pages: `/calendar` lists every deprecation we track by month, and `/ap
 
 ## Running the server app
 
-The server app is the GitHub App backend. It needs Postgres.
+The server app is the backend for the GitHub App and for connected GitLab groups. It needs Postgres.
 
 ```
 cd app
@@ -117,6 +117,53 @@ curl -s localhost:8080/actuator/health
 ```
 
 Without GitHub credentials it starts and serves the API but has nothing to scan. To connect it to a real GitHub App, follow the setup steps in `app/README.md`.
+
+## Connecting GitLab
+
+GitLab teams get the same service as the GitHub App: a scan on every push to the default branch, an
+issue per finding, a `DocsWatcher` commit status, and the organisation dashboard. The design is in
+`docs/adr/0011-gitlab.md`. As the deployment's owner, you do steps 1 to 4 once. Each team then
+does step 5 for its group.
+
+1. **Generate the token key.** Run `openssl rand -base64 32` and store the output as the Docker
+   secret `docswatcher.gitlab.token-key`, mounted at `/run/secrets/docswatcher.gitlab.token-key`.
+   It encrypts the access tokens groups hand to DocsWatcher. Keep a copy somewhere safe. If it is
+   lost, every group has to be connected again. For local runs, `DOCSWATCHER_GITLAB_TOKEN_KEY` works
+   too.
+2. **Create the OAuth application** for sign-in. On gitlab.com: your avatar, Edit profile,
+   Applications, Add new application. For a self-managed instance, an admin can create it as an
+   instance-wide application instead (Admin area, Applications).
+   - Name: `DocsWatcher`.
+   - Redirect URI: `https://docswatcher.vukisha.co.ke/auth/gitlab/callback`. It must equal
+     `{DOCSWATCHER_WEB_ORIGIN}/auth/gitlab/callback` exactly.
+   - Confidential: on.
+   - Scopes: `read_api` only. Sign-in only asks who the person is and which projects they belong
+     to. It never writes with their token, and the token is dropped once they are signed in.
+3. **Configure the app.** Put the application's id in `GITLAB_CLIENT_ID`. Store its secret as the
+   Docker secret `docswatcher.gitlab.client-secret`; GitLab shows it only once. For a self-managed
+   instance, set `GITLAB_BASE_URL` to its web address, for example `https://gitlab.example.com`.
+   The default is `https://gitlab.com`.
+4. **Route the paths.** nginx must send `/auth/` (which already covers `/auth/gitlab/`) and
+   `/webhooks/gitlab` on the site's host to the app, beside `/webhooks/github`. Restart the app.
+   `GET /auth/me` then answers `"providers": {"gitlab": true}`, and `/app` offers "Sign in with
+   GitLab".
+5. **Connect a group** (each team's maintainer):
+   1. In the group, open Settings, Access tokens, and add a token named `DocsWatcher` with the
+      **Maintainer** role and the **`api`** scope. Choose an expiry and note it: DocsWatcher shows
+      it, and a scan fails after it until a new token is entered. Group access tokens need a paid
+      tier on gitlab.com. On Free, create a project access token in each project, and connect each
+      project by its full path.
+   2. Sign in with GitLab on `/app`. Under **Connect a GitLab group**, enter the group's path (for
+      example `acme` or `acme/platform`) and the token. DocsWatcher checks the token's scope and
+      role with GitLab, stores it encrypted, and queues a first scan of every project.
+   3. Add the webhook it shows, in the group's Settings, Webhooks (a paid tier), or in each
+      project's Settings, Webhooks. Use the URL `https://docswatcher.vukisha.co.ke/webhooks/gitlab`
+      and the **Secret token** DocsWatcher showed, with **Push events** and **Issues events**
+      ticked. The secret token is shown once. To get a new one, disconnect and connect again.
+   4. Sign in again to see the group on the dashboard.
+
+   To replace an expiring token, connect the same path again with the new token. The webhook
+   stays as it is.
 
 ## Running the tests
 

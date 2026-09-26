@@ -36,6 +36,20 @@
   once, at startup and every five minutes.
 - The App's configured scan limits now apply to scans that read a team's own API records too;
   those used the engine's defaults, which are the same values unless they were changed.
+- **GitLab, beside the GitHub App.** Sign in with GitLab (gitlab.com or a self-managed instance, with
+  the `read_api` scope only) and see your GitLab groups on the organisation dashboard, limited to
+  the projects GitLab lets you read. A maintainer connects a group or project with an access token
+  (Maintainer role, `api` scope) on `/app`. DocsWatcher stores the token AES-256-GCM encrypted
+  under a key from a secret file, never in plain text. Each push to the default branch is scanned
+  with the same engine and limits. Each finding opens an issue, which closes when the code is
+  gone, and the commit gets a `DocsWatcher` status. The snooze, not-in-prod and not-affected
+  labels, closing and reopening work as on GitHub. There is no fix pull request on GitLab yet.
+  Webhooks go to `/webhooks/gitlab`, authenticated by a per-connection secret token that
+  DocsWatcher keeps only as a hash. New settings: `GITLAB_BASE_URL`, `GITLAB_CLIENT_ID`, and the
+  secret files `docswatcher.gitlab.client-secret` and `docswatcher.gitlab.token-key`. Migration
+  `V7__gitlab.sql`. See `docs/adr/0011-gitlab.md` and "Connecting GitLab" in
+  `docs/07-getting-started.md`. GitHub behaviour is unchanged. `/auth/me` also says which sign-ins
+  exist (`providers`) and which one a session used (`provider`).
 - **GitLab CI template.** `include:` `ci/gitlab/docswatcher.gitlab-ci.yml` from a release tag.
   The job downloads the Linux binary, checks it against the release's `checksums.txt` and fails
   closed like the Action does. It fails the pipeline on a breaking finding and writes a Code

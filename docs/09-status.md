@@ -6,6 +6,8 @@ Last updated 2026-09-24. Everything below was verified by running it on that dat
 
 The scanner works end to end from a browser, a command line, CI, a GitHub App and now a coding
 agent. The knowledge base is watched daily. What is thin is reach: 27 providers, eight languages
+The scanner works end to end from a browser, a command line, CI, a GitHub App, a connected GitLab
+group and a coding agent. The knowledge base is watched daily. What is thin is reach: fifteen providers, eight languages
 for call sites, and no native binary for Intel Macs.
 
 ## Built and verified
@@ -20,9 +22,10 @@ for call sites, and no native binary for Intel Macs.
 | Your own APIs | A repository's `.docswatcher/` records and the organisation's `.docswatcher` repository, in both engines, the CLI (`--knowledge-extra`), the Action (`knowledge`), MCP, the App and the site | 9 shared validation cases replayed by both engines; the `internal-orders-own-records` fixture passes parity; CLI, App and browser tests |
 | Command line | `scan`, `match` (with `--report` and `--inventory` from one scan), `validate`, `mcp`, and `--exclude` | 28 tests pass; the release smoke-tests the native binary on Linux, macOS and Windows |
 | MCP server | `check_api`, `upcoming_deprecations`, `scan_repository` | Covered by the CLI tests above, including the shared `check_api` cases; a real Claude Code session used it unprompted |
-| Server app | Webhooks, scan worker, REST API, fix dispatch, runtime observation with per-repository ingest tokens, org blast radius, sign-in with GitHub with per-organisation and per-repository access (ADR 0008). Each scan runs in a process of its own with a heap cap and a timeout, so a parser crash fails one run, not the server; runs left running by a restart are failed and retried once (ADR 0011) | 141 tests, run in CI (they need Postgres); the OAuth round trip runs against a scripted GitHub; fix pull requests run an agent that can only edit the files a finding names |
+| Server app | Webhooks, scan worker, REST API, fix dispatch, runtime observation with per-repository ingest tokens, org blast radius, sign-in with GitHub with per-organisation and per-repository access (ADR 0008). Each scan runs in a process of its own with a heap cap and a timeout, so a parser crash fails one run, not the server; runs left running by a restart are failed and retried once (ADR 0011); GitLab beside the GitHub App: sign-in, push scans, issues and commit statuses (ADR 0012) | 141 tests, run in CI (they need Postgres); the OAuth round trip runs against a scripted GitHub; fix pull requests run an agent that can only edit the files a finding names |
 | Web site | Scanner, calendar with subscriptions, dashboard (browser scan signed out; the organisation dashboard signed in), finding detail with linked evidence, CI, Agents and Teams pages, live scan links | 51 browser tests pass; the organisation dashboard's run against a mocked API |
-| Organisation dashboard | Sign in with GitHub; overview, provider map, horizon, repositories, findings with snooze, not-in-production and fix, blast radius of one change; what actually runs per repository, with ingest tokens and the setup guide | Built and tested; live once the App's client secret and the `/auth/` and `/api/` routes are deployed |
+| Organisation dashboard | Sign in with GitHub or GitLab; overview, provider map, horizon, repositories, findings with snooze, not-in-production and fix, blast radius of one change; what actually runs per repository, with ingest tokens and the setup guide | Built and tested; live once the App's client secret and the `/auth/` and `/api/` routes are deployed |
+| GitLab | Sign-in with GitLab, groups and projects connected with an encrypted maintainer access token, push scans, an issue per finding, a commit status, issue labels and closes, GitLab groups on the organisation dashboard (ADR 0011) | 51 of the app's tests, against a scripted GitLab (MockRestServiceServer): sign-in, connecting, webhook tokens and namespace bounds, a scan end to end with its issue, close and status; 3 browser tests. Not yet run against a real GitLab instance |
 | Feeds | iCalendar (all and per provider), Atom, open JSON | 11 tests; parsed by the `icalendar` library; served correctly by nginx 1.27 |
 | Knowledge watch | Daily fetch of every cited page (68 since the 2026-09-24 providers), issue on news, optional agent-drafted pull request | 16 tests; two live runs over the 26 sources cited before then, the second reporting no change; every page the new providers cite answered 200 when they were added |
 | Open-source study | Cohort runner and aggregate summary | First cohort: `study/2026-09-openai-top50` |
@@ -32,7 +35,7 @@ for call sites, and no native binary for Intel Macs.
 | Relay worker | Tarball streaming with permissive origins. Not used by the deployed site; kept for self-hosters | 10 tests pass |
 | Deployment | Live behind a Cloudflare Tunnel, five containers, no inbound ports | Runbooks in the private operations repository |
 
-Total: 392 Java tests (223 engine, 28 CLI, 141 app), 142 TypeScript unit tests, 40 browser tests,
+Total: 460 Java tests (223 engine, 28 CLI, 209 app), 142 TypeScript unit tests, 40 browser tests,
 10 relay tests and 3 notify tests. The app's tests need Postgres and run in CI rather than on a developer's machine;
 every other number here was produced by running that suite.
 
@@ -58,6 +61,7 @@ Ordered by what is most likely to cost a user today.
 5. **Alerts beyond email and Slack.** Microsoft Teams, webhooks to anything else, and alerts for
    runtime-only evidence are not built. Team alerts are sent from one app process; two processes
    could both send before either records.
+5. **Fix pull requests on GitLab.** A GitLab project gets issues, a commit status and the dashboard, but no fix pull request: the fix loop is a GitHub `repository_dispatch`, and a GitLab pipeline trigger would be its counterpart. Findings are not posted as merge request notes either; default-branch scans have no merge request, and the commit status is what merge requests show (ADR 0011).
 6. **Your own APIs in the App's dashboard.** Issues and check runs carry a team's own change records in full, but the dashboard and fix pull requests look change records up in the bundled knowledge, so they show such a finding by its change id. The App reads only the owner's `.docswatcher` repository.
 
 ## Technical notes

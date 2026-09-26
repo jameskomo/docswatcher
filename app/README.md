@@ -1,6 +1,7 @@
 # DocsWatcher app
 
 Spring Boot 4.1 on Java 25. GitHub App webhooks, the scan worker, and the dashboard API. One server process, one Postgres, and a short-lived process per scan. The worker polls the `scan_run` table; there is no queue service.
+Spring Boot 4.1 on Java 25. GitHub App and GitLab webhooks, the scan worker, and the dashboard API. One process, one Postgres. The worker polls the `scan_run` table; there is no queue service.
 
 Read `docs/01-architecture.md` for the data flows this module implements.
 
@@ -14,7 +15,7 @@ docker compose up -d db                      # Postgres on 5432
 curl localhost:8080/actuator/health
 ```
 
-The `dev` profile turns off the API token check. Every other profile requires either `Authorization: Bearer <DOCSWATCHER_API_TOKEN>` (the owner, sees everything) or a signed-in session cookie (a member, sees what GitHub lets them see). See "Sign-in with GitHub" below.
+The `dev` profile turns off the API token check. Every other profile requires either `Authorization: Bearer <DOCSWATCHER_API_TOKEN>` (the owner, sees everything) or a signed-in session cookie (a member, sees what GitHub or GitLab lets them see). See "Sign-in with GitHub" and "GitLab setup" below.
 
 For the organisation dashboard locally, run the site with `npm run dev` in `web/`. It proxies `/api` and `/auth` to this app on :8080, so the browser sees one origin, as it does behind nginx. Set `DOCSWATCHER_WEB_ORIGIN=http://localhost:3000` and add `http://localhost:3000/auth/github/callback` as a second callback URL on a development App.
 
@@ -33,6 +34,10 @@ To run the JVM image in compose instead: `../mvnw -pl app spring-boot:build-imag
 | `GITHUB_CLIENT_ID` | The App's client id, for sign-in with GitHub | blank, which turns sign-in off |
 | `GITHUB_CLIENT_SECRET` | The App's client secret. In production it is a file secret instead: `/run/secrets/docswatcher.github.client-secret`, which takes precedence | blank, which turns sign-in off |
 | `GITHUB_WEB_BASE` | Where people sign in, for GitHub Enterprise | `https://github.com` |
+| `GITLAB_BASE_URL` | The GitLab instance: gitlab.com or a self-managed one's web address. Sign-in, clones and API calls all go there | `https://gitlab.com` |
+| `GITLAB_CLIENT_ID` | The GitLab OAuth application's id, for sign-in with GitLab | blank, which turns GitLab sign-in off |
+| `GITLAB_CLIENT_SECRET` | Its secret. In production a file secret: `/run/secrets/docswatcher.gitlab.client-secret` | blank, which turns GitLab sign-in off |
+| `DOCSWATCHER_GITLAB_TOKEN_KEY` | Base64 of 32 random bytes (`openssl rand -base64 32`), the AES-256 key connected groups' access tokens are encrypted under. In production a file secret: `/run/secrets/docswatcher.gitlab.token-key` | blank, which turns GitLab connections off |
 | `DOCSWATCHER_API_TOKEN` | Bearer token for `/api/**`: the owner's access | blank |
 | `DOCSWATCHER_WEB_ORIGIN` | The site's public origin. Used for CORS, as the only `Origin` a signed-in member's POST may carry, and as the base of the sign-in callback and redirect. Production: `https://docswatcher.vukisha.co.ke` | `http://localhost:3000` |
 | `DOCSWATCHER_NOTIFY_URL`, `DOCSWATCHER_NOTIFY_TOKEN` | Where early-access requests are emailed from (`notify/`), and its token. Unset: stored only | blank |
@@ -104,6 +109,31 @@ Findings arrive as issues labelled `docswatcher` and `docswatcher:<severity>`. A
 
 Closing a finding's issue by hand is the same verdict as `docswatcher:not-affected`, and reopening it makes the finding open again. The App closes issues itself when a finding's evidence disappears; those closes come from its bot account and are ignored. Labels, closes and reopens all require the sender to have write permission or above on the repository; anything less, or a permission the App cannot look up, is ignored.
 
+## GitLab setup
+
+GitLab has no App to install. A person signs in through a GitLab OAuth application, and each group
+is connected with an access token its maintainer creates for DocsWatcher. See
+`docs/adr/0011-gitlab.md` for the design, and "Connecting GitLab" in `docs/07-getting-started.md`
+for the owner's steps.
+
+1. **Token key.** `openssl rand -base64 32`, stored as the Docker secret
+   `docswatcher.gitlab.token-key`. Keep a copy somewhere safe: without it, stored tokens cannot be
+   read, and every group has to be connected again.
+2. **OAuth application** (for sign-in), on the instance in `GITLAB_BASE_URL`: callback
+   `{DOCSWATCHER_WEB_ORIGIN}/auth/gitlab/callback`, confidential, scope `read_api` only. Its id goes
+   in `GITLAB_CLIENT_ID`, its secret in the Docker secret `docswatcher.gitlab.client-secret`.
+3. **Routes.** nginx routes `/auth/` (which already covers `/auth/gitlab/`) and `/webhooks/gitlab`
+   on the site's host to the app.
+4. **Connecting a group.** A maintainer signs in with GitLab and fills in "Connect a GitLab group"
+   on `/app`, or the owner calls `POST /api/gitlab/connections` with the bearer token. They then
+   add the webhook it gives them (Push events and Issues events).
+
+Findings arrive as issues labelled `docswatcher` and `docswatcher:<severity>`. The snooze,
+not-in-prod and not-affected labels, closing and reopening work as on GitHub, from Developer and
+above. Each scan sets a `DocsWatcher` commit status: `failed` for a breaking finding in a
+production project, otherwise `success`, with what is open in the description. There is no fix
+pull request on GitLab.
+
 ## Fix handoff
 
 Customers add `src/main/resources/templates/docswatcher-fix.yml` to their repository as `.github/workflows/docswatcher-fix.yml` and set the `ANTHROPIC_API_KEY` secret. The app serves the file at `GET /api/setup/workflow`. Pressing Fix, or adding the fix label, sends a `repository_dispatch` event of type `docswatcher-fix` whose `client_payload` holds the finding with its evidence locations (path, line, column; no source text), the migration block, and the guide URL. Claude Code runs in the customer's Actions with the customer's key. DocsWatcher never spends tokens on a fix.
@@ -147,7 +177,9 @@ Outside `/api`, `POST /early-access` takes the Teams page form without a token: 
 length-limited, a honeypot, 5 requests per client per hour, one row per email. See
 `docs/adr/0005-early-access-requests.md`.
 
-Sign-in, outside `/api`: `GET /auth/github/login`, `GET /auth/github/callback`, `GET /auth/me`, and `POST /auth/logout`.
+GitLab connections: `GET /gitlab/connections`, `POST /gitlab/connections` with `{"namespace": "...", "token": "..."}`, and `POST /gitlab/connections/{id}/disconnect`. Signed-in members may use them; the token is the authority to connect, and GitLab's Maintainer role to disconnect.
+
+Sign-in, outside `/api`: `GET /auth/github/login`, `GET /auth/github/callback`, `GET /auth/gitlab/login`, `GET /auth/gitlab/callback`, `GET /auth/me`, and `POST /auth/logout`. GitLab webhooks: `POST /webhooks/gitlab`.
 
 Health: `GET /actuator/health`, no token.
 
@@ -158,6 +190,7 @@ Health: `GET /actuator/health`, no token.
 ```
 
 Needs Docker for the Postgres Testcontainer. The suite covers webhook signatures, webhook replay from recorded payloads, the scan worker end to end against a local git repository, the dashboard API, and the Flyway schema. The engine is replaced by a deterministic fake behind the `ScanEngine` interface, so these tests do not depend on the engine's detectors. `ProcessScanEngineIT` starts real scan processes: it scans every fixture in a process and in the JVM and compares the results, and checks that a crash, a hang, a heap overrun and a flood of output each become a failed scan with a clear message. `ScanIsolationIT` runs a crashing scan through the worker and reclaims abandoned runs.
+Needs Docker for the Postgres Testcontainer. The suite covers webhook signatures, webhook replay from recorded payloads, the scan worker end to end against a local git repository, the dashboard API, and the Flyway schema. GitLab is a MockRestServiceServer behind the real `GitLabApi`: its sign-in, connections, webhook tokens, and a scan with its issues and commit status. The engine is replaced by a deterministic fake behind the `ScanEngine` interface, so these tests do not depend on the engine's detectors.
 
 ## Native image
 
