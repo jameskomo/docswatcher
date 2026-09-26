@@ -12,7 +12,7 @@ for call sites, and no native binary for Intel Macs.
 
 | Component | State | Evidence |
 |---|---|---|
-| Knowledge base | 27 providers, 309 change records, 111 fixtures | `knowledge/scripts/validate` reports 0 errors |
+| Knowledge base | 27 providers, 315 change records, 113 fixtures | `knowledge/scripts/validate` reports 0 errors |
 | Java engine | 3 detection layers, exclusion rules, matcher, validator, `Matcher.lookup` | 198 tests pass |
 | TypeScript engine | Same three layers and the same exclusion rules, runs in the browser | Part of the 99 TypeScript unit tests below |
 | Two-engine parity | Byte-identical output on every fixture | `npm run parity` passes |
