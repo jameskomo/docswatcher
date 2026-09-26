@@ -379,7 +379,8 @@ several organisations, a picker switches between them.
 - **The blast radius of one shutdown.** Pick a change and see every repository and location it touches.
 - **Warned before the date.** Where the organisation's alerts go: up to ten email addresses and a
   Slack incoming webhook, and how many days ahead (30 and 7 by default). Anyone who sees the
-  organisation reads them; writers change them and can send a test. See section 8.
+  organisation reads them; writers change them and can send a test, which goes to the saved
+  addresses and webhook, so it is offered once one is saved and the screen says so. See section 8.
 - **What actually runs.** Per repository, from the customer's own OpenTelemetry: the deprecated
   calls production made (endpoint, provider, calls in total and a day, last seen, and the finding
   each confirms or the provider's own Sunset or Deprecation header), and the open endpoint

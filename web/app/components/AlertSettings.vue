@@ -87,6 +87,15 @@ async function sendTest() {
 
 const editable = computed(() => !!settings.value?.canEdit);
 const channels = computed(() => (settings.value?.emails.length ?? 0) > 0 || !!settings.value?.slack.configured);
+/** The test goes to what is saved, not what is typed, so say so rather than leave a grey button unexplained. */
+const unsaved = computed(() => !!settings.value && (
+  splitEmails(form.emails).join() !== settings.value.emails.join() || !!form.slack.trim() || form.removeSlack));
+const testHint = computed(() => {
+  if (!channels.value) return unsaved.value
+    ? "Save alerts first: the test goes to the saved addresses and webhook."
+    : "Add an email address or a Slack webhook and save, then send a test.";
+  return unsaved.value ? "The test goes to the saved addresses and webhook, not the changes above until you save." : "";
+});
 
 watch(() => props.login, load);
 onMounted(load);
@@ -146,6 +155,7 @@ onMounted(load);
             {{ state === "testing" ? "Sending" : "Send a test" }}
           </button>
         </div>
+        <p v-if="editable && testHint" class="t1 ink-faint" data-testid="alerts-test-hint">{{ testHint }}</p>
         <p v-else class="t2 ink-faint" data-testid="alerts-readonly">
           People with write access to one of {{ login }}'s repositories can change these.
         </p>

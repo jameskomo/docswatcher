@@ -242,12 +242,17 @@ test("alerts: a writer sees and saves the organisation's settings; the Slack web
   await expect(page.getByTestId("alerts-slack-set")).toContainText("…wxyz");
   await expect(page.getByTestId("alerts-slack")).toHaveValue("");
 
+  // Saved channels: the test is on offer, with nothing to explain until something is typed.
+  await expect(page.getByTestId("alerts-test")).toBeEnabled();
+  await expect(page.getByTestId("alerts-test-hint")).toHaveCount(0);
+
   // A refusal shows the server's reason, as text.
   await page.getByTestId("alerts-emails").fill("bad");
   await page.getByTestId("alerts-save").click();
   await expect(page.getByTestId("alerts-outcome")).toHaveText("Not an email address: bad");
 
   await page.getByTestId("alerts-emails").fill("ops@acme.test\nlead@acme.test, ops@acme.test");
+  await expect(page.getByTestId("alerts-test-hint")).toContainText("not the changes above until you save");
   await page.getByTestId("alerts-thresholds").fill("14, 3");
   await page.getByTestId("alerts-save").click();
   await expect(page.getByTestId("alerts-outcome")).toHaveText("Saved.");
@@ -262,6 +267,18 @@ test("alerts: a writer sees and saves the organisation's settings; the Slack web
 
   await page.getByTestId("alerts-test").click();
   await expect(page.getByTestId("alerts-outcome")).toHaveText("Sent 1 email and a Slack message.");
+});
+
+test("alerts: with nothing saved, the grey test button says why", async ({ page }) => {
+  await mockApi(page, ME_IN);
+  await page.route("**/api/orgs/acme/alerts", (route) => route.request().method() === "GET"
+    ? route.fulfill({ json: { login: "acme", enabled: true, emails: [], slack: { configured: false }, thresholds: [30, 7], canEdit: true, emailAvailable: true, updatedBy: null } })
+    : route.fallback());
+  await page.goto("./#/app");
+  await expect(page.getByTestId("alerts-test")).toBeDisabled();
+  await expect(page.getByTestId("alerts-test-hint")).toHaveText("Add an email address or a Slack webhook and save, then send a test.");
+  await page.getByTestId("alerts-emails").fill("ops@acme.test");
+  await expect(page.getByTestId("alerts-test-hint")).toHaveText("Save alerts first: the test goes to the saved addresses and webhook.");
 });
 
 test("alerts: someone without write access sees the settings read-only", async ({ page }) => {
