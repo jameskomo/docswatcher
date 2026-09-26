@@ -12,7 +12,7 @@ import { ingestEndpoint } from "~/utils/runtime";
  *
  * It shows only what the server returns for this session, which is already narrowed to the
  * repositories GitHub or GitLab says the person can see (docs/adr/0008-sign-in-with-github.md,
- * docs/adr/0011-gitlab.md). Everything is rendered as text.
+ * docs/adr/0012-gitlab.md). Everything is rendered as text.
  */
 const props = defineProps<{ me: Me; api: OrgApi }>();
 const emit = defineEmits<{ "signed-out": [] }>();

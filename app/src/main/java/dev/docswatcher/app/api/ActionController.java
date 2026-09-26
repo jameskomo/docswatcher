@@ -105,7 +105,7 @@ public class ActionController {
   }
 
   private ResponseEntity<Dto.Ack> doFix(long repoId, String contractId, String changeId) {
-    // The fix workflow is a GitHub repository_dispatch. GitLab has no counterpart yet (ADR 0011),
+    // The fix workflow is a GitHub repository_dispatch. GitLab has no counterpart yet (ADR 0012),
     // so a GitLab project is told so instead of failing inside the dispatcher.
     if (repos.find(repoId).map(Repo::isGitLab).orElse(false)) {
       return ResponseEntity.status(HttpStatus.CONFLICT).body(new Dto.Ack("unsupported", "Fix pull requests are GitHub only; GitLab projects get the issue and the dashboard."));

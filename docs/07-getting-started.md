@@ -122,7 +122,7 @@ Without GitHub credentials it starts and serves the API but has nothing to scan.
 
 GitLab teams get the same service as the GitHub App: a scan on every push to the default branch, an
 issue per finding, a `DocsWatcher` commit status, and the organisation dashboard. The design is in
-`docs/adr/0011-gitlab.md`. As the deployment's owner, you do steps 1 to 4 once. Each team then
+`docs/adr/0012-gitlab.md`. As the deployment's owner, you do steps 1 to 4 once. Each team then
 does step 5 for its group.
 
 1. **Generate the token key.** Run `openssl rand -base64 32` and store the output as the Docker

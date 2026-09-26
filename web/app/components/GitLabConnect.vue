@@ -4,7 +4,7 @@ import { fmtDate } from "~/utils/format";
 
 /**
  * Connecting a GitLab group or project: a maintainer's access token in, a webhook to add out.
- * docs/adr/0011-gitlab.md.
+ * docs/adr/0012-gitlab.md.
  *
  * The token is sent once to the app on this site and not kept by the page: the field is cleared
  * whatever the answer. The webhook's secret token is shown once, the only time the app has it.

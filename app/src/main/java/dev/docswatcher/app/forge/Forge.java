@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Where a repository lives, as far as a scan is concerned: how to clone it, and how to say what
  * the scan found. GitHub answers with a check run and issues, GitLab with a commit status and
- * issues. The scan itself, the reconciliation and the wording are shared (docs/adr/0011-gitlab.md).
+ * issues. The scan itself, the reconciliation and the wording are shared (docs/adr/0012-gitlab.md).
  */
 public interface Forge {
 

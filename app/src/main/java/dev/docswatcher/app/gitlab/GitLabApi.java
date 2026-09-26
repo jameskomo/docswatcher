@@ -19,7 +19,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
 
 /**
- * Everything DocsWatcher asks GitLab, over REST API v4 (docs/adr/0011-gitlab.md).
+ * Everything DocsWatcher asks GitLab, over REST API v4 (docs/adr/0012-gitlab.md).
  *
  * <p>Stateless: every call takes the token it spends. Sign-in passes the person's OAuth token,
  * which is used during the callback and dropped; scans and webhooks pass the connection's access

@@ -3,7 +3,7 @@ import { normaliseRuntimeSummary, type CreatedToken, type IngestToken, type Runt
 
 /**
  * The organisation dashboard's view of the app's API. docs/adr/0008-sign-in-with-github.md and
- * docs/adr/0011-gitlab.md.
+ * docs/adr/0012-gitlab.md.
  *
  * Every call is same-origin and resolved against the page's own address, like the early-access
  * form, so the static site works wherever it is served. Authentication is the HttpOnly session

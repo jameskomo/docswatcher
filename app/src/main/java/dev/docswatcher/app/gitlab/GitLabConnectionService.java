@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Connecting a GitLab group or project with an access token a maintainer created for it
- * (docs/adr/0011-gitlab.md).
+ * (docs/adr/0012-gitlab.md).
  *
  * <p>The token is its own proof of authority. GitLab is asked whose it is, whether it carries the
  * api scope, and what role its user holds on the namespace; below Maintainer, the connection is

@@ -351,7 +351,7 @@ there are no tracking pixels (ADR 0010).
 **Signed in with GitHub or GitLab: every repository, one view.** Sign-in with GitHub uses the
 DocsWatcher GitHub App's own OAuth client (ADR 0008). The dashboard then covers every organisation
 where the App is installed, limited to the repositories GitHub lets the person see. Sign-in with
-GitLab uses a GitLab OAuth application with the `read_api` scope (ADR 0011). It covers the
+GitLab uses a GitLab OAuth application with the `read_api` scope (ADR 0012). It covers the
 connected groups, limited to the projects where the person is Reporter or above. If there are
 several organisations, a picker switches between them.
 
@@ -424,7 +424,7 @@ Light and dark themes from CSS custom properties, a phone-width layout with no h
 ## 8. The server app
 
 Spring Boot 4 on Java 25. This is the backend for the GitHub App and for connected GitLab groups
-(ADR 0011).
+(ADR 0012).
 
 ### Webhooks
 

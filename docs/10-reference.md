@@ -79,7 +79,7 @@ Served by the app module. Base path `/api`. All responses are JSON.
 
 ### Authentication
 
-Two principals (ADR 0008, ADR 0011).
+Two principals (ADR 0008, ADR 0012).
 
 **The owner** holds the bearer token from `DOCSWATCHER_API_TOKEN` and sees everything:
 
@@ -135,7 +135,7 @@ A request with neither a token nor a live session gets 401.
 | Method | Path | Purpose |
 |---|---|---|
 | POST | `/webhooks/github` | GitHub App events. Verifies `X-Hub-Signature-256`, responds 202 |
-| POST | `/webhooks/gitlab` | GitLab push and issue hooks. `X-Gitlab-Token` must be a connection's webhook token, or 401. Retries are dropped on `Idempotency-Key` or `X-Gitlab-Event-UUID`. Responds 202 (ADR 0011) |
+| POST | `/webhooks/gitlab` | GitLab push and issue hooks. `X-Gitlab-Token` must be a connection's webhook token, or 401. Retries are dropped on `Idempotency-Key` or `X-Gitlab-Event-UUID`. Responds 202 (ADR 0012) |
 | POST | `/early-access` | The Teams page form. Public: validated, rate-limited per client, honeypot-checked; one row per email (ADR 0005) |
 | POST | `/subscribe` | The calendar's email alerts: `{"email", "providers": [ids], "website"}`. Public: validated, rate-limited per client (five an hour), honeypot-checked. Sends one confirmation email, at most once an hour per address, and answers 201 `{"ok": true}` whatever the address's state. 400 for an invalid address or an unknown provider id, 503 when email is not configured (ADR 0010) |
 | GET | `/subscribe/confirm?token=` | The confirmation link: a page with a Confirm button. Changes nothing, so a mail scanner fetching it subscribes nobody. 400 once the link's seven days are over |
@@ -144,7 +144,7 @@ A request with neither a token nor a live session gets 401.
 | POST | `/unsubscribe?token=` | The same, for RFC 8058 one-click unsubscribe from a mail program |
 | GET | `/auth/github/login` | Starts sign-in with GitHub: a 302 to GitHub with a state and a PKCE challenge, both remembered in `__Host-docswatcher_oauth`. 503 when sign-in is not configured (ADR 0008) |
 | GET | `/auth/github/callback` | GitHub returns here. Checks the state, exchanges the code, records the person's access, sets `__Host-docswatcher_session`, and redirects to `/#/app`. On failure it redirects to `/#/app?signin=denied`, `failed` or `unavailable` |
-| GET | `/auth/gitlab/login` | Starts sign-in with GitLab: a 302 to `{base-url}/oauth/authorize` with `scope=read_api`, a state and a PKCE challenge, remembered in `__Host-docswatcher_oauth_gitlab`. 503 when not configured (ADR 0011) |
+| GET | `/auth/gitlab/login` | Starts sign-in with GitLab: a 302 to `{base-url}/oauth/authorize` with `scope=read_api`, a state and a PKCE challenge, remembered in `__Host-docswatcher_oauth_gitlab`. 503 when not configured (ADR 0012) |
 | GET | `/auth/gitlab/callback` | GitLab returns here. As the GitHub callback, with access taken from the connected projects the person is a member of at Reporter or above |
 | GET | `/auth/me` | `{enabled, providers: {github, gitlab}, signedIn, provider, user, orgs, expiresAt}`. `enabled` is true when any sign-in exists. Always 200, never cached |
 | POST | `/auth/logout` | Ends the session and clears the cookie. 204. Same-origin only |

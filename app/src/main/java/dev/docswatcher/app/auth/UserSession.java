@@ -7,7 +7,7 @@ import java.util.List;
  * A signed-in person, and a snapshot of what GitHub or GitLab said they may see when they signed in.
  *
  * <p>The snapshot is the authorisation. It is taken once, at sign-in, from the person's own
- * token, and it expires with the session; the token itself is not kept (ADR 0008, ADR 0011).
+ * token, and it expires with the session; the token itself is not kept (ADR 0008, ADR 0012).
  *
  * @param githubId the person's user id at {@code provider}; the name predates GitLab
  * @param provider "github" or "gitlab", whichever they signed in with

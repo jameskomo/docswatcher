@@ -186,7 +186,7 @@ public class AuthController {
   @GetMapping("/auth/me")
   public ResponseEntity<Map<String, Object>> me(HttpServletRequest request) {
     Map<String, Object> body = new LinkedHashMap<>();
-    // enabled: any sign-in exists here. providers: which ones, so the site offers each (ADR 0011).
+    // enabled: any sign-in exists here. providers: which ones, so the site offers each (ADR 0012).
     body.put("enabled", oauth.enabled() || gitlab.signInEnabled());
     Map<String, Object> providers = new LinkedHashMap<>();
     providers.put("github", oauth.enabled());

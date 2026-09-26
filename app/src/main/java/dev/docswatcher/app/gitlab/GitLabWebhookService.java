@@ -22,7 +22,7 @@ import tools.jackson.databind.JsonNode;
 
 /**
  * GitLab's push and issue hooks, turned into queued scans and finding states: the GitLab half of
- * what {@code WebhookService} does for the GitHub App (docs/adr/0011-gitlab.md).
+ * what {@code WebhookService} does for the GitHub App (docs/adr/0012-gitlab.md).
  *
  * <p>The webhook token says which connection sent the event. That connection's namespace then
  * bounds what the event may touch: a project outside it is ignored, however the payload names it.

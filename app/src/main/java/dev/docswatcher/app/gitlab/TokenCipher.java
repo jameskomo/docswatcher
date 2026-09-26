@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Encrypts the GitLab access tokens DocsWatcher has to spend, so the database never holds one in
- * plain text (docs/adr/0011-gitlab.md).
+ * plain text (docs/adr/0012-gitlab.md).
  *
  * <p>AES-256-GCM under a key read from a secret file, a fresh 96-bit nonce per token, and the
  * connection's id as associated data: a ciphertext copied onto another connection's row does not

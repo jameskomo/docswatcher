@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
 /**
- * GitLab: one instance per deployment, gitlab.com or a self-managed one (docs/adr/0011-gitlab.md).
+ * GitLab: one instance per deployment, gitlab.com or a self-managed one (docs/adr/0012-gitlab.md).
  *
  * <p>The two secrets are read like the GitHub App's, from files the config tree maps onto these
  * properties: {@code /run/secrets/docswatcher.gitlab.client-secret} and

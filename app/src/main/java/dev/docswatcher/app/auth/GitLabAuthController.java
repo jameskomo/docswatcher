@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
- * Sign-in with GitLab, the counterpart of {@link AuthController} (docs/adr/0011-gitlab.md).
+ * Sign-in with GitLab, the counterpart of {@link AuthController} (docs/adr/0012-gitlab.md).
  *
  * <p>The same flow: a random state and a PKCE S256 challenge remembered in a short-lived
  * {@code __Host-} cookie, a callback that refuses a state it did not issue, a code exchange, and a

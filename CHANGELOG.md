@@ -47,7 +47,7 @@
   Webhooks go to `/webhooks/gitlab`, authenticated by a per-connection secret token that
   DocsWatcher keeps only as a hash. New settings: `GITLAB_BASE_URL`, `GITLAB_CLIENT_ID`, and the
   secret files `docswatcher.gitlab.client-secret` and `docswatcher.gitlab.token-key`. Migration
-  `V7__gitlab.sql`. See `docs/adr/0011-gitlab.md` and "Connecting GitLab" in
+  `V7__gitlab.sql`. See `docs/adr/0012-gitlab.md` and "Connecting GitLab" in
   `docs/07-getting-started.md`. GitHub behaviour is unchanged. `/auth/me` also says which sign-ins
   exist (`providers`) and which one a session used (`provider`).
 - **GitLab CI template.** `include:` `ci/gitlab/docswatcher.gitlab-ci.yml` from a release tag.

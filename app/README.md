@@ -113,7 +113,7 @@ Closing a finding's issue by hand is the same verdict as `docswatcher:not-affect
 
 GitLab has no App to install. A person signs in through a GitLab OAuth application, and each group
 is connected with an access token its maintainer creates for DocsWatcher. See
-`docs/adr/0011-gitlab.md` for the design, and "Connecting GitLab" in `docs/07-getting-started.md`
+`docs/adr/0012-gitlab.md` for the design, and "Connecting GitLab" in `docs/07-getting-started.md`
 for the owner's steps.
 
 1. **Token key.** `openssl rand -base64 32`, stored as the Docker secret

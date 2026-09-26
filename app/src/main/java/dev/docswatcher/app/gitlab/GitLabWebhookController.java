@@ -13,7 +13,7 @@ import tools.jackson.databind.ObjectMapper;
 /**
  * GitLab's project and group webhooks. GitLab does not sign bodies; it sends back the secret
  * token the hook was configured with, in {@code X-Gitlab-Token}, and that token is what
- * authenticates the request (docs/adr/0011-gitlab.md).
+ * authenticates the request (docs/adr/0012-gitlab.md).
  */
 @RestController
 public class GitLabWebhookController {

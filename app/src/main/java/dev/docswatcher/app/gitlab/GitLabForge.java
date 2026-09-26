@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * A GitLab project, as a {@link Forge}: cloned and answered with the access token of the
- * connection that holds it (docs/adr/0011-gitlab.md).
+ * connection that holds it (docs/adr/0012-gitlab.md).
  *
  * <p>The verdict is a commit status named DocsWatcher, which GitLab shows on the commit and on
  * any merge request whose head it is. GitLab statuses have no neutral, so GitHub's neutral (open

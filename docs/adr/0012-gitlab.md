@@ -1,4 +1,4 @@
-# ADR 0011: GitLab, beside the GitHub App
+# ADR 0012: GitLab, beside the GitHub App
 
 Date: 2026-09-26
 Status: accepted

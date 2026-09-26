@@ -1,4 +1,4 @@
--- GitLab, beside the GitHub App. docs/adr/0011-gitlab.md.
+-- GitLab, beside the GitHub App. docs/adr/0012-gitlab.md.
 --
 -- A GitLab group or project connected to DocsWatcher is an installation, and each of its
 -- projects is a repo, so contracts, findings, scan runs and the dashboard work unchanged. Their
