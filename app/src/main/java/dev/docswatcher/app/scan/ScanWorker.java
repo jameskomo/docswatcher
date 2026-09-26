@@ -1,8 +1,11 @@
 package dev.docswatcher.app.scan;
 
 import dev.docswatcher.app.config.AppProperties;
+import dev.docswatcher.app.config.ScanIsolationProperties;
+import dev.docswatcher.app.config.ScanLimitsProperties;
 import dev.docswatcher.app.store.ScanRun;
 import dev.docswatcher.app.store.ScanRunStore;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,16 +21,22 @@ public class ScanWorker implements SmartLifecycle {
 
   private static final Logger log = LoggerFactory.getLogger(ScanWorker.class);
 
+  /** How often runs left running are looked for, besides once at startup. */
+  static final Duration RECLAIM_EVERY = Duration.ofMinutes(5);
+
   private final AppProperties.Worker config;
   private final ScanRunStore runs;
   private final ScanRunner runner;
+  private final Duration reclaimAfter;
   private final AtomicBoolean running = new AtomicBoolean(false);
   private final List<Thread> threads = new ArrayList<>();
 
-  public ScanWorker(AppProperties properties, ScanRunStore runs, ScanRunner runner) {
+  public ScanWorker(AppProperties properties, ScanRunStore runs, ScanRunner runner, ScanLimitsProperties limits,
+      ScanIsolationProperties isolation) {
     this.config = properties.worker();
     this.runs = runs;
     this.runner = runner;
+    this.reclaimAfter = isolation.reclaimAfter(limits.limits(), Duration.ofSeconds(config.cloneTimeoutSeconds()));
   }
 
   @Override
@@ -38,7 +47,38 @@ public class ScanWorker implements SmartLifecycle {
     for (int i = 0; i < Math.max(1, config.threads()); i++) {
       threads.add(Thread.ofVirtual().name("scan-worker-" + i).start(this::loop));
     }
-    log.info("Scan worker started with {} virtual threads", threads.size());
+    threads.add(Thread.ofVirtual().name("scan-reclaim").start(this::reclaimLoop));
+    log.info("Scan worker started with {} virtual threads; runs still running after {} min are reclaimed",
+        threads.size() - 1, reclaimAfter.toMinutes());
+  }
+
+  /**
+   * Fails, and queues again once, the runs left running by a process that stopped: a restart
+   * mid-scan, or a crash that took the whole app down. Without this they would stay running forever,
+   * since claimNext only takes queued runs.
+   */
+  public ScanRunStore.Reclaimed reclaimAbandoned() {
+    ScanRunStore.Reclaimed r = runs.reclaimAbandoned(reclaimAfter);
+    if (r.failed() > 0) {
+      log.warn("Reclaimed {} scan runs left running for over {} min; {} queued again", r.failed(), reclaimAfter.toMinutes(), r.requeued());
+    }
+    return r;
+  }
+
+  private void reclaimLoop() {
+    while (running.get()) {
+      try {
+        reclaimAbandoned();
+      } catch (Exception e) {
+        log.warn("Reclaiming abandoned scan runs failed: {}", e.toString());
+      }
+      try {
+        Thread.sleep(RECLAIM_EVERY);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        return;
+      }
+    }
   }
 
   private void loop() {
