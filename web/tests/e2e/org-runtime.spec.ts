@@ -139,6 +139,9 @@ test("a token is created once, shown once, and revoked", async ({ page }) => {
   await page.goto("./#/app");
   await expect(page.getByTestId("runtime-token")).toHaveCount(1);
   await expect(page.getByTestId("runtime-token").first()).toContainText("dwi_AbCdEf…");
+  const explainer = page.getByTestId("runtime-token-explainer");
+  await expect(explainer).toContainText("the password your OpenTelemetry Collector sends with its data");
+  await expect(explainer).toContainText("cannot read this dashboard");
 
   await page.getByTestId("runtime-token-label").fill("staging collector");
   await page.getByTestId("runtime-create").click();

@@ -385,7 +385,9 @@ several organisations, a picker switches between them.
   each confirms or the provider's own Sunset or Deprecation header), and the open endpoint
   findings production has never been seen making. Model findings are counted, not listed as
   unseen, because an HTTP span cannot show a model name. Members with write access create and
-  revoke the repository's ingest tokens here; a new token is shown once. Until telemetry arrives
+  revoke the repository's ingest tokens here. An ingest token is the password the customer's
+  Collector sends with its data: upload only, for one repository, shown once, revocable. The
+  screen says so above the list. Until telemetry arrives
   the screen says so and opens the setup guide (docs/13-runtime-observation.md).
 
 What a person sees is a snapshot GitHub or GitLab gave at sign-in, and it lasts eight hours.

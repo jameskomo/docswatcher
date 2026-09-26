@@ -26,6 +26,28 @@ going away and when. Reading them turns a static finding into a proven one:
 It also ranks work honestly. An endpoint called twelve hundred times a day
 outranks one referenced in a file that has not executed since last year.
 
+## What an ingest token is
+
+An ingest token is a password for one direction only: sending call data *into*
+DocsWatcher. Your OpenTelemetry Collector puts it in the `Authorization` header
+of every export, and DocsWatcher uses it to answer two questions: is this data
+from someone allowed to send it, and which repository does it belong to.
+
+- **Upload only.** It is accepted on one route, the OTLP ingest. It cannot read
+  the dashboard, see findings, list repositories or change any setting.
+- **One repository.** It is made for one repository and can only add
+  observations to that one.
+- **Shown once.** Only a SHA-256 fingerprint is kept, so DocsWatcher cannot show
+  it again. Lose it and make another.
+- **Revocable.** Revoke it on the dashboard and the next export is refused.
+- **Optional.** You need one only if the repository runs as a service in
+  production and you want DocsWatcher to see what it actually calls. Static
+  scanning, alerts and fixes work without it.
+
+What travels with it is described under [What is sent](#what-is-sent): the
+method, host and path of outgoing calls and two response headers, never bodies
+or credentials.
+
 ## What a customer changes
 
 Three things. There is no DocsWatcher library to install, no agent, and no code

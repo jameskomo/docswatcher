@@ -309,7 +309,13 @@ const what = (r: RepoFinding) => contractLabel(r.finding.contract).key;
       <section class="section" id="org-runtime">
         <div class="section-head">
           <h2>What actually runs</h2>
-          <p>Which deprecated calls production really makes, and how often, from the OpenTelemetry you already run.</p>
+          <p>
+            The findings above come from your code: what it <em>could</em> call. This section shows what
+            your running service <em>actually</em> calls in production, and how often. It works from the
+            OpenTelemetry traces your services already produce: your Collector sends DocsWatcher a copy
+            of their outgoing API calls, and each one is matched to a finding. It is optional, and only
+            useful for a repository that runs as a service.
+          </p>
         </div>
         <OrgRuntime :api="api" :repos="repos" :endpoint="ingestEndpoint(siteBase(pageHref()))" @show-finding="showFinding" @expired="expired = true" />
       </section>

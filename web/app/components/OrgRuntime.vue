@@ -151,8 +151,9 @@ const statusNote = (f: RuntimeFindingRef) =>
         </template>
         <template v-else>
           No telemetry has arrived for <span class="mono">{{ repo.fullName }}</span> yet, so nothing
-          can be said about what production calls. Set it up below; it takes a token and a few lines
-          of Collector config.
+          can be said about what production calls. There is nothing to do unless this repository runs
+          as a service; if it does, the setup below takes an ingest token and a few lines of Collector
+          config.
         </template>
       </p>
 
@@ -217,6 +218,14 @@ const statusNote = (f: RuntimeFindingRef) =>
       </template>
 
       <h3>Ingest tokens</h3>
+      <p class="t2 ink-soft" data-testid="runtime-token-explainer">
+        An ingest token is the password your OpenTelemetry Collector sends with its data, so
+        DocsWatcher knows the data is yours and which repository it belongs to. It can only upload
+        call data for <span class="mono">{{ repo.fullName }}</span>: it cannot read this dashboard,
+        see findings or change anything. DocsWatcher keeps only a fingerprint of it, so the token is
+        shown once, when you create it. Revoke it and the next upload is refused. You need one only
+        when you connect a running service.
+      </p>
       <div v-if="tokens.length" class="table-wrap">
         <table data-testid="runtime-tokens">
           <thead><tr><th>Token</th><th>Label</th><th>Created</th><th>Last used</th><th></th></tr></thead>

@@ -73,7 +73,7 @@ const team: Array<{ id: string; icon: "dashboard" | "bell" | "chart" | "sync" | 
   },
   {
     id: "runtime", icon: "chart", title: "What actually runs",
-    text: "From the OpenTelemetry you already run: which deprecated calls production really makes, how often, and which findings it has never been seen making. Each repository has its own ingest tokens, made on the dashboard.",
+    text: "From the OpenTelemetry you already run: which deprecated calls production really makes, how often, and which findings it has never been seen making. Your Collector sends with an ingest token: an upload-only password for one repository, made on the dashboard, that cannot read or change anything.",
     links: [{ label: "Set it up", to: "/teams#runtime" }, { label: "Runtime observation", href: `${DOCS}/13-runtime-observation.md` }],
   },
   {

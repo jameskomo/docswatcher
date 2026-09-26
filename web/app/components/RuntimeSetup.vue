@@ -104,7 +104,8 @@ new NodeSDK({
   <div class="runtime-setup" data-testid="runtime-setup">
     <ol class="steps">
       <li>
-        <strong>Make an ingest token.</strong>
+        <strong>Make an ingest token</strong>, the password your Collector sends with its data. It
+        can only upload call data for one repository; it cannot read the dashboard or change anything.
         <span v-if="repo">
           One per repository: create it under <em>Ingest tokens</em> for <span class="mono">{{ repo }}</span>.
         </span>
