@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.4.0 (2026-09-26)
 
 - **Warned before the date.** Teams set where alerts go on the organisation dashboard: up to ten
   email addresses and a Slack incoming webhook, 30 and 7 days ahead by default. A daily job sends

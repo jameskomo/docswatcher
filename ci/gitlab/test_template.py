@@ -119,7 +119,7 @@ class Structure(unittest.TestCase):
     def test_the_documented_include_url_names_this_file(self):
         with open(TEMPLATE) as f:
             head = f.read(2000)
-        self.assertRegex(head, r"https://raw\.githubusercontent\.com/jameskomo/docswatcher/vX\.Y\.Z/ci/gitlab/docswatcher\.gitlab-ci\.yml")
+        self.assertRegex(head, r"https://raw\.githubusercontent\.com/jameskomo/docswatcher/v\d+\.\d+\.\d+/ci/gitlab/docswatcher\.gitlab-ci\.yml")
 
 
 class Behaviour(unittest.TestCase):

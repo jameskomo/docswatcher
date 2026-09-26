@@ -23,7 +23,7 @@ const monorepo = `      - uses: jameskomo/docswatcher@v0
           path: services/checkout`;
 
 const gitlab = `include:
-  - remote: https://raw.githubusercontent.com/jameskomo/docswatcher/vX.Y.Z/ci/gitlab/docswatcher.gitlab-ci.yml`;
+  - remote: https://raw.githubusercontent.com/jameskomo/docswatcher/v0.4.0/ci/gitlab/docswatcher.gitlab-ci.yml`;
 
 const gitlabSettings = `docswatcher:
   variables:
@@ -80,7 +80,7 @@ useHead({
 
       <h2 id="gitlab">GitLab CI</h2>
       <p>
-        Include the template from a release tag, with <code>vX.Y.Z</code> replaced by one. The
+        Include the template from a release tag, with <code>v0.4.0</code> replaced by one. The
         first release after v0.3.1 is the first that has it.
       </p>
       <Snippet :code="gitlab" testid="gitlab-include" />

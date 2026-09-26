@@ -10,7 +10,7 @@ request leaves your runner and no service needs to be reachable.
 
 > **v0.2.1 and earlier never failed a build.** Their native binary printed every finding as `{}`,
 > so the Action counted zero breaking findings. v0.3.0 fixed it and `@v0` points at the latest release; a
-> `version:` pinned to `v0.2.1` or earlier should be removed or set to `v0.3.1`. The Action now
+> `version:` pinned to `v0.2.1` or earlier should be removed or set to `v0.4.0`. The Action now
 > stops with an error on a report whose findings carry no severity rather than passing it. If your
 > pipeline ran an affected release, run it again once. Details in `CHANGELOG.md`.
 
@@ -48,7 +48,7 @@ if the two do not match.
 | `exclude` | empty | Paths to skip, one `.gitignore`-style pattern per line. The repository's `.gitignore` files and `.docswatcherignore` already apply without this. |
 | `knowledge` | empty | Directories of your own API records, one per line, such as a checkout of your organisation's `.docswatcher` repository. The scanned path's own `.docswatcher/` is read without this. See [Your own APIs](#your-own-apis). |
 | `report` | *(unset)* | Write the full JSON findings to this path, for a later step to upload or post. |
-| `version` | `latest` | Release tag of the CLI to download, for example `v0.3.1`. |
+| `version` | `latest` | Release tag of the CLI to download, for example `v0.4.0`. |
 
 ### Outputs
 
@@ -158,10 +158,10 @@ Include the template from a release tag in `.gitlab-ci.yml`:
 
 ```yaml
 include:
-  - remote: https://raw.githubusercontent.com/jameskomo/docswatcher/vX.Y.Z/ci/gitlab/docswatcher.gitlab-ci.yml
+  - remote: https://raw.githubusercontent.com/jameskomo/docswatcher/v0.4.0/ci/gitlab/docswatcher.gitlab-ci.yml
 ```
 
-Replace `vX.Y.Z` with a release tag. The first release after v0.3.1 is the first one that has the
+Pin a release tag, as above. v0.4.0 is the first release that has the
 template. A tag never changes, so your pipeline changes only when you move the tag.
 
 This adds one job, `docswatcher`, to the `test` stage. It does what the Action does:
@@ -185,7 +185,7 @@ Override them in your own top-level `variables:`, or on the job:
 
 ```yaml
 include:
-  - remote: https://raw.githubusercontent.com/jameskomo/docswatcher/vX.Y.Z/ci/gitlab/docswatcher.gitlab-ci.yml
+  - remote: https://raw.githubusercontent.com/jameskomo/docswatcher/v0.4.0/ci/gitlab/docswatcher.gitlab-ci.yml
 
 docswatcher:
   variables:
@@ -202,7 +202,7 @@ docswatcher:
 | `DOCSWATCHER_FAIL_ON` | `breaking` | `breaking` fails on a shutdown that already has a date. `never` reports without failing. |
 | `DOCSWATCHER_EXCLUDE` | empty | Paths to skip, one `.gitignore`-style pattern per line. `.gitignore` files and `.docswatcherignore` already apply. |
 | `DOCSWATCHER_INCLUDE_LOW` | `false` | Also report contracts found only in documentation or test files. |
-| `DOCSWATCHER_VERSION` | `latest` | Release tag of the CLI, for example `v0.3.1`. Set it to the tag you include, to keep both in step. `latest` resolves to a tag once, so the binary and `checksums.txt` always come from the same release. |
+| `DOCSWATCHER_VERSION` | `latest` | Release tag of the CLI, for example `v0.4.0`. Set it to the tag you include, to keep both in step. `latest` resolves to a tag once, so the binary and `checksums.txt` always come from the same release. |
 | `DOCSWATCHER_IMAGE` | `python:3.13-slim` | The job's image. It needs glibc and `python3`, which reads the report. Alpine (musl) cannot run the binary. |
 | `DOCSWATCHER_RELEASES` | this repository's releases | Base URL of the release downloads. Change it only for a mirror that has the same layout, including `checksums.txt`. |
 | `DOCSWATCHER_DISABLED` | unset | Set to any value to skip the job. |

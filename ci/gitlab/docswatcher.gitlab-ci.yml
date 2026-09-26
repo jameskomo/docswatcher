@@ -3,10 +3,10 @@
 # Include it from a release tag, in .gitlab-ci.yml:
 #
 #   include:
-#     - remote: https://raw.githubusercontent.com/jameskomo/docswatcher/vX.Y.Z/ci/gitlab/docswatcher.gitlab-ci.yml
+#     - remote: https://raw.githubusercontent.com/jameskomo/docswatcher/v0.4.0/ci/gitlab/docswatcher.gitlab-ci.yml
 #
-# with vX.Y.Z replaced by a release tag (the first release after v0.3.1 is the first that has this
-# file). A tag never changes, so neither does your pipeline until you move it.
+# or a later release tag (v0.4.0 is the first release that has this file). A tag never changes, so
+# neither does your pipeline until you move it.
 #
 # That adds one job, `docswatcher`, to the `test` stage. It downloads the native CLI from the
 # release, checks it against the release's checksums.txt, scans the checkout and fails the pipeline
