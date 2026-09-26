@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Where scans run, under {@code docswatcher.scan} beside the limits (docs/adr/0010-scans-in-their-own-process.md).
+ * Where scans run, under {@code docswatcher.scan} beside the limits (docs/adr/0011-scans-in-their-own-process.md).
  *
  * @param isolation {@code process} (the default) runs each scan in a process of its own, so a crash
  *     or a runaway scan cannot take the web server with it; {@code in-process} runs it in the web

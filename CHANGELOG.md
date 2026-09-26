@@ -23,6 +23,19 @@
   header capture for Java, Python and Node, and what is sent and kept.
   `docs/13-runtime-observation.md` no longer suggests `http/json` for the Java and Python SDKs,
   which cannot send it.
+- **The App scans in a process of its own.** Each scan runs in a separate JVM started from the
+  App's own jar, with a heap cap (`docswatcher.scan.process.heap-mb`, 1024), a wall-clock limit
+  (`max-seconds` plus a minute, after which it is killed) and none of the App's environment. A
+  crash in the native parser, a hang or a scan that runs out of memory now fails that scan run
+  with a plain message, and webhooks, the API and sign-in carry on. It adds a process start of
+  about 0.6 to 1.5 s per scan; `docswatcher.scan.isolation: in-process` restores the old behaviour.
+  The results are the same either way: one scan function runs in both, and a test compares every
+  fixture. See ADR 0011.
+- **Runs left running are recovered.** A scan run still `running` long after its time limit (a
+  restart or a crash stopped it) is failed with an error starting `abandoned: ` and queued again
+  once, at startup and every five minutes.
+- The App's configured scan limits now apply to scans that read a team's own API records too;
+  those used the engine's defaults, which are the same values unless they were changed.
 - **GitLab CI template.** `include:` `ci/gitlab/docswatcher.gitlab-ci.yml` from a release tag.
   The job downloads the Linux binary, checks it against the release's `checksums.txt` and fails
   closed like the Action does. It fails the pipeline on a breaking finding and writes a Code

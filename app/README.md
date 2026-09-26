@@ -1,6 +1,6 @@
 # DocsWatcher app
 
-Spring Boot 4.1 on Java 25. GitHub App webhooks, the scan worker, and the dashboard API. One process, one Postgres. The worker polls the `scan_run` table; there is no queue service.
+Spring Boot 4.1 on Java 25. GitHub App webhooks, the scan worker, and the dashboard API. One server process, one Postgres, and a short-lived process per scan. The worker polls the `scan_run` table; there is no queue service.
 
 Read `docs/01-architecture.md` for the data flows this module implements.
 
@@ -45,7 +45,9 @@ Worker tuning lives under `docswatcher.worker` in `application.yaml`: `threads`,
 
 Alerts before the date (`docs/adr/0010-alerts-before-the-date.md`, package `alerts`) run once a day at `docswatcher.alerts.cron` (UTC, default 06:00; `-` turns it off). The owner can run them now with `POST /api/alerts/run`; a rerun sends nothing already sent. In Brevo, authenticate the sender's domain and turn off open and click tracking so links arrive as written. Public routes `/subscribe` and `/unsubscribe` must reach the app, like `/early-access`.
 
-Whole-scan limits live under `docswatcher.scan`: `max-files` (20000), `max-total-mb` (200) and `max-seconds` (600). Each worker thread holds the files of its scan in memory, so size the heap for `threads` times `max-total-mb`. A scan that reaches a limit is recorded as incomplete (`stats.incomplete` on the scan run), closes no finding or issue, and posts a check run titled `Incomplete scan: ...` that is never `success`. See "Scan limits" in `docs/10-reference.md`.
+Whole-scan limits live under `docswatcher.scan`: `max-files` (20000), `max-total-mb` (200) and `max-seconds` (600). Each scan holds the files it read in memory until it ends. A scan that reaches a limit is recorded as incomplete (`stats.incomplete` on the scan run), closes no finding or issue, and posts a check run titled `Incomplete scan: ...` that is never `success`. See "Scan limits" in `docs/10-reference.md`.
+
+Each scan runs in a process of its own (`docswatcher.scan.isolation: process`, ADR 0011): a JVM started from this app's own jar or classpath, with a 1 GB heap cap (`process.heap-mb`), killed past `max-seconds` plus a minute, and given none of the app's environment. A parser crash, a hang or a scan out of memory fails that run with a message in its `error`; webhooks, the API and sign-in carry on. It costs a JVM start per scan, about 0.6 s on an idle machine and up to 1.5 s on a busy one. Size the container for the server plus `threads` scan processes. `in-process` scans in the server's JVM instead, sized for `threads` times `max-total-mb` of heap. At startup the app starts one scan process to check it can; if not, it logs an error and scans in-process. Runs left `running` by a restart or a crash are failed and queued again once, at startup and every five minutes (`reclaim-after-seconds`). See `docs/10-reference.md`.
 
 ## GitHub App setup
 
@@ -155,7 +157,7 @@ Health: `GET /actuator/health`, no token.
 ../mvnw -pl app verify
 ```
 
-Needs Docker for the Postgres Testcontainer. The suite covers webhook signatures, webhook replay from recorded payloads, the scan worker end to end against a local git repository, the dashboard API, and the Flyway schema. The engine is replaced by a deterministic fake behind the `ScanEngine` interface, so these tests do not depend on the engine's detectors.
+Needs Docker for the Postgres Testcontainer. The suite covers webhook signatures, webhook replay from recorded payloads, the scan worker end to end against a local git repository, the dashboard API, and the Flyway schema. The engine is replaced by a deterministic fake behind the `ScanEngine` interface, so these tests do not depend on the engine's detectors. `ProcessScanEngineIT` starts real scan processes: it scans every fixture in a process and in the JVM and compares the results, and checks that a crash, a hang, a heap overrun and a flood of output each become a failed scan with a clear message. `ScanIsolationIT` runs a crashing scan through the worker and reclaims abandoned runs.
 
 ## Native image
 

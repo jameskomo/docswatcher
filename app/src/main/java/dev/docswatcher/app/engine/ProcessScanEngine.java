@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Runs every scan in a process of its own (docs/adr/0010-scans-in-their-own-process.md). A scan
+ * Runs every scan in a process of its own (docs/adr/0011-scans-in-their-own-process.md). A scan
  * parses files an outsider chose with a native parser, and a crash there cannot be caught: in the
  * web server it would end webhooks, the API and the site with it. Here it ends one process, and the
  * scan run fails with a message that says what happened.

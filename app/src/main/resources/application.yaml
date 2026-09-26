@@ -81,7 +81,7 @@ docswatcher:
     max-files: 20000
     max-total-mb: 200
     max-seconds: 600
-    # Where scans run (ScanIsolationProperties, docs/adr/0010-scans-in-their-own-process.md).
+    # Where scans run (ScanIsolationProperties, docs/adr/0011-scans-in-their-own-process.md).
     # process: each scan in a JVM of its own, started from this app's own jar, so a parser crash or
     # a runaway scan ends that process and fails that run, never the web server. It costs a process
     # start per scan (about 0.6 to 1.5 s). in-process: in this JVM, as before.

@@ -174,6 +174,18 @@ Alerts (ADR 0010) live under `docswatcher.alerts` and `docswatcher.brevo`: `aler
 
 Worker settings live under `docswatcher.worker` in the YAML: `enabled` true, `threads` 2, `poll-ms` 2000, `clone-timeout-seconds` 120. The worker runs on virtual threads. Scan limits live under `docswatcher.scan`: `max-files` 20000, `max-total-mb` 200, `max-seconds` 600 (see "Scan limits").
 
+Where scans run is set under `docswatcher.scan` too (ADR 0011):
+
+| Key | Default | Meaning |
+|---|---|---|
+| `isolation` | `process` (`DOCSWATCHER_SCAN_ISOLATION`) | `process`: each scan in a JVM of its own, started from the App's own jar, so a parser crash, a hang or a scan out of memory fails that run and nothing else. Costs a process start per scan, about 0.6 to 1.5 s (logged at startup). `in-process`: in the server's JVM, with no start cost and no such protection. If a scan process cannot start at all, the App logs an error at startup and runs scans in-process |
+| `process.heap-mb` | 1024 | The scan process's maximum heap. Size the container for `threads` of these beside the server |
+| `process.timeout-seconds` | `max-seconds` + 60 | Wall-clock time before the scan process, and anything it started, is killed and the run fails |
+| `process.jvm-options` | empty | Added to the scan process's JVM options, after the App's own (`-XX:TieredStopAtLevel=1`, the serial collector), so they can override them |
+| `reclaim-after-seconds` | the scan timeout + 2 × `clone-timeout-seconds` + 10 minutes | A run still `running` after this was left by a process that stopped. It is failed with an error starting `abandoned: ` and queued again once. Checked at startup and every five minutes |
+
+A scan process gets only `PATH`, `LANG`, `LC_ALL`, `TZ` and `TMPDIR` from the environment, and none of the App's secrets. A run it could not finish fails with a sentence in its `error`: `The scan process crashed (signal 11)`, `The scan ran out of memory (its process may use 1024 MB)`, `The scan took longer than 660 s and its process was stopped`, or `The scan failed: ` and the exception. The last 16 KB of its output are logged.
+
 `docswatcher.github.session-ttl` (default `8h`) sets how long a signed-in session lasts.
 
 Label names are configurable under `docswatcher.github` (`fix-label`, `snooze-label`, `not-in-prod-label`, `not-affected-label`) and default to:
@@ -298,4 +310,4 @@ Each file is limited on its own: over 1 MB it is skipped, and parsing and queryi
 
 Files are read in path order. At a limit, no further file is read (or, when time runs out after reading, searched by the call-site layer), and the inventory's `stats.incomplete` says which limit, its value, and how many files were not scanned. A file already being parsed finishes within its own 10 seconds, so the time limit can be overrun by that much. A complete scan has no `incomplete` field. The first remedy is excluding what needs no scan (`.docswatcherignore`, `--exclude`); raising a limit is the second.
 
-In the GitHub App an incomplete scan closes no finding and no issue: contracts it did not see are carried forward from the previous scan, because they may be in the files it skipped. Its check run is titled `Incomplete scan: ...`, explains the stop in its summary, and is never `success`; without a breaking finding it is `neutral`. The web scanner has its own limit of 300 files, chosen by relevance, and says when it applied it.
+In the GitHub App these limits apply inside the scan process too, which is killed only if it overruns them by a minute (`process.timeout-seconds`): a large repository ends as an incomplete scan, not a failed one. In the GitHub App an incomplete scan closes no finding and no issue: contracts it did not see are carried forward from the previous scan, because they may be in the files it skipped. Its check run is titled `Incomplete scan: ...`, explains the stop in its summary, and is never `success`; without a breaking finding it is `neutral`. The web scanner has its own limit of 300 files, chosen by relevance, and says when it applied it.

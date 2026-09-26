@@ -163,7 +163,7 @@ Alongside the scan path, two things run on a schedule and touch no customer repo
 
 1. GitHub sends the installation webhook with the list of repos.
 2. The app creates an `installation` row, one `repo` row per repository, and one `scan_run` per repo with status `queued`.
-3. The worker picks up queued runs on virtual threads. Each run does a shallow clone at the default branch head, runs the Java engine, runs the matcher against active change records, and writes contracts and findings.
+3. The worker picks up queued runs on virtual threads. Each run does a shallow clone at the default branch head, runs the Java engine and the matcher against active change records in a short-lived process of its own (ADR 0011), and writes contracts and findings.
 4. The app posts one check run per repo on the default branch head summarising the inventory, and one issue per finding.
 
 ### Push rescan
@@ -275,5 +275,5 @@ See [Runtime observation](./13-runtime-observation.md).
 ## What is deliberately simple
 
 - The matcher is a pure function. Every finding can be recomputed from stored contracts and the knowledge base. Nothing about a finding is stored that cannot be re-derived except its status and its PR link.
-- One container runs webhooks, API, and worker. Splitting them is a config change, not a code change, because the worker is a polling loop over a table.
+- One container runs webhooks, API, and worker; each scan is a child process of it, so a scan that crashes takes only itself down. Splitting them is a config change, not a code change, because the worker is a polling loop over a table.
 - The dashboard has two views done well, the map and the horizon. Blast radius across an org arrives once an org has installed on many repos.
