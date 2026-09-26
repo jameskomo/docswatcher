@@ -150,11 +150,16 @@ public class GitLabConnectionService {
     }
   }
 
-  /** The owner sees every connection; a member, those of organisations they can see. */
+  /**
+   * The owner sees every connection. A member signed in with GitLab sees those of organisations
+   * they can see; one signed in with GitHub sees none, even where a GitHub organisation shares a
+   * GitLab group's name.
+   */
   public List<Connected> list(Viewer viewer) {
+    boolean gitLabMember = viewer instanceof Viewer.Member m && m.session().gitLab();
     List<Connected> out = new ArrayList<>();
     for (GitLabStore.Connection c : store.all()) {
-      if (viewer.canSeeOrg(c.login())) {
+      if (viewer.seesEverything() || (gitLabMember && viewer.canSeeOrg(c.login()))) {
         out.add(describe(c, null));
       }
     }

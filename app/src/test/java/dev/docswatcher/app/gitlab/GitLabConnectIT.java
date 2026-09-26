@@ -185,6 +185,8 @@ class GitLabConnectIT extends PostgresTest {
         .andExpect(jsonPath("$[0].namespace").value("acme"))
         .andExpect(jsonPath("$[0].webhookToken").doesNotExist());
     mvc.perform(asOwner(get("/api/gitlab/connections"))).andExpect(jsonPath("$.length()").value(2));
+    // A GitHub session in an organisation named acme is not shown the GitLab group of that name.
+    mvc.perform(get("/api/gitlab/connections").cookie(member("github", 42, seesAcme))).andExpect(jsonPath("$.length()").value(0));
 
     // GitLab says 42 is a Developer on acme: not enough to disconnect it.
     gitlab.server.expect(requestTo(API + "/groups/55/members/all/42"))

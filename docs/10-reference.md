@@ -121,7 +121,7 @@ A request with neither a token nor a live session gets 401.
 | POST | `/api/findings/{repoId}/{contractId}/{changeId}/not-in-prod` | Marks a finding informational | write |
 | POST | `/api/findings/{repoId}/{contractId}/{changeId}/not-affected` | Marks a finding not affected: the change does not touch this code | write |
 | POST | `/api/findings/{repoId}/{contractId}/{changeId}/fix` | Dispatches the fix workflow | write |
-| GET | `/api/gitlab/connections` | Connected GitLab groups and projects: `{id, login, kind, namespace, projects, tokenExpiresAt, connectedBy, createdAt, webhookUrl}`. A member gets those of organisations they can see | yes, filtered |
+| GET | `/api/gitlab/connections` | Connected GitLab groups and projects: `{id, login, kind, namespace, projects, tokenExpiresAt, connectedBy, createdAt, webhookUrl}`. A member signed in with GitLab gets those of organisations they can see; one signed in with GitHub gets none | yes, filtered |
 | POST | `/api/gitlab/connections` | Connects the namespace in the body `{"namespace", "token"}` with a maintainer's access token (`api` scope, Maintainer role). 201 with `webhookToken`, shown once; 200 when it was already connected (the token is replaced); 400, 403 or 503 with `{"message"}` | yes: the token is the authority |
 | POST | `/api/gitlab/connections/{id}/disconnect` | Removes the connection and everything scanned through it. 204. A member needs a GitLab sign-in and the Maintainer role on the namespace | owner, or GitLab maintainer |
 | GET | `/api/setup/workflow` | The GitHub Actions workflow a customer installs | yes |

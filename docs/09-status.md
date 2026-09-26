@@ -35,7 +35,7 @@ for call sites, and no native binary for Intel Macs.
 | Relay worker | Tarball streaming with permissive origins. Not used by the deployed site; kept for self-hosters | 10 tests pass |
 | Deployment | Live behind a Cloudflare Tunnel, five containers, no inbound ports | Runbooks in the private operations repository |
 
-Total: 460 Java tests (223 engine, 28 CLI, 209 app), 142 TypeScript unit tests, 40 browser tests,
+Total: 579 Java tests (332 engine, 38 CLI, 209 app), 247 TypeScript unit tests, 49 browser tests,
 10 relay tests and 3 notify tests. The app's tests need Postgres and run in CI rather than on a developer's machine;
 every other number here was produced by running that suite.
 
