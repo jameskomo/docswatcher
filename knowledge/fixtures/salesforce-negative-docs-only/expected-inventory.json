@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": "meta:api_version:v30.0",
+    "provider": "meta",
+    "kind": "api_version",
+    "key": "v30.0",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "src/facebook.js",
+        "line": 2,
+        "column": 43,
+        "snippet": "const GRAPH = \"https://graph.facebook.com/v30.0/me/accounts\";",
+        "detector": "meta.literal.api-version-url",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "apiVersion": "v30.0"
+    }
+  }
+]
