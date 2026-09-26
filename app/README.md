@@ -36,10 +36,14 @@ To run the JVM image in compose instead: `../mvnw -pl app spring-boot:build-imag
 | `DOCSWATCHER_API_TOKEN` | Bearer token for `/api/**`: the owner's access | blank |
 | `DOCSWATCHER_WEB_ORIGIN` | The site's public origin. Used for CORS, as the only `Origin` a signed-in member's POST may carry, and as the base of the sign-in callback and redirect. Production: `https://docswatcher.vukisha.co.ke` | `http://localhost:3000` |
 | `DOCSWATCHER_NOTIFY_URL`, `DOCSWATCHER_NOTIFY_TOKEN` | Where early-access requests are emailed from (`notify/`), and its token. Unset: stored only | blank |
+| `BREVO_API_KEY` | Brevo API key for alert email. In production it is a file secret instead: `/run/secrets/docswatcher.brevo.api-key`, which takes precedence. Blank: the app says email alerts are off and sends Slack alerts only | blank |
+| `DOCSWATCHER_ALERTS_FROM` | From address of alert email; its domain must be authenticated in Brevo | `alerts@vukisha.co.ke` |
 | `DOCSWATCHER_KNOWLEDGE_DIR` | A local knowledge checkout instead of the bundled release | bundled |
 | `PORT` | HTTP port | `8080` |
 
 Worker tuning lives under `docswatcher.worker` in `application.yaml`: `threads`, `poll-ms`, `enabled`.
+
+Alerts before the date (`docs/adr/0010-alerts-before-the-date.md`, package `alerts`) run once a day at `docswatcher.alerts.cron` (UTC, default 06:00; `-` turns it off). The owner can run them now with `POST /api/alerts/run`; a rerun sends nothing already sent. In Brevo, authenticate the sender's domain and turn off open and click tracking so links arrive as written. Public routes `/subscribe` and `/unsubscribe` must reach the app, like `/early-access`.
 
 Whole-scan limits live under `docswatcher.scan`: `max-files` (20000), `max-total-mb` (200) and `max-seconds` (600). Each worker thread holds the files of its scan in memory, so size the heap for `threads` times `max-total-mb`. A scan that reaches a limit is recorded as incomplete (`stats.incomplete` on the scan run), closes no finding or issue, and posts a check run titled `Incomplete scan: ...` that is never `success`. See "Scan limits" in `docs/10-reference.md`.
 

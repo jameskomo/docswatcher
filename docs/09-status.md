@@ -28,6 +28,7 @@ for call sites, and no native binary for Intel Macs.
 | Open-source study | Cohort runner and aggregate summary | First cohort: `study/2026-09-openai-top50` |
 | Try it (Agents page) | Claude, OpenAI (GPT, Codex) or Gemini with the visitor's own key, answered with and without `check_api` | 4 browser tests against mocked providers; `check_api` held to the CLI by 30 shared cases |
 | Early access | Teams page form, stored in Postgres, emailed to the owner by the `notify/` worker | 7 app tests, 3 notifier tests, 3 worker tests; checked live |
+| Alerts before the date | Team alerts by email and Slack at 30 and 7 days (configurable) from a daily job, settings on the organisation dashboard; public email alerts from the calendar with double opt-in and one-click unsubscribe (ADR 0010) | 31 app tests against Postgres with Brevo and Slack mocked, including idempotency, catch-up, retry and access control; 3 browser tests. Not yet live: needs the Brevo key and the `/subscribe` and `/unsubscribe` routes |
 | Relay worker | Tarball streaming with permissive origins. Not used by the deployed site; kept for self-hosters | 10 tests pass |
 | Deployment | Live behind a Cloudflare Tunnel, five containers, no inbound ports | Runbooks in the private operations repository |
 
@@ -54,7 +55,10 @@ Ordered by what is most likely to cost a user today.
 2. **Providers.** Twenty-seven. Azure OpenAI, Mistral, Meta Graph, PayPal and Twitch were added on 2026-09-24; Square, Paystack, X, LinkedIn, YouTube, Discord, Mailchimp, Google Maps Platform, Firebase, Salesforce, HubSpot and Cohere on 2026-09-26. Salesforce names a release rather than a day for its retirements, so its two records carry no effective date. Some of what they deprecate has no date to record: PayPal publishes no removal date for any deprecated REST resource, Azure OpenAI none for its dated api-versions, and Meta's Instagram and Page Insights metric removals are field names, which no contract kind describes. Each further provider is a `provider.yaml`, a detector table and change records.
 3. **Knowledge watch coverage.** It watches pages already cited. A provider's brand-new deprecation page is found only if its changelog, which is watched, links to it.
 4. **Status badge with a count.** Deliberately not built; see ADR 0004.
-5. **Your own APIs in the App's dashboard.** Issues and check runs carry a team's own change records in full, but the dashboard and fix pull requests look change records up in the bundled knowledge, so they show such a finding by its change id. The App reads only the owner's `.docswatcher` repository.
+5. **Alerts beyond email and Slack.** Microsoft Teams, webhooks to anything else, and alerts for
+   runtime-only evidence are not built. Team alerts are sent from one app process; two processes
+   could both send before either records.
+6. **Your own APIs in the App's dashboard.** Issues and check runs carry a team's own change records in full, but the dashboard and fix pull requests look change records up in the bundled knowledge, so they show such a finding by its change id. The App reads only the owner's `.docswatcher` repository.
 
 ## Technical notes
 

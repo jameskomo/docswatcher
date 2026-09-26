@@ -45,7 +45,7 @@ const free = [
   { what: "Scan any repository in your browser", where: "/" },
   { what: "Fail CI on a dated shutdown", where: "/ci" },
   { what: "Your AI coding assistant checks before it writes", where: "/agents" },
-  { what: "Every shutdown date in your calendar", where: "/calendar" },
+  { what: "Every shutdown date in your calendar, or by email", where: "/calendar" },
   { what: "The open knowledge base, and the CLI", where: "https://github.com/jameskomo/docswatcher" },
   { what: "Your own APIs' deprecations, found the same way", where: "https://github.com/jameskomo/docswatcher/blob/main/docs/19-your-own-apis.md" },
 ];

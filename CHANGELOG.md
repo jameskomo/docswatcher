@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- **Warned before the date.** Teams set where alerts go on the organisation dashboard: up to ten
+  email addresses and a Slack incoming webhook, 30 and 7 days ahead by default. A daily job sends
+  each organisation one digest per channel about open findings that just came within a threshold,
+  with the repositories and links to the lines. Nothing is sent twice, a missed day is caught up
+  once, and a failed channel is retried. Writers change the settings and can send a test; everyone
+  who sees the organisation can read them (`docs/adr/0010-alerts-before-the-date.md`).
+- **Email alerts from the calendar, for anyone.** An address and an optional provider; confirmed by
+  email before anything is sent; 30 and 7 days before each tracked shutdown; one-click unsubscribe
+  in every email; plain text with no tracking. New public routes `POST /subscribe`,
+  `/subscribe/confirm` and `/unsubscribe`. Email is sent through Brevo; without
+  `docswatcher.brevo.api-key` the app starts and says email alerts are off.
 - **GitLab CI template.** `include:` `ci/gitlab/docswatcher.gitlab-ci.yml` from a release tag.
   The job downloads the Linux binary, checks it against the release's `checksums.txt` and fails
   closed like the Action does. It fails the pipeline on a breaking finding and writes a Code

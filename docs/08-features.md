@@ -338,6 +338,12 @@ network, no CORS) gets its own message.
 
 `/calendar` lists every deprecation we track, grouped by the month it takes effect, with a toggle for ones already past. Generated from the knowledge base at build time. This is the public SEO surface described in the vision document.
 
+Beside the calendar feeds, anyone can ask for **email alerts**: an address and, optionally, one
+provider. The app emails a confirmation link and nothing else until it is clicked. Then it emails
+30 and 7 days before each tracked shutdown in that provider, one digest a day at most, each with
+a one-click unsubscribe. Only the address, its providers and its confirmation state are kept, and
+there are no tracking pixels (ADR 0010).
+
 ### The dashboard
 
 `/app` has two faces.
@@ -354,6 +360,9 @@ organisations, a picker switches between them.
   actions need write access to the repository, the same bar as the issue labels. Otherwise the
   row says so.
 - **The blast radius of one shutdown.** Pick a change and see every repository and location it touches.
+- **Warned before the date.** Where the organisation's alerts go: up to ten email addresses and a
+  Slack incoming webhook, and how many days ahead (30 and 7 by default). Anyone who sees the
+  organisation reads them; writers change them and can send a test. See section 8.
 
 What a person sees is a snapshot GitHub gave at sign-in, and it lasts eight hours. Their GitHub
 token is not kept.
@@ -406,6 +415,20 @@ Spring Boot 4 on Java 25. This is the GitHub App backend.
 `POST /webhooks/github` verifies `X-Hub-Signature-256` with a constant-time compare, responds 202 immediately, and records work as rows. Handled events: installation created, deleted and suspended; installation repositories; push on the default branch; issues labelled, closed and reopened.
 
 Deliveries are de-duplicated so a GitHub retry does not scan twice.
+
+### Alerts before the date
+
+A daily job (06:00 UTC) sends each organisation with alerts on one digest per channel: one Slack
+message, and one email per address. A digest lists the open findings that have just come within
+one of the organisation's thresholds, grouped by shutdown, with the repositories, links to the
+lines at the commit last scanned, the migration guide and the dashboard. Snoozed (until the snooze
+ends), not in production, not affected and fixed findings are left out.
+
+Nothing is sent twice: what was sent is recorded per finding, date, threshold and channel once
+the channel accepted it. A day the job missed is caught up once, with one warning at the nearest
+threshold, and a failed channel is retried the next day. Email goes through Brevo as plain text;
+Slack only to `https://hooks.slack.com/services/...`. Every email has a link that takes its
+address off the list. ADR 0010.
 
 ### The scan worker
 

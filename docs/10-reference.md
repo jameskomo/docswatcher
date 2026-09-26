@@ -89,7 +89,7 @@ curl -H "Authorization: Bearer $DOCSWATCHER_API_TOKEN" localhost:8080/api/orgs/a
 
 A request that presents an `Authorization` header is judged on the token alone. `docswatcher.api.require-token` is `true` by default and `false` under the `dev` profile. If the token is required but unset, requests that present one get 503 rather than being let through.
 
-**A member** is signed in with GitHub and presents the `__Host-docswatcher_session` cookie. A member sees only the organisations and repositories GitHub listed for them at sign-in, and can reach only endpoints marked `@MemberAccess` (the Member column below). Every other endpoint answers a member with 403. An organisation or repository outside the member's access answers 404. Organisation-wide answers count only the member's repositories. POST endpoints need write, maintain or admin on the repository. They also need an `Origin` equal to `DOCSWATCHER_WEB_ORIGIN`, or `Sec-Fetch-Site: same-origin`.
+**A member** is signed in with GitHub and presents the `__Host-docswatcher_session` cookie. A member sees only the organisations and repositories GitHub listed for them at sign-in, and can reach only endpoints marked `@MemberAccess` (the Member column below). Every other endpoint answers a member with 403. An organisation or repository outside the member's access answers 404. Organisation-wide answers count only the member's repositories. POST endpoints need write, maintain or admin on the repository, or, for an organisation-wide setting, on at least one of the organisation's repositories. They also need an `Origin` equal to `DOCSWATCHER_WEB_ORIGIN`, or `Sec-Fetch-Site: same-origin`.
 
 A request with neither a token nor a live session gets 401.
 
@@ -102,6 +102,9 @@ A request with neither a token nor a live session gets 401.
 | GET | `/api/orgs/{login}/map` | Providers with contract counts and worst severity | read, filtered |
 | GET | `/api/orgs/{login}/horizon` | Findings grouped by the month they take effect | read, filtered |
 | GET | `/api/orgs/{login}/blast-radius/{changeId}` | Every repository and finding touched by one deprecation | read, filtered |
+| GET | `/api/orgs/{login}/alerts` | Alert settings: `{login, enabled, emails, slack: {configured, hint}, thresholds, canEdit, emailAvailable, updatedBy, updatedAt}`. The Slack webhook itself is never returned (ADR 0010) | read |
+| POST | `/api/orgs/{login}/alerts` | Saves alert settings from `{"enabled", "emails", "slackWebhook", "thresholds"}`. A field left out keeps its value; `"slackWebhook": ""` removes the webhook. At most ten addresses; one to four thresholds from 1 to 365 days; a webhook must be `https://hooks.slack.com/services/A/B/C`. 400 with `{"error"}` otherwise | write on a repository in the organisation |
+| POST | `/api/orgs/{login}/alerts/test` | Sends a test to every configured channel: `{emails, slackMessages, failures}`. Three an hour per organisation | write on a repository in the organisation |
 | GET | `/api/repos/{id}/inventory` | The stored inventory document for one repository | read |
 | GET | `/api/repos/{id}/findings` | Findings for one repository | read |
 | GET | `/api/repos/{id}/runtime` | Runtime observations for one repository | read |
@@ -116,6 +119,7 @@ A request with neither a token nor a live session gets 401.
 | GET | `/api/setup/workflow` | The GitHub Actions workflow a customer installs | yes |
 | GET | `/api/setup/workflow.txt` | The same, as plain text | yes |
 | GET | `/api/early-access` | Early-access requests from the Teams page, newest first | no |
+| POST | `/api/alerts/run` | Runs the daily alert job now and returns what it sent. Idempotent, like the job | no |
 | POST | `/api/runtime/otlp/v1/traces` | OTLP/JSON trace ingest (docs/13-runtime-observation.md) | no |
 
 ### Not under `/api`
@@ -124,6 +128,11 @@ A request with neither a token nor a live session gets 401.
 |---|---|---|
 | POST | `/webhooks/github` | GitHub App events. Verifies `X-Hub-Signature-256`, responds 202 |
 | POST | `/early-access` | The Teams page form. Public: validated, rate-limited per client, honeypot-checked; one row per email (ADR 0005) |
+| POST | `/subscribe` | The calendar's email alerts: `{"email", "providers": [ids], "website"}`. Public: validated, rate-limited per client (five an hour), honeypot-checked. Sends one confirmation email, at most once an hour per address, and answers 201 `{"ok": true}` whatever the address's state. 400 for an invalid address or an unknown provider id, 503 when email is not configured (ADR 0010) |
+| GET | `/subscribe/confirm?token=` | The confirmation link: a page with a Confirm button. Changes nothing, so a mail scanner fetching it subscribes nobody. 400 once the link's seven days are over |
+| POST | `/subscribe/confirm` | The button: form field `token`. Subscribes the address with the providers the link carries |
+| GET | `/unsubscribe?token=` | The one-click link in every alert email. A subscriber's link deletes the subscription; a team recipient's link takes that address off the organisation's list |
+| POST | `/unsubscribe?token=` | The same, for RFC 8058 one-click unsubscribe from a mail program |
 | GET | `/auth/github/login` | Starts sign-in with GitHub: a 302 to GitHub with a state and a PKCE challenge, both remembered in `__Host-docswatcher_oauth`. 503 when sign-in is not configured (ADR 0008) |
 | GET | `/auth/github/callback` | GitHub returns here. Checks the state, exchanges the code, records the person's access, sets `__Host-docswatcher_session`, and redirects to `/#/app`. On failure it redirects to `/#/app?signin=denied`, `failed` or `unavailable` |
 | GET | `/auth/me` | `{enabled, signedIn, user, orgs, expiresAt}`. Always 200, never cached |
@@ -153,7 +162,11 @@ Read by the app module. Defaults come from `app/src/main/resources/application.y
 | `GITHUB_WEB_BASE` | `https://github.com` | Where sign-in happens and the code is exchanged. Override for GitHub Enterprise |
 | `DOCSWATCHER_NOTIFY_URL` | empty | The `notify/` Worker that emails each early-access request. Empty: stored, not emailed |
 | `DOCSWATCHER_NOTIFY_TOKEN` | empty | Bearer token for that Worker. In production it is a file secret, `docswatcher.notify.token` |
+| `BREVO_API_KEY` | empty | Brevo API key for alert email, for local runs. In production it is a file secret, `docswatcher.brevo.api-key`, which takes precedence. Empty: the app logs that email alerts are off, `/subscribe` answers 503, and team alerts go to Slack only |
+| `DOCSWATCHER_ALERTS_FROM` | `alerts@vukisha.co.ke` | The From address of alert email. Its domain must be authenticated in Brevo |
 | `PORT` | `8080` | HTTP port |
+
+Alerts (ADR 0010) live under `docswatcher.alerts` and `docswatcher.brevo`: `alerts.cron` is when the daily job runs, in UTC (default `0 0 6 * * *`; `-` turns it off); `brevo.sender-name` (`DocsWatcher`), `brevo.daily-limit` (300 sends per UTC day, after which the rest wait for the next run) and `brevo.api-base` (`https://api.brevo.com`). The key that signs confirmation and unsubscribe links is generated by the app into the `signing_key` table; deleting that row revokes every link already sent.
 
 Worker settings live under `docswatcher.worker` in the YAML: `enabled` true, `threads` 2, `poll-ms` 2000, `clone-timeout-seconds` 120. The worker runs on virtual threads. Scan limits live under `docswatcher.scan`: `max-files` 20000, `max-total-mb` 200, `max-seconds` 600 (see "Scan limits").
 
