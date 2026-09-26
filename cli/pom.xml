@@ -133,6 +133,9 @@
               <mainClass>dev.docswatcher.cli.DocsWatcher</mainClass>
               <buildArgs>
                 <buildArg>--no-fallback</buildArg>
+                <!-- Missing reflection metadata is an error naming what is missing, not silently empty
+                     results: v0.2.1 printed every finding as {} because a record was not registered. -->
+                <buildArg>--exact-reachability-metadata</buildArg>
                 <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
                 <buildArg>-H:IncludeResources=docswatcher-knowledge/.*</buildArg>
                 <buildArg>-H:IncludeResources=${native.treesitter.libs}</buildArg>

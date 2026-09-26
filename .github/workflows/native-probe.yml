@@ -46,15 +46,16 @@ jobs:
           set -euo pipefail
           bin=cli/target/docswatcher
           [ -f cli/target/docswatcher.exe ] && bin=cli/target/docswatcher.exe
-          "$bin" --version
+          dw() { "$bin" -XX:MissingRegistrationReportingMode=Exit "$@"; }
+          dw --version
           # validate loads every grammar and runs every bundled fixture.
-          "$bin" validate
+          dw validate
           set +e
-          "$bin" match knowledge/fixtures/openai-python-assistants/repo --format json > findings.json
+          dw match knowledge/fixtures/openai-python-assistants/repo --format json > findings.json
           code=$?
           set -e
           [ "$code" = 1 ] || { echo "::error::expected exit 1 for a breaking fixture, got $code"; exit 1; }
           grep -q '"severity" : "breaking"\|"severity": "breaking"' findings.json \
             || { echo "::error::the findings carry no severity"; cat findings.json; exit 1; }
-          "$bin" scan . > /dev/null
+          dw scan . > /dev/null
           echo "native CLI works on $RUNNER_OS $RUNNER_ARCH"
