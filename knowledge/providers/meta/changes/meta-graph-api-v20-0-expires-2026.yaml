@@ -38,4 +38,4 @@ migration:
     that relies on them. The app dashboard's default API version governs
     unversioned calls, so upgrade it too.
 
-status: active
+status: expired

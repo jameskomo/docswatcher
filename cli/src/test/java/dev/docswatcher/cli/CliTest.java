@@ -68,7 +68,9 @@ class CliTest {
 
   @Test
   void validatePasses() {
-    Run r = run("validate", KNOWLEDGE.toString(), "--today", "2026-09-18");
+    // The real date, as CI's validate step uses: whether a record's status agrees with its date
+    // depends on the calendar, and a pinned date would call records expired too early.
+    Run r = run("validate", KNOWLEDGE.toString(), "--today", java.time.LocalDate.now(java.time.ZoneOffset.UTC).toString());
     assertThat(r.exit()).isZero();
     assertThat(r.out()).contains("OK · 0 errors");
   }
@@ -77,7 +79,7 @@ class CliTest {
   void theBundledAndTheDirectoryKnowledgeReportTheSameVersionFile() throws java.io.IOException {
     String version = java.nio.file.Files.readString(KNOWLEDGE.resolve("VERSION")).trim();
     // No directory: the working directory (cli/) has no knowledge/, so this is the copy the jar carries.
-    Run bundled = run("validate", "--today", "2026-09-18");
+    Run bundled = run("validate", "--today", java.time.LocalDate.now(java.time.ZoneOffset.UTC).toString());
     Run directory = run("validate", KNOWLEDGE.toString(), "--today", "2026-09-18");
     assertThat(bundled.out()).startsWith("Knowledge " + version + ": ");
     assertThat(directory.out()).startsWith("Knowledge " + version + ": ");

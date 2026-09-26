@@ -36,4 +36,4 @@ migration:
     must be redeployed by hand. Re-run evals, because output and token
     usage differ between models.
 
-status: active
+status: expired

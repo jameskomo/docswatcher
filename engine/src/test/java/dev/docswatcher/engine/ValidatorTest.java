@@ -13,8 +13,12 @@ class ValidatorTest {
 
   @Test
   void theKnowledgeBaseIsValid() {
+    // TODAY is pinned so fixture day counts never drift, but whether a record's status agrees with
+    // its date depends on the real calendar: that is checked against the actual date by CI's
+    // `docswatcher validate knowledge` step, and the rule itself by the lifecycle tests below.
     Validator.Report r = Validator.validate(TestSupport.knowledge(), TestSupport.TODAY);
-    assertThat(r.errors()).isEmpty();
+    assertThat(r.errors()).filteredOn(e -> !e.contains(": status active but effective") && !e.contains(": status expired but effective"))
+        .isEmpty();
   }
 
   private static Change record(String status, String effective) {
