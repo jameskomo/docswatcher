@@ -203,7 +203,7 @@
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/legacy-badges-endpoint-shutdown-details-and-timeline-june-2023/44621": {
-      "hash": "fd44d553318fc11929bfe8b4904dd4f2499b570164c77db8647208de77c53e13",
+      "hash": "bbfff5b1acb0462e9322d93752961bc758a6b911e78e65b684359d550ef19f16",
       "fetched": "2026-09-26",
       "status": 200,
       "failures": 0,
@@ -371,7 +371,7 @@
       "unreadableReported": false
     },
     "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/openai/azure-ai-openai": {
-      "hash": "bcaf2e588a742b5be14fc72b6d114d201299ea82a6eb01507220ee2c7b8a2bf7",
+      "hash": "5efc630c9a8e974ca8396a46ddbc8a69d49382015839c1255959e5fc80d07fa4",
       "fetched": "2026-09-26",
       "status": 200,
       "failures": 0,
@@ -443,7 +443,7 @@
       "unreadableReported": false
     },
     "https://shopify.dev/changelog": {
-      "hash": "ce1d6966b3287a93cba9b745cfced4e4cec4eeaa6d92e6a55d14475d22e23995",
+      "hash": "483b0a1e4ceb9a4ac03b9dfb441c6db2f1c0dd07504816128bca0ce2fa9501a2",
       "fetched": "2026-09-26",
       "status": 200,
       "failures": 0,
@@ -451,7 +451,7 @@
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/automaticdiscounts-query-is-removed-in-api-version-2027-01": {
-      "hash": "6ed5d910ee7391b999a57c9649d74d1bbabb938b80ea40188c72df19435664bb",
+      "hash": "b77e0824b9da336b02c5785907d00974d6c06ba602cd911eb10c33529e64cfe2",
       "fetched": "2026-09-26",
       "status": 200,
       "failures": 0,
@@ -459,7 +459,7 @@
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/online-store-script-tags-deprecation": {
-      "hash": "69512aaa82358c6282a6b5f53025598512030e71618cff8416be1999c2e1cc03",
+      "hash": "6d07b311ea302dedadb3587a4274e8181d1c8c6974ebac66f64ccc7dc7c66bcb",
       "fetched": "2026-09-26",
       "status": 200,
       "failures": 0,
@@ -467,7 +467,7 @@
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/removing-marketcurrencysettingsupdate-mutation": {
-      "hash": "0851d83356086fb1bb117fdf84e13579f892a1a278a384fd0152b26157ffba45",
+      "hash": "d3d38087756c7f30c315344b944b3d9d0edb1b05fde6d5e596f80bfab7d3975e",
       "fetched": "2026-09-26",
       "status": 200,
       "failures": 0,
@@ -475,12 +475,12 @@
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/setting-includerestofworld-to-true-returns-an-error-in-api-version-2027-01": {
-      "failures": 2,
+      "failures": 3,
       "lastError": "HTTP 404",
       "lastTried": "2026-09-26"
     },
     "https://shopify.dev/docs/api/usage/versioning": {
-      "hash": "ed868a901c3704e5feec5fad2b7b3e34db4ad3c3131d04885720e5d9251edd52",
+      "hash": "2750c5779d500031fdeb6b947198f65fc31fc0fc47b469495862dcdcdb3cd891",
       "fetched": "2026-09-26",
       "status": 200,
       "failures": 0,

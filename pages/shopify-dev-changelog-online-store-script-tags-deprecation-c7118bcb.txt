@@ -1,63 +1,54 @@
-Skip to main content
-Apps
-Storefronts
-Agents
-References
-Changelog
-Ask assistant /
-Help
-•
-Log in
-Collapse sidebar
-Changelog
-Search changelog
-Subscribe
-All posts
-Blog & announcements
-Release notes
+---
+title: >-
+Script tags are deprecated and will stop running on March 1, 2027 - Shopify
+developer changelog
+description: >-
+Shopify’s developer changelog documents all changes to Shopify’s platform.
+Find the latest news and learn about new platform opportunities.
+source_url:
+html: 'https://shopify.dev/changelog/online-store-script-tags-deprecation'
+md: 'https://shopify.dev/changelog/online-store-script-tags-deprecation.md'
+metadata:
+effectiveApiVersion: ''
+affectedApi:
+- displayName: Admin GraphQL API
+handle: admin-graphql
+- displayName: Admin REST API
+handle: admin-rest
+primaryTag:
+displayName: API
+handle: api
+secondaryTag:
+displayName: Deprecation announcement
+handle: deprecation-announcement
+indicatesActionRequired: true
+createdAt: '2026-08-19T16:55:26-04:00'
+postedAt: '2026-08-24T12:00:00-04:00'
+updatedAt: '2026-08-24T13:57:07-04:00'
+effectiveAt: '2026-08-20T12:00:00-04:00'
+---
 August 24, 2026
-Script tags are deprecated and will stop running on March 1, 2027
-Install AI Toolkit Ask about this page Copy MD
-Date August 24, 2026
-Flags Deprecation announcement Action required
-Surfaces API
-Affected APIs Admin GraphQL API Admin REST API
-Starting October 1, 2026, the script Tag Create and script Tag Update mutations will return an user error, and the Script Tag REST Admin API resource will reject POST and PUT . The deprecation applies to all API versions, including older ones, so pinning won't defer it.
-On March 1, 2027, Shopify will stop injecting script tags into storefronts. Storefronts are the last place script tags still run, since they already stopped working on the Order status page . If your app uses a script tag to load JavaScript onto a store, then you need to replace it before then.
-What's changing
+# Script tags are deprecated and will stop running on March 1, 2027
+DateAugust 24, 2026
+Flags[Deprecation announcement](https://shopify.dev/changelog?filter=deprecation-announcement)[Action required](https://shopify.dev/changelog?action_required=true)
+SurfacesAPI
+Affected APIs[Admin GraphQL API](https://shopify.dev/changelog?api_type=admin-graphql)[Admin REST API](https://shopify.dev/changelog?api_type=admin-rest)
+Starting October 1, 2026, the `scriptTagCreate` and `scriptTagUpdate` mutations will return an user error, and the `ScriptTag` REST Admin API resource will reject `POST` and `PUT`. The deprecation applies to all API versions, including older ones, so pinning won't defer it.
+On March 1, 2027, Shopify will stop injecting script tags into storefronts. Storefronts are the last place script tags still run, since they already stopped working on the [Order status page](https://shopify.dev/docs/apps/build/online-store/script-tag-deprecation/order-status). If your app uses a script tag to load JavaScript onto a store, then you need to replace it before then.
+### What's changing
 A script tag loads JavaScript on a storefront without any changes to theme code. After March 1, 2027, Shopify won't inject those scripts, so script tags will stop loading JavaScript on storefronts.
-The script Tags query and the script Tag Delete mutation keep working, so you can audit and clean up your existing script tags.
-What you need to do
-Replace each script tag with an app embed block , which you ship in a theme app extension. App users activate app embed blocks in the theme editor.
-If a script only collects analytics or conversion data, then use a web pixel instead, which needs no action from the app user.
-Who's affected
-Apps that create script tags with a display _scope of online _store .
-Script tags with a display _scope of order _status are covered by an earlier deprecation. Refer to Order status script tags .
-Deprecation timeline
-October 1, 2026 : script Tag Create and script Tag Update will return an user error. Existing script tags will keep running.
-March 1, 2027 : Shopify will stop injecting script tags into storefronts.
-Migration path
-App embed blocks replace script tags, and you ship them in a theme app extension. Refer to Storefront script tags to learn more.
-Related docs
-Storefront script tags
-Migrate to theme app extensions
-Was this page helpful?
-Yes No
-Updates
-Developer changelog
-Shopify Editions
-Business growth
-Shopify Partners Program
-Shopify App Store
-Shopify Academy
-Legal
-Terms of service
-API terms of use
-Privacy policy
-Partners Program Agreement
-Shopify
-About Shopify
-Shopify Plus
-Careers
-Investors
-Press and media
+The `scriptTags` query and the `scriptTagDelete` mutation keep working, so you can audit and clean up your existing script tags.
+### What you need to do
+Replace each script tag with an [app embed block](https://shopify.dev/docs/apps/build/online-store/theme-app-extensions/configuration#app-embed-blocks), which you ship in a theme app extension. App users activate app embed blocks in the theme editor.
+If a script only collects analytics or conversion data, then use a [web pixel](https://shopify.dev/docs/apps/build/marketing/pixels) instead, which needs no action from the app user.
+### Who's affected
+Apps that create script tags with a `display_scope` of `online_store`.
+Script tags with a `display_scope` of `order_status` are covered by an earlier deprecation. Refer to [Order status script tags](https://shopify.dev/docs/apps/build/online-store/script-tag-deprecation/order-status).
+### Deprecation timeline
+* **October 1, 2026**: `scriptTagCreate` and `scriptTagUpdate` will return an user error. Existing script tags will keep running.
+* **March 1, 2027**: Shopify will stop injecting script tags into storefronts.
+### Migration path
+App embed blocks replace script tags, and you ship them in a theme app extension. Refer to [Storefront script tags](https://shopify.dev/docs/apps/build/online-store/script-tag-deprecation/storefront) to learn more.
+### Related docs
+* [Storefront script tags](https://shopify.dev/docs/apps/build/online-store/script-tag-deprecation/storefront)
+* [Migrate to theme app extensions](https://shopify.dev/docs/apps/build/online-store/theme-app-extensions/migrate)

@@ -63,7 +63,7 @@ June 9, 2023
 Legacy Chatters endpoint shutdown details and timeline - April 2023
 Announcements
 14
-10831
+10832
 April 13, 2023
 Legacy Twitch API v5 Shutdown Details and Timeline
 Announcements
