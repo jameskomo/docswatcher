@@ -13,20 +13,29 @@ const changes = knowledge.providers.reduce((n, p) => n + p.changes.length, 0);
 const base = ref("");
 onMounted(() => { base.value = location.href.split("#")[0].replace(/[^/]*$/, ""); });
 const GH = "https://github.com/jameskomo/docswatcher";
+const DOCS = `${GH}/blob/main/docs`;
 const footerLinks = computed(() => [
   { title: "Use it", links: [
     { label: "Scan a repository", to: "/" },
     { label: "Deprecation calendar", to: "/calendar" },
-    { label: "Dashboard", to: "/app" },
+    { label: "Email alerts", to: "/calendar#email-alerts" },
     { label: "In CI (GitHub Action)", to: "/ci" },
+    { label: "In CI (GitLab)", to: "/ci#gitlab" },
     { label: "In your AI assistant", to: "/agents" },
     { label: "Try it with your own key", to: "/agents#try" },
-    { label: "For teams: early access", to: "/teams" },
+  ] },
+  { title: "For teams", links: [
+    { label: "Sign in with GitHub or GitLab", to: "/app" },
+    { label: "What teams get", to: "/teams" },
+    { label: "Runtime observation setup", to: "/teams#runtime" },
+    { label: "Early access and pricing", to: "/teams#early-access" },
   ] },
   { title: "Subscribe and build on it", links: [
     { label: "Calendar feed (.ics)", href: `${base.value}feeds/deprecations.ics` },
     { label: "Atom feed", href: `${base.value}feeds/deprecations.atom` },
     { label: "Open JSON", href: `${base.value}feeds/deprecations.json` },
+    { label: "Your own APIs (docs)", href: `${DOCS}/19-your-own-apis.md` },
+    { label: "Runtime observation (docs)", href: `${DOCS}/13-runtime-observation.md` },
   ] },
   { title: "Open source", links: [
     { label: "Source code", href: GH },

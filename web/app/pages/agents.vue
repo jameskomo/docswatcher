@@ -119,6 +119,12 @@ useHead({
           </tr>
         </tbody>
       </table>
+      <p data-testid="agents-own-apis">
+        It also knows your own APIs. Started in a project, it reads that project's
+        <code>.docswatcher/</code> records, so your assistant is told about an internal endpoint your
+        team is retiring the same way it is told about a provider's.
+        <a href="https://github.com/jameskomo/docswatcher/blob/main/docs/19-your-own-apis.md" target="_blank" rel="noopener">Your own APIs</a>
+      </p>
 
       <h2>Questions</h2>
       <dl class="faq">

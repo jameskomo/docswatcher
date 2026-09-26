@@ -327,8 +327,56 @@ test("the teams page lists what is free, what teams get, and a way to ask", asyn
   await page.goto("./#/teams");
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.getByTestId("free-list").locator("li")).not.toHaveCount(0);
-  await expect(page.getByTestId("team-features").locator(".card")).not.toHaveCount(0);
+  await expect(page.getByTestId("team-features").locator(".cap")).not.toHaveCount(0);
   await expect(page.getByTestId("early-access-form")).toBeVisible();
+  expect(own(failed)).toEqual([]);
+});
+
+test("the teams page presents what is built as available, and says how to start on GitHub and GitLab", async ({ page }) => {
+  await page.goto("./#/teams");
+  const features = page.getByTestId("team-features");
+  for (const id of ["dashboard", "alerts", "forges", "runtime", "own"]) {
+    const card = features.getByTestId(`team-${id}`);
+    await expect(card).toBeVisible();
+    // Every built feature names where it lives.
+    await expect(card.locator(".cap-links a")).not.toHaveCount(0);
+  }
+  await expect(features).toContainText("GitLab");
+  await expect(features).not.toContainText(/early access/i);
+  const start = page.getByTestId("how-to-start");
+  await expect(start).toContainText("GitHub App");
+  await expect(start).toContainText("GitLab");
+  await start.getByRole("link", { name: "dashboard" }).first().click();
+  await expect(page).toHaveURL(/#\/app$/);
+});
+
+test("the home page names every capability, and each card's links open", async ({ page }) => {
+  const failed = watchFailures(page);
+  await page.goto("./");
+  const caps = page.getByTestId("capabilities");
+  await expect(caps.locator(".cap")).toHaveCount(6);
+  // Counts come from the knowledge base, never a hard-coded number.
+  await expect(caps.getByTestId("cap-scan")).toContainText(/matched against \d+ records from \d+ providers/);
+  for (const lang of ["Ruby", "PHP", "C#", "Go"]) await expect(caps.getByTestId("cap-scan")).toContainText(lang);
+  await expect(caps.getByTestId("cap-ci")).toContainText("GitLab CI");
+  await expect(caps.getByTestId("cap-teams")).toContainText("GitHub or GitLab");
+
+  const internal: Array<[string, string, RegExp, string]> = [
+    ["cap-ci", "GitLab CI", /#\/ci#gitlab$/, "#gitlab"],
+    ["cap-agents", "Try it with your own key", /#\/agents#try$/, "#try"],
+    ["cap-calendar", "Email alerts", /#\/calendar#email-alerts$/, "#email-alerts"],
+    ["cap-teams", "Dashboard", /#\/app$/, ""],
+    ["cap-teams", "What teams get", /#\/teams$/, ""],
+  ];
+  for (const [card, name, url, anchor] of internal) {
+    await page.goto("./");
+    await caps.getByTestId(card).getByRole("link", { name }).click();
+    await expect(page).toHaveURL(url);
+    await expect(page.locator("h1").first()).toBeVisible();
+    if (anchor) await expect(page.locator(anchor)).toBeInViewport();
+  }
+  await page.goto("./");
+  await expect(caps.getByTestId("cap-own").getByRole("link")).toHaveAttribute("href", /docs\/19-your-own-apis\.md$/);
   expect(own(failed)).toEqual([]);
 });
 
@@ -366,9 +414,11 @@ test("the footer links every feature, and each page it names opens", async ({ pa
   const failed = watchFailures(page);
   await page.goto("./");
   const footer = page.getByTestId("footer-links");
-  for (const label of ["Scan a repository", "Deprecation calendar", "Dashboard", "In CI (GitHub Action)",
-    "In your AI assistant", "Try it with your own key", "For teams: early access", "Calendar feed (.ics)",
-    "Atom feed", "Open JSON", "Source code", "Downloads (latest release)", "Documentation", "Knowledge base", "How this works"]) {
+  for (const label of ["Scan a repository", "Deprecation calendar", "Email alerts", "In CI (GitHub Action)", "In CI (GitLab)",
+    "In your AI assistant", "Try it with your own key", "Sign in with GitHub or GitLab", "What teams get",
+    "Runtime observation setup", "Early access and pricing", "Calendar feed (.ics)", "Atom feed", "Open JSON",
+    "Your own APIs (docs)", "Runtime observation (docs)", "Source code", "Downloads (latest release)", "Documentation",
+    "Knowledge base", "How this works"]) {
     await expect(footer.getByRole("link", { name: label })).toBeVisible();
   }
   // The feeds resolve against the site's own path, so they work under any subpath.
@@ -378,8 +428,20 @@ test("the footer links every feature, and each page it names opens", async ({ pa
   }
   await footer.getByRole("link", { name: "Try it with your own key" }).click();
   await expect(page.getByTestId("try-assistant")).toBeInViewport();
-  await footer.getByRole("link", { name: "For teams: early access" }).click();
+  await footer.getByRole("link", { name: "In CI (GitLab)" }).click();
+  await expect(page.locator("#gitlab")).toBeInViewport();
+  await footer.getByRole("link", { name: "Email alerts" }).click();
+  await expect(page.getByTestId("email-alerts")).toBeInViewport();
+  await footer.getByRole("link", { name: "Runtime observation setup" }).click();
+  await expect(page.getByTestId("runtime-guide")).toBeInViewport();
+  await footer.getByRole("link", { name: "Early access and pricing" }).click();
   await expect(page.getByTestId("early-access-form")).toBeVisible();
+  await footer.getByRole("link", { name: "Sign in with GitHub or GitLab" }).click();
+  await expect(page).toHaveURL(/#\/app$/);
+  // The docs it names are the repository's own files.
+  for (const [name, file] of [["Your own APIs (docs)", "19-your-own-apis.md"], ["Runtime observation (docs)", "13-runtime-observation.md"]]) {
+    await expect(footer.getByRole("link", { name })).toHaveAttribute("href", new RegExp(`/docs/${file.replace(".", "\\.")}$`));
+  }
   expect(own(failed)).toEqual([]);
 });
 

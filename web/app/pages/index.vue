@@ -14,6 +14,42 @@ const store = useScanStore();
 
 const trackedChanges = knowledge.providers.reduce((n, p) => n + p.changes.length, 0);
 
+// Every capability, one card each, linked to where it lives. Counts come from the knowledge base.
+const DOCS = "https://github.com/jameskomo/docswatcher/blob/main/docs";
+type CapLink = { label: string; to?: string; href?: string };
+const capabilities: Array<{ id: string; icon: "search" | "check" | "chat" | "event" | "code" | "group"; title: string; text: string; links: CapLink[] }> = [
+  {
+    id: "scan", icon: "search", title: "Scan a repository",
+    text: `A GitHub or GitLab URL (gitlab.com, or a self-managed GitLab where this site is allowed to reach it), a local folder, or a sample. Call sites in Java, Python, TypeScript, JavaScript, Go, Ruby, PHP and C#, matched against ${trackedChanges} records from ${knowledge.providers.length} providers, in your browser.`,
+    links: [{ label: "Scan now", to: "/#scan-source" }, { label: "How the scan works", to: "/about" }],
+  },
+  {
+    id: "ci", icon: "check", title: "In CI",
+    text: "A GitHub Action, or a GitLab CI template that adds a Code Quality report to the merge request. Both fail the build on a dated shutdown. Anywhere else, one binary for Linux, macOS arm64 or Windows.",
+    links: [{ label: "GitHub Actions", to: "/ci" }, { label: "GitLab CI", to: "/ci#gitlab" }, { label: "Downloads", href: "https://github.com/jameskomo/docswatcher/releases/latest" }],
+  },
+  {
+    id: "agents", icon: "chat", title: "In your AI assistant",
+    text: "An MCP server for Claude Code, Cursor and others: check_api, upcoming_deprecations and scan_repository, so the assistant checks a model or API before it writes the call. Try it here with your own Claude, OpenAI or Gemini key.",
+    links: [{ label: "Set it up", to: "/agents" }, { label: "Try it with your own key", to: "/agents#try" }],
+  },
+  {
+    id: "calendar", icon: "event", title: "Calendar and email alerts",
+    text: "Every dated shutdown by month. Subscribe as a calendar (.ics), an Atom feed or open JSON, or ask for an email 30 and 7 days before each date, confirmed from your inbox first.",
+    links: [{ label: "Calendar", to: "/calendar" }, { label: "Email alerts", to: "/calendar#email-alerts" }],
+  },
+  {
+    id: "own", icon: "code", title: "Your own APIs",
+    text: "Record your internal services' deprecations in a repository's .docswatcher/ folder, or once in your organisation's shared .docswatcher repository. Every scan, CI run and assistant check then finds them the same way.",
+    links: [{ label: "How to write them", href: `${DOCS}/19-your-own-apis.md` }],
+  },
+  {
+    id: "teams", icon: "group", title: "For teams",
+    text: "Sign in with GitHub or GitLab: findings across every repository, the blast radius of one shutdown, email and Slack alerts before the date, and what production actually calls. The GitHub App and GitLab integration scan on every push and open an issue per finding.",
+    links: [{ label: "Dashboard", to: "/app" }, { label: "What teams get", to: "/teams" }],
+  },
+];
+
 useHead({
   title: "DocsWatcher, find the API calls in your code that have a deadline",
   meta: [{
@@ -435,6 +471,25 @@ async function copyLink() {
     <section v-else-if="!busy" class="section empty">
       <h3>Nothing scanned yet</h3>
       <p>Choose a sample repository, paste a GitHub or GitLab URL, or pick a folder from your machine.</p>
+    </section>
+
+    <section class="section" id="what-it-does" data-testid="capabilities">
+      <div class="section-head">
+        <h2>What DocsWatcher does</h2>
+        <p>The same scan and the same knowledge base, wherever you want the answer.</p>
+      </div>
+      <div class="caps">
+        <div v-for="c in capabilities" :key="c.id" class="cap" :data-testid="`cap-${c.id}`">
+          <h3><Icon :name="c.icon" :size="18" />{{ c.title }}</h3>
+          <p>{{ c.text }}</p>
+          <div class="cap-links">
+            <template v-for="l in c.links" :key="l.label">
+              <NuxtLink v-if="l.to" :to="l.to">{{ l.label }}</NuxtLink>
+              <a v-else :href="l.href" target="_blank" rel="noopener">{{ l.label }}</a>
+            </template>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 </template>

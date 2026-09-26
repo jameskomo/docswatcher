@@ -170,10 +170,12 @@ useHead({
 
       <h2>Or let it watch instead</h2>
       <p>
-        CI blocks the new mistake. The GitHub App tracks the ones already there: it scans on every
-        push, opens an issue per finding with the file and line, and can open a fix pull request
-        when you add a label. The two work well together.
-        <NuxtLink to="/about">How the scan works</NuxtLink>.
+        CI blocks the new mistake. The GitHub App and a connected GitLab group track the ones
+        already there: they scan on every push to the default branch, open an issue per finding
+        with the file and line, and post a check run on GitHub or a commit status on GitLab. On
+        GitHub a label can also open a fix pull request. Every repository's findings then sit on one
+        <NuxtLink to="/app">dashboard</NuxtLink>, with alerts before the date. The two work well
+        together. <NuxtLink to="/teams">How to start</NuxtLink>.
       </p>
     </div>
   </div>

@@ -98,7 +98,7 @@ useHead({
       </p>
       <ul>
         <li>
-          <strong>Package Manifests:</strong> Inspects declared dependencies (npm, PyPI, Maven, Go modules, RubyGems)
+          <strong>Package Manifests:</strong> Inspects declared dependencies (npm, PyPI, Maven, Go modules, RubyGems, Composer, NuGet)
           to identify which third-party provider SDKs your application actually loads.
         </li>
         <li>
@@ -106,7 +106,7 @@ useHead({
           for pinned API versions, model strings, and base URLs.
         </li>
         <li>
-          <strong>Method Calls:</strong> Analyzes source code call sites with tree-sitter AST queries to match SDK invocations against specific retiring endpoints.
+          <strong>Method Calls:</strong> Analyzes source code call sites with tree-sitter AST queries to match SDK invocations against specific retiring endpoints, in Java, Python, TypeScript, JavaScript, Go, Ruby, PHP and C#.
         </li>
       </ul>
 
@@ -120,16 +120,21 @@ useHead({
           and analysis occur directly inside your browser. No files, code snippets, or environment secrets are transmitted over the network.
         </li>
         <li>
-          <strong>Public Repositories:</strong> When scanning a public repository URL, repository archives are fetched directly
-          into your browser and analysed client-side.
+          <strong>Public Repositories:</strong> When scanning a GitHub or GitLab URL, the repository's files are fetched directly
+          into your browser and analysed client-side. A GitLab token you give for a private project goes only to that GitLab.
         </li>
         <li>
-          <strong>Private Repositories:</strong> For automated CI/CD scans and private repository monitoring, DocsWatcher runs
-          inside your own automated workflow runner using your own credentials.
+          <strong>In CI:</strong> The GitHub Action, the GitLab CI template and the binary run inside your own runner, offline,
+          with the knowledge base built in.
         </li>
       </ul>
       <p>
-        Scans run entirely on client side. No source code or secrets are sent to external servers. To let you refresh the page without losing your scan, results are saved locally in your browser storage. A sample scan stays until you replace it; a scan of your own folder or repository is discarded after an hour, and the dashboard has a Clear this scan control that removes it immediately.
+        The <NuxtLink to="/teams">GitHub App and GitLab integration</NuxtLink> are the exception, by design: to watch
+        private code on every push, the DocsWatcher server clones the commit, scans it in a process of its own, and
+        keeps the findings with their file and line for the issues and the dashboard.
+      </p>
+      <p>
+        Browser scans run entirely on client side. No source code or secrets are sent to external servers. To let you refresh the page without losing your scan, results are saved locally in your browser storage. A sample scan stays until you replace it; a scan of your own folder or repository is discarded after an hour, and the dashboard has a Clear this scan control that removes it immediately.
       </p>
 
       <h2>What DocsWatcher is not</h2>
@@ -138,16 +143,18 @@ useHead({
         about services and features your system never uses.
       </p>
       <p>
-        A deprecation only appears as an alert here when DocsWatcher finds active calls in your codebase,
+        A deprecation only becomes a finding when DocsWatcher finds active calls in your codebase,
         with the exact file path and line number to verify it.
       </p>
 
       <h2>What does not exist yet</h2>
-      <ul>
+      <ul data-testid="not-built">
         <li>A native download for Intel Macs. They run the portable <code>docswatcher.jar</code> with Java 25 today.</li>
-        <li>Call-site detection for Ruby, PHP and C#. Their dependencies and literal API calls are found; SDK method calls are not.</li>
-        <li>More providers beyond the 27 tracked today. Each is a detector table and change records in the open knowledge base.</li>
-        <li>Team features in general availability: a dashboard across every repository, and alerts before the date. <NuxtLink to="/teams">Request early access</NuxtLink>.</li>
+        <li>More providers beyond the {{ providers.length }} tracked today. Each is a detector table and change records in the open knowledge base.</li>
+        <li>Alerts beyond email and Slack: Microsoft Teams, webhooks to anything else, and alerts for what only runtime observation saw.</li>
+        <li>Fix pull requests on GitLab. A GitLab project gets issues, a commit status and the dashboard; the fix loop is GitHub only.</li>
+        <li>Your own APIs shown in full on the dashboard. Issues and check runs carry them; the dashboard names such a finding by its change id.</li>
+        <li>A status badge with a count, deliberately: the scan runs in the reader's browser, so a badge could only go stale.</li>
       </ul>
 
       <div class="row" style="margin-top: var(--s6); gap: var(--s3)">

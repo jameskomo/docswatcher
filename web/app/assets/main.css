@@ -1944,3 +1944,33 @@ pre {
 .folder-pick .btn.disabled { opacity: 0.4; cursor: not-allowed; }
 /* The label is the visible control, so it shows the focus ring of the input inside it. */
 .folder-pick .btn:focus-within { outline: 2px solid var(--ink-accent); outline-offset: 2px; }
+
+/* Capability cards: one per thing DocsWatcher does, each naming where it lives. Used on the home
+   page ("What DocsWatcher does") and the Teams page. They span the page width, like the header. */
+.caps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: var(--s3);
+}
+.cap {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: var(--s2);
+  min-width: 0;
+  padding: var(--s4);
+  border: 1px solid var(--hair);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+}
+.cap h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.0625rem;
+  color: var(--ink-max);
+  margin: 0;
+}
+.cap h3 .icon { color: var(--ink-accent); }
+.cap p { color: var(--ink-soft); font-size: var(--t2); line-height: 1.6; margin: 0; }
+.cap-links { display: flex; flex-wrap: wrap; gap: 4px var(--s3); font-size: var(--t2); font-weight: 600; }
+.cap-links a { overflow-wrap: anywhere; }

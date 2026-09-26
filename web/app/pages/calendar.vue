@@ -99,7 +99,7 @@ async function subscribeByEmail() {
         </p>
       </div>
 
-      <div class="subscribe" data-testid="email-alerts">
+      <div class="subscribe" id="email-alerts" data-testid="email-alerts">
         <label for="alert-email" class="t2" style="font-weight: 600; color: var(--ink-max)">Or get an email 30 and 7 days before each date</label>
         <p v-if="alertState === 'sent'" class="t2" role="status" data-testid="email-alerts-sent">
           <strong>Check your inbox.</strong> We sent a link to confirm; nothing else is sent until you click it.
@@ -122,7 +122,13 @@ async function subscribeByEmail() {
         </p>
         <p class="t1 ink-faint">
           Double opt-in: you confirm from your inbox first. We keep only the address and the provider you chose,
-          send no tracking pixels, and every email has a one-click unsubscribe link.
+          send no tracking pixels, and every email has a one-click unsubscribe link. Where this site's
+          server cannot send email yet, the form says so; the calendar feed above works meanwhile.
+        </p>
+        <p class="t1 ink-faint" data-testid="team-alerts-pointer">
+          These are about every tracked shutdown. For alerts about what your own repositories call, by
+          email or Slack, sign in on the <NuxtLink to="/app">dashboard</NuxtLink>;
+          <NuxtLink to="/teams">what teams get</NuxtLink> says how to start.
         </p>
       </div>
     </section>
@@ -164,7 +170,7 @@ async function subscribeByEmail() {
 
     <section class="section" style="margin-top: var(--s4)">
       <button class="btn" @click="showPast = !showPast">
-        <span>⏱</span>
+        <Icon name="event" />
         <span>{{ showPast ? "Hide" : "Show" }} already effective ({{ past.reduce((n, g) => n + g.items.length, 0) }})</span>
       </button>
 
