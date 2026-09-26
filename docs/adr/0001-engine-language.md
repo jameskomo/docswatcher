@@ -19,7 +19,7 @@ Candidates considered: Rust, Java 25 with Spring Boot 4, Go, Python, TypeScript 
 
 ## Reasons
 
-1. **The team is fastest in Java.** Pre-revenue, this dominates.
+1. **The team is fastest in Java.** Early on, speed of building dominates.
 2. **Java 25 neutralises the parser argument.** The Foreign Function and Memory API gives clean tree-sitter bindings with no JNI. This was the strongest technical reason to pick Rust.
 3. **Data-driven detectors neutralise the WebAssembly argument.** With detectors as data, the browser needs a small interpreter, not the whole engine. See ADR 0002.
 4. **GraalVM native-image gives the CLI and server the startup and memory profile we wanted from Rust.** The app fits in under 200 MB, which is the boundary between free and paid container tiers.
