@@ -32,17 +32,17 @@ June 14, 2023
 Legacy PubSub deprecation and shutdown timeline
 Announcements
 17
-8723
+8724
 April 8, 2025
 EventSub WebSockets are now out of beta and generally available
 Announcements
 3
-1188
+1189
 July 19, 2023
 RFC 0016 - EventSub WebSockets
 RFCs
 11
-7206
+7209
 September 28, 2022
 Home
 Categories
