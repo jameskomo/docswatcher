@@ -1,68 +1,56 @@
-Skip to main content
-Apps
-Storefronts
-Agents
-References
-Changelog
-Ask assistant /
-Help
-•
-Log in
-Collapse sidebar
-Changelog
-Search changelog
-Subscribe
-All posts
-Blog & announcements
-Release notes
+---
+title: Removing marketCurrencySettingsUpdate mutation - Shopify developer changelog
+description: >-
+Shopify’s developer changelog documents all changes to Shopify’s platform.
+Find the latest news and learn about new platform opportunities.
+source_url:
+html: 'https://shopify.dev/changelog/removing-marketcurrencysettingsupdate-mutation'
+md: >-
+https://shopify.dev/changelog/removing-marketcurrencysettingsupdate-mutation.md
+metadata:
+effectiveApiVersion: 2027-01
+affectedApi:
+- displayName: Admin GraphQL API
+handle: admin-graphql
+primaryTag:
+displayName: API
+handle: api
+secondaryTag:
+displayName: Breaking API Change
+handle: breaking-api-change
+indicatesActionRequired: true
+createdAt: '2026-09-21T18:14:17-04:00'
+postedAt: '2026-09-22T12:00:00-04:00'
+updatedAt: '2026-09-24T17:32:59-04:00'
+effectiveAt: '2026-09-22T12:00:00-04:00'
+---
 September 22, 2026
-Removing marketCurrencySettingsUpdate mutation
-Install AI Toolkit Ask about this page Copy MD
-Date September 22, 2026
-Version 2027-01
-Flags Breaking API Change Action required
-Surfaces API
-Affected APIs Admin GraphQL API
-As of GraphQL Admin API version 2027-01 , the market Currency Settings Update mutation is removed, along with the Market Currency Settings Update Payload , Market Currency Settings User Error , and Market Currency Settings User Error Code types. The mutation already returns an error for every request, so this removes an endpoint that can no longer be used.
-What's changed
-In API version 2027-01 , the Admin GraphQL API removes:
-market Currency Settings Update
-Market Currency Settings Update Payload
-Market Currency Settings User Error
-Market Currency Settings User Error Code
-The mutation was deprecated when Markets Home launched in version 2025-04 . Since 2025-04 became inaccessible, every call has returned the UNIFIED_MARKETS_ENABLED user error instead of updating anything.
-To create or update market currency settings, use market Create and market Update . Both accept currency settings directly, so you don't need a separate call.
-Versions 2026-10 and earlier are unaffected and keep the mutation for the remainder of their supported lifetime.
-Who's affected
-You're affected if your app still calls market Currency Settings Update . Those calls aren't updating currency settings today, and in 2027-01 they'll fail differently: the field no longer exists, so the request is rejected at validation.
-You're not affected if you already use market Create and market Update to manage market currency settings.
-Action required
-Replace any remaining calls to market Currency Settings Update :
-Use market Create when you create a market and its currency settings.
-Use market Update when you change the currency settings of an existing market.
-Pass the same currency settings directly in the market Create or market Update input.
-Because a request that references a removed field fails validation, an unmigrated call in 2027-01 fails the entire request rather than returning a user error for one mutation.
-Related docs
-market Create mutation
-market Update mutation
-Market object
-Was this page helpful?
-Yes No
-Updates
-Developer changelog
-Shopify Editions
-Business growth
-Shopify Partners Program
-Shopify App Store
-Shopify Academy
-Legal
-Terms of service
-API terms of use
-Privacy policy
-Partners Program Agreement
-Shopify
-About Shopify
-Shopify Plus
-Careers
-Investors
-Press and media
+# Removing marketCurrencySettingsUpdate mutation
+DateSeptember 22, 2026
+Version[2027-01](https://shopify.dev/changelog?api_version=2027-01)
+Flags[Breaking API Change](https://shopify.dev/changelog?filter=breaking-api-change)[Action required](https://shopify.dev/changelog?action_required=true)
+SurfacesAPI
+Affected APIs[Admin GraphQL API](https://shopify.dev/changelog?api_type=admin-graphql)
+As of GraphQL Admin API version `2027-01`, the `marketCurrencySettingsUpdate` mutation is removed, along with the `MarketCurrencySettingsUpdatePayload`, `MarketCurrencySettingsUserError`, and `MarketCurrencySettingsUserErrorCode` types. The mutation already returns an error for every request, so this removes an endpoint that can no longer be used.
+## What's changed
+In API version `2027-01`, the Admin GraphQL API removes:
+* `marketCurrencySettingsUpdate`
+* `MarketCurrencySettingsUpdatePayload`
+* `MarketCurrencySettingsUserError`
+* `MarketCurrencySettingsUserErrorCode`
+The mutation was deprecated when Markets Home launched in version `2025-04`. Since `2025-04` became inaccessible, every call has returned the `UNIFIED_MARKETS_ENABLED` user error instead of updating anything.
+To create or update market currency settings, use [`marketCreate`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/marketCreate) and [`marketUpdate`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/marketUpdate). Both accept currency settings directly, so you don't need a separate call.
+Versions `2026-10` and earlier are unaffected and keep the mutation for the remainder of their supported lifetime.
+## Who's affected
+You're affected if your app still calls `marketCurrencySettingsUpdate`. Those calls aren't updating currency settings today, and in `2027-01` they'll fail differently: the field no longer exists, so the request is rejected at validation.
+You're not affected if you already use `marketCreate` and `marketUpdate` to manage market currency settings.
+## Action required
+Replace any remaining calls to `marketCurrencySettingsUpdate`:
+1. Use `marketCreate` when you create a market and its currency settings.
+2. Use `marketUpdate` when you change the currency settings of an existing market.
+3. Pass the same currency settings directly in the `marketCreate` or `marketUpdate` input.
+Because a request that references a removed field fails validation, an unmigrated call in `2027-01` fails the entire request rather than returning a user error for one mutation.
+## Related docs
+* [`marketCreate` mutation](https://shopify.dev/docs/api/admin-graphql/latest/mutations/marketCreate)
+* [`marketUpdate` mutation](https://shopify.dev/docs/api/admin-graphql/latest/mutations/marketUpdate)
+* [`Market` object](https://shopify.dev/docs/api/admin-graphql/latest/objects/Market)

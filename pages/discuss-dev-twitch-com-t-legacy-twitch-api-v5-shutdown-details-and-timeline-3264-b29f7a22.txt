@@ -134,12 +134,12 @@ August 8, 2019
 HTTP 410 on GET https://api.twitch.tv/kraken/user
 API
 10
-5860
+5863
 September 9, 2019
 Twitch API v3 and v5 Deprecation Updates
 Announcements
 0
-6780
+6781
 December 20, 2018
 Deprecation date for v5?
 API

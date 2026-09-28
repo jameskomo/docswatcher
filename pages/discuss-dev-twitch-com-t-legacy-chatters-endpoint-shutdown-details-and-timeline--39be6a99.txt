@@ -140,17 +140,17 @@ Activity
 New Chatters API endpoint now available in open beta
 Announcements
 26
-7970
+7971
 March 6, 2023
 Has the 'http://tmi.twitch.tv/group/user/channel_name/chatters' endpoint been removed?
 API
 1
-2007
+2009
 March 31, 2023
 Chatters info via chatbot
 Chat and IRC
 3
-600
+603
 March 31, 2023
 New chatters endpoint
 API
@@ -160,7 +160,7 @@ April 24, 2023
 Legacy Chatters endpoint and detecting bots
 API
 34
-3152
+3156
 April 30, 2023
 Home
 Categories
