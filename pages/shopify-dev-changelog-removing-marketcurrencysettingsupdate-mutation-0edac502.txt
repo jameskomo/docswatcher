@@ -4,9 +4,10 @@ description: >-
 Shopify’s developer changelog documents all changes to Shopify’s platform.
 Find the latest news and learn about new platform opportunities.
 source_url:
-html: 'https://shopify.dev/changelog/removing-marketcurrencysettingsupdate-mutation'
+html: >-
+https://shopify.dev/changelog/posts/removing-marketcurrencysettingsupdate-mutation
 md: >-
-https://shopify.dev/changelog/removing-marketcurrencysettingsupdate-mutation.md
+https://shopify.dev/changelog/posts/removing-marketcurrencysettingsupdate-mutation.md
 metadata:
 effectiveApiVersion: 2027-01
 affectedApi:

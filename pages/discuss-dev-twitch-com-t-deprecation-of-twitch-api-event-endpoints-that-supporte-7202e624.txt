@@ -48,7 +48,7 @@ November 7, 2020
 Follows endpoints and EventSub subscription type are now available in open beta
 Announcements
 16
-260927
+260930
 October 14, 2023
 Home
 Categories

@@ -7,9 +7,9 @@ Shopify’s developer changelog documents all changes to Shopify’s platform.
 Find the latest news and learn about new platform opportunities.
 source_url:
 html: >-
-https://shopify.dev/changelog/removed-session-currentsession-staffmemberid-from-pos-ui-extensions-2026-10
+https://shopify.dev/changelog/posts/removed-session-currentsession-staffmemberid-from-pos-ui-extensions-2026-10
 md: >-
-https://shopify.dev/changelog/removed-session-currentsession-staffmemberid-from-pos-ui-extensions-2026-10.md
+https://shopify.dev/changelog/posts/removed-session-currentsession-staffmemberid-from-pos-ui-extensions-2026-10.md
 metadata:
 effectiveApiVersion: 2026-10
 affectedApi:

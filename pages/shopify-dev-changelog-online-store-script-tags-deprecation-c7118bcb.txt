@@ -6,8 +6,8 @@ description: >-
 Shopify’s developer changelog documents all changes to Shopify’s platform.
 Find the latest news and learn about new platform opportunities.
 source_url:
-html: 'https://shopify.dev/changelog/online-store-script-tags-deprecation'
-md: 'https://shopify.dev/changelog/online-store-script-tags-deprecation.md'
+html: 'https://shopify.dev/changelog/posts/online-store-script-tags-deprecation'
+md: 'https://shopify.dev/changelog/posts/online-store-script-tags-deprecation.md'
 metadata:
 effectiveApiVersion: ''
 affectedApi:

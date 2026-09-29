@@ -210,9 +210,27 @@ Admin .NET
 Admin Dart (experimental)
 0.5.0
 Firebase CLI
-15.30.2
+15.32.0
 Firebase Studio
 See notes
+September 28, 2026
+Firebase CLI (v15.32.0)
+The latest
+Firebase CLI (v15.32.0) is now
+available. This version introduces function kits, adds support for overriding
+Secret Manager secret IDs and versions in Cloud Functions .env
+files, adds migration tools for Firebase Extensions , and includes several
+fixes and improvements.
+To use the Firebase CLI in your development environment,
+set up or update the CLI .
+Google AI Studio integration
+The Firebase integration in
+Google AI Studio now
+supports Android apps in addition to web apps. You can automatically set
+up and integrate Cloud Firestore (including Rules) and
+Firebase Authentication into both Android and web apps.
+To learn more, see
+Add Firebase to your Google AI Studio app .
 September 24, 2026
 SDK Releases
 The Firebase Admin .NET SDK
@@ -228,6 +246,15 @@ from the legacy Instance ID API to the Cloud Messaging v1 API.
 To install this SDK, see
 Add the Firebase Admin SDK to your server .
 September 23, 2026
+Firebase CLI (v15.31.0)
+The latest
+Firebase CLI (v15.31.0) is now
+available. This version improves error messages when adding Firebase
+to projects, fixes an issue where deploys stop responding on killed runs,
+adds firebase-admin v14 support for SQL Connect Node SDKs, and
+improves Crashlytics source map handling.
+To use the Firebase CLI in your development environment,
+set up or update the CLI .
 SDK Releases
 The Firebase Admin Go SDK
 (v4.22.0) is now available.
@@ -642,14 +669,16 @@ set up or update the CLI .
 July 29, 2026
 Gemini API
 The following Gemini models
-will be shut down (retired) in October 2026.
+will be shut down (retired) as early as October 2026.
 gemini-2.5-pro
 gemini-2.5-flash
 gemini-2.5-flash-lite
 gemini-2.5-flash-image (aka "Nano Banana")
 For the general-use models, the date for shutdown depends on your chosen
 Gemini API provider:
-Gemini Developer API (Google AI): October 16, 2026
+Gemini Developer API (Google AI): deprecated, but no shutdown
+date is announced yet (only previously active projects can continue
+using them)
 Agent Platform Gemini API (formerly Vertex AI) : October 20, 2026
 For the image-generating model (Nano Banana), the date for shutdown is the
 same regardless of your chosen Gemini API provider: October 02, 2026
@@ -16696,7 +16725,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-09-24 UTC.
+Last updated 2026-09-29 UTC.
 Learn
 Developer guides
 SDK & API reference

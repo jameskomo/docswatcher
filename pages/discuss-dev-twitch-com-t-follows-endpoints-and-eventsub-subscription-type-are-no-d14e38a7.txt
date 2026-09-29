@@ -160,12 +160,12 @@ August 4, 2023
 Get Channel Followers usernames
 API
 3
-468
+469
 October 29, 2023
 Following Scope
 API
 8
-3474
+3475
 March 29, 2016
 API request: add "new follower" topic to PubSub
 API

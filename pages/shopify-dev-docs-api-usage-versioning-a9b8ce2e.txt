@@ -10,7 +10,7 @@ md: 'https://shopify.dev/docs/api/usage/versioning.md'
 ---
 # About Shopify API versioning
 Shopify releases new API versions on a predictable quarterly schedule, giving you time to adopt changes before older versions are retired.
-Each version's [release notes](https://shopify.dev/changelog?post_type=release-notes) list the changes in that version, including anything that requires action. Subscribe to the [developer changelog](https://shopify.dev/changelog) and [keep your developer contact details up to date](https://shopify.dev/docs/apps/build/dev-dashboard/technical-updates#update-your-developer-contact-details) to stay informed about upcoming changes.
+Each version's [release notes](https://shopify.dev/changelog/release-notes) list the changes in that version, including anything that requires action. Subscribe to the [developer changelog](https://shopify.dev/changelog) and [keep your developer contact details up to date](https://shopify.dev/docs/apps/build/dev-dashboard/technical-updates#update-your-developer-contact-details) to stay informed about upcoming changes.
 ***
 ## Versioned and unversioned APIs
 Not all Shopify APIs follow the same versioning model. Versioned APIs and libraries follow the quarterly release schedule described below. Unversioned APIs and surfaces may change at any time.
