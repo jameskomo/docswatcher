@@ -758,7 +758,7 @@ GA
 claude-sonnet-4-5
 1
 GA
-2026-10-19
+2026-11-15
 —
 claude-opus-5
 2
@@ -793,7 +793,7 @@ GA
 claude-opus-4-5
 1
 GA
-2026-10-19
+2026-11-24
 —
 claude-opus-4-1
 —
@@ -803,12 +803,12 @@ claude-opus-5
 claude-haiku-4-5
 1
 GA
-2026-10-19
+2026-11-15
 —
 claude-haiku-4-5
 2
 GA
-2026-10-19
+2026-11-15
 —
 claude-fable-5-1
 1

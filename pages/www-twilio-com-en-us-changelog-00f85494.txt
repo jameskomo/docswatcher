@@ -487,6 +487,12 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Sep 27, 2026
+Conversation Intelligence
+Conversation Orchestrator
+On-demand rule execution and Conversation Metadata now generally available with Twilio Conversations
+Today, we are launching two new capabilities with Twilio Conversations – On-demand rule execution for Conversation Intelligence and Conversation metadata for Conversation Orchestrator
+Learn more
 Sep 25, 2026
 GA
 Voice API
@@ -542,11 +548,6 @@ Beta
 Voice API
 ElevenLabs Voices for Say is now Public Beta
 ElevenLabs voices are now available in Public Beta for <Say>, powered by the Flash v2 and Flash v2.5 models for fast, natural-sounding text-to-speech. Get started by specifying an ElevenLabs voice via the REST API or in a TwiML Bin.
-Learn more
-Sep 08, 2026
-Webhook Configuration API is now in Public Beta
-Using the Webhook Configuration API, customers can configure how Twilio authenticates and delivers outbound webhooks, per URL. The API consists of two resources: Webhook Settings and Webhook Rules.
-Webhook Settings hold the authentication and connection configuration. Customers can secure endpoints with OAuth 2.0. Twilio fetches an access token from the customer's authorization server using the client credentials flow and sends it as a Bearer token in the Authorization header of every webhook or with Shared Key signatures. Customers can also configure delivery behavior like timeouts and retries.
 Learn more
 Loading
 Error: Unable to load changelog

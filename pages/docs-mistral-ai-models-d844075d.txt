@@ -50,10 +50,6 @@ Z.ai GLM 5.3
 Open
 A third-party open weight text model from Z.ai with a 1M-token context window.
 v 5.3
-Z.ai GLM 5.2
-Open
-A third-party open weight text model from Z.ai with a 1M-token context window.
-v 5.2
 Mistral Medium 3.5
 Modified MIT
 Our frontier-class multimodal model optimized for agentic and coding use cases.
@@ -86,10 +82,6 @@ OCR 4.1
 Premier
 Our latest OCR service with paragraph-level bounding boxes, structural block labels, and block-level confidence scores.
 v 4.1
-OCR 4.0
-Premier
-Our latest OCR service with paragraph-level bounding boxes and structural block labels.
-v 4.0
 OCR 3
 Premier
 Our OCR service powering our Document AI stack. OCR 4 is available as the newer model. OCR 3 remains available for existing integrations and production workloads.
@@ -146,14 +138,6 @@ Mistral Moderation 2
 Premier
 Our latest moderation model with 128k context window and jailbreaking detection.
 v 26.03
-Other specialist models
-Copy section link
-Other specialist models
-Specialized models for focused domains and task-specific workloads.
-Leanstral 1.5
-Apache 2.0
-Updated code agent for Lean 4 formal proof engineering and automated theorem proving.
-v 1.5
 Deprecated
 Copy section link
 Deprecated
@@ -165,6 +149,15 @@ API
 Deprecation Retirement
 Alternative
 Scroll for more
+Z.ai GLM 5.2 ↗
+5.2
+zai-glm-5-2
+9/29/2026 10/31/2026
+Z.ai GLM 5.3
+Leanstral 1.5 ↗
+1.5
+labs-leanstral-1-5
+9/29/2026 9/30/2026
 Leanstral ↗
 26.03
 labs-leanstral-2603
@@ -180,6 +173,11 @@ Mistral Small 3.2 ↗
 mistral-small-2506
 4/30/2026 7/31/2026
 Mistral Small 4
+OCR 4.0 ↗
+4.0
+mistral-ocr-4-0
+9/29/2026 9/30/2026
+OCR 4.1
 Voxtral Mini Transcribe ↗
 25.07
 voxtral-mini-2507

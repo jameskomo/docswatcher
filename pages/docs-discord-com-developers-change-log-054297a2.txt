@@ -23,11 +23,22 @@ Developer Community
 Change Log
 close
 Filters Clear
-Discord Social SDK HTTP API Breaking Change Interactions Activities Premium Apps Embedded App SDK Gateway Voice Components User Apps Docs Documentation RPC Events
+Discord Social SDK HTTP API Breaking Change Interactions Activities Premium Apps Embedded App SDK Gateway Voice Docs Components User Apps Documentation RPC Events
 Change Log
 Copy page Copy page
 Discover the latest updates, new features, and bug fixes on the Discord Developer Platform. To join in on the conversation, join the Discord Developers Server .
 Copy page Copy page
+​
+September 28, 2026
+Docs
+​
+Videos in the Documentation
+Like to watch instead of read? Amazing — we’ve embedded videos from the Discord Developers YouTube channel directly into the documentation, right next to the guides they pair with. Long-form videos show their total running time and come with a chapter list, so you can jump straight to the section you need without leaving the page. You’ll find them throughout the docs, including on:
+Provisional Accounts
+Application Commands
+Integrate Moderation
+Add Proximity Voice Chat to Your Game
+Keep an eye out for them across the platform documentation! We’ll be adding more as we release more content!
 ​
 September 22, 2026
 Gateway Activities Premium Apps Discord Social SDK

@@ -503,13 +503,16 @@ or the GA models on the Gemini Enterprise Agent Platform
 Preview models
 veo-3.1-lite-generate-preview
 March 31, 2026
-No shutdown date announced
+October 22, 2026
+gemini-omni-1.1-flash
 veo-3.1-generate-preview
 October 15, 2025
-No shutdown date announced
+October 22, 2026
+gemini-omni-1.1-flash
 veo-3.1-fast-generate-preview
 October 15, 2025
-No shutdown date announced
+October 22, 2026
+gemini-omni-1.1-flash
 veo-3.0-generate-preview
 July 31, 2025
 November 12, 2025
@@ -526,11 +529,6 @@ Recommended replacement
 gemini-omni-1.1-flash
 August 27, 2026
 No shutdown date announced
-Deprecated models
-gemini-omni-flash-preview
-June 30, 2026
-September 30, 2026
-gemini-omni-1.1-flash
 Lyria models
 Model
 Release date
@@ -579,7 +577,7 @@ October 5, 2026
 antigravity-preview-09-2026
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-09-24 UTC.
+Last updated 2026-09-30 UTC.
 Terms
 Privacy
 Manage cookies
