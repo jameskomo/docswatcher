@@ -187,7 +187,7 @@ Alongside the scan path, two things run on a schedule and touch no customer repo
 2. The app assembles the context: the finding, the change record's migration block, and up to 50 evidence locations as **structural locators only** — path, line, column. The verbatim source snippet is deliberately left out, because the payload crosses into another repository's CI and the snippet is attacker-controlled text when the scanned repository is public.
 3. The app dispatches a workflow in the customer's repository. The workflow is a file DocsWatcher offers to add on install. It runs Claude Code with the customer's API key from their repository secrets.
 4. The agent edits only the files the finding names. It cannot run commands, so it runs no tests and cannot push. A second job, with no agent and no key, checks the change against those files, then opens a draft PR labelled `docswatcher-fix` whose body names the finding. The customer's own CI runs the tests on it.
-5. The app records the PR URL on the finding. When the PR merges and the next push rescan no longer observes the contract, the finding closes as `fixed`.
+5. When the PR merges and the next push rescan no longer observes the contract, the finding closes as `fixed`. The app does not yet record the PR's URL on the finding: `FindingStore.setFixPrUrl` exists, but nothing calls it.
 
 ## Data model
 
