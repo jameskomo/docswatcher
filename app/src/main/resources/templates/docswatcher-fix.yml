@@ -3,8 +3,10 @@
 #
 # DocsWatcher dispatches a `docswatcher-fix` event when you press Fix on a
 # finding. Claude Code, in your own Actions with your own key, migrates the
-# lines the finding names, and a pull request opens for you to review. Your
-# usual CI runs the tests on it.
+# lines the finding names, and a draft pull request labelled docswatcher-fix
+# opens for you to review. The agent cannot run your tests; your own CI does,
+# on the pull request. (GitHub does not start CI for a pull request a workflow
+# opens: push to its branch, or close and reopen it, to run it.)
 #
 # The agent reads code DocsWatcher did not write, so its limits are enforced
 # by this workflow, not asked of it in the prompt:
@@ -14,7 +16,7 @@
 #   - it cannot run commands or reach the web;
 #   - its job can read the repository but not push to it;
 #   - a second job, with no agent and no key, checks the change again and
-#     opens the pull request.
+#     opens the pull request, as a draft, for a person to review.
 name: DocsWatcher fix
 
 on:
@@ -91,12 +93,18 @@ jobs:
           2. Change those files so they no longer depend on the deprecated contract, following the
              provider's replacement in the migration notes. Keep each change as small as it can be.
              You can edit only the files the finding names; that limit is enforced.
+             You cannot run commands, tests or git. Leave the change in the working tree: the
+             workflow commits it and opens the pull request, and the repository's CI tests it.
           3. Finish with a short plain-text summary, for the pull request, of what you changed and
              anything a reviewer should check.
           EOF
           )
           # Read is scoped too: unscoped, it could read /proc/self/environ, and the key with it.
           # Glob and Grep keep their default of the working directory only.
+          # No Bash: a shell reaches past every path scope here, so the agent cannot run your
+          # tests. Your CI runs them on the pull request instead.
+          # No WebFetch or WebSearch: the finding already carries the migration notes, and a
+          # page fetched mid-run is more untrusted text, and a way out for anything read here.
           claude -p "$prompt" \
             --allowedTools "Read(./**)" "Read(/$DOCSWATCHER_DIR/finding.json)" "${edit[@]}" \
             --disallowedTools "Bash" "WebFetch" "WebSearch" "Read(//proc/**)" "Read(~/**)" \
@@ -177,10 +185,14 @@ jobs:
           git checkout -b "$branch"
           git commit -m "Migrate off ${change}" -m "DocsWatcher finding: ${id}"
           git push "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" "$branch"
+          gh label create docswatcher-fix --repo "$REPO" --color D93F0B \
+            --description "Written by an agent from a DocsWatcher finding. Needs human review" --force > /dev/null
           {
             echo "DocsWatcher finding: ${id}"
             echo
-            echo "Written by Claude Code from a DocsWatcher finding ($RUN_URL). It could edit only the files the finding names, and could not run commands. Review it like any other change."
+            echo "Written by Claude Code from a DocsWatcher finding ($RUN_URL). It could edit only the files the finding names, and could not run commands or tests."
+            echo
+            echo "**An agent wrote this change. A person must review it, and your CI must pass, before it is marked ready and merged.**"
             echo
             echo "CI does not run automatically on pull requests opened by a workflow. Push any commit to this branch, or close and reopen it, to run it."
             echo
@@ -188,5 +200,5 @@ jobs:
             echo
             head -c 20000 "$dir/summary.md"
           } > "$RUNNER_TEMP/pr.md"
-          gh pr create --repo "$REPO" --head "$branch" \
+          gh pr create --repo "$REPO" --draft --label docswatcher-fix --head "$branch" \
             --title "Migrate off ${change}" --body-file "$RUNNER_TEMP/pr.md"

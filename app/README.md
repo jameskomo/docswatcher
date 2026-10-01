@@ -142,7 +142,8 @@ The agent reads code DocsWatcher does not control, so its limits are enforced by
 
 - It may edit only the files the finding names, which must be tracked regular files outside `.github/`, and may read only the checkout and the finding. It cannot run commands or reach the web.
 - Its job has `contents: read`. The workflow then checks that only the named files changed, with no file created, deleted or re-moded.
-- A second job, with no agent and no key, applies the change, checks it again, and opens the pull request.
+- A second job, with no agent and no key, applies the change, checks it again, and opens the pull request as a draft labelled `docswatcher-fix`, saying an agent wrote it and a person must review it.
+- The agent cannot run the tests. The customer's own CI runs them on the pull request.
 
 `FixWorkflowTemplateTest` keeps these properties from regressing.
 

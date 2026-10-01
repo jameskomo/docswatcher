@@ -73,6 +73,12 @@ class FixWorkflowTemplateTest {
   }
 
   @Test
+  void theWorkflowNotTheAgentOpensADraftForAPersonToReview() {
+    assertThat(runs("open-pr")).contains("gh pr create --repo \"$REPO\" --draft --label docswatcher-fix ");
+    assertThat(runs("draft")).doesNotContain("gh pr").doesNotContain("git push").doesNotContain("git commit");
+  }
+
+  @Test
   void noPayloadTextIsInterpolatedIntoAScript() {
     assertThat(runs("draft") + runs("open-pr")).doesNotContain("${{");
   }
