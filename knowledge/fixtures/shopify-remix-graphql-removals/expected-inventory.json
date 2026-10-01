@@ -1,5 +1,37 @@
 [
   {
+    "id": "shopify:graphql_operation:CollectionSourceInclusionConditionInput.metafieldInteger",
+    "provider": "shopify",
+    "kind": "graphql_operation",
+    "key": "CollectionSourceInclusionConditionInput.metafieldInteger",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "app/collections.server.ts",
+        "line": 10,
+        "column": 13,
+        "snippet": "... on CollectionSourceInclusionConditionMetafieldInteger {",
+        "detector": "shopify.literal.graphql-collection-metafield-integer",
+        "layer": "literal"
+      },
+      {
+        "path": "app/collections.server.ts",
+        "line": 30,
+        "column": 34,
+        "snippet": "conditionsToCreate: [{ metafieldInteger: { definitionId, relation: \"GREATER_THAN\", value: 2000 } }],",
+        "detector": "shopify.literal.graphql-collection-metafield-integer",
+        "layer": "literal"
+      }
+    ],
+    "context": {
+      "sdk": {
+        "ecosystem": "npm",
+        "package": "@shopify/shopify-app-remix",
+        "version": "^3.8.2"
+      }
+    }
+  },
+  {
     "id": "shopify:graphql_operation:DiscountCountriesInput.includeRestOfWorld",
     "provider": "shopify",
     "kind": "graphql_operation",

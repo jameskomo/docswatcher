@@ -1,0 +1,38 @@
+id: shopify-collection-metafield-integer-condition-removed-2027
+provider: shopify
+kind: sunset
+severity: breaking
+title: "metafieldInteger collection condition removed in Admin API 2027-01"
+summary: >
+  The metafieldInteger collection source condition is removed from the Admin
+  GraphQL API in version 2027-01, on both CollectionSourceInclusionConditionInput
+  and CollectionSourceInclusionConditionUpdateInput, together with the
+  CollectionSourceInclusionConditionMetafieldInteger type. On 2027-01 a mutation
+  that sends metafieldInteger fails validation, and a query that selects the
+  type returns errors. It keeps working up to and including 2026-10. Shopify
+  ties the removal to API version 2027-01 and gives no calendar date.
+
+affects:
+  - kind: graphql_operation
+    match: "CollectionSourceInclusionConditionInput.metafieldInteger"
+
+announced: 2026-10-01
+effective: null
+
+sources:
+  - kind: changelog
+    url: https://shopify.dev/changelog/metafieldinteger-collection-condition-removed-in-api-version-2027-01
+    observed: 2026-10-01
+
+migration:
+  replacement: "metafieldInt"
+  guide: https://shopify.dev/changelog/metafieldinteger-collection-condition-removed-in-api-version-2027-01
+  effort: small
+  notes: >
+    Send metafieldInt instead of metafieldInteger in conditionsToCreate and in
+    updates, and read ... on CollectionSourceInclusionConditionMetafieldInt
+    instead of ... on CollectionSourceInclusionConditionMetafieldInteger. The
+    value changes type from Int to String: send value: "2000", not value: 2000,
+    and expect a string back. Regenerate GraphQL types against 2027-01.
+
+status: active

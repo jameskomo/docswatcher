@@ -238,7 +238,7 @@ Warnings: an individual `affects` entry that no fixture exercises.
 
 ```
 $ knowledge/scripts/validate
-Knowledge 2026.09.26: 27 providers, 315 change records, 113 fixtures
+Knowledge 2026.10.01: 27 providers, 316 change records, 113 fixtures
 OK · 0 errors, 20 warnings
 ```
 

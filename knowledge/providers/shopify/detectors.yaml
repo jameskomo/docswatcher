@@ -91,6 +91,20 @@ literals:
     key: "DiscountCountriesInput.includeRestOfWorld"
     confidence: medium
 
+  # metafieldInteger is a collection source condition, written as an input object
+  # (metafieldInteger: { ... }) or read back through its type in an inline
+  # fragment. Its replacement, metafieldInt, does not match: the word boundary
+  # after metafieldInteger and the full type name both exclude it. The key is
+  # the creating input's schema coordinate, so the update input, which carries
+  # the same field, is the same contract.
+  - id: shopify.literal.graphql-collection-metafield-integer
+    kind: graphql_operation
+    files: ["**/*.{ts,tsx,js,jsx,mjs,cjs,py,rb,php,java,kt,go,cs,graphql,gql,json}"]
+    exclude: ["**/node_modules/**", "**/target/**", "**/dist/**", "**/package-lock.json", "**/schema.graphql", "**/*.schema.graphql", "**/schema.gql"]
+    pattern: '\bmetafieldInteger["'']?\s*(?::|=>)\s*\{|\.\.\.\s*on\s+CollectionSourceInclusionConditionMetafieldInteger\b'
+    key: "CollectionSourceInclusionConditionInput.metafieldInteger"
+    confidence: medium
+
   # The REST ScriptTag resource. The version segment may be a literal or a
   # template placeholder (${v}, {v}, #{v}), and the key writes it as {version}
   # so every spelling is one contract. The method is not visible in a URL, so
