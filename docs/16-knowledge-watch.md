@@ -45,7 +45,7 @@ turns red the morning after every shutdown date.
 - **From the day after**, the `expire` job runs `web/scripts/expire-records.mjs`, which changes
   the one `status: active` line to `status: expired` in every record past its date, and nothing
   else. It then bumps `knowledge/VERSION`, validates, force-pushes the standing branch
-  `knowledge-watch/expire` (rebuilt from `main` each day, so a second record joins the open pull
+  `kw/expire` (rebuilt from `main` each day, so a second record joins the open pull
   request instead of opening another) and opens or refreshes one pull request labelled
   `knowledge-expiry`.
 

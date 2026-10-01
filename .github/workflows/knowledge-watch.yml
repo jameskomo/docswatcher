@@ -182,7 +182,7 @@ jobs:
           set -euo pipefail
           # One standing branch, rebuilt from main every day, so a second record coming due joins
           # the open pull request instead of opening another.
-          branch="knowledge-watch/expire"
+          branch="kw/expire"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -B "$branch"
@@ -313,7 +313,7 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           set -euo pipefail
-          branch="knowledge-watch/proposal-$(date -u +%F)-${{ github.run_id }}"
+          branch="kw/proposal-$(date -u +%F)-${{ github.run_id }}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
