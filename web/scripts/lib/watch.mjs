@@ -89,8 +89,26 @@ export function addedLines(previous, next) {
   return added;
 }
 
-/** Whether a line reads like deprecation news: a deprecation word, or a date. */
-export const isSignal = (line) => SIGNAL.test(line) || DATE.test(line);
+/**
+ * A page's own timestamp. Google's deprecation pages stamp themselves every day, so without this
+ * every watched page reported breaking news daily and the issue said "23 sources changed" when
+ * nothing had.
+ */
+const STAMP = /^\s*(last\s+(updated|reviewed|modified|published)|updated|published|page\s+last\s+reviewed)\b/i;
+const DATE_G = new RegExp(DATE.source, "gi");
+
+/** A line that is nothing but a date, like a lone table cell or a heading the diff caught by itself. */
+const bareDate = (line) =>
+  line.replace(DATE_G, " ").replace(/\b(utc|gmt|pst|pdt|est|edt|et|pt)\b/gi, " ").replace(/[^a-z0-9]/gi, "").length === 0;
+
+/**
+ * Whether a line reads like deprecation news: a deprecation word, or a date carried alongside
+ * something else. A date on its own is not news - it is what a page prints when it reprints itself.
+ */
+export const isSignal = (line) => {
+  if (STAMP.test(line) || bareDate(line)) return false;
+  return SIGNAL.test(line) || DATE.test(line);
+};
 
 /** Records whose newest source confirmation is more than STALE_DAYS old on `today`. */
 export function ageing(knowledge, today, days = STALE_DAYS) {

@@ -83,11 +83,15 @@ jobs:
           set -euo pipefail
           gh label create knowledge-watch --repo "$REPO" --color 0E8A16 \
             --description "A source the knowledge base cites has changed" --force >/dev/null
-          title="Knowledge watch: $(date -u +%F)"
-          existing=$(gh issue list --repo "$REPO" --label knowledge-watch --state open --search "in:title \"$title\"" --json number --jq '.[0].number // empty')
+          # One rolling issue, rewritten each run, rather than one per day. The report is a snapshot of
+          # what needs reading right now, not a log: a new issue every morning made the repository look
+          # like an unattended bot, and the backlog was never the point.
+          title="Knowledge watch"
+          existing=$(gh issue list --repo "$REPO" --label knowledge-watch --state open \
+            --json number,title --jq '[.[] | select(.title == "Knowledge watch")][0].number // empty')
           if [ -n "$existing" ]; then
-            gh issue comment "$existing" --repo "$REPO" --body-file "$RUNNER_TEMP/report.md"
-            echo "updated existing issue #$existing instead of opening a duplicate"
+            gh issue edit "$existing" --repo "$REPO" --body-file "$RUNNER_TEMP/report.md"
+            echo "rewrote the rolling issue #$existing"
           else
             gh issue create --repo "$REPO" --label knowledge-watch \
               --title "$title" --body-file "$RUNNER_TEMP/report.md"

@@ -59,6 +59,24 @@ describe("what counts as news", () => {
     expect(isSignal("Accept all cookies")).toBe(false);
     expect(isSignal("Sign in to your account")).toBe(false);
   });
+
+  it("ignores a page reprinting its own timestamp", () => {
+    // These three lines are what the watcher actually reported as "deprecation news" every day:
+    // a provider page that stamps itself daily looked like a shutdown announcement forever.
+    expect(isSignal("Last updated 2026-10-01 UTC.")).toBe(false);
+    expect(isSignal("October 7, 2025")).toBe(false);
+    expect(isSignal("July 28, 2026")).toBe(false);
+    expect(isSignal("Updated 2026-10-01")).toBe(false);
+    expect(isSignal("Page last reviewed 2026-09-28")).toBe(false);
+    expect(isSignal("  2026-10-01  ")).toBe(false);
+  });
+
+  it("still reports a date that carries something with it", () => {
+    // The fix must not throw away a table row, which is how most providers publish a shutdown date.
+    expect(isSignal("gemini-2.5-pro-preview-03-25 | 2026-04-29")).toBe(true);
+    expect(isSignal("Announced March 3, 2027")).toBe(true);
+    expect(isSignal("Last call for v1: 2026-12-31")).toBe(true);
+  });
 });
 
 describe("ageing", () => {
