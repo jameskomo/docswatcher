@@ -252,6 +252,18 @@ may make additional calls to report telemetry information for the purpose of cal
 (Service Level Objective) of several features. You may need to update your Content Security Policy
 to ensure these calls are not blocked at browser-level. For more information, please see the
 FAQ .
+3.66.7
+1 October, 2026
+Changes:
+[alpha channel] Fixed transit vehicle icons in the Route3DElement popover disappearing in forced colors mode.
+[alpha channel] Route.createWaypointMarkers() now sets a localized default title ("Origin" or "Destination") on the markers it creates.
+[alpha channel] Fixed Route3DElement popover text being invisible in hybrid and satellite map modes.
+[alpha channel] 3D markers created by Route.createWaypointMarkers() now keep a constant screen size ( sizePreserved is true by default).
+[alpha channel] Route3DElement origin and destination markers can now be reached with the keyboard and are announced by screen readers. Hovering a marker shows its title as a tooltip.
+[beta channel] Added the Map3DElement.maxMemoryMegabytes and Map3DElement.qualityMode properties, along with the QualityMode enum, to help reduce the 3D map's memory usage.
+Fixed an issue where PopoverElement ( <gmp-popover> ) shifted off its anchor when changing page zoom in Safari.
+Added pointer events support via gmp-pointerover , gmp-pointerout , and gmp-pointermove for interactive elements in Maps3D.
+Fixed TypeScript definitions for 3D Maps drawing elements (Marker3DElement, Model3DElement, Polygon3DElement, Polyline3DElement, FlattenerElement, CirclePathElement) and PopoverElement to accept google.maps.LatLng.
 3.66.6c
 22 September, 2026
 Changes:
@@ -4168,7 +4180,7 @@ the control images
 The main library is smaller by ~1.9 KB
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-09-28 UTC.
+Last updated 2026-10-01 UTC.
 Stack Overflow
 Ask a question under the google-maps tag.
 GitHub

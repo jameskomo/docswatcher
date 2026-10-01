@@ -38,7 +38,7 @@ May 16, 2022
 Events in the new Twitch API?
 API
 4
-4058
+4059
 December 21, 2017
 Get events when moderators or broadcasters ban users
 API

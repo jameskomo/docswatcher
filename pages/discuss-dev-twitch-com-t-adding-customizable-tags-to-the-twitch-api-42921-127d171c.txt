@@ -40,7 +40,7 @@ Activity
 Get Stream Tags Endpoint no longer returning tags
 API
 4
-708
+709
 August 19, 2022
 Updating Stream Tags
 API

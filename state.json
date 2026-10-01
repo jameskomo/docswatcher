@@ -67,17 +67,17 @@
       "unreadableReported": false
     },
     "https://devcommunity.x.com/t/deprecating-the-v1-1-media-upload-endpoints/238196": {
-      "failures": 6,
+      "failures": 7,
       "lastError": "HTTP 403",
       "lastTried": "2026-10-01"
     },
     "https://devcommunity.x.com/t/deprecation-of-account-activity-replay-endpoint/260354": {
-      "failures": 6,
+      "failures": 7,
       "lastError": "HTTP 403",
       "lastTried": "2026-10-01"
     },
     "https://devcommunity.x.com/t/media-upload-endpoints-update-and-extended-migration-deadline/241818": {
-      "failures": 6,
+      "failures": 7,
       "lastError": "HTTP 403",
       "lastTried": "2026-10-01"
     },
@@ -274,7 +274,7 @@
       "unreadableReported": false
     },
     "https://developers.google.com/maps/documentation/javascript/releases": {
-      "hash": "9e0ed111df6eb10e26b36cd3110ffa95c76bc12fa59a967ba6eef56b041d54b3",
+      "hash": "fb9364ad719f254c8e46dba2b1be0abb8ef8b9002dd3d1521633e74cdb0b4c20",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -386,7 +386,7 @@
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/adding-customizable-tags-to-the-twitch-api/42921": {
-      "hash": "4f968d34c4700d4d11829e71ee25b66db82fab103ca80a64771fbebffc9d3118",
+      "hash": "54b2deb7b5853d6b30b9499466083286c141748533cc21beaf87a5ed99cd15d8",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -394,7 +394,7 @@
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/deprecation-of-twitch-api-event-endpoints-that-supported-websub-based-webhooks/35137": {
-      "hash": "fe711b3a5247ea046a00b0fe4a392e9aae17f962ec6f7a160ed8e1f0101ceed7",
+      "hash": "acb3540a1d4d1519a59e5c52bc4d8794169213253ad063184f8a04c6aa16d9ee",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -402,7 +402,7 @@
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/deprecation-of-websub-based-webhooks/32152": {
-      "hash": "9c73c11e18bc4b2da6985bbf2c40eb05f30ace83523852e22283e63a27743cf7",
+      "hash": "23fe5299fb495db1393a40f8b27fe62ccb28a8015de963d8da9693bcbf976a73",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -410,7 +410,7 @@
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/follows-endpoints-and-eventsub-subscription-type-are-now-available-in-open-beta/43322": {
-      "hash": "dee6e481ac262271967ca9b0a606b7654aa7944f09c26741ecde1823d2374be4",
+      "hash": "e923406825360ae9fcffec23366b0132787234c0ce5035ef59b24101ef5ce79f",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -426,7 +426,7 @@
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/legacy-chatters-endpoint-shutdown-details-and-timeline-april-2023/43161": {
-      "hash": "6bdc5d6df0b236b4de32b8b374ea5c1fdca2dc2c8b6566fe6d0b1271b4a6bdbb",
+      "hash": "1a2df33a9db869d913f7ec7cc0c117f93e494406ce1097e86e7010204acf0c8c",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -442,7 +442,7 @@
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/legacy-get-hype-train-events-api-and-eventsub-hype-train-v1-subscription-types-deprecation-and-withdrawal-timeline/64299": {
-      "hash": "9f3ae443e68d1088faf1c8c35fc467785a2b3b899f9a0e1b4a9c4589d0f921b0",
+      "hash": "61dbb2559726fba32fb62c75ea7c5fe142f9edb6918c0df481ddd525566ff7c4",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -610,7 +610,7 @@
       "unreadableReported": false
     },
     "https://docs.stripe.com/changelog": {
-      "hash": "20a7aaccc04c991873d8b580c565bdea9e864607cad7fb9a224cf76c3dec93c7",
+      "hash": "21e673c1ce69b7dca5ea576a80e5e3ce493969658db68188da51f9d6852a6f7d",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -618,7 +618,7 @@
       "unreadableReported": false
     },
     "https://docs.stripe.com/sources": {
-      "hash": "11447cf60ac71c94dc57a7d9dcf9ee2276f077d301b961cdeb5f41d2c2759ac8",
+      "hash": "dda3906349cfd45112d51ab82af33e81c4ba7e49c418b992a6ec9bd831bacb46",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -637,9 +637,11 @@
       "hash": "3a10f70441b01100f494a374cda6c1fdc9700de7cab695cead9c7c5191ed40ac",
       "fetched": "2026-10-01",
       "status": 200,
-      "failures": 0,
+      "failures": 1,
       "readable": true,
-      "unreadableReported": false
+      "unreadableReported": false,
+      "lastError": "timed out",
+      "lastTried": "2026-10-01"
     },
     "https://docs.x.com/x-api/posts/search/migrate/overview": {
       "hash": "9af029a33bb0ef3fc21383c40113656cff124b1c5607cd9ec52fff5fc59b2e67",
@@ -706,7 +708,7 @@
       "unreadableReported": false
     },
     "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/openai/azure-ai-openai": {
-      "hash": "860c554f1d0b97e88fc25bc9fadd5082aa4a5688ffb10beb367549b430e585ad",
+      "hash": "1151ee0b1d6663920d045fd4cf5b5674089ec7f3a48310d1f2d9041f2e4fecc9",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -866,7 +868,7 @@
       "unreadableReported": false
     },
     "https://paystack.com/docs/changelog/api": {
-      "failures": 6,
+      "failures": 7,
       "lastError": "HTTP 403",
       "lastTried": "2026-10-01"
     },
@@ -887,7 +889,7 @@
       "unreadableReported": false
     },
     "https://shopify.dev/changelog": {
-      "hash": "9dc227b62207cdf923c82f6f091eec1895cc6787803dbb1bdaa8b23964d9018a",
+      "hash": "7d8d09f78fe1b7a3e6c41ae9a066c895aaa0511ffb6eef7a2d8e5a7703090aa1",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -895,7 +897,7 @@
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/automaticdiscounts-query-is-removed-in-api-version-2027-01": {
-      "hash": "3ff489850672c05ed4fbb1792f6c3e42e4bcf8fa87636277709673c3675cb35a",
+      "hash": "6ed5d910ee7391b999a57c9649d74d1bbabb938b80ea40188c72df19435664bb",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -903,7 +905,7 @@
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/online-store-script-tags-deprecation": {
-      "hash": "bd1d72dc2e27488780e7b4a6c2c1b01d37c8dea6ac15c344feb7f6edee8de053",
+      "hash": "69512aaa82358c6282a6b5f53025598512030e71618cff8416be1999c2e1cc03",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -911,7 +913,7 @@
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/password-protected-shop-dev-flows-on-shopify-theme-cli-v3-83-x-and-older-to-be-deprecated": {
-      "hash": "c534ec56dc0d12aa79f790e8be6a66a40e765cb6ec8dc82a40e1734b2101a415",
+      "hash": "d65adcc6d968fcd61384a5fdeedaf6306b01ed601da2a34fb82222123076d8da",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -919,7 +921,7 @@
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/removed-session-currentsession-staffmemberid-from-pos-ui-extensions-2026-10": {
-      "hash": "e19e5bc7d8c35bd98b0223b062e5417e543597cfb6c47cc59db14ed9db5d07b7",
+      "hash": "5cb22391fc1daad128ba63d1604cec0c5e2d079dd7ebb78c7d5801a73048907c",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -927,7 +929,7 @@
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/removing-marketcurrencysettingsupdate-mutation": {
-      "hash": "c943434eb1df0e1e0dcfe93513b22c514a833977bfdba4b258958054081904f0",
+      "hash": "0851d83356086fb1bb117fdf84e13579f892a1a278a384fd0152b26157ffba45",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -935,12 +937,12 @@
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/setting-includerestofworld-to-true-returns-an-error-in-api-version-2027-01": {
-      "failures": 9,
+      "failures": 10,
       "lastError": "HTTP 404",
       "lastTried": "2026-10-01"
     },
     "https://shopify.dev/docs/api/usage/versioning": {
-      "hash": "03c38ab71e9245d0bbd8199db397fc98880e03cd3c37564f1aa6f9c7fb8506c9",
+      "hash": "db8789b0125f1ed58f3577606a276f4df20549260ff6cd7960e817fa62f4c78d",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,
@@ -972,7 +974,7 @@
       "unreadableReported": false
     },
     "https://www.twilio.com/en-us/changelog": {
-      "hash": "6a6bad1023789c2d4ff8c1a4fc5184a012bba509b992c79ddd1b2bab6e8d73fe",
+      "hash": "1670a396de8e23d9d810ac8aa63f108a3af5888bc33c73edaa57bfca3dcefe15",
       "fetched": "2026-10-01",
       "status": 200,
       "failures": 0,

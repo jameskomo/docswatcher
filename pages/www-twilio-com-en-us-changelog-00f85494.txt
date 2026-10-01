@@ -487,6 +487,12 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Oct 01, 2026
+GA
+Voice API
+Batch Transcription Configuration is now Generally Available!
+Tune transcription without touching your code: engine, model, language, and destination live in a reusable configuration, so changing any of them is one update that every subsequent transcription picks up. Results are delivered via webhook or stored downstream in Conversation Orchestrator for persisted storage and Operator analysis.
+Learn more
 Sep 30, 2026
 Beta
 Video API
@@ -494,6 +500,29 @@ Twilio Video Media SDK for Node.js now in Public Beta
 The Twilio Video Media SDK for Node.js is now in Public Beta. Your server-side app can securely join a Video Group Room as a participant and work with decoded audio and video frames directly, so you can run AI and media processing such as transcription, computer vision, or compliance monitoring on your own infrastructure, without the overhead of a headless browser.
 Your app reads decoded frames from other participants and publishes frames back into the Room as a virtual camera or microphone. This Media SDK shares the Room, Participant, Track, and Access Token model of the Video JavaScript SDK , so most concepts carry over. Install it from npm as @twilio/video-node-sdk. It requires Node.js 24 or later on x86-64 Linux, and the Media SDK participant counts and bills as a standard Group Room participant.
 To get started, read the Video Media SDKs overview , follow the quickstart , and browse the AI/ML example applications .
+Learn more
+Sep 30, 2026
+Messaging
+Account Rate Limits on Content API
+What is Changing?
+To improve platform stability, endpoint reliability, and system performance, Twilio is introducing standardized rate limits for Content API requests.
+Rate limits will be enforced at the account level. Requests exceeding these limits will receive an HTTP 429 Too Many Requests status code.
+Rate Limits by Endpoint
+Read Operations
+Fetch Content (GET /v1/Content/{Sid}): 100 RPS
+Fetch Approval (GET /v1/Approval/{Sid}): 100 RPS
+List Content (v1 & v2) (GET /v1/Content): 20 RPS
+List Content & Approvals (v1 & v2) (GET /v1/ContentAndApprovals): 20 RPS
+List Legacy Content (GET /v1/LegacyContent): 20 RPS
+Write Operations
+Create Content (POST /v1/Content): 100 RPS
+Create Content Approval Request (POST /v1/Approval): 100 RPS
+Update Content (POST /v1/Content/{Sid}): 20 RPS
+Delete Content (DELETE /v1/Content/{Sid}): 100 RPS
+Update Content Approval Request (POST /v1/Approval/{Sid}): 20 RPS
+What You Need to Do
+Implement Exponential Backoff: Ensure your application can handle HTTP 429 status codes by incorporating backoffs and retries.
+Audit High-Volume Pipelines: If your service executes bulk script operations (such as creating or deleting content templates in high-concurrency bursts), adjust your client throttling to remain within these thresholds.
 Learn more
 Sep 30, 2026
 Programmable Messaging API
@@ -536,19 +565,6 @@ Verify
 Event Streams
 Verify Events: Verification Attempt DLR event type will be discontinued
 The Attempt DLR event type will be discontinued after September 22, 2026 at 10:00PM UTC. Learn more about using discontinued Event Types in Discontinued Event Types . From this point on, Twilio may stop sending new events for the Attempt DLR event types, even if you have a subscription to them. You will continue receiving events normally from any other Event Types in your subscriptions.
-Learn more
-Sep 17, 2026
-Voice API
-Voice Recording Storage billing updates
-Twilio will begin migrating accounts to an updated Voice Recording Storage billing system.
-Learn more
-Sep 17, 2026
-Messaging
-Twilio Heightened Awareness Period (HAP) – November 19, 2026 - January 4, 2027
-Between Thursday, November 19, 2026 and Monday, January 4 2027, Twilio will enter a Heightened Awareness Period (HAP) to help ensure reliable message delivery during peak traffic times, such as Black Friday and Cyber Monday.
-During this period, message sending rates to U.S. destinations will be monitored and may be limited at the account level for toll-free, short code, and 10DLC numbers.
-Accounts that send high volumes of messages from short codes or toll-free numbers may be temporarily migrated to Market Throughput during the HAP. Customers will be notified via email if their account is affected. Market Throughput doesn’t affect 10DLC numbers, which will continue to live on Account Based Throughput .
-For more information on how throughput limits may be impacted and what actions to take, customers can reach out to their Twilio account team.
 Learn more
 Loading
 Error: Unable to load changelog
