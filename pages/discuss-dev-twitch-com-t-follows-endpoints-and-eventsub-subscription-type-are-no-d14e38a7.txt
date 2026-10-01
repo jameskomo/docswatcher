@@ -150,7 +150,7 @@ Activity
 Channel followers
 API
 1
-811
+812
 September 15, 2023
 Legacy Follows API and EventSub Shutdown Timeline Updated
 Announcements
@@ -160,12 +160,12 @@ August 4, 2023
 Get Channel Followers usernames
 API
 3
-469
+470
 October 29, 2023
 Following Scope
 API
 8
-3475
+3476
 March 29, 2016
 API request: add "new follower" topic to PubSub
 API

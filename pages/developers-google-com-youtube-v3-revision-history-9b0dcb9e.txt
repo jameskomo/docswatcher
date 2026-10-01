@@ -152,6 +152,9 @@ Effective April 12, 2024, the sync parameter for captions is unsupported, necess
 Recent updates have deprecated several API features, including brandingSettings.channel.moderateComments , comments.markAsSpam , commentThreads.update , and the search.list method's relatedToVideoId .
 There have been multiple updates to API documentation and coding tools including an API explorer widget, code samples tool, quickstart guides, and library updates to enhance developer experience and usability.
 This page lists YouTube Data API (v3) changes and documentation updates.
+September 30, 2026
+The comments resource definition has been updated to include the new snippet.imageUrl property, which provides the URL for an image or animated GIF attached to a comment.
+This feature will be available to all users in November 2026.
 September 14, 2026
 This update contains the following changes:
 The thumbnails.set method description has been updated to note that the maximum file size for uploaded thumbnails has increased from 2MB to 50MB.
@@ -2053,7 +2056,7 @@ notFound
 videoCategoryNotFound
 The video category identified by the id parameter cannot be found. Use the videoCategories.list method to retrieve a list of valid values.
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-09-29 UTC.
+Last updated 2026-09-30 UTC.
 Blog
 The latest news on the YouTube blog
 Issue Tracker

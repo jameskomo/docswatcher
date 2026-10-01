@@ -106,7 +106,6 @@ Get started
 Get started with Google Maps Platform
 Get and use a Maps Demo Key
 Capabilities Explorer
-Map IDs
 FAQ
 Support and resources
 Customer Care
@@ -141,7 +140,6 @@ resolveNames
 resolveMapsUrls
 Maps in AI Studio
 Best practices
-API security best practices
 Digital signature guide
 Optimization guide
 Optimizing Web Service usage
@@ -159,7 +157,6 @@ Google Maps Platform Terms
 European Economic Area (EEA) Terms
 EEA FAQ
 Additional resources
-Asset Tracking Plan
 Deprecations
 Domains
 Launch stages
@@ -169,7 +166,6 @@ Mobile OS and software support
 Pre-launch checklist
 Premium Plan
 Project roles comparison
-Root CA migration FAQ
 URL encoding
 WordPress users
 Get Started
@@ -693,7 +689,7 @@ The minimum version of the Places SDK for iOS with the
 replacement properties is v3.8.0 .
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-09-24 UTC.
+Last updated 2026-09-28 UTC.
 Platform Status
 Find out about platform incidents and outages.
 Support

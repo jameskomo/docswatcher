@@ -31,6 +31,13 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Sep.30 Retired
+X25519-only TLS ends for GHE.com on October 7
+application security
+ecosystem & accessibility
+enterprise management tools
+...
++2
 Sep.25 Improvement
 Updates to GitHub Copilot for Slack and Microsoft Teams
 collaboration tools
@@ -58,13 +65,6 @@ collaboration tools
 Aug.27 Improvement
 Close all open contributions authored by a blocked user
 collaboration tools
-Aug.26 Release
-GitHub Apps can now access enterprise billing data
-account management
-ecosystem & accessibility
-enterprise management tools
-...
-+2
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.
 Enter your email *

@@ -4,18 +4,14 @@ Create account or Sign in
 Search
 / Ask AI
 Create account Sign in
-Get started
-Payments
-Revenue
-Data
-Platforms and marketplaces
-Money management
-Developer resources
+Get started Payments Revenue Data Platforms and marketplaces Money management Stablecoins Developer resources
+More
 APIs & SDKs Help
 Overview
 Versioning
 Changelog
 Overview
+Endive
 Dahlia
 Clover
 Basil
@@ -73,280 +69,153 @@ Relevant changes only
 Sign in to see changes related to APIs your account uses.
 Generally available
 Public preview
-Dahlia
-Learn what's changing in Dahlia
-2026-08-26.dahlia
-Payments
-Adds support for updating Connect parameters of an existing Payment Link
-Payment Links
-Adds a funding source identifier to Link payments
-Payments
-Adds new error codes for payment method failures
-Payments
-Adds the ability to restrict card funding types in Checkout Sessions
-Payments
-Adds support for metadata in confirmation tokens
-Payments
-Adds a funding source identifier to Link wallet card payments
-Payments
-Billing and invoicing
-Adds a customer update deep link for billing portal sessions
-Billing
-Adds the ability to query entitlements and launch the customer portal in Customer Sessions
-Billing
-Adds frozen fields property to Invoice Items
-Invoicing
-Adds support for the Billie payment method for invoices and subscriptions
-Billing
-Increases the subscription item limit
-Billing
-Additional updates
-Adds support for specifying place of supply scheme on IGIC tax in the EU
-Tax
-2026-07-29.dahlia
-Payments
-Adds the ability to update shipping options, consent collection, and future usage support on Payment Links
-Payment Links
-Adds the ability to indicate that you don’t intend to reuse Samsung Pay and PAYCO payment method types
-Payments
-Adds customer and payment method details to the Refunds API
-Payments
-Adds support for new banks to FPX payments
-Payments + 2 more
-Adds CHAPS as a supported network for funding instructions
-Payments
-Adds the allowed payment method types parameter to Payment Intents and Setup Intents
-Payments
-Adds MB WAY support to the hosted invoice page
-Payments
-Adds card network details to the Dispute object
-Payments
-Adds the ability to list Payment Records
-Payments
-Connect
-Adds the ability to show who initiated a top-up
-Connect
-Adds Payment Method support to Top-ups
-Connect
-Adds new address fields to Accounts v1 for Singapore compliance
-Affects all products
-Adds a new Smart Disputes management feature to Account Session embedded components
-Connect + 1 more
-Adds new address fields to Accounts v2 for Singapore compliance
-Connect
-Enables rejecting connected accounts with non-zero balances and controlling whether to pause payouts
-Connect
-Adds the ability to reverse platform rejections on connected accounts
-Connect
-Billing and invoicing
-Adds invoice description, footer, and custom parameters to the Subscription Schedules and Quotes APIs
-Billing + 1 more
-Adds subscription metadata support to invoice previews
-Invoicing + 1 more
-Adds the trial property to subscription schedule phases
-Billing
-Adds item-level discount support for pending updates
-Billing
-Tax
-Adds support for parking tax registration types in the US
-Tax
-Adds support for Canary Islands tax ID type
-Tax
-Financial Connections
-Adds explicit session configuration options for Financial Connections
-Financial Connections
-Adds deactivation event notifications for Financial Connections accounts and authorizations
-Financial Connections
-Issuing
-Adds Correos as an Issuing card shipping carrier in the EU
-Issuing
-Adds the business name field to the shipping address for Issuing cards
-Issuing
-Additional updates
-Adds Alipay support for invoices and subscriptions that send invoices for collection
-Invoicing + 2 more
-Adds a referrer parameter to Radar options on Payment Intents
-Radar + 1 more
-2026-06-24.dahlia
-Payments
-Adds buyer ID support for Bizum payments
-Payments
-Enables manual capture for Sunbit payments
-Payments
-Adds buyer ID support for BLIK payments
-Payments
-Adds a fingerprint to Pix payment method details
-Payments
-Adds transaction link ID to card payment method details for Mastercard and Maestro transactions
-Payments
-Adds payment method options for Sunbit in Checkout Sessions
-Payments
-Adds support for the Sui network and USDsui token for crypto payments
-Crypto + 1 more
-Adds support for Mastercard compliance disputes
-Payments
-Adds support for recurring payments with Satispay
-Billing + 1 more
-Checkout
-Makes billing cycle anchor configuration available for Checkout Sessions in subscription mode
-Checkout
-Adds WeChat Pay payment method options to the Checkout Session response
-Checkout
-Additional updates
-Adds validated status to the redaction status enum
-Identity
-Adds payment method and payment method options to the Top-ups API (US bank accounts only)
-Connect
-Adds reserve release details to the Reserve Hold object
-Payments + 2 more
-Adds information about upcoming deactivations to the Financial Connections Account object
-Financial Connections
-Adds invoice description, footer, and custom fields to the Subscriptions API
-Billing
-Adds mode property and promotion feed type support to the Product Catalog Import API v2
-Payments
-2026-05-27.dahlia
-Payments
-Adds support for Twint as a payment method for recurring payments
-Payments
-Adds destination payment description and metadata support to transfer data
-Payments
-Adds active status filtering to payment method configurations
-Payments
-Adds card brand restrictions to Payment Links
-Payment Links
-Adds support for Scalapay payments
-Payments
-Billing
-Adds discount eligibility options for add-on invoice items on Subscriptions and Preview Invoice APIs
-Billing
-Adds amount paid off Stripe property to Invoice object
-Invoicing
-Adds billing schedules to enable prebilling on subscriptions
-Billing
-Adds discount and discounts properties to pending subscription updates
-Sigma + 1 more
-Adds metadata support to pending subscription updates
-Billing
-Adds credited items information to invoice item proration details
-Billing
-Adds customer parameter to test clock creation
-Billing
-Terminal
-Adds support for printing images on Terminal readers with embedded printers
-Terminal
-Adds support for Verifone third-party device types to Terminal APIs
-Terminal
-Adds API error details to Terminal reader action failures
-Terminal
-Elements
-Renames Link Authentication Element to Contact Details Element
-Elements
-Adds the ability to collect email in Checkout Sessions with Contact Details Element
-Checkout + 1 more
-Connect
-Adds digital attestation support to Accounts v2 for proof of registration and beneficial ownership verification
-Connect
-Adds automatic transfer rules to balance settings
-Payouts
-Adds the ability to configure custom start of day per connected account
-Payments + 1 more
-Additional updates
-Adds support for Bizum payments
-Payments
-2026-04-22.dahlia
-Payments
-Adds support for Sunbit, a buy now, pay later payment method
-Payments
-Adds support for Pix recurring payments
-Payments
-Adds the moto property to Setup Attempt payment method details for cards
-Payments
-Adds QR code support for Klarna payments with Terminal readers
-Affects all products
-Adds support for Managed Payments, Stripe’s merchant of record solution
-Checkout + 2 more
-Tax
-Adds the ability to collect and store tax identification information for customers in the Faroe Islands, Gibraltar, Italy, and Paraguay
-Tax + 1 more
-Adds expandable tax rate property to tax rate details
-Invoicing
-Additional updates
-Adds account as a new item type to Radar value lists
-Radar
-Removes mandatory payments KYC onboarding for app distribution for Stripe Apps
-Affects all products
-Adds fulfillment error to issuing card cancellation and replacement reasons
-Issuing
-Adds balance report and payout reconciliation report embedded components to the Account Session API
-Connect
-Adds support for Azure Event Grid as an event destination
-Affects all products
-Adds new balance transaction types for inbound transfers and reversals
-Treasury
-Adds support for Phantom Cash and USDT to stablecoin payments
-Crypto
-Adds the Product Catalog Import API v2
-Affects all products
-Adds a card-presence spending control for Issuing
-Issuing
-2026-03-25.dahlia
+Endive
+Learn what's changing in Endive
+2026-09-30.endive
 Breaking changes
-Payments enhancements
-Updates card property requirements and adds 3D Secure authentication properties to Payment Records
 Payments
-Adds support for the UPI payment method
-Payments
-Adds payment method-level support for configuring future usage of crypto payment methods in Checkout Sessions
-Payments + 1 more
-Elements and Stripe.js enhancements
-Changes the Address Element state field to default to Latin-formatted characters
-Elements
-Updates the elements.update() method to return a Promise
-Elements
-Removes support for boolean values in options.layout.radios
-Elements
-Removes deprecated Payment Intents, Setup Intents, and Sources methods from Stripe.js
-Payments
-Renames Checkout initialization method
-Checkout + 1 more
-Renames Embedded Checkout initialization method
+Removes the payment method types parameter from Checkout Sessions
 Checkout
-Connect enhancements
-Adds risk requirements to the Capabilities API
+Adds support for Data Share Only for 3D Secure authentication
+Payments
+Makes Payment Evaluation signal scores nullable
+Radar
+Removes PayTo-specific fields from Payment Methods
+Payments
+Enforces collection of billing address parameters for non-EEA SEPA Direct Debit payments
+Payments
+Removes the payment method types parameter from Payment Intents and Setup Intents
+Payments
+Returns specific decline codes for BLIK payment failures
+Payments
+Deprecates the payment request button
+Elements
+Shows pending-authorization UI for MB WAY, Bizum, and BLIK with stripe.handleNextAction
+Elements
+Removes support for the payment method types option in Elements
+Elements
+Saves Bancontact payment details for future off-session payments in Checkout
+Checkout + 2 more
+Adds the Standalone 3D Secure API
+Payments
+Adds support for SeQura payments
+Payments
+Adds card-present payment methods to allowed payment method types
+Payments
+Adds Link funding source group details on Payment Records
+Payments
+Adds early fraud warnings and fraudulent dispute signals for Payment Evaluations
+Radar
+Adds the ability to report canceled payments
+Payments
+Adds support for expanding the mandate on card payment method details
+Payments
+Adds the Payment Record property to the Payment Intent object
+Payments
+Adds Link wallet details to Payment Records for card payments
+Payments
+Adds 3D Secure versions 2.3.0 and 2.3.1 to Payment Records
+Payments
+Adds support for BLIK recurring off-session payments
+Payments + 3 more
+Adds PayPay support for one-time online payments in Japan
+Payments
+Exposes the network response electronic commerce indicator on card charges
+Payments
+Adds payment method type information for failed payments
+Payments
+Adds MoMo payment method details to Payment Records
+Payments
+Connect and accounts
+Adds address validation errors for CMRAs and registered agents to Accounts v1 and Accounts v2
+Issuing + 1 more
+Adds rejected status for Accounts v2 capabilities
 Connect
-Removes the requirement for certain connected accounts to collect external account information in the Account Sessions API
+Replaces the generic fraud rejection reason with more granular fraud reasons
 Connect
-Checkout enhancements
-Updates Checkout Session UI mode enum values
-Checkout + 1 more
-Adds pending invoice item interval parameter to create Checkout Sessions
-Checkout
-Adds integration identifier parameter to Checkout Sessions
-Checkout
-Issuing enhancements
-Updates the Issuing Token card reference ID for Visa to be optional
-Issuing
-Adds support for limiting the number of allowed payments for Issuing cards
-Issuing
-Radar enhancements
-Adds crypto fingerprint support to Radar value list items
-Radar + 1 more
-Additional updates
-Adds retention policy cancellation reason to Subscriptions
-Billing
-Updates the events_from parameter on event destinations to accept string values
+Removes the configurations parameter from the Account Links v2 API
 Affects all products
-Adds decimal quantity support for Invoice Items and Invoice Line Items
-Invoicing
-Adds marine carbon removal as a new Climate Orders pathway
-Climate
-Adds metadata property to credit note line items
-Invoicing
-Adds Tempo network support for crypto payments
-Payments + 1 more
-Adds presentment details for Adaptive Pricing Subscriptions
+Standardizes SEPA Direct Debit payment settings in the Accounts API
+Connect + 1 more
+Shows errors for eventually due requirements
+Connect
+Distinguishes platform-initiated account rejections from Stripe rejections
+Connect
+Adds additional shared fields to customer sharing
+Affects all products
+Billing and invoicing
+Unifies the billing cycle anchor format across Subscriptions and Invoices
 Billing
+Adds invoicing rules to Invoice Items
+Billing
+Adds reference and company details parameters for Billie
+Payments + 2 more
+Adds the ability to clear invoicing rules on Invoice Items
+Billing
+Adds proration details for Invoice Items using classic billing mode
+Billing
+Makes trial offers generally available
+Billing
+Adds detailed status to explain why an Invoice is uncollectable
+Billing
+Adds support for scheduling Subscription cancellation as part of pending update
+Billing
+Adds the ability to pause and resume Subscriptions on demand
+Billing
+Adds the Feedback Options API
+Billing
+Tax
+Adds Failed Tax Calculation error
+Tax + 3 more
+Adds support for new tax types
+Tax
+Adds support for ticket sales to Stripe Tax
+Billing + 3 more
+Financial Connections
+Renames the countries filter to country on Financial Connections Sessions
+Financial Connections
+Updates Financial Connections Session defaults
+Financial Connections
+Adds pending and expired statuses to Financial Connections account numbers
+Financial Connections
+Treasury and money management
+Renames the Reserve Release reason enum value
+Radar
+Adds destination property and new enum values to Reserve Plans, Holds and Releases
+Treasury + 1 more
+Adds support for received credits sent via the Real-Time Payments network
+Treasury
+Exposes ACH return codes on OutboundPayments, OutboundTransfers, and InboundTransfers in v1 Treasury
+Treasury
+Additional updates
+Adds page limit validation for dispute evidence
+Payments
+Rejects duplicate references for pending India card mandates
+Payments
+Surfaces India card mandates on Charges and SetupIntents even when inactive
+Payments
+Sets canConfirm to false while updates are pending in Elements with Checkout Sessions
+Checkout + 1 more
+Allows empty optional address fields in Elements with Checkout Sessions
+Checkout + 1 more
+Requires billing details when Payment Element collection is disabled
+Checkout + 1 more
+Makes thin events for API v1 resources generally available
+Affects all products
+Adds Satispay payments capability to Accounts v2
+Affects all products
+Adds an expiration timestamp to the Swish QR code object
+Terminal
+Adds a new outcome type for rerouted payments to Payment Evaluations
+Radar
+Adds Balance Transaction types for provisional credits for Issuing disputes
+Issuing
+Adds India-specific mandate details to card payment method responses
+Payments
+Adds the option to automatically pause subscriptions after payment failures
+Billing
+Adds the Install API for Stripe Apps
+Affects all products
 2024
 2024-06-20
 Breaking changes

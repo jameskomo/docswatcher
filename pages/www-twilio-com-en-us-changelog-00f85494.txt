@@ -487,6 +487,22 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Sep 30, 2026
+Beta
+Video API
+Twilio Video Media SDK for Node.js now in Public Beta
+The Twilio Video Media SDK for Node.js is now in Public Beta. Your server-side app can securely join a Video Group Room as a participant and work with decoded audio and video frames directly, so you can run AI and media processing such as transcription, computer vision, or compliance monitoring on your own infrastructure, without the overhead of a headless browser.
+Your app reads decoded frames from other participants and publishes frames back into the Room as a virtual camera or microphone. This Media SDK shares the Room, Participant, Track, and Access Token model of the Video JavaScript SDK , so most concepts carry over. Install it from npm as @twilio/video-node-sdk. It requires Node.js 24 or later on x86-64 Linux, and the Media SDK participant counts and bills as a standard Group Room participant.
+To get started, read the Video Media SDKs overview , follow the quickstart , and browse the AI/ML example applications .
+Learn more
+Sep 30, 2026
+Programmable Messaging API
+WhatsApp Business API
+Messaging
+GA
+WhatsApp Embedded Signup Version 4
+We are excited to announce General Availability support for WhatsApp Embedded Signup Version 4. This release upgrades the existing WhatsApp Self Sign-Up onboarding flow in the Twilio Console, seamlessly aligning with WhatsApp’s recent account updates to deliver a cohesive, up-to-date sender registration process. The upgraded experience simplifies phone number setup and incorporates MM API Terms of Service acceptance directly within the flow. This update is required as part of WhatsApp’s planned deprecation of older versions, ensuring uninterrupted onboarding for WhatsApp senders.
+Learn more
 Sep 27, 2026
 Conversation Intelligence
 Conversation Orchestrator
@@ -533,21 +549,6 @@ Between Thursday, November 19, 2026 and Monday, January 4 2027, Twilio will ente
 During this period, message sending rates to U.S. destinations will be monitored and may be limited at the account level for toll-free, short code, and 10DLC numbers.
 Accounts that send high volumes of messages from short codes or toll-free numbers may be temporarily migrated to Market Throughput during the HAP. Customers will be notified via email if their account is affected. Market Throughput doesn’t affect 10DLC numbers, which will continue to live on Account Based Throughput .
 For more information on how throughput limits may be impacted and what actions to take, customers can reach out to their Twilio account team.
-Learn more
-Sep 17, 2026
-Flex
-Twilio integration with Salesforce Service Cloud Voice is now Omnichannel
-We’re excited to announce that Twilio integration with Salesforce Service Cloud Voice now supports WhatsApp and SMS, alongside existing support for Voice and listed on the AppExchange .
-This release comes with the following enhancements:
-Route SMS and WhatsApp conversations through Twilio TaskRouter into the Salesforce Omni-Channel widget, using the same presence, skills, and capacity model as voice
-Handle messaging conversations and voice calls concurrently in a single agent console, with agent presence synchronizing across all channels on work acceptance
-To learn more about setup, please see the setup guide .
-Learn more
-Sep 09, 2026
-Beta
-Voice API
-ElevenLabs Voices for Say is now Public Beta
-ElevenLabs voices are now available in Public Beta for <Say>, powered by the Flash v2 and Flash v2.5 models for fast, natural-sounding text-to-speech. Get started by specifying an ElevenLabs voice via the REST API or in a TwiML Bin.
 Learn more
 Loading
 Error: Unable to load changelog
