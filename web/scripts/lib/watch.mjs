@@ -97,9 +97,16 @@ export function addedLines(previous, next) {
 const STAMP = /^\s*(last\s+(updated|reviewed|modified|published)|updated|published|page\s+last\s+reviewed)\b/i;
 const DATE_G = new RegExp(DATE.source, "gi");
 
-/** A line that is nothing but a date, like a lone table cell or a heading the diff caught by itself. */
+/** A clock time (5:23 or 5:23:11 AM) or a numeric date (6/22/23), as a forum prints beside a post. */
+const CLOCK_G = /\b\d{1,2}:\d\d(:\d\d)?(\s*[ap]\.?m\.?)?(?![a-z])|\b\d{1,2}\/\d{1,2}\/\d{2,4}\b/gi;
+
+/**
+ * A line that is nothing but a date, like a lone table cell, a heading the diff caught by itself,
+ * or a post's timestamp ("Jun 22, 2023, 5:23:11 AM 6/22/23").
+ */
 const bareDate = (line) =>
-  line.replace(DATE_G, " ").replace(/\b(utc|gmt|pst|pdt|est|edt|et|pt)\b/gi, " ").replace(/[^a-z0-9]/gi, "").length === 0;
+  line.replace(DATE_G, " ").replace(CLOCK_G, " ").replace(/\b(utc|gmt|pst|pdt|est|edt|et|pt)\b/gi, " ")
+    .replace(/[^a-z0-9]/gi, "").length === 0;
 
 /**
  * Whether a line reads like deprecation news: a deprecation word, or a date carried alongside

@@ -71,11 +71,18 @@ describe("what counts as news", () => {
     expect(isSignal("  2026-10-01  ")).toBe(false);
   });
 
+  it("ignores a forum post's timestamp", () => {
+    // The Firebase group thread the knowledge base cites reported these two as news.
+    expect(isSignal("Jun 22, 2023, 5:23:11 AM 6/22/23")).toBe(false);
+    expect(isSignal("Jun 26, 2023, 4:31:56 AM 6/26/23")).toBe(false);
+  });
+
   it("still reports a date that carries something with it", () => {
     // The fix must not throw away a table row, which is how most providers publish a shutdown date.
     expect(isSignal("gemini-2.5-pro-preview-03-25 | 2026-04-29")).toBe(true);
     expect(isSignal("Announced March 3, 2027")).toBe(true);
     expect(isSignal("Last call for v1: 2026-12-31")).toBe(true);
+    expect(isSignal("The v1 API shuts down on March 1, 2027 at 9:00 AM PT")).toBe(true);
   });
 });
 
