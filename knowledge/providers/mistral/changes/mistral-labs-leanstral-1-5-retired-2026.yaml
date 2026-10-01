@@ -35,4 +35,4 @@ migration:
     model, and make the calling code handle a 404 from the model
     gracefully until then.
 
-status: active
+status: expired
