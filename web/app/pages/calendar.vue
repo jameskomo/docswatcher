@@ -149,7 +149,7 @@ async function subscribeByEmail() {
             </span>
           </div>
 
-          <div class="stack" style="gap: 6px">
+          <div class="stack entry-text" style="gap: 6px">
             <div class="row" style="gap: 8px; align-items: center">
               <SeverityChip :severity="c.severity" />
               <strong style="color: var(--ink-max)">{{ providerName(c.provider) }}</strong>
@@ -189,7 +189,7 @@ async function subscribeByEmail() {
                 {{ -days(c)! }} days ago
               </div>
             </div>
-            <div class="stack" style="gap: 6px">
+            <div class="stack entry-text" style="gap: 6px">
               <div class="row" style="gap: 8px; align-items: center">
                 <SeverityChip :severity="c.severity" />
                 <strong style="color: var(--ink-max)">{{ providerName(c.provider) }}</strong>
@@ -210,6 +210,9 @@ async function subscribeByEmail() {
 </template>
 
 <style scoped>
+/* A record names APIs by their schema names, some 50+ characters with no space. The column
+   must be allowed to shrink below that word, and the word to break, or a phone scrolls sideways. */
+.entry-text { min-width: 0; overflow-wrap: anywhere; }
 .subscribe {
   display: grid;
   gap: var(--s2);
