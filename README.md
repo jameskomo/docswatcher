@@ -1,5 +1,7 @@
 # DocsWatcher
 
+[![Scanned with DocsWatcher](https://img.shields.io/badge/Scanned%20with-DocsWatcher-2563eb)](https://docswatcher.vukisha.co.ke/#/?repo=jameskomo/docswatcher)
+
 > **You can pin a package. You can't pin someone else's API.**
 
 [Try it](https://docswatcher.vukisha.co.ke) ·
