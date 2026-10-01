@@ -92,3 +92,66 @@ jobs:
         run: ./mvnw -B -Pnative -pl cli -am package -DskipTests
       - name: Native app
         run: ./mvnw -B -Pnative -pl app -am package -DskipTests
+
+  # CI was red for three days and nobody noticed. No commit had broken it: knowledge records had
+  # passed their effective dates while still marked active, and the validator rightly failed on
+  # them. Only the nightly run catches a failure that comes from the date, and a failing scheduled
+  # run is easy to miss. This job keeps one rolling issue open while the nightly run fails, and
+  # closes it when the nightly run passes again. It reports and never fails itself: the run's
+  # status still comes from the jobs above.
+  nightly-alert:
+    name: Nightly failure alert
+    # always(): without it, a failed job above would skip this one, which is the very case it is for.
+    if: always() && github.event_name == 'schedule'
+    needs: [java, web, relay, gitlab-template, nightly]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    steps:
+      - name: Open, update or close the rolling issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          NEEDS: ${{ toJSON(needs) }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          # A skipped job did not fail: it only did not apply to this run. A failed or cancelled
+          # job means the nightly result cannot be trusted.
+          failed=$(echo "$NEEDS" | jq -r 'to_entries[]
+            | select(.value.result == "failure" or .value.result == "cancelled")
+            | "- `\(.key)`: \(.value.result)"')
+          title="Nightly CI is failing"
+          today=$(date -u +%F)
+          existing=$(gh issue list --label ci-nightly --state open \
+            --json number,title --jq '[.[] | select(.title == "Nightly CI is failing")][0].number // empty')
+          if [ -n "$failed" ]; then
+            printf 'Failed jobs:\n%s\n' "$failed"
+            if [ -n "$existing" ]; then
+              gh issue comment "$existing" --body "$(printf 'Still failing on %s: %s\n\n%s\n' "$today" "$RUN_URL" "$failed")"
+              echo "commented on the rolling issue #$existing"
+            else
+              gh label create ci-nightly --color B60205 \
+                --description "The nightly CI run is failing" --force >/dev/null
+              {
+                echo "The nightly CI run failed on $today: $RUN_URL"
+                echo
+                echo "$failed"
+                echo
+                echo "A nightly failure that no commit explains is usually the date. A knowledge record in"
+                echo "\`knowledge/providers/*/changes/*.yaml\` has passed its effective date while still marked"
+                echo "\`status: active\`, and \`docswatcher validate knowledge\` fails on it. The fix is to set"
+                echo "it to \`status: expired\`. The knowledge watch's expire job opens a pull request that does this."
+                echo
+                echo "Each further failing night adds a comment here. The issue closes itself when the nightly run passes."
+              } > "$RUNNER_TEMP/issue.md"
+              gh issue create --label ci-nightly --title "$title" --body-file "$RUNNER_TEMP/issue.md"
+            fi
+          elif [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "The nightly run is passing again on $today: $RUN_URL"
+            gh issue close "$existing"
+            echo "closed the rolling issue #$existing"
+          else
+            echo "The nightly run passed and no issue is open."
+          fi
