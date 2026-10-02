@@ -41,4 +41,4 @@ migration:
     data, build a web pixel instead, which needs no merchant action. Keep the
     scriptTags query and scriptTagDelete calls to find and remove the old tags.
 
-status: active
+status: expired
