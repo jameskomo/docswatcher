@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.5.1 (2026-10-02)
+
+- **A bracket in a .gitignore no longer stops the scan.** A line naming a route folder such as
+  `[[...path]]` put a bare `[` inside a character class. The Java engine read that as a nested class,
+  the pattern did not compile, and the whole scan of that repository failed: in the CLI, the Action,
+  the App and the MCP server. The browser engine accepted the same line, so the two engines also
+  disagreed. Both now read `[` and `&` inside a class the way git does, and a line that still cannot
+  compile, such as the backwards range `[z-a]`, matches nothing instead of ending the scan. Shared
+  cases pin both engines to git's own reading, checked against `git check-ignore`.
+- **A new Shopify record.** The `metafieldInteger` collection source condition is removed in Admin
+  API 2027-01. The detector finds the input object and the inline fragment, and not the
+  replacement, `metafieldInt`. 316 change records across 27 providers.
+- **Records past their date expire.** Three more records crossed their effective date and are expired.
+  The nightly CI run now keeps one rolling issue open while it fails, so a date-driven failure is
+  seen the same morning instead of days later.
+- **The knowledge watch stops reporting post timestamps.** A line that is only a date, a clock time
+  or a numeric date (`Jun 22, 2023, 5:23:11 AM 6/22/23`) is not news.
+- **The fix workflow opens a labelled draft.** The pull request a fix dispatch opens is a draft,
+  labelled `docswatcher-fix`, and says an agent wrote it and that the agent ran no tests.
+- **The calendar fits a phone.** A long API name wraps instead of pushing the page sideways.
+
+## 0.5.0 (2026-10-01)
+
+- **The knowledge watch stopped crying wolf.** A line that is only a date, or a page stamping
+  itself "Last updated", is no longer reported as deprecation news, and the watch keeps one rolling
+  issue instead of opening one a day.
+- **Records expire when their date arrives.** Five records past their effective date were expired,
+  and an expire job proposes the change itself from then on.
+- **Six new records:** four Gemini 3.8 preview deprecations, the Shopify POS `staffMemberId`
+  removal, and the Theme CLI 3.83.x password-store cutoff.
+- **The site and docs say what is built.** Features are presented as available, and the docs no
+  longer claim the fix dispatch carries code snippets: it carries path, line and column only.
+
 ## 0.4.0 (2026-09-26)
 
 - **Warned before the date.** Teams set where alerts go on the organisation dashboard: up to ten
