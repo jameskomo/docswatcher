@@ -240,6 +240,41 @@
         "a+b(1).py": true,
         "aab1.py": false
       }
+    },
+    {
+      "name": "brackets inside a bracket class keep git's meaning instead of failing the scan",
+      "ignoreFiles": {
+        ".gitignore": "src/app/spa/[variants]/[[...path]]/spaHtmlTemplates.ts\n*.log\n"
+      },
+      "expect": {
+        "src/app/spa/v/p]/spaHtmlTemplates.ts": true,
+        "src/app/spa/s/[]/spaHtmlTemplates.ts": true,
+        "src/app/spa/[variants]/[[...path]]/spaHtmlTemplates.ts": false,
+        "debug.log": true,
+        "src/app/page.tsx": false
+      }
+    },
+    {
+      "name": "a line that does not compile, such as a backwards range, is skipped and the rest still apply",
+      "ignoreFiles": {
+        ".gitignore": "[z-a]\n*.log\n"
+      },
+      "expect": {
+        "debug.log": true,
+        "app.py": false
+      }
+    },
+    {
+      "name": "an ordinary bracket class still matches one character",
+      "ignoreFiles": {
+        ".gitignore": "file[0-9].txt\n[!a]*.tmp\n"
+      },
+      "expect": {
+        "file3.txt": true,
+        "fileX.txt": false,
+        "b.tmp": true,
+        "a.tmp": false
+      }
     }
   ]
 }

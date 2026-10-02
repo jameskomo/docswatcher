@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Path exclusion in .gitignore syntax: every .gitignore in the tree, the root .docswatcherignore,
@@ -136,7 +137,15 @@ public final class Ignore {
       // A slash anywhere but the end anchors the pattern to its file's directory.
       boolean anchored = line.contains("/");
       if (line.startsWith("/")) line = line.substring(1);
-      out.add(new Rule(Pattern.compile(toRegex(line)), negate, dirOnly, !anchored));
+      Pattern regex;
+      try {
+        regex = Pattern.compile(toRegex(line));
+      } catch (PatternSyntaxException e) {
+        // A line git cannot match either, such as the range [z-a], matches nothing. It must not stop
+        // the scan: one odd line in a repository's .gitignore would otherwise fail every scan of it.
+        continue;
+      }
+      out.add(new Rule(regex, negate, dirOnly, !anchored));
     }
   }
 
@@ -169,7 +178,9 @@ public final class Ignore {
         int close = glob.indexOf(']', i + 1);
         String body = glob.substring(i + 1, close);
         if (body.startsWith("!")) body = "^" + body.substring(1);
-        sb.append('[').append(body.replace("\\", "\\\\")).append(']');
+        // Inside a class, [ and & are literal in a glob but nest or intersect in a Java regex, so a
+        // .gitignore naming a route folder such as [[...path]] would not compile. Escape them.
+        sb.append('[').append(body.replace("\\", "\\\\").replace("[", "\\[").replace("&", "\\&")).append(']');
         i = close + 1;
       } else {
         if ("\\.^$|+(){}[]".indexOf(c) >= 0) sb.append('\\');

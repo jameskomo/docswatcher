@@ -37,7 +37,8 @@ export function globToIgnoreRegex(glob: string): string {
       const close = glob.indexOf("]", i + 1);
       let body = glob.slice(i + 1, close);
       if (body.startsWith("!")) body = "^" + body.slice(1);
-      out += "[" + body.replaceAll("\\", "\\\\") + "]";
+      // Escaped the same way as the Java engine, so both read [ and & inside a class as literals.
+      out += "[" + body.replaceAll("\\", "\\\\").replaceAll("[", "\\[").replaceAll("&", "\\&") + "]";
       i = close + 1;
     } else {
       if ("\\.^$|+(){}[]".includes(c)) out += "\\";
@@ -61,7 +62,13 @@ function parse(out: Rule[], text: string): void {
     // A slash anywhere but the end anchors the pattern to its file's directory.
     const anchored = line.includes("/");
     if (line.startsWith("/")) line = line.slice(1);
-    out.push({ regex: new RegExp("^" + globToIgnoreRegex(line) + "$"), negate, dirOnly, nameOnly: !anchored });
+    let regex: RegExp;
+    try {
+      regex = new RegExp("^" + globToIgnoreRegex(line) + "$");
+    } catch {
+      continue; // a line git cannot match either, such as [z-a], matches nothing (as in the Java engine)
+    }
+    out.push({ regex, negate, dirOnly, nameOnly: !anchored });
   }
 }
 
