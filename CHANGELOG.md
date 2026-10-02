@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.2 (2026-10-02)
+
+- **No more warnings on every run.** The binaries and `docswatcher.jar` printed four
+  `WARNING: A restricted method in java.lang.System has been called` lines each time they ran,
+  because the tree-sitter parser loads its native library and Java 24 and later warn about that
+  unless the program says it is allowed. Both now say so: the binaries are built with
+  `--enable-native-access=ALL-UNNAMED`, and the jar's manifest carries `Enable-Native-Access`. CI
+  logs show only DocsWatcher's own output. Nothing else changes.
+
 ## 0.5.1 (2026-10-02)
 
 - **A bracket in a .gitignore no longer stops the scan.** A line naming a route folder such as

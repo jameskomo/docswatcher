@@ -6,7 +6,7 @@
   <parent>
     <groupId>dev.docswatcher</groupId>
     <artifactId>docswatcher</artifactId>
-    <version>0.5.1-SNAPSHOT</version>
+    <version>0.5.2-SNAPSHOT</version>
   </parent>
   <artifactId>cli</artifactId>
   <name>DocsWatcher CLI</name>
@@ -74,6 +74,11 @@
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <mainClass>dev.docswatcher.cli.DocsWatcher</mainClass>
+                  <!-- tree-sitter loads its native library with System.load. Without this, Java 24+
+                       prints four "restricted method" warnings on every run of java -jar. -->
+                  <manifestEntries>
+                    <Enable-Native-Access>ALL-UNNAMED</Enable-Native-Access>
+                  </manifestEntries>
                 </transformer>
               </transformers>
               <filters>
@@ -140,6 +145,8 @@
                 <buildArg>-H:IncludeResources=docswatcher-knowledge/.*</buildArg>
                 <buildArg>-H:IncludeResources=${native.treesitter.libs}</buildArg>
                 <buildArg>-H:NativeLinkerOption=${native.linker.libpath}</buildArg>
+                <!-- The same permission for the binary, so no run prints the restricted-method warnings. -->
+                <buildArg>--enable-native-access=ALL-UNNAMED</buildArg>
               </buildArgs>
             </configuration>
           </plugin>
