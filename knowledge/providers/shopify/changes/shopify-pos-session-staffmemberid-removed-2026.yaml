@@ -35,4 +35,4 @@ migration:
     changes, subscribe to the signal, or read .value during render in a Preact
     component with @shopify/ui-extensions/preact imported.
 
-status: active
+status: expired
