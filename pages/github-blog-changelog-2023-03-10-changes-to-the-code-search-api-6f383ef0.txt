@@ -31,6 +31,15 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Oct.01 Improvement
+Accessibility statements highlighted on repository overview
+ecosystem & accessibility
+Oct.01 Improvement
+New dashboard experience now the default
+collaboration tools
+Oct.01 Release
+GitHub async merge API generally available
+collaboration tools
 Sep.30 Retired
 X25519-only TLS ends for GHE.com on October 7
 application security
@@ -55,15 +64,6 @@ Refreshed repository pull requests page in public preview
 collaboration tools
 Sep.08 Release
 GitHub Enterprise Server 3.22 is now generally available
-collaboration tools
-Sep.04 Release
-New API endpoint provides privacy-safe star history data
-collaboration tools
-Sep.01 Improvement
-Block users from discussion comments in personal repositories
-collaboration tools
-Aug.27 Improvement
-Close all open contributions authored by a blocked user
 collaboration tools
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.

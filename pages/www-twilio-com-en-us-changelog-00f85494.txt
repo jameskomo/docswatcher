@@ -493,6 +493,16 @@ Voice API
 Batch Transcription Configuration is now Generally Available!
 Tune transcription without touching your code: engine, model, language, and destination live in a reusable configuration, so changing any of them is one update that every subsequent transcription picks up. Results are delivered via webhook or stored downstream in Conversation Orchestrator for persisted storage and Operator analysis.
 Learn more
+Oct 01, 2026
+GA
+Voice API
+Voice Insights now shows why carriers block your calls
+Voice Insights now tells you why a carrier blocked your call and how to reach that carrier for redress.
+The FCC requires carriers that block calls using analytics to return the reason header to the caller. It names the network that blocked the call and tells you how to contact them: a URL, a phone number, or an email address. Until now a blocked call showed you only a 603 response. Now you can see which network blocked it and petition them directly.
+The reason header appears alongside Last SIP Response in the Call Summary, in Twilio Console, the Voice Insights REST API, and Event Streams.
+If you are seeing a high volume of 603 responses, confirm your traffic is signed with STIR/SHAKEN and registered with Twilio Voice Integrity before you start filing redress requests.
+Learn more in our Call Summary documentation .
+Learn more
 Sep 30, 2026
 Beta
 Video API
@@ -559,12 +569,6 @@ Sep 22, 2026
 Voice API
 Introducing Provider Failover and “Auto” mode Provider selection for Real-Time Transcriptions on October 22, 2026
 Starting October 22, 2026, Twilio Real-Time Transcriptions automatically starts transcription sessions on a second speech provider when a customer’s primary provider doesn’t connect. Failover is enabled for all existing Real-Time Transcriptions accounts on that date, and it routes only within a customer’s existing region. Use of failover is optional and can be opted out of per sub-account in Console.
-Learn more
-Sep 22, 2026
-Verify
-Event Streams
-Verify Events: Verification Attempt DLR event type will be discontinued
-The Attempt DLR event type will be discontinued after September 22, 2026 at 10:00PM UTC. Learn more about using discontinued Event Types in Discontinued Event Types . From this point on, Twilio may stop sending new events for the Attempt DLR event types, even if you have a subscription to them. You will continue receiving events normally from any other Event Types in your subscriptions.
 Learn more
 Loading
 Error: Unable to load changelog

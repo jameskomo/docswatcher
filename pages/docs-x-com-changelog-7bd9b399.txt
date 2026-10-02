@@ -28,6 +28,12 @@ Release notes and version history for the X API v2, Enterprise APIs, Ads API, SD
 Copy page Copy page
 To subscribe to updates, please “Turn on notifications” for @API . You can also follow this changelog in your feed reader via the RSS feed .
 ​
+Oct 1, 2026
+X API v2
+​
+Real-time reply moderation guide now uses Grok
+We rewrote the Manage replies in real time integration guide. It now receives replies through the X Activity API post.reply.create event, classifies each reply with Grok through the xAI API using structured outputs, and hides high-confidence violations with the Hide Replies endpoint. The previous version relied on the deprecated Perspective API and the Account Activity API. The guide includes complete Python and Node.js webhook examples, guidance on writing the moderation policy, and recommendations for keeping users in control of what is hidden.
+​
 Sep 29, 2026
 X API v2
 ​
@@ -1366,6 +1372,7 @@ profile_region:
 profile_locality:
 ⌘ I
 On this page
+Oct 1, 2026
 Sep 29, 2026
 Sep 21, 2026
 Sep 17, 2026

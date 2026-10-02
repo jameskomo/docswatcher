@@ -160,7 +160,7 @@ August 4, 2023
 Get Channel Followers usernames
 API
 3
-470
+471
 October 29, 2023
 Following Scope
 API

@@ -758,8 +758,8 @@ GA
 claude-sonnet-4-5
 1
 GA
-2026-11-15
-—
+2026-11-30
+claude-sonnet-5-5
 claude-opus-5
 2
 GA

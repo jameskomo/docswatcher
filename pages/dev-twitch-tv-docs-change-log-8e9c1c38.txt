@@ -25,6 +25,8 @@ Product Lifecycle
 Documentation Changelog
 Date
 Documentation Changes
+2026‑10‑01
+Updated the EventSub type Channel Chat Notification (channel.chat.notification) to include the gifted_drops_summary and shared_chat_gifted_drops_summary notice types.
 2026‑09‑16
 Added blocked_link as a possible value for reason in EventSub topics automod.message.hold v2 and automod.message.update v2 . When this value is present, the blocked_term object will be populated.
 2026‑07‑31

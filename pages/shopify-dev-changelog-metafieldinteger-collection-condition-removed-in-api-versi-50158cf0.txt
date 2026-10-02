@@ -1,0 +1,99 @@
+Skip to main content
+Apps
+Storefronts
+Agents
+References
+Changelog
+Ask assistant /
+Help
+•
+Log in
+Collapse sidebar
+Changelog
+Search changelog
+Subscribe
+All posts
+Blog & announcements
+Release notes
+October 1, 2026
+metafieldInteger collection condition removed in API version 2027-01
+Install AI Toolkit Ask about this page Copy MD
+Date October 1, 2026
+Version 2027-01
+Flags Breaking API Change Action required
+Surfaces API
+Affected APIs Admin GraphQL API
+As of API version 2027-01 , the metafield Integer collection source condition inputs and types is removed from GraphQL Admin API. If you use metafield Integer to create or read collection source conditions, you need to migrate to metafield Int before you upgrade to API version 2027-01 .
+What changed
+With metafield Int , the value field on integer metafield conditions changes type from Int to String , to align with the metafield value field on the Storefront API. For details, see the Storefront Metafield.value field reference .
+The following types and fields are replaced:
+Collection Source Inclusion Condition Metafield Integer is replaced by Collection Source Inclusion Condition Metafield Int
+Collection Source Inclusion Condition Metafield Integer Relation is replaced by Collection Source Inclusion Condition Metafield Int Relation
+Collection Source Inclusion Condition Input.metafield Integer is replaced by Collection Source Inclusion Condition Input.metafield Int
+Collection Source Inclusion Condition Update Input.metafield Integer is replaced by Collection Source Inclusion Condition Update Input.metafield Int
+The relation enum members are unchanged ( EQUALS , GREATER_THAN , LESS_THAN ). The behavioral difference is that value is now a String instead of an Int .
+Writes
+These examples show the required switch from metafield Integer to metafield Int and the change in the value literal type.
+Before:
+Copy
+1
+2
+3
+conditionsToCreate: [{
+metafieldInteger: { definitionId: "gid://shopify/MetafieldDefinition/1", relation: GREATER_THAN, value: 2000 }
+}]
+conditionsToCreate: [{
+metafieldInteger: { definitionId: "gid://shopify/MetafieldDefinition/1", relation: GREATER_THAN, value: 2000 }
+}]
+After:
+Copy
+1
+2
+3
+conditionsToCreate: [{
+metafieldInt: { definitionId: "gid://shopify/MetafieldDefinition/1", relation: GREATER_THAN, value: "2000" }
+}]
+conditionsToCreate: [{
+metafieldInt: { definitionId: "gid://shopify/MetafieldDefinition/1", relation: GREATER_THAN, value: "2000" }
+}]
+Reads
+This example shows the updated type condition you need to use when you read collection source conditions.
+Before:
+Copy
+1
+... on CollectionSourceInclusionConditionMetafieldInteger { relation value }
+After:
+Copy
+1
+... on CollectionSourceInclusionConditionMetafieldInt { relation value }
+Action required
+Before you move to API version 2027-01 , you need to:
+Update all Admin GraphQL queries and mutations that reference metafield Integer to use metafield Int .
+Ensure all integer metafield condition value fields are strings.
+If you don’t update your app before you use API version 2027-01 , mutations that send metafield Integer fail validation, and queries that select Collection Source Inclusion Condition Metafield Integer return errors. You can test metafield Int behavior on 2026-10 before you upgrade to 2027-01 .
+metafield Integer continues to work on API versions up to and including 2026-10 . On 2026-10 , integer metafield conditions resolve to Collection Source Inclusion Condition Metafield Int when present. In API version 2027-01 , metafield Integer is no longer available.
+Related docs
+Collection source inclusion condition inputs
+Collection source inclusion condition update inputs
+Collection source inclusion condition metafield Int type reference
+GraphQL Admin API reference
+Was this page helpful?
+Yes No
+Updates
+Developer changelog
+Shopify Editions
+Business growth
+Shopify Partners Program
+Shopify App Store
+Shopify Academy
+Legal
+Terms of service
+API terms of use
+Privacy policy
+Partners Program Agreement
+Shopify
+About Shopify
+Shopify Plus
+Careers
+Investors
+Press and media

@@ -28,7 +28,7 @@ Activity
 Deprecation of WebSub-based Webhooks
 Announcements
 0
-2426
+2427
 June 16, 2021
 Undocumented helix/moderation/banned modification
 API
