@@ -99,6 +99,7 @@ Hospitality
 Ecommerce
 Public sector
 Education
+Tech
 Company Size
 Enterprise
 Startup
@@ -299,6 +300,7 @@ Hospitality
 Ecommerce
 Public sector
 Education
+Tech
 Company Size
 Enterprise
 Startup

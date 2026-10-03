@@ -28,6 +28,12 @@ Release notes and version history for the X API v2, Enterprise APIs, Ads API, SD
 Copy page Copy page
 To subscribe to updates, please “Turn on notifications” for @API . You can also follow this changelog in your feed reader via the RSS feed .
 ​
+Oct 2, 2026
+X API v2
+​
+Free credit incentives for pay-per-use accounts
+Pay-per-use accounts can now earn free X API credits two ways: a one-time $20 when an account saves its first eligible payment card, and a one-time match of the first successful auto-recharge, up to $50 . A new account that earns both receives $70 in free credits. Credits are applied automatically with no code or form, appear in the Developer Console within about a minute, are spent before purchased credits, and expire 3 months after they are granted. The incentives are rolling out now. See Free credit incentives for eligibility rules, examples, and FAQ.
+​
 Oct 1, 2026
 X API v2
 ​
@@ -1372,6 +1378,7 @@ profile_region:
 profile_locality:
 ⌘ I
 On this page
+Oct 2, 2026
 Oct 1, 2026
 Sep 29, 2026
 Sep 21, 2026

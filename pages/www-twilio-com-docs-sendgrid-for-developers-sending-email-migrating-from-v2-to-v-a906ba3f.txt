@@ -43,7 +43,6 @@ Code Examples
 Event Webhook C# Code Example Event Webhook Go Code Example Event Webhook Node.js Code Example Event Webhook PHP Code Example Event Webhook Python Code Example
 Migration Guides
 v2 to v3 API
-Twilio SendGrid Docs
 Search
 Log in
 Sign up

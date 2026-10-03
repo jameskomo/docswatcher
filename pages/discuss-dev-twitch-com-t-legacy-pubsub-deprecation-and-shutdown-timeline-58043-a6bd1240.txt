@@ -180,7 +180,7 @@ April 14, 2024
 Deprecation of WebSub-based Webhooks
 Announcements
 0
-2427
+2428
 June 16, 2021
 EventSub vs PubSub for subscription events
 API
@@ -190,7 +190,7 @@ January 6, 2021
 Subscriptions Beta Changes
 API
 119
-20518
+20522
 July 9, 2017
 Home
 Categories

@@ -3,7 +3,6 @@ Twilio Docs
 Twilio Notify Deprecated feature
 API reference
 Notify API overview Binding resource Credential resource Notification resource Service resource
-Twilio Docs
 Search
 Messaging
 Voice

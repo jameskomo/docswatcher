@@ -210,10 +210,18 @@ Admin .NET
 Admin Dart (experimental)
 0.5.0
 Firebase CLI
-15.32.0
+15.32.1
 Firebase Studio
 See notes
 September 30, 2026
+Firebase CLI (v15.32.1)
+The latest
+Firebase CLI (v15.32.1) is now
+available. This version updates dependencies to address security
+vulnerabilities, updates the Firebase SQL Connect local toolkit to
+v3.4.22, and includes several fixes and improvements.
+To use the Firebase CLI in your development environment,
+set up or update the CLI .
 Firebase Test Lab
 Firebase Test Lab is deprecated and will be fully shut
 down as of September 30, 2027. To maintain your testing workflows, you can
@@ -16734,7 +16742,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-01 UTC.
+Last updated 2026-10-02 UTC.
 Learn
 Developer guides
 SDK & API reference

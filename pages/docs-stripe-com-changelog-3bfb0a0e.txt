@@ -139,7 +139,7 @@ Adds address validation errors for CMRAs and registered agents to Accounts v1 an
 Issuing + 1 more
 Adds rejected status for Accounts v2 capabilities
 Connect
-Replaces the generic fraud rejection reason with more granular fraud reasons
+Replaces the generic fraud rejection reason with specific fraud reasons
 Connect
 Removes the configurations parameter from the Account Links v2 API
 Affects all products

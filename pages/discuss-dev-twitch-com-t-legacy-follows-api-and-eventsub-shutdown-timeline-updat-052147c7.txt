@@ -32,7 +32,7 @@ Activity
 Follows endpoints and EventSub subscription type are now available in open beta
 Announcements
 16
-260932
+260939
 October 14, 2023
 Get Channel Followers usernames
 API
@@ -42,12 +42,12 @@ October 29, 2023
 Issue with channel followers endpoint
 API
 4
-538
+541
 September 16, 2023
 Channel followers
 API
 1
-812
+813
 September 15, 2023
 Empty results from api.twitch.tv/helix/channels/followers
 API

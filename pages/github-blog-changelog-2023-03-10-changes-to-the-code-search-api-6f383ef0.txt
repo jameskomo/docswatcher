@@ -31,6 +31,24 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Oct.02 Improvement
+Stateless GitHub App installation tokens rolled out
+actions
+ecosystem & accessibility
+...
++1
+Oct.02 Improvement
+New fields for SecurityAdvisory GraphQL API
+ecosystem & accessibility
+supply chain security
+...
++1
+Oct.02 Release
+Repository security advisory comments API in public preview
+ecosystem & accessibility
+supply chain security
+...
++1
 Oct.01 Improvement
 Accessibility statements highlighted on repository overview
 ecosystem & accessibility
@@ -55,15 +73,6 @@ copilot
 +1
 Sep.21 Release
 Refreshed repository pull requests page generally available
-collaboration tools
-Sep.15 Retired
-SHA-1 in HTTPS on GitHub sunset
-ecosystem & accessibility
-Sep.10 Release
-Refreshed repository pull requests page in public preview
-collaboration tools
-Sep.08 Release
-GitHub Enterprise Server 3.22 is now generally available
 collaboration tools
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.

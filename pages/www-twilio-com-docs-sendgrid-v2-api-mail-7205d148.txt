@@ -9,7 +9,6 @@ Twilio SendGrid v2 API Reference
 SendGrid Web API v2 Overview Using the SendGrid v2 Web API v2 Mail Send Filter Settings Profile Blocks Unsubscribes Timezone Filter Commands Bounces Invalid Emails Spam Reports
 Customer Subuser API
 Customer Subuser API Overview Apps Statistics Subuser Spam Reports Subuser Management Subuser Bounces IP Management Subuser Unsubscribes Account Limits Domain Authentication Authenticate a Subuser Subuser Invalid Emails Parse Settings
-Twilio SendGrid Docs
 Search
 Log in
 Sign up

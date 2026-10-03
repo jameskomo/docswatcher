@@ -27,6 +27,8 @@ On March 1, 2027, Shopify will stop injecting script tags into storefronts. Stor
 What's changing
 A script tag loads JavaScript on a storefront without any changes to theme code. After March 1, 2027, Shopify won't inject those scripts, so script tags will stop loading JavaScript on storefronts.
 The script Tags query and the script Tag Delete mutation keep working, so you can audit and clean up your existing script tags.
+Why it’s changing
+Script tags run JavaScript directly on a storefront without appearing in the theme editor, which makes them difficult for merchants to find and control. App embed blocks give merchants visibility and control in the theme editor, while web pixels run in a sandbox and respect customer privacy permissions. These alternatives make storefront integrations more transparent for merchants and safer for customers.
 What you need to do
 Replace each script tag with an app embed block , which you ship in a theme app extension. App users activate app embed blocks in the theme editor.
 If a script only collects analytics or conversion data, then use a web pixel instead, which needs no action from the app user.
