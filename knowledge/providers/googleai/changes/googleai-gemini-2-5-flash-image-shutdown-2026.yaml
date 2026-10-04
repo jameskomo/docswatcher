@@ -28,4 +28,4 @@ migration:
     between model generations, so re-run any evals and check assertions that
     depend on response length.
 
-status: active
+status: expired
