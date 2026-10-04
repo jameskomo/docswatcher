@@ -125,7 +125,7 @@ Shopify releases a new API version every three months at 5pm UTC on the first da
 Version
 2025 2026 2027 2028
 Q2 Q3 Q4 Q1 Q2 Q3 Q4 Q1 Q2 Q3 Q4 Q1
-October 3, 2026
+October 4, 2026
 Unstable In development
 2027-01 Release candidate RC Stable Unsupported
 2026-10 Latest stable RC Stable Unsupported
