@@ -18,16 +18,16 @@ Stay Updated with Our Latest Changes
 Posts by Tag
 span]:line-clamp-1 w-full min-h-[44px] touch-manipulation" aria-describedby="mobile-tag-dropdown-description">
 Use this dropdown to filter blog posts by tag. Select "All posts" to view all posts, or choose a specific tag to filter results.
-Announced (145)
-API (63)
-CMS (39)
-Contacts API (21)
-Developer Tools (20)
-Forms API (21)
-Logiciel CMS (19)
-New Functionality (23)
-Sunset (27)
-Upcoming (37)
+2025 (6)
+2026 (4)
+AI Tools (1)
+Announced (6)
+API (7)
+App Marketplace (1)
+breaking change (2)
+CRM Object Properties API (1)
+Integrations (2)
+Upcoming (4)
 Latest Posts
 Announced Upcoming ( 2 )
 Legacy APIs and Apps: What's Going Unsupported and When

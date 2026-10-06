@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Release: Slack CLI v4.9.0
 Release: Slack CLI v4.8.0
 Updated installation requirement for Slack Marketplace apps
 Release: Slack CLI v4.7.0
@@ -245,6 +246,15 @@ Subscribe to the changelog!
 Get real-time notifications about new features, improvements, and bug fixes directly in your preferred feed reader.
 RSS
 Atom
+Release: Slack CLI v4.9.0
+October 2, 2026
+Version 4.9.0 of the Slack CLI is here!
+We've added support for the settings.app_level_token_rotation_enabled app manifest property, which opts your app in to rotating app-level tokens .
+We fixed an issue where an expired login with an invalid refresh token caused the CLI to retry token rotation on every command. The CLI now asks you to run slack login again.
+We fixed an issue where the slack activity --tail and slack run commands kept requesting activity logs after the login token became invalid. The command now exits with the auth error.
+Tags:
+Release
+Slack CLI
 Release: Slack CLI v4.8.0
 September 15, 2026
 Version 4.8.0 of the Slack CLI is here!

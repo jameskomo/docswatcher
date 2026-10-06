@@ -37,7 +37,7 @@ October 14, 2023
 Get Channel Followers usernames
 API
 3
-472
+473
 October 29, 2023
 Issue with channel followers endpoint
 API

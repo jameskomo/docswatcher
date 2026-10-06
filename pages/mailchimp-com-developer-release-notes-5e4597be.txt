@@ -1,119 +1,89 @@
-Skip to main content Products
-Mailchimp Marketing API
-Power timely, relevant marketing campaigns with custom data pulled directly from your app.
-Mailchimp Transactional
-Send targeted and event-driven messages to anyone, fast—with best-in-class deliverability.
-Mailchimp Open Commerce
-Control your commerce future with a modular, API-first commerce stack.
-Tools Release Notes Blog Sales: +1 (833) 799-4315
-Release Notes Scheduled
-Product
-All
-Transactional
-Marketing
-Open Commerce
-Action required
-August 19, 2025
-Mailchimp Transactional status added to server status page
-Transactional
-What
-We've added live status tracking for Mailchimp Transactional API's servers to the Mailchimp Server Status page. The page shows the current status and a history of recent service outages and their resolutions to help you troubleshoot your API calls and responses.
-Why
+> For clean Markdown of any page, append .md to the page URL.
+> For a complete documentation index, see https://mailchimp.com/developer/llms.txt.
+> For AI client integration (Claude Code, Cursor, etc.), connect to the MCP server at https://mailchimp.com/developer/_mcp/server.
+# Changelog
+## Mailchimp Transactional status added to server status page
+We've added live status tracking for Mailchimp Transactional API's servers to the [Mailchimp Server Status](https://status.mailchimp.com/) page. The page shows the current status and a history of recent service outages and their resolutions to help you troubleshoot your API calls and responses.
 This lets you check the status of the Mailchimp Transactional servers quickly and easily, on the same page as our other servers.
-Permalink
-August 7, 2025 Action Required
-New Audiences endpoints (BETA)
-Marketing
-What
-We’ve launched new Audiences endpoints (BETA) as an alternative to our List Members endpoints. These allow for contacts to be added with just an SMS number. These endpoints are still in BETA but includes the following capabilities: create, update, read, forget and archive a contact without reliance on an email value.
-The Audiences Endpoints (BETA) are available for evaluation or testing purposes only, may contain bugs or errors, and may not be as reliable as other Mailchimp features. Intuit may modify or discontinue this feature at any time without notice. By accessing the endpoints you agree to the Audiences Endpoints (BETA) Terms of Use . Consent must be accurately mapped to the supported marketing consent values. Unsupported values, including opt-outs, must be updated manually. See the Audiences (BETA) developer document for terms and additional details.
-Why
+## New Audiences endpoints (BETA)
+We’ve launched new [Audiences endpoints (BETA)](https://mailchimp.com/developer/marketing/api/audiences/)\*\* \*\*as an alternative to our List Members endpoints. These allow for contacts to be added with just an SMS number. These endpoints are still in BETA but includes the following capabilities: create, update, read, forget and archive a contact without reliance on an email value.
+The Audiences Endpoints (BETA) are available for evaluation or testing purposes only, may contain bugs or errors, and may not be as reliable as other Mailchimp features. Intuit may modify or discontinue this feature at any time without notice. By accessing the endpoints you agree to the [Audiences Endpoints (BETA) Terms of Use](/marketing/api-concepts/audiences-endpoints-beta). Consent must be accurately mapped to the supported marketing consent values. Unsupported values, including opt-outs, must be updated manually. See the [Audiences (BETA) developer document](/marketing/api-concepts/audiences-endpoints-beta) for terms and additional details.
 Previously, the creation of a contact via our API relied on the presence of an email. We’re launching this new endpoint to allow for SMS customers to bring over their full contact list, including contacts with no email.
-Permalink
-December 6, 2024 Action Required
-Overwriting campaign_id and outreach_id
-Marketing
-What
-We've started writing over the campaign_id or outreach_id values on Orders to align with our new attribution model and user-configured settings. If your integration is sending campaign_id or outreach_id with Add Order or Update Order API calls, we recommend deprecating that logic.
-Why
-We’re rolling out Mailchimp's native attribution model across all e-commerce integrations. This new model gives you more complete insights into how marketing campaigns contribute to customer purchases. It also improves marketing performance reporting for all Mailchimp customers using e-commerce integrations. Additionally, this reduces the need for complex custom logic for attributing orders to specific marketing messages.
-Permalink
-June 17, 2024
-Webhook retry interval increased
-Transactional
-What
+## Overwriting campaign_id and outreach_id
+We've started writing over the `campaign_id` or `outreach_id` values on [Orders](/marketing/api/ecommerce/list-store-orders) to align with [our new attribution model](https://mailchimp.com/help/about-mailchimp-attribution/) and user-configured settings. If your integration is sending `campaign_id` or `outreach_id` with [Add Order](/marketing/api/ecommerce/create-store-order) or [Update Order](/marketing/api/ecommerce/update-store-order) API calls, we recommend deprecating that logic.
+We’re rolling out [Mailchimp's native attribution model](https://mailchimp.com/help/about-mailchimp-attribution/) across all e-commerce integrations. This new model gives you more complete insights into how marketing campaigns contribute to customer purchases. It also improves marketing performance reporting for all Mailchimp customers using e-commerce integrations. Additionally, this reduces the need for complex custom logic for attributing orders to specific marketing messages.
+## Webhook retry interval increased
 We’ve increased the number of times that a webhook will retry when we don’t initially receive a 200 response. We will now retry up to 20 times, at intervals of 15-25 minutes per retry. After 20 unsuccessful attempts, the webhook will be disabled.
-Why
 Increasing this interval gives users more time to troubleshoot their webhook endpoint, and retains the webhook payload for longer.
-Permalink
-February 12, 2024 Action Required
-Updated Mailchimp Transactional client libraries
-Transactional
-What
-We've published an updated package for the PHP client library that is compatible with PHP 8.2.
-We've also published an updated package for the Node.js client library that uses the latest version of Axios to address a security vulnerability.
-Why
+## Updated Mailchimp Transactional client libraries
+We've published an [updated package for the PHP client library](https://packagist.org/packages/mailchimp/transactional#1.0.57) that is compatible with PHP 8.2.
+We've also published an [updated package for the Node.js client](https://www.npmjs.com/package/@mailchimp/mailchimp_transactional/v/1.0.59) library that uses the latest version of Axios to address a security vulnerability.
 Older versions of the PHP client library caused errors when used with PHP 8.2.
-A vulnerability was found in versions 0.8.1 through 1.5.1 of Axios, which unintentionally exposed the XSRF-TOKEN that was stored in cookies by including it in the X-XSRF-TOKEN HTTP header for all requests to any host. This allowed malicious actors possible access to sensitive data. To address this issue, we have updated the Node.js client library to use the latest version of Axios.
-Permalink
-June 5, 2023 Action Required
-Retiring legacy versions of Transport Layer Security (TLS) protocol
-Transactional
-What
-As of July 18, 2023, Mailchimp Transactional no longer supports Transport Layer Security protocol (TLS) v1.0 and v1.1. We already support TLS v.1.2 and above. If you're not using TLS v1.2 or above, this may require coding changes.
-Why
-TLS v1.0 and v.1.1 have been sunsetted so we are making the corresponding changes.
-Permalink
-December 19, 2023 Action Required
-New sending domain authentication requirements
-Transactional
-What
+A vulnerability was found in versions 0.8.1 through 1.5.1 of Axios, which unintentionally exposed the `XSRF-TOKEN` that was stored in cookies by including it in the `X-XSRF-TOKEN` HTTP header for all requests to any host. This allowed malicious actors possible access to sensitive data. To address this issue, we have updated the Node.js client library to use the latest version of Axios.
+## New sending domain authentication requirements
 Beginning on March 15, 2024, we'll be enforcing new sending domain authentication requirements that you'll need to act on.
-Why
 Google and Yahoo recently announced new sending requirements that will go into effect soon. To comply with these changes, Mailchimp Transactional users will have to update their DKIM records and enact a DMARC policy on any sending domain that might be used.
-If you fail to update your domain’s authentication, we’ll use a mandrillapp.com subdomain as the sending domain for your email address, but replies from recipients will still go to your email address. This change will apply to any email sent through Mandrill that is currently authenticated but doesn't meet our new authentication requirements after March 15.
+If you fail to update your domain’s authentication, we’ll use a `mandrillapp.com` subdomain as the sending domain for your email address, but replies from recipients will still go to your email address. This change will apply to any email sent through Mandrill that is currently authenticated but doesn't meet our new authentication requirements after March 15.
 Here's how you can get started:
-DKIM
-Create two CNAME records: one with the name mte1._domainkey. yourdomain.com with the value dkim1.mandrillapp.com , and another with the name mte2._domainkey. yourdomain.com and the value dkim2.mandrillapp.com
-DMARC
-Create and save a TXT record in your DNS with a name of _dmarc. yourdomain.com and a value of v=DMARC1; p=none
-Replace yourdomain.com with the domain you're setting up. Some domain hosts automatically add yourdomain.com after the initial value—contact your domain provider for any specifics.
+**DKIM**
+Create two CNAME records: one with the name `mte1._domainkey.`**`yourdomain.com`** with the value **`dkim1.mandrillapp.com`**, and another with the name `mte2._domainkey.`\*\*`yourdomain.com `\*\*and the value **`dkim2.mandrillapp.com`**
+**DMARC**
+Create and save a TXT record in your DNS with a name of `_dmarc.`**`yourdomain.com`** and a value of **`v=DMARC1; p=none`**
+Replace *`yourdomain.com`* with the domain you're setting up. Some domain hosts automatically add `yourdomain.com` after the initial value—contact your domain provider for any specifics.
 We’ve updated the Mailchimp Transactional app and documentation to include these instructions, and to give you the ability to test these records on your Sending Domains page.
-Permalink
-June 17, 2023 Action Required
-Response code updated for invalid template name
-Transactional
-What
+## Changing API server response for client errors
+We’ve been updating our API responses recently to provide a more semantic response for the requests you make. With this release, we’re changing the way our servers respond if you provide invalid or missing data when performing a request to our API. Once this change goes live, we’ll respond with an `HTTP 400 Bad Request`, indicating you will have to make changes to your payload in the subsequent requests.
+If you’re specifically targeting HTTP response codes other than `200`, you may need to update your code. We’re releasing this change incrementally over the next few weeks.
+Previously, we responded with an `HTTP 500 Server Error` when you provided an invalid or missing payload. We’re updating this to bring our response in line with proper semantics and allow more efficient status monitoring.
+## Response code updated for invalid template name
 We’ve been updating our API responses recently to provide a more semantic response for the requests you make. With this release, we’re changing the way our API responds if you provide an invalid template name when requesting template information or if you try to send a message using a template that doesn’t exist. Once this change goes live, we’ll respond with an HTTP 404 Not Found.
 If you’re specifically targeting HTTP response codes other than 200, you may need to update your code. We’re releasing this change incrementally over the next few weeks.
-Why
 Previously, we responded with an HTTP 500 Server Error when you provided an invalid template name or slug. We’re updating this to bring our response in line with proper semantics and allow more efficient status monitoring.
-Permalink
-<
-1
-2
-3
-4
-5
-...
-12
->
-Products
-Mailchimp Marketing API
-Mailchimp Transactional
-Mailchimp Open Commerce
-Resources
-Tools
-Release Notes
-API Status
-Partnerships
-Contact Us
-Join Mailchimp
-Explore how Mailchimp can bring together your customer data, marketing channels, and audience insights in a single platform.
-Create Account
-Visit Mailchimp
-Careers
-Privacy & Terms
-Read the documentation
-Help
-© 2001 - 2026 All Rights Reserved. Mailchimp ® is a registered trademark of The Rocket Science Group.
+## Retiring legacy versions of Transport Layer Security (TLS) protocol
+As of July 18, 2023, Mailchimp Transactional no longer supports Transport Layer Security protocol (TLS) v1.0 and v1.1. We already support TLS v.1.2 and above. If you're not using TLS v1.2 or above, this may require coding changes.
+TLS v1.0 and v.1.1 have been sunsetted so we are making the corresponding changes.
+## Export API 1.0 and API 2.0 no longer supported
+We retired API Export 1.0 and API 2.0 on June 1, 2023. We won’t support calls to these endpoints after the retirement date and will return an HTTP 410 status message. If your application or integration still makes use of these endpoints, you’ll need to update it to our Marketing API 3.0.
+We deprecated API Export 1.0 and API 2.0 on December 31, 2016 and have encouraged our developer community to upgrade to API 3.0 in the intervening time. Although we've continued to support the deprecated endpoints, they've seen increasing performance issues and it’s no longer viable to maintain them.
+## Added client secret rotation functionality
+We've added functionality to allow you to rotate any client secrets you may have generated for your applications.
+We added this functionality to make it easier to keep your applications secure. For more details, see [Set up an OAuth app](/marketing/build/start-developing/set-up-an-oauth-app).
+## Subject and TO header no longer require encoding
+We’ve recently updated how we encode email headers, so that Subject Lines and the recipient headers (like TO, CC, etc) no longer require users to encode non-ASCII characters.
+We made this change to make it easier for users to send emoji or non-standard text in the Subject, To Address, and To Name. Now, you can pass in those characters directly instead of having to encode them in your email.
+## Changing messages/info server response
+We’ve been updating our API responses recently to provide a more semantic response for the requests you make. With this release, our servers will respond an HTTP 404 Not Found if you provide an invalid message ID when requesting message information.
+If you’re specifically targeting HTTP response codes other than 200, you may need to update your code.
+Previously, we responded with an HTTP 500 Server Error when you provided an invalid message ID. We’re updating this to bring our response in line with proper semantics and allow more efficient status monitoring.
+## Message search rate limit now enforced
+We’re now enforcing the message search rate limit described in the [Search messages by date](/transactional/api/messages/search) endpoint. If you exceed the limit of 20 searches per minute, we’ll now return a 429 Too Many Requests response code. You can retry your request 60 seconds after you sent the first of the original 20 requests.
+You may want to monitor your responses for an increase in 429 codes so that you can change your request system to submit no more than 20 searches per minute if necessary.
+We’re enforcing the search request limit to increase system efficiency and minimize overall response time.
+## Added support for 401 Unauthorized response code
+We’re now supporting the 401 Unauthorized response code. When a customer makes a request using any invalid or revoked API Key, we’ll respond with 401 Unauthorized. If you’re specifically targeting HTTP response codes other than 200, you may need to update your code.
+Previously, we responded to requests made with an invalid or revoked API key with a 500 Server Error status code. We updated this to bring our response in line with proper semantics and allow more efficient status monitoring.
+## Updated export download security
+Export notification emails now include a link that prompts you to login to your Mailchimp account before you can download your report from the Exports page.
+Previously, our export emails contained a direct link to download the report. We’ve updated our security to require login before you can access the report on the Exports page.
+## Added empty alt tag to tracking pixels
+We added an empty alt tag to the pixel that is included in your emails when you’ve enabled open tracking.
+Many spam filters like to see alt tags included for all images, but we’re leaving the one associated with the open tracking pixel empty so that screen readers won’t see it. This helps keep your email from being marked as spam while not creating a poor user experience for your customers who use screen readers.
+## Added a field to various Transactional responses when messages are queued
+We’ve add a `queued-reason` field to API responses when we return a `status` of `queued.`
+This change affects the following endpoints:
+* `messages/send`
+* `messages/send-template`
+* `messages/send-raw`
+This new `queued-reason` field gives you more information and context why messages have been queued rather than sent.
+## Added time limit to message scheduling
+We’ve added a limit to how far in the future you can schedule messages. Currently, we’re allowing you to schedule messages within a year from the date of scheduling.
+This validation change affects the following APIs:
+* `messages/send`
+* `messages/sendRaw`
+* `messages/sentTemplate`
+* `messages/reschedule`
+We’re adding this validation limit to increase database efficiency and performance.
+## IP validation now enforced on Add or Update List Member
+We’re now checking the fields `ip_signup` and `ip_opt` for valid IPv4 and IPv6 addresses when you’re using the [Add or Update List Member](/marketing/api/lists/upsert-member) endpoint.
+We added IP validation to the contact importer and we are updating the API to maintain feature parity.
+_Showing the 20 most recent of 83 entries. Append `/llms.txt` to the changelog URL for the complete index._

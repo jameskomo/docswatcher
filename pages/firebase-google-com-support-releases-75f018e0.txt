@@ -230,6 +230,19 @@ Developer Device Platform
 on Google Cloud. See the Developer Device Platform migration
 guide
 and FAQ for more details.
+Cloud Functions
+Function kits are now available in Cloud Functions for Firebase
+(2nd gen). You can use function kits to package, distribute on npm, and deploy
+multiple configurable instances of 2nd gen functions using the
+Firebase CLI. To learn more, see
+Using a function kit from an npm package .
+Firebase Extensions
+You can now migrate deprecated Firebase Extensions to
+function kits in Cloud Functions for Firebase (2nd gen)
+ahead of the March 31, 2027 service shutdown. To learn more, see the
+Firebase Extensions Deprecation FAQ
+and the publisher and
+user migration guides.
 September 28, 2026
 Firebase CLI (v15.32.0)
 The latest
@@ -16742,7 +16755,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-02 UTC.
+Last updated 2026-10-05 UTC.
 Learn
 Developer guides
 SDK & API reference

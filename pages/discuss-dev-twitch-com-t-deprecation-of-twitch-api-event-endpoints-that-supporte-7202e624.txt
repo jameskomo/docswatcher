@@ -33,7 +33,7 @@ June 16, 2021
 Undocumented helix/moderation/banned modification
 API
 8
-1051
+1052
 May 16, 2022
 Events in the new Twitch API?
 API

@@ -489,6 +489,14 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Oct 05, 2026
+Segment
+Conversation Memory
+Segment Conversation Memory Integration now in GA
+The Segment Conversation Memory Integration is now in GA. You can now sync long-term customer profile data, like identity and lifetime value, from Segment into the sub-second recall of Conversation Memory, enabling both AI and human agents to instantly access unified context during live interactions. This eliminates cold starts, reduces repetitive questions, and delivers highly personalized, continuous customer experiences across all channels.
+The integration continuously syncs long-term customer profile data, such as identity and historical traits, from Segment directly into Conversation Memory. Customers configure this transfer using either "Memory Sync" to rapidly import their entire profile database or "Memory Destination" to target specific user cohorts via Segment Audiences. During setup, Segment profile traits and identifiers are mapped to corresponding semantic trait groups within a Memory Store. Once active, trait updates flow in real time, allowing AI or human agents to instantly query the Memory Store for up-to-date customer context during live interactions.
+To get started, read the Segment Conversation Memory Integration | Twilio , and browse the Conversation Memory (Actions) | Twilio .
+Learn more
 Oct 01, 2026
 GA
 Voice API
@@ -566,11 +574,6 @@ Sep 23, 2026
 Voice API
 Conference list endpoint will default to in-progress conferences only on September 30, 2026
 Starting September 30, 2026, the Conference list endpoint (GET /2010-04-01/Accounts/{AccountSid}/Conferences.json) will default to returning only in-progress conferences.
-Learn more
-Sep 22, 2026
-Voice API
-Introducing Provider Failover and “Auto” mode Provider selection for Real-Time Transcriptions on October 22, 2026
-Starting October 22, 2026, Twilio Real-Time Transcriptions automatically starts transcription sessions on a second speech provider when a customer’s primary provider doesn’t connect. Failover is enabled for all existing Real-Time Transcriptions accounts on that date, and it routes only within a customer’s existing region. Use of failover is optional and can be opted out of per sub-account in Console.
 Learn more
 Loading
 Error: Unable to load changelog
