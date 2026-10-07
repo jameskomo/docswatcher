@@ -29,6 +29,7 @@ Upgrade your integration How API versioning works
 Essentials
 SDKs
 API
+Events
 Testing
 Stripe CLI
 Tools
@@ -43,7 +44,6 @@ Stripe Discord server
 Features
 Workflows
 Batch jobs
-Event destinations
 Stripe health alerts File uploads
 AI tools
 Agent plugins Model Context Protocol Agent skills Stripe Directory

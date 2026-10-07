@@ -58,6 +58,9 @@ Overview
 Using Gateway
 Gateway Events
 Webhook Events
+Link Previews
+Overview
+Component Embeds
 Voice & RPC
 Voice
 RPC

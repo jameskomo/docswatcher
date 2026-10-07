@@ -16,18 +16,18 @@ Filter: All
 Sign in to console
 Create account
 Explore topics
-re:Invent 2026
-The session catalog is live. Explore what's waiting for you
-Build & Deploy AI Agents
-88% of agent pilots stall. Learn what the rest do differently
-Get started
-Sign up free, connect your coding agent, and start building
-Data for agentic AI
-The 7 essential data capabilities to scale agentic AI
-Analyst Report
-AWS named a Leader in the 2026 Gartner Magic Quadrant for SCPS
+Event
+Register now for AWS re:Invent 2026
+Data Migration
+On-prem databases weren't built for agentic AI. Amazon RDS is
+Independent Software Vendors
+AI for software & tech: build, scale, and monetize
 AI for Small Businesses
 Solutions designed for your business. Delivered by AWS Partners
+Artificial Intelligence (AI)
+Accelerate AI from experimentation to production with AWS
+AI agents
+AgentCore: One platform to build, connect and optimize agents
 News & announcements
 AWS blog
 About AWS
@@ -39,7 +39,6 @@ Compliance
 Trust Center
 Sustainability
 Global Infrastructure
-Careers
 Featured Products
 Analytics
 Application Integration
@@ -61,14 +60,6 @@ Security & Identity
 Storage
 Supply Chain
 Browse all products
-Transformation Hubs
-Migrate to modernize → Modernize to unlock data → unlock data to run AI
-Migrate & Modernize
-Clear technical debt, modernize infrastructure, and move to the cloud
-Data & Analytics
-Future proof your data foundation for agentic AI
-Artificial Intelligence
-Get production-ready AI that automates, builds, creates, decides, and engages at scale
 Featured Products
 Get started with one of these featured services or browse all
 Browse all products
@@ -84,22 +75,60 @@ Amazon Connect Customer
 AI-native solution for delivering exceptional experiences across customer interactions
 EC2
 Secure and resizable compute capacity for virtually any workload
+Nova
+Foundation models delivering frontier intelligence and top price performance
+OpenSearch Service
+Real-time search, observability, and security analytics
+S3
+Virtually unlimited secure object storage for AI, analytics, and archives
 What’s new
 Explore new capabilities and the latest technologies
 Customer success stories
 Learn how customers around the world accelerate their cloud
-Featured
 By industry
 By organization type
 Solutions Library
-Solutions for any organization
-From startups to enterprises, find AWS solutions scaled to your needs. Access tailored resources, pricing models, and support levels.
-Analytics Solutions
-Discover curated Solutions that address varied analytics use cases
-AI Solutions
-Discover curated Solutions that address varied artificial intelligence use cases
-Migration & Modernization Solutions
-Discover curated Solutions that address varied migration and modernization use cases
+Industry solutions on AWS
+Transform your industry with AWS cloud solutions. Access proven architectures, compliance guides, and success stories of customers using AWS products tailored to your sector. Explore AWS solutions for your industry.
+Go to industry hub
+Advertising and Marketing
+Turn data into customer-winning campaigns
+Aerospace and Satellite
+Cloud solutions to help customers build satellites, conduct space and launch operations, and reimagine space exploration
+Automotive
+Build smarter vehicles and transform mobility with cloud solutions
+Education
+Solutions to help facilitate teaching, learning, student engagement, better learning outcomes and modernize IT operations
+Energy and Utilities
+Revamp legacy operations and accelerate the development of innovative renewable energy business models
+Financial Services
+Develop innovative and secure solutions across banking, capital markets, insurance, and payments
+Games
+Enable game development for every genre and platform, from AAA titles to indie studios
+Government
+Solutions designed to help government agencies modernize, meet mandates, reduce costs, and deliver mission outcomes
+Healthcare and Life Sciences
+Accelerate innovation and improve patient care with healthcare data management and security
+Industrial
+Services and solutions for customers across Manufacturing, Automotive, Energy, Power & Utilities, Transportation & Logistics
+Manufacturing
+Optimize production and speed time-to-market
+Media and Entertainment
+Transform media & entertainment with the most purpose-built capabilities and partner solutions of any cloud
+Nonprofit
+Cloud solutions to help nonprofits and NGOs maximize their mission impact and donor relationships
+Retail and Consumer Goods
+Empower brands to drive market differentiation and growth with cloud solutions
+Semiconductor
+Design and deliver next-generation chip solutions with cloud technology
+Sports
+Fuel innovative fan, broadcast, and athlete experiences
+Sustainability
+Tools and resources to help organizations achieve their sustainability goals with AWS
+Telecommunications
+Accelerate innovation, scale with confidence, and add agility with cloud-based telecom solutions
+Travel and Hospitality
+Elevate travel and hospitality with solutions that boost customer experiences and operational efficiency
 What's new
 Explore new capabilities and the latest technologies
 Customer success stories

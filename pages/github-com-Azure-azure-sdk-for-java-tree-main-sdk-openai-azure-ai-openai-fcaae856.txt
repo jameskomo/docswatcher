@@ -92,35 +92,17 @@ You signed out in another tab or window. Reload to refresh your session.
 You switched accounts on another tab or window. Reload to refresh your session.
 Dismiss alert
 Azure
-/
 azure-sdk-for-java
-Public
-Notifications
-You must be signed in to change notification settings
-Fork
-2.2k
-Star
-2.6k
+Repository navigation
 Code
-Issues
-335
-Pull requests
-172
-Actions
-Projects
-Wiki
-Security and quality
-0
-Insights
-Additional navigation options
-Code
-Issues
-Pull requests
+Issues 335 ( 335 )
+Pull requests 173 ( 173 )
 Actions
 Projects
 Wiki
 Security and quality
 Insights
+More items
 Files Expand file tree
 main
 Breadcrumbs

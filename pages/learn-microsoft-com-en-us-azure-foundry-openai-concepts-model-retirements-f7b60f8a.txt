@@ -22,7 +22,7 @@ Microsoft Foundry Models lifecycle and support policy
 Feedback
 Summarize this article for me
 In this article
-Microsoft Foundry Models move through a predictable lifecycle—from preview to general availability (GA) to eventual retirement—giving you time to evaluate replacements and migrate workloads. This article explains each lifecycle stage, the overlap commitments Microsoft makes when a model retires, and how you're notified. For specific retirement dates, see Model retirement schedule .
+Microsoft Foundry Models move through a predictable lifecycle—from release to eventual retirement—giving you time to evaluate replacements and migrate workloads. Models can launch in preview or directly into general availability (GA). This article explains each lifecycle stage, the overlap commitments Microsoft makes when a model retires, and how you're notified. For specific retirement dates, see Model retirement schedule .
 How model lifecycle works
 Microsoft Foundry continuously refreshes its model catalog with newer, more capable models. When a model is superseded, it moves through a predictable lifecycle that gives customers time to evaluate replacements and migrate. The lifecycle applies uniformly across Foundry Models sold by Azure and from partners and community , though notification timelines differ slightly by model origin.
 Lifecycle stages
@@ -52,6 +52,7 @@ No
 Note
 Fine-tuned models follow a separate retirement schedule for training and deployment. See Fine-tuned models for details.
 Generally available models from Anthropic, DeepSeek, Fireworks, and Mistral AI follow a 12-month lifecycle instead of the standard 18-month lifecycle. For model-specific retirement dates, see the Model retirement schedule .
+Generally available SpaceXAI Grok models starting with Grok 4.7 are available for a minimum of six months. For model-specific retirement dates, see the Model retirement schedule .
 Model launch and availability
 New models become available through deployment types in this order:
 Note
@@ -90,6 +91,7 @@ Lifecycle timeline commitments
 Microsoft makes specific commitments about how long model versions stay available and when replacements appear, so you can plan migrations with confidence.
 Generally Available (GA) replacement model overlap commitments
 We commit to meaningful overlap between a retiring GA model and its replacement so customers can test, evaluate, and migrate with confidence.
+The following timeline describes the standard 18-month lifecycle. For publisher-specific lifecycle commitments, see Lifecycle stages .
 Phase
 Pattern
 GA launch
@@ -113,7 +115,7 @@ What happens
 Upgrade to newer Preview
 Existing preview deployments are force-upgraded to a newer preview version. Customers get at least 30 days notice . The cycle repeats until a GA version is available.
 Upgrade to GA
-When the GA model launches, preview deployments are force-upgraded to the GA version. Customers get at least 30 days notice . The GA model then follows the standard 18-month GA lifecycle.
+When the GA model launches, preview deployments are force-upgraded to the GA version. Customers get at least 30 days notice . The GA model then follows the applicable GA lifecycle.
 No replacement (rare)
 If no replacement exists, customers get 30 days notice before the model retires and inference returns 410 Gone .
 Automatic upgrades
@@ -132,7 +134,7 @@ Microsoft selects the official replacement approximately 90–120 days before re
 When you choose a target, evaluate candidate models against your own application, prompts, and representative data. Compare quality, latency, and cost together rather than relying on public benchmarks alone. Before you migrate, confirm API compatibility, feature support, deployment-type and regional availability, capacity, and quota.
 For the full, phase-by-phase migration process, including how to prepare a test dataset, adapt prompts and schemas, validate quality, and roll out safely, see Model migration process .
 Notifications
-GA models have their retirement date set programmatically at launch to 18 months out—there's no separate "announcement." Legacy and Deprecated transitions follow the published timeline and are visible in real time via the Models API .
+GA models that follow the standard lifecycle have their retirement date set programmatically at launch to 18 months out—there's no separate "announcement." For publisher-specific retirement dates, see the Model retirement schedule . Legacy and Deprecated transitions follow the published timeline and are visible in real time via the Models API .
 When you receive active notifications
 Event
 Timing

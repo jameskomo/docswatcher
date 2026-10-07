@@ -1,3 +1,7 @@
+> This page is for version v2 API (default).
+> For other versions, use one of these documentation indexes:
+> - v2 API (default): https://docs.cohere.com/v2/llms.txt
+> - v1 API: https://docs.cohere.com/v1/llms.txt
 > For clean Markdown of any page, append .md to the page URL.
 > For a complete documentation index, see https://docs.cohere.com/llms.txt.
 > For AI client integration (Claude Code, Cursor, etc.), connect to the MCP server at https://docs.cohere.com/_mcp/server.

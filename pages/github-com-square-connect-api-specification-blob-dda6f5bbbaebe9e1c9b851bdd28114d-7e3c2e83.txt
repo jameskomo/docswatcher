@@ -92,33 +92,16 @@ You signed out in another tab or window. Reload to refresh your session.
 You switched accounts on another tab or window. Reload to refresh your session.
 Dismiss alert
 square
-/
 connect-api-specification
-Public
-Notifications
-You must be signed in to change notification settings
-Fork
-36
-Star
-76
+Repository navigation
 Code
-Issues
-15
-Pull requests
-3
-Actions
-Projects
-Security and quality
-0
-Insights
-Additional navigation options
-Code
-Issues
-Pull requests
+Issues 15 ( 15 )
+Pull requests 3 ( 3 )
 Actions
 Projects
 Security and quality
 Insights
+More items
 Files Expand file tree
 dda6f5bbbaebe9e1c9b851bdd28114de62390209
 Breadcrumbs

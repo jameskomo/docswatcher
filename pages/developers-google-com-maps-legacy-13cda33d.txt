@@ -125,7 +125,7 @@ retrieve-google-maps-platform-docs
 Maps Grounding Lite
 Overview
 Attribution guidelines
-Resolution APIs (experimental)
+Resolution API
 Reference
 MCP reference
 Overview

@@ -29,7 +29,7 @@ CRM Object Properties API (1)
 Integrations (2)
 Upcoming (4)
 Latest Posts
-Announced Upcoming ( 2 )
+Announced Upcoming ( 3 )
 Legacy APIs and Apps: What's Going Unsupported and When
 Announced: Sep 15, 2026
 At Fall Spotlight on September 15, HubSpot is announcing the end of support for v1-v3 APIs, legacy public apps, and legacy private apps, all with a September 2027 enforcement date. If your integration or ...

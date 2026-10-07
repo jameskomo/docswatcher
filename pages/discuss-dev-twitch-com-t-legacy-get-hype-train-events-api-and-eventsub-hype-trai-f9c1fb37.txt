@@ -40,7 +40,7 @@ Activity
 “Get Hype Train Events” API endpoint - “id” query parameter deprecation
 Announcements
 2
-948
+949
 March 29, 2022
 Get Hype Train Events via App Token
 API
@@ -60,7 +60,7 @@ February 2, 2025
 Twitch Hype Train
 API
 9
-2314
+2315
 March 28, 2022
 Home
 Categories

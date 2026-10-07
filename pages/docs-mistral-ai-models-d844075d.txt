@@ -26,8 +26,8 @@ Compare models
 Featured Models
 Copy section link
 Featured Models
-Mistral Medium 3.5
-Our frontier-class multimodal model optimized for agentic and coding use cases.
+Mistral Large 4
+A state-of-the-art, open-weight, general-purpose multimodal model.
 OCR 4.1
 Our latest OCR service with paragraph-level bounding boxes, structural block labels, and block-level confidence scores.
 Z.ai GLM 5.3
@@ -58,6 +58,10 @@ Mistral Small 4
 Apache 2.0
 Hybrid model unifying instruct, reasoning, and coding in a single efficient model.
 v 26.03
+Mistral Large 4
+Open
+A state-of-the-art, open-weight, general-purpose multimodal model.
+v 26.10
 Mistral Large 3
 Apache 2.0
 A state-of-the-art, open-weight, general-purpose multimodal model.

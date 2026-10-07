@@ -31,6 +31,9 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Oct.06 Release
+Stacked pull requests generally available
+collaboration tools
 Oct.02 Improvement
 Stateless GitHub App installation tokens rolled out
 actions
@@ -71,9 +74,6 @@ collaboration tools
 copilot
 ...
 +1
-Sep.21 Release
-Refreshed repository pull requests page generally available
-collaboration tools
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.
 Enter your email *

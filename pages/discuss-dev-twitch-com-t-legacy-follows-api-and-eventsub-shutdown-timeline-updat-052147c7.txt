@@ -32,7 +32,7 @@ Activity
 Follows endpoints and EventSub subscription type are now available in open beta
 Announcements
 16
-260940
+260942
 October 14, 2023
 Get Channel Followers usernames
 API

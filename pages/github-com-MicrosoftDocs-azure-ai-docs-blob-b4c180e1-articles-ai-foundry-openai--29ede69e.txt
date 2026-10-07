@@ -92,28 +92,14 @@ You signed out in another tab or window. Reload to refresh your session.
 You switched accounts on another tab or window. Reload to refresh your session.
 Dismiss alert
 MicrosoftDocs
-/
 azure-ai-docs
-Public
-Notifications
-You must be signed in to change notification settings
-Fork
-542
-Star
-184
+Repository navigation
 Code
-Pull requests
-9
-Actions
-Security and quality
-0
-Insights
-Additional navigation options
-Code
-Pull requests
+Pull requests 8 ( 8 )
 Actions
 Security and quality
 Insights
+More items
 Files Expand file tree
 b4c180e11530cd8d5ad437e17ac5e06cb60bcce3
 Breadcrumbs

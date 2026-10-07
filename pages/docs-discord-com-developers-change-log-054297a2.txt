@@ -23,11 +23,28 @@ Developer Community
 Change Log
 close
 Filters Clear
-Discord Social SDK HTTP API Breaking Change Interactions Activities Premium Apps Embedded App SDK Gateway Voice Docs Components User Apps Documentation RPC Events
+Discord Social SDK HTTP API Breaking Change Interactions Activities Embedded App SDK Premium Apps Components Gateway Voice Docs User Apps Documentation RPC Events
 Change Log
 Copy page Copy page
 Discover the latest updates, new features, and bug fixes on the Discord Developer Platform. To join in on the conversation, join the Discord Developers Server .
 Copy page Copy page
+​
+October 6, 2026
+Activities Embedded App SDK
+​
+getActivityInstanceConnectedParticipants Command Renamed
+The Embedded App SDK’s getInstanceConnectedParticipants command has been renamed to getActivityInstanceConnectedParticipants . The previous name will be removed in a future major version.
+​
+October 5, 2026
+Components Documentation
+​
+Component Embeds and Link Preview Docs
+Websites can now customize how their links look when shared on Discord. Add a discord:component-embed JSON payload to your page and Discord renders the link preview using a Components V2 layout instead of the default preview. Component embeds are display-only, so nothing sends an interaction, and you don’t need an app or a bot to use them. Messages carrying one of these previews have a new components embed type , with a components array holding the single Container that makes up the embed. We’ve also published Link Previews documentation covering which Open Graph, Twitter Card, and oEmbed tags Discord reads from a page when it builds a preview.
+​
+Developer Resources
+Link Previews
+Component Embeds
+Embed Types
 ​
 September 28, 2026
 Docs

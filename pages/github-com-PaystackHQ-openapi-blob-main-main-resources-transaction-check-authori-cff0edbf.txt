@@ -92,31 +92,15 @@ You signed out in another tab or window. Reload to refresh your session.
 You switched accounts on another tab or window. Reload to refresh your session.
 Dismiss alert
 PaystackHQ
-/
 openapi
-Public
-forked from PaystackOSS/openapi
-Notifications
-You must be signed in to change notification settings
-Fork
-1
-Star
-1
+Repository navigation
 Code
-Pull requests
-3
-Actions
-Projects
-Security and quality
-0
-Insights
-Additional navigation options
-Code
-Pull requests
+Pull requests 3 ( 3 )
 Actions
 Projects
 Security and quality
 Insights
+More items
 Files Expand file tree
 main
 Breadcrumbs

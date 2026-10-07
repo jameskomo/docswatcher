@@ -489,6 +489,26 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Oct 06, 2026
+Studio
+TaskRouter
+Beta
+Europe, Middle East, and Africa
+TaskRouter and Studio are now available in Public Beta in Ireland (IE1)
+TaskRouter and Studio are now available in Public Beta in Twilio's Ireland (IE1) Region, giving you EU data residency and control over where your contact center routing and workflow automation data lives.
+Learn more
+Oct 05, 2026
+Programmable Messaging API
+Short Codes
+Short Codes are now supported in Data Residency for SMS (EU)
+Short Code numbers are now supported as SMS senders in Twilio's Ireland (IE1) region for EU data residency. When using this feature, SMS message personal data sent or received via Short Codes is stored and processed in the EU up to the point it reaches Twilio's connections with telecommunications providers.
+With this release, the IE1 region supports the following features:
+Short Code senders : Send and receive SMS messages with short codes in IE1.
+Region Configuration API : Configure short codes for IE1 using the V3 region configuration API.
+Short Codes API : Set IE1 inbound webhook configurations using the ShortCodes resource .
+Messaging Services API : Add short codes to IE1 messaging services using the service ShortCodes subresource .
+To learn more and get started, see the developer documentation .
+Learn more
 Oct 05, 2026
 Segment
 Conversation Memory
@@ -563,17 +583,6 @@ GA
 Voice API
 Twilio Voice React Native SDK adds Expo Support
 The Twilio Voice React Native SDK now supports Expo, the framework most new React Native apps start from.
-Learn more
-Sep 24, 2026
-Studio
-Conversation Memory
-Twilio Profiles widgets are now available in Studio
-Twilio Studio now includes two widgets for working with Twilio Profiles directly from a flow: Resolve Profile and Create or Update Profile.
-Learn more
-Sep 23, 2026
-Voice API
-Conference list endpoint will default to in-progress conferences only on September 30, 2026
-Starting September 30, 2026, the Conference list endpoint (GET /2010-04-01/Accounts/{AccountSid}/Conferences.json) will default to returning only in-progress conferences.
 Learn more
 Loading
 Error: Unable to load changelog
