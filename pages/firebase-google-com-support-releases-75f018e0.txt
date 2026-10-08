@@ -183,13 +183,13 @@ link in the following table:
 SDK or tool
 Latest version
 Apple platforms (iOS+)
-12.19.1
+13.0.0
 Android
-Firebase BoM : 34.19.0
+Firebase BoM : 35.0.0
 google-services plugin : 4.5.0
 See notes for individual library versions
 JavaScript
-12.19.0
+13.0.0
 Flutter
 Flutter BoM : 4.20.0
 See notes for individual plugin versions
@@ -213,6 +213,32 @@ Firebase CLI
 15.32.1
 Firebase Studio
 See notes
+October 07, 2026
+SDK Releases
+The
+Firebase Apple SDK (v13.0.0)
+is now available. For more details, see the
+Firebase Apple SDK release notes .
+To install this SDK, see Add Firebase to your app .
+The Firebase Android SDKs for
+A/B Testing , AI Logic , Analytics , App Check ,
+App Distribution , Authentication, Cloud Firestore , Cloud Functions ,
+Cloud Messaging , Cloud Storage , Crashlytics ,
+Crashlytics NDK, Dynamic feature modules support, In-App Messaging ,
+Installations, Performance Monitoring , Firebase PNV , Realtime Database , Remote Config , and
+SQL Connect
+have been updated. For more details, check out the latest
+Android Release Notes .
+To get started with Firebase in Android, see
+Add Firebase to your Android Project .
+The Firebase Android BoM ( Bill of Materials )
+has been updated to v35.0.0. Learn how to
+add SDKs to your app using the Firebase BoM .
+The
+Firebase JavaScript SDK (v13.0.0)
+is now available. For more details, see the
+Firebase JavaScript SDK release notes .
+To install the SDK, see Add Firebase to your JavaScript Project .
 September 30, 2026
 Firebase CLI (v15.32.1)
 The latest
@@ -16755,7 +16781,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-06 UTC.
+Last updated 2026-10-08 UTC.
 Learn
 Developer guides
 SDK & API reference

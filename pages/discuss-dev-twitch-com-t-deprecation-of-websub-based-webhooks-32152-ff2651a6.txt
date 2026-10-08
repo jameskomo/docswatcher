@@ -32,7 +32,7 @@ June 14, 2023
 Legacy PubSub deprecation and shutdown timeline
 Announcements
 17
-8749
+8752
 April 8, 2025
 EventSub WebSockets are now out of beta and generally available
 Announcements

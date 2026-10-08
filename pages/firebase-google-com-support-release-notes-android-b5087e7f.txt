@@ -205,7 +205,7 @@ The latest Firebase BoM version contains the latest versions
 of each Firebase Android library. To learn which library versions
 are mapped to a specific BoM version, review the release notes
 for that BoM version.
-34.19.0
+35.0.0
 Google services Gradle plugin
 com.google.gms:google-services
 4.5.0
@@ -214,93 +214,93 @@ com.google.android.gms:play-services-ads
 25.5.0
 Firebase AI Logic 1
 com.google.firebase:firebase-ai
-17.17.0
+18.0.0
 Firebase AI Logic On-Device
 com.google.firebase:firebase-ai-ondevice
-16.0.0-beta05
+16.0.0-beta06
 Firebase AI KSP
 com.google.firebase:firebase-ai-ksp-processor
-16.0.2
+17.0.0
 Analytics
 com.google.firebase:firebase-analytics
-23.2.0
+24.0.0
 App Check custom provider
 com.google.firebase:firebase-appcheck
-19.4.1
+20.0.0
 App Check debug provider
 com.google.firebase:firebase-appcheck-debug
-19.4.1
+20.0.0
 App Check Play Integrity provider
 com.google.firebase:firebase-appcheck-playintegrity
-19.4.1
+20.0.0
 App Check reCAPTCHA provider
 com.google.firebase:firebase-appcheck-recaptcha
-19.2.1
+20.0.0
 App Distribution
 com.google.firebase:firebase-appdistribution
-16.0.0-beta20
+16.0.0-beta21
 App Distribution API
 com.google.firebase:firebase-appdistribution-api
-16.0.0-beta20
+16.0.0-beta21
 App Distribution plugin
 com.google.firebase:firebase-appdistribution-gradle
 5.3.0
 Authentication
 com.google.firebase:firebase-auth
-24.2.0
+25.0.0
 Cloud Firestore
 com.google.firebase:firebase-firestore
-26.6.0
+27.0.0
 Cloud Functions for Firebase Client SDK
 com.google.firebase:firebase-functions
-22.1.1
+23.0.0
 Cloud Messaging
 com.google.firebase:firebase-messaging
-25.1.3
+26.0.0
 Cloud Storage
 com.google.firebase:firebase-storage
-22.0.2
+23.0.0
 Crashlytics
 com.google.firebase:firebase-crashlytics
-20.1.1
+21.0.0
 Crashlytics NDK
 com.google.firebase:firebase-crashlytics-ndk
-20.1.1
+21.0.0
 Crashlytics plugin
 com.google.firebase:firebase-crashlytics-gradle
 3.0.8
 Dynamic feature module support
 com.google.firebase:firebase-dynamic-module-support
-16.0.0-beta04
+16.0.0-beta05
 In-App Messaging
 com.google.firebase:firebase-inappmessaging
-22.0.3
+23.0.0
 (required)
 In-App Messaging Display
 com.google.firebase:firebase-inappmessaging-display
-22.0.3
+23.0.0
 (required)
 Firebase installations
 com.google.firebase:firebase-installations
-19.1.2
+20.0.0
 Performance Monitoring
 com.google.firebase:firebase-perf
-22.0.6
+23.0.0
 Performance Monitoring plugin
 com.google.firebase:perf-plugin
 2.0.2
 Firebase Phone Number Verification
 com.google.firebase:firebase-pnv
-16.1.1
+17.0.0
 Realtime Database
 com.google.firebase:firebase-database
-22.0.2
+23.0.0
 Remote Config
 com.google.firebase:firebase-config
-23.1.0
+24.0.0
 SQL Connect 2
 com.google.firebase:firebase-dataconnect
-17.4.0
+18.0.0
 DEPRECATED OR UNSUPPORTED LIBRARIES
 Dynamic Links
 com.google.firebase:firebase-dynamic-links
@@ -425,6 +425,275 @@ com.google.firebase:firebase-ml-natural-language-smart-reply-model
 com.google.firebase:firebase-vertexai .
 2 Firebase SQL Connect was formerly called
 " Firebase Data Connect ".
+Update - October 07, 2026
+Firebase Android BoM ( Bill of Materials ) version 35.0.0
+Warning: Breaking Change: In this release, com.google.firebase:firebase-ml-modeldownloader was removed
+from the BoM . If you use Firebase ML , you can continue using the
+BoM , but you must use v34.19.0 or lower. However, if you use other Firebase
+libraries, we recommend that you use the latest BoM version to control their
+library versions, but manually maintain the Firebase ML library version by
+specifying its latest version (v26.1.1) in its dependency.
+Firebase Android SDKs mapped to this BoM version
+Libraries that were versioned with this release are in highlighted rows.
+Refer to a library's release notes (on this page) for details about its
+changes.
+Artifact name
+Version mapped
+to previous BoM v34.19.0
+Version mapped
+to this BoM v35.0.0
+com.google.firebase:firebase-ai-ksp-processor
+16.0.2
+17.0.0
+com.google.firebase:firebase-ai
+17.17.0
+18.0.0
+com.google.firebase:firebase-analytics
+23.2.0
+24.0.0
+com.google.firebase:firebase-appcheck-debug-testing
+19.4.1
+20.0.0
+com.google.firebase:firebase-appcheck-debug
+19.4.1
+20.0.0
+com.google.firebase:firebase-appcheck-playintegrity
+19.4.1
+20.0.0
+com.google.firebase:firebase-appcheck-recaptcha
+19.2.1
+20.0.0
+com.google.firebase:firebase-appcheck
+19.4.1
+20.0.0
+com.google.firebase:firebase-auth
+24.2.0
+25.0.0
+com.google.firebase:firebase-common
+22.2.1
+23.0.0
+com.google.firebase:firebase-config
+23.1.0
+24.0.0
+com.google.firebase:firebase-crashlytics-ndk
+20.1.1
+21.0.0
+com.google.firebase:firebase-crashlytics
+20.1.1
+21.0.0
+com.google.firebase:firebase-database
+22.0.2
+23.0.0
+com.google.firebase:firebase-dataconnect
+17.4.0
+18.0.0
+com.google.firebase:firebase-encoders
+17.0.0
+18.0.0
+com.google.firebase:firebase-firestore
+26.6.0
+27.0.0
+com.google.firebase:firebase-functions
+22.1.1
+23.0.0
+com.google.firebase:firebase-inappmessaging-display
+22.0.3
+23.0.0
+com.google.firebase:firebase-inappmessaging
+22.0.3
+23.0.0
+com.google.firebase:firebase-installations
+19.1.2
+20.0.0
+com.google.firebase:firebase-messaging-directboot
+25.1.3
+26.0.0
+com.google.firebase:firebase-messaging
+25.1.3
+26.0.0
+com.google.firebase:firebase-perf
+22.0.6
+23.0.0
+com.google.firebase:firebase-pnv
+16.1.1
+17.0.0
+com.google.firebase:firebase-storage
+22.0.2
+23.0.0
+A/B Testing version 24.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Firebase AI Logic version 18.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Breaking Change : Removed deprecated
+GenerativeBackend.vertexAI in favor of GenerativeBackend.agentPlatform .
+(GitHub #8640 )
+Note: The only difference for GenerativeBackend.agentPlatform is the default
+location for accessing the model .
+The default location for GenerativeBackend.agentPlatform is global ,
+whereas the default location for GenerativeBackend.vertexAI was
+us-central1 . To use us-central1 with GenerativeBackend.agentPlatform ,
+specify GenerativeBackend.agentPlatform(location = "us-central1") when
+initializing the SDK. However, note that most new Gemini models do
+not support us-central1 .
+Breaking change: Removed the deprecated MediaData class
+along with LiveSession.sendMediaStream and
+LiveSessionFutures.sendMediaStream . Use sendAudioRealtime ,
+sendVideoRealtime , or sendTextRealtime with InlineData instead for
+streaming realtime input during live sessions.
+(GitHub #8563 )
+Breaking change: Removed deprecated classes and properties,
+including Voices (use Voice instead), GroundingAttribution (use
+GroundingChunk instead), GenerativeModel.warmUp (use
+onDeviceExtension?.warmUp() instead), and
+CountTokensResponse.totalBillableCharacters .
+(GitHub #8563 )
+Breaking change: Restricted public constructors on SDK-emitted
+response and status models to internal , and converted stateless status
+classes DownloadStatus.DownloadCompleted and LiveServerSetupComplete into
+singletons ( object ). These classes are provided by the SDK and are not
+intended for direct instantiation by client applications.
+(GitHub #8563 )
+Deprecated the temperature , topK , topP , candidateCount ,
+presencePenalty , and frequencyPenalty parameters and setter methods in
+GenerationConfig.Builder and the generationConfig DSL, as they are
+unsupported in Gemini 3.x and later models.
+(GitHub #8621 )
+Fixed hybrid inference ( PREFER_ON_DEVICE ) to fall back to the
+cloud model when non-text response modalities, unsupported prompt part types,
+or multiple image parts are requested.
+(GitHub #8617 )
+Updated on-device inference to throw
+FirebaseAIOnDeviceInvalidRequestException when unsupported prompt part types
+or multiple image parts are provided, instead of ignoring them.
+(GitHub #8617 )
+Firebase AI Logic On-Device version 16.0.0-beta06
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Analytics version 24.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+App Check version 20.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+App Check Debug version 20.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+App Check Debug Testing version 20.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+App Check Play Integrity version 20.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+App Check reCAPTCHA version 20.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+App Distribution version 16.0.0-beta21
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+App Distribution API version 16.0.0-beta21
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Authentication version 25.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+Updated the firebase-common dependency to v23.0.0, the
+firebase-components dependency to v20.0.0, and the firebase-annotations
+dependency to v18.0.0.
+Added
+FirebaseAuthPasswordDoesNotMeetRequirementsException ,
+which is thrown with the ERROR_PASSWORD_DOES_NOT_MEET_REQUIREMENTS error
+code when a password doesn't meet the project's password policy requirements.
+Previously, this error was treated as an unknown error.
+Cloud Firestore version 27.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Breaking change: Updated gRPC dependency to 1.84.0 and
+Protocol Buffers to 4.36.1 .
+(GitHub #8580 )
+Added support for the following new types: MinKey , MaxKey ,
+RegexValue , Int32Value , BsonObjectId , BsonTimestamp , and subtype for
+Blob .
+(GitHub #8147 )
+Cloud Functions for Firebase Client SDK version 23.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Cloud Messaging version 26.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Cloud Messaging Direct Boot version 26.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Cloud Storage for Firebase version 23.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Crashlytics version 21.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Decorated OOM and MLK events with whether a heap dump was
+generated and heap dump collection is enabled.
+(GitHub #8549 )
+Fixed event timestamps on ANR events.
+(GitHub #8612 )
+Crashlytics NDK version 21.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Dynamic feature modules support version 16.0.0-beta05
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+In-App Messaging version 23.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Breaking change: Updated gRPC dependency to 1.84.0 and
+Protocol Buffers to 4.36.1 .
+(GitHub #8580 )
+In-App Messaging Display version 23.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Firebase installations version 20.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Performance Monitoring version 23.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Breaking change: Updated Protocol Buffers dependency to
+4.36.1 .
+(GitHub #8580 )
+Removed the unused dependency on protolite-well-known-types .
+(GitHub #8580 )
+Firebase PNV version 17.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+Breaking Change : Removed the deprecated
+FirebasePhoneNumberVerification#getInstance(Context) and
+FirebasePhoneNumberVerification#getInstance(FirebaseApp, Context) methods.
+Use getInstance() or getInstance(FirebaseApp) instead.
+Breaking Change : Removed the deprecated no-argument
+FirebasePhoneNumberVerification#getVerifiedPhoneNumber() method. Use
+getVerifiedPhoneNumber(Context) with an Activity context instead.
+Updated the firebase-common dependency to v23.0.0.
+Realtime Database version 23.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Remote Config version 24.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+SQL Connect version 18.0.0
+Breaking Change : Updated minSdkVersion to API level 24.
+(GitHub #8638 )
+Breaking change: Added AuthUserChangedException to enable
+reliably detecting when a realtime streaming connection fails due to a change
+in the Firebase Auth user.
+(GitHub #8604 )
+Breaking change: Added @SubclassOptInRequired to public
+interfaces such as FirebaseDataConnect and OperationRef , requiring an
+opt-in to implement or extend these interfaces.
+(GitHub #8603 )
+Breaking change: Replaced overloads in DataConnectSettings
+and QueryRef with default arguments and default interface implementations to
+provide a more idiomatic Kotlin API.
+(GitHub #8605 )
+Breaking change: Updated gRPC dependency to 1.84.0 and
+Protocol Buffers to 4.36.1 .
+(GitHub #8580 )
 Update - September 09, 2026
 Firebase Android BoM ( Bill of Materials ) version 34.19.0
 Firebase Android SDKs mapped to this BoM version
@@ -23437,7 +23706,7 @@ Google Analytics now logs all app open events driven
 from user clicks on Dynamic Links .
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-06 UTC.
+Last updated 2026-10-08 UTC.
 Learn
 Developer guides
 SDK & API reference

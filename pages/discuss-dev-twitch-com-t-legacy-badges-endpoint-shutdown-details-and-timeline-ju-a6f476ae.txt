@@ -73,7 +73,7 @@ January 11, 2022
 Has the 'http://tmi.twitch.tv/group/user/channel_name/chatters' endpoint been removed?
 API
 1
-2009
+2011
 March 31, 2023
 Legacy Twitch API v5 (i.e. kraken) Shutdown Reminder - February 28, 2022
 Announcements

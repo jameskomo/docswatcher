@@ -33,7 +33,7 @@ June 16, 2021
 Undocumented helix/moderation/banned modification
 API
 8
-1052
+1053
 May 16, 2022
 Events in the new Twitch API?
 API
@@ -48,7 +48,7 @@ November 7, 2020
 Follows endpoints and EventSub subscription type are now available in open beta
 Announcements
 16
-260942
+260943
 October 14, 2023
 Home
 Categories

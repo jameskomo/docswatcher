@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Slack Code for developers
 Release: Slack CLI v4.9.0
 Release: Slack CLI v4.8.0
 Updated installation requirement for Slack Marketplace apps
@@ -246,6 +247,17 @@ Subscribe to the changelog!
 Get real-time notifications about new features, improvements, and bug fixes directly in your preferred feed reader.
 RSS
 Atom
+Slack Code for developers
+October 7, 2026
+Slack Code enables even more collaboration between humans and agents in Slack by creating dedicated channels for deeper work. Agents can now create ephemeral channels from existing conversations, providing agents and their human collaborators a shared, visible place to work.
+Your agents manage the space: create a new code channel when a user’s request entails more work than a quick reply, and add bookmarks and artifacts so users can see your agent’s work. As the work progresses, your agent can post updates and convey status, and even archive the channel when work is complete.
+Read on to learn more:
+Slack Code
+Code channels lifecycle
+Agent slash commands
+Code channel properties
+Tags:
+New Feature
 Release: Slack CLI v4.9.0
 October 2, 2026
 Version 4.9.0 of the Slack CLI is here!

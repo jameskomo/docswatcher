@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Slack Code for developers
 Release: Slack CLI v4.9.0
 Release: Slack CLI v4.8.0
 Updated installation requirement for Slack Marketplace apps

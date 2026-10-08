@@ -177,6 +177,149 @@ Save and categorize content based on your preferences.
 To review release notes for the Firebase console and for other Firebase
 platforms and related SDKs, refer to the
 Firebase Release Notes .
+Version 13.0.0 - October 7, 2026
+Firebase is no longer distributed through CocoaPods. Firebase
+13.0.0 and later releases are distributed exclusively through Swift Package
+Manager and binary distributions. Existing CocoaPods releases will remain
+available as long as CocoaPods ecosystem support continues. For more
+information, see the
+CocoaPods deprecation guide .
+Breaking change : Firebase's minimum supported versions have
+been updated for the following platforms:
+Platform
+Firebase 13
+iOS
+15.0
+tvOS
+15.0
+macOS
+11.0
+watchOS
+8.0
+Breaking change : FirebaseMLModelDownloader has been removed.
+For more information, see the Firebase ML documentation .
+Breaking change : GoogleSignIn is no longer included in the
+Firebase zip and Carthage distributions.
+Note: A Google Sign-In release compatible with Firebase 13 via Swift
+Package Manager isn't yet available and will follow in the coming weeks.
+Breaking change : Removed the CocoaPods-generated umbrella
+headers (suffixed -umbrella.h ) from the zip and Carthage artifacts, in favor
+of Firebase.h and framework-specific umbrella headers.
+( #16540 )
+Breaking change : The minimum supported version of
+GTMSessionFetcher is now 4.0.0 (support for 3.x has been dropped).
+Breaking change : Bundle ID prefixes in the zip distribution
+are now properly scoped to com.google.firebase , instead of
+org.cocoapods. .
+( #16678 )
+Firebase now requires Swift tools version 6.2.1 and the Swift
+6.2.3 compiler for the Swift Package. The package will no longer resolve in
+Xcode versions earlier than 26.2, which remains the minimum officially
+supported version for the SDK.
+( #16696 )
+Added support for Swift Package Traits (SE-0450) to let you opt
+out of unused features and prune heavy dependencies. To opt out of Firestore
+in Xcode, select your project > Package Dependencies , and in the
+Traits column for Firebase, clear default and select only the ones you
+want, if any (it shows None if no traits are enabled).
+( #16684 )
+Firebase AI Logic
+Breaking change : Renamed Tool to GenerativeModel.Tool to
+avoid naming conflicts with Apple's Foundation Models Tool type. Calls
+passing array literals (for example, tools: [.googleSearch()] ) continue to
+work unmodified.
+( #16700 )
+Breaking change : Removed GenerativeModelSession ,
+SystemLanguageModel , HybridModel , and associated types and protocols that
+previously provided an interim integration with Apple's Foundation Models
+framework. Going forward, use GeminiLanguageModel via
+ai.geminiLanguageModel(name:) directly with Apple's native Foundation
+Models framework.
+Breaking change : Removed the deprecated Backend.vertexAI()
+and Backend.vertexAI(location:) methods. Use
+Backend.agentPlatform(location:) instead.
+The only difference for Backend.agentPlatform is the default
+location for accessing the model .
+The default location for Backend.agentPlatform is global , whereas the
+default location for Backend.vertexAI was us-central1 . To use
+us-central1 with Backend.agentPlatform , specify
+FirebaseAI.firebaseAI(backend: .agentPlatform(location: "us-central1"))
+when initializing the SDK. However, note that most new Gemini models don't
+support us-central1 .
+( #16689 )
+Breaking change : Update imports to import FirebaseAILogic
+and use the FirebaseAILogic Swift Package dependency instead of
+FirebaseAI , which has now been removed. For more information, see the
+Swift module name change
+FAQ entry.
+Public Preview : Added support for multi-turn conversations
+( TemplateChat ) and function calling ( TemplateTool ) with Server Prompt
+Templates. For more information, see the
+getting started guide .
+( #16740 )
+Updated the default function calling mode to VALIDATED and
+updated guided generation to use responseJsonSchema in
+GeminiLanguageModel .
+( #16649 )
+Deprecated model tuning parameters ( temperature , topP ,
+topK , candidateCount , presencePenalty , and frequencyPenalty ) in
+GenerationConfig and LiveGenerationConfig as they're unsupported in
+Gemini 3.x and later models.
+Analytics
+Fixed a potential deadlock
+( #13888 ).
+Hardened configuration parsing to safely handle missing or empty
+keys, preventing potential crashes from malformed data. (Note: The specific
+crash reported in
+#16728 was fully
+resolved via a server-side update).
+Internal code cleanup and optimizations.
+Authentication
+Fixed a timeout race in the APNs token manager that could leave
+concurrent phone authentication requests waiting indefinitely.
+Replaced a force-unwrapped error with a safe fallback during Game
+Center authentication.
+( #16136 )
+Crashlytics
+Safely validate memory reads when executing DW_OP_deref_size
+operations during DWARF stack unwinding
+( #16550 ).
+Fixed an issue causing a crash while symbolicating stack frames if
+the binary image path is null.
+( #16622 )
+Cloud Firestore
+Dropped C++14 support; Firestore requires C++17.
+Updated gRPC dependency to 1.83.1.
+Updated Abseil dependency to 1.20250512.2.
+Prefixed internal Pipeline Objective-C bridge classes and
+NS_SWIFT_NAME annotations with __ to hide them from IDE autocomplete and
+prevent them from appearing alongside public APIs.
+Added support for the following new types: MinKey , MaxKey ,
+RegexValue , Int32Value , Decimal128Value , BSONObjectId ,
+BSONTimestamp , and Blob .
+( #16265 )
+Added the Firestore package trait to Package.swift .
+Cloud Firestore support requires the trait to be enabled (it's enabled by
+default). You can opt out of the trait to avoid downloading Firestore's
+underlying dependencies (such as gRPC and Abseil).
+( #16684 )
+Firebase In-App Messaging
+Breaking change : Scene delegates take priority over app
+delegates for universal link routing.
+( #16083 )
+Fixed an issue where universal links were not correctly routed in
+apps utilizing scene delegates.
+( #16083 )
+FCM
+Breaking change : Scene delegates take priority over app
+delegates for automatic deep link routing.
+( #15987 )
+Fixed an issue where deep links were not correctly routed in apps
+utilizing scene delegates.
+( #15987 )
+Fixed an issue where NSSecureCoding was not enforced when
+archiving and unarchiving registration tokens in the keychain.
+( #16511 )
 Version 12.19.2 - September 17, 2026
 This release is available via Swift Package Manager only.
 Analytics
@@ -6054,7 +6197,7 @@ to your app's .ipa file, a reduction of nearly 2 MB from the previous
 release.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-06 UTC.
+Last updated 2026-10-07 UTC.
 Learn
 Developer guides
 SDK & API reference

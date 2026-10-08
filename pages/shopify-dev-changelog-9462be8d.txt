@@ -53,7 +53,6 @@ Tools
 Versions
 All versions
 2027-01
-2026-10-01
 2026-10
 2026-07
 2026-04
@@ -61,6 +60,7 @@ All versions
 2025-10
 2025-07
 2025-04
+2025-01
 Change type
 Action required
 Breaking change
@@ -113,7 +113,6 @@ Tools
 Versions
 All versions
 2027-01
-2026-10-01
 2026-10
 2026-07
 2026-04
@@ -121,6 +120,7 @@ All versions
 2025-10
 2025-07
 2025-04
+2025-01
 Change type
 Action required
 Breaking change
@@ -128,12 +128,25 @@ Deprecated
 Latest 2026-10
 October 2026
 Surface
+10.07
+Cart mutations reject unconfirmed writes in POS UI extensions 2026-10
+Breaking changes POS Extensions
+10.07
+POS UI extensions now return percentage values for percentage discounts
+Breaking changes POS Extensions
+10.07
+Per-customer request limit for the Customer Account API
+Customer Account API
+10.07
+Downgrade app access scopes from write to read
+Admin GraphQL API
 10.01
 What's new in Polaris 2.0.0-rc.1
 Polaris
 10.01
 More control over commerce updates with Next Gen Events
 Fewer deliveries, richer payloads, no follow-up queries: Events is a declarative replacement for classic webhooks, now generally available across 18 topics.
+Events & webhooks
 10.01
 New Shop Campaigns metrics and dimensions in ShopifyQL API version 2026-10
 ShopifyQL
@@ -166,7 +179,7 @@ Tax webhook summary and calculation requests now use Global IDs
 Breaking changes Admin GraphQL API
 10.01
 New SubscriptionContractCalculation API for subscription management
-Action required Platform
+Action required Admin GraphQL API
 10.01
 Inventory shipment webhooks include inventory transfer IDs
 Events & webhooks
@@ -181,7 +194,7 @@ New APIs for buyer-requested order edits
 Admin GraphQL API
 10.01
 New tax fields for return shipping fees in the GraphQL Admin API
-API
+Admin GraphQL API
 10.01
 2026-10: Release notes
 Covers order tax recalculation, metafield filter errors, and removed checkout fields.
@@ -189,7 +202,7 @@ September 2026
 Surface
 09.30
 Use app intents for your discount app
-Platform
+Functions
 09.29
 More resilient token exchanges when migrating tokens without a user session
 Admin GraphQL API
@@ -384,6 +397,7 @@ Liquid
 07.21
 Full-stack capabilities to power app analytics
 Shopify Analytics is now a full-stack platform for apps. Model, query, embed, and enrich analytics on Shopify without managing your own data infrastructure.
+Admin GraphQL API
 07.17
 Physical inventory feature preview
 Admin GraphQL API
@@ -425,18 +439,6 @@ Breaking changes POS Extensions
 The next generation of Shopify fulfillment is coming
 Shopify is releasing fulfillment upgrades that help merchants sell across more locations, delivery methods, and markets with less friction at checkout.
 Partners
-07.07
-Prepare your app for migration to Shopify App Pricing
-New migration tool lets you generate, edit, and test Shopify App Pricing plans from existing Billing API plans, validate usage pricing, and prepare for upcoming subscription migration.
-07.07
-Shopify Flow: Changes to Action extensions result in fewer breaking changes
-Tools
-07.07
-Shopify Flow: Action runtime URLs now update automatically
-Tools
-07.06
-Updated App Store Requirements: 1.3 Always Use Honest and Transparent Review Practices
-App store
 Load more
 Updates
 Developer changelog
