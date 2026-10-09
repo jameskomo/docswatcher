@@ -11,11 +11,28 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Check every url in change records
+        # A link check that fails on a slow or rate-limiting site fails for the site, not for us. Only
+        # an answer that the page is gone (404 or 410, three times) fails the job; anything else that
+        # stays unreachable after three tries is reported as a warning. Withdrawn records are skipped:
+        # a withdrawn record usually is withdrawn because its source page went away.
         run: |
-          set -e
-          fail=0
-          for u in $(grep -rhoE 'url: https?://[^ ]+' knowledge/providers | awk '{print $2}' | sort -u); do
-            code=$(curl -s -o /dev/null -w "%{http_code}" -L --max-time 20 "$u" || echo 000)
-            case "$code" in 2*|3*) ;; *) echo "BROKEN $code $u"; fail=1;; esac
+          set -u
+          ua="Mozilla/5.0 (compatible; DocsWatcher link check; +https://github.com/jameskomo/docswatcher)"
+          urls=$(grep -rL '^status: withdrawn' knowledge/providers/*/changes/*.yaml \
+            | xargs grep -hoE 'url: https?://[^ ]+' | awk '{print $2}' | sort -u)
+          broken=0; unreachable=0
+          for u in $urls; do
+            code=000
+            for attempt in 1 2 3; do
+              code=$(curl -s -o /dev/null -w "%{http_code}" -L --max-time 30 -A "$ua" "$u" || true)
+              case "$code" in 2*|3*) break;; esac
+              sleep $((attempt * 10))
+            done
+            case "$code" in
+              2*|3*) ;;
+              404|410) echo "::error::BROKEN $code $u"; broken=$((broken + 1));;
+              *) echo "::warning::UNREACHABLE $code $u (not counted as broken)"; unreachable=$((unreachable + 1));;
+            esac
           done
-          exit $fail
+          echo "$(echo "$urls" | wc -w) urls: $broken broken, $unreachable unreachable"
+          [ "$broken" -eq 0 ]

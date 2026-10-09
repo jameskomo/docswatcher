@@ -19,17 +19,17 @@ effective: 2023-06-01
 
 sources:
   - kind: changelog
-    url: https://mailchimp.com/developer/release-notes/export-api-1-0-and-api-2-0-no-longer-supported/
+    url: https://web.archive.org/web/20260313164639/https://mailchimp.com/developer/release-notes/export-api-1-0-and-api-2-0-no-longer-supported/  # archived copy: the provider removed this page by 2026-10-09
     observed: 2026-09-24
     note: "June 1, 2023, Action Required: \"We retired API Export 1.0 and API 2.0 on June 1, 2023. We won't support calls to these endpoints after the retirement date and will return an HTTP 410 status message.\" and \"We deprecated API Export 1.0 and API 2.0 on December 31, 2016\"."
   - kind: provider_page
-    url: https://mailchimp.com/developer/marketing/docs/fundamentals/
+    url: https://web.archive.org/web/20261003153319/https://mailchimp.com/developer/marketing/docs/fundamentals/  # archived copy: the provider removed this page by 2026-10-09
     observed: 2026-09-24
     note: "Still reads \"The previous version 2.0 has not been shut off, but is deprecated and unsupported\"; the dated release note above supersedes it."
 
 migration:
   replacement: "https://{dc}.api.mailchimp.com/3.0"
-  guide: https://mailchimp.com/developer/marketing/docs/fundamentals/
+  guide: https://web.archive.org/web/20261003153319/https://mailchimp.com/developer/marketing/docs/fundamentals/  # archived copy: the provider removed this page by 2026-10-09
   effort: large
   notes: >
     API 2.0 is method-style (POST /2.0/lists/subscribe.json with the apikey in

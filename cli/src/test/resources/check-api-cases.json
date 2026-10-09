@@ -230,11 +230,9 @@
       "input": {
         "value": "DiscountCountriesInput.includeRestOfWorld"
       },
-      "verdict": "CHANGED",
-      "matches": [
-        "shopify-include-rest-of-world-true-error-2027"
-      ],
-      "answer": "CHANGED: includeRestOfWorld: true returns an error in Admin API 2027-01 [Shopify]. Replacement: an explicit country list in DiscountCountriesInput.add. From Admin GraphQL API version 2027-01, setting the deprecated DiscountCountriesInput.includeRestOfWorld field to true returns a BAD_REQUEST error (\"includeRestOfWorld is no longer supported. Specify the applicable country codes explicitly.\"). false keeps its behaviour and null is a no-op. Apps on 2026-10 and earlier are unaffected while those versions are supported. Shopify ties the change to API version 2027-01 and gives no calendar date.\n  Guide: https://shopify.dev/changelog/setting-includerestofworld-to-true-returns-an-error-in-api-version-2027-01"
+      "verdict": "NO_KNOWN_DEPRECATION",
+      "matches": [],
+      "answer": "NO KNOWN DEPRECATION: \"DiscountCountriesInput.includeRestOfWorld\" matches none of DocsWatcher's 316 deprecation records across 27 providers (knowledge base {version}, last verified 2026-10-01). That means nothing known is scheduled, not that nothing is."
     },
     {
       "input": {

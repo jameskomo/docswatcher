@@ -28,7 +28,7 @@ effective: 2026-04-30
 
 sources:
   - kind: changelog
-    url: https://developers.hubspot.com/changelog/upcoming-sunset-v1-lists-api
+    url: https://web.archive.org/web/20260313044925/https://developers.hubspot.com/changelog/upcoming-sunset-v1-lists-api  # archived copy: the provider removed this page by 2026-10-09
     observed: 2026-09-24
     note: "Announced May 9, 2024; edited to the April 30, 2026 date."
   - kind: changelog

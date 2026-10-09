@@ -22,7 +22,7 @@ sources:
     observed: 2026-09-24
     note: "Sunsetted APIs table: HubDB v2, December 16, 2024."
   - kind: changelog
-    url: https://developers.hubspot.com/changelog/upcoming-sunset-hubdb-v1-api-hubdb-v2-api-and-hubdb-javascript-client
+    url: https://web.archive.org/web/20260513073931/https://developers.hubspot.com/changelog/upcoming-sunset-hubdb-v1-api-hubdb-v2-api-and-hubdb-javascript-client  # archived copy: the provider removed this page by 2026-10-09
     observed: 2026-09-24
 
 migration:

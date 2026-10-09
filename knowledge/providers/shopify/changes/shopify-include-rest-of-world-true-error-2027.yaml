@@ -11,6 +11,11 @@ summary: >
   is a no-op. Apps on 2026-10 and earlier are unaffected while those versions
   are supported. Shopify ties the change to API version 2027-01 and gives no
   calendar date.
+  Withdrawn on 2026-10-09: Shopify unpublished this changelog entry by
+  2026-10-05 (the URL below returns 404, and the entry is absent from the
+  changelog while the other 2027-01 removals of September remain). The field
+  is still only marked deprecated with default false. Reinstate the record if
+  Shopify republishes the change.
 
 affects:
   - kind: graphql_operation
@@ -36,4 +41,4 @@ migration:
     preparing to remove it from the schema. Which countries to add is a
     business decision; do not guess a list, ask for it.
 
-status: active
+status: withdrawn

@@ -20,7 +20,7 @@ sources:
     observed: 2026-09-24
     note: "The initial sunset was announced on February 20, 2024; final date March 24th, 2025."
   - kind: changelog
-    url: https://developers.hubspot.com/changelog/reminder-upcoming-sunset-of-v2-owners-api-on-august-30-2024
+    url: https://web.archive.org/web/20260313041804/https://developers.hubspot.com/changelog/reminder-upcoming-sunset-of-v2-owners-api-on-august-30-2024  # archived copy: the provider removed this page by 2026-10-09
     observed: 2026-09-24
 
 migration:
