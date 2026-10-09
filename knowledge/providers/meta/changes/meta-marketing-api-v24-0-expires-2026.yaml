@@ -36,4 +36,4 @@ migration:
     Marketing API changelog for removed insights metrics, targeting
     options and ad creative fields between the two versions.
 
-status: active
+status: expired
