@@ -139,10 +139,10 @@ jobs:
                 echo
                 echo "$failed"
                 echo
-                echo "A nightly failure that no commit explains is usually the date. A knowledge record in"
-                echo "\`knowledge/providers/*/changes/*.yaml\` has passed its effective date while still marked"
-                echo "\`status: active\`, and \`docswatcher validate knowledge\` fails on it. The fix is to set"
-                echo "it to \`status: expired\`. The knowledge watch's expire job opens a pull request that does this."
+                echo "A nightly failure that no commit explains comes from something outside the repository:"
+                echo "a dependency, a runner image, or a test that reads today's date. A record passing its"
+                echo "effective date is not one of them; since 2026-10-09 that is a warning, never a failure."
+                echo "Open the failed job above for the cause."
                 echo
                 echo "Each further failing night adds a comment here. The issue closes itself when the nightly run passes."
               } > "$RUNNER_TEMP/issue.md"

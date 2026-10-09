@@ -84,9 +84,10 @@ public final class Validator {
   }
 
   /**
-   * How many days ahead an active record's effective date is announced as a warning. The day
-   * after that date the same record is an error, so the warning is the notice that the build
-   * will turn red unless someone sets {@code status: expired} on the day.
+   * How many days ahead an active record's effective date is announced as a warning. After that
+   * date the record is still only a warning: active and expired match the same, so a date passing
+   * must not fail the build (docs/03-knowledge-base-guide.md). It did until 2026-10-09, and CI went
+   * red the morning after every shutdown date until a one-line pull request was merged.
    */
   static final int EXPIRY_NOTICE_DAYS = 7;
 
@@ -96,12 +97,12 @@ public final class Validator {
     String where = c.file();
     if ("active".equals(c.status())) {
       if (effective.isBefore(today)) {
-        errors.add(where + ": status active but effective " + c.effective() + " is in the past; set status expired");
+        warnings.add(where + ": status active but effective " + c.effective() + " is in the past; set status expired");
       } else if (!effective.isAfter(today.plusDays(EXPIRY_NOTICE_DAYS))) {
         long days = today.until(effective, ChronoUnit.DAYS);
         warnings.add(where + ": " + c.id() + " takes effect " + c.effective()
             + (days == 0 ? " (today)" : " (in " + days + (days == 1 ? " day)" : " days)"))
-            + "; set status expired on " + effective.plusDays(1) + ", when validation starts failing on it");
+            + "; set status expired on " + effective.plusDays(1) + " or later");
       }
     }
     if ("expired".equals(c.status()) && !effective.isBefore(today)) {

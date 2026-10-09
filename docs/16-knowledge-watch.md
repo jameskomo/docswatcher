@@ -36,9 +36,10 @@ Re-checking them is how the dates stay honest.
 
 ### 3. Expire records whose date has passed
 
-`docswatcher validate` fails on an `active` record the day after its `effective` date, and fails
-on an `expired` one before that day (docs/03-knowledge-base-guide.md). Left alone, CI on `main`
-turns red the morning after every shutdown date.
+`docswatcher validate` warns about an `active` record from a week before its `effective` date
+until it is expired, and fails on an `expired` one before that date (docs/03-knowledge-base-guide.md).
+A date passing is a warning, never a failure: until 2026-10-09 it was an error, and CI on `main`
+turned red the morning after every shutdown date until the expiry pull request was merged.
 
 - **A week ahead**, validate warns, and the watch issue lists each active record taking effect
   within 7 days (or already past), once per record and date, with the day to expire it.
@@ -137,4 +138,4 @@ subscription the token belongs to.
 | Active records taking effect within 7 days, or already past, are listed once per date with the day to expire them | A date about to pass is seen a week ahead |
 | Expiring a record changes its `status: active` line and no other; a record without exactly one such line is refused | The automatic edit is one reviewable line |
 | A record is due for expiry only after its effective date, the first day validate accepts `expired` | The pull request never fails validation for being early |
-| Validate warns, naming the record and date, from 7 days before an active record's date, and errors the day after | CI gives notice before it turns red |
+| Validate warns, naming the record and date, from 7 days before an active record's date until it is expired, and never fails on a date passing | CI stays green as the calendar moves; the warning and the pull request carry the notice |

@@ -147,10 +147,21 @@ The status has to agree with the calendar, and `docswatcher validate` checks it 
 |---|---|---|
 | `active` | more than 7 days away, or null | nothing |
 | `active` | today or within the next 7 days | **warning** naming the record, its date, and the day to set `status: expired` |
-| `active` | in the past | **error**: set status expired |
+| `active` | in the past | **warning**: set status expired |
 | `expired` | today or later | **error**: not in the past |
 
-So there is exactly one day on which the change can first be made: the day after `effective`. The week of warnings is the notice; on that day the knowledge watch opens (or refreshes) a pull request labelled `knowledge-expiry` that changes the one `status:` line in each record now past its date (docs/16-knowledge-watch.md). Merge it, or, if the provider moved the date, close it and correct `effective` instead. An expired record still produces findings; the status says the date has passed, not that the finding went away.
+A date passing is never an error. `active` and `expired` produce exactly the same findings, so the
+status is bookkeeping, and making the build fail on it turned CI red the morning after every
+shutdown date until someone merged a one-line change. Team records already worked this way
+(docs/19-your-own-apis.md); bundled records now do too. An `expired` record whose date has not
+come yet is still an error, because that is a mistake in the record, not the calendar moving.
+
+The first day the change can be made is the day after `effective`. On that day the knowledge watch
+opens (or refreshes) a pull request labelled `knowledge-expiry` that changes the one `status:` line
+in each record now past its date (docs/16-knowledge-watch.md). Merge it when convenient, or, if the
+provider moved the date, close it and correct `effective` instead. Nothing is broken while it waits.
+An expired record still produces findings; the status says the date has passed, not that the
+finding went away.
 
 ### Method tables
 

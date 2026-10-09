@@ -52,11 +52,13 @@ class ValidatorTest {
     assertThat(r.warnings()).isEmpty();
   }
 
+  /** A date passing is bookkeeping, not a broken build: active and expired match the same. */
   @Test
-  void theDayAfterTheWarningBecomesTheError() {
+  void aDatePassingStaysAWarningAndNeverFailsTheBuild() {
     Validator.Report r = lifecycle("active", "2026-10-01", "2026-10-02");
-    assertThat(r.warnings()).isEmpty();
-    assertThat(r.errors()).singleElement().asString().contains("set status expired");
+    assertThat(r.errors()).isEmpty();
+    assertThat(r.warnings()).singleElement().asString().contains("is in the past; set status expired");
+    assertThat(lifecycle("active", "2026-10-01", "2027-10-01").errors()).isEmpty();
   }
 
   @Test

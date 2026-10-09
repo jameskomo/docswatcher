@@ -110,9 +110,9 @@ jobs:
           TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: echo "enabled=$([ -n "$TOKEN" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
 
-  # The day after an active record's effective date, `docswatcher validate` fails on it until it
-  # says `status: expired`. This job makes that one-line change itself and keeps one pull request
-  # open with it. No agent: the edit is decided by a date comparison and made by a script, and the
+  # The day after an active record's effective date, `docswatcher validate` warns until it says
+  # `status: expired` (a warning, never a failure: active and expired match the same). This job
+  # makes that one-line change itself and keeps one pull request open with it. No agent: the edit is decided by a date comparison and made by a script, and the
   # gate below refuses any diff that is not exactly that.
   expire:
     runs-on: ubuntu-latest
