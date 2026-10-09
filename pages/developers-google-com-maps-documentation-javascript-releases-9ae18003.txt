@@ -252,6 +252,12 @@ may make additional calls to report telemetry information for the purpose of cal
 (Service Level Objective) of several features. You may need to update your Content Security Policy
 to ensure these calls are not blocked at browser-level. For more information, please see the
 FAQ .
+3.66.8b
+8 October, 2026
+Changes:
+Fixes the POI info window not closing with the Escape key after its POI icon is clicked again.
+Fixes keyboard arrow-key navigation moving focus to AdvancedMarkerElements outside the visible map area.
+[beta channel] Added MapMode.ROADMAP , the map mode UI control, Map3DElement.colorScheme (for light and dark map styling), and Label3DElement ( <gmp-label-3d> ) to 3D Maps ( Map3DElement ).
 3.66.7
 1 October, 2026
 Changes:
@@ -4180,7 +4186,7 @@ the control images
 The main library is smaller by ~1.9 KB
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-07 UTC.
+Last updated 2026-10-09 UTC.
 Stack Overflow
 Ask a question under the google-maps tag.
 GitHub

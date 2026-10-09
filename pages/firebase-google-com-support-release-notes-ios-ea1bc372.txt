@@ -178,6 +178,11 @@ To review release notes for the Firebase console and for other Firebase
 platforms and related SDKs, refer to the
 Firebase Release Notes .
 Version 13.0.0 - October 7, 2026
+Note: For Zip and Carthage installations , use
+Firebase 13.0.1
+to take advantage of the hardening changes for Google Analytics.
+For Swift Package Manager users, Firebase 13.0.0 and Firebase 13.0.1 are
+identical.
 Firebase is no longer distributed through CocoaPods. Firebase
 13.0.0 and later releases are distributed exclusively through Swift Package
 Manager and binary distributions. Existing CocoaPods releases will remain
@@ -6197,7 +6202,7 @@ to your app's .ipa file, a reduction of nearly 2 MB from the previous
 release.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-07 UTC.
+Last updated 2026-10-08 UTC.
 Learn
 Developer guides
 SDK & API reference

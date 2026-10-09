@@ -31,6 +31,18 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Oct.08 Improvement
+Triage role users or higher can now archive pull requests
+collaboration tools
+Oct.08 Improvement
+Screen readers can navigate timelines as lists
+ecosystem & accessibility
+projects & issues
+...
++1
+Oct.08 Improvement
+Draft pull requests count toward pull request limits
+collaboration tools
 Oct.06 Release
 Stacked pull requests generally available
 collaboration tools
@@ -58,22 +70,6 @@ ecosystem & accessibility
 Oct.01 Improvement
 New dashboard experience now the default
 collaboration tools
-Oct.01 Release
-GitHub async merge API generally available
-collaboration tools
-Sep.30 Retired
-X25519-only TLS ends for GHE.com on October 7
-application security
-ecosystem & accessibility
-enterprise management tools
-...
-+2
-Sep.25 Improvement
-Updates to GitHub Copilot for Slack and Microsoft Teams
-collaboration tools
-copilot
-...
-+1
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.
 Enter your email *

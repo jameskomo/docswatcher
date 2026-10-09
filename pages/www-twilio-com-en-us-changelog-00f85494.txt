@@ -489,6 +489,18 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Oct 08, 2026
+Flex
+Conversations API
+Studio
+Segment
+Video API
+Proxy
+Agent Connect
+TaskRouter
+Live support coverage across the Twilio platform and Segment
+Starting October 5, 2026, paid support customers can reach Twilio through live chat for help with Segment and all Twilio platform applications and products.
+Learn more
 Oct 06, 2026
 Studio
 TaskRouter
@@ -577,12 +589,6 @@ Conversation Intelligence
 Conversation Orchestrator
 On-demand rule execution and Conversation Metadata now generally available with Twilio Conversations
 Today, we are launching two new capabilities with Twilio Conversations – On-demand rule execution for Conversation Intelligence and Conversation metadata for Conversation Orchestrator
-Learn more
-Sep 25, 2026
-GA
-Voice API
-Twilio Voice React Native SDK adds Expo Support
-The Twilio Voice React Native SDK now supports Expo, the framework most new React Native apps start from.
 Learn more
 Loading
 Error: Unable to load changelog

@@ -42,7 +42,7 @@ October 29, 2023
 Issue with channel followers endpoint
 API
 4
-541
+542
 September 16, 2023
 Channel followers
 API

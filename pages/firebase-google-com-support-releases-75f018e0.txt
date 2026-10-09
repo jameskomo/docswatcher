@@ -210,10 +210,19 @@ Admin .NET
 Admin Dart (experimental)
 0.5.0
 Firebase CLI
-15.32.1
+15.33.0
 Firebase Studio
 See notes
 October 07, 2026
+Firebase CLI (v15.33.0)
+The latest
+Firebase CLI (v15.33.0) is now
+available. This version updates Firebase Hosting API requests to be
+project-scoped, adds checks for a default Hosting site during web app
+creation and Authentication initialization, and includes several fixes and
+improvements for Cloud Functions and function kits.
+To use the Firebase CLI in your development environment,
+set up or update the CLI .
 SDK Releases
 The
 Firebase Apple SDK (v13.0.0)

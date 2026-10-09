@@ -3,13 +3,12 @@ Skip to content
 GitHub Docs
 Search or ask Copilot /
 Menu
-Collapse sidebar Expand sidebar
-Scroll breadcrumbs left
+Collapse sidebar
+Expand sidebar
 Home
 REST API
 About the REST API
 API Versions
-Scroll breadcrumbs right
 REST API
 API Version: 2026-03-10 (latest)
 Quickstart

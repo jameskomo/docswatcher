@@ -597,9 +597,19 @@ antigravity-preview-05-2026
 May 19, 2026
 October 5, 2026
 antigravity-preview-09-2026
+deep-research-preview-04-2026
+April 21, 2026
+No shutdown date announced
+deep-research-max-preview-04-2026
+April 21, 2026
+No shutdown date announced
+deep-research-pro-preview-12-2025
+December 11, 2025
+October 23, 2026
+deep-research-preview-04-2026
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-07 UTC.
+Last updated 2026-10-09 UTC.
 Terms
 Privacy
 Manage cookies

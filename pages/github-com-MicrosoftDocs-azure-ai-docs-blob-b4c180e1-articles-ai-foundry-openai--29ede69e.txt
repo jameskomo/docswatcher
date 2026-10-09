@@ -95,7 +95,7 @@ MicrosoftDocs
 azure-ai-docs
 Repository navigation
 Code
-Pull requests 8 ( 8 )
+Pull requests 9 ( 9 )
 Actions
 Security and quality
 Insights

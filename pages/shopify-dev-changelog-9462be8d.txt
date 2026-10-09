@@ -1,460 +1,333 @@
-Skip to main content
-Apps
-Storefronts
-Agents
-References
-Changelog
-Ask assistant /
-Help
-•
-Log in
-Collapse sidebar
-Changelog
-Search changelog
-Subscribe
-All posts
-Blog & announcements
-Release notes
-Surfaces & APIs
-Apps
-Admin Extensions
-Admin GraphQL API
-Admin REST API
-App Bridge
-App Events API
-App store
-Built for Shopify
-Checkout UI
-Customer Accounts
-Events & webhooks
-Functions
-Metafields & metaobjects
-Payments Apps API
-Polaris
-POS Extensions
-Storefronts
-Customer Account API
-Hydrogen
-Liquid
-Shop Minis
-Shopify Theme Store
-ShopifyQL
-Storefront API
-Themes
-Agents
-Catalog
-UCP
-Dev Platform
-AI Toolkit
-Dev Dashboard
-Platform
-Shopify CLI
-Tools
-Versions
-All versions
-2027-01
-2026-10
-2026-07
-2026-04
-2026-01
-2025-10
-2025-07
-2025-04
-2025-01
-Change type
-Action required
-Breaking change
-Deprecated
+---
+title: Recent changes to Shopify’s platform
+description: >-
+Shopify’s developer changelog documents all changes to Shopify’s platform.
+Find the latest news and learn about new platform opportunities.
+source_url:
+html: 'https://shopify.dev/changelog'
+md: 'https://shopify.dev/changelog.md'
+metadata: {}
+---
 September 25, 2026
-The new Dev Dashboard: your command center for building
+## [The new Dev Dashboard: your command center for building](https://shopify.dev/changelog/blog/the-new-dev-dashboard)
 One home for your apps and the stores you work in: Designed to make your everyday easier.
-Read the full story
-Changelog
-Search changelog
-Subscribe
-All posts
-Blog & announcements
-Release notes
-Surfaces & APIs
-Apps
-Admin Extensions
-Admin GraphQL API
-Admin REST API
-App Bridge
-App Events API
-App store
-Built for Shopify
-Checkout UI
-Customer Accounts
-Events & webhooks
-Functions
-Metafields & metaobjects
-Payments Apps API
-Polaris
-POS Extensions
-Storefronts
-Customer Account API
-Hydrogen
-Liquid
-Shop Minis
-Shopify Theme Store
-ShopifyQL
-Storefront API
-Themes
-Agents
-Catalog
-UCP
-Dev Platform
-AI Toolkit
-Dev Dashboard
-Platform
-Shopify CLI
-Tools
-Versions
-All versions
-2027-01
-2026-10
-2026-07
-2026-04
-2026-01
-2025-10
-2025-07
-2025-04
-2025-01
-Change type
-Action required
-Breaking change
-Deprecated
-Latest 2026-10
-October 2026
+[Read the full story](https://shopify.dev/changelog/blog/the-new-dev-dashboard)
+[Latest 2026-10](https://shopify.dev/changelog/release-notes/2026-10)[Release candidate 2027-01](https://shopify.dev/changelog/release-notes/2027-01)
+1. ## October 2026
 Surface
-10.07
-Cart mutations reject unconfirmed writes in POS UI extensions 2026-10
-Breaking changes POS Extensions
-10.07
-POS UI extensions now return percentage values for percentage discounts
-Breaking changes POS Extensions
-10.07
-Per-customer request limit for the Customer Account API
-Customer Account API
-10.07
-Downgrade app access scopes from write to read
-Admin GraphQL API
-10.01
-What's new in Polaris 2.0.0-rc.1
-Polaris
-10.01
-More control over commerce updates with Next Gen Events
-Fewer deliveries, richer payloads, no follow-up queries: Events is a declarative replacement for classic webhooks, now generally available across 18 topics.
-Events & webhooks
-10.01
-New Shop Campaigns metrics and dimensions in ShopifyQL API version 2026-10
-ShopifyQL
-10.01
-Rollouts queries and webhooks in the Admin GraphQL API
-Admin GraphQL API
-10.01
-Discounts can now be included in Rollouts
-Action required Admin GraphQL API
-10.01
-Orders webhooks now include selling_plan_id on line items
-Events & webhooks
-10.01
-New fiscalDeviceIdentifier field on PointOfSaleDevice
-Admin GraphQL API
-10.01
-metafieldInteger collection condition removed in API version 2027-01
-Breaking changes Admin GraphQL API
-10.01
-Added parseWarnings to ShopifyqlQueryResponse
-Admin GraphQL API
-10.01
-The orderCancel mutation now returns a structured jobResult
-Admin GraphQL API
-10.01
-SMS marketing consent now available on the CustomerPhoneNumber object
-Action required Admin GraphQL API
-10.01
-Tax webhook summary and calculation requests now use Global IDs
-Breaking changes Admin GraphQL API
-10.01
-New SubscriptionContractCalculation API for subscription management
-Action required Admin GraphQL API
-10.01
-Inventory shipment webhooks include inventory transfer IDs
-Events & webhooks
-10.01
-Updated function syntax on the segment query language
-Breaking changes Admin GraphQL API
-10.01
-Return policy profiles are now available in the GraphQL Admin API
-Admin GraphQL API
-10.01
-New APIs for buyer-requested order edits
-Admin GraphQL API
-10.01
-New tax fields for return shipping fees in the GraphQL Admin API
-Admin GraphQL API
-10.01
-2026-10: Release notes
-Covers order tax recalculation, metafield filter errors, and removed checkout fields.
-September 2026
+1. [10.07](https://shopify.dev/changelog/posts/cart-mutations-reject-unconfirmed-writes-in-pos-ui-extensions-2026-10)
+[Cart mutations reject unconfirmed writes in POS UI extensions 2026-10](https://shopify.dev/changelog/posts/cart-mutations-reject-unconfirmed-writes-in-pos-ui-extensions-2026-10)
+[Breaking changesPOS Extensions](https://shopify.dev/changelog/posts/cart-mutations-reject-unconfirmed-writes-in-pos-ui-extensions-2026-10)
+2. [10.07](https://shopify.dev/changelog/posts/pos-ui-extensions-now-return-percentage-values-for-percentage-discounts)
+[POS UI extensions now return percentage values for percentage discounts](https://shopify.dev/changelog/posts/pos-ui-extensions-now-return-percentage-values-for-percentage-discounts)
+[Breaking changesPOS Extensions](https://shopify.dev/changelog/posts/pos-ui-extensions-now-return-percentage-values-for-percentage-discounts)
+3. [10.07](https://shopify.dev/changelog/posts/per-customer-request-limit-for-the-customer-account-api)
+[Per-customer request limit for the Customer Account API](https://shopify.dev/changelog/posts/per-customer-request-limit-for-the-customer-account-api)
+[Customer Account API](https://shopify.dev/changelog/posts/per-customer-request-limit-for-the-customer-account-api)
+4. [10.07](https://shopify.dev/changelog/posts/downgrade-app-access-scopes-from-write-to-read)
+[Downgrade app access scopes from write to read](https://shopify.dev/changelog/posts/downgrade-app-access-scopes-from-write-to-read)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/downgrade-app-access-scopes-from-write-to-read)
+5. [10.01](https://shopify.dev/changelog/posts/what-s-new-in-polaris-2-0-0-rc-1)
+[What's new in Polaris 2.0.0-rc.1](https://shopify.dev/changelog/posts/what-s-new-in-polaris-2-0-0-rc-1)
+[Polaris](https://shopify.dev/changelog/posts/what-s-new-in-polaris-2-0-0-rc-1)
+6. [10.01](https://shopify.dev/changelog/blog/next-generation-events-are-now-generally-available)
+### [More control over commerce updates with Next Gen Events](https://shopify.dev/changelog/blog/next-generation-events-are-now-generally-available)
+[Fewer deliveries, richer payloads, no follow-up queries: Events is a declarative replacement for classic webhooks, now generally available across 18 topics.](https://shopify.dev/changelog/blog/next-generation-events-are-now-generally-available)
+[![](https://shopify-assets.shopifycdn.com/b/documentation-changelog-production/posts/ab1a8303-8ce4-4f60-bbe2-7c625caf6241/changelog-hero.png)![](https://shopify-assets.shopifycdn.com/b/documentation-changelog-production/posts/fe573f18-81e4-439e-acbd-989cee4aa527/changelog-hero-dark.png)](https://shopify.dev/changelog/blog/next-generation-events-are-now-generally-available)
+[Events & webhooks](https://shopify.dev/changelog/blog/next-generation-events-are-now-generally-available)
+7. [10.01](https://shopify.dev/changelog/posts/new-shop-campaigns-metrics-and-dimensions-on-api-version-2026-10)
+[New Shop Campaigns metrics and dimensions in ShopifyQL API version 2026-10](https://shopify.dev/changelog/posts/new-shop-campaigns-metrics-and-dimensions-on-api-version-2026-10)
+[ShopifyQL](https://shopify.dev/changelog/posts/new-shop-campaigns-metrics-and-dimensions-on-api-version-2026-10)
+8. [10.01](https://shopify.dev/changelog/posts/read_rollouts)
+[Rollouts queries and webhooks in the Admin GraphQL API](https://shopify.dev/changelog/posts/read_rollouts)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/read_rollouts)
+9. [10.01](https://shopify.dev/changelog/posts/discounts-can-now-be-included-in-rollouts)
+[Discounts can now be included in Rollouts](https://shopify.dev/changelog/posts/discounts-can-now-be-included-in-rollouts)
+[Action requiredAdmin GraphQL API](https://shopify.dev/changelog/posts/discounts-can-now-be-included-in-rollouts)
+10. [10.01](https://shopify.dev/changelog/posts/orders-webhooks-now-include-selling_plan_id-on-line-items)
+[Orders webhooks now include selling\_plan\_id on line items](https://shopify.dev/changelog/posts/orders-webhooks-now-include-selling_plan_id-on-line-items)
+[Events & webhooks](https://shopify.dev/changelog/posts/orders-webhooks-now-include-selling_plan_id-on-line-items)
+11. [10.01](https://shopify.dev/changelog/posts/new-fiscaldeviceidentifier-field-on-pointofsaledevice)
+[New fiscalDeviceIdentifier field on PointOfSaleDevice](https://shopify.dev/changelog/posts/new-fiscaldeviceidentifier-field-on-pointofsaledevice)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/new-fiscaldeviceidentifier-field-on-pointofsaledevice)
+12. [10.01](https://shopify.dev/changelog/posts/metafieldinteger-collection-condition-removed-in-api-version-2027-01)
+[`metafieldInteger` collection condition removed in API version 2027-01](https://shopify.dev/changelog/posts/metafieldinteger-collection-condition-removed-in-api-version-2027-01)
+[Breaking changesAdmin GraphQL API](https://shopify.dev/changelog/posts/metafieldinteger-collection-condition-removed-in-api-version-2027-01)
+13. [10.01](https://shopify.dev/changelog/posts/added-parsewarnings-to-shopifyqlqueryresponse)
+[Added parseWarnings to ShopifyqlQueryResponse](https://shopify.dev/changelog/posts/added-parsewarnings-to-shopifyqlqueryresponse)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/added-parsewarnings-to-shopifyqlqueryresponse)
+14. [10.01](https://shopify.dev/changelog/posts/the-ordercancel-mutation-now-returns-a-structured-jobresult)
+[The `orderCancel` mutation now returns a structured `jobResult`](https://shopify.dev/changelog/posts/the-ordercancel-mutation-now-returns-a-structured-jobresult)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/the-ordercancel-mutation-now-returns-a-structured-jobresult)
+15. [10.01](https://shopify.dev/changelog/posts/sms-marketing-consent-now-available-on-the-customerphonenumber-object)
+[SMS marketing consent now available on the CustomerPhoneNumber object](https://shopify.dev/changelog/posts/sms-marketing-consent-now-available-on-the-customerphonenumber-object)
+[Action requiredAdmin GraphQL API](https://shopify.dev/changelog/posts/sms-marketing-consent-now-available-on-the-customerphonenumber-object)
+16. [10.01](https://shopify.dev/changelog/posts/tax-webhook-summary-and-calculation-requests-now-use-global-ids)
+[Tax webhook summary and calculation requests now use Global IDs](https://shopify.dev/changelog/posts/tax-webhook-summary-and-calculation-requests-now-use-global-ids)
+[Breaking changesAdmin GraphQL API](https://shopify.dev/changelog/posts/tax-webhook-summary-and-calculation-requests-now-use-global-ids)
+17. [10.01](https://shopify.dev/changelog/posts/new-subscriptioncontractcalculation-api-for-subscription-management)
+[New SubscriptionContractCalculation API for subscription management](https://shopify.dev/changelog/posts/new-subscriptioncontractcalculation-api-for-subscription-management)
+[Action requiredAdmin GraphQL API](https://shopify.dev/changelog/posts/new-subscriptioncontractcalculation-api-for-subscription-management)
+18. [10.01](https://shopify.dev/changelog/posts/inventory-shipment-webhooks-include-inventory-transfer-ids)
+[Inventory shipment webhooks include inventory transfer IDs](https://shopify.dev/changelog/posts/inventory-shipment-webhooks-include-inventory-transfer-ids)
+[Events & webhooks](https://shopify.dev/changelog/posts/inventory-shipment-webhooks-include-inventory-transfer-ids)
+19. [10.01](https://shopify.dev/changelog/posts/updated-function-syntax-on-the-segment-query-language)
+[Updated function syntax on the segment query language](https://shopify.dev/changelog/posts/updated-function-syntax-on-the-segment-query-language)
+[Breaking changesAdmin GraphQL API](https://shopify.dev/changelog/posts/updated-function-syntax-on-the-segment-query-language)
+20. [10.01](https://shopify.dev/changelog/posts/return-policy-profiles-are-now-available-in-the-graphql-admin-api)
+[Return policy profiles are now available in the GraphQL Admin API](https://shopify.dev/changelog/posts/return-policy-profiles-are-now-available-in-the-graphql-admin-api)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/return-policy-profiles-are-now-available-in-the-graphql-admin-api)
+21. [10.01](https://shopify.dev/changelog/posts/new-apis-for-buyer-requested-order-edits)
+[New APIs for buyer-requested order edits](https://shopify.dev/changelog/posts/new-apis-for-buyer-requested-order-edits)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/new-apis-for-buyer-requested-order-edits)
+22. [10.01](https://shopify.dev/changelog/posts/new-return-shipping-fee-tax-fields)
+[New tax fields for return shipping fees in the GraphQL Admin API](https://shopify.dev/changelog/posts/new-return-shipping-fee-tax-fields)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/new-return-shipping-fee-tax-fields)
+23. [10.01](https://shopify.dev/changelog/release-notes/2026-10)
+### [2026-10: Release notes](https://shopify.dev/changelog/release-notes/2026-10)
+[Covers order tax recalculation, metafield filter errors, and removed checkout fields.](https://shopify.dev/changelog/release-notes/2026-10)
+2. ## September 2026
 Surface
-09.30
-Use app intents for your discount app
-Functions
-09.29
-More resilient token exchanges when migrating tokens without a user session
-Admin GraphQL API
-09.29
-Manage packed product dimensions with the Admin GraphQL API
-Admin GraphQL API
-09.29
-Move existing subscriptions to Shopify App Pricing
-App store
-09.28
-Sidekick can now invoke app intents without tools
-Platform
-09.28
-WebMCP support for checkout
-Platform
-09.25
-AI Toolkit skills have been consolidated to shopify
-Action required AI Toolkit
-09.25
-Shopify Payments Balance Transaction GraphQL type supports currency conversion type
-Admin GraphQL API
-09.24
-Polaris 2.0 release candidate
-Polaris
-09.22
-Events subscription query complexity limit is changing to 100 points
-Breaking changes Events & webhooks
-09.22
-Polaris CDN 1.1 is now stable
-Polaris
-09.22
-Removing marketCurrencySettingsUpdate mutation
-Breaking changes Admin GraphQL API
-09.21
-Unlimited private plans and target stores in Shopify App Pricing
-App store
-09.21
-New translatable boolean field for Metafield GraphQL Object
-Admin GraphQL API
-09.18
-The automaticDiscounts query is removed in API version 2027-01
-Breaking changes Admin GraphQL API
-09.17
-Request a bundle size exception for existing UI extensions
-Admin Extensions
-09.17
-Adding a canceled receive action to the inventory shipments API
-Admin GraphQL API
-09.17
-Removed session.currentSession.staffMemberId from POS UI Extensions (2026-10)
-Breaking changes POS Extensions
-09.17
-Query market hierarchies with the GraphQL Admin API
-Admin GraphQL API
-09.17
-New Pricing audit trail for contextual product variant prices
-Admin GraphQL API
-09.16
-Updates to Events payloads and subscription configuration
-Action required Events & webhooks
-09.15
-Filter Catalog search results by media type
-Catalog
-09.15
-Dynamic complexity cost for metafieldsSet mutation
-Admin GraphQL API
-09.15
-Prepare your app for the Shopify admin's new look
-Polaris
-09.15
-family_name is optional for B2B orders in Payments Apps API requests
-Payments Apps API
-09.15
-Delivery options in Shopify Functions input now expose their metafields
-Functions
-09.10
-Discounts Allocator Function API developer preview has ended
-Action required Admin GraphQL API
-09.09
-Create and delete dev stores in Shopify CLI
-Shopify CLI
-09.08
-Variants now support multiple barcodes
-Action required Admin GraphQL API
-09.08
-Customer Address APIs now support countryCode
-Deprecated Checkout UI
-09.04
-Shopify storefronts now support UCP 2026-08-25
-UCP
-09.03
-Hydrogen developer preview update: September 2, 2026
-Hydrogen
-09.03
-New paymentInstrumentSendAddEmail mutation emails customers a link to add a payment method for a subscription, order, or draft order
-Admin GraphQL API
-August 2026
+1. [09.30](https://shopify.dev/changelog/posts/use-app-intents-for-your-discount-app)
+[Use app intents for your discount app](https://shopify.dev/changelog/posts/use-app-intents-for-your-discount-app)
+[Functions](https://shopify.dev/changelog/posts/use-app-intents-for-your-discount-app)
+2. [09.29](https://shopify.dev/changelog/posts/more-resilient-token-exchanges-when-migrating-tokens-without-a-user-session)
+[More resilient token exchanges when migrating tokens without a user session](https://shopify.dev/changelog/posts/more-resilient-token-exchanges-when-migrating-tokens-without-a-user-session)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/more-resilient-token-exchanges-when-migrating-tokens-without-a-user-session)
+3. [09.29](https://shopify.dev/changelog/posts/manage-packed-product-dimensions-with-the-admin-graphql-api)
+[Manage packed product dimensions with the Admin GraphQL API](https://shopify.dev/changelog/posts/manage-packed-product-dimensions-with-the-admin-graphql-api)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/manage-packed-product-dimensions-with-the-admin-graphql-api)
+4. [09.29](https://shopify.dev/changelog/posts/move-existing-subscriptions-to-shopify-app-pricing)
+[Move existing subscriptions to Shopify App Pricing](https://shopify.dev/changelog/posts/move-existing-subscriptions-to-shopify-app-pricing)
+[App store](https://shopify.dev/changelog/posts/move-existing-subscriptions-to-shopify-app-pricing)
+5. [09.28](https://shopify.dev/changelog/posts/sidekick-can-now-invoke-app-intents-without-tools)
+[Sidekick can now invoke app intents without tools](https://shopify.dev/changelog/posts/sidekick-can-now-invoke-app-intents-without-tools)
+[Platform](https://shopify.dev/changelog/posts/sidekick-can-now-invoke-app-intents-without-tools)
+6. [09.28](https://shopify.dev/changelog/posts/webmcp-support-for-checkout)
+[WebMCP support for checkout](https://shopify.dev/changelog/posts/webmcp-support-for-checkout)
+[Platform](https://shopify.dev/changelog/posts/webmcp-support-for-checkout)
+7. [09.25](https://shopify.dev/changelog/posts/ai-toolkit-skills-have-been-consolidated)
+[AI Toolkit skills have been consolidated to `shopify`](https://shopify.dev/changelog/posts/ai-toolkit-skills-have-been-consolidated)
+[Action requiredAI Toolkit](https://shopify.dev/changelog/posts/ai-toolkit-skills-have-been-consolidated)
+8. [09.25](https://shopify.dev/changelog/posts/shopify-payments-balance-transaction-graphql-type-supports-currency-conversion-type)
+[Shopify Payments Balance Transaction GraphQL type supports currency conversion type](https://shopify.dev/changelog/posts/shopify-payments-balance-transaction-graphql-type-supports-currency-conversion-type)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/shopify-payments-balance-transaction-graphql-type-supports-currency-conversion-type)
+9. [09.24](https://shopify.dev/changelog/posts/polaris-2-0-release-candidate)
+[Polaris 2.0 release candidate](https://shopify.dev/changelog/posts/polaris-2-0-release-candidate)
+[Polaris](https://shopify.dev/changelog/posts/polaris-2-0-release-candidate)
+10. [09.22](https://shopify.dev/changelog/posts/events-subscription-query-complexity-limit-is-changing-to-100-points)
+[Events subscription query complexity limit is changing to 100 points](https://shopify.dev/changelog/posts/events-subscription-query-complexity-limit-is-changing-to-100-points)
+[Breaking changesEvents & webhooks](https://shopify.dev/changelog/posts/events-subscription-query-complexity-limit-is-changing-to-100-points)
+11. [09.22](https://shopify.dev/changelog/posts/polaris-cdn-1-1-is-now-stable)
+[Polaris CDN 1.1 is now stable](https://shopify.dev/changelog/posts/polaris-cdn-1-1-is-now-stable)
+[Polaris](https://shopify.dev/changelog/posts/polaris-cdn-1-1-is-now-stable)
+12. [09.22](https://shopify.dev/changelog/posts/removing-marketcurrencysettingsupdate-mutation)
+[Removing marketCurrencySettingsUpdate mutation](https://shopify.dev/changelog/posts/removing-marketcurrencysettingsupdate-mutation)
+[Breaking changesAdmin GraphQL API](https://shopify.dev/changelog/posts/removing-marketcurrencysettingsupdate-mutation)
+13. [09.21](https://shopify.dev/changelog/posts/unlimited-private-plans-and-target-stores-in-shopify-app-pricing)
+[Unlimited private plans and target stores in Shopify App Pricing](https://shopify.dev/changelog/posts/unlimited-private-plans-and-target-stores-in-shopify-app-pricing)
+[App store](https://shopify.dev/changelog/posts/unlimited-private-plans-and-target-stores-in-shopify-app-pricing)
+14. [09.21](https://shopify.dev/changelog/posts/is-translatable-metafield-field)
+[New translatable boolean field for Metafield GraphQL Object](https://shopify.dev/changelog/posts/is-translatable-metafield-field)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/is-translatable-metafield-field)
+15. [09.18](https://shopify.dev/changelog/posts/automaticdiscounts-query-is-removed-in-api-version-2027-01)
+[The `automaticDiscounts` query is removed in API version 2027-01](https://shopify.dev/changelog/posts/automaticdiscounts-query-is-removed-in-api-version-2027-01)
+[Breaking changesAdmin GraphQL API](https://shopify.dev/changelog/posts/automaticdiscounts-query-is-removed-in-api-version-2027-01)
+16. [09.17](https://shopify.dev/changelog/posts/request-a-bundle-size-exception-for-existing-ui-extensions)
+[Request a bundle size exception for existing UI extensions](https://shopify.dev/changelog/posts/request-a-bundle-size-exception-for-existing-ui-extensions)
+[Admin Extensions](https://shopify.dev/changelog/posts/request-a-bundle-size-exception-for-existing-ui-extensions)
+17. [09.17](https://shopify.dev/changelog/posts/adding-a-canceled-receive-action-to-the-inventory-shipments-api)
+[Adding a canceled receive action to the inventory shipments API](https://shopify.dev/changelog/posts/adding-a-canceled-receive-action-to-the-inventory-shipments-api)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/adding-a-canceled-receive-action-to-the-inventory-shipments-api)
+18. [09.17](https://shopify.dev/changelog/posts/removed-session-currentsession-staffmemberid-from-pos-ui-extensions-2026-10)
+[Removed session.currentSession.staffMemberId from POS UI Extensions (2026-10)](https://shopify.dev/changelog/posts/removed-session-currentsession-staffmemberid-from-pos-ui-extensions-2026-10)
+[Breaking changesPOS Extensions](https://shopify.dev/changelog/posts/removed-session-currentsession-staffmemberid-from-pos-ui-extensions-2026-10)
+19. [09.17](https://shopify.dev/changelog/posts/market-relationships)
+[Query market hierarchies with the GraphQL Admin API](https://shopify.dev/changelog/posts/market-relationships)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/market-relationships)
+20. [09.17](https://shopify.dev/changelog/posts/pricing-audit-trail-for-contextual-product-variant-prices)
+[New Pricing audit trail for contextual product variant prices](https://shopify.dev/changelog/posts/pricing-audit-trail-for-contextual-product-variant-prices)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/pricing-audit-trail-for-contextual-product-variant-prices)
+21. [09.16](https://shopify.dev/changelog/posts/updates-to-events-payloads-and-subscription-configuration)
+[Updates to Events payloads and subscription configuration](https://shopify.dev/changelog/posts/updates-to-events-payloads-and-subscription-configuration)
+[Action requiredEvents & webhooks](https://shopify.dev/changelog/posts/updates-to-events-payloads-and-subscription-configuration)
+22. [09.15](https://shopify.dev/changelog/posts/filter-catalog-search-results-by-media-type)
+[Filter Catalog search results by media type](https://shopify.dev/changelog/posts/filter-catalog-search-results-by-media-type)
+[Catalog](https://shopify.dev/changelog/posts/filter-catalog-search-results-by-media-type)
+23. [09.15](https://shopify.dev/changelog/posts/dynamic-complexity-cost-for-metafieldsset-mutation)
+[Dynamic complexity cost for `metafieldsSet` mutation](https://shopify.dev/changelog/posts/dynamic-complexity-cost-for-metafieldsset-mutation)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/dynamic-complexity-cost-for-metafieldsset-mutation)
+24. [09.15](https://shopify.dev/changelog/posts/prepare-your-app-for-the-shopify-admins-new-look)
+[Prepare your app for the Shopify admin's new look](https://shopify.dev/changelog/posts/prepare-your-app-for-the-shopify-admins-new-look)
+[Polaris](https://shopify.dev/changelog/posts/prepare-your-app-for-the-shopify-admins-new-look)
+25. [09.15](https://shopify.dev/changelog/posts/family_name-is-optional-for-b2b-orders-in-payments-apps-api-requests)
+[family\_name is optional for B2B orders in Payments Apps API requests](https://shopify.dev/changelog/posts/family_name-is-optional-for-b2b-orders-in-payments-apps-api-requests)
+[Payments Apps API](https://shopify.dev/changelog/posts/family_name-is-optional-for-b2b-orders-in-payments-apps-api-requests)
+26. [09.15](https://shopify.dev/changelog/posts/delivery-options-in-shopify-functions-input-now-expose-their-metafields)
+[Delivery options in Shopify Functions input now expose their metafields](https://shopify.dev/changelog/posts/delivery-options-in-shopify-functions-input-now-expose-their-metafields)
+[Functions](https://shopify.dev/changelog/posts/delivery-options-in-shopify-functions-input-now-expose-their-metafields)
+27. [09.10](https://shopify.dev/changelog/posts/discounts-allocator-function-api-developer-preview-has-ended)
+[Discounts Allocator Function API developer preview has ended](https://shopify.dev/changelog/posts/discounts-allocator-function-api-developer-preview-has-ended)
+[Action requiredAdmin GraphQL API](https://shopify.dev/changelog/posts/discounts-allocator-function-api-developer-preview-has-ended)
+28. [09.09](https://shopify.dev/changelog/posts/create-and-delete-dev-stores-in-shopify-cli)
+[Create and delete dev stores in Shopify CLI](https://shopify.dev/changelog/posts/create-and-delete-dev-stores-in-shopify-cli)
+[Shopify CLI](https://shopify.dev/changelog/posts/create-and-delete-dev-stores-in-shopify-cli)
+29. [09.08](https://shopify.dev/changelog/posts/product-variant-barcode-is-being-replaced-by-barcodes)
+[Variants now support multiple barcodes](https://shopify.dev/changelog/posts/product-variant-barcode-is-being-replaced-by-barcodes)
+[Action requiredAdmin GraphQL API](https://shopify.dev/changelog/posts/product-variant-barcode-is-being-replaced-by-barcodes)
+30. [09.08](https://shopify.dev/changelog/posts/customer-address-apis-now-support-countrycode)
+[Customer Address APIs now support countryCode](https://shopify.dev/changelog/posts/customer-address-apis-now-support-countrycode)
+[DeprecatedCheckout UI](https://shopify.dev/changelog/posts/customer-address-apis-now-support-countrycode)
+31. [09.04](https://shopify.dev/changelog/posts/08-25-is-now-supported)
+[Shopify storefronts now support UCP 2026-08-25](https://shopify.dev/changelog/posts/08-25-is-now-supported)
+[UCP](https://shopify.dev/changelog/posts/08-25-is-now-supported)
+32. [09.03](https://shopify.dev/changelog/posts/hydrogen-developer-preview-update-september-2-2026)
+[Hydrogen developer preview update: September 2, 2026](https://shopify.dev/changelog/posts/hydrogen-developer-preview-update-september-2-2026)
+[Hydrogen](https://shopify.dev/changelog/posts/hydrogen-developer-preview-update-september-2-2026)
+33. [09.03](https://shopify.dev/changelog/posts/new-paymentinstrumentsendaddemail-mutation)
+[New paymentInstrumentSendAddEmail mutation emails customers a link to add a payment method for a subscription, order, or draft order](https://shopify.dev/changelog/posts/new-paymentinstrumentsendaddemail-mutation)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/new-paymentinstrumentsendaddemail-mutation)
+3. ## August 2026
 Surface
-08.31
-Polaris CDN 1.1 release candidate
-Polaris
-08.31
-The Polaris CDN is adopting semantic versioning
-Polaris
-08.28
-More resilient refreshes for expiring offline access tokens
-Admin GraphQL API
-08.27
-Password Protected Shop Dev flows on Shopify Theme CLI v3.83.x and older to be deprecated
-Action required Themes
-08.26
-Four additional topics are now available for Events
-Events & webhooks
-08.26
-Build Shopify apps in PHP and Python with new official packages
-Tools
-08.26
-GitHub commits now name the last theme editor
-Themes
-08.25
-Oxygen is now available on trial plan stores
-Hydrogen
-08.24
-Script tags are deprecated and will stop running on March 1, 2027
-Action required Admin GraphQL API
-08.19
-App intents on admin.app.intent.link now open as a full-page navigation
-Platform
-08.18
-Hydrogen developer preview update: August 18, 2026
-Hydrogen
-08.10
-Shop Campaigns performance data now available via ShopifyQL
-Admin GraphQL API
-08.06
-Standard storefront events and actions now support cart attributes
-Platform
-08.05
-Draft order and transfer/shipment inventory is moving from reserved to committed
-Admin GraphQL API
-08.05
-WebMCP support for Liquid and Hydrogen storefronts
-Platform
-08.03
-Oxygen is now available on development stores
-Hydrogen
-08.03
-The orderCreate mutation now supports multiple tracking numbers for each fulfillment
-Admin GraphQL API
-08.01
-Updated Built for Shopify requirements for Fulfillment services apps
-Built for Shopify
-July 2026
+1. [08.31](https://shopify.dev/changelog/posts/polaris-cdn-1-1-release-candidate)
+[Polaris CDN 1.1 release candidate](https://shopify.dev/changelog/posts/polaris-cdn-1-1-release-candidate)
+[Polaris](https://shopify.dev/changelog/posts/polaris-cdn-1-1-release-candidate)
+2. [08.31](https://shopify.dev/changelog/posts/the-polaris-cdn-is-adopting-semantic-versioning)
+[The Polaris CDN is adopting semantic versioning](https://shopify.dev/changelog/posts/the-polaris-cdn-is-adopting-semantic-versioning)
+[Polaris](https://shopify.dev/changelog/posts/the-polaris-cdn-is-adopting-semantic-versioning)
+3. [08.28](https://shopify.dev/changelog/posts/more-resilient-refreshes-for-expiring-offline-access-tokens)
+[More resilient refreshes for expiring offline access tokens](https://shopify.dev/changelog/posts/more-resilient-refreshes-for-expiring-offline-access-tokens)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/more-resilient-refreshes-for-expiring-offline-access-tokens)
+4. [08.27](https://shopify.dev/changelog/posts/password-protected-shop-dev-flows-on-shopify-theme-cli-v3-83-x-and-older-to-be-deprecated)
+[Password Protected Shop Dev flows on Shopify Theme CLI v3.83.x and older to be deprecated](https://shopify.dev/changelog/posts/password-protected-shop-dev-flows-on-shopify-theme-cli-v3-83-x-and-older-to-be-deprecated)
+[Action requiredThemes](https://shopify.dev/changelog/posts/password-protected-shop-dev-flows-on-shopify-theme-cli-v3-83-x-and-older-to-be-deprecated)
+5. [08.26](https://shopify.dev/changelog/posts/four-additional-topics-are-now-available-for-events)
+[Four additional topics are now available for Events](https://shopify.dev/changelog/posts/four-additional-topics-are-now-available-for-events)
+[Events & webhooks](https://shopify.dev/changelog/posts/four-additional-topics-are-now-available-for-events)
+6. [08.26](https://shopify.dev/changelog/posts/build-shopify-apps-in-php-and-python-with-new-official-packages)
+[Build Shopify apps in PHP and Python with new official packages](https://shopify.dev/changelog/posts/build-shopify-apps-in-php-and-python-with-new-official-packages)
+[Tools](https://shopify.dev/changelog/posts/build-shopify-apps-in-php-and-python-with-new-official-packages)
+7. [08.26](https://shopify.dev/changelog/posts/github-commits-now-name-the-last-theme-editor)
+[GitHub commits now name the last theme editor](https://shopify.dev/changelog/posts/github-commits-now-name-the-last-theme-editor)
+[Themes](https://shopify.dev/changelog/posts/github-commits-now-name-the-last-theme-editor)
+8. [08.25](https://shopify.dev/changelog/posts/oxygen-is-now-available-on-trial-plan-stores)
+[Oxygen is now available on trial plan stores](https://shopify.dev/changelog/posts/oxygen-is-now-available-on-trial-plan-stores)
+[Hydrogen](https://shopify.dev/changelog/posts/oxygen-is-now-available-on-trial-plan-stores)
+9. [08.24](https://shopify.dev/changelog/posts/online-store-script-tags-deprecation)
+[Script tags are deprecated and will stop running on March 1, 2027](https://shopify.dev/changelog/posts/online-store-script-tags-deprecation)
+[Action requiredAdmin GraphQL API](https://shopify.dev/changelog/posts/online-store-script-tags-deprecation)
+10. [08.19](https://shopify.dev/changelog/posts/app-intents-on-admin-app-intent-link-now-open-as-a-full-page-navigation)
+[App intents on `admin.app.intent.link` now open as a full-page navigation](https://shopify.dev/changelog/posts/app-intents-on-admin-app-intent-link-now-open-as-a-full-page-navigation)
+[Platform](https://shopify.dev/changelog/posts/app-intents-on-admin-app-intent-link-now-open-as-a-full-page-navigation)
+11. [08.18](https://shopify.dev/changelog/posts/hydrogen-developer-preview-update-august-18-2026)
+[Hydrogen developer preview update: August 18, 2026](https://shopify.dev/changelog/posts/hydrogen-developer-preview-update-august-18-2026)
+[Hydrogen](https://shopify.dev/changelog/posts/hydrogen-developer-preview-update-august-18-2026)
+12. [08.10](https://shopify.dev/changelog/posts/shop-campaigns-shopifyql)
+[Shop Campaigns performance data now available via ShopifyQL](https://shopify.dev/changelog/posts/shop-campaigns-shopifyql)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/shop-campaigns-shopifyql)
+13. [08.06](https://shopify.dev/changelog/posts/events-and-actions-cart-attributes-support)
+[Standard storefront events and actions now support cart attributes](https://shopify.dev/changelog/posts/events-and-actions-cart-attributes-support)
+[Platform](https://shopify.dev/changelog/posts/events-and-actions-cart-attributes-support)
+14. [08.05](https://shopify.dev/changelog/posts/draft-order-and-transfer-shipment-inventory-is-moving-from-reserved-to-committed)
+[Draft order and transfer/shipment inventory is moving from reserved to committed](https://shopify.dev/changelog/posts/draft-order-and-transfer-shipment-inventory-is-moving-from-reserved-to-committed)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/draft-order-and-transfer-shipment-inventory-is-moving-from-reserved-to-committed)
+15. [08.05](https://shopify.dev/changelog/posts/webmcp-liquid-hydrogen)
+[WebMCP support for Liquid and Hydrogen storefronts](https://shopify.dev/changelog/posts/webmcp-liquid-hydrogen)
+[Platform](https://shopify.dev/changelog/posts/webmcp-liquid-hydrogen)
+16. [08.03](https://shopify.dev/changelog/posts/oxygen-is-now-available-on-development-stores)
+[Oxygen is now available on development stores](https://shopify.dev/changelog/posts/oxygen-is-now-available-on-development-stores)
+[Hydrogen](https://shopify.dev/changelog/posts/oxygen-is-now-available-on-development-stores)
+17. [08.03](https://shopify.dev/changelog/posts/order-create-fulfillment-tracking-numbers)
+[The `orderCreate` mutation now supports multiple tracking numbers for each fulfillment](https://shopify.dev/changelog/posts/order-create-fulfillment-tracking-numbers)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/order-create-fulfillment-tracking-numbers)
+18. [08.01](https://shopify.dev/changelog/posts/updated-built-for-shopify-requirements-for-fulfillment-services-apps)
+[Updated Built for Shopify requirements for Fulfillment services apps](https://shopify.dev/changelog/posts/updated-built-for-shopify-requirements-for-fulfillment-services-apps)
+[Built for Shopify](https://shopify.dev/changelog/posts/updated-built-for-shopify-requirements-for-fulfillment-services-apps)
+4. ## July 2026
 Surface
-07.31
-Hydrogen developer preview update: July 30, 2026
-Hydrogen
-07.31
-New fields for cash management activities and drawers in POS
-Admin GraphQL API
-07.30
-Merchants now see partner details on collaborator requests
-Dev Dashboard
-07.30
-The shopify-account component for customer accounts is now a Theme Store requirement
-Themes
-07.30
-createdAt is now available on the Customer object in Shopify Functions
-Functions
-07.30
-Updating an order's shipping address recalculates taxes as of API version 2026-10
-Breaking changes Admin GraphQL API
-07.27
-POS UI extensions can now print directly to hardware receipt printers
-POS Extensions
-07.27
-SubscriptionContractCalculation API now available in early access
-Admin GraphQL API
-07.24
-Invalid metafield queries now return errors in the GraphQL Admin API
-Breaking changes Admin GraphQL API
-07.22
-Meet the 2026 Shopify Build Award winners
-Meet the 2026 Shopify Build Award winners across apps, storefronts, merchant impact, and community.
-Partners
-07.21
-Metafield triggers and additional topics are now available for Events
-Events & webhooks
-07.21
-Liquid templates can now compose pages with blocks and partials
-Liquid
-07.21
-Full-stack capabilities to power app analytics
-Shopify Analytics is now a full-stack platform for apps. Model, query, embed, and enrich analytics on Shopify without managing your own data infrastructure.
-Admin GraphQL API
-07.17
-Physical inventory feature preview
-Admin GraphQL API
-07.16
-Card deposit endpoint now requires mTLS certificate
-API
-07.15
-Sign in with Shop opens to storefront apps
-Sign in with Shop is now a drop-in component any storefront app can integrate — wishlists, back-in-stock, loyalty, and more.
-Partners
-07.15
-Updated App Store requirements: 4.1.2 Use a unique name for your app
-App store
-07.15
-Storefront API @inContext supports channelId
-Storefront API
-07.15
-productId , title , variantSku , and variantTitle fields added to ExchangeLineItem
-Admin GraphQL API
-07.15
-POS UI Extensions 2026-07 adds discount allocations to bundle components
-POS Extensions
-07.09
-POS Extensions now supports a background extension target
-POS Extensions
-07.09
-Identity verification for Shopify Partners starts today
-Action required Platform
-07.09
-Hydrogen developer preview update: July 8, 2026
-Hydrogen
-07.09
-App Pricing: more plans, no-charge plan testing, and negative and fractional App Events
-App store
-07.08
-POS UI extensions 2026-07 uses per-unit fixed-amount line item discounts
-Breaking changes POS Extensions
-07.07
-The next generation of Shopify fulfillment is coming
-Shopify is releasing fulfillment upgrades that help merchants sell across more locations, delivery methods, and markets with less friction at checkout.
-Partners
-Load more
-Updates
-Developer changelog
-Shopify Editions
-Business growth
-Shopify Partners Program
-Shopify App Store
-Shopify Academy
-Legal
-Terms of service
-API terms of use
-Privacy policy
-Partners Program Agreement
-Shopify
-About Shopify
-Shopify Plus
-Careers
-Investors
-Press and media
+1. [07.31](https://shopify.dev/changelog/posts/hydrogen-developer-preview-update-july-30)
+[Hydrogen developer preview update: July 30, 2026](https://shopify.dev/changelog/posts/hydrogen-developer-preview-update-july-30)
+[Hydrogen](https://shopify.dev/changelog/posts/hydrogen-developer-preview-update-july-30)
+2. [07.31](https://shopify.dev/changelog/posts/new-fields-for-cash-management-activities-and-drawers)
+[New fields for cash management activities and drawers in POS](https://shopify.dev/changelog/posts/new-fields-for-cash-management-activities-and-drawers)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/new-fields-for-cash-management-activities-and-drawers)
+3. [07.30](https://shopify.dev/changelog/posts/partner-details-on-collaborator-requests)
+[Merchants now see partner details on collaborator requests](https://shopify.dev/changelog/posts/partner-details-on-collaborator-requests)
+[Dev Dashboard](https://shopify.dev/changelog/posts/partner-details-on-collaborator-requests)
+4. [07.30](https://shopify.dev/changelog/posts/the-shopify-account-component-for-customer-accounts-is-now-a-theme-store-requirement)
+[The shopify-account component for customer accounts is now a Theme Store requirement](https://shopify.dev/changelog/posts/the-shopify-account-component-for-customer-accounts-is-now-a-theme-store-requirement)
+[Themes](https://shopify.dev/changelog/posts/the-shopify-account-component-for-customer-accounts-is-now-a-theme-store-requirement)
+5. [07.30](https://shopify.dev/changelog/posts/createdat-is-now-available-on-the-customer-object-in-shopify-functions)
+[createdAt is now available on the Customer object in Shopify Functions](https://shopify.dev/changelog/posts/createdat-is-now-available-on-the-customer-object-in-shopify-functions)
+[Functions](https://shopify.dev/changelog/posts/createdat-is-now-available-on-the-customer-object-in-shopify-functions)
+6. [07.30](https://shopify.dev/changelog/posts/updating-an-orders-shipping-address-returns-accurate-financial-data)
+[Updating an order's shipping address recalculates taxes as of API version 2026-10](https://shopify.dev/changelog/posts/updating-an-orders-shipping-address-returns-accurate-financial-data)
+[Breaking changesAdmin GraphQL API](https://shopify.dev/changelog/posts/updating-an-orders-shipping-address-returns-accurate-financial-data)
+7. [07.27](https://shopify.dev/changelog/posts/pos-ui-extensions-can-now-print-directly-to-hardware-receipt-printers)
+[POS UI extensions can now print directly to hardware receipt printers](https://shopify.dev/changelog/posts/pos-ui-extensions-can-now-print-directly-to-hardware-receipt-printers)
+[POS Extensions](https://shopify.dev/changelog/posts/pos-ui-extensions-can-now-print-directly-to-hardware-receipt-printers)
+8. [07.27](https://shopify.dev/changelog/posts/subscription-contract-calculation-api-now-available-in-early-access)
+[SubscriptionContractCalculation API now available in early access](https://shopify.dev/changelog/posts/subscription-contract-calculation-api-now-available-in-early-access)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/subscription-contract-calculation-api-now-available-in-early-access)
+9. [07.24](https://shopify.dev/changelog/posts/invalid-metafield-queries-now-return-errors-in-the-graphql-admin-api)
+[Invalid metafield queries now return errors in the GraphQL Admin API](https://shopify.dev/changelog/posts/invalid-metafield-queries-now-return-errors-in-the-graphql-admin-api)
+[Breaking changesAdmin GraphQL API](https://shopify.dev/changelog/posts/invalid-metafield-queries-now-return-errors-in-the-graphql-admin-api)
+10. [07.22](https://shopify.dev/changelog/blog/shopify-build-award-2026)
+### [Meet the 2026 Shopify Build Award winners](https://shopify.dev/changelog/blog/shopify-build-award-2026)
+[Meet the 2026 Shopify Build Award winners across apps, storefronts, merchant impact, and community.](https://shopify.dev/changelog/blog/shopify-build-award-2026)
+[![](https://cdn.shopify.com/s/files/1/0533/2089/articles/Build_Award_storefront_collage_00f9fd0f-2f43-4f8a-88e5-f91175ffc6b1.png?v=1785890421)![](https://cdn.shopify.com/s/files/1/0533/2089/articles/Build_Award_storefront_collage_00f9fd0f-2f43-4f8a-88e5-f91175ffc6b1.png?v=1785890421)](https://shopify.dev/changelog/blog/shopify-build-award-2026)
+[Partners](https://shopify.dev/changelog/blog/shopify-build-award-2026)
+11. [07.21](https://shopify.dev/changelog/posts/metafield-triggers-and-additional-topics-are-now-available-for-events)
+[Metafield triggers and additional topics are now available for Events](https://shopify.dev/changelog/posts/metafield-triggers-and-additional-topics-are-now-available-for-events)
+[Events & webhooks](https://shopify.dev/changelog/posts/metafield-triggers-and-additional-topics-are-now-available-for-events)
+12. [07.21](https://shopify.dev/changelog/posts/developer-preview-liquid-block-and-partial-tags)
+[Liquid templates can now compose pages with blocks and partials](https://shopify.dev/changelog/posts/developer-preview-liquid-block-and-partial-tags)
+[Liquid](https://shopify.dev/changelog/posts/developer-preview-liquid-block-and-partial-tags)
+13. [07.21](https://shopify.dev/changelog/blog/full-stack-capabilities-to-power-app-analytics)
+### [Full-stack capabilities to power app analytics](https://shopify.dev/changelog/blog/full-stack-capabilities-to-power-app-analytics)
+[Shopify Analytics is now a full-stack platform for apps. Model, query, embed, and enrich analytics on Shopify without managing your own data infrastructure.](https://shopify.dev/changelog/blog/full-stack-capabilities-to-power-app-analytics)
+[![](https://shopify.dev/assets/assets/images/changelog/analytics/pipe-hero-aRKehXI5.png)![](https://shopify.dev/assets/assets/images/changelog/analytics/pipe-hero-aRKehXI5.png)](https://shopify.dev/changelog/blog/full-stack-capabilities-to-power-app-analytics)
+[Admin GraphQL API](https://shopify.dev/changelog/blog/full-stack-capabilities-to-power-app-analytics)
+14. [07.17](https://shopify.dev/changelog/posts/physical-inventory-feature-preview)
+[Physical inventory feature preview](https://shopify.dev/changelog/posts/physical-inventory-feature-preview)
+[Admin GraphQL API](https://shopify.dev/changelog/posts/physical-inventory-feature-preview)
+15. [07.16](https://shopify.dev/changelog/posts/card-deposit-endpoint-now-requires-mtls-certificate)
+[Card deposit endpoint now requires mTLS certificate](https://shopify.dev/changelog/posts/card-deposit-endpoint-now-requires-mtls-certificate)
+[API](https://shopify.dev/changelog/posts/card-deposit-endpoint-now-requires-mtls-certificate)
+16. [07.15](https://shopify.dev/changelog/blog/sign-in-with-shop-storefront-apps)
+### [Sign in with Shop opens to storefront apps](https://shopify.dev/changelog/blog/sign-in-with-shop-storefront-apps)
+[Sign in with Shop is now a drop-in component any storefront app can integrate — wishlists, back-in-stock, loyalty, and more.](https://shopify.dev/changelog/blog/sign-in-with-shop-storefront-apps)
+[![](https://cdn.shopify.com/b/shopify-brochure2-assets/20f3d2e7f8a5832f308b19abfcd60ff6.jpg)![](https://cdn.shopify.com/b/shopify-brochure2-assets/20f3d2e7f8a5832f308b19abfcd60ff6.jpg)](https://shopify.dev/changelog/blog/sign-in-with-shop-storefront-apps)
+[Partners](https://shopify.dev/changelog/blog/sign-in-with-shop-storefront-apps)
+17. [07.15](https://shopify.dev/changelog/posts/updated-app-store-requirements-4-1-2-use-a-unique-name-for-your-app)
+[Updated App Store requirements: 4.1.2 Use a unique name for your app](https://shopify.dev/changelog/posts/updated-app-store-requirements-4-1-2-use-a-unique-name-for-your-app)
+[App store](https://shopify.dev/changelog/posts/updated-app-store-requirements-4-1-2-use-a-unique-name-for-your-app)
+18. [07.15](https://shopify.dev/changelog/posts/new-channelid-argument-for-incontext-directive-in-storefront-api-2026-10)
+[Storefront API `@inContext` supports `channelId`](https://shopify.dev/changelog/posts/new-channelid-argument-for-incontext-directive-in-storefront-api-2026-10)
+[Storefront API](https://shopify.dev/changelog/posts/new-channelid-argument-for-incontext-directive-in-storefront-api-2026-10)
+19. [07.15](https://shopify.dev/docs/api/admin-graphql/2026-10/objects/ExchangeLineItem#fields)
+[`productId`, `title`,`variantSku`, and `variantTitle` fields added to `ExchangeLineItem`](https://shopify.dev/docs/api/admin-graphql/2026-10/objects/ExchangeLineItem#fields)
+[Admin GraphQL API](https://shopify.dev/docs/api/admin-graphql/2026-10/objects/ExchangeLineItem#fields)
+20. [07.15](https://shopify.dev/changelog/posts/pos-ui-extensions-2026-07-adds-discount-allocations-to-bundle-components)
+[POS UI Extensions 2026-07 adds discount allocations to bundle components](https://shopify.dev/changelog/posts/pos-ui-extensions-2026-07-adds-discount-allocations-to-bundle-components)
+[POS Extensions](https://shopify.dev/changelog/posts/pos-ui-extensions-2026-07-adds-discount-allocations-to-bundle-components)
+21. [07.09](https://shopify.dev/changelog/posts/pos-extensions-now-supports-a-background-extension-target)
+[POS Extensions now supports a background extension target](https://shopify.dev/changelog/posts/pos-extensions-now-supports-a-background-extension-target)
+[POS Extensions](https://shopify.dev/changelog/posts/pos-extensions-now-supports-a-background-extension-target)
+22. [07.09](https://shopify.dev/changelog/posts/identity-verification-for-partners)
+[Identity verification for Shopify Partners starts today](https://shopify.dev/changelog/posts/identity-verification-for-partners)
+[Action requiredPlatform](https://shopify.dev/changelog/posts/identity-verification-for-partners)
+23. [07.09](https://shopify.dev/changelog/posts/hydrogen-developer-preview-update)
+[Hydrogen developer preview update: July 8, 2026](https://shopify.dev/changelog/posts/hydrogen-developer-preview-update)
+[Hydrogen](https://shopify.dev/changelog/posts/hydrogen-developer-preview-update)
+24. [07.09](https://shopify.dev/changelog/posts/app-pricing-more-plans-no-charge-plan-testing-and-negative-and-fractional-app-events)
+[App Pricing: more plans, no-charge plan testing, and negative and fractional App Events](https://shopify.dev/changelog/posts/app-pricing-more-plans-no-charge-plan-testing-and-negative-and-fractional-app-events)
+[App store](https://shopify.dev/changelog/posts/app-pricing-more-plans-no-charge-plan-testing-and-negative-and-fractional-app-events)
+25. [07.08](https://shopify.dev/changelog/posts/pos-ui-extensions-2026-07-uses-per-unit-fixed-amount-line-item-discounts)
+[POS UI extensions 2026-07 uses per-unit fixed-amount line item discounts](https://shopify.dev/changelog/posts/pos-ui-extensions-2026-07-uses-per-unit-fixed-amount-line-item-discounts)
+[Breaking changesPOS Extensions](https://shopify.dev/changelog/posts/pos-ui-extensions-2026-07-uses-per-unit-fixed-amount-line-item-discounts)
+26. [07.07](https://shopify.dev/changelog/blog/next-gen-fulfillment)
+### [The next generation of Shopify fulfillment is coming](https://shopify.dev/changelog/blog/next-gen-fulfillment)
+[Shopify is releasing fulfillment upgrades that help merchants sell across more locations, delivery methods, and markets with less friction at checkout.](https://shopify.dev/changelog/blog/next-gen-fulfillment)
+[![](https://cdn.shopify.com/b/shopify-brochure2-assets/dc8d6956bb9f54397704d17c23a63146.png)![](https://cdn.shopify.com/b/shopify-brochure2-assets/dc8d6956bb9f54397704d17c23a63146.png)](https://shopify.dev/changelog/blog/next-gen-fulfillment)
+[Partners](https://shopify.dev/changelog/blog/next-gen-fulfillment)
