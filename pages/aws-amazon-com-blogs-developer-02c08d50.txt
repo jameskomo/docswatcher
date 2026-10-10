@@ -194,6 +194,7 @@ AWS Cloud Security
 What's New
 Blogs
 Press Releases
+Careers
 Resources
 Getting Started
 Training
@@ -217,13 +218,15 @@ File a Support Ticket
 AWS re:Post
 Knowledge Center
 AWS Support Overview
-Get Expert Help
 AWS Accessibility
 Legal
+Event Code of Conduct
+Event Terms & Conditions
 English
 Back to top
-Amazon is an Equal Opportunity Employer: Minority / Women / Disability / Veteran / Gender Identity / Sexual Orientation / Age.
+Amazon is an equal opportunity employer and does not discriminate on the basis of protected veteran status, disability or other legally protected status. Veterans, military spouses, and people with disabilities are encouraged to apply.
 Privacy
 Site terms
+Your Privacy Choices
 Cookie Preferences
 © 2026, Amazon Web Services, Inc. or its affiliates. All rights reserved.

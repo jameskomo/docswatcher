@@ -87,12 +87,13 @@ Android
 iOS+
 Cloud Audit Logs
 Firebase Management
-Cloud Storage for Firebase
-Firebase Cloud Messaging
-Firebase App Hosting
+Firebase AI Logic
 Firebase App Check
-Firebase Security Rules
+Firebase App Hosting
+Firebase Cloud Messaging
+Cloud Storage for Firebase
 Firebase Realtime Database
+Firebase Security Rules
 Android Device Streaming
 Recent Changes and Updates
 Release Notes

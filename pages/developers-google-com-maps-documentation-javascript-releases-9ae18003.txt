@@ -4198,7 +4198,6 @@ Something wrong? Send us a bug report!
 Learn More
 FAQ
 Capabilities Explorer
-Tutorials
 Platforms
 Android
 iOS

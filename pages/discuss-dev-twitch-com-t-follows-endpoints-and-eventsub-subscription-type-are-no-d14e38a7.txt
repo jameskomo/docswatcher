@@ -150,12 +150,12 @@ Activity
 Channel followers
 API
 1
-813
+814
 September 15, 2023
 Legacy Follows API and EventSub Shutdown Timeline Updated
 Announcements
 0
-6500
+6501
 August 4, 2023
 Get Channel Followers usernames
 API

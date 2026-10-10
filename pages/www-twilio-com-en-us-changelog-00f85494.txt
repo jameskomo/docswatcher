@@ -489,6 +489,16 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Oct 09, 2026
+GA
+Voice API
+Voice Insights now tags HD audio calls
+Voice Insights now tags calls as HD Audio when they connect with the AMR-WB or Opus codec.
+Use the tag to confirm your endpoints negotiated what you configured, and to correlate HD usage with transcription accuracy, AI agent performance, and customer satisfaction.
+Calls that carry HD audio are tagged as Downsampled when the longest portion of the call connects to a component or another endpoint that does not support HD. Twilio converts the audio to narrowband to keep the call connected.
+Both tags appear in the Call Summary in Console, in the Voice Insights REST API, and through Event Streams. You can also filter the Call Insights dashboard by either one.
+Learn more in our Call Summary documentation .
+Learn more
 Oct 08, 2026
 Flex
 Conversations API
@@ -583,12 +593,6 @@ Messaging
 GA
 WhatsApp Embedded Signup Version 4
 We are excited to announce General Availability support for WhatsApp Embedded Signup Version 4. This release upgrades the existing WhatsApp Self Sign-Up onboarding flow in the Twilio Console, seamlessly aligning with WhatsApp’s recent account updates to deliver a cohesive, up-to-date sender registration process. The upgraded experience simplifies phone number setup and incorporates MM API Terms of Service acceptance directly within the flow. This update is required as part of WhatsApp’s planned deprecation of older versions, ensuring uninterrupted onboarding for WhatsApp senders.
-Learn more
-Sep 27, 2026
-Conversation Intelligence
-Conversation Orchestrator
-On-demand rule execution and Conversation Metadata now generally available with Twilio Conversations
-Today, we are launching two new capabilities with Twilio Conversations – On-demand rule execution for Conversation Intelligence and Conversation metadata for Conversation Orchestrator
 Learn more
 Loading
 Error: Unable to load changelog
