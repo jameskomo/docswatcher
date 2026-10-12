@@ -315,22 +315,29 @@ March 1, 2025
 Places SDK for iOS (New)
 Guide
 LegacyApiNotActivatedMapError
-Google throws this error when your application is querying a legacy API ( Places
-API , Directions API , or Distance Matrix
-API ) that is not enabled on your project. In most cases, keep legacy APIs
+Google throws this error when your application is querying a legacy API (the
+Places API (Legacy) , the Directions API (Legacy) , or the Distance Matrix API (Legacy) ) that isn't enabled on your project. In most cases, keep legacy APIs
 disabled on new projects.
 If you own the application that's throwing this error, use the equivalent new
-API instead.
+API instead (such as the Places API (New) or the Routes API ).
+Upgrading with an AI coding assistant: Many AI coding assistants generate
+code for legacy APIs by default. If you use an AI assistant, copy the prompt
+for your target API to migrate your code:
+Migrate to the Places API (New):
+Refactor this code to replace the legacy Google Maps Places API (or Maps JavaScript API PlacesService) with the Places API (New) (or the Maps JavaScript API Place class). Fetch the latest official documentation from https://developers.google.com/maps/documentation/places/web-service/migrate-overview and https://developers.google.com/maps/documentation/javascript/places-migration-overview before generating code, and include the required FieldMask parameter.
+Migrate to the Routes API:
+Refactor this code to replace the legacy Google Maps Directions API or Distance Matrix API with the Routes API (computeRoutes or computeRouteMatrix). Fetch the latest official documentation from https://developers.google.com/maps/documentation/routes/migrate-routes before generating code, and include the required X-Goog-FieldMask header.
 If you don't own the application that's throwing this error, report this issue
 to your application provider by sharing this URL with them, and follow their
-instructions to upgrade to a new version. As a short-term solution, consider
-activating the legacy API(s):
-Places API
-Directions API
-Distance Matrix API
+instructions to upgrade to a new version. As a short-term solution while you
+migrate or wait for an update, you can activate the legacy API after completing
+a brief feedback form:
+The Places API (Legacy)
+The Directions API (Legacy)
+The Distance Matrix API (Legacy)
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-08 UTC.
+Last updated 2026-10-12 UTC.
 Platform Status
 Find out about platform incidents and outages.
 Support
