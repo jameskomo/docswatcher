@@ -500,6 +500,16 @@ Both tags appear in the Call Summary in Console, in the Voice Insights REST API,
 Learn more in our Call Summary documentation .
 Learn more
 Oct 08, 2026
+Messaging
+Programmable Messaging API
+Rich Communication Services
+RCS messaging now supported on all major Canadian carriers
+You can now send RCS messages to Rogers phone numbers, completing RCS coverage across Canada’s major carriers.
+When requesting RCS Sender approval in Canada, Twilio will now submit the Sender for review across all major carriers, including Rogers. RCS Senders already approved by other Canadian carriers will automatically be submitted to Rogers for review and approval. No action is required.
+To start sending branded RCS messages, go to the Twilio Console to create and submit an RCS Sender.
+For more information, see our RCS documentation .
+Learn more
+Oct 08, 2026
 Flex
 Conversations API
 Studio
@@ -585,14 +595,6 @@ Update Content Approval Request (POST /v1/Approval/{Sid}): 20 RPS
 What You Need to Do
 Implement Exponential Backoff: Ensure your application can handle HTTP 429 status codes by incorporating backoffs and retries.
 Audit High-Volume Pipelines: If your service executes bulk script operations (such as creating or deleting content templates in high-concurrency bursts), adjust your client throttling to remain within these thresholds.
-Learn more
-Sep 30, 2026
-Programmable Messaging API
-WhatsApp Business API
-Messaging
-GA
-WhatsApp Embedded Signup Version 4
-We are excited to announce General Availability support for WhatsApp Embedded Signup Version 4. This release upgrades the existing WhatsApp Self Sign-Up onboarding flow in the Twilio Console, seamlessly aligning with WhatsApp’s recent account updates to deliver a cohesive, up-to-date sender registration process. The upgraded experience simplifies phone number setup and incorporates MM API Terms of Service acceptance directly within the flow. This update is required as part of WhatsApp’s planned deprecation of older versions, ensuring uninterrupted onboarding for WhatsApp senders.
 Learn more
 Loading
 Error: Unable to load changelog

@@ -33,7 +33,7 @@ June 16, 2021
 Undocumented helix/moderation/banned modification
 API
 8
-1057
+1058
 May 16, 2022
 Events in the new Twitch API?
 API
@@ -43,7 +43,7 @@ December 21, 2017
 Get events when moderators or broadcasters ban users
 API
 2
-563
+564
 November 7, 2020
 Follows endpoints and EventSub subscription type are now available in open beta
 Announcements

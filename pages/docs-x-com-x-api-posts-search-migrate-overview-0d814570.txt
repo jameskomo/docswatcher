@@ -102,6 +102,7 @@ X Activity
 Introduction
 Quickstart
 Event payloads
+Event Pricing
 GET
 Activity Stream
 POST
