@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Release: Slack CLI v4.10.0
 Slack Code for developers
 Release: Slack CLI v4.9.0
 Release: Slack CLI v4.8.0
@@ -247,6 +248,14 @@ Subscribe to the changelog!
 Get real-time notifications about new features, improvements, and bug fixes directly in your preferred feed reader.
 RSS
 Atom
+Release: Slack CLI v4.10.0
+October 13, 2026
+Version 4.10.0 of the developer tools for the Slack platform has landed!
+The slack create --app command now automatically syncs the manifest from app settings to your local project.
+We've made a small change to the output of the sandboxes list command: status and type previously displayed lowercase, and now Type: basic will be displayed for basic sandboxes (previously we only showed the type label for partner sandboxes, to differentiate from developer sandboxes).
+Tags:
+Release
+Slack CLI
 Slack Code for developers
 October 7, 2026
 Slack Code enables even more collaboration between humans and agents in Slack by creating dedicated channels for deeper work. Agents can now create ephemeral channels from existing conversations, providing agents and their human collaborators a shared, visible place to work.

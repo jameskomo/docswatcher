@@ -197,7 +197,7 @@ See notes for individual plugin versions
 Unity
 13.17.0
 C++
-13.13.0
+14.0.0
 Admin Node.js
 14.5.0
 Admin Java
@@ -214,6 +214,71 @@ Firebase CLI
 15.33.0
 Firebase Studio
 See notes
+October 13, 2026
+Google AI Studio integration
+The Firebase integration in
+Google AI Studio now
+automatically sets up and integrates Firebase AI Logic and
+Firebase App Check when you build Android apps with generative AI
+features. This integration lets your Android app securely call Gemini models
+directly without exposing API keys. The app uses debug tokens for testing and
+reCAPTCHA Enterprise for production releases on Google Play .
+To learn more, see
+Firebase AI Logic and App Check for Android apps .
+Firebase AI Logic
+Firebase AI Logic supports the latest Gemini stable
+model gemini-4-argon . You can
+directly access this model in your mobile or web app
+via either the Gemini Developer API or the
+Agent Platform Gemini API (formerly Vertex AI) .
+Accessing gemini-4-argon requires the pay-as-you-go Blaze pricing plan regardless
+of your Gemini API provider.
+If you're migrating from previous models, note the following for this new
+model:
+Token limits :
+Default and maximum output token limits: 32,768 tokens for
+non-streaming requests and 65,536 tokens for streaming requests.
+The input token limit is the same as the older Gemini 3.x
+models.
+Firebase AI Logic does not yet support the "long decode"
+capability, but that feature is coming soon!
+No support for MINIMAL thinking level or thinkingBudget :
+Supports the following
+thinking levels :
+LOW , MEDIUM (default), and HIGH .
+Does not support setting thinking level of MINIMAL . The
+request will fail with a 400 error.
+Does not support using thinkingBudget (there's no
+backwards-compatibility). The request will fail with a 400
+error.
+Context caching :
+Supports
+implicit caching
+by default (with a minimum of 4,096 input tokens on the
+Gemini Developer API and 6,144 input tokens on the
+Agent Platform Gemini API (formerly Vertex AI) ).
+Does not support explicit caching.
+Unsupported parameters : Does not support temperature, top-K,
+top-P, frequency penalty, presence penalty, or candidate count.
+Temperature, top-K, or top-P: Ignored by the model.
+Frequency penalty, presence penalty, and candidate count: The
+request will fail with a 400 error.
+For more deterministic responses, define system instructions with
+explicit rules for your specific use case.
+Prefilled model turn validation : Does not support prefilling
+model turns. If the last non-empty turn in the request is a model
+turn, the request will fail with a 400 error.
+SDK Releases
+The Firebase SDK for C++
+(v14.0.0) is now available.
+This release includes a bug fix in Authentication as well as other changes and
+fixes.
+October 12, 2026
+Cloud Firestore
+Firestore with MongoDB compatibility now supports QueryData, which you can use
+to build data agents that interact with the data in your
+database using conversational language. For more information, see
+QueryData overview .
 October 07, 2026
 Firebase CLI (v15.33.0)
 The latest
@@ -16791,7 +16856,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-08 UTC.
+Last updated 2026-10-13 UTC.
 Learn
 Developer guides
 SDK & API reference

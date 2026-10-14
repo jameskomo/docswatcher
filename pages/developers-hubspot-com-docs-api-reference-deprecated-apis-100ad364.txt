@@ -3,13 +3,114 @@ Fetch the complete documentation index at: /docs/llms.txt
 Use this file to discover all available pages before exploring further.
 Skip to main content
 HubSpot docs home page
+2026-09
 Search...
 ⌘ K Ask Assistant ⌘ I
 Changelog
+Log In
 Sign up
 Search...
 Navigation
 Sunsetted and deprecated APIs
+Home
+Get Started
+Apps
+CMS
+APIs
+Developer Tooling
+Build with AI
+Overview
+Sunsetted and deprecated APIs
+Error handling
+Account & Settings
+Account information
+Audit Logs
+Brands
+IP ranges
+Settings
+App Management
+App Uninstalls
+Feature Flags
+Authentication
+API Guide
+OAuth tokens
+Automation
+Email templates
+Sequences
+Workflow actions
+CMS
+Blogs
+Content audit
+Domains
+HubDB
+Media Bridge
+Pages
+Site Search
+Source code
+URL mappings
+URL redirects
+Communication preferences
+API Guide
+Definitions
+Status
+Conversations
+Overview
+Chat Configuration
+Conversations
+Custom Channels
+Visitor identification
+CRM
+CRM embed
+Search the CRM
+Understanding the CRM
+Using object APIs
+Activities
+Associations
+CRM Data Model
+Exports
+Extensions
+Imports
+Limits Tracking
+Segments (Lists)
+Objects
+Owners
+Pipelines
+Properties
+Property Validations
+Data studio
+Datasource ingestion
+Events
+API Guide
+Define events
+Retrieve events
+Send event data
+Files
+API Guide
+Files
+Folders
+Marketing
+Campaigns
+CTAs
+Forms
+Marketing Emails
+Marketing Events
+Transactional Emails
+Meetings
+Notetaker
+Scheduler
+Revenue
+Payment Accounts
+Payment Links
+Price Books
+Webhooks
+API guide
+Subscriptions
+Webhooks journal
+Overview
+Journal entries
+Snapshots
+Subscriptions
+English
 close
 On this page
 Sunsetted APIs

@@ -109,36 +109,6 @@ Capabilities Explorer
 FAQ
 Support and resources
 Customer Care
-Resources for AI
-Overview
-Agent skills
-Agentic UI toolkit (experimental)
-Overview
-Getting started
-Code Assist toolkit (experimental)
-Overview
-Configure with Gemini CLI
-MCP Reference overview
-Tools
-retrieve-instructions
-retrieve-google-maps-platform-docs
-Maps Grounding Lite
-Overview
-Attribution guidelines
-Resolution API
-Reference
-MCP reference
-Overview
-search_places
-lookup_weather
-compute_routes
-resolve_maps_urls
-resolve_names
-REST reference
-Overview
-resolveNames
-resolveMapsUrls
-Maps in AI Studio
 Best practices
 Digital signature guide
 Optimization guide

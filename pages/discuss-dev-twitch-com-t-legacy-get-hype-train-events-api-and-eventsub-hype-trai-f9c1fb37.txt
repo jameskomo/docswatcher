@@ -45,12 +45,12 @@ March 29, 2022
 Get Hype Train Events via App Token
 API
 16
-1549
+1550
 June 6, 2021
 HypeTrain API pagination
 API
 2
-446
+448
 December 23, 2020
 Get all users that contributed to a Hype Train
 API

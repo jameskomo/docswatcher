@@ -83,6 +83,7 @@ Thought signatures
 Structured outputs
 Function calling
 Long context
+Long decode
 Agents
 Overview
 Quickstart
@@ -177,7 +178,7 @@ Terms of service
 Available regions
 Abuse monitoring
 Feedback information
-Gemini 3.8 Flash is now available. Try it out .
+Gemini 4 Argon is now available. Try it out .
 Home
 Gemini API
 Docs

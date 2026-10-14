@@ -24,7 +24,7 @@ Activity
 Soundtracks by twitch API?
 Migration
 1
-1335
+1336
 December 27, 2020
 Get currently playing Twitch Soundtrack?
 API
@@ -34,17 +34,17 @@ October 29, 2020
 Twitch Soundtrack detection (BETA) is this working?
 API
 1
-251
+252
 October 11, 2022
 Twitch Soundtrack not playing tracks
 API
 2
-389
+390
 September 27, 2021
 Tidal Extention
 Ideas
 4
-2428
+2429
 August 9, 2020
 Home
 Categories
