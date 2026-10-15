@@ -46,6 +46,12 @@ Link to section
 API updates
 Transactions API
 The Charge , CreateRefund , CaptureTransaction , and VoidTransaction write operations are retired. Read operations remain available for historical transaction data. Use the Payments API and Refunds API for payment processing and refunds. Migrate from the Transactions API
+Link to section
+Documentation updates
+Updated documentation:
+Build on iOS
+Square Model Context Protocol Server
+Add the Web Payments SDK to the Web Client
 Development
 Guides
 API Reference

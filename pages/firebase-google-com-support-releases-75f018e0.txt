@@ -211,9 +211,18 @@ Admin .NET
 Admin Dart (experimental)
 0.5.0
 Firebase CLI
-15.33.0
+15.34.0
 Firebase Studio
 See notes
+October 15, 2026
+Firebase CLI (v15.34.0)
+The latest
+Firebase CLI (v15.34.0) is now
+available. This version adds commands to manage Crashlytics Android heap
+dump collection, updates Firebase Authentication deployment to use existing apps
+from any platform, and includes several fixes and improvements.
+To use the Firebase CLI in your development environment,
+set up or update the CLI .
 October 13, 2026
 Google AI Studio integration
 The Firebase integration in
@@ -727,6 +736,27 @@ tools and includes several fixes and improvements.
 To use the Firebase CLI in your development environment,
 set up or update the CLI .
 August 06, 2026
+Firebase AI Logic
+To reflect the renaming of Vertex AI to Gemini Enterprise Agent
+Platform (or "Agent Platform"), the Firebase AI Logic SDKs added new
+"Agent Platform" initialization syntax (such as agentPlatform or
+AgentPlatformBackend ) and deprecated the legacy "Vertex AI" initialization
+syntax (such as vertexAI or VertexAIBackend ).
+The only difference for the new "Agent Platform" initialization syntax is
+the default
+location for accessing the model .
+The default location for the "Agent Platform" syntax is global ,
+whereas the default location for the legacy "Vertex AI" syntax is
+us-central1 . Note that most new Gemini models do not support
+us-central1 .
+If you want to use us-central1 (or another location) with the new
+syntax, you can explicitly specify the location when initializing the
+backend service.
+If you use the Agent Platform Gemini API (formerly Vertex AI) , then we strongly recommend
+migrating your apps to use the new "Agent Platform" initialization syntax ,
+as the legacy "Vertex AI" syntax will be removed in the next breaking change
+release. For platform-specific code examples and full details, see the
+FAQ describing the required changes .
 SDK Releases
 The Firebase SDK for Unity
 (v13.15.0) is now available. This
@@ -16856,7 +16886,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-13 UTC.
+Last updated 2026-10-15 UTC.
 Learn
 Developer guides
 SDK & API reference

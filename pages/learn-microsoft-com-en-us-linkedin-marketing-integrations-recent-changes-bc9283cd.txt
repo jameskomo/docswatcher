@@ -24,9 +24,28 @@ Summarize this article for me
 In this article
 Warning
 Deprecation Notice:
-The Marketing Version 202510 (Marketing October 2025) will be sunset on October 15, 2026. We recommend that you migrate to the latest versioned APIs to avoid disruptions. For information on all the supported versions, refer to the migrations documentation.
+The Marketing Version 202511 (Marketing November 2025) will be sunset on November 16, 2026. We recommend that you migrate to the latest versioned APIs to avoid disruptions. For information on all the supported versions, refer to the migrations documentation.
 If you haven’t yet migrated and have questions, submit a request on the LinkedIn Developer Support Portal .
-September 2026 - Version 202609 (Latest)
+October 2026 - Version 202610 (Latest)
+Product & Platform Announcements
+Creatives API : New metadata field :
+Starting with the 202610 version, the /creatives endpoint supports a new read-only metadata field that returns descriptive information about a creative: adFormat , adHeadline , adIntroductionText , adLine , landingPage , and assetURL . Previously, retrieving this information required calling a different API depending on the creative's content type. The field is derived on read from the creative's underlying content and isn't stored, and fields that don't apply to the creative's ad format are omitted. metadata isn't returned by default; request it explicitly using the fields query parameter when retrieving a single creative, as described in Retrieve Creative Metadata . It isn't returned by the creatives finders. This is an additive, backward-compatible change; versions 202609 and below don't return this field.
+Company Intelligence API : New jobFunction filter :
+Starting with the 202610 version, the accountIntelligence endpoint finder now supports filtering results by the optional jobFunction field under filterCriteria. Supported job-function buckets are INFORMATION_TECHNOLOGY , PRODUCT , SALES , MARKETING , OPERATIONS , FINANCE , HUMAN_RESOURCES , and OTHER . The field accepts these bucket values directly, rather than a standardized job-function URN or numeric ID. Only one of campaign , campaignGroup , objectiveType , seniority , or jobFunction can be passed in filterCriteria. The jobFunction filter is supported only with the LAST_90_DAYS lookback window. It applies to member-attributable paid and organic engagement metrics; paidQualifiedLeads , conversions , and costInLocalCurrencyPerPaidQualifiedLead aren't broken down by job function. This field is request-only and doesn't change the response schema. Versions 202609 and below don't support this filter.
+Creatives API : New enriched content fields :
+Starting with the 202610 version, /creatives responses can return new read-only standardUpdateAd and videoAd members within content . standardUpdateAd includes reference and an optional contentAuthor field; videoAd includes reference , an optional contentAuthor , and an optional preRollMetadata field. Earlier API versions continue returning content.reference . Clients using 202610 should continue supporting content.reference , because it may still be returned when enriched content is unavailable. These fields are read-only and don't change Creative create requests.
+Ads Reporting API : New memberFollows and memberProfileClicks metrics :
+Starting with the 202610 version, the /adAnalytics endpoint's metrics schema supports two new optional metrics: memberFollows , which returns the count of sponsored member profile follows, and memberProfileClicks , which returns the count of clicks on the profile of the member who owns the sponsored post. Both metrics exist only for Sponsored Updates and member follower display ads, such as Thought Leader Ads.
+Boost API : New Member and Company Page post boost endpoints :
+Starting with the 202610 version, four new Boost API endpoints are available for both Member and Company Page (organization) posts: Boost Init, Boost Hydrate, Boost Post, and Boost Status. These APIs enable partners to embed LinkedIn Boosting directly into their content and publishing workflows, connecting organic content to paid amplification within their platform. The endpoints are available under the existing Advertising API product.
+Breaking Changes
+Campaign Management API: New required surface field for publisher lists (action required) :
+Starting with version 202611 (November 2026 release), publisher lists ( /adPublisherRestrictions ) require a surface field that sets the list's placement type: LAN (LinkedIn Audience Network) or CTV (Connected TV). Requests on version 202611 or later that create a publisher list without a valid surface will fail with a 400 error. Existing partner API accounts have a migration window that ends on December 15, 2026. After that date, campaigns ( /adAccounts/{id}/adCampaigns ) and account trust preferences ( /adAccountTrustPreferences ) can only use publisher lists whose placement type matches the campaign. Requests that don't meet this rule will fail with a 400 error on every API version. Lists already attached to campaigns will keep working. Please update your integration before December 15, 2026.
+Version Sunset
+The monthly API versions below will be sunset and removed from the platform on the dates listed. For information on all the supported versions, refer to the migrations documentation. To avoid disruptions to your platform, please migrate to the latest API version launched today.
+202510 - Oct 15, 2026
+202511 - Nov 16, 2026
+September 2026 - Version 202609
 Product & Platform Announcements
 Company Intelligence API : New campaignGroup , objectiveType , and seniority filters :
 Starting with the 202609 version, the accountIntelligence endpoint finder now supports filtering results by the following optional fields under filterCriteria: campaignGroup , objectiveType , or member seniority , in addition to the existing campaign filter. Only one of campaign , campaignGroup , objectiveType , or seniority can be passed in the filterCriteria parameter. Organic metrics are 0 when campaign, campaignGroup or objectiveType filter is used. The seniority filter is supported only with LAST_90_DAYS lookback window and when campaign , campaignGroup , and objectiveType aren't used in the filterCriteria. These fields are request-only and do not change the response schema. Versions 202608 and below do not support these filters.
@@ -774,7 +793,7 @@ Ask Learn
 Suggest a fix?
 Additional resources
 Last updated on
-2026-09-16
+2026-10-14
 In this article
 Was this page helpful?
 Need help with this topic?

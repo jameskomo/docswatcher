@@ -58,17 +58,17 @@ Activity
 Badges.twitch.tv Down?
 API
 3
-1118
+1119
 June 9, 2023
 Legacy Chatters endpoint shutdown details and timeline - April 2023
 Announcements
 14
-10856
+10861
 April 13, 2023
 Legacy Twitch API v5 Shutdown Details and Timeline
 Announcements
 28
-3810
+3811
 January 11, 2022
 Has the 'http://tmi.twitch.tv/group/user/channel_name/chatters' endpoint been removed?
 API

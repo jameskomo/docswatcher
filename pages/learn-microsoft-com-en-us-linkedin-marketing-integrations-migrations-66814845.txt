@@ -24,13 +24,16 @@ Summarize this article for me
 In this article
 Warning
 Deprecation Notice:
-The Marketing Version 202510 (Marketing October 2025) will be sunset on October 15, 2026. We recommend that you migrate to the latest versioned APIs to avoid disruptions. For information on all the supported versions, refer to the migrations documentation.
+The Marketing Version 202511 (Marketing November 2025) will be sunset on November 16, 2026. We recommend that you migrate to the latest versioned APIs to avoid disruptions. For information on all the supported versions, refer to the migrations documentation.
 If you haven’t yet migrated and have questions, submit a request on the LinkedIn Developer Support Portal .
 There will be periodic changes to LinkedIn Marketing Developer Platform APIs that require updating your application.
 API Migration Status
 Migration
 Sunset Date
 Version Status
+Developers using LinkedIn Marketing APIs version 202610 (October 2026) to migrate to the latest versions.
+October 15, 2027
+Active
 Developers using LinkedIn Marketing APIs version 202609 (September 2026) to migrate to the latest versions.
 September 15, 2027
 Active
@@ -63,7 +66,7 @@ November 16, 2026
 Active
 Developers using LinkedIn Marketing APIs version 202510 (October 2025) to migrate to the latest versions.
 October 15, 2026
-Active
+Deprecated
 Developers using LinkedIn Marketing APIs version 202509 (September 2025) to migrate to the latest versions.
 September 15, 2026
 Deprecated
@@ -233,7 +236,7 @@ Ask Learn
 Suggest a fix?
 Additional resources
 Last updated on
-2026-09-16
+2026-10-14
 In this article
 Was this page helpful?
 Need help with this topic?

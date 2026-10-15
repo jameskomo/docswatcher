@@ -155,7 +155,7 @@ GET /broadcast/v1/broadcasts
 GET /broadcast/v1/broadcasts/:broadcast_guid
 POST /broadcast/v1/broadcasts
 DELETE /broadcast/v1/broadcasts/:broadcast_guid
-Last modified on September 2, 2026
+Last modified on September 3, 2026
 Was this page helpful?
 Yes No
 facebook instagram youtube x linkedin medium

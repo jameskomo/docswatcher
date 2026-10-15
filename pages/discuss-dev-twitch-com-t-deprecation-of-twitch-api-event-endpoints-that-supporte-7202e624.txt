@@ -28,12 +28,12 @@ Activity
 Deprecation of WebSub-based Webhooks
 Announcements
 0
-2430
+2431
 June 16, 2021
 Undocumented helix/moderation/banned modification
 API
 8
-1058
+1059
 May 16, 2022
 Events in the new Twitch API?
 API

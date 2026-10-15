@@ -489,6 +489,27 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Oct 16, 2026
+GA
+Marketplace
+Unified Login for SendGrid Marketplace Customers
+SendGrid marketplace customers can now take advantage of the Unified Login feature that lets you create a Twilio login for every individual user accessing your SendGrid account. This provides a more secure access pattern with the ability to define permissions for each user instead of a single, shared admin permission set.
+When accessing your SendGrid marketplace account from one of the marketplace integrations - Microsoft Azure, Google Cloud, Heroku, or Amazon Web Services - you will be prompted to provide an email address to create your Twilio login. If you already use another Twilio product and have an existing Twilio login, you can use that email address and password for SendGrid access.
+This will be rolled out over the next couple weeks for all SendGrid marketplace customers. For more details, see the documentation here .
+Learn more
+Oct 14, 2026
+Messaging
+Beta
+Twilio Email
+Twilio Cohorts for Native List Building and Bulk Messaging
+Twilio Cohorts is now available in Private Beta, providing a set of APIs designed to handle list building, audience segmentation, and bulk execution natively within the Twilio platform. Set up your customer profiles, segment them, and trigger messages using your existing Twilio account.
+Twilio Cohorts includes:
+Dynamic List Building & Segmentation: Define customer traits and query dynamic audiences directly within Twilio.
+Native High-Volume Delivery: Pass a single CohortID when triggering a send with the Twilio Email API or the Twilio Bulk Messaging API (supporting Email, SMS/MMS, RCS, and WhatsApp) without writing custom batching logic.
+Unified Execution: Streamline multi-channel workflows and eliminate custom queuing or backend rate-limiting logic.
+Coordinating high-volume delivery across Email, SMS, RCS, and WhatsApp alongside your native Twilio data has never been easier.
+To request early access to the Private Beta, submit a request form . For API details and technical guidance, see the Twilio Cohorts documentation .
+Learn more
 Oct 13, 2026
 Messaging
 Intelligent Alerts in the new Twilio Console
@@ -559,22 +580,6 @@ Segment Conversation Memory Integration now in GA
 The Segment Conversation Memory Integration is now in GA. You can now sync long-term customer profile data, like identity and lifetime value, from Segment into the sub-second recall of Conversation Memory, enabling both AI and human agents to instantly access unified context during live interactions. This eliminates cold starts, reduces repetitive questions, and delivers highly personalized, continuous customer experiences across all channels.
 The integration continuously syncs long-term customer profile data, such as identity and historical traits, from Segment directly into Conversation Memory. Customers configure this transfer using either "Memory Sync" to rapidly import their entire profile database or "Memory Destination" to target specific user cohorts via Segment Audiences. During setup, Segment profile traits and identifiers are mapped to corresponding semantic trait groups within a Memory Store. Once active, trait updates flow in real time, allowing AI or human agents to instantly query the Memory Store for up-to-date customer context during live interactions.
 To get started, read the Segment Conversation Memory Integration | Twilio , and browse the Conversation Memory (Actions) | Twilio .
-Learn more
-Oct 01, 2026
-GA
-Voice API
-Batch Transcription Configuration is now Generally Available!
-Tune transcription without touching your code: engine, model, language, and destination live in a reusable configuration, so changing any of them is one update that every subsequent transcription picks up. Results are delivered via webhook or stored downstream in Conversation Orchestrator for persisted storage and Operator analysis.
-Learn more
-Oct 01, 2026
-GA
-Voice API
-Voice Insights now shows why carriers block your calls
-Voice Insights now tells you why a carrier blocked your call and how to reach that carrier for redress.
-The FCC requires carriers that block calls using analytics to return the reason header to the caller. It names the network that blocked the call and tells you how to contact them: a URL, a phone number, or an email address. Until now a blocked call showed you only a 603 response. Now you can see which network blocked it and petition them directly.
-The reason header appears alongside Last SIP Response in the Call Summary, in Twilio Console, the Voice Insights REST API, and Event Streams.
-If you are seeing a high volume of 603 responses, confirm your traffic is signed with STIR/SHAKEN and registered with Twilio Voice Integrity before you start filing redress requests.
-Learn more in our Call Summary documentation .
 Learn more
 Loading
 Error: Unable to load changelog

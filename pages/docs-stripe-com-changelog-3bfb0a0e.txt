@@ -89,8 +89,6 @@ Makes Payment Evaluation signal scores nullable
 Radar
 Removes PayTo-specific fields from Payment Methods
 Payments
-Enforces collection of billing address parameters for non-EEA SEPA Direct Debit payments
-Payments
 Removes the payment method types parameter from Payment Intents and Setup Intents
 Payments
 Returns specific decline codes for BLIK payment failures
