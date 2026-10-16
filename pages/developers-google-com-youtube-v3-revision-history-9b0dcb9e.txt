@@ -144,14 +144,9 @@ Reference
 Revision History
 Stay organized with collections
 Save and categorize content based on your preferences.
-Page Summary
-outlined_flag
-The YouTube Data API v3 has added support for identifying videos with altered or synthetic content through the status.containsSyntheticMedia property as of October 30, 2024.
-As of April 30, 2024, channel discussions are no longer supported within the YouTube Data API.
-Effective April 12, 2024, the sync parameter for captions is unsupported, necessitating timing information for all caption uploads.
-Recent updates have deprecated several API features, including brandingSettings.channel.moderateComments , comments.markAsSpam , commentThreads.update , and the search.list method's relatedToVideoId .
-There have been multiple updates to API documentation and coding tools including an API explorer widget, code samples tool, quickstart guides, and library updates to enhance developer experience and usability.
 This page lists YouTube Data API (v3) changes and documentation updates.
+October 15, 2026
+The videos.list method has been clarified to note that the status.selfDeclaredMadeForKids and status.madeForKids properties are only updated if specified in the request and are not overridden if omitted.
 September 30, 2026
 The comments resource definition has been updated to include the new snippet.imageUrl property, which provides the URL for an image or animated GIF attached to a comment.
 This feature will be available to all users in November 2026.
@@ -2056,7 +2051,7 @@ notFound
 videoCategoryNotFound
 The video category identified by the id parameter cannot be found. Use the videoCategories.list method to retrieve a list of valid values.
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-09-30 UTC.
+Last updated 2026-10-15 UTC.
 Blog
 The latest news on the YouTube blog
 Issue Tracker

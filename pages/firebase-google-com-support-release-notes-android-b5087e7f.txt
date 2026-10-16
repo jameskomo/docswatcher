@@ -206,7 +206,7 @@ The latest Firebase BoM version contains the latest versions
 of each Firebase Android library. To learn which library versions
 are mapped to a specific BoM version, review the release notes
 for that BoM version.
-35.0.0
+35.0.1
 Google services Gradle plugin
 com.google.gms:google-services
 4.5.0
@@ -286,7 +286,7 @@ com.google.firebase:firebase-installations
 20.0.0
 Performance Monitoring
 com.google.firebase:firebase-perf
-23.0.0
+23.0.1
 Performance Monitoring plugin
 com.google.firebase:perf-plugin
 2.0.2
@@ -301,7 +301,7 @@ com.google.firebase:firebase-config
 24.0.0
 SQL Connect 2
 com.google.firebase:firebase-dataconnect
-18.0.0
+18.0.1
 DEPRECATED OR UNSUPPORTED LIBRARIES
 Dynamic Links
 com.google.firebase:firebase-dynamic-links
@@ -426,6 +426,80 @@ com.google.firebase:firebase-ml-natural-language-smart-reply-model
 com.google.firebase:firebase-vertexai .
 2 Firebase SQL Connect was formerly called
 " Firebase Data Connect ".
+Update - October 14, 2026
+Firebase Android BoM ( Bill of Materials ) version 35.0.1
+Firebase Android SDKs mapped to this BoM version
+Libraries that were versioned with this release are in highlighted rows.
+Refer to a library's release notes (on this page) for details about its
+changes.
+Artifact name
+Version mapped
+to previous BoM v35.0.0
+Version mapped
+to this BoM v35.0.1
+com.google.firebase:firebase-ai-ksp-processor
+17.0.0
+com.google.firebase:firebase-ai
+18.0.0
+com.google.firebase:firebase-analytics
+24.0.0
+com.google.firebase:firebase-appcheck-debug-testing
+20.0.0
+com.google.firebase:firebase-appcheck-debug
+20.0.0
+com.google.firebase:firebase-appcheck-playintegrity
+20.0.0
+com.google.firebase:firebase-appcheck-recaptcha
+20.0.0
+com.google.firebase:firebase-appcheck
+20.0.0
+com.google.firebase:firebase-auth
+25.0.0
+com.google.firebase:firebase-common
+23.0.0
+com.google.firebase:firebase-config
+24.0.0
+com.google.firebase:firebase-crashlytics-ndk
+21.0.0
+com.google.firebase:firebase-crashlytics
+21.0.0
+com.google.firebase:firebase-database
+23.0.0
+com.google.firebase:firebase-dataconnect
+18.0.0
+18.0.1
+com.google.firebase:firebase-encoders
+18.0.0
+com.google.firebase:firebase-firestore
+27.0.0
+com.google.firebase:firebase-functions
+23.0.0
+com.google.firebase:firebase-inappmessaging-display
+23.0.0
+com.google.firebase:firebase-inappmessaging
+23.0.0
+com.google.firebase:firebase-installations
+20.0.0
+com.google.firebase:firebase-messaging-directboot
+26.0.0
+com.google.firebase:firebase-messaging
+26.0.0
+com.google.firebase:firebase-perf
+23.0.0
+23.0.1
+com.google.firebase:firebase-pnv
+17.0.0
+com.google.firebase:firebase-storage
+23.0.0
+Performance Monitoring version 23.0.1
+Fixed an issue where NoSuchFieldException was thrown at runtime in
+apps compiled with R8 or ProGuard optimizations enabled.
+(GitHub #8697 )
+SQL Connect version 18.0.1
+Fixed an issue where NoSuchFieldException was thrown during query
+and mutation execution in apps compiled with R8 or ProGuard optimizations
+enabled.
+(GitHub #8698 )
 Update - October 07, 2026
 Firebase Android BoM ( Bill of Materials ) version 35.0.0
 Warning: Breaking Change: In this release, com.google.firebase:firebase-ml-modeldownloader was removed
@@ -23707,7 +23781,7 @@ Google Analytics now logs all app open events driven
 from user clicks on Dynamic Links .
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-14 UTC.
+Last updated 2026-10-15 UTC.
 Learn
 Developer guides
 SDK & API reference

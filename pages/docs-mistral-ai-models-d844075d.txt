@@ -142,6 +142,26 @@ Mistral Moderation 2
 Premier
 Our latest moderation model with 128k context window and jailbreaking detection.
 v 26.03
+Time series models
+Copy section link
+Time series models
+Models for zero-shot time series forecasting with covariate support and probabilistic outputs.
+Timestral 1.0
+Modified MIT
+A time series foundation model for zero-shot forecasting with covariate support and probabilistic outputs.
+v 1.0
+Timestral 1.0 123M
+Modified MIT
+A time series foundation model for zero-shot forecasting with covariate support and probabilistic outputs.
+v 1.0
+Timestral 1.0 28M
+Modified MIT
+A time series foundation model for zero-shot forecasting with covariate support and probabilistic outputs.
+v 1.0
+Timestral 1.0 5M
+Modified MIT
+A time series foundation model for zero-shot forecasting with covariate support and probabilistic outputs.
+v 1.0
 Deprecated
 Copy section link
 Deprecated

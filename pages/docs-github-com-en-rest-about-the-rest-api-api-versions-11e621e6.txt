@@ -68,7 +68,6 @@ Feeds
 Notifications
 Starring
 Watching
-agent-automations
 Agent automations
 Agent tasks
 Agents

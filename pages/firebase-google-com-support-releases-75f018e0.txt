@@ -186,16 +186,16 @@ Latest version
 Apple platforms (iOS+)
 13.0.0
 Android
-Firebase BoM : 35.0.0
+Firebase BoM : 35.0.1
 google-services plugin : 4.5.0
 See notes for individual library versions
 JavaScript
 13.0.0
 Flutter
-Flutter BoM : 4.20.0
+Flutter BoM : 5.0.0
 See notes for individual plugin versions
 Unity
-13.17.0
+14.0.0
 C++
 14.0.0
 Admin Node.js
@@ -215,6 +215,15 @@ Firebase CLI
 Firebase Studio
 See notes
 October 15, 2026
+Test Lab
+The following devices are now deprecated and will be removed on
+2026-11-15:
+Pixel2.arm/26 , Pixel2.arm/27 , Pixel2.arm/28 , Pixel2.arm/29 ,
+Pixel2.arm/30 , Pixel2.arm/31 , Pixel2.arm/32 , Pixel2.arm/33
+If you currently use these devices, consider moving to an Arm virtual device
+(for example, MediumPhone.arm ). See
+Deprecated devices
+for recommended replacements.
 Firebase CLI (v15.34.0)
 The latest
 Firebase CLI (v15.34.0) is now
@@ -223,6 +232,28 @@ dump collection, updates Firebase Authentication deployment to use existing apps
 from any platform, and includes several fixes and improvements.
 To use the Firebase CLI in your development environment,
 set up or update the CLI .
+SDK Releases
+The Firebase SDK for Flutter
+(v5.0.0) is now available.
+This release includes changes in Cloud Functions ,
+Firebase AI Logic , Core, Firebase In-App Messaging and Cloud Messaging ,
+and bug fixes in several products.
+The Firebase SDK for Unity
+(v14.0.0) is now available. This
+release includes changes to Authentication, Firebase AI, and Remote Config ,
+as well as other changes.
+October 14, 2026
+SDK Releases
+The Firebase Android SDKs for
+Performance Monitoring and SQL Connect
+have been updated.
+For more details, check out the latest
+Android Release Notes .
+To get started with Firebase in Android, see
+Add Firebase to your Android Project .
+The Firebase Android BoM ( Bill of Materials )
+has been updated to v35.0.1. Learn how to
+add SDKs to your app using the Firebase BoM .
 October 13, 2026
 Google AI Studio integration
 The Firebase integration in
@@ -305,13 +336,14 @@ is now available. For more details, see the
 Firebase Apple SDK release notes .
 To install this SDK, see Add Firebase to your app .
 The Firebase Android SDKs for
-A/B Testing , AI Logic , Analytics , App Check ,
-App Distribution , Authentication, Cloud Firestore , Cloud Functions ,
+A/B Testing , Firebase AI Logic , Analytics , App Check ,
+App Distribution , Authentication, Cloud Firestore , Cloud Functions (client),
 Cloud Messaging , Cloud Storage , Crashlytics ,
 Crashlytics NDK, Dynamic feature modules support, In-App Messaging ,
-Installations, Performance Monitoring , Firebase PNV , Realtime Database , Remote Config , and
-SQL Connect
-have been updated. For more details, check out the latest
+Firebase installations, Performance Monitoring , Firebase Phone Number Verification , Realtime Database ,
+Remote Config , and SQL Connect
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -511,7 +543,8 @@ To install this SDK, see Add Firebase to your app .
 The Firebase Android SDKs for
 Firebase AI Logic , Cloud Messaging , Cloud Storage ,
 Crashlytics , Crashlytics NDK, Firebase ML , and Realtime Database
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -799,7 +832,8 @@ SDK Releases
 The Firebase Android SDKs for
 Firebase AI Logic , App Check , Cloud Firestore , Firebase ML , and
 SQL Connect
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -955,9 +989,10 @@ such as Low Memory Kills and Out of Memory exceptions, into distinct issues.
 SDK Releases
 The Firebase Android SDKs for
 Firebase AI Logic , App Check , Authentication, Cloud Firestore ,
-Cloud Messaging , Crashlytics , Crashlytics NDK, Installations,
-Performance Monitoring , and SQL Connect
-have been updated. For more details, check out the latest
+Cloud Messaging , Crashlytics , Crashlytics NDK,
+Firebase installations, Performance Monitoring , and SQL Connect
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -1112,9 +1147,11 @@ Firebase Apple SDK release notes .
 To install this SDK, see Add Firebase to your app .
 The Firebase Android SDKs for
 Firebase AI Logic , App Check , App Distribution , Cloud Firestore ,
-Cloud Messaging , Installations, and SQL Connect
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+Cloud Messaging , Firebase installations, and SQL Connect
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -1176,9 +1213,10 @@ Xcode 26.2 is now available.
 If you haven't already, consider migrating to Xcode 26.2 now.
 ## June 08, 2026
 SDK Releases
-The Firebase Android SDKs for
-Firebase PNV
-have been updated. For more details, check out the latest
+The Firebase Android SDK for
+Firebase Phone Number Verification
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -1244,7 +1282,8 @@ cloud-hosted models otherwise (and vice versa).
 SDK Releases
 The Firebase Android SDKs for
 Firebase AI Logic , App Check , and SQL Connect
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -1342,9 +1381,10 @@ This release comes with a new Firebase Phone Number Verification API and new
 features in the Cloud Messaging API.
 To install this SDK, see
 Add the Firebase Admin SDK to your server .
-The Firebase Android SDKs for
+The Firebase Android SDK for
 App Distribution
-have been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -1388,7 +1428,8 @@ The Firebase Android SDKs for
 Firebase AI Logic , Authentication, Cloud Firestore , Cloud Messaging ,
 Crashlytics , Crashlytics NDK, Firebase Phone Number Verification , Remote Config , and
 SQL Connect
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -1556,10 +1597,12 @@ To use the Firebase CLI in your development environment,
 set up or update the CLI .
 SDK Releases
 The Firebase Android SDKs for
-Firebase AI Logic , App Distribution , Cloud Firestore , Cloud Functions ,
-Crashlytics , Crashlytics NDK, SQL Connect ,
-In-App Messaging , Firebase ML , and Performance Monitoring
-have been updated. The Crashlytics Gradle plugin has also been updated.
+Firebase AI Logic , App Distribution , Cloud Firestore ,
+Cloud Functions (client), Crashlytics , Crashlytics NDK,
+In-App Messaging , Firebase ML , Performance Monitoring , and SQL Connect
+have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -1664,8 +1707,9 @@ not impacted by the Firebase Studio sunset.
 SDK Releases
 The Firebase Android SDKs for
 Firebase AI Logic , Analytics , Cloud Firestore ,
-SQL Connect , and Firebase Phone Number Verification
-have been updated. For more details, check out the latest
+Firebase Phone Number Verification , and SQL Connect
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -1733,8 +1777,9 @@ To use the Firebase CLI in your development environment,
 set up or update the CLI .
 March 10, 2026
 SDK Releases
-The Firebase Android SDKs for
-Firebase Phone Number Verification have been updated. For more details, check out the latest
+The Firebase Android SDK for
+Firebase Phone Number Verification has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -1825,9 +1870,10 @@ To use the Firebase CLI in your development environment,
 set up or update the CLI .
 SDK Releases
 The Firebase Android SDKs for
-Firebase AI Logic , Cloud Firestore , SQL Connect , and
-Installations
-have been updated. For more details, check out the latest
+Firebase AI Logic , Cloud Firestore , Firebase installations, and
+SQL Connect
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -1915,11 +1961,13 @@ Firebase AI Logic , Analytics and Realtime Database .
 February 05, 2026
 SDK Releases
 The Firebase Android SDKs for
-Firebase AI Logic , Firebase AI KSP, and App Check
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
-Android Release Notes . To get
-started with Firebase in Android, see
+Firebase AI Logic and App Check
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
+Android Release Notes .
+To get started with Firebase in Android, see
 Add Firebase to your Android Project .
 The Firebase Android BoM ( Bill of Materials )
 has been updated to v34.9.0. Learn how to
@@ -2057,7 +2105,8 @@ SDK Releases
 The Firebase Android SDKs for
 Firebase AI Logic , Cloud Firestore , Crashlytics , Crashlytics NDK,
 and SQL Connect
-have been updated. The initial release of Firebase PNV is also available.
+have been updated.
+The initial release of Firebase Phone Number Verification is also available.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -2160,7 +2209,8 @@ December 11, 2025
 SDK Releases
 The Firebase Android SDK for
 Firebase AI Logic
-has been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -2278,8 +2328,9 @@ set up or update the CLI .
 November 14, 2025
 SDK Releases
 The Firebase Android SDKs for
-Firebase AI Logic , SQL Connect , and Performance Monitoring
-have been updated. For more details, check out the latest
+Firebase AI Logic , Performance Monitoring , and SQL Connect
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -2438,10 +2489,12 @@ PREFER_ON_DEVICE or PREFER_IN_CLOUD mode, you can now
 determine which inference mode was used for a request .
 SDK Releases
 The Firebase Android SDKs for
-Firebase AI Logic , Cloud Functions , SQL Connect ,
-In-App Messaging , and Performance Monitoring
-have been updated. The App Distribution Gradle plugin and Performance Monitoring
-Gradle plugin have also been updated. For more details, check out the latest
+Firebase AI Logic , Cloud Functions (client), In-App Messaging ,
+Performance Monitoring , and SQL Connect
+have been updated.
+The App Distribution Gradle plugin and Performance Monitoring Gradle plugin
+have also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -2556,7 +2609,8 @@ SDK Releases
 The Firebase Android SDKs for
 Firebase AI Logic , Cloud Firestore , Crashlytics , Crashlytics NDK,
 and SQL Connect
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -2681,12 +2735,13 @@ SDK to fall back to the on-device model if the cloud-hosted model isn't
 available (for example, if the device is offline).
 SDK Releases
 The Firebase Android SDKs for
-Firebase AI Logic , A/B Testing , App Check , App Distribution ,
-Cloud Firestore , Cloud Functions , Cloud Messaging ,
+A/B Testing , Firebase AI Logic , App Check , App Distribution ,
+Cloud Firestore , Cloud Functions (client), Cloud Messaging ,
 Cloud Storage , Crashlytics , Crashlytics NDK,
-SQL Connect , In-App Messaging , Installations, Firebase ML ,
-Performance Monitoring , Realtime Database , and Remote Config
-have been updated. For more details, check out the latest
+In-App Messaging , Firebase installations, Firebase ML , Performance Monitoring ,
+Realtime Database , Remote Config , and SQL Connect
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -2828,7 +2883,8 @@ Gemini models.
 SDK Releases
 The Firebase Android SDKs for
 Firebase AI Logic , Crashlytics , Crashlytics NDK, and Performance Monitoring
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -2946,9 +3002,11 @@ your on-device and hybrid AI features. Learn how to get started using
 on-device hybrid inference using Firebase AI Logic .
 SDK Releases
 The Firebase Android SDKs for
-Authentication and Firebase AI Logic
-have been updated. The Crashlytics Gradle plugin and Performance Monitoring Gradle
-plugin have also been updated. For more details, check out the latest
+Firebase AI Logic and Authentication
+have been updated.
+The Crashlytics Gradle plugin and Performance Monitoring Gradle plugin
+have also been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -3044,13 +3102,15 @@ SDK Releases
 Breaking Changes:
 The Firebase Android SDKs for
 A/B Testing , Firebase AI Logic , Analytics , App Check ,
-App Distribution , Authentication, Cloud Firestore , Cloud Functions ,
+App Distribution , Authentication, Cloud Firestore , Cloud Functions (client),
 Cloud Messaging , Cloud Storage , Crashlytics ,
-Crashlytics NDK, SQL Connect , Dynamic feature modules support,
-In-App Messaging , installations, Firebase ML , Performance Monitoring , Realtime Database ,
-and Remote Config
-have been updated. The Crashlytics Gradle plugin and Performance Monitoring Gradle
-plugin have also been updated. For more details, check out the latest
+Crashlytics NDK, Dynamic feature modules support, In-App Messaging ,
+Firebase installations, Firebase ML , Performance Monitoring , Realtime Database ,
+Remote Config , and SQL Connect
+have been updated.
+The Crashlytics Gradle plugin and Performance Monitoring Gradle plugin
+have also been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -3061,7 +3121,7 @@ add SDKs to your app using the Firebase BoM .
 The Firebase SDK for Flutter
 (v3.14.0) is now available.
 This release includes changes in Firebase AI Logic , Analytics ,
-Firebase installations, Authentication and Remote Config , and bug fixes
+Authentication, Firebase installations, and Remote Config , and bug fixes
 in Core and Firebase SQL Connect .
 July 18, 2025
 Remote Config
@@ -3139,7 +3199,8 @@ SDK Releases
 The Firebase Android SDKs for
 Firebase AI Logic , Analytics , Cloud Messaging , and
 SQL Connect
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -3215,7 +3276,9 @@ June 05, 2025
 SDK Releases
 The Firebase Android SDKs for
 Firebase AI Logic , Crashlytics , and Crashlytics NDK
-have been updated. The Crashlytics Gradle plugin has also been updated.
+have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -3376,9 +3439,10 @@ is now available. For more details, see the
 Firebase Apple SDK release notes .
 To install this SDK, see Add Firebase to your app .
 The Firebase Android SDKs for
-Firebase AI Logic, Authentication, Cloud Storage , SQL Connect ,
-Remote Config , and Firebase AI Logic
-have been updated. For more details, check out the latest
+Firebase AI Logic , Authentication, Cloud Storage ,
+Remote Config , SQL Connect , and Firebase AI Logic
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -3498,9 +3562,10 @@ Cloud Firestore , Authentication and Vertex AI in Firebase .
 April 24, 2025
 SDK Releases
 The Firebase Android SDKs for
-Cloud Firestore , Crashlytics , Crashlytics NDK, SQL Connect ,
-Remote Config , and Vertex AI in Firebase
-have been updated. For more details, check out the latest
+Cloud Firestore , Crashlytics , Crashlytics NDK,
+Remote Config , SQL Connect , and Vertex AI in Firebase
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -3681,8 +3746,10 @@ is now available. For more details, see the
 Firebase Apple SDK release notes .
 To install this SDK, see Add Firebase to your app .
 The Firebase Android SDKs for
-Cloud Functions , SQL Connect , and Vertex AI in Firebase
-have been updated. For more details, check out the latest
+Cloud Functions (client), SQL Connect , and
+Vertex AI in Firebase
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -3697,8 +3764,8 @@ To install the SDK, see Add Firebase to your JavaScript Project .
 The Firebase SDK for Flutter
 (v3.9.0) is now available.
 This release includes changes in Cloud Functions , Core, and
-Firebase SQL Connect , as well as bug fixes in App Check ,
-Firebase installations, Authentication, and Vertex AI in Firebase .
+Firebase SQL Connect , as well as bug fixes in App Check , Authentication,
+Firebase installations, and Vertex AI in Firebase .
 March 28, 2025
 Firebase CLI (v14.0.1)
 The latest
@@ -3738,10 +3805,12 @@ us-east4 (Northern Virginia). See Cloud Firestore locations .
 March 20, 2025
 SDK Releases
 The Firebase Android SDKs for
-Analytics , App Distribution , Cloud Firestore , Cloud Functions ,
-Cloud Messaging , Crashlytics , Crashlytics NDK,
-SQL Connect , In-App Messaging , and Performance Monitoring
-have been updated. For more details, check out the latest
+Analytics , App Distribution , Cloud Firestore ,
+Cloud Functions (client), Cloud Messaging , Crashlytics ,
+Crashlytics NDK, In-App Messaging , Performance Monitoring , and
+SQL Connect .
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -3859,8 +3928,10 @@ Web : v11.4.1+ |
 Flutter : v1.4.0+ (BoM: v3.8.0+)
 SDK Releases
 The Firebase Android SDKs for
-Analytics , Cloud Functions , Crashlytics , Crashlytics NDK, and Vertex AI in Firebase
-have been updated. For more details, check out the latest
+Analytics , Cloud Functions (client), Crashlytics ,
+Crashlytics NDK, and Vertex AI in Firebase
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -3986,8 +4057,10 @@ February 06, 2025
 SDK Releases
 The Firebase Android SDKs for
 Authentication, Cloud Firestore , and Vertex AI in Firebase
-have been updated. The App Distribution Gradle plugin and Crashlytics
-Gradle plugin have also been updated. For more details, check out the latest
+have been updated.
+The App Distribution Gradle plugin and Crashlytics Gradle plugin
+have also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -4083,10 +4156,12 @@ AI assistance in Crashlytics
 now provides insights for crashes and ANRs produced by Flutter and Unity apps.
 SDK Releases
 The Firebase Android SDKs for
-Analytics , Crashlytics , Crashlytics NDK, SQL Connect ,
-Performance Monitoring , and Remote Config
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+Analytics , Crashlytics , Crashlytics NDK, Performance Monitoring ,
+Remote Config , and SQL Connect
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -4175,7 +4250,8 @@ December 05, 2024
 SDK Releases
 The Firebase Android SDKs for
 Crashlytics , Crashlytics NDK, and Performance Monitoring
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -4249,9 +4325,10 @@ set up or update the CLI .
 November 15, 2024
 SDK Releases
 The Firebase Android SDKs for
-Cloud Functions , Cloud Messaging , SQL Connect , and
-Vertex AI in Firebase
-have been updated. For more details, check out the latest
+Cloud Functions (client), Cloud Messaging , SQL Connect ,
+and Vertex AI in Firebase
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -4426,7 +4503,8 @@ Firebase Apple SDK release notes .
 To install this SDK, see Add Firebase to your app .
 The Firebase Android SDK for
 Vertex AI in Firebase
-has been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -4489,9 +4567,10 @@ Firebase Apple SDK release notes .
 To install this SDK, see Add Firebase to your app .
 The Firebase Android SDKs for
 Authentication, Cloud Firestore , Cloud Messaging , Crashlytics ,
-Crashlytics NDK, SQL Connect , Firebase ML ,
-In-App Messaging , Performance Monitoring , Remote Config , and Vertex AI in Firebase
-have been updated. For more details, check out the latest
+Crashlytics NDK, In-App Messaging , Firebase ML , Performance Monitoring ,
+Remote Config , SQL Connect , and Vertex AI in Firebase
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -4582,7 +4661,8 @@ SDK Releases
 The Firebase Android SDKs for
 Analytics , Cloud Messaging , Cloud Storage , Crashlytics ,
 Crashlytics NDK, SQL Connect , and Vertex AI in Firebase
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -4692,8 +4772,10 @@ custom signals .
 September 12, 2024
 SDK Releases
 The Firebase Android SDKs for
-App Distribution , Crashlytics , Crashlytics NDK, and Vertex AI in Firebase
-have been updated. For more details, check out the latest
+App Distribution , Crashlytics , Crashlytics NDK, and
+Vertex AI in Firebase
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -4792,7 +4874,8 @@ August 22, 2024
 SDK Releases
 The Firebase Android SDKs for
 Analytics , Cloud Firestore , and Cloud Messaging
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -4902,7 +4985,8 @@ August 01, 2024
 SDK Releases
 The Firebase Android SDK for
 Vertex AI in Firebase
-has been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -4998,7 +5082,8 @@ July 11, 2024
 SDK Releases
 The Firebase Android SDKs for
 Crashlytics , Crashlytics NDK, and Vertex AI in Firebase
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -5081,9 +5166,12 @@ set up or update the CLI .
 June 20, 2024
 SDK Releases
 The Firebase Android SDKs for
-Analytics , Crashlytics , Crashlytics NDK, and Vertex AI in Firebase
-have been updated. The Crashlytics
-Gradle plugin has also been updated. For more details, check out the latest
+Analytics , Crashlytics , Crashlytics NDK, and
+Vertex AI in Firebase
+have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -5176,9 +5264,10 @@ to learn about how to opt out, how delegation affects reporting, and more.
 May 30, 2024
 SDK Releases
 The Firebase Android SDKs for
-Analytics , App Distribution , Crashlytics , Crashlytics NDK, Dynamic Links ,
-and Performance Monitoring
-have been updated. For more details, check out the latest
+Analytics , App Distribution , Crashlytics , Crashlytics NDK,
+Dynamic Links , and Performance Monitoring
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -5383,12 +5472,14 @@ May 02, 2024
 SDK Releases
 The Firebase Android SDKs for
 A/B Testing , Analytics , App Check , Authentication, Cloud Firestore ,
-Cloud Functions , Cloud Messaging , Cloud Storage ,
+Cloud Functions (client), Cloud Messaging , Cloud Storage ,
 Crashlytics , Crashlytics NDK, Dynamic Links , In-App Messaging ,
-Installations, Firebase ML , Performance Monitoring , Realtime Database , and
-Remote Config have been updated. The App Distribution Gradle plugin
-and Crashlytics Gradle plugin have also been updated. For more details,
-check out the latest
+Firebase installations, Firebase ML , Performance Monitoring , Realtime Database , and
+Remote Config
+have been updated.
+The App Distribution Gradle plugin and Crashlytics Gradle plugin
+have also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -5504,8 +5595,10 @@ Adds support for local-only Cloud Firestore listeners.
 April 11, 2024
 SDK Releases
 The Firebase Android SDKs for
-Analytics , Cloud Firestore , Crashlytics , Crashlytics NDK, and In-App Messaging
-have been updated. For more details, check out the latest
+Analytics , Cloud Firestore , Crashlytics , Crashlytics NDK, and
+In-App Messaging
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -5643,7 +5736,7 @@ is available.
 This release includes the following:
 Adds support for Consent Mode v2 when using Analytics .
 Adds a custom auth domain setter to FirebaseAuth .
-Migrates the Analytics , App Installations, Realtime Database , Performance Monitoring ,
+Migrates the Analytics , App Installations, Performance Monitoring , Realtime Database ,
 and Remote Config libraries to dart:js_interop to enable Wasm as a
 build target.
 Firebase CLI (v13.6.0)
@@ -5658,7 +5751,8 @@ SDK Releases
 The Firebase Android SDKs for
 Analytics , Cloud Firestore , Crashlytics , Crashlytics NDK, and
 In-App Messaging
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -5740,8 +5834,8 @@ Firebase Apple SDK (v10.22.1)
 is now available. For more details, see the
 Firebase Apple SDK release notes .
 To install this SDK, see Add Firebase to your app .
-The Firebase Android SDKs for
-Remote Config have been updated.
+The Firebase Android SDK for
+Remote Config has been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -5773,8 +5867,9 @@ Firebase JavaScript SDK release notes .
 To install the SDK, see Add Firebase to your JavaScript Project .
 The Firebase Android SDKs for
 Cloud Firestore , Realtime Database , and Remote Config
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+have been updated.
+The App Distribution Gradle plugin has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -5840,11 +5935,12 @@ other changes.
 February 08, 2024
 SDK Releases
 The Firebase Android SDKs for
-A/B Testing , Analytics , App Check , App Distribution , Cloud Firestore ,
-Cloud Messaging , Crashlytics , Crashlytics NDK, Firebase ML ,
-Performance Monitoring , and Remote Config
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+A/B Testing , Analytics , App Check , App Distribution ,
+Cloud Firestore , Cloud Messaging , Crashlytics , Crashlytics NDK,
+Firebase ML , Performance Monitoring , and Remote Config
+have been updated.
+The App Distribution Gradle plugin has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -5957,7 +6053,8 @@ SDK Releases
 The Firebase Android SDKs for
 Authentication, Cloud Firestore , Crashlytics , Crashlytics NDK, and
 Firebase ML
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -6042,7 +6139,8 @@ December 07, 2023
 SDK Releases
 The Firebase Android SDKs for
 Cloud Firestore and Cloud Messaging
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -6116,8 +6214,10 @@ Add the Firebase Admin SDK to your server .
 November 16, 2023
 SDK Releases
 The Firebase Android SDKs for
-Authentication, Crashlytics , Crashlytics NDK, Performance Monitoring , and Remote Config
-have been updated. For more details, check out the latest
+Authentication, Crashlytics , Crashlytics NDK, Performance Monitoring , and
+Remote Config
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -6190,7 +6290,8 @@ Swift extension SDKs are deprecated in this version of Firebase. See
 the migration guide for more details.
 The Firebase Android SDK for
 Analytics
-has been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -6207,8 +6308,10 @@ To install the SDK, see Add Firebase to your JavaScript Project .
 The Firebase Android SDKs for
 App Check , Cloud Firestore , Cloud Messaging , Crashlytics , and
 Firebase ML
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -6244,11 +6347,12 @@ October 18, 2023
 SDK Releases
 The Firebase Android SDKs for
 Analytics , App Check , App Distribution , Authentication, Cloud Firestore ,
-Cloud Functions , Cloud Messaging , Cloud Storage ,
+Cloud Functions (client), Cloud Messaging , Cloud Storage ,
 Crashlytics , Crashlytics NDK, Dynamic Links , In-App Messaging ,
-Installations, Firebase ML , Performance Monitoring , Realtime Database , and
+Firebase installations, Firebase ML , Performance Monitoring , Realtime Database , and
 Remote Config
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -6380,8 +6484,10 @@ Windows support for Authentication.
 September 15, 2023
 SDK Releases
 The Firebase Android SDKs for
-Authentication, Crashlytics , Crashlytics NDK, Cloud Firestore , and In-App Messaging
-have been updated. For more details, check out the latest
+Authentication, Cloud Firestore , Crashlytics , Crashlytics NDK, and
+In-App Messaging
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -6391,8 +6497,9 @@ add SDKs to your app using the Firebase BoM .
 September 14, 2023
 SDK Releases
 The Firebase Android SDKs for
-Crashlytics , Crashlytics NDK, Cloud Firestore , and In-App Messaging
-have been updated. For more details, check out the latest
+Cloud Firestore , Crashlytics , Crashlytics NDK, and In-App Messaging
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -6472,7 +6579,9 @@ Set up or update the CLI .
 SDK Releases
 The Firebase Android SDKs for
 Cloud Firestore , Crashlytics , Crashlytics NDK, and Performance Monitoring
-have been updated. The Crashlytics Gradle plugin has also been updated.
+have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -6577,8 +6686,9 @@ August 03, 2023
 SDK Releases
 The Firebase Android SDKs for
 App Distribution , Authentication, Cloud Messaging , In-App Messaging ,
-Installations, and Firebase ML
-have been updated. The Crashlytics Gradle plugin has also been updated.
+Firebase installations, and Firebase ML
+have been updated.
+The Crashlytics Gradle plugin has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -6651,9 +6761,10 @@ several new Cloud Storage widgets to Firebase UI.
 July 13, 2023
 SDK Releases
 The Firebase Android SDKs for
-App Distribution , Authentication, Cloud Firestore , Cloud Messaging , Crashlytics ,
-Performance Monitoring , and Remote Config
-have been updated. The Crashlytics Gradle plugin has also been updated.
+App Distribution , Authentication, Cloud Firestore , Cloud Messaging ,
+Crashlytics , Performance Monitoring , and Remote Config
+have been updated.
+The Crashlytics Gradle plugin has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -6787,7 +6898,8 @@ June 15, 2023
 SDK Releases
 The Firebase Android SDKs for
 Cloud Storage and Performance Monitoring
-have been updated. The Crashlytics Gradle plugin has also been updated.
+have been updated.
+The Crashlytics Gradle plugin has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -6862,9 +6974,10 @@ is now available. For more details, see the
 Firebase JavaScript SDK release notes .
 To install the SDK, see Add Firebase to your JavaScript Project .
 The Firebase Android SDKs for
-Analytics , App Check , Cloud Firestore , Cloud Functions , and
+Analytics , App Check , Cloud Firestore , Cloud Functions (client), and
 Realtime Database
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -7016,10 +7129,11 @@ Set up or update the CLI .
 May 01, 2023
 SDK Releases
 The Firebase Android SDKs for
-App Check , Authentication, Cloud Firestore , Cloud Functions ,
+App Check , Authentication, Cloud Firestore , Cloud Functions (client),
 Cloud Storage , Crashlytics , Crashlytics NDK,
 In-App Messaging , Performance Monitoring , Realtime Database , and Remote Config
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -7101,7 +7215,8 @@ To install this SDK, see Add Firebase to your app .
 This release is available via Swift Package Manager only.
 The Firebase Android SDKs for
 Analytics , App Distribution , Authentication, Cloud Firestore , and Realtime Database
-have been updated. The Crashlytics Gradle plugin has also been updated.
+have been updated.
+The Crashlytics Gradle plugin has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -7210,9 +7325,10 @@ GWP-ASan explicitly enabled
 modify your Android App Manifest ).
 March 28, 2023
 SDK Releases
-The Firebase Android SDKs for
+The Firebase Android SDK for
 Authentication
-have been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -7242,7 +7358,8 @@ SDK Releases
 The Firebase Android SDKs for
 Analytics , App Distribution , Cloud Firestore , Crashlytics ,
 Crashlytics NDK, and Remote Config
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -7329,9 +7446,11 @@ March 02, 2023
 SDK Releases
 The Firebase Android SDKs for
 App Check , App Distribution , Cloud Firestore , Cloud Messaging ,
-In-App Messaging , and Installations
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+In-App Messaging , and Firebase installations
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -7379,8 +7498,8 @@ is available. This release includes Trusted Types support in web apps.
 February 15, 2023
 SDK Releases
 The Firebase Android SDKs for
-Crashlytics , Crashlytics NDK, and
-Installations have been updated.
+Crashlytics , Crashlytics NDK, and Firebase installations
+have been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -7410,8 +7529,9 @@ February 09, 2023
 SDK Releases
 The Firebase Android SDKs for
 A/B Testing , Cloud Firestore , Crashlytics , Crashlytics NDK, and
-Installations have been updated. The Crashlytics Gradle plugin has also
-been updated.
+Firebase installations
+have been updated.
+The Crashlytics Gradle plugin has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -7516,11 +7636,13 @@ your users.
 January 19, 2023
 SDK Releases
 The Firebase Android SDKs for
-App Check , Cloud Firestore , Cloud Functions , Crashlytics ,
+App Check , Cloud Firestore , Cloud Functions (client), Crashlytics ,
 Crashlytics NDK, In-App Messaging , Firebase ML , Performance Monitoring , and
 Remote Config
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -7622,9 +7744,10 @@ The Firebase SDK for C++
 with updated dependencies.
 December 08, 2022
 SDK Releases
-The Firebase Android SDKs for
+The Firebase Android SDK for
 Cloud Messaging
-have been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -7670,9 +7793,11 @@ Android and iOS dependencies.
 November 17, 2022
 SDK Releases
 The Firebase Android SDKs for
-Cloud Functions , Cloud Firestore , and Performance Monitoring
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+Cloud Firestore , Cloud Functions (client), and Performance Monitoring
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -7697,7 +7822,8 @@ November 11, 2022
 SDK Releases
 The Firebase Android SDKs for
 Crashlytics and Crashlytics NDK
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -7760,8 +7886,10 @@ Firebase Apple SDK release notes .
 To install this SDK, see Add Firebase to your app .
 The Firebase Android SDKs for
 Firebase ML
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -7777,7 +7905,8 @@ October 20, 2022
 SDK Releases
 The Firebase Android SDKs for
 Crashlytics and Crashlytics NDK
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -7932,11 +8061,12 @@ October 12, 2022
 SDK Releases
 The Firebase Android SDKs for
 A/B Testing , Analytics , App Check , App Distribution , Authentication,
-Cloud Firestore , Cloud Functions , Cloud Messaging ,
+Cloud Firestore , Cloud Functions (client), Cloud Messaging ,
 Cloud Storage , Crashlytics , Crashlytics NDK,
-Dynamic Links , In-App Messaging , Installations, Firebase ML , Performance Monitoring ,
-Realtime Database , and Remote Config
-have been updated. The Performance Monitoring Gradle plugin has also been updated.
+Dynamic Links , In-App Messaging , Firebase installations, Firebase ML ,
+Performance Monitoring , Realtime Database , and Remote Config
+have been updated.
+The Performance Monitoring Gradle plugin has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -8034,9 +8164,12 @@ app is experiencing issues or you simply want to learn more, check
 this FAQ .
 September 15, 2022
 SDK Releases
-The Firebase Android SDKs for Installations,
-App Check , App Distribution , Crashlytics Gradle plugin, and
-Cloud Firestore have been updated. For more details, check out the latest
+The Firebase Android SDKs for
+App Check , App Distribution , Cloud Firestore , and
+Firebase installations
+have been updated.
+The Crashlytics Gradle plugin has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -8073,7 +8206,8 @@ September 06, 2022
 SDK Releases
 The Firebase Android SDKs for
 App Check
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -8090,8 +8224,13 @@ Analyzing logs .
 September 01, 2022
 SDK Releases
 The Firebase Android SDKs for
-A/B Testing , Analytics , App Check , Authentication, Cloud Firestore , Cloud Functions , Cloud Messaging , Cloud Storage , Crashlytics , Crashlytics NDK, Dynamic feature modules support, Dynamic Links , In-App Messaging , Installations, Firebase ML , Performance Monitoring , Realtime Database , and Remote Config
-have been updated. For more details, check out the latest
+A/B Testing , Analytics , App Check , Authentication, Cloud Firestore ,
+Cloud Functions (client), Cloud Messaging , Cloud Storage ,
+Crashlytics , Crashlytics NDK, Dynamic feature modules support,
+Dynamic Links , In-App Messaging , Firebase installations, Firebase ML ,
+Performance Monitoring , Realtime Database , and Remote Config
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -8165,8 +8304,10 @@ August 05, 2022
 SDK Releases
 The Firebase Android SDKs for
 Authentication, Cloud Firestore , and Cloud Messaging
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -8245,7 +8386,8 @@ shipping soon!
 SDK Releases
 The Firebase Android SDKs for
 Crashlytics and Crashlytics NDK
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -8286,9 +8428,10 @@ This release includes general fixes.
 July 15, 2022
 SDK Releases
 The Firebase Android SDKs for
-Analytics , Firebase ML , Cloud Firestore ,
-Dynamic feature modules support, and Remote Config
-have been updated. For more details, check out the latest
+Analytics , Cloud Firestore , Dynamic feature modules support,
+Firebase ML , and Remote Config
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -8346,7 +8489,9 @@ June 23, 2022
 SDK Releases
 The Firebase Android SDKs for
 Authentication, Cloud Firestore , and Cloud Messaging
-have been updated. The Crashlytics Gradle plugin have also been updated.
+have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -8462,10 +8607,12 @@ optimize for the majority of your users. To learn more, see
 Track key metrics in your dashboard .
 SDK Releases
 The Firebase Android SDKs for
-App Distribution , Authentication, Crashlytics , Crashlytics NDK, and Performance Monitoring
-have been updated. The App Distribution Gradle plugin and
-Crashlytics Gradle plugin have also been updated. For more details, check
-out the latest
+App Distribution , Authentication, Crashlytics , Crashlytics NDK, and
+Performance Monitoring
+have been updated.
+The App Distribution Gradle plugin and Crashlytics Gradle plugin
+have also been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -8481,9 +8628,10 @@ Firebase Apple SDK release notes .
 To install this SDK, see Add Firebase to your app .
 May 19, 2022
 SDK Releases
-The Firebase Android SDKs for
+The Firebase Android SDK for
 Cloud Messaging
-have been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -8528,9 +8676,10 @@ dSYMs tab
 in the Firebase console to learn more and try it out.
 May 12, 2022
 SDK Releases
-The Firebase Android SDKs for
+The Firebase Android SDK for
 Authentication
-have been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -8610,9 +8759,10 @@ is now available. For more details, see the
 Firebase JavaScript SDK release notes .
 To install the SDK, see Add Firebase to your JavaScript Project .
 The Firebase Android SDKs for
-Analytics , App Check , Cloud Firestore , Cloud Functions ,
+Analytics , App Check , Cloud Firestore , Cloud Functions (client),
 Realtime Database , and Remote Config
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -8651,7 +8801,8 @@ April 27, 2022
 SDK Releases
 The Firebase Android SDKs for
 Crashlytics and Crashlytics NDK
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -8684,7 +8835,8 @@ April 14, 2022
 SDK Releases
 The Firebase Android SDKs for
 App Check , App Distribution , Cloud Firestore , and Cloud Messaging
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -8774,7 +8926,8 @@ March 24, 2022
 SDK Releases
 The Firebase Android SDKs for
 Analytics , App Check , Authentication, and Cloud Firestore
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -8800,9 +8953,10 @@ Firebase iOS SDK release notes .
 To install this SDK, see Add Firebase to your iOS Project .
 March 17, 2022
 SDK Releases
-The Firebase Android SDKs for Analytics and
-Cloud Messaging
-have been updated. For more details, check out the latest
+The Firebase Android SDKs for
+Analytics and Cloud Messaging
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -8847,11 +9001,12 @@ March 10, 2022
 SDK Releases
 The Firebase Android SDKs for
 A/B Testing , Authentication, Cloud Firestore , Cloud Functions (client),
-Cloud Messaging , Crashlytics , Crashlytics NDK, Dynamic Links ,
-In-App Messaging , installations, Firebase ML , Performance Monitoring , Realtime Database ,
-Remote Config , and Cloud Storage
-have been updated. The App Distribution Gradle plugin has also been
-updated.
+Cloud Messaging , Cloud Storage , Crashlytics ,
+Crashlytics NDK, Dynamic Links , In-App Messaging , Firebase installations,
+Firebase ML , Performance Monitoring , Realtime Database , and Remote Config
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
 This release also includes the initial beta releases of the
 App Distribution Android SDK.
 For more details, check out the latest
@@ -8933,8 +9088,10 @@ Environment variables .
 February 11, 2022
 SDK Releases
 The Firebase Android SDKs for
-Analytics , Crashlytics , Crashlytics NDK, Firebase ML , and Performance Monitoring
-have been updated. For more details, check out the latest
+Analytics , Crashlytics , Crashlytics NDK, Firebase ML , and
+Performance Monitoring
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -9047,8 +9204,9 @@ January 20, 2022
 SDK Releases
 The Firebase Android SDKs for
 Cloud Firestore , Crashlytics , and Crashlytics NDK
-have been updated. The App Distribution Gradle plugin and
-Performance Monitoring Gradle plugin have also been updated.
+have been updated.
+The App Distribution Gradle plugin and Performance Monitoring Gradle plugin
+have also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -9150,7 +9308,8 @@ December 16, 2021
 SDK Releases
 The Firebase Android SDK for
 Analytics
-has been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -9193,7 +9352,8 @@ December 10, 2021
 SDK Releases
 The Firebase Android SDKs for
 Analytics , Crashlytics , and Crashlytics NDK
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -9236,8 +9396,9 @@ November 30, 2021
 SDK Releases
 The Firebase Android SDKs for
 App Check , Crashlytics , Crashlytics NDK, Firebase ML ,
-Performance Monitoring , and Realtime Database have been updated. The Crashlytics Gradle
-plugin has also been updated.
+Performance Monitoring , and Realtime Database have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -9413,7 +9574,9 @@ This release contains breaking changes.
 The Firebase Android SDKs for
 Analytics , Cloud Firestore , Cloud Messaging , Crashlytics ,
 Crashlytics NDK, Dynamic Links , and In-App Messaging
-have been updated. The Crashlytics Gradle plugin has also been updated.
+have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -9537,7 +9700,8 @@ SDK Releases
 The Firebase Android SDKs for
 Analytics , App Check , Cloud Firestore , Crashlytics , Crashlytics
 NDK, and Performance Monitoring
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -9619,9 +9783,11 @@ generation.
 September 13, 2021
 SDK Releases
 The Firebase Android SDKs for
-Cloud Functions and Realtime Database
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+Cloud Functions (client) and Realtime Database
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -9747,7 +9913,8 @@ August 20, 2021
 SDK Releases
 The Firebase Android SDKs for
 Analytics and In-App Messaging
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -9831,7 +9998,8 @@ August 05, 2021
 SDK Releases
 The Firebase Android SDKs for
 Crashlytics , Crashlytics NDK, and Remote Config
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -9878,7 +10046,8 @@ SDK Releases
 The Firebase Android SDKs for
 Cloud Firestore , Crashlytics , Crashlytics NDK, Dynamic Links , and
 Realtime Database
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -9925,7 +10094,8 @@ July 09, 2021
 SDK Releases
 The Firebase Android SDKs for
 App Check , Cloud Firestore , and Performance Monitoring
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -10009,8 +10179,9 @@ Firebase iOS SDK release notes .
 To install this SDK, see Add Firebase to your iOS Project .
 The Firebase Android SDKs for
 Crashlytics and Crashlytics NDK
-have been updated. The App Distribution Gradle plugin and
-Crashlytics Gradle plugin have also been updated.
+have been updated.
+The App Distribution Gradle plugin and Crashlytics Gradle plugin
+have also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -10078,7 +10249,9 @@ June 03, 2021
 SDK Releases
 The Firebase Android SDKs for Cloud Firestore ,
 Crashlytics , Crashlytics NDK, Dynamic Links , and Performance Monitoring
-have been updated. The Crashlytics Gradle plugin has also been updated.
+have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -10222,9 +10395,12 @@ for Android (v4.3.8) is now available. For more information, see the
 Firebase Android SDK Release Notes .
 May 13, 2021
 SDK Releases
-The Firebase Android SDKs for
-Authentication have been updated. The Crashlytics Gradle plugin has also been
-updated. For more details, check out the latest
+The Firebase Android SDK for
+Authentication
+has been updated.
+The Crashlytics Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -10251,12 +10427,14 @@ Firebase iOS SDK release notes .
 To install this SDK, see Add Firebase to your iOS Project .
 The Firebase Android SDKs for
 A/B Testing , Analytics , App Indexing , Authentication, Cloud Firestore ,
-Cloud Functions , Cloud Messaging , Cloud Storage ,
+Cloud Functions (client), Cloud Messaging , Cloud Storage ,
 Crashlytics , Crashlytics NDK, Dynamic Links , In-App Messaging ,
-Installations, Firebase ML , Performance Monitoring , Realtime Database , and
-Remote Config have been updated. The App Distribution Gradle plugin,
-Crashlytics Gradle plugin, Performance Monitoring Gradle plugin have also been
-updated.
+Firebase installations, Firebase ML , Performance Monitoring , Realtime Database , and
+Remote Config
+have been updated.
+The App Distribution Gradle plugin, Crashlytics Gradle plugin,
+Performance Monitoring Gradle plugin
+have also been updated.
 This release also includes the initial beta releases of the App Check SDKs
 as well as support for dynamic feature modules.
 An updated version of the
@@ -10490,7 +10668,8 @@ April 08, 2021
 SDK Releases
 The Firebase Android SDKs for
 Analytics , Authentication, Cloud Messaging , and Instance IDs
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -10586,7 +10765,9 @@ March 25, 2021
 SDK Releases
 The Firebase Android SDKs for
 Cloud Firestore , Cloud Storage , Crashlytics , and Crashlytics NDK
-have been updated. The Crashlytics Gradle plugin has also been updated.
+have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -10687,7 +10868,8 @@ for your project.
 SDK Releases
 The Firebase Android SDKs for
 Crashlytics , Crashlytics NDK, and Realtime Database
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -10767,8 +10949,10 @@ SDK Releases
 The Firebase Android SDKs for
 Authentication, Cloud Firestore , In-App Messaging , Firebase ML , and
 Remote Config
-have been updated. The App Distribution , Crashlytics , and Performance Monitoring
-Gradle plugins have also been updated. For more details, check out the latest
+have been updated.
+The App Distribution , Crashlytics , and Performance Monitoring Gradle plugins
+have also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -10855,7 +11039,9 @@ February 11, 2021
 SDK Releases
 The Firebase Android SDKs for
 App Indexing , Cloud Firestore , and Performance Monitoring
-have been updated. The Crashlytics Gradle plugin has also been updated.
+have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -10905,8 +11091,7 @@ running emulators.
 SDK Releases
 The Firebase SDK for C++
 (v7.0.1) is now available.
-This release fixes a linker issue with the Firebase installations SDK on
-Android.
+This release fixes a linker issue with the Firebase installations SDK on Android.
 January 29, 2021
 SDK Releases
 The
@@ -10923,7 +11108,8 @@ Add the Firebase Admin SDK to your server .
 The Firebase Android SDKs for
 Analytics , Cloud Firestore , Crashlytics , Crashlytics NDK,
 In-App Messaging , and Remote Config
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -11007,7 +11193,8 @@ January 14, 2021
 SDK Releases
 The Firebase Android SDKs for
 Analytics , Authentication, and Performance Monitoring
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -11115,10 +11302,11 @@ To install the SDK, see Add Firebase to your JavaScript Project .
 December 16, 2020
 SDK Releases
 The Firebase Android SDKs for
-Cloud Firestore , Cloud Functions , Cloud Messaging ,
-Cloud Storage , In-App Messaging , Installations, Instance IDs,
-Performance Monitoring , and Realtime Database
-have been updated. For more details, check out the latest
+Cloud Firestore , Cloud Functions (client), Cloud Messaging ,
+Cloud Storage , In-App Messaging , Firebase installations,
+Instance IDs, Performance Monitoring , and Realtime Database
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -11229,7 +11417,8 @@ December 03, 2020
 SDK Releases
 The Firebase Android SDK for
 Remote Config
-has been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -11268,8 +11457,9 @@ Firebase iOS SDK release notes .
 To install this SDK, see Add Firebase to your iOS Project .
 The Firebase SDK for Unity
 (v7.0.0) is now available.
-This release updates the Android and iOS dependencies, adds the Installations
-library, various fixes in Firestore, and removes older deprecated functions.
+This release updates the Android and iOS dependencies, adds the
+Firebase installations library, various fixes in Firestore, and removes
+older deprecated functions.
 November 19, 2020
 SDK Releases
 The
@@ -11312,10 +11502,12 @@ Firebase Realtime Database . (GitHub
 Issue #2814 )
 SDK Releases
 The Firebase Android SDKs for
-Authentication, Crashlytics , Crashlytics NDK, installations, Performance Monitoring ,
-and Remote Config
-have been updated. The Crashlytics Gradle plugin and the Performance Monitoring
-Gradle plugin have also been updated. For more details, check out the latest
+Authentication, Crashlytics , Crashlytics NDK, Firebase installations,
+Performance Monitoring , and Remote Config
+have been updated.
+The Crashlytics Gradle plugin and the Performance Monitoring Gradle plugin
+have also been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -11396,7 +11588,9 @@ SDK Releases
 The Firebase Android SDKs for
 A/B Testing , Analytics , Authentication, Cloud Firestore , Cloud Messaging ,
 In-App Messaging , Instance IDs, and Remote Config
-have been updated. The Performance Monitoring Gradle plugin has also been updated.
+have been updated.
+The Performance Monitoring Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -11434,7 +11628,8 @@ Firebase iOS SDK release notes .
 This release reverts Performance to a previous version and is available via CocoaPods only.
 The Firebase Android SDK for
 Realtime Database
-has been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -11520,7 +11715,9 @@ October 06, 2020
 SDK Releases
 The Firebase Android SDKs for
 Analytics , Cloud Firestore , and Dynamic Links SDKs
-have been updated. The Performance Monitoring Gradle plugin has also been updated.
+have been updated.
+The Performance Monitoring Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -11565,8 +11762,9 @@ September 30, 2020
 SDK Releases
 The Firebase Android SDKs for
 Cloud Firestore , Cloud Messaging , Crashlytics , Crashlytics NDK,
-installations, Instance IDs, Performance Monitoring , and Realtime Database
-have been updated. For more details, check out the latest
+Firebase installations, Instance IDs, Performance Monitoring , and Realtime Database
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -11685,9 +11883,11 @@ This release is available via CocoaPods only.
 August 27, 2020
 SDK Releases
 The Firebase Android SDKs for
-Cloud Firestore , Cloud Functions , Cloud Storage , In-App Messaging ,
-and Realtime Database
-have been updated. The Crashlytics Gradle plugin has also been updated.
+Cloud Firestore , Cloud Functions (client), Cloud Storage ,
+In-App Messaging , and Realtime Database
+have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -11741,8 +11941,10 @@ August 14, 2020
 SDK Releases
 The Firebase Android SDKs for
 Analytics , Crashlytics , Crashlytics NDK, and Firebase ML
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -11805,8 +12007,9 @@ Interpret accessibility results to learn how to interpret screenshots and
 other information about your accessibility test results.
 SDK Releases
 The Firebase Android SDKs for
-Cloud Messaging , Instance IDs, and installations
-have been updated. For more details, check out the latest
+Cloud Messaging , Firebase installations, and Instance IDs
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -11862,7 +12065,8 @@ July 17, 2020
 SDK Releases
 The Firebase Android SDK for
 Performance Monitoring
-has been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -11909,7 +12113,8 @@ July 08, 2020
 SDK Releases
 The Firebase Android SDKs for
 Cloud Messaging and Instance IDs
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -11929,7 +12134,8 @@ SDK Releases
 The Firebase Android SDKs for
 Analytics , Authentication, Cloud Firestore , Cloud Messaging , Crashlytics ,
 Crashlytics NDK, In-App Messaging , Instance IDs, and Remote Config
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -11968,8 +12174,9 @@ June 18, 2020
 SDK Releases
 The Firebase Android SDKs for
 Cloud Messaging , Crashlytics , Crashlytics NDK, Instance IDs,
-and Realtime Database have been updated. The Crashlytics Gradle plugin has also
-been updated.
+and Realtime Database have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -12012,9 +12219,12 @@ To install the SDK, see Add Firebase to your JavaScript Project .
 June 04, 2020
 SDK Releases
 The Firebase Android SDKs for
-Analytics , Crashlytics , Crashlytics NDK, and Installations
-have been updated. The App Distribution Gradle plugin has also
-been updated. For more details, check out the latest
+Analytics , Crashlytics , Crashlytics NDK, and
+Firebase installations
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -12057,10 +12267,13 @@ Add Firebase to your JavaScript Project .
 May 21, 2020
 SDK Releases
 The Firebase Android SDKs for
-Analytics , Cloud Messaging , In-App Messaging , Installations, and
-Instance IDs have been updated. The Crashlytics Gradle plugin has also
-been updated. The Cloud Messaging Direct Boot SDK is now available. For
-more details, check out the latest
+Analytics , Cloud Messaging , In-App Messaging ,
+Firebase installations, and Instance IDs
+have been updated.
+The Crashlytics Gradle plugin has also been updated.
+This release also includes the initial release of the
+Cloud Messaging Direct Boot SDK.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -12118,9 +12331,12 @@ Add the Firebase Admin SDK to your Server .
 May 07, 2020
 SDK Releases
 The Firebase Android SDKs for
-Analytics , Cloud Messaging , Installations, and Instance IDs
-have been updated. The App Distribution and Crashlytics Gradle plugins
-have also been updated. For more details, check out the latest
+Analytics , Cloud Messaging , Firebase installations, and
+Instance IDs
+have been updated.
+The App Distribution and Crashlytics Gradle plugins
+have also been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -12160,9 +12376,12 @@ April 23, 2020
 SDK Releases
 The Firebase Android SDKs for
 Analytics , Authentication, Crashlytics , Crashlytics NDK, Cloud Firestore ,
-Cloud Messaging , In-App Messaging , Installations, Instance IDs,
-Firebase ML , Performance Monitoring , Realtime Database , and Remote Config
-have been updated. The Crashlytics Gradle plugin has also been updated.
+Cloud Messaging , In-App Messaging , Firebase installations,
+Instance IDs, Firebase ML , Performance Monitoring , Realtime Database , and
+Remote Config
+have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -12232,7 +12451,8 @@ SDK Releases
 The Firebase Android SDKs for
 Crashlytics , Crashlytics NDK, In-App Messaging , Firebase ML , and
 Performance Monitoring
-have been updated. The App Distribution and Crashlytics Gradle plugins
+have been updated.
+The App Distribution and Crashlytics Gradle plugins
 have also been updated.
 For more details, check out the latest
 Android Release Notes .
@@ -12262,8 +12482,9 @@ To install this SDK, see Add Firebase to your iOS Project .
 April 03, 2020
 SDK Releases
 The Firebase Android SDKs for
-Cloud Messaging , Installations, and Instance IDs
-have been updated. For more details, check out the latest
+Cloud Messaging , Firebase installations, and Instance IDs
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -12286,8 +12507,9 @@ March 30, 2020
 SDK Releases
 The Firebase Android SDKs for
 Analytics , Cloud Firestore , Cloud Messaging , Crashlytics ,
-Crashlytics NDK, Installations, and Instance IDs
-have been updated. For more details, check out the latest
+Crashlytics NDK, Firebase installations, and Instance IDs
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -12356,9 +12578,11 @@ about all the benefits of using
 AdMob , Firebase, and Google Analytics together!
 SDK Releases
 The Firebase Android SDKs for
-Cloud Messaging , Crashlytics , In-App Messaging , Installations,
-Instance IDs, and Remote Config
-have been updated. The Crashlytics Gradle plugin has also been updated.
+Cloud Messaging , Crashlytics , In-App Messaging ,
+Firebase installations, Instance IDs, and Remote Config
+have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -12378,7 +12602,8 @@ March 12, 2020
 SDK Releases
 The Firebase Android SDK for
 Authentication
-has been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -12429,9 +12654,10 @@ To install the SDK, see
 Add Firebase to your JavaScript Project .
 March 03, 2020
 SDK Releases
-The Firebase Android SDKs Instance IDs and
-Cloud Messaging
-have been updated. For more details, check out the latest
+The Firebase Android SDKs for
+Cloud Messaging and Instance IDs
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -12450,9 +12676,10 @@ Add Firebase to your JavaScript Project .
 February 27, 2020
 SDK Releases
 The Firebase Android SDKs for
-Analytics , Cloud Firestore , Instance IDs, Cloud Messaging , and
+Analytics , Cloud Firestore , Cloud Messaging , Instance IDs, and
 Remote Config
-have been updated. Also, the Firebase installations SDK is now available.
+have been updated.
+This release also includes the initial release of the Firebase installations SDK.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -12505,9 +12732,10 @@ To install this SDK, see
 Add Firebase to your JavaScript Project .
 February 14, 2020
 SDK Releases
-The Firebase Android SDKs for
+The Firebase Android SDK for
 Dynamic Links
-have been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -12554,9 +12782,11 @@ Add Firebase to your JavaScript Project .
 February 03, 2020
 SDK Releases
 The Firebase Android SDKs for
-A/B Testing , App Indexing , Cloud Firestore , Cloud Functions ,
+A/B Testing , App Indexing , Cloud Firestore , Cloud Functions (client),
 Cloud Storage , Realtime Database , and Remote Config
-have been updated. The Crashlytics Gradle plugin has also been updated.
+have been updated.
+The Crashlytics Gradle plugin
+has also been updated.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -12634,10 +12864,11 @@ is now available. For more details, see the
 Firebase iOS SDK release notes .
 To install this SDK, see Add Firebase to your iOS Project .
 The Firebase Android SDKs for
-Google Analytics , In-App Messaging , and Performance Monitoring
-have been updated. The Firebase Crashlytics SDK, the
-Firebase Crashlytics SDK for NDK crash reporting, and the
-Firebase Crashlytics Gradle plugin are now available in beta.
+Analytics , In-App Messaging , and Performance Monitoring
+have been updated.
+This release also includes the initial beta releases of the
+Firebase Crashlytics SDK, the Firebase Crashlytics SDK for NDK crash
+reporting, and the Firebase Crashlytics Gradle plugin.
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -12685,8 +12916,10 @@ December 18, 2019
 SDK Releases
 The Firebase Android SDKs for
 Performance Monitoring and Remote Config
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -12749,8 +12982,10 @@ SDK Releases
 The Firebase Android SDKs for
 Cloud Firestore , Cloud Messaging , Instance IDs, Performance Monitoring , and
 Remote Config
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -12783,7 +13018,8 @@ November 22, 2019
 SDK Releases
 The Firebase Android SDK for
 Authentication
-has been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -12850,9 +13086,11 @@ November 11, 2019
 SDK Releases
 The Firebase Android SDKs for
 Cloud Firestore , Cloud Messaging , In-App Messaging , Instance IDs,
-ML Kit for Firebase, and Performance Monitoring have been updated. The
-App Distribution Gradle plugin has also been updated. For more details,
-check out the latest
+ML Kit for Firebase, and Performance Monitoring
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -12899,7 +13137,8 @@ October 25, 2019
 SDK Releases
 The Firebase Android SDKs for
 Analytics and Cloud Firestore
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -12929,9 +13168,12 @@ To install this SDK, see Add Firebase to your iOS Project .
 October 16, 2019
 SDK Release
 The Firebase Android SDKs for
-Cloud Firestore , ML Kit for Firebase, Performance Monitoring , Realtime Database , and Remote Config
-have been updated. The App Distribution Gradle plugin has also been
-updated. For more details, check out the latest
+Cloud Firestore , ML Kit for Firebase, Performance Monitoring , Realtime Database , and
+Remote Config
+have been updated.
+The App Distribution Gradle plugin
+has also been updated.
+For more details, check out the latest
 Android Release Notes . To get
 started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -13052,8 +13294,10 @@ GCP console .
 SDK Releases
 The Firebase Android SDKs for
 Authentication, Cloud Storage , In-App Messaging , ML Kit for Firebase, and
-Remote Config have been updated. Also, the Firebase App Distribution
-Gradle plugin (v1.0.0) is now available.
+Remote Config
+have been updated.
+This release also includes the initial release of the
+App Distribution Gradle plugin (v1.0.0).
 For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
@@ -13156,7 +13400,8 @@ SDK Releases
 The Firebase Android SDKs for
 Cloud Firestore , Cloud Storage , ML Kit for Firebase, Realtime Database , and
 Remote Config
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -13200,8 +13445,9 @@ Add Firebase to your JavaScript Project .
 August 28, 2019
 SDK Releases
 The Firebase Android SDKs for
-Analytics , Cloud Functions , and ML Kit for Firebase
-have been updated. For more details, check out the latest
+Analytics , Cloud Functions (client), and ML Kit for Firebase
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -13264,7 +13510,8 @@ August 16, 2019
 SDK Releases
 The Firebase Android SDKs for
 Analytics , Cloud Firestore , Cloud Messaging , and ML Kit for Firebase
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -13328,7 +13575,8 @@ To install this SDK, see
 Add Firebase to your JavaScript Project .
 Firebase Gradle Plugins
 The Firebase Performance Monitoring Gradle plugin
-has been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 July 31, 2019
 Firebase console
@@ -13370,8 +13618,10 @@ Add Firebase to your JavaScript Project .
 July 24, 2019
 SDK Releases
 The Firebase Android SDKs for
-Cloud Functions , Realtime Database , Cloud Storage , Cloud Firestore , and ML Kit for Firebase
-have been updated. For more details, check out the latest
+Cloud Firestore , Cloud Functions (client), Cloud Storage ,
+ML Kit for Firebase, and Realtime Database
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -13407,7 +13657,8 @@ SDK Releases
 The Firebase Android SDKs for
 Analytics , Authentication, Cloud Storage , In-App Messaging ,
 and ML Kit for Firebase
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -13429,7 +13680,8 @@ Add Firebase to your JavaScript Project .
 July 10, 2019
 Firebase Gradle Plugins
 The Firebase Performance Monitoring Gradle plugin
-has been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 SDK Releases
 The
@@ -13490,8 +13742,9 @@ errors when using Authentication in Node.
 To install this SDK, see
 Add Firebase to your JavaScript Project .
 The Firebase Android SDKs for
-Instance IDs, Cloud Firestore , Cloud Messaging , and Performance Monitoring
-have been updated. For more details, check out the latest
+Cloud Firestore , Cloud Messaging , Instance IDs, and Performance Monitoring
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -13546,12 +13799,13 @@ available. This release fixes a symbol name collision between Crashlytics
 and ClassKit .
 June 17, 2019
 SDK Releases
-The Firebase Android SDKs for Ads, Analytics ,
-App Indexing , Authentication, Cloud Firestore , Cloud Functions (client),
-Cloud Messaging , Cloud Storage , Dynamic Links , In-App Messaging ,
-Instance IDs, ML Kit for Firebase, Performance Monitoring , Realtime Database , Remote Config , and
-A/B Testing
-have been updated. To get started with Firebase in Android, see
+The Firebase Android SDKs for A/B Testing ,
+Ads, Analytics , App Indexing , Authentication, Cloud Firestore ,
+Cloud Functions (client), Cloud Messaging , Cloud Storage ,
+Dynamic Links , In-App Messaging , Instance IDs, ML Kit for Firebase, Performance Monitoring ,
+Realtime Database , and Remote Config
+have been updated.
+To get started with Firebase in Android, see
 Add Firebase to your Android Project .
 The Firebase Bill of Materials (BoM) (v20.0.0) has been updated.
 To add SDKs to your app using the Firebase BoM, visit
@@ -13638,7 +13892,8 @@ May 28, 2019
 SDK Releases
 The Firebase Android SDKs for
 Cloud Firestore , In-App Messaging , ML Kit for Firebase, and Performance Monitoring
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -13726,11 +13981,12 @@ to ensure your app functions as expected.
 To install this SDK, see
 Add Firebase to your JavaScript Project .
 The Firebase Android SDKs for
-Analytics , App Indexing , Authentication, Cloud Firestore ,
+A/B Testing , Analytics , App Indexing , Authentication, Cloud Firestore ,
 Cloud Functions (client), Cloud Messaging , Cloud Storage ,
-Dynamic Links , Invites , ML Kit for Firebase, Performance Monitoring , Realtime Database ,
-Remote Config , A/B Testing , and Instance IDs
-have been updated. To get started with Firebase in Android, see
+Dynamic Links , Invites , Instance IDs, ML Kit for Firebase, Performance Monitoring ,
+Realtime Database , and Remote Config
+have been updated.
+To get started with Firebase in Android, see
 Add Firebase to your Android Project .
 The Firebase Bill of Materials (BoM) (v18.0.0 and v18.1.0) has been updated.
 To add SDKs to your app using the Firebase BoM, visit
@@ -13752,7 +14008,8 @@ deprecations. To install this SDK, see Add Firebase to your Unity
 Project .
 Firebase Gradle Plugins
 The Firebase Gradle Plugins
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 Firebase console
 Firebase now supports web apps as a top-level app type in the
@@ -13867,8 +14124,10 @@ The beta release of a Cloud Firestore Android library
 with Kotlin extensions is now available. For more details, check out the
 latest Android Release Notes .
 The Firebase Android SDKs for
-Instance IDs, Authentication, Cloud Messaging , Performance Monitoring , and Remote Config
-have been updated. For more details, check out the latest
+Authentication, Cloud Messaging , Instance IDs, Performance Monitoring , and
+Remote Config
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -13937,15 +14196,17 @@ Add Firebase to your JavaScript Project .
 March 27, 2019
 SDK Release
 The Firebase Android SDKs for
-Instance IDs, In-App Messaging , Cloud Firestore , Cloud Messaging ,
+Cloud Firestore , Cloud Messaging , In-App Messaging , Instance IDs,
 ML Kit for Firebase, and Remote Config
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
 Firebase Gradle Plugins
 The Firebase Gradle Plugins
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 March 21, 2019
 SDK Release
@@ -13987,7 +14248,8 @@ March 15, 2019
 SDK Releases
 The Firebase Android SDKs for
 Analytics and Cloud Functions (client)
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -14019,7 +14281,8 @@ March 13, 2019
 SDK Releases
 The Firebase Android SDK for
 Ads
-has been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -14027,7 +14290,8 @@ March 11, 2019
 SDK Releases
 The Firebase Android SDKs for
 Authentication, Performance Monitoring , and Remote Config
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -14073,8 +14337,9 @@ Add Firebase to your JavaScript Project .
 February 26, 2019
 SDK Releases
 The Firebase Android SDKs for
-Instance IDs, Cloud Firestore , In-App Messaging , and Cloud Messaging
-have been updated. For more details, check out the latest
+Cloud Firestore , Cloud Messaging , In-App Messaging , and Instance IDs
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -14125,15 +14390,17 @@ February 08, 2019
 SDK Releases
 The Firebase Android SDK for
 Crashlytics
-has been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
 February 07, 2019
 SDK Releases
 The Firebase Android SDKs for
-A/B Testing , Invites , Dynamic Links , Cloud Firestore , and Remote Config
-have been updated. For more details, check out the latest
+A/B Testing , Dynamic Links , Invites , Cloud Firestore , and Remote Config
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -14157,8 +14424,9 @@ Cloud Firestore release notes and
 Cloud Storage release notes
 for more details. This release also updates its TypeScript dependency to v3.1.0.
 The Firebase Android SDKs for
-ML Kit for Firebase, Firebase Core, Analytics , and Ads
-have been updated. For more details, check out the latest
+Ads, Analytics , Firebase Core, and ML Kit for Firebase
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -14166,15 +14434,17 @@ January 30, 2019
 SDK Releases
 The Firebase Android SDKs for
 ML Kit for Firebase
-have been updated. For more details, check out the latest
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
 January 25, 2019
 SDK Releases
 The Firebase Android SDKs for
-Realtime Database , Cloud Firestore , and In-App Messaging
-have been updated. For more details, check out the latest
+Cloud Firestore , In-App Messaging , and Realtime Database
+have been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .
@@ -14259,9 +14529,10 @@ is now available. This release comes with a new API for generating
 email action links for password reset, email verification and
 email link sign-in. To install this SDK, see
 Add the Firebase Admin SDK to your Server .
-The Firebase Android SDKs for
+The Firebase Android SDK for
 Remote Config
-have been updated. For more details, check out the latest
+has been updated.
+For more details, check out the latest
 Android Release Notes .
 To get started with Firebase in Android, see
 Add Firebase to your Android Project .

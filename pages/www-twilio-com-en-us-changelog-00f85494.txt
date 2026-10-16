@@ -497,6 +497,12 @@ SendGrid marketplace customers can now take advantage of the Unified Login featu
 When accessing your SendGrid marketplace account from one of the marketplace integrations - Microsoft Azure, Google Cloud, Heroku, or Amazon Web Services - you will be prompted to provide an email address to create your Twilio login. If you already use another Twilio product and have an existing Twilio login, you can use that email address and password for SendGrid access.
 This will be rolled out over the next couple weeks for all SendGrid marketplace customers. For more details, see the documentation here .
 Learn more
+Oct 15, 2026
+Twilio Platform
+Developer Insights
+Webhook Configuration API is now Generally Available
+Using the Webhook Configuration API, customers can configure how Twilio authenticates and delivers outbound webhooks, per URL. The API consists of two resources: Webhook Settings and Webhook Rules.
+Learn more
 Oct 14, 2026
 Messaging
 Beta
@@ -559,7 +565,6 @@ Oct 06, 2026
 Messaging
 Programmable Messaging API
 Traffic Optimization Engine (TOE) is now generally available
-Traffic Optimization Engine (TOE) is now Generally Available for short code and toll-free traffic in North America and all sender types internationally, for customers to scale and send high volumes of traffic anywhere in the world.
 Learn more
 Oct 05, 2026
 Programmable Messaging API
@@ -572,14 +577,6 @@ Region Configuration API : Configure short codes for IE1 using the V3 region con
 Short Codes API : Set IE1 inbound webhook configurations using the ShortCodes resource .
 Messaging Services API : Add short codes to IE1 messaging services using the service ShortCodes subresource .
 To learn more and get started, see the developer documentation .
-Learn more
-Oct 05, 2026
-Segment
-Conversation Memory
-Segment Conversation Memory Integration now in GA
-The Segment Conversation Memory Integration is now in GA. You can now sync long-term customer profile data, like identity and lifetime value, from Segment into the sub-second recall of Conversation Memory, enabling both AI and human agents to instantly access unified context during live interactions. This eliminates cold starts, reduces repetitive questions, and delivers highly personalized, continuous customer experiences across all channels.
-The integration continuously syncs long-term customer profile data, such as identity and historical traits, from Segment directly into Conversation Memory. Customers configure this transfer using either "Memory Sync" to rapidly import their entire profile database or "Memory Destination" to target specific user cohorts via Segment Audiences. During setup, Segment profile traits and identifiers are mapped to corresponding semantic trait groups within a Memory Store. Once active, trait updates flow in real time, allowing AI or human agents to instantly query the Memory Store for up-to-date customer context during live interactions.
-To get started, read the Segment Conversation Memory Integration | Twilio , and browse the Conversation Memory (Actions) | Twilio .
 Learn more
 Loading
 Error: Unable to load changelog

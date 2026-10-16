@@ -49,7 +49,7 @@ Learn about the different payment methods and mechanisms available through the S
 Ask about this page
 Copy for LLM
 View as Markdown
-Install tools
+Set up agent
 Deprecated
 We’ve deprecated the Sources API and plan to remove support. If you currently use the Sources API, you must migrate to the Payment Intents and Payment Methods APIs .
 New integrations can’t use the Sources API. If you’re building a new integration, see Payment method integration options .

@@ -16446,6 +16446,844 @@ description: 'Identity of a human user principal.
 Carries user-only fields. The ``principal_type`` discriminator makes this
 variant mutually exclusive with the service-account variant, so a payload can
 never carry both a user id and a service-account id.'
+AdminUsageQueryFilter:
+type: object
+properties:
+field:
+type: string
+examples:
+- billing_metric
+title: Field
+enum:
+- usage_type
+- billing_metric
+- billing_display_name
+- billing_group
+- workspace_id
+- organization_id
+- user_id
+- service_account_id
+- api_key_id
+- api_zone
+- service_tier
+description: Usage dimension to filter.
+operator:
+type: string
+examples:
+- is
+title: Operator
+enum:
+- is
+- is_not
+description: Whether rows must match or must not match the supplied values.
+values:
+type: array
+examples:
+- - mistral-large-latest
+items:
+anyOf:
+- type: string
+- type: 'null'
+title: Values
+minItems: 1
+description: Accepted or excluded values. Use null to filter missing dimension values.
+title: AdminUsageQueryFilter
+required:
+- field
+- operator
+- values
+UsageQueryAggregatesOUT:
+type: object
+properties:
+total_value:
+type: number
+examples:
+- 1500.0
+title: Total Value
+description: Total usage value across all matching rows.
+total_count:
+type: integer
+examples:
+- 12
+title: Total Count
+description: Total number of matching usage records.
+total_api_calls:
+type: integer
+examples:
+- 10
+title: Total Api Calls
+description: Total number of distinct API calls.
+customer_count:
+type: integer
+examples:
+- 1
+title: Customer Count
+description: Number of matching customers.
+usage_type_count:
+type: integer
+examples:
+- 2
+title: Usage Type Count
+description: Number of matching usage types.
+title: UsageQueryAggregatesOUT
+required:
+- total_value
+- total_count
+- total_api_calls
+- customer_count
+- usage_type_count
+UsageQueryIN:
+type: object
+properties:
+usage_type:
+anyOf:
+- type: array
+items:
+$ref: '#/components/schemas/UsageType'
+- type: 'null'
+examples:
+- - usage
+- ocr
+title: Usage Type
+description: Usage event types to include.
+billing_metric:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - mistral-large
+title: Billing Metric
+description: Billing metric identifiers to include.
+billing_display_name:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - mistral-large-latest
+title: Billing Display Name
+description: Customer-facing billing metric names to include.
+billing_group:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - input
+- output
+title: Billing Group
+description: Billing metric components to include.
+workspace_ids:
+anyOf:
+- type: array
+items:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- - 8b1f9229-42c0-4511-9d54-5f860f04d17a
+- null
+title: Workspace Ids
+description: Workspace IDs to include. Use null to include usage without a workspace.
+organization_id:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - 82e9b991-90ed-4c5f-b8b4-b69141d41c84
+title: Organization Id
+description: Organization IDs to include within the authenticated customer.
+user_id:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - 7f8c8b54-bf28-470e-97ef-18d40d37e537
+title: User Id
+description: User IDs to include.
+service_account_id:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - 3d77300f-67db-498b-98d2-e751635b4fcb
+title: Service Account Id
+description: Service account IDs to include.
+api_key_id:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - b40f2e87-24f1-42ed-b196-f5e79203f989
+title: Api Key Id
+description: API key IDs to include.
+api_zone:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - us
+- eu
+title: Api Zone
+description: Inference regions to include.
+service_tier:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - standard
+- priority
+title: Service Tier
+description: Service tiers to include.
+start:
+type: string
+examples:
+- '2026-08-01T00:00:00Z'
+title: Start
+format: date-time
+description: Inclusive start of the usage interval.
+end:
+type: string
+examples:
+- '2026-09-01T00:00:00Z'
+title: End
+format: date-time
+description: Exclusive end of the usage interval.
+filters:
+anyOf:
+- type: array
+items:
+$ref: '#/components/schemas/AdminUsageQueryFilter'
+- type: 'null'
+examples:
+- - field: billing_display_name
+operator: is_not
+values:
+- mistral-small-latest
+title: Filters
+description: Additional inclusion or exclusion filters applied alongside the dimension fields.
+group_by:
+anyOf:
+- type: array
+items:
+type: string
+enum:
+- api_zone
+- service_tier
+- customer_id
+- usage_type
+- billing_metric
+- billing_group
+- billing_display_name
+- workspace_id
+- organization_id
+- user_id
+- service_account_id
+- api_key_id
+- untracked
+- call_source
+- call_type
+- customer_tier
+- type: 'null'
+examples:
+- - usage_type
+- billing_metric
+- billing_group
+title: Group By
+description: Dimensions used to group the returned usage rows.
+time_bucket:
+anyOf:
+- type: string
+enum:
+- second
+- 1min
+- 5min
+- 15min
+- 30min
+- hour
+- 4hours
+- day
+- week
+- month
+- type: 'null'
+examples:
+- day
+title: Time Bucket
+description: Time interval used to bucket grouped rows.
+untracked:
+anyOf:
+- type: boolean
+- type: 'null'
+examples:
+- false
+title: Untracked
+description: Filter by attribution status. Omit or use null to include both tracked and untracked usage.
+limit:
+anyOf:
+- type: integer
+maximum: 50000
+minimum: 1
+- type: 'null'
+examples:
+- 1000
+title: Limit
+description: Maximum number of grouped rows to return.
+offset:
+anyOf:
+- type: integer
+maximum: 100000
+minimum: 0
+- type: 'null'
+examples:
+- 0
+title: Offset
+description: Number of grouped rows to skip.
+include_aggregates:
+type: boolean
+examples:
+- true
+title: Include Aggregates
+description: Return aggregates computed over the complete filtered result set.
+default: false
+include_nb_api_calls:
+type: boolean
+examples:
+- true
+title: Include Nb Api Calls
+description: Include the number of distinct API calls in grouped rows and aggregates.
+default: false
+title: UsageQueryIN
+required:
+- start
+- end
+UsageQueryMetadataOUT:
+type: object
+properties:
+query_params:
+$ref: '#/components/schemas/UsageQueryParamsOUT'
+examples:
+- end: '2026-09-01T00:00:00Z'
+start: '2026-08-01T00:00:00Z'
+description: Normalized parameters used by the usage service.
+has_more:
+type: boolean
+examples:
+- false
+title: Has More
+description: Whether another page of grouped rows is available.
+title: UsageQueryMetadataOUT
+required:
+- query_params
+- has_more
+UsageQueryOUT:
+type: object
+properties:
+groups:
+type: array
+examples:
+- []
+items:
+$ref: '#/components/schemas/UsageQueryRowOUT'
+title: Groups
+description: Grouped usage rows.
+aggregates:
+anyOf:
+- $ref: '#/components/schemas/UsageQueryAggregatesOUT'
+- type: 'null'
+examples:
+- customer_count: 1
+total_api_calls: 10
+total_count: 12
+total_value: 1500
+usage_type_count: 2
+description: Aggregates over the complete filtered result set when requested.
+metadata:
+$ref: '#/components/schemas/UsageQueryMetadataOUT'
+examples:
+- has_more: false
+query_params:
+end: '2026-09-01T00:00:00Z'
+start: '2026-08-01T00:00:00Z'
+description: Query parameters and pagination metadata.
+title: UsageQueryOUT
+required:
+- groups
+- metadata
+UsageQueryParamsOUT:
+type: object
+properties:
+usage_type:
+anyOf:
+- type: array
+items:
+$ref: '#/components/schemas/UsageType'
+- type: 'null'
+examples:
+- - usage
+- ocr
+title: Usage Type
+description: Usage event types to include.
+billing_metric:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - mistral-large
+title: Billing Metric
+description: Billing metric identifiers to include.
+billing_display_name:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - mistral-large-latest
+title: Billing Display Name
+description: Customer-facing billing metric names to include.
+billing_group:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - input
+- output
+title: Billing Group
+description: Billing metric components to include.
+workspace_ids:
+anyOf:
+- type: array
+items:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- - 8b1f9229-42c0-4511-9d54-5f860f04d17a
+- null
+title: Workspace Ids
+description: Workspace IDs to include. Use null to include usage without a workspace.
+organization_id:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - 82e9b991-90ed-4c5f-b8b4-b69141d41c84
+title: Organization Id
+description: Organization IDs to include within the authenticated customer.
+user_id:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - 7f8c8b54-bf28-470e-97ef-18d40d37e537
+title: User Id
+description: User IDs to include.
+service_account_id:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - 3d77300f-67db-498b-98d2-e751635b4fcb
+title: Service Account Id
+description: Service account IDs to include.
+api_key_id:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - b40f2e87-24f1-42ed-b196-f5e79203f989
+title: Api Key Id
+description: API key IDs to include.
+api_zone:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - us
+- eu
+title: Api Zone
+description: Inference regions to include.
+service_tier:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+examples:
+- - standard
+- priority
+title: Service Tier
+description: Service tiers to include.
+start:
+type: string
+examples:
+- '2026-08-01T00:00:00Z'
+title: Start
+format: date-time
+description: Inclusive start of the queried interval.
+end:
+type: string
+examples:
+- '2026-09-01T00:00:00Z'
+title: End
+format: date-time
+description: Exclusive end of the queried interval.
+customer_id:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- 69bc23d6-4db3-47ad-9cce-bda1b24509f2
+title: Customer Id
+description: Customer scope derived from the authenticated Admin API key.
+filters:
+anyOf:
+- type: array
+items:
+$ref: '#/components/schemas/AdminUsageQueryFilter'
+- type: 'null'
+examples:
+- - field: billing_metric
+operator: is
+values:
+- mistral-large
+title: Filters
+description: Additional inclusion or exclusion filters applied to the query.
+group_by:
+anyOf:
+- type: array
+items:
+type: string
+enum:
+- api_zone
+- service_tier
+- customer_id
+- usage_type
+- billing_metric
+- billing_group
+- billing_display_name
+- workspace_id
+- organization_id
+- user_id
+- service_account_id
+- api_key_id
+- untracked
+- call_source
+- call_type
+- customer_tier
+- type: 'null'
+examples:
+- - usage_type
+- billing_metric
+title: Group By
+description: Dimensions used to group the returned usage rows.
+time_bucket:
+anyOf:
+- type: string
+enum:
+- second
+- 1min
+- 5min
+- 15min
+- 30min
+- hour
+- 4hours
+- day
+- week
+- month
+- type: 'null'
+examples:
+- day
+title: Time Bucket
+description: Time interval used to bucket grouped rows.
+limit:
+anyOf:
+- type: integer
+- type: 'null'
+examples:
+- 1000
+title: Limit
+description: Applied row limit.
+offset:
+anyOf:
+- type: integer
+- type: 'null'
+examples:
+- 0
+title: Offset
+description: Applied row offset.
+untracked:
+anyOf:
+- type: boolean
+- type: 'null'
+examples:
+- false
+title: Untracked
+description: Applied attribution filter.
+include_nb_api_calls:
+type: boolean
+examples:
+- true
+title: Include Nb Api Calls
+description: Whether distinct API-call counts were requested.
+default: false
+title: UsageQueryParamsOUT
+required:
+- start
+- end
+UsageQueryRowOUT:
+type: object
+properties:
+customer_id:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- customer-id
+title: Customer Id
+description: Customer ID for this row.
+usage_type:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- usage
+title: Usage Type
+description: Usage event type.
+billing_metric:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- mistral-large
+title: Billing Metric
+description: Billing metric identifier.
+billing_group:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- input
+title: Billing Group
+description: Billing metric component.
+workspace_id:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- workspace-id
+title: Workspace Id
+description: Workspace ID.
+organization_id:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- organization-id
+title: Organization Id
+description: Organization ID.
+user_id:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- user-id
+title: User Id
+description: User ID.
+service_account_id:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- service-account-id
+title: Service Account Id
+description: Service account ID.
+api_key_id:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- api-key-id
+title: Api Key Id
+description: API key ID.
+api_zone:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- us
+title: Api Zone
+description: Inference region.
+service_tier:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- standard
+title: Service Tier
+description: Service tier.
+timestamp:
+anyOf:
+- type: string
+format: date-time
+- type: 'null'
+examples:
+- '2026-08-01T12:00:00Z'
+title: Timestamp
+description: Timestamp of an unbucketed usage row, expressed using the request start timestamp's UTC offset.
+time_bucket:
+anyOf:
+- type: string
+format: date-time
+- type: 'null'
+examples:
+- '2026-08-01T00:00:00Z'
+title: Time Bucket
+description: Start of the UTC time bucket, expressed using the request start timestamp's UTC offset.
+value:
+anyOf:
+- type: integer
+- type: 'null'
+examples:
+- 1500
+title: Value
+description: Total usage value for this row.
+count:
+anyOf:
+- type: integer
+- type: 'null'
+examples:
+- 12
+title: Count
+description: Number of usage records in this row.
+nb_api_calls:
+anyOf:
+- type: integer
+- type: 'null'
+examples:
+- 10
+title: Nb Api Calls
+description: Number of distinct API calls.
+billing_display_name:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- mistral-large-latest
+title: Billing Display Name
+description: Customer-facing billing metric name.
+customer_tier:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- enterprise
+title: Customer Tier
+description: Customer tier.
+untracked:
+anyOf:
+- type: boolean
+- type: 'null'
+examples:
+- false
+title: Untracked
+description: Whether attribution was unavailable.
+call_source:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- api
+title: Call Source
+description: Product source of the call.
+call_type:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- completion
+title: Call Type
+description: Type of call within its source.
+title: UsageQueryRowOUT
+UsageType:
+type: string
+title: UsageType
+enum:
+- usage
+- codestral
+- document_library
+- document_library_api
+- libraries_pages
+- libraries_tokens
+- libraries_audio
+- chat
+- rlhf
+- ocr
+- audio_seconds
+- audio_characters
+- audio_agents
+- connectors
+- workflow_executions
+- vibe
+- vibe_connectors
+- vibe_ocr
+- vibe_audio_seconds
+- vibe_audio_characters
+description: 'The UsageType maps a recorded usage to a billable metric in Lago.
+For example `UsageType.COMPLETION` maps to `api_tokens` in Lago. A new UsageType is billed only once it is added to
+`USAGE_TYPE_TO_LAGO_EVENT_TYPE_MAP` in kazekit.usage, which the job reporting the usage relies on. Types left out of
+it, such as `WORKFLOW_EXECUTIONS`, are recorded but not reported to Lago.'
+x-speakeasy-enums:
+- COMPLETION
+- CODESTRAL
+- DOCUMENT_LIBRARY
+- DOCUMENT_LIBRARY_API
+- LIBRARIES_PAGES
+- LIBRARIES_TOKENS
+- LIBRARIES_AUDIO
+- LE_CHAT
+- RLHF
+- OCR
+- AUDIO_SECONDS
+- AUDIO_CHARACTERS
+- AUDIO_AGENTS
+- CONNECTORS
+- WORKFLOW_EXECUTIONS
+- VIBE
+- VIBE_CONNECTORS
+- VIBE_OCR
+- VIBE_AUDIO_SECONDS
+- VIBE_AUDIO_CHARACTERS
 APIPlan:
 type: string
 title: APIPlan
@@ -18434,7 +19272,7 @@ maxLength: 255
 examples:
 - Members of the platform engineering team
 title: Description
-description: Updated description of the user group.
+description: Updated description of the user group. Pass an empty string to clear it; omit the field or pass null to leave it unchanged.
 parent_group_ids:
 anyOf:
 - type: array
@@ -23481,12 +24319,20 @@ properties:
 content:
 type: array
 items:
-anyOf:
+oneOf:
 - $ref: '#/components/schemas/TextContent'
 - $ref: '#/components/schemas/ImageContent'
 - $ref: '#/components/schemas/AudioContent'
 - $ref: '#/components/schemas/ResourceLink'
 - $ref: '#/components/schemas/EmbeddedResource'
+discriminator:
+propertyName: type
+mapping:
+audio: '#/components/schemas/AudioContent'
+image: '#/components/schemas/ImageContent'
+resource: '#/components/schemas/EmbeddedResource'
+resource_link: '#/components/schemas/ResourceLink'
+text: '#/components/schemas/TextContent'
 title: Content
 metadata:
 anyOf:

@@ -28,7 +28,7 @@ Activity
 Deprecation of WebSub-based Webhooks
 Announcements
 0
-2431
+2432
 June 16, 2021
 Undocumented helix/moderation/banned modification
 API
@@ -38,7 +38,7 @@ May 16, 2022
 Events in the new Twitch API?
 API
 4
-4060
+4061
 December 21, 2017
 Get events when moderators or broadcasters ban users
 API

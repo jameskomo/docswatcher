@@ -256,6 +256,14 @@ may make additional calls to report telemetry information for the purpose of cal
 (Service Level Objective) of several features. You may need to update your Content Security Policy
 to ensure these calls are not blocked at browser-level. For more information, please see the
 FAQ .
+3.66.9d
+14 October, 2026
+Changes:
+Fixed an issue where completing a drag on an AdvancedMarkerElement would erroneously trigger a map click event.
+Fixes the POI info window not closing with the Escape key after reopening the same POI.
+[alpha channel] AdvancedPlaceDetailsElement , AdvancedPlaceDetailsCompactElement , and AdvancedPlaceItemElement , now support basic-section-top and basic-section-bottom slots in the alpha channel.
+[alpha channel] PlacePinElement is now available in the alpha channel to show place information on a map
+Fixes InfoWindow not closing with the Escape key, and focus not returning to the previously focused element, when the map is a gmp-map element.
 3.66.8b
 8 October, 2026
 Changes:
@@ -4190,7 +4198,7 @@ the control images
 The main library is smaller by ~1.9 KB
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-13 UTC.
+Last updated 2026-10-15 UTC.
 Stack Overflow
 Ask a question under the google-maps tag.
 GitHub

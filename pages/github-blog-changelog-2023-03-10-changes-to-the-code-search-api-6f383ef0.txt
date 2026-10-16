@@ -31,6 +31,12 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Oct.15 Improvement
+Multi-repo support and other improvements for GitHub Copilot in Slack and Microsoft Teams
+collaboration tools
+copilot
+...
++1
 Oct.08 Improvement
 Triage role users or higher can now archive pull requests
 collaboration tools
@@ -67,9 +73,6 @@ supply chain security
 Oct.01 Improvement
 Accessibility statements highlighted on repository overview
 ecosystem & accessibility
-Oct.01 Improvement
-New dashboard experience now the default
-collaboration tools
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.
 Enter your email *

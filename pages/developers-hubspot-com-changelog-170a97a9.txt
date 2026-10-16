@@ -29,7 +29,11 @@ CRM Object Properties API (1)
 Integrations (2)
 Upcoming (4)
 Latest Posts
-Announced Upcoming ( 3 )
+Announced Upcoming ( 2 )
+Upcoming Automatic Update: HubSpot domain security settings will move to TLS 1.2
+Live: Oct 14, 2026
+On October 14th, HubSpot will automatically update the minimum TLS version for your HubSpot-hosted domains from TLS 1.0 or 1.1 to TLS 1.2.
+Read More
 Legacy APIs and Apps: What's Going Unsupported and When
 Announced: Sep 15, 2026
 At Fall Spotlight on September 15, HubSpot is announcing the end of support for v1-v3 APIs, legacy public apps, and legacy private apps, all with a September 2027 enforcement date. If your integration or ...
@@ -64,9 +68,6 @@ Read More
 Breaking Change: Pipeline and pipeline stage delete endpoints will validate references by default starting with the 2026-09 API version
 Live: Sep 8, 2026
 7/23/2026 Edit - The post has been updated to include the Deal object specific ...
-Read More
-Developer updates for June 2026
-Announced: Jun 29, 2026
 Read More
 1 2 3 4 5
 Next page

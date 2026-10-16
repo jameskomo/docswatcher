@@ -108,6 +108,12 @@ Get started
 Get started with Google Maps Platform
 Get and use a Maps Demo Key
 Capabilities Explorer
+Overview
+Maps
+Places
+Routes
+Environment
+Analytics
 FAQ
 Support and resources
 Customer Care
@@ -663,7 +669,7 @@ The minimum version of the Places SDK for iOS with the
 replacement properties is v3.8.0 .
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-13 UTC.
+Last updated 2026-10-15 UTC.
 Platform Status
 Find out about platform incidents and outages.
 Support

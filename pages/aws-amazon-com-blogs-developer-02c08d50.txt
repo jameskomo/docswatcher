@@ -153,6 +153,9 @@ Home
 Blogs
 Editions
 AWS Developer Tools Blog
+AWS IoT Device SDK MQTT 3.1.1 and V1 Service Clients Entering Maintenance Mode
+by Vera Xia and Steve Kim on 15 OCT 2026 in Announcements , AWS IoT Core , Developer Tools , Internet of Things Permalink Share
+In alignment with our AWS SDKs and Tools maintenance policy, the AWS IoT Device SDKs MQTT 3.1.1 and V1 service clients will enter maintenance mode in April 2027. There is no planned end-of-support date, and we will announce any change to that separately. We recommend that you adopt the MQTT 5 client and V2 service […]
 Introducing SDK Client Warm-Up feature in the AWS SDK for Java 2.x
 by John Viegas on 25 SEP 2026 in AWS Java Development , AWS Lambda , AWS SDK for Java , Java , Technical How-to Permalink Share
 The first service call from an application that uses the AWS SDK for Java 2.x takes longer than subsequent calls. This problem is known as cold start. The new SDK client warm-up feature reduces cold-start latency. One call to SdkWarmUp.warmUp() during application startup exercises the SDK request path before your first service call. With AWS […]
@@ -180,9 +183,6 @@ Amazon Bedrock AgentCore is a managed service for running AI agents in productio
 AWS Tools Installer V2 is Now Generally Available
 by Jonathan Nunn on 04 AUG 2026 in Announcements , AWS Tools for PowerShell , Developer Tools , PowerShell Permalink Share
 If you’ve been managing multiple AWS Tools for PowerShell modules individually, you know how time-consuming installations and updates can be. In this post, we announce the general availability of AWS Tools Installer V2. It minimizes installation time by downloading a single zip file and extracting modules in parallel. In February 2026, we announced the preview […]
-Announcing General Availability of DynamoDB Mapper for Kotlin
-by Ian Botsford on 03 AUG 2026 in Amazon DynamoDB , Announcements , Kotlin Permalink Share
-DynamoDB Mapper for Kotlin is now generally available, giving Kotlin developers a fully idiomatic way to read, write, and query Amazon DynamoDB using natural Kotlin data types without managing low-level API details. Since the Developer Preview launch in October 2024, we’ve added significant new capabilities based on community feedback including the updateItem operation, batch and […]
 ← Older posts
 Create an AWS account
 Learn

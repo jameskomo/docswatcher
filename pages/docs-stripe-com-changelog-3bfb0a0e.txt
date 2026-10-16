@@ -68,7 +68,7 @@ Keep track of changes and upgrades to the Stripe API.
 Ask about this page
 Copy for LLM
 View as Markdown
-Install tools
+Set up agent
 Breaking changes Product
 Category
 All
