@@ -29,4 +29,4 @@ migration:
     setting in the SDK config. Read the release notes for each version
     between the current one and the target for removed fields.
 
-status: active
+status: expired
