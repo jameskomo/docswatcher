@@ -146,10 +146,6 @@ Time series models
 Copy section link
 Time series models
 Models for zero-shot time series forecasting with covariate support and probabilistic outputs.
-Timestral 1.0
-Modified MIT
-A time series foundation model for zero-shot forecasting with covariate support and probabilistic outputs.
-v 1.0
 Timestral 1.0 123M
 Modified MIT
 A time series foundation model for zero-shot forecasting with covariate support and probabilistic outputs.
@@ -159,6 +155,14 @@ Modified MIT
 A time series foundation model for zero-shot forecasting with covariate support and probabilistic outputs.
 v 1.0
 Timestral 1.0 5M
+Modified MIT
+A time series foundation model for zero-shot forecasting with covariate support and probabilistic outputs.
+v 1.0
+Other specialist models
+Copy section link
+Other specialist models
+Specialized models for focused domains and task-specific workloads.
+Timestral 1.0 209M
 Modified MIT
 A time series foundation model for zero-shot forecasting with covariate support and probabilistic outputs.
 v 1.0

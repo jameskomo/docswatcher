@@ -186,7 +186,7 @@ Latest version
 Apple platforms (iOS+)
 13.0.0
 Android
-Firebase BoM : 35.0.1
+Firebase BoM : 35.0.2
 google-services plugin : 4.5.0
 See notes for individual library versions
 JavaScript
@@ -215,6 +215,26 @@ Firebase CLI
 Firebase Studio
 See notes
 October 15, 2026
+SDK Releases
+The Firebase Android SDK for
+Cloud Firestore
+has been updated.
+For more details, check out the latest
+Android Release Notes .
+To get started with Firebase in Android, see
+Add Firebase to your Android Project .
+The Firebase Android BoM ( Bill of Materials )
+has been updated to v35.0.2. Learn how to
+add SDKs to your app using the Firebase BoM .
+The Firebase SDK for Flutter
+(v5.0.0) is now available.
+This release includes changes in Cloud Functions ,
+Firebase AI Logic , Core, Firebase In-App Messaging and Cloud Messaging ,
+and bug fixes in several products.
+The Firebase SDK for Unity
+(v14.0.0) is now available. This
+release includes changes to Authentication, Firebase AI, and Remote Config ,
+as well as other changes.
 Test Lab
 The following devices are now deprecated and will be removed on
 2026-11-15:
@@ -232,16 +252,6 @@ dump collection, updates Firebase Authentication deployment to use existing apps
 from any platform, and includes several fixes and improvements.
 To use the Firebase CLI in your development environment,
 set up or update the CLI .
-SDK Releases
-The Firebase SDK for Flutter
-(v5.0.0) is now available.
-This release includes changes in Cloud Functions ,
-Firebase AI Logic , Core, Firebase In-App Messaging and Cloud Messaging ,
-and bug fixes in several products.
-The Firebase SDK for Unity
-(v14.0.0) is now available. This
-release includes changes to Authentication, Firebase AI, and Remote Config ,
-as well as other changes.
 October 14, 2026
 SDK Releases
 The Firebase Android SDKs for
@@ -255,16 +265,6 @@ The Firebase Android BoM ( Bill of Materials )
 has been updated to v35.0.1. Learn how to
 add SDKs to your app using the Firebase BoM .
 October 13, 2026
-Google AI Studio integration
-The Firebase integration in
-Google AI Studio now
-automatically sets up and integrates Firebase AI Logic and
-Firebase App Check when you build Android apps with generative AI
-features. This integration lets your Android app securely call Gemini models
-directly without exposing API keys. The app uses debug tokens for testing and
-reCAPTCHA Enterprise for production releases on Google Play .
-To learn more, see
-Firebase AI Logic and App Check for Android apps .
 Firebase AI Logic
 Firebase AI Logic supports the latest Gemini stable
 model gemini-4-argon . You can
@@ -17157,7 +17157,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-15 UTC.
+Last updated 2026-10-16 UTC.
 Learn
 Developer guides
 SDK & API reference

@@ -40,7 +40,7 @@ Activity
 Get Stream Tags Endpoint no longer returning tags
 API
 4
-712
+713
 August 19, 2022
 Updating Stream Tags
 API
@@ -55,7 +55,7 @@ April 20, 2021
 Tags API - Incomplete Data
 API
 4
-636
+637
 March 21, 2019
 API end point does not behave as mention in the documentation
 API

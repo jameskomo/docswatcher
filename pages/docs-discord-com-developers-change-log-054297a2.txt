@@ -29,6 +29,15 @@ Copy page Copy page
 Discover the latest updates, new features, and bug fixes on the Discord Developer Platform. To join in on the conversation, join the Discord Developers Server .
 Copy page Copy page
 ​
+October 14, 2026
+HTTP API
+​
+OAuth2 Authorization Responses Now Include iss
+OAuth2 authorization responses that redirect to your redirect_uri now include an iss parameter set to https://discord.com , following RFC 9207 . Our authorization server metadata and OpenID configuration now also set authorization_response_iss_parameter_supported to true .
+​
+Developer Resources
+Issuer Identification
+​
 October 6, 2026
 Activities Embedded App SDK
 ​

@@ -9,6 +9,9 @@ Slack developer changelog
 Release: Slack CLI v4.10.0
 Slack Code for developers
 Release: Slack CLI v4.9.0
+Release: Java SDK v1.52.0
+Release: Python SDK v3.45.0
+Release: Node SDK updates
 Release: Slack CLI v4.8.0
 Updated installation requirement for Slack Marketplace apps
 Release: Slack CLI v4.7.0

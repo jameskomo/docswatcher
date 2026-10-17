@@ -490,6 +490,12 @@ Clear all filters
 See results
 Clear all filters
 Oct 16, 2026
+Beta
+Voice API
+Voice Integrity now supports all three major US networks
+Voice Integrity, part of Twilio’s Voice Trust offering, enables businesses to register their details and associated outbound phone numbers directly with major US analytics vendors. This proactive registration helps carriers identify legitimate business traffic, reducing the likelihood of your calls being blocked or labeled as spam.
+Learn more
+Oct 16, 2026
 GA
 Marketplace
 Unified Login for SendGrid Marketplace Customers
@@ -565,18 +571,6 @@ Oct 06, 2026
 Messaging
 Programmable Messaging API
 Traffic Optimization Engine (TOE) is now generally available
-Learn more
-Oct 05, 2026
-Programmable Messaging API
-Short Codes
-Short Codes are now supported in Data Residency for SMS (EU)
-Short Code numbers are now supported as SMS senders in Twilio's Ireland (IE1) region for EU data residency. When using this feature, SMS message personal data sent or received via Short Codes is stored and processed in the EU up to the point it reaches Twilio's connections with telecommunications providers.
-With this release, the IE1 region supports the following features:
-Short Code senders : Send and receive SMS messages with short codes in IE1.
-Region Configuration API : Configure short codes for IE1 using the V3 region configuration API.
-Short Codes API : Set IE1 inbound webhook configurations using the ShortCodes resource .
-Messaging Services API : Add short codes to IE1 messaging services using the service ShortCodes subresource .
-To learn more and get started, see the developer documentation .
 Learn more
 Loading
 Error: Unable to load changelog

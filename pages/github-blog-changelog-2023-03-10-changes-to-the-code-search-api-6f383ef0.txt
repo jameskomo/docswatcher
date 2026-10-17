@@ -32,7 +32,7 @@ Shared
 Back to changelog
 Related Posts
 Oct.15 Improvement
-Multi-repo support and other improvements for GitHub Copilot in Slack and Microsoft Teams
+Multi-repository support and other improvements for GitHub in Slack and Teams
 collaboration tools
 copilot
 ...
