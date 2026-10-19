@@ -37,7 +37,8 @@ Starting with the 202610 version, /creatives responses can return new read-only 
 Ads Reporting API : New memberFollows and memberProfileClicks metrics :
 Starting with the 202610 version, the /adAnalytics endpoint's metrics schema supports two new optional metrics: memberFollows , which returns the count of sponsored member profile follows, and memberProfileClicks , which returns the count of clicks on the profile of the member who owns the sponsored post. Both metrics exist only for Sponsored Updates and member follower display ads, such as Thought Leader Ads.
 Boost API : New Member and Company Page post boost endpoints :
-Starting with the 202610 version, four new Boost API endpoints are available for both Member and Company Page (organization) posts: Boost Init, Boost Hydrate, Boost Post, and Boost Status. These APIs enable partners to embed LinkedIn Boosting directly into their content and publishing workflows, connecting organic content to paid amplification within their platform. The endpoints are available under the existing Advertising API product.
+Starting with the 202610 version, five new Boost API endpoints are available for both Member and Company Page (organization) posts: Boost Init, Boost Hydrate, Boost Post, Boost Status, and Boost Analytics. These APIs enable partners to embed LinkedIn Boosting directly into their content and publishing workflows, connecting organic content to paid amplification within their platform. The endpoints are available under the existing Advertising API product.
+The shared Boost Analytics endpoint ( /boostAnalytics ) returns performance metrics for boosted Member and Company Page posts. It requires the r_member_boost or rw_member_boost scope for member posts, and the r_organization_boost or rw_organization_boost scope for Company Page posts.
 Breaking Changes
 Campaign Management API: New required surface field for publisher lists (action required) :
 Starting with version 202611 (November 2026 release), publisher lists ( /adPublisherRestrictions ) require a surface field that sets the list's placement type: LAN (LinkedIn Audience Network) or CTV (Connected TV). Requests on version 202611 or later that create a publisher list without a valid surface will fail with a 400 error. Existing partner API accounts have a migration window that ends on December 15, 2026. After that date, campaigns ( /adAccounts/{id}/adCampaigns ) and account trust preferences ( /adAccountTrustPreferences ) can only use publisher lists whose placement type matches the campaign. Requests that don't meet this rule will fail with a 400 error on every API version. Lists already attached to campaigns will keep working. Please update your integration before December 15, 2026.
@@ -793,7 +794,7 @@ Ask Learn
 Suggest a fix?
 Additional resources
 Last updated on
-2026-10-14
+2026-10-15
 In this article
 Was this page helpful?
 Need help with this topic?

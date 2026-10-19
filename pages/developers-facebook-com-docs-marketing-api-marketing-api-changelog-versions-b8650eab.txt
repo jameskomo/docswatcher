@@ -1,8 +1,9 @@
-# Versions
+# Marketing API version history
 The changelogs listed below document changes introduced in new Marketing API versions. To learn more about versions, see the [Versioning](https://developers.facebook.com/documentation/ads-commerce/marketing-api/overview/versioning) document.
 Changes introduced outside of a version release are documented in the [Out-Of-Cycle Changes](https://developers.facebook.com/documentation/ads-commerce/marketing-api/out-of-cycle-changes) document.
 | Version | Release Date | Expiration Date |
 | --- | --- | --- |
+| [v26.0](https://developers.facebook.com/documentation/ads-commerce/marketing-api/marketing-api-changelog/version26.0) | July 29, 2026 | TBD |
 | [v25.0](https://developers.facebook.com/documentation/ads-commerce/marketing-api/marketing-api-changelog/version25.0) | February 18, 2026 | TBD |
 | [v24.0](https://developers.facebook.com/documentation/ads-commerce/marketing-api/marketing-api-changelog/version24.0) | October 8, 2025 | October 6, 2026 |
 | [v23.0](https://developers.facebook.com/documentation/ads-commerce/marketing-api/marketing-api-changelog/version23.0) | May 29, 2025 | June 9, 2026 |
