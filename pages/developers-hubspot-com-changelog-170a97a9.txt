@@ -29,7 +29,7 @@ CRM Object Properties API (1)
 Integrations (2)
 Upcoming (4)
 Latest Posts
-Announced Upcoming ( 2 )
+Announced Upcoming ( 3 )
 Upcoming Automatic Update: HubSpot domain security settings will move to TLS 1.2
 Live: Oct 14, 2026
 On October 14th, HubSpot will automatically update the minimum TLS version for your HubSpot-hosted domains from TLS 1.0 or 1.1 to TLS 1.2.

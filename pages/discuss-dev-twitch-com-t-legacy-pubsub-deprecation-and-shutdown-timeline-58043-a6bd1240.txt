@@ -170,12 +170,12 @@ Activity
 PubSub deprecation feedback: danthegoodman
 API
 9
-538
+545
 April 14, 2024
 PubSub deprecation feedback: ckohen
 API
 6
-347
+349
 April 14, 2024
 Deprecation of WebSub-based Webhooks
 Announcements
@@ -190,7 +190,7 @@ January 6, 2021
 Subscriptions Beta Changes
 API
 119
-20584
+20662
 July 9, 2017
 Home
 Categories
