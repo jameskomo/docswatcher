@@ -94,6 +94,7 @@ CTAs
 Forms
 Marketing Emails
 Marketing Events
+Single Send
 Transactional Emails
 Meetings
 Notetaker

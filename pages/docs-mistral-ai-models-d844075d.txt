@@ -34,10 +34,10 @@ Z.ai GLM 5.3
 A third-party open weight text model from Z.ai with a 1M-token context window.
 Mistral Small 4
 Hybrid model unifying instruct, reasoning, and coding in a single efficient model.
-Voxtral Mini Transcribe 2
-An efficient audio input model, pre-trained and optimized for transcription purposes.
-Voxtral Mini Transcribe Realtime
-An efficient audio input model, pre-trained and optimized for live transcription purposes.
+Voxtral Mini Transcribe 3
+Strong transcription and diarization at a competitive price point.
+Voxtral TTS 3
+State-of-the-art TTS with zero-shot and professional voice cloning, 9 languages, and streaming.
 All models
 Copy section link
 All models
@@ -98,6 +98,22 @@ Voxtral TTS
 CC BY-NC 4.0
 State-of-the-art TTS with zero-shot voice cloning and multilingual support.
 v 26.03
+Voxtral Mini Transcribe 3
+Premier
+Strong transcription and diarization at a competitive price point.
+v 3.0
+Voxtral Small Transcribe 3
+Premier
+Flagship transcription and diarization model with SOTA accuracy.
+v 3.0
+Voxtral Mini Transcribe Realtime 3
+Premier
+Realtime transcription model for agentic use-cases with configurable latency and turn detection.
+v 3.0
+Voxtral TTS 3
+Premier
+State-of-the-art TTS with zero-shot and professional voice cloning, 9 languages, and streaming.
+v 3.0
 Voxtral Mini Transcribe 2
 Premier
 An efficient audio input model, pre-trained and optimized for transcription purposes.
@@ -146,6 +162,10 @@ Time series models
 Copy section link
 Time series models
 Models for zero-shot time series forecasting with covariate support and probabilistic outputs.
+Timestral 1.0 209M
+Modified MIT
+A time series foundation model for zero-shot forecasting with covariate support and probabilistic outputs.
+v 1.0
 Timestral 1.0 123M
 Modified MIT
 A time series foundation model for zero-shot forecasting with covariate support and probabilistic outputs.
@@ -155,14 +175,6 @@ Modified MIT
 A time series foundation model for zero-shot forecasting with covariate support and probabilistic outputs.
 v 1.0
 Timestral 1.0 5M
-Modified MIT
-A time series foundation model for zero-shot forecasting with covariate support and probabilistic outputs.
-v 1.0
-Other specialist models
-Copy section link
-Other specialist models
-Specialized models for focused domains and task-specific workloads.
-Timestral 1.0 209M
 Modified MIT
 A time series foundation model for zero-shot forecasting with covariate support and probabilistic outputs.
 v 1.0

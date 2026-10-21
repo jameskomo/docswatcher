@@ -489,6 +489,11 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Oct 20, 2026
+Voice API
+The Voice Recording Account Default Configuration is now Generally Available in us1
+The Voice Recording Account Default Configuration is a new API that enables customers to set and manage default call recording settings for your account. Now Generally Available in us1.
+Learn more
 Oct 16, 2026
 Beta
 Voice API
@@ -566,11 +571,6 @@ Beta
 Europe, Middle East, and Africa
 TaskRouter and Studio are now available in Public Beta in Ireland (IE1)
 TaskRouter and Studio are now available in Public Beta in Twilio's Ireland (IE1) Region, giving you EU data residency and control over where your contact center routing and workflow automation data lives.
-Learn more
-Oct 06, 2026
-Messaging
-Programmable Messaging API
-Traffic Optimization Engine (TOE) is now generally available
 Learn more
 Loading
 Error: Unable to load changelog

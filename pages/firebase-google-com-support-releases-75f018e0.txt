@@ -214,6 +214,16 @@ Firebase CLI
 15.34.0
 Firebase Studio
 See notes
+October 19, 2026
+Cloud Firestore
+Text search
+and Geospatial search
+for Firestore with MongoDB compatibility are now generally available
+( GA ).
+Text search and
+Geospatial search for
+Cloud Firestore Enterprise edition are now generally available
+( GA ).
 October 15, 2026
 SDK Releases
 The Firebase Android SDK for
@@ -235,6 +245,35 @@ The Firebase SDK for Unity
 (v14.0.0) is now available. This
 release includes changes to Authentication, Firebase AI, and Remote Config ,
 as well as other changes.
+Firebase CLI (v15.34.0)
+The latest
+Firebase CLI (v15.34.0) is now
+available. This version adds commands to manage Crashlytics Android heap
+dump collection, updates Firebase Authentication deployment to use existing apps
+from any platform, and includes several fixes and improvements.
+To use the Firebase CLI in your development environment,
+set up or update the CLI .
+Firebase AI Logic
+To reflect the renaming of Vertex AI to Gemini Enterprise Agent
+Platform (or "Agent Platform"), the legacy "Vertex AI" initialization syntax
+(such as vertexAI or VertexAIBackend ) has been removed from the
+Firebase AI Logic SDKs in favor of the new "Agent Platform"
+initialization syntax (such as agentPlatform or AgentPlatformBackend ).
+The only difference for the new "Agent Platform" initialization syntax is
+the default
+location for accessing the model .
+The default location for the "Agent Platform" syntax is global ,
+whereas the default location for the legacy "Vertex AI" syntax was
+us-central1 . Note that most new Gemini models do not
+support us-central1 .
+If you want to use us-central1 (or another location) with the new
+syntax, you can explicitly specify the location when initializing the
+backend service.
+If you use the Agent Platform Gemini API (formerly Vertex AI) , then you must update your
+apps to use the new "Agent Platform" initialization syntax if you upgrade
+to the latest versions of the SDKs . For platform-specific code examples
+and full details, see the
+FAQ describing the required changes .
 Test Lab
 The following devices are now deprecated and will be removed on
 2026-11-15:
@@ -244,14 +283,6 @@ If you currently use these devices, consider moving to an Arm virtual device
 (for example, MediumPhone.arm ). See
 Deprecated devices
 for recommended replacements.
-Firebase CLI (v15.34.0)
-The latest
-Firebase CLI (v15.34.0) is now
-available. This version adds commands to manage Crashlytics Android heap
-dump collection, updates Firebase Authentication deployment to use existing apps
-from any platform, and includes several fixes and improvements.
-To use the Firebase CLI in your development environment,
-set up or update the CLI .
 October 14, 2026
 SDK Releases
 The Firebase Android SDKs for
@@ -355,6 +386,13 @@ Firebase JavaScript SDK (v13.0.0)
 is now available. For more details, see the
 Firebase JavaScript SDK release notes .
 To install the SDK, see Add Firebase to your JavaScript Project .
+October 06, 2026
+Firebase AI Logic
+Firebase AI Logic supports the latest stable image-generating
+( Gemini Nano Banana ) model:
+Gemini Nano Banana 2.1 : gemini-nano-banana-2.1
+You can use this model to
+generate and edit images via Firebase AI Logic .
 September 30, 2026
 Firebase CLI (v15.32.1)
 The latest
@@ -640,10 +678,10 @@ To accommodate this shutdown, we've removed all Imagen APIs from the
 Firebase AI Logic SDKs and documentation.
 This shutdown date is applicable to both the
 Gemini Developer API (Google AI) and the Agent Platform Gemini API (formerly Vertex AI) .
-As a replacement, you can migrate your apps to use a Gemini Image
-model (like one of the "Nano Banana" models).
+As a replacement, you can migrate your apps to use a
+Gemini Nano Banana model.
 If you use Imagen models via Firebase AI Logic , you can
-migrate your apps to use a Gemini Image model
+migrate your apps to use a Gemini Nano Banana model
 to restore service . Models that are shut down are no longer
 accessible or supported by Google, and a request using a shutdown model name
 returns a 404 error.
@@ -868,7 +906,7 @@ will be shut down (retired) as early as October 2026.
 gemini-2.5-pro
 gemini-2.5-flash
 gemini-2.5-flash-lite
-gemini-2.5-flash-image (aka "Nano Banana")
+gemini-2.5-flash-image (Nano Banana)
 For the general-use models, the date for shutdown depends on your chosen
 Gemini API provider:
 Gemini Developer API (Google AI): deprecated, but no shutdown
@@ -877,7 +915,7 @@ using them)
 Agent Platform Gemini API (formerly Vertex AI) : October 20, 2026
 For the image-generating model (Nano Banana), the date for shutdown is the
 same regardless of your chosen Gemini API provider: October 02, 2026
-Note that other "Nano Banana" models and any
+Note that other Gemini Nano Banana models and any
 stable Gemini Live API 2.5 models are not impacted.
 If you use these models with Firebase AI Logic , make sure to
 update to a newer model (like gemini-3.6-flash or
@@ -1054,9 +1092,10 @@ To install this SDK, see
 Add the Firebase Admin SDK to your server .
 June 30, 2026
 Firebase AI Logic
-Firebase AI Logic supports the latest stable
-Gemini 3.x Image model: gemini-3.1-flash-lite-image
-(aka "Nano Banana 2 Lite"). You can use this model to
+Firebase AI Logic supports the latest stable image-generating
+( Gemini Nano Banana ) model:
+Gemini Nano Banana 2 Lite : gemini-3.1-flash-lite-image
+You can use this model to
 generate and edit images via Firebase AI Logic .
 Note that if you're using the Agent Platform Gemini API (formerly Vertex AI) , make sure to
 set the location in your request to
@@ -1254,14 +1293,12 @@ The Firebase SDK for C++
 This release includes miscellaneous changes.
 June 01, 2026
 Firebase AI Logic
-The Gemini 3.x Image models (aka "Nano Banana" models)
+The latest image-generating ( Gemini Nano Banana ) models
 are now available in stable versions. You can use these models to
 generate and edit images via Firebase AI Logic .
 These are the new stable model names:
-Gemini 3.x Pro Image :
-gemini-3-pro-image (aka "Nano Banana Pro")
-Gemini 3.x Flash Image :
-gemini-3.1-flash-image (aka "Nano Banana 2")
+Gemini Nano Banana 2 : gemini-3.1-flash-image
+Gemini Nano Banana Pro : gemini-3-pro-image
 With this release, the gemini-3.1-flash-image model supports video input for
 image generation and editing.
 Note that if you're using the Agent Platform Gemini API (formerly Vertex AI) , make sure to
@@ -1345,7 +1382,7 @@ May 15, 2026
 Firebase AI Logic
 Firebase AI Logic now supports
 specifying aspect ratio and resolution of output images
-when using image-generating Gemini models ("Nano Banana" models).
+when using image-generating ( Gemini Nano Banana ) models.
 May 14, 2026
 Firebase AI Logic
 Firebase AI Logic now supports
@@ -1488,8 +1525,8 @@ April 21, 2026
 Firebase AI Logic
 Firebase AI Logic server prompt templates now support
 multi-turn interactions
-(including chat, iterative editing of images with Gemini Image models, and
-function calling).
+(including chat, iterative editing of images with Gemini Nano Banana
+models, and function calling).
 Server prompt templates allow you to store your prompt, schema, and
 configurations server-side. Then in the request from your app, you only
 provide the template's ID and any desired user-defined inputs. You can protect
@@ -1681,10 +1718,10 @@ shut down as early as August 17, 2026 (note that this
 shutdown date has been extended from the previous June 30, 2026).
 This shutdown date is applicable to both the
 Gemini Developer API (Google AI) and the Agent Platform Gemini API (formerly Vertex AI) .
-As a replacement, you can migrate your apps to use a Gemini Image
-model (like one of the "Nano Banana" models).
+As a replacement, you can migrate your apps to use a
+Gemini Nano Banana model.
 If you use Imagen models via Firebase AI Logic , you can
-migrate your apps to use a Gemini Image model
+migrate your apps to use a Gemini Nano Banana model
 to avoid service disruption . Models that are shut down are no longer
 accessible or supported by Google, and a request using a shutdown model name
 returns a 404 error.
@@ -1850,12 +1887,14 @@ Firebase JavaScript SDK release notes .
 To install the SDK, see Add Firebase to your JavaScript Project .
 February 26, 2026
 Firebase AI Logic
-Firebase AI Logic supports the latest Gemini model:
-gemini-3.1-flash-image-preview (aka "Nano Banana 2"). You can
+Firebase AI Logic supports the latest preview image-generating
+( Gemini Nano Banana ) model:
+Gemini Nano Banana 2 : gemini-3.1-flash-image-preview
+You can
 directly access this model in your mobile or web app
 via either the Gemini Developer API or the
 Agent Platform Gemini API (formerly Vertex AI) .
-Note that the pay-as-you-go Blaze plan is required to access preview models
+Note that the pay-as-you-go Blaze pricing plan is required to access preview models
 (regardless of your Gemini API provider). Also, if you access the model
 via Agent Platform Gemini API (formerly Vertex AI) , make sure to
 set the location in your request to
@@ -2268,13 +2307,14 @@ against exposing your prompt client-side, as well as easily update your
 prompt, schema, and configs without releasing a new app version.
 November 20, 2025
 Firebase AI Logic
-Firebase AI Logic supports the Gemini 3 Pro Image
-(preview) model — aka nano banana pro . You can
+Firebase AI Logic supports the latest preview image-generating
+( Gemini Nano Banana ) model:
+Gemini Nano Banana Pro : gemini-3-pro-image-preview
+You can
 directly access this image-generating model in your mobile or web app
 via either the Gemini Developer API or the
-Agent Platform Gemini API (formerly Vertex AI) using the model name
-gemini-3-pro-image-preview .
-Note that the pay-as-you-go Blaze plan is required to access preview models
+Agent Platform Gemini API (formerly Vertex AI) .
+Note that the pay-as-you-go Blaze pricing plan is required to access preview models
 (regardless of your Gemini API provider). Also, if you access the model via
 Agent Platform Gemini API (formerly Vertex AI) , make sure to
 set the location in your request to
@@ -17157,7 +17197,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-16 UTC.
+Last updated 2026-10-20 UTC.
 Learn
 Developer guides
 SDK & API reference

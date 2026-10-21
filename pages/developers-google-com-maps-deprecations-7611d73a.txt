@@ -279,8 +279,9 @@ Active deprecations
 This section lists all products and features which are currently in a
 deprecation period.
 KML Layer (Deprecated as of April 30, 2026)
-The KmlLayer class is deprecated. For new projects, we recommend using
-alternative methods to display KML data on the map. See the KML Layer Migration Guide for details.
+The KmlLayer functionality in the Maps JavaScript API is no longer available.
+Use alternative methods to display KML data on the map. See the
+KML Layer Migration Guide for details.
 Data-driven styling for datasets : Upload your KML data as a dataset and
 use data-driven styling. Read the Datasets
 Overview .
@@ -669,7 +670,7 @@ The minimum version of the Places SDK for iOS with the
 replacement properties is v3.8.0 .
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-16 UTC.
+Last updated 2026-10-20 UTC.
 Platform Status
 Find out about platform incidents and outages.
 Support

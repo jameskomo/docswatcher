@@ -185,7 +185,7 @@ June 16, 2021
 EventSub vs PubSub for subscription events
 API
 2
-2952
+2953
 January 6, 2021
 Subscriptions Beta Changes
 API

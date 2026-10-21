@@ -66,9 +66,9 @@ Change type
 Action required
 Breaking change
 Deprecated
-October 14, 2026
-Hydrogen 2026-10 is now available
-The new Hydrogen is now GA: A framework-agnostic JavaScript library to add Shopify commerce to your existing stack, plus skills for coding agents and starters for React Router and Next.js.
+October 20, 2026
+Securing your app, together
+Act now to secure your app: We're asking every app dev to act this week. We have new tools to help, including AI security scans, expiring tokens, and better log filtering. Read on to learn how.
 Read the full story
 Changelog
 Search changelog
@@ -131,6 +131,9 @@ Latest 2026-10
 Release candidate 2027-01
 October 2026
 Surface
+10.20
+Metaobject analytics queryable capability available in the Admin API
+GraphQL Admin API
 10.16
 Checkout MCP and Cart MCP now support UCP buyer consent
 UCP
@@ -138,6 +141,10 @@ UCP
 Build with confidence: Shopify AI Toolkit's security check
 Check your app for security vulnerabilities with `shopify app security check`. Run it before you submit an app, and on every release, to catch problems in your own code and get remediation guidance.
 AI Toolkit
+10.14
+Hydrogen 2026-10 is now available
+The new Hydrogen is now GA: A framework-agnostic JavaScript library to add Shopify commerce to your existing stack, plus skills for coding agents and starters for React Router and Next.js.
+Hydrogen
 10.13
 Add shopping and Shop Pay checkout to any agent with Shop MCP
 Tools
@@ -434,13 +441,6 @@ GraphQL Admin API
 07.24
 Invalid metafield queries now return errors in the GraphQL Admin API
 Breaking changes GraphQL Admin API
-07.22
-Meet the 2026 Shopify Build Award winners
-Meet the 2026 Shopify Build Award winners across apps, storefronts, merchant impact, and community.
-Partners
-07.21
-Metafield triggers and additional topics are now available for Events
-Events & webhooks
 Load more
 Updates
 Developer changelog

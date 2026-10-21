@@ -9,9 +9,9 @@ Slack developer changelog
 Release: Slack CLI v4.10.0
 Slack Code for developers
 Release: Slack CLI v4.9.0
-Release: Java SDK v1.52.0
-Release: Python SDK v3.45.0
-Release: Node SDK updates
+Release: Java Slack SDK v1.52.0
+Release: Python Slack SDK v3.45.0
+Release: Node Slack SDK updates
 Release: Slack CLI v4.8.0
 Updated installation requirement for Slack Marketplace apps
 Release: Slack CLI v4.7.0
@@ -279,7 +279,7 @@ We fixed an issue where the slack activity --tail and slack run commands kept re
 Tags:
 Release
 Slack CLI
-Release: Java SDK v1.52.0
+Release: Java Slack SDK v1.52.0
 October 1, 2026
 We've added support for the TaskCardBlock layout block ( task_card type) and related fields, as well as UrlSourceElement for the sources field.
 We've added support for the ContainerBlock layout block ( container type) and related fields.
@@ -295,8 +295,8 @@ agents.conversations.setProperties
 agents.conversations.setView
 Tags:
 Release
-Java SDK
-Release: Python SDK v3.45.0
+Java Slack SDK
+Release: Python Slack SDK v3.45.0
 October 1, 2026
 We've added support for the ContainerBlock layout block ( container type) and related fields.
 The TableBlock model in slack_sdk.models.blocks now allows allow raw_number cells.
@@ -312,10 +312,10 @@ agents.conversations.setProperties
 agents.conversations.setView
 Tags:
 Release
-Python SDK
-Release: Node SDK updates
+Python Slack SDK
+Release: Node Slack SDK updates
 September 30, 2026
-We've released the following Node SDK-related updates:
+We've released the following Node Slack SDK-related updates:
 Socket Mode v3.1.0 ​
 The default dispatcher now pins the WebSocket connection to HTTP/1.1, since undici@^8 offers HTTP/2 by default. To do the same with a custom ProxyAgent dispatcher, pass requestTls: { allowH2: false } .
 Types v3.2.0 ​
@@ -336,7 +336,7 @@ getCanvas ,
 setCanvasContent
 Tags:
 Release
-Node SDK
+Node Slack SDK
 Release: Slack CLI v4.8.0
 September 15, 2026
 Version 4.8.0 of the Slack CLI is here!
