@@ -178,6 +178,168 @@ Save and categorize content based on your preferences.
 To review release notes for the Firebase console and for other Firebase
 platforms and related SDKs, refer to the
 Firebase Release Notes .
+Version 13.1.0 - October 21, 2026
+A/B Testing
+Improved robustness when parsing malformed experiment payloads from
+the server. ( #16728 )
+Fixed an issue where Remote Config's activate() completion could
+be delayed by several seconds on a busy device because A/B Testing updated
+experiments at background priority.
+( #16784 )
+Fixed an issue where LifecycleEvents.expireExperimentEventName
+accepted event names without the required _ prefix instead of falling back
+to the default name.
+( #16785 )
+Firebase AI Logic
+Public Preview : Added SpeechMetadata support to TextPart
+for Gemini text-to-speech (TTS) models, enabling turn-level speaker routing in
+multi-speaker synthesis and sustained speech delivery styling. See the speech
+generation guide
+for more details.
+Fixed crashes when a chat session's history contained parts with
+unrecognized data or code execution parts received from the server, when
+creating a ModelContent with an unsupported Part type, and when decoding a
+malformed duration from the server. Requests that include an image that fails
+to convert now throw a GenerateContentError instead of crashing.
+( #16728 )
+Fixed intermittent 400 INVALID_ARGUMENT errors from the Gemini
+Enterprise Agent Platform in multi-turn GeminiLanguageModel sessions, which
+occurred when a thought signature from a previous text response was sent back
+as a part containing no data.
+( #16886 )
+Added support for voice activity signals in the Live API. When
+automatic activity detection detects the start or end of user speech, Gemini
+3.x Live models send a LiveServerVoiceActivity , which is surfaced as
+LiveServerContent.voiceActivity .
+( #16889 )
+Fixed an issue where LiveSession.responses finished with a
+LiveSessionUnsupportedMessageError when the server sent a message type that
+the SDK doesn't support, such as the voiceActivity messages sent by Gemini
+3.x Live models for each spoken turn. Unsupported message types are now logged
+and ignored. ( #16889 )
+Fixed a "switch must be exhaustive" compiler warning when building
+GeminiLanguageModel with Xcode 27.2 beta. Transcripts containing
+Transcript.Entry.data entries continue to throw
+LanguageModelError.unsupportedTranscriptContent .
+( #16890 )
+GeminiLanguageModel now throws
+GeminiLanguageModel.Error.invalidResponse instead of networkFailure when
+Gemini returns a response that cannot be decoded or used.
+( #16881 )
+Authentication
+Fixed a bug in URL domain validation and improved keychain logging
+safety.
+Strengthened the randomness and length of generated OAuth and
+reCAPTCHA session identifiers.
+Fixed a crash by safely skipping malformed account provider entries.
+( #16745 )
+Fixed an issue where the first call of an auth state or ID token
+listener could report no user while the stored user was still loading.
+( #16853 )
+Improved robustness when parsing malformed reCAPTCHA config and
+backend error details from the server.
+( #16728 )
+When reCAPTCHA isn't enabled for any provider,
+initializeRecaptchaConfig() now only loads the configuration and returns
+without an error, matching the web SDK.
+( #16757 )
+Fixed an issue where a user could be signed out after a request was
+rejected with INVALID_ID_TOKEN or TOKEN_EXPIRED , even though the session
+was still valid. Auth now refreshes the token to check the session first.
+( #16854 )
+Fixed a crash loop when the backend sent a very large token lifetime
+( expiresIn ). Token lifetimes outside of (0, 24 h] now fall back to one hour,
+and invalid saved expiration dates are ignored.
+( #16866 )
+Fixed crashes when the backend sent a multi-factor enrollment
+without an enrollment ID, or a TOTP enrollment response without a shared
+secret key. Such enrollments are now skipped, and such TOTP responses fail
+with an error. ( #16904 )
+Fixed a data race in the APNs token manager that could leave a phone
+number verification waiting indefinitely, or make it fall back to reCAPTCHA
+unnecessarily, when it overlapped with another verification or with the APNs
+token arriving.
+( #16902 )
+Realtime Database
+Fixed a race where calling childByAutoId() concurrently from
+multiple threads could generate duplicate push IDs.
+( #16768 )
+Fixed an issue where transactions could fail with a maxretry error
+when every child of a node had a priority.
+( #16769 )
+Fixed an issue where observers could miss events, and keep showing
+stale or reverted values, when multiple pending transactions at overlapping
+locations were rerun.
+( #16791 )
+Fixed an issue where a getData call that failed without a cached
+value kept its query marked as active in the persistence cache until the app
+restarted, which kept that location from being pruned.
+( #16792 )
+Fixed a potential crash at every launch after the server sent an
+invalid database host. Such hosts are now ignored, and a saved one is
+discarded. ( #16863 )
+Fixed a potential crash when the server sent a data message with an
+error . ( #16863 )
+Fixed a crash in purgeOutstandingWrites when the server had
+already acknowledged a write that the SDK hadn't processed yet.
+( #5161 )
+Fixed a crash in getData when the server returned an error without
+a reason. ( #16718 )
+Ignore malformed realtime server push, control, and handshake
+messages instead of crashing when a frame or one of its fields has an
+unexpected JSON type.
+( #16750 )
+Cloud Firestore
+Added support for Pipeline DML stages ( delete , update ,
+insert , upsert ), literals source stage, and
+Pipeline.ExecuteOptions(isAtomic:) .
+( #16859 )
+Cloud Functions
+Fixed callable streams failing with "Unexpected format for streamed
+response." when the server sends SSE comment lines, such as the : ping
+heartbeat emitted during long-running streaming functions.
+( #16605 )
+Firebase In-App Messaging
+Released the display gate and removed unconstructable messages so a
+card without images no longer blocks subsequent in-app messages.
+( #16819 )
+FCM
+Reduced main-thread work when setting the APNs token: the APNs
+environment check no longer queries the App Store receipt, and the keychain is
+read once instead of up to twice.
+( #16726 )
+Fixed a potential main-thread hang during FirebaseApp.configure()
+caused by unused synchronous SQLite queries for outgoing RMQ IDs.
+( #16736 )
+Stopped writing the ID of each received message to an unused
+database table that grew without bound.
+( #16870 )
+Fixed a crash in token fetches and topic subscriptions, for up to
+seven days, after a malformed device checkin response. Checkin responses are
+now validated before they're saved, and saved values of an unexpected type are
+ignored. ( #16867 )
+Remote Config
+Fixed a crash when the Remote Config fetch response contains a
+non-dictionary top-level JSON object (such as a JSON array).
+( #16735 )
+Fixed crashes when nested fields of a fetch response (such as
+state , entries , personalizationMetadata , rolloutMetadata ,
+experimentDescriptions or a server error ) have unexpected JSON types.
+( #16800 )
+Cloud Storage
+Fixed a race where an observer added while an upload or download
+task was completing could be called twice for the success or failure event.
+This could crash putDataAsync , putFileAsync , and writeAsync when called
+with an onProgress handler.
+( #16813 )
+Fixed Storage.hash depending on callbackQueue , which made equal
+Storage and StorageReference instances hash differently and changed their
+hashes when callbackQueue was set, breaking lookups in sets and
+dictionaries. ( #16794 )
+Fixed a memory leak in StorageReference.listAll(completion:) where
+the completion handler, anything it captured, and partially listed results
+were never released after the listing failed.
+( #16814 )
 Version 13.0.0 - October 7, 2026
 Note: For Zip and Carthage installations , use
 Firebase 13.0.1
@@ -6203,7 +6365,7 @@ to your app's .ipa file, a reduction of nearly 2 MB from the previous
 release.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-20 UTC.
+Last updated 2026-10-22 UTC.
 Learn
 Developer guides
 SDK & API reference

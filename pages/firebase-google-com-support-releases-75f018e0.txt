@@ -184,13 +184,13 @@ link in the following table:
 SDK or tool
 Latest version
 Apple platforms (iOS+)
-13.0.0
+13.1.0
 Android
 Firebase BoM : 35.0.2
 google-services plugin : 4.5.0
 See notes for individual library versions
 JavaScript
-13.0.0
+13.1.0
 Flutter
 Flutter BoM : 5.0.0
 See notes for individual plugin versions
@@ -214,6 +214,18 @@ Firebase CLI
 15.34.0
 Firebase Studio
 See notes
+October 21, 2026
+SDK Releases
+The
+Firebase Apple SDK (v13.1.0)
+is now available. For more details, see the
+Firebase Apple SDK release notes .
+To install this SDK, see Add Firebase to your app .
+The
+Firebase JavaScript SDK (v13.1.0)
+is now available. For more details, see the
+Firebase JavaScript SDK release notes .
+To install the SDK, see Add Firebase to your JavaScript Project .
 October 19, 2026
 Cloud Firestore
 Text search
@@ -17197,7 +17209,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-20 UTC.
+Last updated 2026-10-22 UTC.
 Learn
 Developer guides
 SDK & API reference

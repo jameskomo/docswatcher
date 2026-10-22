@@ -96,7 +96,7 @@ azure-sdk-for-java
 Repository navigation
 Code
 Issues 333 ( 333 )
-Pull requests 197 ( 197 )
+Pull requests 200 ( 200 )
 Actions
 Projects
 Wiki

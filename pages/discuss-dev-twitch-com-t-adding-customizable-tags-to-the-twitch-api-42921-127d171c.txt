@@ -45,12 +45,12 @@ August 19, 2022
 Updating Stream Tags
 API
 4
-409
+410
 April 15, 2023
 Introducing the Tags API
 Announcements
 14
-6003
+6006
 April 20, 2021
 Tags API - Incomplete Data
 API

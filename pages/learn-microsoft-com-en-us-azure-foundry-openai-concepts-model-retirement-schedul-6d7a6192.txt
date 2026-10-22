@@ -705,10 +705,12 @@ GA
 grok-4-1-fast-non-reasoning
 1
 GA
+2027-05-19
 —
 grok-4-1-fast-reasoning
 1
 GA
+2027-05-19
 —
 grok-4-20-non-reasoning
 1
@@ -863,11 +865,14 @@ Cohere-rerank-v4.0-pro, Cohere-rerank-v4.0-fast
 Cohere-embed-v3-english
 1
 GA
-—
+2027-02-15
+Cohere-Embed-V5-Fast, Cohere-Embed-V5-Pro
 Cohere-embed-v3-multilingual
 1
 GA
-—
+2027-02-15
+Cohere-Embed-V5-Fast, Cohere-Embed-V5-Pro
+Cohere-embed-v3-english and Cohere-embed-v3-multilingual are deprecated on November 15, 2026.
 Fireworks
 Important
 Fireworks models on Standard (Per-Token) inference offerings are subject to a 15-day notice period prior to model retirement. Plan your deployments accordingly and monitor notifications for upcoming retirement dates.
@@ -887,6 +892,16 @@ Llama-3.2-90B-Vision-Instruct
 —
 Retired
 2026-06-13
+—
+Llama-3.3-70B-Instruct
+—
+GA
+2027-01-31
+—
+Llama-4-Maverick-17B-128E-Instruct-FP8
+—
+GA
+2026-11-19
 —
 Llama-4-Scout-17B-16E-Instruct
 —
@@ -960,9 +975,10 @@ GA
 mistral-medium-3-5
 mistral-small-2503
 1
-GA
-2026-12-09
-mistral-small-4-119b-2603
+Deprecated
+2027-02-15
+mistralai-mistral-small-4-119b-2603
+Microsoft deprecated mistral-small-2503 on October 9, 2026.
 Nixtla
 Model
 Version
