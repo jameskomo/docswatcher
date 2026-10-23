@@ -499,15 +499,18 @@ Preview
 Cohere-rerank-v4.0-fast
 1
 GA
-—
+2027-09-13
+Cohere-rerank-v5-fast
 Cohere-rerank-v4.0-pro
 1
 GA
-—
+2027-09-13
+Cohere-rerank-v5-pro
 cohere-command-a
 1
 GA
-—
+2027-02-15
+coherelabs-command-a-plus-05-2026-fp8 1 , coherelabs-command-a-plus-05-2026-bf16 1 , coherelabs-command-a-plus-05-2026-w4a4 1
 Cohere-command-a-plus-05-2026
 1
 Preview
@@ -516,7 +519,8 @@ coherelabs-command-a-plus-05-2026-fp8 1 , coherelabs-command-a-plus-05-2026-bf16
 embed-v-4-0
 1
 GA
-—
+2027-06-01
+Coher-embed-v5-fast, Cohere-embed-v5-pro
 1 Available through the Hugging Face collection, for managed compute deployment.
 DeepSeek
 Model
@@ -547,11 +551,13 @@ DeepSeek-V4-Flash
 DeepSeek-V3.2
 1
 GA
-—
+2027-11-01
+DeepSeek-V4.1-Flash
 DeepSeek-V3.2-Speciale
 1
 GA
-—
+2027-11-01
+DeepSeek-V4-Pro
 DeepSeek-V4-Flash
 2026-04-23
 GA
@@ -670,7 +676,7 @@ Preview
 Kimi-K2.7-Code
 2026-06-12
 Preview
-2026-10-03
+2027-04-16
 —
 OpenAI-OSS
 Model
@@ -681,6 +687,7 @@ Replacement
 gpt-oss-120b
 1
 GA
+2027-09-15
 —
 xAI
 Model
@@ -866,12 +873,12 @@ Cohere-embed-v3-english
 1
 GA
 2027-02-15
-Cohere-Embed-V5-Fast, Cohere-Embed-V5-Pro
+Cohere-embed-v5-fast, Cohere-embed-v5-pro
 Cohere-embed-v3-multilingual
 1
 GA
 2027-02-15
-Cohere-Embed-V5-Fast, Cohere-Embed-V5-Pro
+Cohere-embed-v5-fast, Cohere-embed-v5-pro
 Cohere-embed-v3-english and Cohere-embed-v3-multilingual are deprecated on November 15, 2026.
 Fireworks
 Important

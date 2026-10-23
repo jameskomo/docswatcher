@@ -178,6 +178,23 @@ Save and categorize content based on your preferences.
 To review release notes for the Firebase console and for other Firebase
 platforms and related SDKs, refer to the
 Firebase Release Notes .
+Version 13.1.1 - October 22, 2026
+This release provides a Cloud Firestore security update
+to protect client connections against a compromised certificate
+authority.
+Cloud Firestore
+Security Update: Removed root certificates associated with
+compromised eMudhra intermediate CAs from the embedded trust store.
+( #16930 )
+Version 12.19.3 - October 22, 2026
+This release provides a Cloud Firestore security update
+to protect client connections against a compromised certificate authority. This
+update is for apps using Firebase 12, including projects that depend on
+CocoaPods.
+Cloud Firestore
+Security Update: Removed root certificates associated with
+compromised eMudhra intermediate CAs from the embedded trust store.
+( #16933 )
 Version 13.1.0 - October 21, 2026
 A/B Testing
 Improved robustness when parsing malformed experiment payloads from

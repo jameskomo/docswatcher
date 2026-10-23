@@ -175,13 +175,13 @@ Segment status
 <path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 ">
-Test out our voice AI now
+Customer Insights Series
 <title>An icon of a outbound link arrow</title>
 <path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 ">
-Demo Conversation Relay to see how it handles real-time customer calls with pauses, interruptions, and routing.
-Try the demo
+Discover what thousands of global consumers and executives revealed about AI adoption, engagement, and the next era of CX.
+See the findings
 Pricing
 Overview
 All Pricing
@@ -376,13 +376,13 @@ Segment status
 <path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 ">
-Test out our voice AI now
+Customer Insights Series
 <title>An icon of a outbound link arrow</title>
 <path class="icon-stroke" d="M75.3037 3.98207L3 75.5935M75.3037 3.98207L76.0435 43.3021M75.3037 3.98207L35.951 3.59351" stroke="#F22F46" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 ">
-Demo Conversation Relay to see how it handles real-time customer calls with pauses, interruptions, and routing.
-Try the demo
+Discover what thousands of global consumers and executives revealed about AI adoption, engagement, and the next era of CX.
+See the findings
 Pricing
 Overview
 All Pricing

@@ -8,10 +8,10 @@ We've added live status tracking for Mailchimp Transactional API's servers to th
 This lets you check the status of the Mailchimp Transactional servers quickly and easily, on the same page as our other servers.
 ## New Audiences endpoints (BETA)
 We’ve launched new [Audiences endpoints (BETA)](https://mailchimp.com/developer/marketing/api/audiences/)\*\* \*\*as an alternative to our List Members endpoints. These allow for contacts to be added with just an SMS number. These endpoints are still in BETA but includes the following capabilities: create, update, read, forget and archive a contact without reliance on an email value.
-The Audiences Endpoints (BETA) are available for evaluation or testing purposes only, may contain bugs or errors, and may not be as reliable as other Mailchimp features. Intuit may modify or discontinue this feature at any time without notice. By accessing the endpoints you agree to the [Audiences Endpoints (BETA) Terms of Use](/marketing/api-concepts/audiences-endpoints-beta). Consent must be accurately mapped to the supported marketing consent values. Unsupported values, including opt-outs, must be updated manually. See the [Audiences (BETA) developer document](/marketing/api-concepts/audiences-endpoints-beta) for terms and additional details.
+The Audiences Endpoints (BETA) are available for evaluation or testing purposes only, may contain bugs or errors, and may not be as reliable as other Mailchimp features. Intuit may modify or discontinue this feature at any time without notice. By accessing the endpoints you agree to the [Audiences Endpoints (BETA) Terms of Use](/developer/marketing/api-concepts/audiences-endpoints-beta). Consent must be accurately mapped to the supported marketing consent values. Unsupported values, including opt-outs, must be updated manually. See the [Audiences (BETA) developer document](/developer/marketing/api-concepts/audiences-endpoints-beta) for terms and additional details.
 Previously, the creation of a contact via our API relied on the presence of an email. We’re launching this new endpoint to allow for SMS customers to bring over their full contact list, including contacts with no email.
 ## Overwriting campaign_id and outreach_id
-We've started writing over the `campaign_id` or `outreach_id` values on [Orders](/marketing/api/ecommerce/list-store-orders) to align with [our new attribution model](https://mailchimp.com/help/about-mailchimp-attribution/) and user-configured settings. If your integration is sending `campaign_id` or `outreach_id` with [Add Order](/marketing/api/ecommerce/create-store-order) or [Update Order](/marketing/api/ecommerce/update-store-order) API calls, we recommend deprecating that logic.
+We've started writing over the `campaign_id` or `outreach_id` values on [Orders](/developer/marketing/api/ecommerce/list-store-orders) to align with [our new attribution model](https://mailchimp.com/help/about-mailchimp-attribution/) and user-configured settings. If your integration is sending `campaign_id` or `outreach_id` with [Add Order](/developer/marketing/api/ecommerce/create-store-order) or [Update Order](/developer/marketing/api/ecommerce/update-store-order) API calls, we recommend deprecating that logic.
 We’re rolling out [Mailchimp's native attribution model](https://mailchimp.com/help/about-mailchimp-attribution/) across all e-commerce integrations. This new model gives you more complete insights into how marketing campaigns contribute to customer purchases. It also improves marketing performance reporting for all Mailchimp customers using e-commerce integrations. Additionally, this reduces the need for complex custom logic for attributing orders to specific marketing messages.
 ## Webhook retry interval increased
 We’ve increased the number of times that a webhook will retry when we don’t initially receive a 200 response. We will now retry up to 20 times, at intervals of 15-25 minutes per retry. After 20 unsuccessful attempts, the webhook will be disabled.
@@ -48,7 +48,7 @@ We retired API Export 1.0 and API 2.0 on June 1, 2023. We won’t support calls 
 We deprecated API Export 1.0 and API 2.0 on December 31, 2016 and have encouraged our developer community to upgrade to API 3.0 in the intervening time. Although we've continued to support the deprecated endpoints, they've seen increasing performance issues and it’s no longer viable to maintain them.
 ## Added client secret rotation functionality
 We've added functionality to allow you to rotate any client secrets you may have generated for your applications.
-We added this functionality to make it easier to keep your applications secure. For more details, see [Set up an OAuth app](/marketing/build/start-developing/set-up-an-oauth-app).
+We added this functionality to make it easier to keep your applications secure. For more details, see [Set up an OAuth app](/developer/marketing/build/start-developing/set-up-an-oauth-app).
 ## Subject and TO header no longer require encoding
 We’ve recently updated how we encode email headers, so that Subject Lines and the recipient headers (like TO, CC, etc) no longer require users to encode non-ASCII characters.
 We made this change to make it easier for users to send emoji or non-standard text in the Subject, To Address, and To Name. Now, you can pass in those characters directly instead of having to encode them in your email.
@@ -57,7 +57,7 @@ We’ve been updating our API responses recently to provide a more semantic resp
 If you’re specifically targeting HTTP response codes other than 200, you may need to update your code.
 Previously, we responded with an HTTP 500 Server Error when you provided an invalid message ID. We’re updating this to bring our response in line with proper semantics and allow more efficient status monitoring.
 ## Message search rate limit now enforced
-We’re now enforcing the message search rate limit described in the [Search messages by date](/transactional/api/messages/search) endpoint. If you exceed the limit of 20 searches per minute, we’ll now return a 429 Too Many Requests response code. You can retry your request 60 seconds after you sent the first of the original 20 requests.
+We’re now enforcing the message search rate limit described in the [Search messages by date](/developer/transactional/api/messages/search) endpoint. If you exceed the limit of 20 searches per minute, we’ll now return a 429 Too Many Requests response code. You can retry your request 60 seconds after you sent the first of the original 20 requests.
 You may want to monitor your responses for an increase in 429 codes so that you can change your request system to submit no more than 20 searches per minute if necessary.
 We’re enforcing the search request limit to increase system efficiency and minimize overall response time.
 ## Added support for 401 Unauthorized response code
@@ -85,6 +85,6 @@ This validation change affects the following APIs:
 * `messages/reschedule`
 We’re adding this validation limit to increase database efficiency and performance.
 ## IP validation now enforced on Add or Update List Member
-We’re now checking the fields `ip_signup` and `ip_opt` for valid IPv4 and IPv6 addresses when you’re using the [Add or Update List Member](/marketing/api/lists/upsert-member) endpoint.
+We’re now checking the fields `ip_signup` and `ip_opt` for valid IPv4 and IPv6 addresses when you’re using the [Add or Update List Member](/developer/marketing/api/lists/upsert-member) endpoint.
 We added IP validation to the contact importer and we are updating the API to maintain feature parity.
 _Showing the 20 most recent of 83 entries. Append `/llms.txt` to the changelog URL for the complete index._

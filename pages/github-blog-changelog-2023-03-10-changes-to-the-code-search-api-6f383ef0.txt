@@ -31,6 +31,9 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Oct.22 Improvement
+Pull requests: Saved whitespace preferences and improved split view
+collaboration tools
 Oct.15 Improvement
 Multi-repository support and other improvements for GitHub in Slack and Teams
 collaboration tools
@@ -70,9 +73,6 @@ ecosystem & accessibility
 supply chain security
 ...
 +1
-Oct.01 Improvement
-Accessibility statements highlighted on repository overview
-ecosystem & accessibility
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.
 Enter your email *

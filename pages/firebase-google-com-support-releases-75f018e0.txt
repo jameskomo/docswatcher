@@ -184,7 +184,7 @@ link in the following table:
 SDK or tool
 Latest version
 Apple platforms (iOS+)
-13.1.0
+13.1.1
 Android
 Firebase BoM : 35.0.2
 google-services plugin : 4.5.0
@@ -211,9 +211,34 @@ Admin .NET
 Admin Dart (experimental)
 0.5.0
 Firebase CLI
-15.34.0
+15.34.1
 Firebase Studio
 See notes
+October 22, 2026
+Firebase CLI (v15.34.1)
+The latest
+Firebase CLI (v15.34.1) is now
+available. This version ensures the Firebase Hosting API is enabled
+before running commands, updates the Firebase SQL Connect local
+toolkit to v3.4.24, and includes several fixes and improvements.
+To use the Firebase CLI in your development environment,
+set up or update the CLI .
+Cloud Firestore
+Data modification language (DML) operations
+are generally available ( GA ).
+Added support for insert
+and upsert .
+SDK Releases
+The
+Firebase Apple SDK (v13.1.1)
+is now available. For more details, see the
+Firebase Apple SDK release notes .
+To install this SDK, see Add Firebase to your app .
+The
+Firebase Apple SDK (v12.19.3)
+is now available. For more details, see the
+Firebase Apple SDK release notes .
+To install this SDK, see Add Firebase to your app .
 October 21, 2026
 SDK Releases
 The
@@ -681,6 +706,18 @@ When using the new "Agent Platform" initialization syntax: global
 When using the legacy "Vertex AI" initialization syntax: us-central1
 Learn more about
 specifying the location for accessing the model .
+August 28, 2026
+Firebase AI Logic
+Firebase AI Logic now supports
+configuring voice activity detection (VAD)
+when using the Gemini Live API . You can customize VAD sensitivity for
+detecting the start and end of speech, handling interruptions, and
+controlling turn context coverage.
+You can also
+disable automatic voice activity detection (VAD)
+to take complete manual control over conversational turns (such as for a
+push-to-talk interface) by manually demarcating the boundaries of each user
+activity turn.
 August 27, 2026
 Imagen models
 All Imagen models shut down on
@@ -17209,7 +17246,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-22 UTC.
+Last updated 2026-10-23 UTC.
 Learn
 Developer guides
 SDK & API reference
