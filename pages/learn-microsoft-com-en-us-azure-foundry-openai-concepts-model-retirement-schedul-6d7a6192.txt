@@ -320,7 +320,7 @@ GA
 gpt-realtime-2
 2026-05-06
 Preview
-—
+2027-01-20
 gpt-realtime-2.1
 2026-07-07
 GA
@@ -472,18 +472,22 @@ Replacement
 FLUX-1.1-pro
 1
 GA
+2027-01-05
 —
 FLUX.1-Kontext-pro
 1
 GA
+2027-01-05
 —
 FLUX.2-flex
 1
 GA
+2027-01-20
 —
 FLUX.2-pro
 1
 GA
+2027-01-20
 —
 Cohere
 Model
@@ -581,10 +585,12 @@ Replacement
 Llama-3.3-70B-Instruct
 —
 GA
+2027-01-31
 —
 Llama-4-Maverick-17B-128E-Instruct-FP8
 —
 GA
+2026-11-19
 —
 Microsoft
 Model
@@ -708,6 +714,7 @@ grok-4-1-fast-reasoning
 grok-4
 1
 GA
+2027-01-31
 —
 grok-4-1-fast-non-reasoning
 1
@@ -742,6 +749,7 @@ grok-4-1-fast-reasoning
 grok-code-fast-1
 1
 GA
+2027-01-31
 —
 Foundry Models from partners and community
 This section lists the retirement lifecycle for Foundry Models sold by partners via Azure Marketplace.
@@ -913,6 +921,7 @@ GA
 Llama-4-Scout-17B-16E-Instruct
 —
 GA
+2027-01-31
 —
 Meta-Llama-3.1-405B-Instruct
 —
@@ -969,6 +978,7 @@ Replacement
 Codestral-2501
 2
 GA
+2027-02-15
 —
 Ministral-3B
 1

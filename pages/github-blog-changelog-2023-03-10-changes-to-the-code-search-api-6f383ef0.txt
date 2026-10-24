@@ -31,6 +31,12 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Oct.23 Improvement
+Enterprise installations for GitHub Apps generally available
+ecosystem & accessibility
+enterprise management tools
+...
++1
 Oct.22 Improvement
 Pull requests: Saved whitespace preferences and improved split view
 collaboration tools
@@ -63,12 +69,6 @@ ecosystem & accessibility
 +1
 Oct.02 Improvement
 New fields for SecurityAdvisory GraphQL API
-ecosystem & accessibility
-supply chain security
-...
-+1
-Oct.02 Release
-Repository security advisory comments API in public preview
 ecosystem & accessibility
 supply chain security
 ...

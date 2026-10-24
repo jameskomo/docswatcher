@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Release: Slack CLI v4.11.0
 Release: Slack CLI v4.10.0
 Slack Code for developers
 Release: Slack CLI v4.9.0
@@ -251,6 +252,18 @@ Subscribe to the changelog!
 Get real-time notifications about new features, improvements, and bug fixes directly in your preferred feed reader.
 RSS
 Atom
+Release: Slack CLI v4.11.0
+October 22, 2026
+Version 4.11.0 of the Slack CLI is here!
+We've made password-free sign-in the default for the slack sandbox create command. If you don't pass the --password flag, you sign in to the new sandbox with a link sent to your email.
+We've added support for the features.user_connections app manifest property ( is_enabled and auth_hosts ), so the slack run , slack deploy , and slack manifest sync commands keep it.
+We've updated the CLI to Go 1.27.3, which no longer trusts the compromised eMudhra certificate authorities.
+We've raised the supported Deno version for local development to 2.9.8, the first release that no longer trusts the compromised eMudhra certificate authorities. The slack doctor command now reports older Deno versions as unsupported, so upgrade your local Deno to 2.9.8 or later.
+All new deploys and re-deploys to Run on Slack infrastructure now use Deno 2.9.8, which no longer trusts the compromised eMudhra certificate authorities.
+We fixed an issue where the restricted_scopes error shown when installing an app did not explain the cause. The error now says which kinds of scopes need an admin or owner to install, and how to resolve it.
+Tags:
+Release
+Slack CLI
 Release: Slack CLI v4.10.0
 October 13, 2026
 Version 4.10.0 of the developer tools for the Slack platform has landed!

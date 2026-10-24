@@ -78,6 +78,7 @@ Security checklist
 Launch checklist
 Firebase-related service accounts
 Troubleshoot initialization options
+Updates to remediate eMudhra certificate compromise
 Dynamic Links deprecation
 Deprecation FAQ
 Export Dynamic Links metadata
@@ -186,18 +187,18 @@ Latest version
 Apple platforms (iOS+)
 13.1.1
 Android
-Firebase BoM : 35.0.2
+Firebase BoM : 35.1.0
 google-services plugin : 4.5.0
 See notes for individual library versions
 JavaScript
 13.1.0
 Flutter
-Flutter BoM : 5.0.0
+Flutter BoM : 5.1.0
 See notes for individual plugin versions
 Unity
-14.0.0
+14.1.0
 C++
-14.0.0
+14.1.0
 Admin Node.js
 14.5.0
 Admin Java
@@ -214,15 +215,28 @@ Firebase CLI
 15.34.1
 Firebase Studio
 See notes
+October 23, 2026
+SDK Releases
+The Firebase SDK for Flutter
+(v5.1.0) is now available.
+This release includes changes in Cloud Firestore , Firebase AI Logic ,
+Core and Firebase SQL Connect , and bug fixes in several products.
+The Firebase SDK for C++
+(v14.1.0) is now available.
+This release includes a Firestore security update, a bug fix in
+Authentication, and other changes.
+The Firebase SDK for C++
+(v13.13.1) is now available.
+This release includes a Firestore security update and other
+changes.
+The Firebase SDK for Unity
+(v14.1.0) is now available. This
+release includes a Cloud Firestore security update, changes in
+Firebase AI Logic and bug fixes in several products.
+The Firebase SDK for Unity
+(v13.17.1) is now available. This
+release includes a Cloud Firestore security update.
 October 22, 2026
-Firebase CLI (v15.34.1)
-The latest
-Firebase CLI (v15.34.1) is now
-available. This version ensures the Firebase Hosting API is enabled
-before running commands, updates the Firebase SQL Connect local
-toolkit to v3.4.24, and includes several fixes and improvements.
-To use the Firebase CLI in your development environment,
-set up or update the CLI .
 Cloud Firestore
 Data modification language (DML) operations
 are generally available ( GA ).
@@ -239,6 +253,20 @@ Firebase Apple SDK (v12.19.3)
 is now available. For more details, see the
 Firebase Apple SDK release notes .
 To install this SDK, see Add Firebase to your app .
+The App Distribution Gradle plugin
+has been updated.
+For more details, check out the latest
+Android Release Notes .
+To get started with Firebase in Android, see
+Add Firebase to your Android Project .
+Firebase CLI (v15.34.1)
+The latest
+Firebase CLI (v15.34.1) is now
+available. This version ensures the Firebase Hosting API is enabled
+before running commands, updates the Firebase SQL Connect local
+toolkit to v3.4.24, and includes several fixes and improvements.
+To use the Firebase CLI in your development environment,
+set up or update the CLI .
 October 21, 2026
 SDK Releases
 The
@@ -246,6 +274,17 @@ Firebase Apple SDK (v13.1.0)
 is now available. For more details, see the
 Firebase Apple SDK release notes .
 To install this SDK, see Add Firebase to your app .
+The Firebase Android SDKs for
+Firebase AI Logic , Cloud Firestore , Cloud Messaging , Crashlytics ,
+Crashlytics NDK, and Remote Config
+have been updated.
+For more details, check out the latest
+Android Release Notes .
+To get started with Firebase in Android, see
+Add Firebase to your Android Project .
+The Firebase Android BoM ( Bill of Materials )
+has been updated to v35.1.0. Learn how to
+add SDKs to your app using the Firebase BoM .
 The
 Firebase JavaScript SDK (v13.1.0)
 is now available. For more details, see the

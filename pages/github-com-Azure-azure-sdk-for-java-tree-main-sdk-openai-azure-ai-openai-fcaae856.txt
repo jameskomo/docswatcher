@@ -41,7 +41,7 @@ Healthcare
 Financial services
 Manufacturing
 Government
-View all industries
+See all industries
 View all solutions
 Resources
 EXPLORE BY TOPIC
@@ -95,8 +95,8 @@ Azure
 azure-sdk-for-java
 Repository navigation
 Code
-Issues 346 ( 346 )
-Pull requests 197 ( 197 )
+Issues 345 ( 345 )
+Pull requests 198 ( 198 )
 Actions
 Projects
 Wiki

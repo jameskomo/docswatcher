@@ -92,6 +92,7 @@ Security checklist
 Launch checklist
 Firebase-related service accounts
 Troubleshoot initialization options
+Updates to remediate eMudhra certificate compromise
 Dynamic Links deprecation
 Deprecation FAQ
 Export Dynamic Links metadata

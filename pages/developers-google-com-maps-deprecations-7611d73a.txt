@@ -109,6 +109,7 @@ Get started with Google Maps Platform
 Get and use a Maps Demo Key
 Capabilities Explorer
 Overview
+All capabilities
 Maps
 Places
 Routes
@@ -278,6 +279,17 @@ Places SDK for iOS .
 Active deprecations
 This section lists all products and features which are currently in a
 deprecation period.
+gmp-place-content-config in the Maps JavaScript API Places UI Kit (Deprecated as of October 2026)
+The <gmp-place-content-config> element ( PlaceContentConfigElement ) is
+deprecated as of 3.66.11a. Instead, add content elements directly to the Place
+Details elements, or put them in a <template slot="details-item"> element in
+the Place Search element. For details, see Configure the content for Place
+Details
+and Configure the content for Place
+Search .
+<gmp-place-content-config> continues to work and isn't scheduled to be
+discontinued. At least 12 months notice will be given before support is
+discontinued.
 KML Layer (Deprecated as of April 30, 2026)
 The KmlLayer functionality in the Maps JavaScript API is no longer available.
 Use alternative methods to display KML data on the map. See the
@@ -670,7 +682,7 @@ The minimum version of the Places SDK for iOS with the
 replacement properties is v3.8.0 .
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-21 UTC.
+Last updated 2026-10-23 UTC.
 Platform Status
 Find out about platform incidents and outages.
 Support

@@ -4,8 +4,8 @@ Changes introduced outside of a version release are documented in the [Out-Of-Cy
 | Version | Release Date | Expiration Date |
 | --- | --- | --- |
 | [v26.0](https://developers.facebook.com/documentation/ads-commerce/marketing-api/marketing-api-changelog/version26.0) | July 29, 2026 | TBD |
-| [v25.0](https://developers.facebook.com/documentation/ads-commerce/marketing-api/marketing-api-changelog/version25.0) | February 18, 2026 | TBD |
-| [v24.0](https://developers.facebook.com/documentation/ads-commerce/marketing-api/marketing-api-changelog/version24.0) | October 8, 2025 | October 6, 2026 |
+| [v25.0](https://developers.facebook.com/documentation/ads-commerce/marketing-api/marketing-api-changelog/version25.0) | February 18, 2026 | February 23, 2027 |
+| [v24.0](https://developers.facebook.com/documentation/ads-commerce/marketing-api/marketing-api-changelog/version24.0) | October 8, 2025 | November 10, 2026 |
 | [v23.0](https://developers.facebook.com/documentation/ads-commerce/marketing-api/marketing-api-changelog/version23.0) | May 29, 2025 | June 9, 2026 |
 | [v22.0](https://developers.facebook.com/documentation/ads-commerce/marketing-api/marketing-api-changelog/version22.0) | January 21, 2025 | February 19, 2026 |
 | [v21.0](https://developers.facebook.com/documentation/ads-commerce/marketing-api/marketing-api-changelog/version21.0) | October 2, 2024 | September 9, 2025 |

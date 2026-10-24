@@ -34,7 +34,7 @@ October 29, 2020
 Twitch Soundtrack detection (BETA) is this working?
 API
 1
-253
+254
 October 11, 2022
 Twitch Soundtrack not playing tracks
 API

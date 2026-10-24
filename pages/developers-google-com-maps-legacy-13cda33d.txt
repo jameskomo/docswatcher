@@ -109,6 +109,7 @@ Get started with Google Maps Platform
 Get and use a Maps Demo Key
 Capabilities Explorer
 Overview
+All capabilities
 Maps
 Places
 Routes
