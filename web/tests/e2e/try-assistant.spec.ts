@@ -1,7 +1,7 @@
 // "Try it with your own assistant" on the Agents page, against mocked provider APIs: no real key,
 // no real credit. What matters is the loop (the model asks check_api, the page answers from the
 // engine, the model finishes) and that the key goes to the provider and nowhere else.
-import { test, expect, type Page, type Route } from "@playwright/test";
+import { test, expect, type Page, type Route } from "./fixed-clock";
 
 const KEY = "test-key-123";
 

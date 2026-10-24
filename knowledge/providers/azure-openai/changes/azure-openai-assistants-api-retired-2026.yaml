@@ -23,9 +23,9 @@ sources:
     observed: 2026-09-24
     note: "The Assistants API is retired. Use the generally available Microsoft Foundry Agents service."
   - kind: provider_page
-    url: https://github.com/MicrosoftDocs/azure-ai-docs/blob/b4c180e1/articles/ai-foundry/openai/includes/agent-service.md
-    observed: 2026-09-24
-    note: "Earliest published revision naming the date (2026-02-13): The Assistants API is deprecated and will be retired on August 26, 2026."
+    url: https://web.archive.org/web/20260328113202/https://learn.microsoft.com/en-us/azure/foundry-classic/openai/how-to/assistant  # archived copy: the live page no longer states the date, and the docs repository cited before is gone
+    observed: 2026-10-24
+    note: "Microsoft Learn before the retirement: The Assistants API is deprecated and will be retired on August 26, 2026."
 
 migration:
   replacement: "Foundry Agent Service"

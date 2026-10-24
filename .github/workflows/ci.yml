@@ -49,7 +49,18 @@ jobs:
         working-directory: web
       - run: npm run generate
         working-directory: web
-      - run: npx playwright install --with-deps chromium && npm run e2e
+      # The browser download is a third-party fetch; one failed DNS lookup must not fail CI
+      # (2026-10-21: getaddrinfo ENOTFOUND playwright.download.prss.microsoft.com). Retry it.
+      - name: Install the test browser
+        run: |
+          for attempt in 1 2 3; do
+            npx playwright install --with-deps chromium && exit 0
+            echo "::warning::browser download failed (attempt $attempt), retrying"
+            sleep $((attempt * 20))
+          done
+          exit 1
+        working-directory: web
+      - run: npm run e2e
         working-directory: web
 
   relay:
