@@ -1,17 +1,17 @@
 468 captures
 17 May 2023 - 13 Mar 2026
-Oct
-NOV
-Dec
-11
-2024
+Feb
+MAR
+Apr
+13
 2025
 2026
+2027
 success
 fail
 About this capture
 TIMESTAMPS
-The Wayback Machine - https://web.archive.org/web/20251111231730/https://mailchimp.com/developer/release-notes/export-api-1-0-and-api-2-0-no-longer-supported/
+The Wayback Machine - https://web.archive.org/web/20260313164639/https://mailchimp.com/developer/release-notes/export-api-1-0-and-api-2-0-no-longer-supported/
 Skip to main content Products
 Mailchimp Marketing API
 Power timely, relevant marketing campaigns with custom data pulled directly from your app.
@@ -47,4 +47,4 @@ Careers
 Privacy & Terms
 Read the documentation
 Help
-© 2001 - 2025 All Rights Reserved. Mailchimp ® is a registered trademark of The Rocket Science Group.
+© 2001 - 2026 All Rights Reserved. Mailchimp ® is a registered trademark of The Rocket Science Group.
