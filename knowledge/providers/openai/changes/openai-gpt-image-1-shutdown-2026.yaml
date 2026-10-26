@@ -27,4 +27,4 @@ migration:
     Replace the model ID string. Re-run any evals, because output style and
     token usage differ between model generations.
 
-status: active
+status: expired
