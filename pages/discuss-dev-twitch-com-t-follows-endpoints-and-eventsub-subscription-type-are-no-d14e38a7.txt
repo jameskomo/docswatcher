@@ -150,7 +150,7 @@ Activity
 Channel followers
 API
 1
-818
+819
 September 15, 2023
 Legacy Follows API and EventSub Shutdown Timeline Updated
 Announcements

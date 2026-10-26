@@ -456,6 +456,7 @@ Search Posts: Standard v1.1 to X API v2
 Search Posts: Enterprise to X API v2
 ⌘ I
 On this page
+Back to top
 Comparing X API’s Search Posts endpoints
 Recent search comparison
 Full-archive search comparison

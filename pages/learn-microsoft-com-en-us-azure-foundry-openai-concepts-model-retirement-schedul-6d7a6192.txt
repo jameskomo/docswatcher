@@ -850,6 +850,7 @@ Preview
 claude-mythos-5-1
 1
 Preview
+2027-09-01
 —
 claude-mythos-preview (gated research preview)
 —
