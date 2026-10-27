@@ -28,6 +28,12 @@ Release notes and version history for the X API v2, Enterprise APIs, Ads API, SD
 Copy page Copy page
 To subscribe to updates, please “Turn on notifications” for @API . You can also follow this changelog in your feed reader via the RSS feed .
 ​
+Oct 26, 2026
+X API v2
+​
+Improved Direct Message refusal error details
+Create Direct Message requests ( POST /2/dm_conversations , POST /2/dm_conversations/:id/messages , and POST /2/dm_conversations/with/:participant_id/messages ) still return HTTP 403 when a message is refused. The problem type now identifies the refusal ( https://api.x.com/2/problems/dm-... ). detail names the cause when that was already specific, or when the new wording does not reveal a private fact about the recipient. Refusals we cannot explain safely stay about:blank with “This operation is not permitted.” Clients that only check the status code are unaffected. The new types are part of the public OpenAPI Problem union and of generated SDKs.
+​
 Oct 2, 2026
 X API v2
 ​
@@ -230,7 +236,7 @@ Oct 20, 2025
 X API
 ​
 X API Pay-Per-Use pricing pilot
-Today, we announced a limited closed pilot for a new credit-based, usage-based pricing model. Developers buy credits upfront and are charged per request — no fixed subscription fees and no monthly object caps. Initial pilot rates: 0.005 / P o s t R e a d , 0.005/Post Read, 0.005/ P os tR e a d , 0.01/User Read, 0.01 / D M E v e n t R e a d , 0.01/DM Event Read, 0.01/ D ME v e n tR e a d , 0.01/Content Create, 0.01 / D M I n t e r a c t i o n , 0.01/DM Interaction, 0.01/ D M I n t er a c t i o n , 0.015/User Interaction. Learn more here .
+Today, we announced a limited closed pilot for a new credit-based, usage-based pricing model. Developers buy credits upfront and are charged per request — no fixed subscription fees and no monthly object caps. Initial pilot rates: $0.005/Post Read, $ 0.01/User Read, $0.01/DM Event Read, $ 0.01/Content Create, $0.01/DM Interaction, $ 0.015/User Interaction. Learn more here .
 ​
 Oct 18, 2025
 X API v2
@@ -1379,6 +1385,7 @@ profile_locality:
 ⌘ I
 On this page
 Back to top
+Oct 26, 2026
 Oct 2, 2026
 Oct 1, 2026
 Sep 29, 2026

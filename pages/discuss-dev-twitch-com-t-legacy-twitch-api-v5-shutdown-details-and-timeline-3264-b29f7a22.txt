@@ -144,7 +144,7 @@ December 20, 2018
 Deprecation date for v5?
 API
 4
-548
+551
 April 12, 2021
 Twitch API v5 deprecate date?
 API

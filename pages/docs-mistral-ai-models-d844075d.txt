@@ -39,7 +39,7 @@ Hybrid model unifying instruct, reasoning, and coding in a single efficient mode
 Voxtral Mini Transcribe 3
 Strong transcription and diarization at a competitive price point.
 Voxtral TTS 3
-State-of-the-art TTS with zero-shot and professional voice cloning, 9 languages, and streaming.
+State-of-the-art TTS with zero-shot and professional voice cloning, 35+ languages and 50+ dialects, and streaming.
 All models
 Copy section link
 All models
@@ -118,7 +118,7 @@ Realtime transcription model for agentic use-cases with configurable latency and
 v 3.0
 Voxtral TTS 3
 Premier
-State-of-the-art TTS with zero-shot and professional voice cloning, 9 languages, and streaming.
+State-of-the-art TTS with zero-shot and professional voice cloning, 35+ languages and 50+ dialects, and streaming.
 v 3.0
 Voxtral Mini Transcribe 2
 Premier

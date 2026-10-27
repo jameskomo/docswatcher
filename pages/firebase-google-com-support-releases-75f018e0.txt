@@ -215,7 +215,26 @@ Firebase CLI
 15.34.1
 Firebase Studio
 See notes
+October 26, 2026
+Google AI Studio integration
+The Firebase integration in
+Google AI Studio now
+automatically sets up and integrates Firebase AI Logic and
+Firebase App Check when you build Android apps with generative AI
+features. This integration lets your Android app securely call Gemini models
+directly without exposing API keys. The app uses debug tokens for testing and
+reCAPTCHA Enterprise for production releases on Google Play .
+To learn more, see
+Firebase AI Logic and App Check for Android apps .
 October 23, 2026
+Test Lab
+The following devices are now deprecated and will be removed on
+2026-11-23:
+ipad10/16.6
+iphone11pro/16.6
+iphone14pro/16.6
+iphone8/16.6
+If you currently use these devices, consider moving to a different device now.
 SDK Releases
 The Firebase SDK for Flutter
 (v5.1.0) is now available.
@@ -17285,7 +17304,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-23 UTC.
+Last updated 2026-10-26 UTC.
 Learn
 Developer guides
 SDK & API reference
