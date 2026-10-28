@@ -298,3 +298,26 @@ are fixed. To report a vulnerability, email hello@vukisha.co.ke rather than open
 | Weekly | Closed-loop fix, link check, corpus re-pin and re-score | Uses our own API key for the fix test |
 
 The engine and knowledge base are public repositories, so per-PR and nightly jobs run on free GitHub Actions minutes. The closed-loop fix test is the only job with a token cost and it is capped by the weekly cadence.
+
+## Tests must not depend on the calendar or on live records
+
+The knowledge base changes on its own: dates pass, and the knowledge watch's expiry pull request
+flips records from `active` to `expired`. A test that reads a real record's status, or expects a
+real shutdown to be upcoming, passes the day it is written and fails weeks later with no change to
+the code. Between 2026-10-03 and 10-27 that happened four separate times: the validator calling a
+passed date an error, two end-to-end tests expecting `gpt-4-turbo` to be upcoming, and a unit test
+reading the live `gpt-4-turbo` record's status.
+
+The rules:
+
+- A test of how a record is handled uses a fixture written in the test, not a file from `knowledge/`.
+- An end-to-end test whose assertions depend on real shutdown dates runs with the browser clock
+  pinned (`web/tests/e2e/fixed-clock.ts`).
+- Validation of the real knowledge base uses the real date. A date passing is a warning, never an
+  error (docs/03-knowledge-base-guide.md).
+
+CI enforces them. Its **Knowledge base a year from now** job runs on every push and pull request:
+it runs the knowledge watch's own expiry script as of 365 days ahead, which expires every record
+whose date will have passed by then, and runs the engine, CLI, web unit, parity and end-to-end
+suites against that knowledge base, validating as of that date (`-Ddocswatcher.today`). A test that
+would break when time passes fails on the pull request that adds it, not on a morning months later.

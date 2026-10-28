@@ -1,12 +1,36 @@
 // The knowledge watch's one automatic edit: docs/16-knowledge-watch.md, "Expiring records".
 import { describe, it, expect } from "vitest";
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import YAML from "yaml";
 // @ts-expect-error plain ESM build script, no type declarations
 import { dueForExpiry, setExpired } from "../../scripts/lib/expire.mjs";
 
-const record = readFileSync(join(__dirname, "..", "..", "..", "knowledge", "providers", "openai", "changes", "openai-gpt-4-turbo-shutdown-2026.yaml"), "utf8");
+// A frozen record, not a file from knowledge/: real records are meant to change (the expiry pull
+// request flips them to expired), and on 2026-10-26 reading the live gpt-4-turbo record broke CI the
+// moment its own expiry was merged. The nested status line proves only the top-level one changes.
+const record = [
+  "id: example-model-shutdown-2026",
+  "provider: openai",
+  "kind: retired",
+  "severity: breaking",
+  'title: "example-model shut down"',
+  "summary: >",
+  "  Requests to example-model fail after the shutdown date.",
+  "affects:",
+  "  - kind: model",
+  '    match: "example-model"',
+  "announced: 2026-04-22",
+  "effective: 2026-10-23",
+  "sources:",
+  "  - kind: provider_page",
+  "    url: https://example.test/deprecations",
+  "    observed: 2026-09-18",
+  "migration:",
+  '  replacement: "example-model-2"',
+  "  notes: >",
+  "    status: active is how the provider labels the old model in its console.",
+  "status: active",
+  "",
+].join("\n");
 
 describe("expiring a record", () => {
   it("is due only for an active record whose date is in the past, the first day validate fails", () => {

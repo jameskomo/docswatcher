@@ -69,8 +69,10 @@ class CliTest {
   @Test
   void validatePasses() {
     // The real date, as CI's validate step uses: whether a record's status agrees with its date
-    // depends on the calendar, and a pinned date would call records expired too early.
-    Run r = run("validate", KNOWLEDGE.toString(), "--today", java.time.LocalDate.now(java.time.ZoneOffset.UTC).toString());
+    // depends on the calendar, and a pinned date would call records expired too early. CI's
+    // future-proof job sets docswatcher.today to the date it simulates the knowledge base at.
+    String today = System.getProperty("docswatcher.today", java.time.LocalDate.now(java.time.ZoneOffset.UTC).toString());
+    Run r = run("validate", KNOWLEDGE.toString(), "--today", today);
     assertThat(r.exit()).isZero();
     assertThat(r.out()).contains("OK · 0 errors");
   }

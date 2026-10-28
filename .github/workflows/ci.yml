@@ -63,6 +63,51 @@ jobs:
       - run: npm run e2e
         working-directory: web
 
+  # The knowledge base changes on its own: dates pass and the expiry pull request flips records to
+  # expired. Tests that depended on that broke CI four times in October 2026, each weeks after the
+  # test was written. This job runs the suites against the knowledge base as it will be a year from
+  # now, so such a test fails on the pull request that adds it. See docs/04-test-plan.md.
+  future:
+    name: Knowledge base a year from now
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: "25"
+          distribution: graalvm-community
+          cache: maven
+      - uses: actions/setup-node@v7.1.0
+        with: { node-version: "22", cache: npm, cache-dependency-path: web/package-lock.json }
+      - name: Fetch Maven
+        run: for _ in 1 2 3; do ./mvnw -q -v && exit 0; sleep 30; done; exit 1
+      - run: npm ci
+        working-directory: web
+      - name: Expire what a year of expiry pull requests would
+        working-directory: web
+        run: |
+          future=$(date -u -d "+365 days" +%F)
+          echo "FUTURE=$future" >> "$GITHUB_ENV"
+          node scripts/expire-records.mjs --today "$future" --write
+      - name: Engine and CLI tests as of that date
+        run: ./mvnw -B -pl knowledge,engine,cli -am verify "-Ddocswatcher.today=$FUTURE"
+      - name: Validate the knowledge base as of that date
+        run: java -jar cli/target/docswatcher-cli.jar validate knowledge --today "$FUTURE"
+      - name: Web tests and parity
+        working-directory: web
+        run: npm test && npm run parity && npm run generate
+      - name: Install the test browser
+        working-directory: web
+        run: |
+          for attempt in 1 2 3; do
+            npx playwright install --with-deps chromium && exit 0
+            echo "::warning::browser download failed (attempt $attempt), retrying"
+            sleep $((attempt * 20))
+          done
+          exit 1
+      - run: npm run e2e
+        working-directory: web
+
   relay:
     name: Workers
     runs-on: ubuntu-latest
@@ -114,7 +159,7 @@ jobs:
     name: Nightly failure alert
     # always(): without it, a failed job above would skip this one, which is the very case it is for.
     if: always() && github.event_name == 'schedule'
-    needs: [java, web, relay, gitlab-template, nightly]
+    needs: [java, web, future, relay, gitlab-template, nightly]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
