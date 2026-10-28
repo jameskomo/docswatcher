@@ -148,6 +148,7 @@ Organization
 Repository
 User
 Issues
+Artifacts
 Assignees
 Comments
 Events

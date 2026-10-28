@@ -24493,6 +24493,2850 @@ timestamp[]: '#/components/schemas/TimestampArrayFieldDefinition'
 default: {}
 title: ManagedIndexFields
 additionalProperties: false
+ResponsesAnnotationContainerFileCitation:
+type: object
+properties:
+container_id:
+type: string
+title: Container Id
+x-speakeasy-unknown-values: disallow
+end_index:
+type: integer
+title: End Index
+x-speakeasy-unknown-values: disallow
+file_id:
+type: string
+title: File Id
+x-speakeasy-unknown-values: disallow
+filename:
+type: string
+title: Filename
+x-speakeasy-unknown-values: disallow
+start_index:
+type: integer
+title: Start Index
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: container_file_citation
+x-speakeasy-unknown-values: disallow
+title: ResponsesAnnotationContainerFileCitation
+required:
+- container_id
+- end_index
+- file_id
+- filename
+- start_index
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesAnnotationFileCitation:
+type: object
+properties:
+file_id:
+type: string
+title: File Id
+x-speakeasy-unknown-values: disallow
+filename:
+type: string
+title: Filename
+x-speakeasy-unknown-values: disallow
+index:
+type: integer
+title: Index
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: file_citation
+x-speakeasy-unknown-values: disallow
+title: ResponsesAnnotationFileCitation
+required:
+- file_id
+- filename
+- index
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesAnnotationFilePath:
+type: object
+properties:
+file_id:
+type: string
+title: File Id
+x-speakeasy-unknown-values: disallow
+index:
+type: integer
+title: Index
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: file_path
+x-speakeasy-unknown-values: disallow
+title: ResponsesAnnotationFilePath
+required:
+- file_id
+- index
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesAnnotationURLCitation:
+type: object
+properties:
+end_index:
+type: integer
+title: End Index
+x-speakeasy-unknown-values: disallow
+start_index:
+type: integer
+title: Start Index
+x-speakeasy-unknown-values: disallow
+title:
+type: string
+title: Title
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: url_citation
+x-speakeasy-unknown-values: disallow
+url:
+type: string
+title: Url
+x-speakeasy-unknown-values: disallow
+title: ResponsesAnnotationURLCitation
+required:
+- end_index
+- start_index
+- title
+- type
+- url
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesCallerDirect:
+type: object
+properties:
+type:
+type: string
+title: Type
+const: direct
+x-speakeasy-unknown-values: disallow
+title: ResponsesCallerDirect
+required:
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesCallerProgram:
+type: object
+properties:
+caller_id:
+type: string
+title: Caller Id
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: program
+x-speakeasy-unknown-values: disallow
+title: ResponsesCallerProgram
+required:
+- caller_id
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesContent:
+type: object
+properties:
+text:
+type: string
+title: Text
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: reasoning_text
+x-speakeasy-unknown-values: disallow
+title: ResponsesContent
+required:
+- text
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesCustomTool:
+type: object
+properties:
+name:
+type: string
+title: Name
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: custom
+x-speakeasy-unknown-values: disallow
+allowed_callers:
+anyOf:
+- type: array
+items:
+type: string
+enum:
+- direct
+- programmatic
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Allowed Callers
+default: null
+x-speakeasy-unknown-values: disallow
+defer_loading:
+anyOf:
+- type: boolean
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Defer Loading
+default: null
+x-speakeasy-unknown-values: disallow
+description:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Description
+default: null
+x-speakeasy-unknown-values: disallow
+format:
+anyOf:
+- $ref: '#/components/schemas/ResponsesText'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesGrammar'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Format
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesCustomTool
+required:
+- name
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesEasyInputMessage:
+type: object
+properties:
+content:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: array
+items:
+anyOf:
+- $ref: '#/components/schemas/ResponsesInputText'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesInputImage'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesInputFile'
+x-speakeasy-unknown-values: disallow
+title: Content
+x-speakeasy-unknown-values: disallow
+role:
+type: string
+title: Role
+enum:
+- user
+- assistant
+- system
+- developer
+x-speakeasy-unknown-values: disallow
+phase:
+anyOf:
+- type: string
+enum:
+- commentary
+- final_answer
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Phase
+x-speakeasy-unknown-values: disallow
+type:
+anyOf:
+- type: string
+const: message
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Type
+x-speakeasy-unknown-values: disallow
+title: ResponsesEasyInputMessage
+required:
+- content
+- role
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesFunctionCallOutput:
+type: object
+properties:
+call_id:
+type: string
+title: Call Id
+x-speakeasy-unknown-values: disallow
+output:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: array
+items:
+anyOf:
+- $ref: '#/components/schemas/ResponsesInputTextContent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesInputImageContent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesInputFileContent'
+x-speakeasy-unknown-values: disallow
+title: Output
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: function_call_output
+x-speakeasy-unknown-values: disallow
+id:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Id
+x-speakeasy-unknown-values: disallow
+caller:
+anyOf:
+- $ref: '#/components/schemas/ResponsesFunctionCallOutputCallerDirect'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesFunctionCallOutputCallerProgram'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Caller
+x-speakeasy-unknown-values: disallow
+status:
+anyOf:
+- type: string
+enum:
+- in_progress
+- completed
+- incomplete
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Status
+x-speakeasy-unknown-values: disallow
+title: ResponsesFunctionCallOutput
+required:
+- call_id
+- output
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesFunctionCallOutputCallerDirect:
+type: object
+properties:
+type:
+type: string
+title: Type
+const: direct
+x-speakeasy-unknown-values: disallow
+title: ResponsesFunctionCallOutputCallerDirect
+required:
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesFunctionCallOutputCallerProgram:
+type: object
+properties:
+caller_id:
+type: string
+title: Caller Id
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: program
+x-speakeasy-unknown-values: disallow
+title: ResponsesFunctionCallOutputCallerProgram
+required:
+- caller_id
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesFunctionTool:
+type: object
+properties:
+name:
+type: string
+title: Name
+x-speakeasy-unknown-values: disallow
+parameters:
+anyOf:
+- type: object
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Parameters
+default: null
+x-speakeasy-unknown-values: disallow
+strict:
+anyOf:
+- type: boolean
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Strict
+default: null
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: function
+x-speakeasy-unknown-values: disallow
+allowed_callers:
+anyOf:
+- type: array
+items:
+type: string
+enum:
+- direct
+- programmatic
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Allowed Callers
+default: null
+x-speakeasy-unknown-values: disallow
+defer_loading:
+anyOf:
+- type: boolean
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Defer Loading
+default: null
+x-speakeasy-unknown-values: disallow
+description:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Description
+default: null
+x-speakeasy-unknown-values: disallow
+output_schema:
+anyOf:
+- type: object
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Output Schema
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesFunctionTool
+required:
+- name
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesGrammar:
+type: object
+properties:
+definition:
+type: string
+title: Definition
+x-speakeasy-unknown-values: disallow
+syntax:
+type: string
+title: Syntax
+enum:
+- lark
+- regex
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: grammar
+x-speakeasy-unknown-values: disallow
+title: ResponsesGrammar
+required:
+- definition
+- syntax
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesIncompleteDetails:
+type: object
+properties:
+reason:
+anyOf:
+- type: string
+enum:
+- max_output_tokens
+- content_filter
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Reason
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesIncompleteDetails
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+CountResponseInputTokensResponse:
+type: object
+properties:
+input_tokens:
+type: integer
+title: Input Tokens
+x-speakeasy-unknown-values: disallow
+object:
+type: string
+title: Object
+const: response.input_tokens
+x-speakeasy-unknown-values: disallow
+title: CountResponseInputTokensResponse
+required:
+- input_tokens
+- object
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesInputTokensDetails:
+type: object
+properties:
+cache_write_tokens:
+type: integer
+title: Cache Write Tokens
+x-speakeasy-unknown-values: disallow
+cached_tokens:
+type: integer
+title: Cached Tokens
+x-speakeasy-unknown-values: disallow
+title: ResponsesInputTokensDetails
+required:
+- cache_write_tokens
+- cached_tokens
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesMessage:
+type: object
+properties:
+content:
+type: array
+items:
+anyOf:
+- $ref: '#/components/schemas/ResponsesInputText'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesInputImage'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesInputFile'
+x-speakeasy-unknown-values: disallow
+title: Content
+x-speakeasy-unknown-values: disallow
+role:
+type: string
+title: Role
+enum:
+- user
+- system
+- developer
+x-speakeasy-unknown-values: disallow
+status:
+anyOf:
+- type: string
+enum:
+- in_progress
+- completed
+- incomplete
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Status
+x-speakeasy-unknown-values: disallow
+type:
+anyOf:
+- type: string
+const: message
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Type
+x-speakeasy-unknown-values: disallow
+title: ResponsesMessage
+required:
+- content
+- role
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+CreateResponseResponse:
+type: object
+properties:
+id:
+type: string
+title: Id
+x-speakeasy-unknown-values: disallow
+created_at:
+type: number
+title: Created At
+x-speakeasy-unknown-values: disallow
+error:
+anyOf:
+- $ref: '#/components/schemas/ResponsesError'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+default: null
+x-speakeasy-unknown-values: disallow
+incomplete_details:
+anyOf:
+- $ref: '#/components/schemas/ResponsesIncompleteDetails'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+default: null
+x-speakeasy-unknown-values: disallow
+instructions:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Instructions
+default: null
+x-speakeasy-unknown-values: disallow
+metadata:
+anyOf:
+- type: object
+additionalProperties:
+type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Metadata
+default: null
+x-speakeasy-unknown-values: disallow
+model:
+type: string
+title: Model
+x-speakeasy-unknown-values: disallow
+object:
+type: string
+title: Object
+const: response
+x-speakeasy-unknown-values: disallow
+output:
+type: array
+items:
+anyOf:
+- $ref: '#/components/schemas/ResponsesOutputMessage'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesFunctionToolCall'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesReasoningItem'
+x-speakeasy-unknown-values: disallow
+title: Output
+x-speakeasy-unknown-values: disallow
+parallel_tool_calls:
+type: boolean
+title: Parallel Tool Calls
+x-speakeasy-unknown-values: disallow
+temperature:
+anyOf:
+- type: number
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Temperature
+default: null
+x-speakeasy-unknown-values: disallow
+tool_choice:
+anyOf:
+- type: string
+enum:
+- none
+- auto
+- required
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesToolChoiceFunction'
+x-speakeasy-unknown-values: disallow
+title: Tool Choice
+x-speakeasy-unknown-values: disallow
+tools:
+type: array
+items:
+anyOf:
+- $ref: '#/components/schemas/ResponsesFunctionTool'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesNamespaceTool'
+x-speakeasy-unknown-values: disallow
+title: Tools
+x-speakeasy-unknown-values: disallow
+top_p:
+anyOf:
+- type: number
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Top P
+default: null
+x-speakeasy-unknown-values: disallow
+background:
+anyOf:
+- type: boolean
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Background
+default: null
+x-speakeasy-unknown-values: disallow
+completed_at:
+anyOf:
+- type: number
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Completed At
+default: null
+x-speakeasy-unknown-values: disallow
+max_output_tokens:
+anyOf:
+- type: integer
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Max Output Tokens
+default: null
+x-speakeasy-unknown-values: disallow
+max_tool_calls:
+anyOf:
+- type: integer
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Max Tool Calls
+default: null
+x-speakeasy-unknown-values: disallow
+previous_response_id:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Previous Response Id
+default: null
+x-speakeasy-unknown-values: disallow
+prompt_cache_key:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Prompt Cache Key
+default: null
+x-speakeasy-unknown-values: disallow
+prompt_cache_retention:
+anyOf:
+- type: string
+enum:
+- in_memory
+- 24h
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Prompt Cache Retention
+default: null
+x-speakeasy-unknown-values: disallow
+reasoning:
+anyOf:
+- $ref: '#/components/schemas/ResponsesSupportedReasoning'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+default: null
+x-speakeasy-unknown-values: disallow
+safety_identifier:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Safety Identifier
+default: null
+x-speakeasy-unknown-values: disallow
+service_tier:
+anyOf:
+- type: string
+enum:
+- auto
+- default
+- flex
+- scale
+- priority
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Service Tier
+default: null
+x-speakeasy-unknown-values: disallow
+status:
+anyOf:
+- type: string
+enum:
+- completed
+- failed
+- in_progress
+- cancelled
+- queued
+- incomplete
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Status
+default: null
+x-speakeasy-unknown-values: disallow
+text:
+anyOf:
+- $ref: '#/components/schemas/ResponsesTextConfig'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+default: null
+x-speakeasy-unknown-values: disallow
+top_logprobs:
+anyOf:
+- type: integer
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Top Logprobs
+default: null
+x-speakeasy-unknown-values: disallow
+truncation:
+anyOf:
+- type: string
+enum:
+- auto
+- disabled
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Truncation
+default: null
+x-speakeasy-unknown-values: disallow
+usage:
+anyOf:
+- $ref: '#/components/schemas/ResponsesUsage'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+default: null
+x-speakeasy-unknown-values: disallow
+user:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: User
+default: null
+x-speakeasy-unknown-values: disallow
+title: CreateResponseResponse
+required:
+- id
+- created_at
+- model
+- object
+- output
+- parallel_tool_calls
+- tool_choice
+- tools
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesNamespaceTool:
+type: object
+properties:
+description:
+type: string
+title: Description
+x-speakeasy-unknown-values: disallow
+name:
+type: string
+title: Name
+x-speakeasy-unknown-values: disallow
+tools:
+type: array
+items:
+anyOf:
+- $ref: '#/components/schemas/ResponsesToolFunction'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesCustomTool'
+x-speakeasy-unknown-values: disallow
+title: Tools
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: namespace
+x-speakeasy-unknown-values: disallow
+title: ResponsesNamespaceTool
+required:
+- description
+- name
+- tools
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesOutputTokensDetails:
+type: object
+properties:
+reasoning_tokens:
+type: integer
+title: Reasoning Tokens
+x-speakeasy-unknown-values: disallow
+title: ResponsesOutputTokensDetails
+required:
+- reasoning_tokens
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesPartReasoningText:
+type: object
+properties:
+text:
+type: string
+title: Text
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: reasoning_text
+x-speakeasy-unknown-values: disallow
+title: ResponsesPartReasoningText
+required:
+- text
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesPromptCacheBreakpoint:
+type: object
+properties:
+mode:
+type: string
+title: Mode
+const: explicit
+x-speakeasy-unknown-values: disallow
+title: ResponsesPromptCacheBreakpoint
+required:
+- mode
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesContentPartAddedEvent:
+type: object
+properties:
+content_index:
+type: integer
+title: Content Index
+x-speakeasy-unknown-values: disallow
+item_id:
+type: string
+title: Item Id
+x-speakeasy-unknown-values: disallow
+output_index:
+type: integer
+title: Output Index
+x-speakeasy-unknown-values: disallow
+part:
+anyOf:
+- $ref: '#/components/schemas/ResponsesOutputText'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesOutputRefusal'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesPartReasoningText'
+x-speakeasy-unknown-values: disallow
+title: Part
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.content_part.added
+x-speakeasy-unknown-values: disallow
+title: ResponsesContentPartAddedEvent
+required:
+- content_index
+- item_id
+- output_index
+- part
+- sequence_number
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesContentPartDoneEvent:
+type: object
+properties:
+content_index:
+type: integer
+title: Content Index
+x-speakeasy-unknown-values: disallow
+item_id:
+type: string
+title: Item Id
+x-speakeasy-unknown-values: disallow
+output_index:
+type: integer
+title: Output Index
+x-speakeasy-unknown-values: disallow
+part:
+anyOf:
+- $ref: '#/components/schemas/ResponsesOutputText'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesOutputRefusal'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesPartReasoningText'
+x-speakeasy-unknown-values: disallow
+title: Part
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.content_part.done
+x-speakeasy-unknown-values: disallow
+title: ResponsesContentPartDoneEvent
+required:
+- content_index
+- item_id
+- output_index
+- part
+- sequence_number
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesError:
+type: object
+properties:
+code:
+type: string
+title: Code
+enum:
+- server_error
+- rate_limit_exceeded
+- invalid_prompt
+- bio_policy
+- vector_store_timeout
+- invalid_image
+- invalid_image_format
+- invalid_base64_image
+- invalid_image_url
+- image_too_large
+- image_too_small
+- image_parse_error
+- image_content_policy_violation
+- invalid_image_mode
+- image_file_too_large
+- unsupported_image_media_type
+- empty_image_file
+- failed_to_download_image
+- image_file_not_found
+x-speakeasy-unknown-values: disallow
+message:
+type: string
+title: Message
+x-speakeasy-unknown-values: disallow
+title: ResponsesError
+required:
+- code
+- message
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesErrorEvent:
+type: object
+properties:
+code:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Code
+default: null
+x-speakeasy-unknown-values: disallow
+message:
+type: string
+title: Message
+x-speakeasy-unknown-values: disallow
+param:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Param
+default: null
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: error
+x-speakeasy-unknown-values: disallow
+title: ResponsesErrorEvent
+required:
+- message
+- sequence_number
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesFormatJSONObject:
+type: object
+properties:
+type:
+type: string
+title: Type
+const: json_object
+x-speakeasy-unknown-values: disallow
+title: ResponsesFormatJSONObject
+required:
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesFormatText:
+type: object
+properties:
+type:
+type: string
+title: Type
+const: text
+x-speakeasy-unknown-values: disallow
+title: ResponsesFormatText
+required:
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesFormatTextJSONSchemaConfig:
+type: object
+properties:
+name:
+type: string
+title: Name
+x-speakeasy-unknown-values: disallow
+schema:
+type: object
+title: Schema
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: json_schema
+x-speakeasy-unknown-values: disallow
+description:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Description
+default: null
+x-speakeasy-unknown-values: disallow
+strict:
+anyOf:
+- type: boolean
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Strict
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesFormatTextJSONSchemaConfig
+required:
+- name
+- schema
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesFunctionCallArgumentsDeltaEvent:
+type: object
+properties:
+delta:
+type: string
+title: Delta
+x-speakeasy-unknown-values: disallow
+item_id:
+type: string
+title: Item Id
+x-speakeasy-unknown-values: disallow
+output_index:
+type: integer
+title: Output Index
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.function_call_arguments.delta
+x-speakeasy-unknown-values: disallow
+title: ResponsesFunctionCallArgumentsDeltaEvent
+required:
+- delta
+- item_id
+- output_index
+- sequence_number
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesFunctionCallArgumentsDoneEvent:
+type: object
+properties:
+arguments:
+type: string
+title: Arguments
+x-speakeasy-unknown-values: disallow
+item_id:
+type: string
+title: Item Id
+x-speakeasy-unknown-values: disallow
+name:
+type: string
+title: Name
+x-speakeasy-unknown-values: disallow
+output_index:
+type: integer
+title: Output Index
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.function_call_arguments.done
+x-speakeasy-unknown-values: disallow
+title: ResponsesFunctionCallArgumentsDoneEvent
+required:
+- arguments
+- item_id
+- name
+- output_index
+- sequence_number
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesFunctionToolCall:
+type: object
+properties:
+arguments:
+type: string
+title: Arguments
+x-speakeasy-unknown-values: disallow
+call_id:
+type: string
+title: Call Id
+x-speakeasy-unknown-values: disallow
+name:
+type: string
+title: Name
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: function_call
+x-speakeasy-unknown-values: disallow
+id:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Id
+default: null
+x-speakeasy-unknown-values: disallow
+caller:
+anyOf:
+- $ref: '#/components/schemas/ResponsesCallerDirect'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesCallerProgram'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Caller
+default: null
+x-speakeasy-unknown-values: disallow
+namespace:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Namespace
+default: null
+x-speakeasy-unknown-values: disallow
+status:
+anyOf:
+- type: string
+enum:
+- in_progress
+- completed
+- incomplete
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Status
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesFunctionToolCall
+required:
+- arguments
+- call_id
+- name
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesInputFile:
+type: object
+properties:
+type:
+type: string
+title: Type
+const: input_file
+x-speakeasy-unknown-values: disallow
+detail:
+anyOf:
+- type: string
+enum:
+- auto
+- low
+- high
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Detail
+x-speakeasy-unknown-values: disallow
+file_data:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: File Data
+x-speakeasy-unknown-values: disallow
+file_id:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: File Id
+x-speakeasy-unknown-values: disallow
+file_url:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: File Url
+x-speakeasy-unknown-values: disallow
+filename:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Filename
+x-speakeasy-unknown-values: disallow
+prompt_cache_breakpoint:
+anyOf:
+- $ref: '#/components/schemas/ResponsesPromptCacheBreakpoint'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: ResponsesInputFile
+required:
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesInputFileContent:
+type: object
+properties:
+type:
+type: string
+title: Type
+const: input_file
+x-speakeasy-unknown-values: disallow
+detail:
+anyOf:
+- type: string
+enum:
+- auto
+- low
+- high
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Detail
+x-speakeasy-unknown-values: disallow
+file_data:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: File Data
+x-speakeasy-unknown-values: disallow
+file_id:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: File Id
+x-speakeasy-unknown-values: disallow
+file_url:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: File Url
+x-speakeasy-unknown-values: disallow
+filename:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Filename
+x-speakeasy-unknown-values: disallow
+prompt_cache_breakpoint:
+anyOf:
+- $ref: '#/components/schemas/ResponsesPromptCacheBreakpoint'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: ResponsesInputFileContent
+required:
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesInputImage:
+type: object
+properties:
+detail:
+type: string
+title: Detail
+enum:
+- low
+- high
+- auto
+- original
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: input_image
+x-speakeasy-unknown-values: disallow
+file_id:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: File Id
+x-speakeasy-unknown-values: disallow
+image_url:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Image Url
+x-speakeasy-unknown-values: disallow
+prompt_cache_breakpoint:
+anyOf:
+- $ref: '#/components/schemas/ResponsesPromptCacheBreakpoint'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: ResponsesInputImage
+required:
+- detail
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesInputImageContent:
+type: object
+properties:
+type:
+type: string
+title: Type
+const: input_image
+x-speakeasy-unknown-values: disallow
+detail:
+anyOf:
+- type: string
+enum:
+- low
+- high
+- auto
+- original
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Detail
+x-speakeasy-unknown-values: disallow
+file_id:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: File Id
+x-speakeasy-unknown-values: disallow
+image_url:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Image Url
+x-speakeasy-unknown-values: disallow
+prompt_cache_breakpoint:
+anyOf:
+- $ref: '#/components/schemas/ResponsesPromptCacheBreakpoint'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: ResponsesInputImageContent
+required:
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesInputText:
+type: object
+properties:
+text:
+type: string
+title: Text
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: input_text
+x-speakeasy-unknown-values: disallow
+prompt_cache_breakpoint:
+anyOf:
+- $ref: '#/components/schemas/ResponsesPromptCacheBreakpoint'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: ResponsesInputText
+required:
+- text
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesInputTextContent:
+type: object
+properties:
+text:
+type: string
+title: Text
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: input_text
+x-speakeasy-unknown-values: disallow
+prompt_cache_breakpoint:
+anyOf:
+- $ref: '#/components/schemas/ResponsesPromptCacheBreakpoint'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: ResponsesInputTextContent
+required:
+- text
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesOutputMessage:
+type: object
+properties:
+id:
+type: string
+title: Id
+x-speakeasy-unknown-values: disallow
+content:
+type: array
+items:
+anyOf:
+- $ref: '#/components/schemas/ResponsesOutputText'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesOutputRefusal'
+x-speakeasy-unknown-values: disallow
+title: Content
+x-speakeasy-unknown-values: disallow
+role:
+type: string
+title: Role
+const: assistant
+x-speakeasy-unknown-values: disallow
+status:
+type: string
+title: Status
+enum:
+- in_progress
+- completed
+- incomplete
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: message
+x-speakeasy-unknown-values: disallow
+phase:
+anyOf:
+- type: string
+enum:
+- commentary
+- final_answer
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Phase
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesOutputMessage
+required:
+- id
+- content
+- role
+- status
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesOutputRefusal:
+type: object
+properties:
+refusal:
+type: string
+title: Refusal
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: refusal
+x-speakeasy-unknown-values: disallow
+title: ResponsesOutputRefusal
+required:
+- refusal
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesOutputText:
+type: object
+properties:
+annotations:
+type: array
+items:
+anyOf:
+- $ref: '#/components/schemas/ResponsesAnnotationFileCitation'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesAnnotationURLCitation'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesAnnotationContainerFileCitation'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesAnnotationFilePath'
+x-speakeasy-unknown-values: disallow
+title: Annotations
+x-speakeasy-unknown-values: disallow
+text:
+type: string
+title: Text
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: output_text
+x-speakeasy-unknown-values: disallow
+logprobs:
+anyOf:
+- type: array
+items:
+$ref: '#/components/schemas/ResponsesOutputTextLogprob'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Logprobs
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesOutputText
+required:
+- annotations
+- text
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesReasoningItem:
+type: object
+properties:
+id:
+type: string
+title: Id
+x-speakeasy-unknown-values: disallow
+summary:
+type: array
+items:
+$ref: '#/components/schemas/ResponsesSummary'
+x-speakeasy-unknown-values: disallow
+title: Summary
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: reasoning
+x-speakeasy-unknown-values: disallow
+content:
+anyOf:
+- type: array
+items:
+$ref: '#/components/schemas/ResponsesContent'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Content
+default: null
+x-speakeasy-unknown-values: disallow
+encrypted_content:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Encrypted Content
+default: null
+x-speakeasy-unknown-values: disallow
+status:
+anyOf:
+- type: string
+enum:
+- in_progress
+- completed
+- incomplete
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Status
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesReasoningItem
+required:
+- id
+- summary
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesReasoningTextDeltaEvent:
+type: object
+properties:
+content_index:
+type: integer
+title: Content Index
+x-speakeasy-unknown-values: disallow
+delta:
+type: string
+title: Delta
+x-speakeasy-unknown-values: disallow
+item_id:
+type: string
+title: Item Id
+x-speakeasy-unknown-values: disallow
+output_index:
+type: integer
+title: Output Index
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.reasoning_text.delta
+x-speakeasy-unknown-values: disallow
+title: ResponsesReasoningTextDeltaEvent
+required:
+- content_index
+- delta
+- item_id
+- output_index
+- sequence_number
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesReasoningTextDoneEvent:
+type: object
+properties:
+content_index:
+type: integer
+title: Content Index
+x-speakeasy-unknown-values: disallow
+item_id:
+type: string
+title: Item Id
+x-speakeasy-unknown-values: disallow
+output_index:
+type: integer
+title: Output Index
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+text:
+type: string
+title: Text
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.reasoning_text.done
+x-speakeasy-unknown-values: disallow
+title: ResponsesReasoningTextDoneEvent
+required:
+- content_index
+- item_id
+- output_index
+- sequence_number
+- text
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesTextConfig:
+type: object
+properties:
+format:
+anyOf:
+- $ref: '#/components/schemas/ResponsesFormatText'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesFormatTextJSONSchemaConfig'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesFormatJSONObject'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Format
+default: null
+x-speakeasy-unknown-values: disallow
+verbosity:
+anyOf:
+- type: string
+enum:
+- low
+- medium
+- high
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Verbosity
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesTextConfig
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesTextDeltaEvent:
+type: object
+properties:
+content_index:
+type: integer
+title: Content Index
+x-speakeasy-unknown-values: disallow
+delta:
+type: string
+title: Delta
+x-speakeasy-unknown-values: disallow
+item_id:
+type: string
+title: Item Id
+x-speakeasy-unknown-values: disallow
+logprobs:
+type: array
+items:
+$ref: '#/components/schemas/ResponsesTextDeltaEventLogprob'
+x-speakeasy-unknown-values: disallow
+title: Logprobs
+x-speakeasy-unknown-values: disallow
+output_index:
+type: integer
+title: Output Index
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.output_text.delta
+x-speakeasy-unknown-values: disallow
+title: ResponsesTextDeltaEvent
+required:
+- content_index
+- delta
+- item_id
+- logprobs
+- output_index
+- sequence_number
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesTextDoneEvent:
+type: object
+properties:
+content_index:
+type: integer
+title: Content Index
+x-speakeasy-unknown-values: disallow
+item_id:
+type: string
+title: Item Id
+x-speakeasy-unknown-values: disallow
+logprobs:
+type: array
+items:
+$ref: '#/components/schemas/ResponsesTextDoneEventLogprob'
+x-speakeasy-unknown-values: disallow
+title: Logprobs
+x-speakeasy-unknown-values: disallow
+output_index:
+type: integer
+title: Output Index
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+text:
+type: string
+title: Text
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.output_text.done
+x-speakeasy-unknown-values: disallow
+title: ResponsesTextDoneEvent
+required:
+- content_index
+- item_id
+- logprobs
+- output_index
+- sequence_number
+- text
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesUsage:
+type: object
+properties:
+input_tokens:
+type: integer
+title: Input Tokens
+x-speakeasy-unknown-values: disallow
+input_tokens_details:
+$ref: '#/components/schemas/ResponsesInputTokensDetails'
+x-speakeasy-unknown-values: disallow
+output_tokens:
+type: integer
+title: Output Tokens
+x-speakeasy-unknown-values: disallow
+output_tokens_details:
+$ref: '#/components/schemas/ResponsesOutputTokensDetails'
+x-speakeasy-unknown-values: disallow
+total_tokens:
+type: integer
+title: Total Tokens
+x-speakeasy-unknown-values: disallow
+title: ResponsesUsage
+required:
+- input_tokens
+- input_tokens_details
+- output_tokens
+- output_tokens_details
+- total_tokens
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesCompletedEvent:
+type: object
+properties:
+response:
+$ref: '#/components/schemas/CreateResponseResponse'
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.completed
+x-speakeasy-unknown-values: disallow
+title: ResponsesCompletedEvent
+required:
+- response
+- sequence_number
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesCreatedEvent:
+type: object
+properties:
+response:
+$ref: '#/components/schemas/CreateResponseResponse'
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.created
+x-speakeasy-unknown-values: disallow
+title: ResponsesCreatedEvent
+required:
+- response
+- sequence_number
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesFailedEvent:
+type: object
+properties:
+response:
+$ref: '#/components/schemas/CreateResponseResponse'
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.failed
+x-speakeasy-unknown-values: disallow
+title: ResponsesFailedEvent
+required:
+- response
+- sequence_number
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesInProgressEvent:
+type: object
+properties:
+response:
+$ref: '#/components/schemas/CreateResponseResponse'
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.in_progress
+x-speakeasy-unknown-values: disallow
+title: ResponsesInProgressEvent
+required:
+- response
+- sequence_number
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesIncompleteEvent:
+type: object
+properties:
+response:
+$ref: '#/components/schemas/CreateResponseResponse'
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.incomplete
+x-speakeasy-unknown-values: disallow
+title: ResponsesIncompleteEvent
+required:
+- response
+- sequence_number
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+CountResponseInputTokensRequest:
+type: object
+properties:
+model:
+type: string
+title: Model
+minLength: 1
+x-speakeasy-unknown-values: disallow
+input:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: array
+items:
+anyOf:
+- $ref: '#/components/schemas/ResponsesEasyInputMessage'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesMessage'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesOutputMessage'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesFunctionToolCall'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesFunctionCallOutput'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesReasoningItem'
+x-speakeasy-unknown-values: disallow
+title: Input
+x-speakeasy-unknown-values: disallow
+instructions:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Instructions
+x-speakeasy-unknown-values: disallow
+parallel_tool_calls:
+type: boolean
+title: Parallel Tool Calls
+default: true
+x-speakeasy-unknown-values: disallow
+previous_response_id:
+type: 'null'
+title: Previous Response Id
+x-speakeasy-unknown-values: disallow
+truncation:
+type: string
+title: Truncation
+default: disabled
+const: disabled
+x-speakeasy-unknown-values: disallow
+tools:
+type: array
+items:
+anyOf:
+- $ref: '#/components/schemas/ResponsesFunctionTool'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesNamespaceTool'
+x-speakeasy-unknown-values: disallow
+title: Tools
+x-speakeasy-unknown-values: disallow
+tool_choice:
+anyOf:
+- type: string
+enum:
+- none
+- auto
+- required
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesToolChoiceFunction'
+x-speakeasy-unknown-values: disallow
+title: Tool Choice
+default: auto
+x-speakeasy-unknown-values: disallow
+reasoning:
+anyOf:
+- $ref: '#/components/schemas/ResponsesSupportedReasoning'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+conversation:
+type: 'null'
+title: Conversation
+x-speakeasy-unknown-values: disallow
+prompt:
+type: 'null'
+title: Prompt
+x-speakeasy-unknown-values: disallow
+text:
+anyOf:
+- $ref: '#/components/schemas/ResponsesTextConfig'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: CountResponseInputTokensRequest
+required:
+- model
+- input
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesOutputItemAddedEvent:
+type: object
+properties:
+item:
+anyOf:
+- $ref: '#/components/schemas/ResponsesOutputMessage'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesFunctionToolCall'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesReasoningItem'
+x-speakeasy-unknown-values: disallow
+title: Item
+x-speakeasy-unknown-values: disallow
+output_index:
+type: integer
+title: Output Index
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.output_item.added
+x-speakeasy-unknown-values: disallow
+title: ResponsesOutputItemAddedEvent
+required:
+- item
+- output_index
+- sequence_number
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesOutputItemDoneEvent:
+type: object
+properties:
+item:
+anyOf:
+- $ref: '#/components/schemas/ResponsesOutputMessage'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesFunctionToolCall'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesReasoningItem'
+x-speakeasy-unknown-values: disallow
+title: Item
+x-speakeasy-unknown-values: disallow
+output_index:
+type: integer
+title: Output Index
+x-speakeasy-unknown-values: disallow
+sequence_number:
+type: integer
+title: Sequence Number
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: response.output_item.done
+x-speakeasy-unknown-values: disallow
+title: ResponsesOutputItemDoneEvent
+required:
+- item
+- output_index
+- sequence_number
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+CreateResponseRequest:
+type: object
+properties:
+model:
+type: string
+title: Model
+minLength: 1
+x-speakeasy-unknown-values: disallow
+input:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: array
+items:
+anyOf:
+- $ref: '#/components/schemas/ResponsesEasyInputMessage'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesMessage'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesOutputMessage'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesFunctionToolCall'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesFunctionCallOutput'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesReasoningItem'
+x-speakeasy-unknown-values: disallow
+title: Input
+x-speakeasy-unknown-values: disallow
+instructions:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Instructions
+x-speakeasy-unknown-values: disallow
+parallel_tool_calls:
+type: boolean
+title: Parallel Tool Calls
+default: true
+x-speakeasy-unknown-values: disallow
+previous_response_id:
+type: 'null'
+title: Previous Response Id
+x-speakeasy-unknown-values: disallow
+truncation:
+type: string
+title: Truncation
+default: disabled
+const: disabled
+x-speakeasy-unknown-values: disallow
+tools:
+type: array
+items:
+anyOf:
+- $ref: '#/components/schemas/ResponsesFunctionTool'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesNamespaceTool'
+x-speakeasy-unknown-values: disallow
+title: Tools
+x-speakeasy-unknown-values: disallow
+tool_choice:
+anyOf:
+- type: string
+enum:
+- none
+- auto
+- required
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesToolChoiceFunction'
+x-speakeasy-unknown-values: disallow
+title: Tool Choice
+default: auto
+x-speakeasy-unknown-values: disallow
+reasoning:
+anyOf:
+- $ref: '#/components/schemas/ResponsesSupportedReasoning'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+conversation:
+type: 'null'
+title: Conversation
+x-speakeasy-unknown-values: disallow
+prompt:
+type: 'null'
+title: Prompt
+x-speakeasy-unknown-values: disallow
+text:
+anyOf:
+- $ref: '#/components/schemas/ResponsesTextConfig'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+background:
+type: boolean
+title: Background
+default: false
+const: false
+x-speakeasy-unknown-values: disallow
+stream:
+type: boolean
+title: Stream
+default: false
+x-speakeasy-unknown-values: disallow
+store:
+anyOf:
+- type: boolean
+const: false
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Store
+default: false
+x-speakeasy-unknown-values: disallow
+max_output_tokens:
+anyOf:
+- exclusiveMinimum: 0
+type: integer
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Max Output Tokens
+x-speakeasy-unknown-values: disallow
+temperature:
+anyOf:
+- type: number
+maximum: 1.5
+minimum: 0
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Temperature
+x-speakeasy-unknown-values: disallow
+top_p:
+anyOf:
+- exclusiveMinimum: 0
+type: number
+maximum: 1
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Top P
+x-speakeasy-unknown-values: disallow
+metadata:
+anyOf:
+- type: object
+additionalProperties:
+type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Metadata
+x-speakeasy-unknown-values: disallow
+prompt_cache_key:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Prompt Cache Key
+x-speakeasy-unknown-values: disallow
+max_tool_calls:
+anyOf:
+- type: integer
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Max Tool Calls
+x-speakeasy-unknown-values: disallow
+moderation:
+type: 'null'
+title: Moderation
+x-speakeasy-unknown-values: disallow
+top_logprobs:
+anyOf:
+- type: integer
+const: 0
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Top Logprobs
+x-speakeasy-unknown-values: disallow
+title: CreateResponseRequest
+required:
+- model
+- input
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesStreamFrame:
+type: object
+properties:
+event:
+type: string
+title: Event
+x-speakeasy-unknown-values: disallow
+data:
+oneOf:
+- $ref: '#/components/schemas/ResponsesCreatedEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesInProgressEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesCompletedEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesIncompleteEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesFailedEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesErrorEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesOutputItemAddedEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesOutputItemDoneEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesContentPartAddedEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesContentPartDoneEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesTextDeltaEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesTextDoneEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesReasoningTextDeltaEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesReasoningTextDoneEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesFunctionCallArgumentsDeltaEvent'
+x-speakeasy-unknown-values: disallow
+- $ref: '#/components/schemas/ResponsesFunctionCallArgumentsDoneEvent'
+x-speakeasy-unknown-values: disallow
+discriminator:
+propertyName: type
+mapping:
+error: '#/components/schemas/ResponseErrorEvent'
+response.completed: '#/components/schemas/ResponsesCompletedEvent'
+response.content_part.added: '#/components/schemas/ResponseContentPartAddedEvent'
+response.content_part.done: '#/components/schemas/ResponseContentPartDoneEvent'
+response.created: '#/components/schemas/ResponsesCreatedEvent'
+response.failed: '#/components/schemas/ResponsesFailedEvent'
+response.function_call_arguments.delta: '#/components/schemas/ResponseFunctionCallArgumentsDeltaEvent'
+response.function_call_arguments.done: '#/components/schemas/ResponseFunctionCallArgumentsDoneEvent'
+response.in_progress: '#/components/schemas/ResponsesInProgressEvent'
+response.incomplete: '#/components/schemas/ResponsesIncompleteEvent'
+response.output_item.added: '#/components/schemas/ResponsesOutputItemAddedEvent'
+response.output_item.done: '#/components/schemas/ResponsesOutputItemDoneEvent'
+response.output_text.delta: '#/components/schemas/ResponseTextDeltaEvent'
+response.output_text.done: '#/components/schemas/ResponseTextDoneEvent'
+response.reasoning_text.delta: '#/components/schemas/ResponseReasoningTextDeltaEvent'
+response.reasoning_text.done: '#/components/schemas/ResponseReasoningTextDoneEvent'
+title: Data
+x-speakeasy-unknown-values: disallow
+title: ResponsesStreamFrame
+required:
+- event
+- data
+x-speakeasy-unknown-values: disallow
+ResponsesSummary:
+type: object
+properties:
+text:
+type: string
+title: Text
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: summary_text
+x-speakeasy-unknown-values: disallow
+title: ResponsesSummary
+required:
+- text
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesSupportedReasoning:
+type: object
+properties:
+effort:
+anyOf:
+- type: string
+enum:
+- none
+- minimal
+- low
+- medium
+- high
+- xhigh
+- max
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Effort
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesSupportedReasoning
+x-speakeasy-unknown-values: disallow
+ResponsesText:
+type: object
+properties:
+type:
+type: string
+title: Type
+const: text
+x-speakeasy-unknown-values: disallow
+title: ResponsesText
+required:
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesToolChoiceFunction:
+type: object
+properties:
+name:
+type: string
+title: Name
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: function
+x-speakeasy-unknown-values: disallow
+title: ResponsesToolChoiceFunction
+required:
+- name
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesToolFunction:
+type: object
+properties:
+name:
+type: string
+title: Name
+x-speakeasy-unknown-values: disallow
+type:
+type: string
+title: Type
+const: function
+x-speakeasy-unknown-values: disallow
+allowed_callers:
+anyOf:
+- type: array
+items:
+type: string
+enum:
+- direct
+- programmatic
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Allowed Callers
+default: null
+x-speakeasy-unknown-values: disallow
+defer_loading:
+anyOf:
+- type: boolean
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Defer Loading
+default: null
+x-speakeasy-unknown-values: disallow
+description:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Description
+default: null
+x-speakeasy-unknown-values: disallow
+output_schema:
+anyOf:
+- type: object
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Output Schema
+default: null
+x-speakeasy-unknown-values: disallow
+parameters:
+anyOf:
+- x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Parameters
+default: null
+x-speakeasy-unknown-values: disallow
+strict:
+anyOf:
+- type: boolean
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Strict
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesToolFunction
+required:
+- name
+- type
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesOutputTextLogprob:
+type: object
+properties:
+token:
+type: string
+title: Token
+x-speakeasy-unknown-values: disallow
+bytes:
+type: array
+items:
+type: integer
+x-speakeasy-unknown-values: disallow
+title: Bytes
+x-speakeasy-unknown-values: disallow
+logprob:
+type: number
+title: Logprob
+x-speakeasy-unknown-values: disallow
+top_logprobs:
+type: array
+items:
+$ref: '#/components/schemas/ResponsesOutputTextLogprobTopLogprob'
+x-speakeasy-unknown-values: disallow
+title: Top Logprobs
+x-speakeasy-unknown-values: disallow
+title: ResponsesOutputTextLogprob
+required:
+- token
+- bytes
+- logprob
+- top_logprobs
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesOutputTextLogprobTopLogprob:
+type: object
+properties:
+token:
+type: string
+title: Token
+x-speakeasy-unknown-values: disallow
+bytes:
+type: array
+items:
+type: integer
+x-speakeasy-unknown-values: disallow
+title: Bytes
+x-speakeasy-unknown-values: disallow
+logprob:
+type: number
+title: Logprob
+x-speakeasy-unknown-values: disallow
+title: ResponsesOutputTextLogprobTopLogprob
+required:
+- token
+- bytes
+- logprob
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesTextDeltaEventLogprob:
+type: object
+properties:
+token:
+type: string
+title: Token
+x-speakeasy-unknown-values: disallow
+logprob:
+type: number
+title: Logprob
+x-speakeasy-unknown-values: disallow
+top_logprobs:
+anyOf:
+- type: array
+items:
+$ref: '#/components/schemas/ResponsesTextDeltaEventLogprobTopLogprob'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Top Logprobs
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesTextDeltaEventLogprob
+required:
+- token
+- logprob
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesTextDeltaEventLogprobTopLogprob:
+type: object
+properties:
+token:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Token
+default: null
+x-speakeasy-unknown-values: disallow
+logprob:
+anyOf:
+- type: number
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Logprob
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesTextDeltaEventLogprobTopLogprob
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesTextDoneEventLogprob:
+type: object
+properties:
+token:
+type: string
+title: Token
+x-speakeasy-unknown-values: disallow
+logprob:
+type: number
+title: Logprob
+x-speakeasy-unknown-values: disallow
+top_logprobs:
+anyOf:
+- type: array
+items:
+$ref: '#/components/schemas/ResponsesTextDoneEventLogprobTopLogprob'
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Top Logprobs
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesTextDoneEventLogprob
+required:
+- token
+- logprob
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
+ResponsesTextDoneEventLogprobTopLogprob:
+type: object
+properties:
+token:
+anyOf:
+- type: string
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Token
+default: null
+x-speakeasy-unknown-values: disallow
+logprob:
+anyOf:
+- type: number
+x-speakeasy-unknown-values: disallow
+- type: 'null'
+x-speakeasy-unknown-values: disallow
+title: Logprob
+default: null
+x-speakeasy-unknown-values: disallow
+title: ResponsesTextDoneEventLogprobTopLogprob
+additionalProperties: true
+x-speakeasy-unknown-values: disallow
 securitySchemes:
 DashboardUserContextAuth:
 type: apiKey
@@ -24683,6 +27527,9 @@ description: Workflows API - runs.
 - name: workflows.schedules
 x-displayName: Workflow Schedules
 description: Workflows API - schedules.
+- name: responses
+x-displayName: Responses
+description: Stateless Responses API for text, images, reasoning, function calls, and streaming.
 servers:
 - url: https://api.mistral.ai
 description: Production server

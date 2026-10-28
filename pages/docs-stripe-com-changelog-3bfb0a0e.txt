@@ -161,7 +161,7 @@ Adds proration details for Invoice Items using classic billing mode
 Billing
 Makes trial offers generally available
 Billing
-Adds detailed status to explain why an Invoice is uncollectable
+Adds detailed status to explain why an invoice is uncollectible
 Billing
 Adds support for scheduling Subscription cancellation as part of pending update
 Billing

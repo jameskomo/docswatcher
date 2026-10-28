@@ -98,6 +98,14 @@ General Availability
 Third-party models
 1 month
 During the deprecation period, the model remains accessible. Once retired, requests to its identifiers fail with a 404 error.
+Contents
+Lifecycle stages
+Labs
+Public Preview
+General Availability
+Model naming convention
+Deprecation policy
+Go to Top
 WHY MISTRAL
 About us Our customers Careers Contact us
 EXPLORE

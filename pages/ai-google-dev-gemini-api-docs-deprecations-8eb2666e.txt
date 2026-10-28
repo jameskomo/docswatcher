@@ -40,6 +40,7 @@ Get started
 API keys
 Pricing
 Coding agent setup
+API CLI
 Models
 All models
 Latest Gemini models

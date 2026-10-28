@@ -215,6 +215,17 @@ Firebase CLI
 15.34.1
 Firebase Studio
 See notes
+October 27, 2026
+Firebase AI Logic
+You can now temporarily delay the automatic enforcement of
+Firebase App Check for Firebase AI Logic .
+Starting on November 2, 2026, Firebase will automatically enforce
+App Check for Firebase AI Logic in your project (if it isn't already)
+to help protect the Gemini API . If you have released app versions that
+don't yet have App Check implemented, you can
+temporarily delay auto-enforcement .
+Learn more about this upcoming
+auto-enforcement of App Check for Firebase AI Logic .
 October 26, 2026
 Google AI Studio integration
 The Firebase integration in
@@ -17304,7 +17315,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-26 UTC.
+Last updated 2026-10-27 UTC.
 Learn
 Developer guides
 SDK & API reference
