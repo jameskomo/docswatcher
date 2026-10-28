@@ -42,7 +42,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 30,
+        "line": 33,
         "column": 15,
         "snippet": "base_babbage: babbage-002",
         "detector": "openai.literal.model-gpt",
@@ -59,7 +59,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 26,
+        "line": 29,
         "column": 17,
         "snippet": "chatgpt_latest: chatgpt-4o-latest",
         "detector": "openai.literal.model-gpt",
@@ -76,7 +76,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 12,
+        "line": 15,
         "column": 15,
         "snippet": "image_oldest: dall-e-2",
         "detector": "openai.literal.model-gpt",
@@ -93,7 +93,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 11,
+        "line": 14,
         "column": 14,
         "snippet": "image_older: dall-e-3",
         "detector": "openai.literal.model-gpt",
@@ -110,7 +110,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 31,
+        "line": 34,
         "column": 15,
         "snippet": "base_davinci: davinci-002",
         "detector": "openai.literal.model-gpt",
@@ -178,7 +178,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 28,
+        "line": 31,
         "column": 12,
         "snippet": "gpt4_0125: gpt-4-0125-preview",
         "detector": "openai.literal.model-gpt",
@@ -195,7 +195,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 27,
+        "line": 30,
         "column": 12,
         "snippet": "gpt4_0314: gpt-4-0314",
         "detector": "openai.literal.model-gpt",
@@ -280,7 +280,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 29,
+        "line": 32,
         "column": 8,
         "snippet": "gpt45: gpt-4.5-preview",
         "detector": "openai.literal.model-gpt",
@@ -314,7 +314,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 37,
+        "line": 40,
         "column": 11,
         "snippet": "audio_4o: gpt-4o-audio",
         "detector": "openai.literal.model-gpt",
@@ -331,7 +331,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 39,
+        "line": 42,
         "column": 16,
         "snippet": "audio_4o_mini: gpt-4o-mini-audio",
         "detector": "openai.literal.model-gpt",
@@ -348,7 +348,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 41,
+        "line": 44,
         "column": 19,
         "snippet": "realtime_4o_mini: gpt-4o-mini-realtime",
         "detector": "openai.literal.model-gpt",
@@ -365,7 +365,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 33,
+        "line": 36,
         "column": 18,
         "snippet": "transcribe_mini: gpt-4o-mini-transcribe",
         "detector": "openai.literal.model-gpt",
@@ -382,7 +382,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 35,
+        "line": 38,
         "column": 27,
         "snippet": "transcribe_mini_snapshot: gpt-4o-mini-transcribe-2025-03-20",
         "detector": "openai.literal.model-gpt",
@@ -399,7 +399,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 25,
+        "line": 28,
         "column": 14,
         "snippet": "realtime_4o: gpt-4o-realtime",
         "detector": "openai.literal.model-gpt",
@@ -416,7 +416,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 23,
+        "line": 26,
         "column": 16,
         "snippet": "transcribe_4o: gpt-4o-transcribe",
         "detector": "openai.literal.model-gpt",
@@ -433,7 +433,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 34,
+        "line": 37,
         "column": 21,
         "snippet": "transcribe_diarize: gpt-4o-transcribe-diarize",
         "detector": "openai.literal.model-gpt",
@@ -450,7 +450,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 19,
+        "line": 22,
         "column": 7,
         "snippet": "gpt5: gpt-5-2025-08-07",
         "detector": "openai.literal.model-gpt",
@@ -467,7 +467,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 20,
+        "line": 23,
         "column": 12,
         "snippet": "gpt5_mini: gpt-5-mini-2025-08-07",
         "detector": "openai.literal.model-gpt",
@@ -484,7 +484,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 21,
+        "line": 24,
         "column": 12,
         "snippet": "gpt5_nano: gpt-5-nano-2025-08-07",
         "detector": "openai.literal.model-gpt",
@@ -501,7 +501,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 32,
+        "line": 35,
         "column": 8,
         "snippet": "cyber: gpt-5.4-cyber",
         "detector": "openai.literal.model-gpt",
@@ -518,7 +518,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 36,
+        "line": 39,
         "column": 8,
         "snippet": "audio: gpt-audio",
         "detector": "openai.literal.model-gpt",
@@ -535,7 +535,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 38,
+        "line": 41,
         "column": 13,
         "snippet": "audio_mini: gpt-audio-mini",
         "detector": "openai.literal.model-gpt",
@@ -561,6 +561,57 @@
     ]
   },
   {
+    "id": "openai:model:gpt-image-1-mini",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-image-1-mini",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 13,
+        "column": 13,
+        "snippet": "image_mini: gpt-image-1-mini",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-image-1.5",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-image-1.5",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 11,
+        "column": 11,
+        "snippet": "image_15: gpt-image-1.5",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
+    "id": "openai:model:gpt-image-1.5-2025-12-16",
+    "provider": "openai",
+    "kind": "model",
+    "key": "gpt-image-1.5-2025-12-16",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "path": "config/models.yaml",
+        "line": 12,
+        "column": 20,
+        "snippet": "image_15_snapshot: gpt-image-1.5-2025-12-16",
+        "detector": "openai.literal.model-gpt",
+        "layer": "literal"
+      }
+    ]
+  },
+  {
     "id": "openai:model:gpt-realtime",
     "provider": "openai",
     "kind": "model",
@@ -569,7 +620,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 24,
+        "line": 27,
         "column": 11,
         "snippet": "realtime: gpt-realtime",
         "detector": "openai.literal.model-gpt",
@@ -586,7 +637,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 40,
+        "line": 43,
         "column": 16,
         "snippet": "realtime_mini: gpt-realtime-mini",
         "detector": "openai.literal.model-gpt",
@@ -603,7 +654,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 13,
+        "line": 16,
         "column": 16,
         "snippet": "reasoning_o1: \"o1-2024-12-17\"",
         "detector": "openai.literal.model-o-series",
@@ -620,7 +671,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 18,
+        "line": 21,
         "column": 21,
         "snippet": "reasoning_o1_mini: \"o1-mini\"",
         "detector": "openai.literal.model-o-series",
@@ -637,7 +688,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 17,
+        "line": 20,
         "column": 24,
         "snippet": "reasoning_o1_preview: \"o1-preview\"",
         "detector": "openai.literal.model-o-series",
@@ -654,7 +705,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 16,
+        "line": 19,
         "column": 16,
         "snippet": "reasoning_o3: \"o3-2025-04-16\"",
         "detector": "openai.literal.model-o-series",
@@ -671,7 +722,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 14,
+        "line": 17,
         "column": 21,
         "snippet": "reasoning_o3_mini: \"o3-mini-2025-01-31\"",
         "detector": "openai.literal.model-o-series",
@@ -688,7 +739,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 15,
+        "line": 18,
         "column": 21,
         "snippet": "reasoning_o4_mini: \"o4-mini-2025-04-16\"",
         "detector": "openai.literal.model-o-series",
@@ -705,7 +756,7 @@
     "evidence": [
       {
         "path": "config/models.yaml",
-        "line": 22,
+        "line": 25,
         "column": 13,
         "snippet": "transcribe: whisper-1",
         "detector": "openai.literal.model-gpt",

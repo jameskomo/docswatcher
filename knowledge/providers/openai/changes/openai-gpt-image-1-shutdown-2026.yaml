@@ -5,7 +5,7 @@ severity: breaking
 title: "gpt-image-1 shut down"
 summary: >
   Requests to the model gpt-image-1 fail after the shutdown date.
-  OpenAI recommends gpt-image-2 as the replacement.
+  OpenAI recommends gpt-image-2.5-sunburst or gpt-image-2.5-flare as the replacement.
 
 affects:
   - kind: model
@@ -17,10 +17,10 @@ effective: 2026-10-23
 sources:
   - kind: provider_page
     url: https://developers.openai.com/api/docs/deprecations
-    observed: 2026-09-18
+    observed: 2026-10-28
 
 migration:
-  replacement: "gpt-image-2"
+  replacement: "gpt-image-2.5-sunburst or gpt-image-2.5-flare"
   guide: https://developers.openai.com/api/docs/deprecations
   effort: small
   notes: >

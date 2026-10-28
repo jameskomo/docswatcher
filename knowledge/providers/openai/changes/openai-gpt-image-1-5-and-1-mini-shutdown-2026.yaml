@@ -1,0 +1,36 @@
+id: openai-gpt-image-1-5-and-1-mini-shutdown-2026
+provider: openai
+kind: retired
+severity: breaking
+title: "gpt-image-1.5 and gpt-image-1-mini shut down"
+summary: >
+  Requests to the models gpt-image-1.5 (and its snapshot gpt-image-1.5-2025-12-16) and
+  gpt-image-1-mini fail after the shutdown date. OpenAI recommends gpt-image-2.5-sunburst or
+  gpt-image-2.5-flare as the replacement.
+
+affects:
+  - kind: model
+    match: "gpt-image-1.5"
+  - kind: model
+    match: "gpt-image-1.5-2025-12-16"
+  - kind: model
+    match: "gpt-image-1-mini"
+
+announced: 2026-06-02
+effective: 2026-12-01
+
+sources:
+  - kind: provider_page
+    url: https://developers.openai.com/api/docs/deprecations
+    observed: 2026-10-28
+    note: "On June 2, 2026, we notified developers using older GPT Image models: gpt-image-1-mini and gpt-image-1.5 (gpt-image-1.5-2025-12-16), shutdown Dec 1, 2026."
+
+migration:
+  replacement: "gpt-image-2.5-sunburst or gpt-image-2.5-flare"
+  guide: https://developers.openai.com/api/docs/deprecations
+  effort: small
+  notes: >
+    Replace the model ID string. Image style and token usage differ between model generations, so
+    re-check prompts that depend on a particular look before switching production traffic.
+
+status: active
