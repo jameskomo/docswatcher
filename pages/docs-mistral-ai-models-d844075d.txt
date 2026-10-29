@@ -34,6 +34,8 @@ Z.ai GLM 5.3
 A third-party open weight text model from Z.ai with a 1M-token context window.
 Z.ai GLM 5.3 Flash
 A third-party multimodal model from Z.ai with a 1M-token context window, optimized for agentic workflows and visual coding.
+DeepSeek V4.1 Flash 1017
+A third-party open weight text model from DeepSeek with a 1M-token context window, optimized for long-context coding and agentic workflows.
 Mistral Small 4
 Hybrid model unifying instruct, reasoning, and coding in a single efficient model.
 Voxtral Mini Transcribe 3
@@ -49,11 +51,15 @@ Copy section link
 Generalist models
 Text and multimodal models for broad reasoning, coding, tool use, and agentic tasks.
 Z.ai GLM 5.3 Flash
-Open
+MIT
 A third-party multimodal model from Z.ai with a 1M-token context window, optimized for agentic workflows and visual coding.
 v 5.3-flash
+DeepSeek V4.1 Flash 1017
+MIT
+A third-party open weight text model from DeepSeek with a 1M-token context window, optimized for long-context coding and agentic workflows.
+v v4.1-flash-1017
 Z.ai GLM 5.3
-Open
+MIT
 A third-party open weight text model from Z.ai with a 1M-token context window.
 v 5.3
 Mistral Medium 3.5

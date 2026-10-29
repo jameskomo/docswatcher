@@ -106,7 +106,6 @@ Türkçe
 日本語
 한국어
 Sign in
-Web
 Maps JavaScript API
 Get Started
 Contact sales
@@ -226,7 +225,6 @@ Home
 Products
 Google Maps Platform
 Documentation
-Web
 Maps JavaScript API
 Resources
 Send feedback
@@ -261,6 +259,12 @@ may make additional calls to report telemetry information for the purpose of cal
 (Service Level Objective) of several features. You may need to update your Content Security Policy
 to ensure these calls are not blocked at browser-level. For more information, please see the
 FAQ .
+3.66.12d
+28 October, 2026
+Changes:
+Added MapMode.ROADMAP (now the default mode when mode is omitted), the map mode UI control, Map3DElement.colorScheme (for light and dark map styling), Label3DElement ( <gmp-label-3d> ), Map3DElement.maxMemoryMegabytes , Map3DElement.qualityMode , and QualityMode to 3D Maps ( Map3DElement ). For more information on ROADMAP mode, the map mode control, and custom styling for 3D roadmap maps, see Change the map mode , 3D map controls and exploration , and Customize 3D maps .
+[beta channel] Added contentTokens and addContentTokens() to google.maps.Settings.
+Place Details widgets no longer log a warning about a content config element when content elements are added as direct children.
 3.66.11a
 22 October, 2026
 Changes:
@@ -754,7 +758,7 @@ Maps JavaScript API
 release notes archive .
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-27 UTC.
+Last updated 2026-10-29 UTC.
 Stack Overflow
 Ask a question under the google-maps tag.
 GitHub

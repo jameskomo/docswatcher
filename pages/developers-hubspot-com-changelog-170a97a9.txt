@@ -59,7 +59,7 @@ Node 18.x and 20.x are being deprecated as supported runtimes for Chatflows cust
 Read More
 Breaking Change: CRM API Write Validation Enforcement Starting with the 2026-09 API Version
 Announced: Aug 11, 2026
-Starting with the /2026-09/ API version shipping on September 8, 2026, HubSpot will enforce admin-configured validation rules on all CRM API write paths. If your integration creates or updates CRM records, please ...
+Update (Oct 27, 2026): This changelog has been corrected. API write validation enforces required properties from Record Creation Settings, but required associations are currently enforced in the ...
 Read More
 July 2026 Rollup
 Live: Jul 31, 2026

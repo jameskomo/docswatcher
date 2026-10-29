@@ -29,6 +29,14 @@ Copy page Copy page
 Discover the latest updates, new features, and bug fixes on the Discord Developer Platform. To join in on the conversation, join the Discord Developers Server .
 Copy page Copy page
 ​
+October 28, 2026
+HTTP API Components
+​
+Content Scanning Flags for Attachments, Embeds, and Media
+We’ve documented the flags Discord sets when its content scanning flags media as explicit, gore, or self-harm, so your app can check media before acting on it, like reposting an uploaded image to another channel.
+Attachments and embeds use the CONTAINS_EXPLICIT_CONTENT , CONTAINS_GORE_CONTENT , and CONTAINS_SELF_HARM_CONTENT flags.
+Unfurled media items in components include a content_scan_metadata object with its own flags .
+​
 October 14, 2026
 HTTP API
 ​

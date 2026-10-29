@@ -212,9 +212,19 @@ Admin .NET
 Admin Dart (experimental)
 0.5.0
 Firebase CLI
-15.34.1
+15.34.2
 Firebase Studio
 See notes
+October 28, 2026
+Firebase CLI (v15.34.2)
+The latest
+Firebase CLI (v15.34.2) is now
+available. This version fixes an issue with the Cloud Firestore emulator
+watching rules files, fixes the Firebase MCP server environment
+command, updates the Firebase SQL Connect local toolkit to v3.4.25, and
+includes dependency and security updates.
+To use the Firebase CLI in your development environment,
+set up or update the CLI .
 October 27, 2026
 Firebase AI Logic
 You can now temporarily delay the automatic enforcement of
@@ -17315,7 +17325,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-27 UTC.
+Last updated 2026-10-29 UTC.
 Learn
 Developer guides
 SDK & API reference

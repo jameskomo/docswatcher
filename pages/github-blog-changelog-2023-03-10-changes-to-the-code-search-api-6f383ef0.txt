@@ -6,12 +6,12 @@ Changelog
 Docs
 Customer stories
 Try GitHub Copilot app
-Attend GitHub Universe
+See what's new
 Search
 Changelog
 Docs
 Customer stories
-Attend GitHub Universe
+See what's new
 Try GitHub Copilot app
 Back to changelog
 Improvement
@@ -31,6 +31,26 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Oct.28 Release
+Introducing Replica, an open-source AI prototyping tool
+collaboration tools
+community engagement
+universe26
+...
++2
+Oct.28 Release
+Pull request limits: Exempt contributors by age or history
+collaboration tools
+universe26
+...
++1
+Oct.28 Release
+Moderate role for GitHub Issues generally available
+collaboration tools
+community engagement
+universe26
+...
++2
 Oct.23 Improvement
 Enterprise installations for GitHub Apps generally available
 ecosystem & accessibility
@@ -58,21 +78,6 @@ projects & issues
 Oct.08 Improvement
 Draft pull requests count toward pull request limits
 collaboration tools
-Oct.06 Release
-Stacked pull requests generally available
-collaboration tools
-Oct.02 Improvement
-Stateless GitHub App installation tokens rolled out
-actions
-ecosystem & accessibility
-...
-+1
-Oct.02 Improvement
-New fields for SecurityAdvisory GraphQL API
-ecosystem & accessibility
-supply chain security
-...
-+1
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.
 Enter your email *

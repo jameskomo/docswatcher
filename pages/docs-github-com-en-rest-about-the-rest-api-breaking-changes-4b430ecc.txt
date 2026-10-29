@@ -199,6 +199,7 @@ Project items
 Projects
 Project views
 Pull requests
+Agent Merge
 Review comments
 Pull requests
 Review requests

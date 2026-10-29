@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Slackbot skills API methods are here!
 Release: Slack CLI v4.11.0
 Release: Slack CLI v4.10.0
 Slack Code for developers
@@ -252,6 +253,15 @@ Subscribe to the changelog!
 Get real-time notifications about new features, improvements, and bug fixes directly in your preferred feed reader.
 RSS
 Atom
+Slackbot skills API methods are here!
+October 28, 2026
+You can now create and manage Slackbot skills with the Web API. Programmatically create skills from markdown instructions or existing canvases, keep them up to date from CI, and roll them out across your organization.
+With the slackbot.skills.* API methods , you can manage your own skills and skill library.
+Org admins and owners can manage and share skills with their organization with the admin.slackbot.skills.* API methods .
+Read more in our Slackbot skills guide .
+Tags:
+Announcement
+New Feature
 Release: Slack CLI v4.11.0
 October 22, 2026
 Version 4.11.0 of the Slack CLI is here!

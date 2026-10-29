@@ -52,6 +52,7 @@ reactions
 reminders
 rtm
 search
+slackbot
 stars
 team
 tooling
