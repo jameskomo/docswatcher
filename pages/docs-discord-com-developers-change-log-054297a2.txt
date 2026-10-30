@@ -23,11 +23,30 @@ Developer Community
 Change Log
 close
 Filters Clear
-Discord Social SDK HTTP API Breaking Change Interactions Activities Embedded App SDK Premium Apps Components Gateway Voice Docs User Apps Documentation RPC Events
+Discord Social SDK HTTP API Breaking Change Interactions Activities Embedded App SDK Premium Apps Gateway Components Voice Docs User Apps Documentation RPC Events
 Change Log
 Copy page Copy page
 Discover the latest updates, new features, and bug fixes on the Discord Developer Platform. To join in on the conversation, join the Discord Developers Server .
 Copy page Copy page
+​
+October 29, 2026
+HTTP API Documentation
+​
+Voice Channel Status Permission Clarification
+Users already connected to a voice channel can now set the channel’s status with the SET_VOICE_CHANNEL_STATUS permission even if they do not have CONNECT . Previously, a denied CONNECT implicitly removed SET_VOICE_CHANNEL_STATUS . Users not connected to the channel still need MANAGE_CHANNELS as well.
+​
+Developer Resources
+Set Voice Channel Status
+Implicit Permissions
+​
+October 29, 2026
+HTTP API Gateway
+​
+Channel and Role Position Update Audit Logs
+We’ve added two new audit log events :
+CHANNEL_POSITION_UPDATE (16), for reordering channels .
+ROLE_POSITION_UPDATE (33), for reordering roles .
+We’ve also documented audit log entry merging , which impacts audit log behavior for some existing events as well as these new ones.
 ​
 October 28, 2026
 HTTP API Components

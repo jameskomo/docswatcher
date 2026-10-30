@@ -31,6 +31,9 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Oct.29 Improvement
+Webhook IP ranges added to the Meta API
+ecosystem & accessibility
 Oct.28 Release
 Introducing Replica, an open-source AI prototyping tool
 collaboration tools
@@ -75,9 +78,6 @@ ecosystem & accessibility
 projects & issues
 ...
 +1
-Oct.08 Improvement
-Draft pull requests count toward pull request limits
-collaboration tools
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.
 Enter your email *

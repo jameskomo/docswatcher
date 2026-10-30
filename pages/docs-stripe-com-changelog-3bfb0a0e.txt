@@ -78,6 +78,90 @@ Generally available
 Public preview
 Endive
 Learn what's changing in Endive
+2026-10-28.endive
+Payments
+Adds payment intent data configuration when updating Checkout Sessions
+Checkout + 1 more
+Adds Open USD (OUSD) as a supported token currency for crypto payments
+Crypto
+Adds support for requesting Scalapay Payment Links
+Payment Links
+Adds the evidence submission method property to Disputes
+Payments
+Adds the ability to specify the intended submission method for Disputes
+Payments
+Adds invoice settings parameters for Checkout Sessions and Payment Links subscriptions
+Checkout + 1 more
+Adds support for submitting evidence to appeal dispute decisions
+Payments
+Adds refund reference tracking for Klarna, PayPal, and Afterpay Clearpay
+Payments
+Adds support for specifying card-on-file usage when saving or charging cards
+Payments
+Adds RTP and FedNow as US bank transfer network types for cash balance transactions
+Payments
+Adds webhook events and error messages for the Standalone 3DS API
+Payments
+Connect
+Adds Connect embedded components for buying Terminal hardware
+Terminal
+Adds the Reporting Chart embedded component
+Connect
+Adds alternative requirements to the Accounts v2 API
+Connect
+Billing and invoicing
+Adds session recovery for expired customer portal sessions
+Billing
+Adds support for the SeQura payment method for invoices and subscriptions
+Invoicing
+Adds subscription pausing to the customer portal
+Billing
+Adds an error code for billing cycle anchor and trial validation on subscriptions
+Billing
+Tax
+Adds tax registration support for Botswana, Ghana, Ivory Coast, and Mauritius
+Tax
+Adds Ghana levy tax types
+Tax
+Adds customer tax ID types
+Invoicing + 1 more
+Adds tax ID support for Botswana, Ghana, and Ivory Coast
+Tax
+Adds tax type values for events and ticketing to the Tax Rate object
+Tax
+Treasury and money management
+Adds support for the Inbound Transfers v2 API
+Affects all products
+Adds the Outbound Payments, Payout Intents, and Recipient Verifications APIs for programmatic outbound flows
+Treasury
+Adds the Financial Addresses v2 API for receiving funds in your financial accounts
+Affects all products
+Adds a sandbox test helper to simulate credits to Financial Addresses
+Affects all products
+Adds the Received Credits v2 API for tracking funds received in a financial account
+Affects all products
+Terminal
+Adds support for the Stripe Terminal T600 reader
+Terminal
+Adds admin menu passcode to Terminal configurations
+Terminal
+Additional updates
+Adds semantic thin events for subscriptions, invoicing, and Financial Connections
+Affects all products
+Adds support for vaulted bank account credentials, payout methods, and outbound setup intents in API v2
+Payouts + 1 more
+Adds regulatory receipt URLs to transactions
+Treasury
+Adds digital excise tax and utility users tax as supported US registration types
+Tax
+Adds validation for Smart Disputes availability when submitting a dispute
+Payments
+Adds support for Global Payouts capabilities in the Accounts v2 API
+Connect + 1 more
+Adds money management APIs for Global Payouts
+Treasury
+Adds shipping timestamps to Issuing Cards
+Issuing
 2026-09-30.endive
 Breaking changes
 Payments

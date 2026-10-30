@@ -62,8 +62,15 @@ Weather API
 Solutions
 Architecture Center
 Industry solutions
-Maps Builder agent
 WordPress Users
+Resources for AI
+Overview
+Agent skills
+Agentic data visualization token
+Agentic UI toolkit
+Code Assist toolkit
+Maps Experience agent tools
+Maps in AI Studio
 Additional Resources
 API Security Best Practices
 Digital Signature Guide
@@ -202,8 +209,15 @@ Weather API
 Solutions
 Architecture Center
 Industry solutions
-Maps Builder agent
 WordPress Users
+Resources for AI
+Overview
+Agent skills
+Agentic data visualization token
+Agentic UI toolkit
+Code Assist toolkit
+Maps Experience agent tools
+Maps in AI Studio
 Additional Resources
 API Security Best Practices
 Digital Signature Guide

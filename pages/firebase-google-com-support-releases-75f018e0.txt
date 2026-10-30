@@ -894,6 +894,13 @@ as an attestation provider for mobile apps (in Preview), specifically for
 Apple platforms ,
 Android , and
 Flutter apps.
+Firebase Authentication
+A security fix has been deployed to some of the helper code used
+by Authentication. No action is required for most users; however, if you rehost the
+helper code (as in Option 4 on the
+Redirect Best Practices
+page), you should re-synchronize the helper code to ensure you are using the
+latest version.
 August 13, 2026
 Firebase AI Logic
 Firebase AI Logic supports the latest Gemini stable

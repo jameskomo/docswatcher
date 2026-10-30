@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+New Block Kit layout block
 Slackbot skills API methods are here!
 Release: Slack CLI v4.11.0
 Release: Slack CLI v4.10.0
@@ -253,6 +254,19 @@ Subscribe to the changelog!
 Get real-time notifications about new features, improvements, and bug fixes directly in your preferred feed reader.
 RSS
 Atom
+New Block Kit layout block
+October 29, 2026
+The layout block is now available for Block Kit use.
+The layout block arranges other blocks into a grid of rows and side-by-side items, so a single message or view can present structured, multi-column content instead of one vertical stack. Use it for summaries, detail panes, and metric strips, anywhere a column of stacked blocks could waste horizontal space. Other benefits include:
+Denser, more scannable output: put related fields side by side instead of stacking them.
+Composition with blocks you already use: section, image, actions, table, and other blocks drop into a layout item, no changes required.
+Layout hints, not pixel math: declare narrow/standard/wide, and Slack handles the rest.
+Self-contained structure: the grid lives entirely inside one block, so reordering the parent blocks array won't break it.
+Graceful degradation: older clients render your fallback blocks.
+For more details about building with Block Kit, check out our Block Kit overview !
+Tags:
+New Feature
+Block Kit
 Slackbot skills API methods are here!
 October 28, 2026
 You can now create and manage Slackbot skills with the Web API. Programmatically create skills from markdown instructions or existing canvases, keep them up to date from CI, and roll them out across your organization.

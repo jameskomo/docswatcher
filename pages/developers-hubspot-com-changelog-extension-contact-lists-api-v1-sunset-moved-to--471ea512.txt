@@ -44,6 +44,7 @@ Update error handling to account for 404 responses on v1 Lists endpoints after t
 When is it happening?
 This change goes into effect on April 30, 2026 . On that date, Contact Lists API (v1) endpoints excluding the exceptions listed above will be deprecated and return 404 responses, and the Contacts API (v1) read endpoints listed above will stop returning list memberships.
 Questions or comments? Join us in the developer forums .
+Last updated on: Sep 12, 2025, 4:17 PM EDT
 svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline mobile-footer-first-trigger pt-0" data-radix-collection-item="">For Developers
 svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline" data-radix-collection-item="">Company
 For Developers

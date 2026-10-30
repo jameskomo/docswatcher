@@ -69,6 +69,8 @@ Build a Developer Team
 Authentication
 Postman
 MCP Server
+Square CLI
+CLI Command Reference
 Square SDKs
 Java
 Quickstart

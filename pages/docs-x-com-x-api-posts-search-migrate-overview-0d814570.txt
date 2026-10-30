@@ -35,7 +35,7 @@ Hide replies
 Articles
 Introduction
 POST
-Create draft Article
+Create Draft Article
 POST
 Publish Article
 Users
@@ -53,9 +53,9 @@ Likes
 Introduction
 Guides
 GET
-Get Users Liked Posts
+Get Liked Posts
 GET
-Get Posts Liking Users
+Get Liking Users
 POST
 Like Post
 DEL
@@ -77,21 +77,21 @@ Community Notes
 Community Notes API for X API v2
 Quickstart
 GET
-Search Eligible Posts
+Search for Posts Eligible for Community Notes
 GET
-Search Community Notes Written
+Search for Community Notes Written
 POST
-Create Community Notes
+Create a Community Note
 DEL
 Delete a Community Note
 POST
-Evaluate Community Notes
+Evaluate a Community Note
 Trends
 Personalized Trends
 News
 Introduction
 GET
-Get news stories by ID
+Get News Stories by ID
 GET
 Search News
 Media
@@ -106,31 +106,31 @@ Event Pricing
 GET
 Activity Stream
 POST
-Create X activity subscription
+Create X Activity Subscription
 DEL
-Deletes X activity subscription
+Delete X Activity Subscription
 DEL
-Delete X activity subscriptions by IDs
+Delete X Activity Subscriptions by IDs
 GET
-Get X activity subscriptions
+Get X Activity Subscriptions
 PUT
-Update X activity subscription
+Update X Activity Subscription
 Usage
 Introduction
 GET
 Get Usage
 GET
-Get usage credits
+Get Usage Credits
 Stream Connections
 Introduction
 GET
 Get Connection History
 DEL
-Terminate connections by endpoint
+Terminate Connections by Endpoint
 DEL
-Terminate multiple connections
+Terminate Multiple Connections
 DEL
-Terminate all connections
+Terminate All Connections
 Compliance
 Batch Compliance
 Compliance streams
@@ -138,15 +138,15 @@ Webhooks
 Introduction
 Quickstart
 POST
-Create webhook
+Create Webhook
 DEL
-Delete webhook
+Delete Webhook
 GET
-Get webhook
+Get Webhook
 PUT
-Validate webhook
+Validate Webhook
 POST
-Create replay job for webhook
+Create Replay Job for Webhook
 Overview
 Copy page Copy page
 The v2 Search Tweets endpoint will eventually replace the standard v1.1 search/posts endpoint and. Reference for the X API v2 standard tier covering migrate.

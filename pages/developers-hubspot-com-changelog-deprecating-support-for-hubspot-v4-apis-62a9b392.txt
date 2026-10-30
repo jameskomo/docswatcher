@@ -42,6 +42,7 @@ A Developer’s Guide to HubSpot’s Date-Based API Versioning
 HubSpot Date-based API Versioning Migration Playbook
 Introducing Date-Based API Versioning
 Questions or comments? If you need help understanding HubSpot’s date-based versioning model or planning your migration, review the resources above and follow future updates in the HubSpot Developer Changelog or join the community forum for a peer-to-peer discussion .
+Last updated on: Oct 15, 2026, 1:48 PM EDT
 svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline mobile-footer-first-trigger pt-0" data-radix-collection-item="">For Developers
 svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline" data-radix-collection-item="">Company
 For Developers

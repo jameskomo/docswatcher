@@ -25,6 +25,7 @@ We recommend auditing your codebase for any V1 Pipelines API calls and completin
 When is it happening?
 This API will sunset on December 4, 2026 . V1 endpoints will stop responding after this date.
 Questions or comments? Join us in the developer forums.
+Last updated on: Aug 14, 2026, 10:37 AM EDT
 svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline mobile-footer-first-trigger pt-0" data-radix-collection-item="">For Developers
 svg]:rotate-180 text-left font-semibold text-white hover:text-[var(--cl-color-primary)] no-underline hover:no-underline" data-radix-collection-item="">Company
 For Developers

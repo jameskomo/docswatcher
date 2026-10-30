@@ -71,7 +71,7 @@ Apache 2.0
 Hybrid model unifying instruct, reasoning, and coding in a single efficient model.
 v 26.03
 Mistral Large 4
-Open
+Mistral Ecosystem Open Weight License
 A state-of-the-art, open-weight, general-purpose multimodal model.
 v 26.10
 Mistral Large 3
