@@ -45,7 +45,7 @@ Deprecated
 gpt-4.1-mini
 2025-04-14
 Deprecated
-2027-04-14
+2027-04-14 3
 —
 gpt-4.1-nano
 2025-04-14
@@ -55,22 +55,22 @@ Deprecated
 gpt-4o
 2024-05-13
 Deprecated
-2026-12-09
-gpt-5.6-sol
+2027-01-14 2
+gpt-5.1 (2025-11-13)
 gpt-4o
 2024-08-06
 Deprecated
-2027-04-14
+2027-04-14 3
 gpt-5.1
 gpt-4o
 2024-11-20
 Legacy
-2027-04-14
+2027-04-14 3
 gpt-5.1
 gpt-4o-mini
 2024-07-18
 Deprecated
-2027-04-14
+2027-04-14 3
 —
 gpt-4o-mini-transcribe
 2025-03-20
@@ -125,7 +125,7 @@ GA
 gpt-5-mini
 2025-08-07
 GA
-2027-02-09
+2027-07-13
 —
 gpt-5-nano
 2025-08-07
@@ -140,7 +140,7 @@ GA
 gpt-5.1
 2025-11-13
 GA
-2027-05-15
+2027-07-13
 —
 gpt-5.1-chat
 2025-11-13
@@ -431,6 +431,9 @@ whisper
 GA
 2026-12-15
 —
+2 All active customer-facing base-model inference offers for gpt-4o version 2024-05-13 in Azure public cloud retire on January 14, 2027, in all applicable regions. These offers include Global Standard, Data Zone Standard, Regional Provisioned, Global Provisioned, Data Zone Provisioned, and Global Batch. Regional Standard deployments retired on March 31, 2026; that date is unchanged.
+Global Standard and Data Zone Standard deployments of gpt-4o version 2024-05-13 automatically upgrade to gpt-5.1 version 2025-11-13 at retirement. Provisioned deployments aren't automatically upgraded; create replacement deployments and move your traffic before retirement.
+3 April 14, 2027 applies to all active customer-facing base-model inference offers in all applicable regions in Azure public cloud for gpt-4o versions 2024-08-06 and 2024-11-20, gpt-4o-mini version 2024-07-18, and gpt-4.1-mini version 2025-04-14. Already-retired Regional Standard deployments remain retired. For fine-tuning training and deployment retirement dates, see the separate schedules below.
 Fine-tuned models
 Fine-tuned models retire in two phases: training and deployment .
 Unless explicitly stated, training retires no earlier than the base model retirement date.

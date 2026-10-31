@@ -102,6 +102,8 @@ Adds RTP and FedNow as US bank transfer network types for cash balance transacti
 Payments
 Adds webhook events and error messages for the Standalone 3DS API
 Payments
+Adds validation for Smart Disputes availability when submitting a dispute
+Payments
 Connect
 Adds Connect embedded components for buying Terminal hardware
 Terminal
@@ -129,6 +131,8 @@ Adds tax ID support for Botswana, Ghana, and Ivory Coast
 Tax
 Adds tax type values for events and ticketing to the Tax Rate object
 Tax
+Adds digital excise tax and utility users tax as supported US registration types
+Tax
 Treasury and money management
 Adds support for the Inbound Transfers v2 API
 Affects all products
@@ -140,6 +144,14 @@ Adds a sandbox test helper to simulate credits to Financial Addresses
 Affects all products
 Adds the Received Credits v2 API for tracking funds received in a financial account
 Affects all products
+Adds support for vaulted bank account credentials, payout methods, and outbound setup intents in API v2
+Payouts + 1 more
+Adds regulatory receipt URLs to transactions
+Treasury
+Adds support for Global Payouts capabilities in the Accounts v2 API
+Connect + 1 more
+Adds money management APIs for Global Payouts
+Treasury
 Terminal
 Adds support for the Stripe Terminal T600 reader
 Terminal
@@ -148,18 +160,6 @@ Terminal
 Additional updates
 Adds semantic thin events for subscriptions, invoicing, and Financial Connections
 Affects all products
-Adds support for vaulted bank account credentials, payout methods, and outbound setup intents in API v2
-Payouts + 1 more
-Adds regulatory receipt URLs to transactions
-Treasury
-Adds digital excise tax and utility users tax as supported US registration types
-Tax
-Adds validation for Smart Disputes availability when submitting a dispute
-Payments
-Adds support for Global Payouts capabilities in the Accounts v2 API
-Connect + 1 more
-Adds money management APIs for Global Payouts
-Treasury
 Adds shipping timestamps to Issuing Cards
 Issuing
 2026-09-30.endive

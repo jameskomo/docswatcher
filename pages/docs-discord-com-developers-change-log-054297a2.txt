@@ -29,6 +29,18 @@ Copy page Copy page
 Discover the latest updates, new features, and bug fixes on the Discord Developer Platform. To join in on the conversation, join the Discord Developers Server .
 Copy page Copy page
 ​
+October 30, 2026
+HTTP API
+​
+New Endpoints for getting member and role permissions for guilds and channels
+We’ve added four new endpoints to get a member or role’s permissions for a guild or channel. The channel endpoints apply implicit permission masking by default. Set implicit=false to skip this masking.
+​
+Developer Resources
+Get Guild Member Permissions
+Get Guild Role Permissions
+Get Channel Member Permissions
+Get Channel Role Permissions
+​
 October 29, 2026
 HTTP API Documentation
 ​
@@ -53,6 +65,8 @@ HTTP API Components
 ​
 Content Scanning Flags for Attachments, Embeds, and Media
 We’ve documented the flags Discord sets when its content scanning flags media as explicit, gore, or self-harm, so your app can check media before acting on it, like reposting an uploaded image to another channel.
+​
+Developer Resources
 Attachments and embeds use the CONTAINS_EXPLICIT_CONTENT , CONTAINS_GORE_CONTENT , and CONTAINS_SELF_HARM_CONTENT flags.
 Unfurled media items in components include a content_scan_metadata object with its own flags .
 ​

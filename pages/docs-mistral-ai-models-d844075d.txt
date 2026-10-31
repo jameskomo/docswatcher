@@ -35,7 +35,7 @@ A third-party open weight text model from Z.ai with a 1M-token context window.
 Z.ai GLM 5.3 Flash
 A third-party multimodal model from Z.ai with a 1M-token context window, optimized for agentic workflows and visual coding.
 DeepSeek V4.1 Flash 1017
-A third-party open weight text model from DeepSeek with a 1M-token context window, optimized for long-context coding and agentic workflows.
+A third-party open weight model from DeepSeek with text and image inputs and a 1M-token context window, optimized for long-context coding and agentic workflows.
 Mistral Small 4
 Hybrid model unifying instruct, reasoning, and coding in a single efficient model.
 Voxtral Mini Transcribe 3
@@ -56,16 +56,12 @@ A third-party multimodal model from Z.ai with a 1M-token context window, optimiz
 v 5.3-flash
 DeepSeek V4.1 Flash 1017
 MIT
-A third-party open weight text model from DeepSeek with a 1M-token context window, optimized for long-context coding and agentic workflows.
+A third-party open weight model from DeepSeek with text and image inputs and a 1M-token context window, optimized for long-context coding and agentic workflows.
 v v4.1-flash-1017
 Z.ai GLM 5.3
 MIT
 A third-party open weight text model from Z.ai with a 1M-token context window.
 v 5.3
-Mistral Medium 3.5
-Modified MIT
-Our frontier-class multimodal model optimized for agentic and coding use cases.
-v 26.04
 Mistral Small 4
 Apache 2.0
 Hybrid model unifying instruct, reasoning, and coding in a single efficient model.
@@ -74,10 +70,6 @@ Mistral Large 4
 Mistral Ecosystem Open Weight License
 A state-of-the-art, open-weight, general-purpose multimodal model.
 v 26.10
-Mistral Large 3
-Apache 2.0
-A state-of-the-art, open-weight, general-purpose multimodal model.
-v 25.12
 Ministral 3 14B
 Apache 2.0
 A powerful model offering best-in-class text and vision capabilities.
@@ -106,10 +98,6 @@ Audio models
 Copy section link
 Audio models
 Models for speech transcription, realtime transcription, and speech generation.
-Voxtral TTS
-CC BY-NC 4.0
-State-of-the-art TTS with zero-shot voice cloning and multilingual support.
-v 26.03
 Voxtral Mini Transcribe 3
 Premier
 Strong transcription and diarization at a competitive price point.
@@ -126,14 +114,6 @@ Voxtral TTS 3
 Premier
 State-of-the-art TTS with zero-shot and professional voice cloning, 35+ languages and 50+ dialects, and streaming.
 v 3.0
-Voxtral Mini Transcribe 2
-Premier
-An efficient audio input model, pre-trained and optimized for transcription purposes.
-v 26.02
-Voxtral Mini Transcribe Realtime
-Apache 2.0
-An efficient audio input model, pre-trained and optimized for live transcription purposes.
-v 26.02
 Voxtral Small
 Apache 2.0
 Our first model with audio input capabilities for instruct use cases.
@@ -206,6 +186,16 @@ Z.ai GLM 5.2 ↗
 zai-glm-5-2
 9/29/2026 10/31/2026
 Z.ai GLM 5.3
+Mistral Medium 3.5 ↗
+26.04
+mistral-medium-3-5
+10/31/2026 4/30/2027
+Mistral Large 4
+Voxtral TTS ↗
+26.03
+voxtral-mini-tts-2603
+10/31/2026 4/30/2027
+Voxtral TTS 3
 Leanstral 1.5 ↗
 1.5
 labs-leanstral-1-5
@@ -215,6 +205,11 @@ Leanstral ↗
 labs-leanstral-2603
 5/22/2026 6/30/2026
 Leanstral 1.5
+Mistral Large 3 ↗
+25.12
+mistral-large-2512
+10/31/2026 4/30/2027
+Mistral Large 4
 Mistral Medium 3.1 ↗
 25.08
 mistral-medium-2508
@@ -235,6 +230,16 @@ Voxtral Mini Transcribe ↗
 voxtral-mini-2507
 2/27/2026 5/31/2026
 Voxtral Mini Transcribe 2
+Voxtral Mini Transcribe 2 ↗
+26.02
+voxtral-mini-2602
+10/31/2026 4/30/2027
+Voxtral Mini Transcribe 3
+Voxtral Mini Transcribe Realtime ↗
+26.02
+voxtral-mini-transcribe-realtime-2602
+10/31/2026 4/30/2027
+Voxtral Mini Transcribe Realtime 3
 Devstral 2 ↗
 25.12
 devstral-2512

@@ -487,6 +487,14 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Oct 28, 2026
+Voice API
+Conversations API
+GA
+Conversation Relay
+Conversation Relay: Dynamic Configuration, Application Reconnect, Echo Filtering, and ElevenLabs v4 Support
+Twilio Conversation Relay now includes General Availability (GA) support for dynamic mid-call configuration, WebSocket application reconnect, agent echo prompt filtering, and ElevenLabs v4 Turbo text-to-speech models.
+Learn more
 Oct 20, 2026
 Voice API
 The Voice Recording Account Default Configuration is now Generally Available in us1
@@ -561,14 +569,6 @@ Agent Connect
 TaskRouter
 Live support coverage across the Twilio platform and Segment
 Starting October 5, 2026, paid support customers can reach Twilio through live chat for help with Segment and all Twilio platform applications and products.
-Learn more
-Oct 06, 2026
-Studio
-TaskRouter
-Beta
-Europe, Middle East, and Africa
-TaskRouter and Studio are now available in Public Beta in Ireland (IE1)
-TaskRouter and Studio are now available in Public Beta in Twilio's Ireland (IE1) Region, giving you EU data residency and control over where your contact center routing and workflow automation data lives.
 Learn more
 Loading
 Error: Unable to load changelog

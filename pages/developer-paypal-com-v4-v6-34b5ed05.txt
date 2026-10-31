@@ -38,7 +38,7 @@ Accept Decline
 Close
 Upgrade from JavaScript SDK v4 to latest version
 Update your PayPal JavaScript integration from checkout.js (v4) to PayPal Web SDK v6. Move to the createInstance() architecture, explicit eligibility checks, and session-based payment flows.
-Last updated: August 24, 2026
+Last updated: October 29, 2026
 Copy for LLM
 View as Markdown
 Copy / Export
@@ -46,7 +46,7 @@ Copy for LLM
 View as Markdown
 Update your JavaScript integration from checkout.js (v4) to PayPal Web SDK v6 to continue processing PayPal payments, card payments, and related payment methods.
 checkout.js is deprecated
-checkout.js, served from www.paypalobjects.com/api/checkout.js , and the paypal-checkout npm package are deprecated and scheduled for removal. Begin this migration now rather than waiting for a removal date.
+checkout.js, served from www.paypalobjects.com/api/checkout.js , and the paypal-checkout npm package are deprecated. Begin this migration now.
 SDK v6 includes the following changes:
 replaces the immediate window.paypal.Buttons() global with an explicit createInstance() architecture.
 adds a required eligibility check before you render any payment component.

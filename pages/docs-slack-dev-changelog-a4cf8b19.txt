@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Release: Slack CLI v4.12.0
 New Block Kit layout block
 Slackbot skills API methods are here!
 Release: Slack CLI v4.11.0
@@ -254,6 +255,17 @@ Subscribe to the changelog!
 Get real-time notifications about new features, improvements, and bug fixes directly in your preferred feed reader.
 RSS
 Atom
+Release: Slack CLI v4.12.0
+October 30, 2026
+Version 4.12.0 of the Slack CLI is here!
+We've added the slack skill command and the slack --skill flag, so coding agents can read the Slack CLI skill straight from the CLI. The output is the same slack-cli skill as in the Slack Skills Plugin, matched to the installed CLI version, with no plugin install needed.
+We've added a check to the slack install and slack run commands that stops before creating an app on an Enterprise organization when the app manifest doesn't set "org_deploy_enabled": true , and explains how to fix it. Before, the app installed but never received events. See enabling organization-wide installation .
+We fixed an issue where the slack app install and slack deploy commands cleared an app's Work Object embed settings ( domain_allowlist , allow_same_origin , slug.hide_display_id ) and dropped rich_previews.is_active: false from its manifest.
+We fixed an issue where slack api --method GET form-encoded key=value arguments and --data into a request body. They are now sent as query parameters, with the token in the Authorization header. Requests without a body are also now sent with Content-Length: 0 instead of an empty chunked body.
+We fixed an issue where Python projects that list slack_cli_hooks , or another spelling of slack-cli-hooks , in requirements.txt or pyproject.toml got a second slack-cli-hooks<1.0.0 dependency added by the slack create and slack init commands.
+Tags:
+Release
+Slack CLI
 New Block Kit layout block
 October 29, 2026
 The layout block is now available for Block Kit use.

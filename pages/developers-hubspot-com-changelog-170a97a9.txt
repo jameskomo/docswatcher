@@ -30,6 +30,10 @@ Integrations (2)
 Upcoming (4)
 Latest Posts
 Announced Upcoming ( 3 )
+October 2026 Rollup
+Announced: Oct 30, 2026
+October’s developer and builder updates covers the general releases of connected quote-to-cash tooling, permission-based AI access to sensitive data in public beta, a new centralized data model overview, as well as increased limits for deal ...
+Read More
 Upcoming Automatic Update: HubSpot domain security settings will move to TLS 1.2
 Live: Oct 14, 2026
 On October 14th, HubSpot will automatically update the minimum TLS version for your HubSpot-hosted domains from TLS 1.0 or 1.1 to TLS 1.2.
@@ -64,10 +68,6 @@ Read More
 July 2026 Rollup
 Live: Jul 31, 2026
 This month's updates include a raised owner property limit, larger Webhooks Journal batch sizes, and a new historical API usage chart — plus public betas for Contract Imports and the Payment Links API. Read on for the details.
-Read More
-Breaking Change: Pipeline and pipeline stage delete endpoints will validate references by default starting with the 2026-09 API version
-Live: Sep 8, 2026
-7/23/2026 Edit - The post has been updated to include the Deal object specific ...
 Read More
 1 2 3 4 5
 Next page
