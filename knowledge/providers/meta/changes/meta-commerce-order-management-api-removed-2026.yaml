@@ -33,4 +33,4 @@ migration:
     orders. Make the code tolerate errors from these edges until it is
     removed.
 
-status: active
+status: expired
