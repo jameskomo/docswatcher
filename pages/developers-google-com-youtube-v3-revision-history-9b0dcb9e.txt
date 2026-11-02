@@ -894,7 +894,7 @@ The video resource's fileDetails.recordingLocation object and its child properti
 August 11, 2016
 This update contains the following changes:
 The newly published YouTube API Services Terms of Service ("the Updated Terms"), discussed in detail on the YouTube Engineering and Developers Blog , provides a rich set of updates to the current Terms of Service. In addition to the Updated Terms , which will go into effect as of February 10, 2017, this update includes several supporting documents to help explain the policies that developers must follow.
-The full set of new documents is described in the revision history for the Updated Terms . In addition, future changes to the Updated Terms or to those supporting documents will also be explained in that revision history. You can subscribe to an RSS feed listing changes in that revision history from a link in that document.
+The full set of new documents is described in the revision history for the Updated Terms . In addition, future changes to the Updated Terms or to those supporting documents will also be explained in that revision history.
 The deprecation of Freebase and the Freebase API is causing several changes related to topic IDs. Topic IDs are used in the following API resources and methods:
 The channel resource's topicDetails part identifies topics associated with the channel.
 The video resource's topicDetails part identifies topics associated with the video.
@@ -2051,7 +2051,7 @@ notFound
 videoCategoryNotFound
 The video category identified by the id parameter cannot be found. Use the videoCategories.list method to retrieve a list of valid values.
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-15 UTC.
+Last updated 2026-11-01 UTC.
 Blog
 The latest news on the YouTube blog
 Issue Tracker
