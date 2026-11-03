@@ -26,6 +26,7 @@ Older APIs
 Charges
 Sources
 Migrate to the new APIs
+Migrate from legacy Cards or Sources
 Compare PaymentIntents to Charges
 Stripe glossary
 Start building

@@ -1,6 +1,48 @@
 Skip to main content
 YouTube
+Home
 Data API
+APIs & services
+Overview
+All APIs and services
+Authentication
+Code samples
+Players and widgets
+IFrame Player API
+iOS Helper Library
+Player Parameters
+YouTube Subscribe Buttons
+YouTube Playables
+Data and reporting APIs
+YouTube Data API
+YouTube Analytics & Reporting APIs
+YouTube Live Streaming API
+YouTube Content ID API
+YouTube Video Third-Party Trainability API
+Devices and integrations
+Cobalt
+Resources
+Overview
+All developer resources
+Tools and samples
+Google APIs Explorer
+Google Cloud console
+Quota Calculator
+YouTube Player Demo
+Configure a Subscribe Button
+Code Samples
+Client Libraries
+Support and updates
+Issue Tracker
+File a bug
+YouTube Blog
+YouTube Researcher Program
+Terms and policies
+YouTube API Services Terms of Service
+Developer Policies
+Complying with the YouTube Developer Policies
+Required Minimum Functionality
+Branding Guidelines
 /
 English
 Deutsch
@@ -24,17 +66,23 @@ Türkçe
 中文 – 繁體
 日本語
 한국어
+YouTube Studio
 Sign in
-Home
+Data API
 Guides
 Reference
 Samples
 YouTube
-Data API
 Home
+Data API
 Guides
 Reference
 Samples
+APIs & services
+More
+Resources
+More
+YouTube Studio
 Overview
 Activities
 Overview
@@ -136,6 +184,45 @@ YouTube Data API Errors
 Overview
 Global Domain Errors
 Revision History
+Overview
+All APIs and services
+Authentication
+Code samples
+Players and widgets
+IFrame Player API
+iOS Helper Library
+Player Parameters
+YouTube Subscribe Buttons
+YouTube Playables
+Data and reporting APIs
+YouTube Data API
+YouTube Analytics & Reporting APIs
+YouTube Live Streaming API
+YouTube Content ID API
+YouTube Video Third-Party Trainability API
+Devices and integrations
+Cobalt
+Overview
+All developer resources
+Tools and samples
+Google APIs Explorer
+Google Cloud console
+Quota Calculator
+YouTube Player Demo
+Configure a Subscribe Button
+Code Samples
+Client Libraries
+Support and updates
+Issue Tracker
+File a bug
+YouTube Blog
+YouTube Researcher Program
+Terms and policies
+YouTube API Services Terms of Service
+Developer Policies
+Complying with the YouTube Developer Policies
+Required Minimum Functionality
+Branding Guidelines
 Home
 Products
 YouTube

@@ -509,6 +509,41 @@ Firebase AI Logic supports the latest stable image-generating
 Gemini Nano Banana 2.1 : gemini-nano-banana-2.1
 You can use this model to
 generate and edit images via Firebase AI Logic .
+October 05, 2026
+Gemini API
+The following older Gemini 3.5 Flash models are no
+longer recommended for use with Firebase AI Logic due to upcoming shutdown
+dates and/or automatic routing to newer models.
+gemini-3.7-flash
+gemini-3.6-flash
+gemini-3.5-flash
+Replacement : Migrate to use one of the latest Gemini models (like
+gemini-4-argon or gemini-3.8-flash ).
+Detailed information about shutdown dates (which depends on your chosen
+Gemini API provider):
+Gemini 3.7 Flash ( gemini-3.7-flash )
+Gemini Developer API (Google AI): gemini-3.7-flash has no
+announced shutdown date. However, calls to gemini-3.7-flash via the
+Gemini Developer API are automatically routed to
+gemini-3.8-flash .
+Agent Platform Gemini API (formerly Vertex AI) : gemini-3.7-flash will shut down
+January 28, 2027 (short-term availability model).
+Gemini 3.6 Flash ( gemini-3.6-flash )
+Gemini Developer API (Google AI): gemini-3.6-flash has no
+announced shutdown date.
+Agent Platform Gemini API (formerly Vertex AI) : gemini-3.6-flash will shut down
+November 19, 2026 (short-term availability model).
+Gemini 3.5 Flash ( gemini-3.5-flash )
+Gemini Developer API (Google AI): gemini-3.5-flash has no
+announced shutdown date. However, calls to gemini-3.5-flash via the
+Gemini Developer API are automatically routed to
+gemini-3.6-flash .
+Agent Platform Gemini API (formerly Vertex AI) : gemini-3.6-flash will shut down
+May 19, 2027 or later.
+If you use these models with Firebase AI Logic , make sure to
+update to a newer model (like gemini-3.8-flash ) to avoid service
+disruption . Shutdown models are no longer accessible or supported by
+Google, and a request using a shutdown model name returns a 404 error.
 September 30, 2026
 Firebase CLI (v15.32.1)
 The latest
@@ -17332,7 +17367,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-10-29 UTC.
+Last updated 2026-11-02 UTC.
 Learn
 Developer guides
 SDK & API reference
