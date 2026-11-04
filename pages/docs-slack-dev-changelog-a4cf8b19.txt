@@ -254,8 +254,8 @@ Reminders API methods
 2015 shortform changelog entries
 Subscribe to the changelog!
 Get real-time notifications about new features, improvements, and bug fixes directly in your preferred feed reader.
-RSS
-Atom
+RSS (opens in new tab)
+Atom (opens in new tab)
 Updated low-usage submission criteria for Slack Marketplace apps
 November 2, 2026
 Slack Marketplace submissions that meet the low-usage criteria will not be reviewed. A submission is considered low-usage when the app:

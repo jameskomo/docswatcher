@@ -158,7 +158,6 @@ Reports
 Webinars
 Podcasts
 Customer stories
-Product Recommender
 State of Customer Engagement
 Events
 Customer data recipes
@@ -359,7 +358,6 @@ Reports
 Webinars
 Podcasts
 Customer stories
-Product Recommender
 State of Customer Engagement
 Events
 Customer data recipes
@@ -489,6 +487,11 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Nov 05, 2026
+Messaging
+GA
+Filter your Twilio Health Score by Messaging Channel
+Learn more
 Oct 28, 2026
 Voice API
 Conversations API
@@ -560,18 +563,6 @@ When requesting RCS Sender approval in Canada, Twilio will now submit the Sender
 To start sending branded RCS messages, go to the Twilio Console to create and submit an RCS Sender.
 For more information, see our RCS documentation .
 Learn more
-Oct 08, 2026
-Flex
-Conversations API
-Studio
-Segment
-Video API
-Proxy
-Agent Connect
-TaskRouter
-Live support coverage across the Twilio platform and Segment
-Starting October 5, 2026, paid support customers can reach Twilio through live chat for help with Segment and all Twilio platform applications and products.
-Learn more
 Loading
 Error: Unable to load changelog
 1
@@ -616,7 +607,6 @@ User authentication and identity
 Customer Data Platform (CDP)
 AI
 Customer stories
-Product Recommender
 Events
 Contact sales
 Why Twilio

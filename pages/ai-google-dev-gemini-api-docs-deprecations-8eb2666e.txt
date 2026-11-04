@@ -368,7 +368,7 @@ remains available through the API until further notice.
 * Shutdown date
 * Recommended replacement
 ---
-* `embedding-2-preview`
+* `gemini-embedding-2-preview`
 * March 10, 2026
 * August 10, 2026
 * `gemini-embedding-2`

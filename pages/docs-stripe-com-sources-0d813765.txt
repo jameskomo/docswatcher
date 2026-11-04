@@ -104,16 +104,16 @@ Redirect flow
 Code verification flow
 Receiver flow
 No action is required from your customer. Some payment methods (generally pull methods), such as cards (excluding 3D Secure), require no additional authentication beyond collecting the payment information from customers. Sources representing this payment method can be used immediately when making charge requests.
-Once the required flow has been completed and a source becomes chargeable, the source must be used to make a charge request for the payment to be completed. If not, the source is canceled and the customer’s authenticated payment is refunded automatically—no money is moved into your account.
+After the required flow has been completed and a source becomes chargeable, the source must be used to make a charge request for the payment to be completed. If not, the source is canceled and the customer’s authenticated payment is refunded automatically—no money moves into your account.
 Single-use or reusable
 Certain payment methods allow for the creation of sources that can be reused for additional payments without your customer needing to complete the payment process again. Sources that can be reused have their usage parameter set to reusable .
 Conversely, if a source can only be used once, this parameter is set to single _ use , and a source must be created each time a customer makes a payment. Such sources shouldn’t be attached to customers—instead, they should be charged directly. They can be charged only once, and their status will change to consumed when charged.
 Reusable sources must be attached to a Customer to be reused. (If charged directly, their status will change to consumed .)
 Synchronous or asynchronous confirmation
-Once you use a payment method to create a Charge object, that charge’s status can be confirmed either immediately (synchronously), or after a certain amount of time (asynchronously).
+After you use a payment method to create a Charge object, that charge’s status can be confirmed either immediately (synchronously), or after a certain amount of time (asynchronously).
 With a synchronous payment method, the charge request’s status can be immediately confirmed as either succeeded or failed . If the charge request is successful, the payment is completed—it’s considered guaranteed that the customer has been charged, and that you’ll receive the funds. Card payments are an example of a synchronous payment method: there is real-time confirmation of the payment’s success or failure.
 For asynchronous payment methods , it can take up to several days to confirm whether the payment has been successful. During this time, the payment can’t be guaranteed. The status of the payment’s Charge object is initially set to pending , until the payment has been confirmed as successful or failed. ACH debits are an example of an asynchronous method: with these debits, it takes a few days to confirm that the payment has succeeded.
-Stripe sends a webhook event once a charge’s status has changed. When accepting any payment method that is asynchronous, your integration must be able to receive webhooks, so that it can receive this notification and confirm whether the customer’s payment was successful or has failed.
+Stripe sends a webhook event when a charge’s status has changed. When accepting any payment method that is asynchronous, your integration must be able to receive webhooks, so that it can receive this notification and confirm whether the customer’s payment was successful or has failed.
 See also
 Sources API reference
 Payment methods guide

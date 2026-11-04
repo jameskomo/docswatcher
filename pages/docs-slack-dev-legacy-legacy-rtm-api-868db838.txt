@@ -3,7 +3,6 @@ Skip to main content
 Guides Reference Samples Tools
 Changelog Dev Program
 MANAGE APPS
-Welcome!
 Quickstart
 Resources
 Slack platform concepts

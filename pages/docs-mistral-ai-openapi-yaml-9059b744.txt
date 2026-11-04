@@ -387,11 +387,13 @@ type: string
 title: alias
 - name: fields
 in: query
+description: Projection over each listed Skill. definition.description is the only definition path a list accepts; body and assets are read one skill at a time with GetSkill.
 schema:
 type: array
 items:
 type: string
 title: fields
+description: Projection over each listed Skill. definition.description is the only definition path a list accepts; body and assets are read one skill at a time with GetSkill.
 - name: sort.field
 in: query
 description: Defaults to created_at when omitted.
@@ -746,25 +748,29 @@ event:
 $ref: '#/$defs/SpeechStreamEventTypes'
 data:
 oneOf:
-- $ref: '#/$defs/SpeechStreamAudioDelta'
-- $ref: '#/$defs/SpeechStreamDone'
+- $ref: '#/components/schemas/SpeechStreamAudioDelta'
+- $ref: '#/components/schemas/SpeechStreamDone'
 discriminator:
 propertyName: type
 mapping:
-speech.audio.delta: '#/$defs/SpeechStreamAudioDelta'
-speech.audio.done: '#/$defs/SpeechStreamDone'
+speech.audio.delta: '#/components/schemas/SpeechStreamAudioDelta'
+speech.audio.done: '#/components/schemas/SpeechStreamDone'
 title: Data
 $defs:
 CompletionTokensDetails:
 type: object
 properties:
 reasoning_tokens:
-type: integer
+anyOf:
+- type: integer
+- type: 'null'
 title: Reasoning Tokens
-default: 0
 title: CompletionTokensDetails
 additionalProperties: false
-description: Token usage details for the completion.
+description: 'Token usage details for the completion.
+``reasoning_tokens`` is ``None`` when the provider did not report a count.
+Preserve that distinction instead of inventing a measured zero: ``0`` means
+"reasoning off, confirmed by the provider", ``None`` means "unknown".'
 MessageTokens:
 type: object
 properties:
@@ -820,35 +826,6 @@ enum:
 - user
 - assistant
 - tool
-SpeechStreamAudioDelta:
-type: object
-properties:
-type:
-type: string
-title: Type
-default: speech.audio.delta
-const: speech.audio.delta
-audio_data:
-type: string
-title: Audio Data
-title: SpeechStreamAudioDelta
-required:
-- audio_data
-additionalProperties: false
-SpeechStreamDone:
-type: object
-properties:
-type:
-type: string
-title: Type
-default: speech.audio.done
-const: speech.audio.done
-usage:
-$ref: '#/$defs/UsageInfo'
-title: SpeechStreamDone
-required:
-- usage
-additionalProperties: false
 SpeechStreamEventTypes:
 type: string
 title: SpeechStreamEventTypes
@@ -1071,6 +1048,61 @@ content:
 application/json:
 schema:
 $ref: '#/components/schemas/HTTPValidationError'
+/v1/responses:
+post:
+operationId: create_response_v1_responses_post
+summary: Create Response
+description: 'Create a response.
+Generate a model response from text or image inputs. The response can
+include text, reasoning, and function calls. Set stream to true to
+receive Server-Sent Events.
+For multi-turn conversations, send the full history in input, including
+prior output items and function results. Responses are not stored. Only
+client-executed function tools are supported.'
+tags:
+- responses
+requestBody:
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/CreateResponseRequest'
+required: true
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/CreateResponseResponse'
+text/event-stream:
+schema:
+$ref: '#/components/schemas/ResponsesStreamFrame'
+/v1/responses/input_tokens:
+post:
+operationId: count_input_tokens_v1_responses_input_tokens_post
+summary: Count Input Tokens
+description: 'Count response input tokens.
+Count the input tokens for a Responses request without generating a
+response. The count includes the supplied conversation, instructions,
+and tool definitions.
+Use the same input, instructions, and tools that you plan to send when
+creating a response. For multi-turn conversations, include prior output
+items and function results in input.'
+tags:
+- responses
+requestBody:
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/CountResponseInputTokensRequest'
+required: true
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/CountResponseInputTokensResponse'
 /v1/client/sessions:
 post:
 operationId: create_client_session_v1_client_sessions_post
@@ -6671,6 +6703,58 @@ schema:
 $ref: '#/components/schemas/ObservabilityError'
 description: Search pipeline results
 x-speakeasy-max-method-params: 5
+/v1/observability/pipelines/{pipeline_id}/results/fields:
+get:
+operationId: get_pipeline_result_fields_v1_observability_pipelines__pipeline_id__results_fields_get
+summary: Get pipeline result field definitions
+tags:
+- beta.observability.spans
+parameters:
+- name: pipeline_id
+in: path
+required: true
+schema:
+type: string
+title: Pipeline Id
+format: uuid
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/GetPipelineResultFields'
+'400':
+description: Bad Request - Invalid request parameters or data
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'404':
+description: Not Found - Resource does not exist
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'408':
+description: Request Timeout - Operation timed out
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'409':
+description: Conflict - Resource conflict
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'422':
+description: Unprocessable Entity - Validation error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+description: Get pipeline result field definitions
 /v1/observability/traces/fields:
 get:
 operationId: get_trace_fields_v1_observability_traces_fields_get
@@ -9370,6 +9454,393 @@ content:
 application/json:
 schema:
 $ref: '#/components/schemas/HTTPValidationError'
+/v1/audio/sessions:
+post:
+operationId: create_session_v1_audio_sessions_post
+summary: Create an agent session
+description: Create a real-time audio agent session.
+tags:
+- audio.sessions
+requestBody:
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/AudioSessionCreateRequest'
+required: true
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/AudioSessionCreateResponse'
+'422':
+description: Validation Error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/HTTPValidationError'
+x-voice-agent-events:
+topic: voice_agent.events
+schema:
+$ref: '#/components/schemas/VoiceAgentEvent'
+/v1/audio/sessions/{session_id}:
+get:
+operationId: get_session_v1_audio_sessions__session_id__get
+summary: Get session status
+description: Retrieve an audio agent session with the transcript of its conversation.
+tags:
+- audio.sessions
+parameters:
+- name: session_id
+in: path
+required: true
+schema:
+type: string
+title: Session Id
+format: uuid
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/AudioSessionResponse'
+'422':
+description: Validation Error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/HTTPValidationError'
+delete:
+operationId: delete_session_v1_audio_sessions__session_id__delete
+summary: Stop an agent session
+description: Stop an audio agent session and release its resources.
+tags:
+- audio.sessions
+parameters:
+- name: session_id
+in: path
+required: true
+schema:
+type: string
+title: Session Id
+format: uuid
+responses:
+'204':
+description: Successful Response
+'422':
+description: Validation Error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/HTTPValidationError'
+/v1/audio/agents:
+get:
+operationId: list_agents_v1_audio_agents_get
+summary: List audio agents
+tags:
+- audio.agents
+parameters:
+- name: page_size
+in: query
+description: Maximum number of agents to return
+required: false
+schema:
+type: integer
+title: Page Size
+maximum: 100
+minimum: 1
+description: Maximum number of agents to return
+default: 10
+- name: page_token
+in: query
+description: Cursor returned as next_page_token by the previous page
+required: false
+schema:
+anyOf:
+- type: string
+- type: 'null'
+title: Page Token
+description: Cursor returned as next_page_token by the previous page
+- name: search
+in: query
+description: Substring match on the agent name
+required: false
+schema:
+anyOf:
+- type: string
+- type: 'null'
+title: Search
+description: Substring match on the agent name
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/AudioAgentListPage'
+'422':
+description: Validation Error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/HTTPValidationError'
+x-speakeasy-pagination:
+type: cursor
+inputs:
+- name: page_token
+in: parameters
+type: cursor
+- name: page_size
+in: parameters
+type: limit
+outputs:
+results: $.data
+nextCursor: $.next_page_token
+description: List audio agents
+post:
+operationId: create_agent_v1_audio_agents_post
+summary: Create an audio agent
+tags:
+- audio.agents
+requestBody:
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/AudioAgentCreateRequest'
+required: true
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/AudioAgentResponse'
+'422':
+description: Validation Error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/HTTPValidationError'
+description: Create an audio agent
+/v1/audio/agents/{agent_id}:
+get:
+operationId: get_agent_v1_audio_agents__agent_id__get
+summary: Get an audio agent
+tags:
+- audio.agents
+parameters:
+- name: agent_id
+in: path
+required: true
+schema:
+type: string
+title: Agent Id
+format: uuid
+- name: version
+in: query
+description: Version to return. Defaults to the latest version.
+required: false
+schema:
+anyOf:
+- type: integer
+minimum: 1
+- type: 'null'
+title: Version
+description: Version to return. Defaults to the latest version.
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/AudioAgentResponse'
+'422':
+description: Validation Error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/HTTPValidationError'
+description: Get an audio agent
+put:
+operationId: update_agent_v1_audio_agents__agent_id__put
+summary: Update an audio agent
+tags:
+- audio.agents
+parameters:
+- name: agent_id
+in: path
+required: true
+schema:
+type: string
+title: Agent Id
+format: uuid
+requestBody:
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/AudioAgentUpdateRequest'
+required: true
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/AudioAgentResponse'
+'422':
+description: Validation Error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/HTTPValidationError'
+description: Update an audio agent
+delete:
+operationId: delete_agent_v1_audio_agents__agent_id__delete
+summary: Delete an audio agent
+tags:
+- audio.agents
+parameters:
+- name: agent_id
+in: path
+required: true
+schema:
+type: string
+title: Agent Id
+format: uuid
+responses:
+'204':
+description: Successful Response
+'422':
+description: Validation Error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/HTTPValidationError'
+description: Delete an audio agent
+/v1/audio/agents/{agent_id}/versions:
+get:
+operationId: list_agent_versions_v1_audio_agents__agent_id__versions_get
+summary: List audio agent versions
+tags:
+- audio.agents
+parameters:
+- name: agent_id
+in: path
+required: true
+schema:
+type: string
+title: Agent Id
+format: uuid
+- name: page_size
+in: query
+description: Maximum number of versions to return
+required: false
+schema:
+type: integer
+title: Page Size
+maximum: 100
+minimum: 1
+description: Maximum number of versions to return
+default: 10
+- name: page_token
+in: query
+description: Cursor returned as next_page_token by the previous page
+required: false
+schema:
+anyOf:
+- type: string
+- type: 'null'
+title: Page Token
+description: Cursor returned as next_page_token by the previous page
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/AudioAgentListPage'
+'422':
+description: Validation Error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/HTTPValidationError'
+x-speakeasy-pagination:
+type: cursor
+inputs:
+- name: page_token
+in: parameters
+type: cursor
+- name: page_size
+in: parameters
+type: limit
+outputs:
+results: $.data
+nextCursor: $.next_page_token
+description: List audio agent versions
+/v1/audio/agents/{agent_id}/sessions:
+get:
+operationId: list_agent_sessions_v1_audio_agents__agent_id__sessions_get
+summary: List audio agent sessions
+tags:
+- audio.agents
+parameters:
+- name: agent_id
+in: path
+required: true
+schema:
+type: string
+title: Agent Id
+format: uuid
+- name: page_size
+in: query
+description: Maximum number of sessions to return
+required: false
+schema:
+type: integer
+title: Page Size
+maximum: 100
+minimum: 1
+description: Maximum number of sessions to return
+default: 10
+- name: page_token
+in: query
+description: Cursor returned as next_page_token by the previous page
+required: false
+schema:
+anyOf:
+- type: string
+- type: 'null'
+title: Page Token
+description: Cursor returned as next_page_token by the previous page
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/AudioAgentSessionListPage'
+'422':
+description: Validation Error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/HTTPValidationError'
+x-speakeasy-pagination:
+type: cursor
+inputs:
+- name: page_token
+in: parameters
+type: cursor
+- name: page_size
+in: parameters
+type: limit
+outputs:
+results: $.data
+nextCursor: $.next_page_token
+description: List audio agent sessions
 /v2/audio/voices:
 get:
 operationId: audio_v2_voices_list
@@ -9449,6 +9920,16 @@ maxLength: 100
 - type: 'null'
 title: Query
 description: Case-insensitive match on voice name
+- name: kind
+in: query
+description: Keep voices cloned with this technology
+required: false
+schema:
+anyOf:
+- $ref: '#/components/schemas/VoiceKind'
+- type: 'null'
+title: Kind
+description: Keep voices cloned with this technology
 responses:
 '200':
 description: Successful Response
@@ -9475,7 +9956,7 @@ outputs:
 results: $.data
 nextCursor: $.next_page_token
 description: List voices, cursor-paginated
-x-speakeasy-max-method-params: 6
+x-speakeasy-max-method-params: 7
 /v1/workflows/executions/{execution_id}:
 get:
 operationId: get_workflow_execution_v1_workflows_executions__execution_id__get
@@ -10536,28 +11017,45 @@ DeploymentWorkerSpecInput:
 type: object
 properties:
 github_url:
-type: string
+anyOf:
+- type: string
+- type: 'null'
 title: Github Url
+description: GitHub repository to build the worker from. Set this or 'archive_id', not both.
 revision:
 anyOf:
 - type: string
 - type: 'null'
 title: Revision
 default: main
+archive_id:
+anyOf:
+- type: string
+format: uuid
+- type: 'null'
+title: Archive Id
+description: 'Mistral Cloud archive to build the worker from instead of a repository. The archive is the whole build context: ''dockerfile_path'' is relative to its root, and ''build_directory'' must be unset.'
 backend_spec:
 anyOf:
 - $ref: '#/components/schemas/DeploymentMistralCloudBackendSpec'
 - type: 'null'
 description: Backend-specific configuration for the Mistral Cloud backend.
+requested_roles:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+title: Requested Roles
+description: Workspace roles, by name, that the deployment's service account holds beyond `workflow_executor`. Granted only if the deploying user holds them.
 title: DeploymentWorkerSpecInput
-required:
-- github_url
 DeploymentWorkerSpecResponse:
 type: object
 properties:
 github_url:
 type: string
 title: Github Url
+description: GitHub repository the worker builds from. Empty for a worker built from an archive.
 type:
 type: string
 title: Type
@@ -10567,6 +11065,13 @@ anyOf:
 - type: string
 - type: 'null'
 title: Revision
+archive_id:
+anyOf:
+- type: string
+format: uuid
+- type: 'null'
+title: Archive Id
+description: Archive the worker builds from, if any.
 backend_spec:
 oneOf:
 - $ref: '#/components/schemas/DeploymentMistralCloudBackendSpec'
@@ -10588,6 +11093,13 @@ commit:
 anyOf:
 - $ref: '#/components/schemas/GitCommitMetadata'
 - type: 'null'
+requested_roles:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+title: Requested Roles
 title: DeploymentWorkerSpecResponse
 required:
 - github_url
@@ -13913,6 +14425,18 @@ description: Partial schedule definition to update. Unset fields preserve existi
 title: WorkflowScheduleUpdateRequest
 required:
 - schedule
+WorkflowTagsAddRequest:
+type: object
+properties:
+tags:
+type: array
+items:
+type: string
+title: Tags
+description: Tags to add to the workflow. Existing tags are kept.
+title: WorkflowTagsAddRequest
+required:
+- tags
 WorkflowTaskFailedResponse:
 type: object
 properties:
@@ -14247,11 +14771,26 @@ anyOf:
 - type: string
 - type: 'null'
 title: Revision
+archive_id:
+anyOf:
+- type: string
+format: uuid
+- type: 'null'
+title: Archive Id
+description: Rebuild the worker from this archive, dropping 'github_url' and 'revision'. Sending 'github_url' instead moves it back to a repository.
 backend_spec:
 anyOf:
 - $ref: '#/components/schemas/DeploymentMistralCloudBackendSpec'
 - type: 'null'
 description: Backend-specific configuration for the Mistral Cloud backend.
+requested_roles:
+anyOf:
+- type: array
+items:
+type: string
+- type: 'null'
+title: Requested Roles
+description: The complete workspace-role set after the update, beyond `workflow_executor`. Replaces the current roles; omit it to leave them unchanged, send an empty list to drop all extras. Granted only if the deploying user holds them.
 title: WorkflowsWorkerSpecUpdate
 StreamError:
 type: object
@@ -14735,6 +15274,22 @@ required:
 - id
 - name
 - document_count
+GetSummaryResponseSummary:
+type: object
+properties:
+content:
+type: string
+title: Content
+status:
+$ref: '#/components/schemas/SummaryStatus'
+translated:
+type: boolean
+title: Translated
+title: GetSummaryResponseSummary
+required:
+- content
+- status
+- translated
 GrepMode:
 type: string
 title: GrepMode
@@ -15073,6 +15628,13 @@ const: keyword
 query:
 type: string
 title: Query
+operator:
+type: string
+title: Operator
+enum:
+- or
+- and
+default: or
 filter:
 anyOf:
 - oneOf:
@@ -15101,7 +15663,8 @@ title: Field
 title: KeywordRetriever
 required:
 - query
-description: Retrieve document chunks with similar keywords to the given query.
+description: 'Retrieve document chunks with similar keywords to the given query.
+Uses the default settings for the index on the field.'
 ListManagedIndexesResponse:
 type: object
 properties:
@@ -15933,6 +16496,13 @@ title: Hits
 title: SearchResponse
 required:
 - hits
+SummaryStatus:
+type: string
+title: SummaryStatus
+enum:
+- handwritten
+- generated
+- generated_confirmed
 TextArrayFieldDefinition:
 type: object
 properties:
@@ -16134,12 +16704,85 @@ title: UpdateRunInfo
 required:
 - execution_time
 - chunks_count
+UpdateSummaryRequestSummary:
+type: object
+properties:
+content:
+type: string
+title: Content
+status:
+type: string
+title: Status
+enum:
+- handwritten
+- generated_confirmed
+translated:
+type: boolean
+title: Translated
+title: UpdateSummaryRequestSummary
+required:
+- content
+- status
+- translated
 VectorDType:
 type: string
 title: VectorDType
 enum:
 - float16
 - float32
+TriggerActionType:
+type: string
+title: TriggerActionType
+enum:
+- start_workflow
+- build_app
+- deploy_app
+- start_agent_session
+TriggerHandler:
+type: string
+title: TriggerHandler
+enum:
+- workflows
+- agents
+- spaces
+TriggerStatusValue:
+type: string
+title: TriggerStatusValue
+enum:
+- SUBMITTED
+- SUBMISSION_FAILED
+- TRIGGERED
+- TRIGGER_FAILED
+TriggersOwnerType:
+type: string
+title: TriggersOwnerType
+enum:
+- workspace
+- user
+WebhookProvider:
+type: string
+title: WebhookProvider
+enum:
+- slack
+- github
+- notion
+- lucca
+- linear
+- microsoft
+- ashby
+- custom
+WebhookSignatureEncoding:
+type: string
+title: WebhookSignatureEncoding
+enum:
+- hex
+- base64
+WebhookSignatureHashAlgorithm:
+type: string
+title: WebhookSignatureHashAlgorithm
+enum:
+- sha256
+- sha1
 UserIdentity:
 type: object
 properties:
@@ -17254,6 +17897,10 @@ enum:
 - audio_agents
 - connectors
 - workflow_executions
+- skill_activations
+- managed_index_storage_bytes
+- managed_index_written_bytes
+- managed_index_searches
 - vibe
 - vibe_connectors
 - vibe_ocr
@@ -17279,6 +17926,10 @@ x-speakeasy-enums:
 - AUDIO_AGENTS
 - CONNECTORS
 - WORKFLOW_EXECUTIONS
+- SKILL_ACTIVATIONS
+- MANAGED_INDEX_STORAGE_BYTES
+- MANAGED_INDEX_WRITTEN_BYTES
+- MANAGED_INDEX_SEARCHES
 - VIBE
 - VIBE_CONNECTORS
 - VIBE_OCR
@@ -17607,6 +18258,7 @@ enum:
 - 578584f1-4319-4c88-9948-38a5184483b6
 - d79b3027-4eb2-4521-8722-825acfee7d8b
 - 252a0825-40b9-4b98-be80-7658956f13e9
+- 50023ca6-3db1-41bc-8c10-f0ae6f460fba
 - 17aa61c5-1c61-477e-a40a-e52c8ccd74b9
 - 348fc8da-f6da-4464-ad3e-af7bc137e221
 - b23cd6e0-91cd-4a8a-9869-b30366bf3966
@@ -17706,7 +18358,6 @@ anyOf:
 - $ref: '#/components/schemas/UserRole'
 - $ref: '#/components/schemas/StaticOrganizationRoles'
 - type: 'null'
-title: Role
 description: Deprecated legacy single role value, kept for backward compatibility. Mutually exclusive with 'role_name'.
 deprecated: true
 email:
@@ -17813,7 +18464,6 @@ anyOf:
 - $ref: '#/components/schemas/UserRole'
 - $ref: '#/components/schemas/StaticOrganizationRoles'
 - type: 'null'
-title: Role
 description: Deprecated legacy single role value, kept for backward compatibility. Mutually exclusive with 'role_name'.
 deprecated: true
 email:
@@ -17967,7 +18617,6 @@ anyOf:
 - $ref: '#/components/schemas/UserRole'
 - $ref: '#/components/schemas/StaticOrganizationRoles'
 - type: 'null'
-title: Role
 description: Deprecated legacy single role value, kept for backward compatibility. Mutually exclusive with 'role_name'.
 deprecated: true
 subscription_types:
@@ -18473,6 +19122,7 @@ enum:
 - dev
 - dev_contributor
 - mistral_code_user
+- vibe_code_cli_user
 - cloud_user
 - workspace_contributor
 - workspace_admin
@@ -18506,6 +19156,7 @@ enum:
 - dev
 - dev_contributor
 - mistral_code_user
+- vibe_code_cli_user
 - cloud_user
 - workspace_contributor
 - workspace_admin
@@ -18521,7 +19172,6 @@ anyOf:
 - $ref: '#/components/schemas/WorkspaceRole'
 - $ref: '#/components/schemas/StaticWorkspaceRoles'
 - type: 'null'
-title: Role
 description: Deprecated legacy single role value, kept for backward compatibility. Mutually exclusive with 'role_name'.
 deprecated: true
 user_uuid:
@@ -18772,6 +19422,9 @@ enum:
 - api_libraries_tokens
 - api_libraries_pages
 - api_libraries_audio
+- api_managed_index_storage_bytes
+- api_managed_index_written_bytes
+- api_managed_index_searches
 - deployment_tokens
 - gpu_hour
 - reserved_instance
@@ -18997,6 +19650,8 @@ enum:
 - PROMPT
 - KNOWLEDGE_BASE
 - CUSTOM_VOICE
+- CAPABILITY_REGISTRY
+- CAPABILITY
 - DATASET
 - FINE_TUNING_JOB
 - BATCH_JOB
@@ -19225,7 +19880,6 @@ anyOf:
 - $ref: '#/components/schemas/WorkspaceRole'
 - $ref: '#/components/schemas/StaticWorkspaceRoles'
 - type: 'null'
-title: Workspace Role
 description: Workspace role value to assign to the group. Mutually exclusive with 'workspace_role_name'.
 workspace_role_name:
 anyOf:
@@ -19237,6 +19891,7 @@ enum:
 - dev
 - dev_contributor
 - mistral_code_user
+- vibe_code_cli_user
 - cloud_user
 - mistral_cloud_admin
 - workspace_contributor
@@ -19453,6 +20108,7 @@ enum:
 - dev
 - dev_contributor
 - mistral_code_user
+- vibe_code_cli_user
 - cloud_user
 - workspace_contributor
 - workspace_admin
@@ -19479,7 +20135,6 @@ anyOf:
 - $ref: '#/components/schemas/WorkspaceRole'
 - $ref: '#/components/schemas/StaticWorkspaceRoles'
 - type: 'null'
-title: Role
 description: Deprecated single role value. Use 'role_names' instead.
 deprecated: true
 workspace_uuid:
@@ -19504,6 +20159,7 @@ enum:
 - dev
 - dev_contributor
 - mistral_code_user
+- vibe_code_cli_user
 - cloud_user
 - workspace_contributor
 - workspace_admin
@@ -19530,7 +20186,6 @@ anyOf:
 - $ref: '#/components/schemas/WorkspaceRole'
 - $ref: '#/components/schemas/StaticWorkspaceRoles'
 - type: 'null'
-title: Role
 description: Deprecated single role value. Use 'role_names' instead.
 deprecated: true
 title: AdminUpdateGroupWorkspaceAssignmentIn
@@ -19707,6 +20362,24 @@ examples:
 - alice.martin@example.com
 title: Created By
 description: User or API key that created this API key.
+user_id:
+anyOf:
+- type: string
+format: uuid
+- type: 'null'
+examples:
+- 3fa85f64-5717-4562-b3fc-2c963f66afa6
+title: User Id
+description: ID of the user who owns the API key. Null for keys not owned by a user.
+service_account_id:
+anyOf:
+- type: string
+format: uuid
+- type: 'null'
+examples:
+- 6d3f9a1c-2b7e-4c8a-9f10-1a2b3c4d5e6f
+title: Service Account Id
+description: ID of the service account that owns the API key. Null for keys not owned by a service account.
 product:
 anyOf:
 - $ref: '#/components/schemas/APIKeyProduct'
@@ -20380,6 +21053,17 @@ enum:
 - custom_voice.create
 - custom_voice.update
 - custom_voice.delete
+- capability_registry.create
+- capability_registry.default_workspace_access.enable
+- capability_registry.default_workspace_access.disable
+- capability_registry.workspace_access.enable
+- capability_registry.workspace_access.disable
+- capability_registry.workspace_access.remove
+- capability.version.create
+- capability.version.disable
+- capability.version.enable
+- capability.disable
+- capability.enable
 - feature_permission.override.created
 - feature_permission.override.deleted
 - resource.share
@@ -20486,6 +21170,8 @@ enum:
 - workflow.execution.started
 - workflow.execution.canceled
 - workflow.execution.terminated
+- workflow.execution.completed
+- workflow.execution.failed
 - workflow.execution.signal
 - workflow.execution.query
 - workflow.execution.update
@@ -20500,6 +21186,15 @@ enum:
 - workflow.unarchived
 - workflow.deployment.authorized_credential.granted
 - workflow.deployment.authorized_credential.revoked
+- workflow.managed_deployment.created
+- workflow.managed_deployment.updated
+- workflow.managed_deployment.stopped
+- workflow.managed_deployment.started
+- workflow.managed_deployment.restarted
+- workflow.managed_deployment.deleted
+- workflow.managed_deployment.credential.provisioned
+- workflow.managed_deployment.credential.revoked
+- workflow.managed_deployment.status.changed
 VibeActiveUsersStat:
 type: object
 properties:
@@ -21585,7 +22280,7 @@ items:
 type: string
 format: uuid
 title: Role Ids
-maxItems: 14
+maxItems: 15
 description: Workspace role UUIDs to assign. Omitted or empty lists default to member, which grants no role permissions. Workspace-wide sharing may still grant access.
 default: []
 title: CreateServiceAccountRequest
@@ -21722,7 +22417,7 @@ items:
 type: string
 format: uuid
 title: Role Ids
-maxItems: 14
+maxItems: 15
 minItems: 1
 description: Workspace role UUIDs to assign. Required and non-empty; omitted or empty lists return 422. Select member explicitly for no role-granted permissions; workspace-wide sharing may still grant access.
 title: SetServiceAccountRolesRequest
@@ -23031,7 +23726,7 @@ $ref: '#/components/schemas/ShareEnum'
 share_with_uuid:
 type: string
 format: uuid
-description: The id of the entity (user, workspace or organization) to share with
+description: The id of the user or workspace to share with
 share_with_type:
 $ref: '#/components/schemas/EntityType'
 title: SharingRequest
@@ -23359,6 +24054,7 @@ anyOf:
 - type: string
 - type: 'null'
 title: Search Expression
+description: 'Filter expression. Trace fields (e.g. `service_name`, `error_count`, `models_used`) are evaluated on the aggregated trace. Span attribute fields (e.g. `temporalWorkflowID`, `wf.type`, `gen_ai.provider.name`) are evaluated on the spans of the trace: a trace matches when one of its spans matches. Span attribute conditions combined with AND must hold on the same span, e.g. `temporalWorkflowID = ''wf-1'' AND wf.type = ''activity''` only matches traces with a span carrying both attributes. Results are always one row per trace.'
 title: TracesRequest
 Judge:
 type: object
@@ -23773,6 +24469,7 @@ title: Name
 description:
 anyOf:
 - type: string
+maxLength: 2000
 - type: 'null'
 title: Description
 title: UpdateDatasetRequest
@@ -23839,7 +24536,7 @@ minLength: 5
 description:
 type: string
 title: Description
-maxLength: 200
+maxLength: 2000
 title: CreateDatasetRequest
 required:
 - name
@@ -23901,7 +24598,7 @@ minLength: 5
 description:
 type: string
 title: Description
-maxLength: 500
+maxLength: 2000
 model_name:
 type: string
 title: Model Name
@@ -23981,7 +24678,7 @@ minLength: 5
 description:
 type: string
 title: Description
-maxLength: 500
+maxLength: 2000
 model_name:
 type: string
 title: Model Name
@@ -24242,7 +24939,7 @@ minLength: 1
 format: uri
 - type: 'null'
 title: Server
-description: New connector server URL.
+description: New connector server URL. Only private connectors can change it; for shared connectors, it must equal the current server URL.
 auth_methods:
 anyOf:
 - type: array
@@ -24347,23 +25044,6 @@ We override mcp_types.CallToolResult because:
 - Models only support `content`, not `structuredContent` at top level
 - Downstream consumers (le-chat, etc.) need structuredContent/isError/_meta via metadata
 SYNC: Keep in sync with Harmattan (orchestrator) for harmonized tool result processing.'
-PublicConnectorExecutionData:
-type: object
-properties:
-integrations:
-type: array
-items:
-$ref: '#/components/schemas/PublicExecutionConnector'
-title: Integrations
-tools:
-type: array
-items:
-$ref: '#/components/schemas/ExecutionTool'
-title: Tools
-title: PublicConnectorExecutionData
-required:
-- integrations
-- tools
 ConnectorToolLocale:
 type: object
 properties:
@@ -24493,2850 +25173,481 @@ timestamp[]: '#/components/schemas/TimestampArrayFieldDefinition'
 default: {}
 title: ManagedIndexFields
 additionalProperties: false
-ResponsesAnnotationContainerFileCitation:
+CreateTriggerAction:
 type: object
 properties:
-container_id:
+primitive_id:
 type: string
-title: Container Id
-x-speakeasy-unknown-values: disallow
-end_index:
-type: integer
-title: End Index
-x-speakeasy-unknown-values: disallow
-file_id:
-type: string
-title: File Id
-x-speakeasy-unknown-values: disallow
-filename:
-type: string
-title: Filename
-x-speakeasy-unknown-values: disallow
-start_index:
-type: integer
-title: Start Index
-x-speakeasy-unknown-values: disallow
+title: Primitive Id
+description: ID of the target primitive (workflow, agent, or app)
 type:
-type: string
-title: Type
-const: container_file_citation
-x-speakeasy-unknown-values: disallow
-title: ResponsesAnnotationContainerFileCitation
+$ref: '#/components/schemas/TriggerActionType'
+description: Action to execute
+title: CreateTriggerAction
 required:
-- container_id
-- end_index
-- file_id
-- filename
-- start_index
+- primitive_id
 - type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesAnnotationFileCitation:
+TriggerAction:
 type: object
 properties:
-file_id:
+primitive_id:
 type: string
-title: File Id
-x-speakeasy-unknown-values: disallow
-filename:
-type: string
-title: Filename
-x-speakeasy-unknown-values: disallow
-index:
-type: integer
-title: Index
-x-speakeasy-unknown-values: disallow
+title: Primitive Id
 type:
-type: string
-title: Type
-const: file_citation
-x-speakeasy-unknown-values: disallow
-title: ResponsesAnnotationFileCitation
+$ref: '#/components/schemas/TriggerActionType'
+title: TriggerAction
 required:
-- file_id
-- filename
-- index
+- primitive_id
 - type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesAnnotationFilePath:
+CreateTrigger:
 type: object
 properties:
-file_id:
+event_source_id:
 type: string
-title: File Id
-x-speakeasy-unknown-values: disallow
-index:
-type: integer
-title: Index
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: file_path
-x-speakeasy-unknown-values: disallow
-title: ResponsesAnnotationFilePath
-required:
-- file_id
-- index
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesAnnotationURLCitation:
-type: object
-properties:
-end_index:
-type: integer
-title: End Index
-x-speakeasy-unknown-values: disallow
-start_index:
-type: integer
-title: Start Index
-x-speakeasy-unknown-values: disallow
+title: Event Source Id
+format: uuid
+description: ID of the event source that fires this trigger
+handler:
+$ref: '#/components/schemas/TriggerHandler'
+description: workflows, agents, or spaces
+action:
+$ref: '#/components/schemas/CreateTriggerAction'
+description: Action to execute when the trigger fires
+filters:
+anyOf:
+- type: string
+- type: 'null'
+title: Filters
+description: jmespath expression to filter events, e.g. event_type == 'push' && repository.name == 'dashboard'
+owner_type:
+$ref: '#/components/schemas/TriggersOwnerType'
 title:
 type: string
 title: Title
-x-speakeasy-unknown-values: disallow
-type:
+maxLength: 256
+minLength: 1
+description: Human-readable title of the trigger
+title: CreateTrigger
+required:
+- event_source_id
+- handler
+- action
+- owner_type
+- title
+CreateWebhook:
+type: object
+properties:
+provider:
+$ref: '#/components/schemas/WebhookProvider'
+owner_type:
+$ref: '#/components/schemas/TriggersOwnerType'
+default: workspace
+name:
 type: string
-title: Type
-const: url_citation
-x-speakeasy-unknown-values: disallow
+title: Name
+description: Human-readable name for this webhook
+secret:
+anyOf:
+- type: string
+- type: 'null'
+title: Secret
+description: Signing secret provided by the third-party provider
+encryption_key:
+anyOf:
+- type: string
+- type: 'null'
+title: Encryption Key
+description: Encryption key used to decrypt webhook payloads
+expires_at:
+anyOf:
+- type: string
+format: date-time
+- type: 'null'
+title: Expires At
+signature_hash_algorithm:
+anyOf:
+- $ref: '#/components/schemas/WebhookSignatureHashAlgorithm'
+- type: 'null'
+signature_header_name:
+anyOf:
+- type: string
+- type: 'null'
+title: Signature Header Name
+validity_period_second:
+anyOf:
+- type: integer
+- type: 'null'
+title: Validity Period Second
+signature_extractor_regex:
+anyOf:
+- type: string
+- type: 'null'
+title: Signature Extractor Regex
+description: Regex to extract signature, eg sha256=(.*)
+timestamp_extractor_regex:
+anyOf:
+- type: string
+- type: 'null'
+title: Timestamp Extractor Regex
+signature_payload_pattern:
+anyOf:
+- type: string
+- type: 'null'
+title: Signature Payload Pattern
+description: Pattern for signature payload, eg {body} or {timestamp}.{body}
+signature_encoding:
+anyOf:
+- $ref: '#/components/schemas/WebhookSignatureEncoding'
+- type: 'null'
+success_status_code:
+anyOf:
+- type: integer
+- type: 'null'
+title: Success Status Code
+event_type_path:
+anyOf:
+- type: string
+- type: 'null'
+title: Event Type Path
+description: Path to extract event type, eg body.type or headers.X-GitHub-Event
+title: CreateWebhook
+required:
+- provider
+- name
+TriggerEventList:
+type: object
+properties:
+data:
+type: array
+items:
+$ref: '#/components/schemas/TriggerEvent'
+title: Data
+title: TriggerEventList
+required:
+- data
+TriggerEvent:
+type: object
+properties:
+event_id:
+type: string
+title: Event Id
+format: uuid
+trigger_id:
+type: string
+title: Trigger Id
+format: uuid
+source_id:
+type: string
+title: Source Id
+format: uuid
+status:
+$ref: '#/components/schemas/TriggerStatusValue'
+received_at:
+type: string
+title: Received At
+format: date-time
+submitted_at:
+anyOf:
+- type: string
+format: date-time
+- type: 'null'
+title: Submitted At
+triggered_at:
+anyOf:
+- type: string
+format: date-time
+- type: 'null'
+title: Triggered At
+detail:
+anyOf:
+- type: string
+- type: 'null'
+title: Detail
+url:
+anyOf:
+- type: string
+- type: 'null'
+title: Url
+title: TriggerEvent
+required:
+- event_id
+- trigger_id
+- source_id
+- status
+- received_at
+- submitted_at
+- triggered_at
+- detail
+- url
+Trigger:
+type: object
+properties:
+id:
+type: string
+title: Id
+format: uuid
+creator_id:
+type: string
+title: Creator Id
+format: uuid
+workspace_id:
+type: string
+title: Workspace Id
+format: uuid
+organization_id:
+type: string
+title: Organization Id
+format: uuid
+customer_id:
+type: string
+title: Customer Id
+format: uuid
+owner_type:
+$ref: '#/components/schemas/TriggersOwnerType'
+event_source:
+$ref: '#/components/schemas/Webhook'
+handler:
+$ref: '#/components/schemas/TriggerHandler'
+action:
+$ref: '#/components/schemas/TriggerAction'
+filters:
+anyOf:
+- type: string
+- type: 'null'
+title: Filters
+title:
+type: string
+title: Title
+title: Trigger
+required:
+- id
+- creator_id
+- workspace_id
+- organization_id
+- customer_id
+- owner_type
+- event_source
+- handler
+- action
+- filters
+- title
+Webhook:
+type: object
+properties:
+id:
+type: string
+title: Id
+format: uuid
+creator_id:
+type: string
+title: Creator Id
+format: uuid
+organization_id:
+type: string
+title: Organization Id
+format: uuid
+workspace_id:
+type: string
+title: Workspace Id
+format: uuid
+owner_type:
+$ref: '#/components/schemas/TriggersOwnerType'
+provider:
+$ref: '#/components/schemas/WebhookProvider'
+name:
+type: string
+title: Name
 url:
 type: string
 title: Url
-x-speakeasy-unknown-values: disallow
-title: ResponsesAnnotationURLCitation
-required:
-- end_index
-- start_index
-- title
-- type
-- url
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesCallerDirect:
-type: object
-properties:
-type:
+http_method:
 type: string
-title: Type
-const: direct
-x-speakeasy-unknown-values: disallow
-title: ResponsesCallerDirect
-required:
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesCallerProgram:
-type: object
-properties:
-caller_id:
-type: string
-title: Caller Id
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: program
-x-speakeasy-unknown-values: disallow
-title: ResponsesCallerProgram
-required:
-- caller_id
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesContent:
-type: object
-properties:
-text:
-type: string
-title: Text
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: reasoning_text
-x-speakeasy-unknown-values: disallow
-title: ResponsesContent
-required:
-- text
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesCustomTool:
-type: object
-properties:
-name:
-type: string
-title: Name
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: custom
-x-speakeasy-unknown-values: disallow
-allowed_callers:
-anyOf:
-- type: array
-items:
-type: string
-enum:
-- direct
-- programmatic
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Allowed Callers
-default: null
-x-speakeasy-unknown-values: disallow
-defer_loading:
+title: Http Method
+url_verified:
 anyOf:
 - type: boolean
-x-speakeasy-unknown-values: disallow
 - type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Defer Loading
-default: null
-x-speakeasy-unknown-values: disallow
-description:
+title: Url Verified
+signature_hash_algorithm:
+anyOf:
+- $ref: '#/components/schemas/WebhookSignatureHashAlgorithm'
+- type: 'null'
+signature_header_name:
 anyOf:
 - type: string
-x-speakeasy-unknown-values: disallow
 - type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Description
-default: null
-x-speakeasy-unknown-values: disallow
-format:
+title: Signature Header Name
+validity_period_second:
 anyOf:
-- $ref: '#/components/schemas/ResponsesText'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesGrammar'
-x-speakeasy-unknown-values: disallow
+- type: integer
 - type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Format
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesCustomTool
-required:
-- name
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesEasyInputMessage:
-type: object
-properties:
-content:
+title: Validity Period Second
+signature_extractor_regex:
 anyOf:
 - type: string
-x-speakeasy-unknown-values: disallow
-- type: array
-items:
-anyOf:
-- $ref: '#/components/schemas/ResponsesInputText'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesInputImage'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesInputFile'
-x-speakeasy-unknown-values: disallow
-title: Content
-x-speakeasy-unknown-values: disallow
-role:
-type: string
-title: Role
-enum:
-- user
-- assistant
-- system
-- developer
-x-speakeasy-unknown-values: disallow
-phase:
+- type: 'null'
+title: Signature Extractor Regex
+timestamp_extractor_regex:
 anyOf:
 - type: string
-enum:
-- commentary
-- final_answer
-x-speakeasy-unknown-values: disallow
 - type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Phase
-x-speakeasy-unknown-values: disallow
-type:
+title: Timestamp Extractor Regex
+signature_payload_pattern:
 anyOf:
 - type: string
-const: message
-x-speakeasy-unknown-values: disallow
 - type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Type
-x-speakeasy-unknown-values: disallow
-title: ResponsesEasyInputMessage
-required:
-- content
-- role
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesFunctionCallOutput:
-type: object
-properties:
-call_id:
-type: string
-title: Call Id
-x-speakeasy-unknown-values: disallow
-output:
+title: Signature Payload Pattern
+signature_encoding:
+anyOf:
+- $ref: '#/components/schemas/WebhookSignatureEncoding'
+- type: 'null'
+success_status_code:
+anyOf:
+- type: integer
+- type: 'null'
+title: Success Status Code
+event_type_path:
 anyOf:
 - type: string
-x-speakeasy-unknown-values: disallow
-- type: array
-items:
-anyOf:
-- $ref: '#/components/schemas/ResponsesInputTextContent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesInputImageContent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesInputFileContent'
-x-speakeasy-unknown-values: disallow
-title: Output
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: function_call_output
-x-speakeasy-unknown-values: disallow
-id:
+- type: 'null'
+title: Event Type Path
+expires_at:
 anyOf:
 - type: string
-x-speakeasy-unknown-values: disallow
+format: date-time
 - type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Id
-x-speakeasy-unknown-values: disallow
-caller:
-anyOf:
-- $ref: '#/components/schemas/ResponsesFunctionCallOutputCallerDirect'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesFunctionCallOutputCallerProgram'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Caller
-x-speakeasy-unknown-values: disallow
-status:
-anyOf:
-- type: string
-enum:
-- in_progress
-- completed
-- incomplete
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Status
-x-speakeasy-unknown-values: disallow
-title: ResponsesFunctionCallOutput
-required:
-- call_id
-- output
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesFunctionCallOutputCallerDirect:
-type: object
-properties:
-type:
-type: string
-title: Type
-const: direct
-x-speakeasy-unknown-values: disallow
-title: ResponsesFunctionCallOutputCallerDirect
-required:
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesFunctionCallOutputCallerProgram:
-type: object
-properties:
-caller_id:
-type: string
-title: Caller Id
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: program
-x-speakeasy-unknown-values: disallow
-title: ResponsesFunctionCallOutputCallerProgram
-required:
-- caller_id
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesFunctionTool:
-type: object
-properties:
-name:
-type: string
-title: Name
-x-speakeasy-unknown-values: disallow
-parameters:
-anyOf:
-- type: object
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Parameters
-default: null
-x-speakeasy-unknown-values: disallow
-strict:
-anyOf:
-- type: boolean
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Strict
-default: null
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: function
-x-speakeasy-unknown-values: disallow
-allowed_callers:
-anyOf:
-- type: array
-items:
-type: string
-enum:
-- direct
-- programmatic
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Allowed Callers
-default: null
-x-speakeasy-unknown-values: disallow
-defer_loading:
-anyOf:
-- type: boolean
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Defer Loading
-default: null
-x-speakeasy-unknown-values: disallow
-description:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Description
-default: null
-x-speakeasy-unknown-values: disallow
-output_schema:
-anyOf:
-- type: object
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Output Schema
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesFunctionTool
-required:
-- name
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesGrammar:
-type: object
-properties:
-definition:
-type: string
-title: Definition
-x-speakeasy-unknown-values: disallow
-syntax:
-type: string
-title: Syntax
-enum:
-- lark
-- regex
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: grammar
-x-speakeasy-unknown-values: disallow
-title: ResponsesGrammar
-required:
-- definition
-- syntax
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesIncompleteDetails:
-type: object
-properties:
-reason:
-anyOf:
-- type: string
-enum:
-- max_output_tokens
-- content_filter
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Reason
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesIncompleteDetails
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-CountResponseInputTokensResponse:
-type: object
-properties:
-input_tokens:
-type: integer
-title: Input Tokens
-x-speakeasy-unknown-values: disallow
-object:
-type: string
-title: Object
-const: response.input_tokens
-x-speakeasy-unknown-values: disallow
-title: CountResponseInputTokensResponse
-required:
-- input_tokens
-- object
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesInputTokensDetails:
-type: object
-properties:
-cache_write_tokens:
-type: integer
-title: Cache Write Tokens
-x-speakeasy-unknown-values: disallow
-cached_tokens:
-type: integer
-title: Cached Tokens
-x-speakeasy-unknown-values: disallow
-title: ResponsesInputTokensDetails
-required:
-- cache_write_tokens
-- cached_tokens
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesMessage:
-type: object
-properties:
-content:
-type: array
-items:
-anyOf:
-- $ref: '#/components/schemas/ResponsesInputText'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesInputImage'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesInputFile'
-x-speakeasy-unknown-values: disallow
-title: Content
-x-speakeasy-unknown-values: disallow
-role:
-type: string
-title: Role
-enum:
-- user
-- system
-- developer
-x-speakeasy-unknown-values: disallow
-status:
-anyOf:
-- type: string
-enum:
-- in_progress
-- completed
-- incomplete
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Status
-x-speakeasy-unknown-values: disallow
-type:
-anyOf:
-- type: string
-const: message
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Type
-x-speakeasy-unknown-values: disallow
-title: ResponsesMessage
-required:
-- content
-- role
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-CreateResponseResponse:
-type: object
-properties:
-id:
-type: string
-title: Id
-x-speakeasy-unknown-values: disallow
+title: Expires At
 created_at:
-type: number
+type: string
 title: Created At
-x-speakeasy-unknown-values: disallow
-error:
-anyOf:
-- $ref: '#/components/schemas/ResponsesError'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-default: null
-x-speakeasy-unknown-values: disallow
-incomplete_details:
-anyOf:
-- $ref: '#/components/schemas/ResponsesIncompleteDetails'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-default: null
-x-speakeasy-unknown-values: disallow
-instructions:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Instructions
-default: null
-x-speakeasy-unknown-values: disallow
-metadata:
-anyOf:
-- type: object
-additionalProperties:
+format: date-time
+updated_at:
 type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Metadata
-default: null
-x-speakeasy-unknown-values: disallow
-model:
-type: string
-title: Model
-x-speakeasy-unknown-values: disallow
-object:
-type: string
-title: Object
-const: response
-x-speakeasy-unknown-values: disallow
-output:
-type: array
-items:
-anyOf:
-- $ref: '#/components/schemas/ResponsesOutputMessage'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesFunctionToolCall'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesReasoningItem'
-x-speakeasy-unknown-values: disallow
-title: Output
-x-speakeasy-unknown-values: disallow
-parallel_tool_calls:
-type: boolean
-title: Parallel Tool Calls
-x-speakeasy-unknown-values: disallow
-temperature:
-anyOf:
-- type: number
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Temperature
-default: null
-x-speakeasy-unknown-values: disallow
-tool_choice:
-anyOf:
-- type: string
-enum:
-- none
-- auto
-- required
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesToolChoiceFunction'
-x-speakeasy-unknown-values: disallow
-title: Tool Choice
-x-speakeasy-unknown-values: disallow
-tools:
-type: array
-items:
-anyOf:
-- $ref: '#/components/schemas/ResponsesFunctionTool'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesNamespaceTool'
-x-speakeasy-unknown-values: disallow
-title: Tools
-x-speakeasy-unknown-values: disallow
-top_p:
-anyOf:
-- type: number
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Top P
-default: null
-x-speakeasy-unknown-values: disallow
-background:
-anyOf:
-- type: boolean
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Background
-default: null
-x-speakeasy-unknown-values: disallow
-completed_at:
-anyOf:
-- type: number
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Completed At
-default: null
-x-speakeasy-unknown-values: disallow
-max_output_tokens:
-anyOf:
-- type: integer
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Max Output Tokens
-default: null
-x-speakeasy-unknown-values: disallow
-max_tool_calls:
-anyOf:
-- type: integer
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Max Tool Calls
-default: null
-x-speakeasy-unknown-values: disallow
-previous_response_id:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Previous Response Id
-default: null
-x-speakeasy-unknown-values: disallow
-prompt_cache_key:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Prompt Cache Key
-default: null
-x-speakeasy-unknown-values: disallow
-prompt_cache_retention:
-anyOf:
-- type: string
-enum:
-- in_memory
-- 24h
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Prompt Cache Retention
-default: null
-x-speakeasy-unknown-values: disallow
-reasoning:
-anyOf:
-- $ref: '#/components/schemas/ResponsesSupportedReasoning'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-default: null
-x-speakeasy-unknown-values: disallow
-safety_identifier:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Safety Identifier
-default: null
-x-speakeasy-unknown-values: disallow
-service_tier:
-anyOf:
-- type: string
-enum:
-- auto
-- default
-- flex
-- scale
-- priority
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Service Tier
-default: null
-x-speakeasy-unknown-values: disallow
-status:
-anyOf:
-- type: string
-enum:
-- completed
-- failed
-- in_progress
-- cancelled
-- queued
-- incomplete
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Status
-default: null
-x-speakeasy-unknown-values: disallow
-text:
-anyOf:
-- $ref: '#/components/schemas/ResponsesTextConfig'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-default: null
-x-speakeasy-unknown-values: disallow
-top_logprobs:
-anyOf:
-- type: integer
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Top Logprobs
-default: null
-x-speakeasy-unknown-values: disallow
-truncation:
-anyOf:
-- type: string
-enum:
-- auto
-- disabled
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Truncation
-default: null
-x-speakeasy-unknown-values: disallow
-usage:
-anyOf:
-- $ref: '#/components/schemas/ResponsesUsage'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-default: null
-x-speakeasy-unknown-values: disallow
-user:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: User
-default: null
-x-speakeasy-unknown-values: disallow
-title: CreateResponseResponse
+title: Updated At
+format: date-time
+title: Webhook
 required:
 - id
+- creator_id
+- organization_id
+- workspace_id
+- owner_type
+- provider
+- name
+- url
+- http_method
+- url_verified
+- signature_hash_algorithm
+- signature_header_name
+- validity_period_second
+- signature_extractor_regex
+- timestamp_extractor_regex
+- signature_payload_pattern
+- signature_encoding
+- success_status_code
+- event_type_path
+- expires_at
 - created_at
-- model
-- object
-- output
-- parallel_tool_calls
-- tool_choice
-- tools
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesNamespaceTool:
+- updated_at
+WebhookSigningSecret:
 type: object
 properties:
-description:
+signing_secret:
 type: string
-title: Description
-x-speakeasy-unknown-values: disallow
-name:
-type: string
-title: Name
-x-speakeasy-unknown-values: disallow
-tools:
-type: array
-items:
-anyOf:
-- $ref: '#/components/schemas/ResponsesToolFunction'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesCustomTool'
-x-speakeasy-unknown-values: disallow
-title: Tools
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: namespace
-x-speakeasy-unknown-values: disallow
-title: ResponsesNamespaceTool
+title: Signing Secret
+title: WebhookSigningSecret
 required:
-- description
-- name
-- tools
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesOutputTokensDetails:
+- signing_secret
+description: Signing secret for a Notion webhook, returned to complete URL verification
+BudgetDetail:
 type: object
 properties:
-reasoning_tokens:
-type: integer
-title: Reasoning Tokens
-x-speakeasy-unknown-values: disallow
-title: ResponsesOutputTokensDetails
-required:
-- reasoning_tokens
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesPartReasoningText:
-type: object
-properties:
-text:
-type: string
-title: Text
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: reasoning_text
-x-speakeasy-unknown-values: disallow
-title: ResponsesPartReasoningText
-required:
-- text
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesPromptCacheBreakpoint:
-type: object
-properties:
-mode:
-type: string
-title: Mode
-const: explicit
-x-speakeasy-unknown-values: disallow
-title: ResponsesPromptCacheBreakpoint
-required:
-- mode
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesContentPartAddedEvent:
-type: object
-properties:
-content_index:
-type: integer
-title: Content Index
-x-speakeasy-unknown-values: disallow
-item_id:
-type: string
-title: Item Id
-x-speakeasy-unknown-values: disallow
-output_index:
-type: integer
-title: Output Index
-x-speakeasy-unknown-values: disallow
-part:
-anyOf:
-- $ref: '#/components/schemas/ResponsesOutputText'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesOutputRefusal'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesPartReasoningText'
-x-speakeasy-unknown-values: disallow
-title: Part
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.content_part.added
-x-speakeasy-unknown-values: disallow
-title: ResponsesContentPartAddedEvent
-required:
-- content_index
-- item_id
-- output_index
-- part
-- sequence_number
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesContentPartDoneEvent:
-type: object
-properties:
-content_index:
-type: integer
-title: Content Index
-x-speakeasy-unknown-values: disallow
-item_id:
-type: string
-title: Item Id
-x-speakeasy-unknown-values: disallow
-output_index:
-type: integer
-title: Output Index
-x-speakeasy-unknown-values: disallow
-part:
-anyOf:
-- $ref: '#/components/schemas/ResponsesOutputText'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesOutputRefusal'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesPartReasoningText'
-x-speakeasy-unknown-values: disallow
-title: Part
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.content_part.done
-x-speakeasy-unknown-values: disallow
-title: ResponsesContentPartDoneEvent
-required:
-- content_index
-- item_id
-- output_index
-- part
-- sequence_number
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesError:
-type: object
-properties:
-code:
-type: string
-title: Code
-enum:
-- server_error
-- rate_limit_exceeded
-- invalid_prompt
-- bio_policy
-- vector_store_timeout
-- invalid_image
-- invalid_image_format
-- invalid_base64_image
-- invalid_image_url
-- image_too_large
-- image_too_small
-- image_parse_error
-- image_content_policy_violation
-- invalid_image_mode
-- image_file_too_large
-- unsupported_image_media_type
-- empty_image_file
-- failed_to_download_image
-- image_file_not_found
-x-speakeasy-unknown-values: disallow
-message:
-type: string
-title: Message
-x-speakeasy-unknown-values: disallow
-title: ResponsesError
-required:
-- code
-- message
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesErrorEvent:
-type: object
-properties:
-code:
+usage_percentage:
+type: number
+examples:
+- 42.5
+title: Usage Percentage
+description: Percentage of the budget consumed for the requested billing period (0-100).
+initial_budget:
+type: number
+examples:
+- 300.0
+title: Initial Budget
+description: Initial budget allocated for the billing period, expressed in the budget currency.
+currency:
 anyOf:
 - type: string
-x-speakeasy-unknown-values: disallow
 - type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Code
-default: null
-x-speakeasy-unknown-values: disallow
-message:
+examples:
+- EUR
+title: Currency
+description: ISO 4217 currency code of the budget (e.g. EUR, USD). The applicable budget is lazily materialized for the requested period, so this is only null when no budget could be derived.
+reset_at:
 type: string
-title: Message
-x-speakeasy-unknown-values: disallow
-param:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Param
-default: null
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: error
-x-speakeasy-unknown-values: disallow
-title: ResponsesErrorEvent
-required:
-- message
-- sequence_number
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesFormatJSONObject:
-type: object
-properties:
-type:
-type: string
-title: Type
-const: json_object
-x-speakeasy-unknown-values: disallow
-title: ResponsesFormatJSONObject
-required:
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesFormatText:
-type: object
-properties:
-type:
-type: string
-title: Type
-const: text
-x-speakeasy-unknown-values: disallow
-title: ResponsesFormatText
-required:
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesFormatTextJSONSchemaConfig:
-type: object
-properties:
-name:
-type: string
-title: Name
-x-speakeasy-unknown-values: disallow
-schema:
-type: object
-title: Schema
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: json_schema
-x-speakeasy-unknown-values: disallow
-description:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Description
-default: null
-x-speakeasy-unknown-values: disallow
-strict:
-anyOf:
-- type: boolean
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Strict
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesFormatTextJSONSchemaConfig
-required:
-- name
-- schema
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesFunctionCallArgumentsDeltaEvent:
-type: object
-properties:
-delta:
-type: string
-title: Delta
-x-speakeasy-unknown-values: disallow
-item_id:
-type: string
-title: Item Id
-x-speakeasy-unknown-values: disallow
-output_index:
-type: integer
-title: Output Index
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.function_call_arguments.delta
-x-speakeasy-unknown-values: disallow
-title: ResponsesFunctionCallArgumentsDeltaEvent
-required:
-- delta
-- item_id
-- output_index
-- sequence_number
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesFunctionCallArgumentsDoneEvent:
-type: object
-properties:
-arguments:
-type: string
-title: Arguments
-x-speakeasy-unknown-values: disallow
-item_id:
-type: string
-title: Item Id
-x-speakeasy-unknown-values: disallow
-name:
-type: string
-title: Name
-x-speakeasy-unknown-values: disallow
-output_index:
-type: integer
-title: Output Index
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.function_call_arguments.done
-x-speakeasy-unknown-values: disallow
-title: ResponsesFunctionCallArgumentsDoneEvent
-required:
-- arguments
-- item_id
-- name
-- output_index
-- sequence_number
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesFunctionToolCall:
-type: object
-properties:
-arguments:
-type: string
-title: Arguments
-x-speakeasy-unknown-values: disallow
-call_id:
-type: string
-title: Call Id
-x-speakeasy-unknown-values: disallow
-name:
-type: string
-title: Name
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: function_call
-x-speakeasy-unknown-values: disallow
-id:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Id
-default: null
-x-speakeasy-unknown-values: disallow
-caller:
-anyOf:
-- $ref: '#/components/schemas/ResponsesCallerDirect'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesCallerProgram'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Caller
-default: null
-x-speakeasy-unknown-values: disallow
-namespace:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Namespace
-default: null
-x-speakeasy-unknown-values: disallow
-status:
-anyOf:
-- type: string
-enum:
-- in_progress
-- completed
-- incomplete
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Status
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesFunctionToolCall
-required:
-- arguments
-- call_id
-- name
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesInputFile:
-type: object
-properties:
-type:
-type: string
-title: Type
-const: input_file
-x-speakeasy-unknown-values: disallow
-detail:
-anyOf:
-- type: string
-enum:
-- auto
-- low
-- high
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Detail
-x-speakeasy-unknown-values: disallow
-file_data:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: File Data
-x-speakeasy-unknown-values: disallow
-file_id:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: File Id
-x-speakeasy-unknown-values: disallow
-file_url:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: File Url
-x-speakeasy-unknown-values: disallow
-filename:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Filename
-x-speakeasy-unknown-values: disallow
-prompt_cache_breakpoint:
-anyOf:
-- $ref: '#/components/schemas/ResponsesPromptCacheBreakpoint'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: ResponsesInputFile
-required:
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesInputFileContent:
-type: object
-properties:
-type:
-type: string
-title: Type
-const: input_file
-x-speakeasy-unknown-values: disallow
-detail:
-anyOf:
-- type: string
-enum:
-- auto
-- low
-- high
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Detail
-x-speakeasy-unknown-values: disallow
-file_data:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: File Data
-x-speakeasy-unknown-values: disallow
-file_id:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: File Id
-x-speakeasy-unknown-values: disallow
-file_url:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: File Url
-x-speakeasy-unknown-values: disallow
-filename:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Filename
-x-speakeasy-unknown-values: disallow
-prompt_cache_breakpoint:
-anyOf:
-- $ref: '#/components/schemas/ResponsesPromptCacheBreakpoint'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: ResponsesInputFileContent
-required:
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesInputImage:
-type: object
-properties:
-detail:
-type: string
-title: Detail
-enum:
-- low
-- high
-- auto
-- original
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: input_image
-x-speakeasy-unknown-values: disallow
-file_id:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: File Id
-x-speakeasy-unknown-values: disallow
-image_url:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Image Url
-x-speakeasy-unknown-values: disallow
-prompt_cache_breakpoint:
-anyOf:
-- $ref: '#/components/schemas/ResponsesPromptCacheBreakpoint'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: ResponsesInputImage
-required:
-- detail
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesInputImageContent:
-type: object
-properties:
-type:
-type: string
-title: Type
-const: input_image
-x-speakeasy-unknown-values: disallow
-detail:
-anyOf:
-- type: string
-enum:
-- low
-- high
-- auto
-- original
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Detail
-x-speakeasy-unknown-values: disallow
-file_id:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: File Id
-x-speakeasy-unknown-values: disallow
-image_url:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Image Url
-x-speakeasy-unknown-values: disallow
-prompt_cache_breakpoint:
-anyOf:
-- $ref: '#/components/schemas/ResponsesPromptCacheBreakpoint'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: ResponsesInputImageContent
-required:
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesInputText:
-type: object
-properties:
-text:
-type: string
-title: Text
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: input_text
-x-speakeasy-unknown-values: disallow
-prompt_cache_breakpoint:
-anyOf:
-- $ref: '#/components/schemas/ResponsesPromptCacheBreakpoint'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: ResponsesInputText
-required:
-- text
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesInputTextContent:
-type: object
-properties:
-text:
-type: string
-title: Text
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: input_text
-x-speakeasy-unknown-values: disallow
-prompt_cache_breakpoint:
-anyOf:
-- $ref: '#/components/schemas/ResponsesPromptCacheBreakpoint'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: ResponsesInputTextContent
-required:
-- text
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesOutputMessage:
-type: object
-properties:
-id:
-type: string
-title: Id
-x-speakeasy-unknown-values: disallow
-content:
-type: array
-items:
-anyOf:
-- $ref: '#/components/schemas/ResponsesOutputText'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesOutputRefusal'
-x-speakeasy-unknown-values: disallow
-title: Content
-x-speakeasy-unknown-values: disallow
-role:
-type: string
-title: Role
-const: assistant
-x-speakeasy-unknown-values: disallow
-status:
-type: string
-title: Status
-enum:
-- in_progress
-- completed
-- incomplete
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: message
-x-speakeasy-unknown-values: disallow
-phase:
-anyOf:
-- type: string
-enum:
-- commentary
-- final_answer
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Phase
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesOutputMessage
-required:
-- id
-- content
-- role
-- status
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesOutputRefusal:
-type: object
-properties:
-refusal:
-type: string
-title: Refusal
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: refusal
-x-speakeasy-unknown-values: disallow
-title: ResponsesOutputRefusal
-required:
-- refusal
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesOutputText:
-type: object
-properties:
-annotations:
-type: array
-items:
-anyOf:
-- $ref: '#/components/schemas/ResponsesAnnotationFileCitation'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesAnnotationURLCitation'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesAnnotationContainerFileCitation'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesAnnotationFilePath'
-x-speakeasy-unknown-values: disallow
-title: Annotations
-x-speakeasy-unknown-values: disallow
-text:
-type: string
-title: Text
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: output_text
-x-speakeasy-unknown-values: disallow
-logprobs:
-anyOf:
-- type: array
-items:
-$ref: '#/components/schemas/ResponsesOutputTextLogprob'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Logprobs
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesOutputText
-required:
-- annotations
-- text
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesReasoningItem:
-type: object
-properties:
-id:
-type: string
-title: Id
-x-speakeasy-unknown-values: disallow
-summary:
-type: array
-items:
-$ref: '#/components/schemas/ResponsesSummary'
-x-speakeasy-unknown-values: disallow
-title: Summary
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: reasoning
-x-speakeasy-unknown-values: disallow
-content:
-anyOf:
-- type: array
-items:
-$ref: '#/components/schemas/ResponsesContent'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Content
-default: null
-x-speakeasy-unknown-values: disallow
-encrypted_content:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Encrypted Content
-default: null
-x-speakeasy-unknown-values: disallow
-status:
-anyOf:
-- type: string
-enum:
-- in_progress
-- completed
-- incomplete
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Status
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesReasoningItem
-required:
-- id
-- summary
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesReasoningTextDeltaEvent:
-type: object
-properties:
-content_index:
-type: integer
-title: Content Index
-x-speakeasy-unknown-values: disallow
-delta:
-type: string
-title: Delta
-x-speakeasy-unknown-values: disallow
-item_id:
-type: string
-title: Item Id
-x-speakeasy-unknown-values: disallow
-output_index:
-type: integer
-title: Output Index
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.reasoning_text.delta
-x-speakeasy-unknown-values: disallow
-title: ResponsesReasoningTextDeltaEvent
-required:
-- content_index
-- delta
-- item_id
-- output_index
-- sequence_number
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesReasoningTextDoneEvent:
-type: object
-properties:
-content_index:
-type: integer
-title: Content Index
-x-speakeasy-unknown-values: disallow
-item_id:
-type: string
-title: Item Id
-x-speakeasy-unknown-values: disallow
-output_index:
-type: integer
-title: Output Index
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-text:
-type: string
-title: Text
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.reasoning_text.done
-x-speakeasy-unknown-values: disallow
-title: ResponsesReasoningTextDoneEvent
-required:
-- content_index
-- item_id
-- output_index
-- sequence_number
-- text
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesTextConfig:
-type: object
-properties:
-format:
-anyOf:
-- $ref: '#/components/schemas/ResponsesFormatText'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesFormatTextJSONSchemaConfig'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesFormatJSONObject'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Format
-default: null
-x-speakeasy-unknown-values: disallow
-verbosity:
-anyOf:
-- type: string
-enum:
-- low
-- medium
-- high
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Verbosity
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesTextConfig
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesTextDeltaEvent:
-type: object
-properties:
-content_index:
-type: integer
-title: Content Index
-x-speakeasy-unknown-values: disallow
-delta:
-type: string
-title: Delta
-x-speakeasy-unknown-values: disallow
-item_id:
-type: string
-title: Item Id
-x-speakeasy-unknown-values: disallow
-logprobs:
-type: array
-items:
-$ref: '#/components/schemas/ResponsesTextDeltaEventLogprob'
-x-speakeasy-unknown-values: disallow
-title: Logprobs
-x-speakeasy-unknown-values: disallow
-output_index:
-type: integer
-title: Output Index
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.output_text.delta
-x-speakeasy-unknown-values: disallow
-title: ResponsesTextDeltaEvent
-required:
-- content_index
-- delta
-- item_id
-- logprobs
-- output_index
-- sequence_number
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesTextDoneEvent:
-type: object
-properties:
-content_index:
-type: integer
-title: Content Index
-x-speakeasy-unknown-values: disallow
-item_id:
-type: string
-title: Item Id
-x-speakeasy-unknown-values: disallow
-logprobs:
-type: array
-items:
-$ref: '#/components/schemas/ResponsesTextDoneEventLogprob'
-x-speakeasy-unknown-values: disallow
-title: Logprobs
-x-speakeasy-unknown-values: disallow
-output_index:
-type: integer
-title: Output Index
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-text:
-type: string
-title: Text
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.output_text.done
-x-speakeasy-unknown-values: disallow
-title: ResponsesTextDoneEvent
-required:
-- content_index
-- item_id
-- logprobs
-- output_index
-- sequence_number
-- text
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesUsage:
-type: object
-properties:
-input_tokens:
-type: integer
-title: Input Tokens
-x-speakeasy-unknown-values: disallow
-input_tokens_details:
-$ref: '#/components/schemas/ResponsesInputTokensDetails'
-x-speakeasy-unknown-values: disallow
-output_tokens:
-type: integer
-title: Output Tokens
-x-speakeasy-unknown-values: disallow
-output_tokens_details:
-$ref: '#/components/schemas/ResponsesOutputTokensDetails'
-x-speakeasy-unknown-values: disallow
-total_tokens:
-type: integer
-title: Total Tokens
-x-speakeasy-unknown-values: disallow
-title: ResponsesUsage
-required:
-- input_tokens
-- input_tokens_details
-- output_tokens
-- output_tokens_details
-- total_tokens
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesCompletedEvent:
-type: object
-properties:
-response:
-$ref: '#/components/schemas/CreateResponseResponse'
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.completed
-x-speakeasy-unknown-values: disallow
-title: ResponsesCompletedEvent
-required:
-- response
-- sequence_number
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesCreatedEvent:
-type: object
-properties:
-response:
-$ref: '#/components/schemas/CreateResponseResponse'
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.created
-x-speakeasy-unknown-values: disallow
-title: ResponsesCreatedEvent
-required:
-- response
-- sequence_number
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesFailedEvent:
-type: object
-properties:
-response:
-$ref: '#/components/schemas/CreateResponseResponse'
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.failed
-x-speakeasy-unknown-values: disallow
-title: ResponsesFailedEvent
-required:
-- response
-- sequence_number
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesInProgressEvent:
-type: object
-properties:
-response:
-$ref: '#/components/schemas/CreateResponseResponse'
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.in_progress
-x-speakeasy-unknown-values: disallow
-title: ResponsesInProgressEvent
-required:
-- response
-- sequence_number
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesIncompleteEvent:
-type: object
-properties:
-response:
-$ref: '#/components/schemas/CreateResponseResponse'
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.incomplete
-x-speakeasy-unknown-values: disallow
-title: ResponsesIncompleteEvent
-required:
-- response
-- sequence_number
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-CountResponseInputTokensRequest:
-type: object
-properties:
-model:
-type: string
-title: Model
-minLength: 1
-x-speakeasy-unknown-values: disallow
-input:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: array
-items:
-anyOf:
-- $ref: '#/components/schemas/ResponsesEasyInputMessage'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesMessage'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesOutputMessage'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesFunctionToolCall'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesFunctionCallOutput'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesReasoningItem'
-x-speakeasy-unknown-values: disallow
-title: Input
-x-speakeasy-unknown-values: disallow
-instructions:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Instructions
-x-speakeasy-unknown-values: disallow
-parallel_tool_calls:
+examples:
+- '2026-08-01T00:00:00Z'
+title: Reset At
+format: date-time
+description: Timestamp at which the requested billing period resets (start of the next period).
+payg_enabled:
 type: boolean
-title: Parallel Tool Calls
-default: true
-x-speakeasy-unknown-values: disallow
-previous_response_id:
-type: 'null'
-title: Previous Response Id
-x-speakeasy-unknown-values: disallow
-truncation:
-type: string
-title: Truncation
-default: disabled
-const: disabled
-x-speakeasy-unknown-values: disallow
-tools:
-type: array
-items:
-anyOf:
-- $ref: '#/components/schemas/ResponsesFunctionTool'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesNamespaceTool'
-x-speakeasy-unknown-values: disallow
-title: Tools
-x-speakeasy-unknown-values: disallow
-tool_choice:
-anyOf:
-- type: string
-enum:
-- none
-- auto
-- required
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesToolChoiceFunction'
-x-speakeasy-unknown-values: disallow
-title: Tool Choice
-default: auto
-x-speakeasy-unknown-values: disallow
-reasoning:
-anyOf:
-- $ref: '#/components/schemas/ResponsesSupportedReasoning'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-conversation:
-type: 'null'
-title: Conversation
-x-speakeasy-unknown-values: disallow
-prompt:
-type: 'null'
-title: Prompt
-x-speakeasy-unknown-values: disallow
-text:
-anyOf:
-- $ref: '#/components/schemas/ResponsesTextConfig'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: CountResponseInputTokensRequest
-required:
-- model
-- input
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesOutputItemAddedEvent:
-type: object
-properties:
-item:
-anyOf:
-- $ref: '#/components/schemas/ResponsesOutputMessage'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesFunctionToolCall'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesReasoningItem'
-x-speakeasy-unknown-values: disallow
-title: Item
-x-speakeasy-unknown-values: disallow
-output_index:
-type: integer
-title: Output Index
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.output_item.added
-x-speakeasy-unknown-values: disallow
-title: ResponsesOutputItemAddedEvent
-required:
-- item
-- output_index
-- sequence_number
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesOutputItemDoneEvent:
-type: object
-properties:
-item:
-anyOf:
-- $ref: '#/components/schemas/ResponsesOutputMessage'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesFunctionToolCall'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesReasoningItem'
-x-speakeasy-unknown-values: disallow
-title: Item
-x-speakeasy-unknown-values: disallow
-output_index:
-type: integer
-title: Output Index
-x-speakeasy-unknown-values: disallow
-sequence_number:
-type: integer
-title: Sequence Number
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: response.output_item.done
-x-speakeasy-unknown-values: disallow
-title: ResponsesOutputItemDoneEvent
-required:
-- item
-- output_index
-- sequence_number
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-CreateResponseRequest:
-type: object
-properties:
-model:
-type: string
-title: Model
-minLength: 1
-x-speakeasy-unknown-values: disallow
-input:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: array
-items:
-anyOf:
-- $ref: '#/components/schemas/ResponsesEasyInputMessage'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesMessage'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesOutputMessage'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesFunctionToolCall'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesFunctionCallOutput'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesReasoningItem'
-x-speakeasy-unknown-values: disallow
-title: Input
-x-speakeasy-unknown-values: disallow
-instructions:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Instructions
-x-speakeasy-unknown-values: disallow
-parallel_tool_calls:
-type: boolean
-title: Parallel Tool Calls
-default: true
-x-speakeasy-unknown-values: disallow
-previous_response_id:
-type: 'null'
-title: Previous Response Id
-x-speakeasy-unknown-values: disallow
-truncation:
-type: string
-title: Truncation
-default: disabled
-const: disabled
-x-speakeasy-unknown-values: disallow
-tools:
-type: array
-items:
-anyOf:
-- $ref: '#/components/schemas/ResponsesFunctionTool'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesNamespaceTool'
-x-speakeasy-unknown-values: disallow
-title: Tools
-x-speakeasy-unknown-values: disallow
-tool_choice:
-anyOf:
-- type: string
-enum:
-- none
-- auto
-- required
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesToolChoiceFunction'
-x-speakeasy-unknown-values: disallow
-title: Tool Choice
-default: auto
-x-speakeasy-unknown-values: disallow
-reasoning:
-anyOf:
-- $ref: '#/components/schemas/ResponsesSupportedReasoning'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-conversation:
-type: 'null'
-title: Conversation
-x-speakeasy-unknown-values: disallow
-prompt:
-type: 'null'
-title: Prompt
-x-speakeasy-unknown-values: disallow
-text:
-anyOf:
-- $ref: '#/components/schemas/ResponsesTextConfig'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-background:
-type: boolean
-title: Background
+examples:
+- false
+title: Payg Enabled
+description: Whether pay-as-you-go overage is enabled for this budget type. Only meaningful for the Vibe budget.
 default: false
-const: false
-x-speakeasy-unknown-values: disallow
-stream:
+title: BudgetDetail
+required:
+- usage_percentage
+- initial_budget
+- reset_at
+GetBudgetResponse:
+type: object
+properties:
+vibe_budget:
+$ref: '#/components/schemas/BudgetDetail'
+description: Vibe-specific budget usage details.
+api_budget:
+$ref: '#/components/schemas/BudgetDetail'
+description: API budget usage details.
+title: GetBudgetResponse
+required:
+- vibe_budget
+- api_budget
+GetSubscriptionResponse:
+type: object
+properties:
+plan_name:
+type: string
+examples:
+- INDIVIDUAL
+- FREE
+title: Plan Name
+description: 'Unified plan name. One of: FREE, INDIVIDUAL, EDU, TEAM. Reflects the active Mistral licence (chat subscription) or FREE when no subscription exists.'
+payg_enabled:
 type: boolean
-title: Stream
-default: false
-x-speakeasy-unknown-values: disallow
-store:
-anyOf:
-- type: boolean
-const: false
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Store
-default: false
-x-speakeasy-unknown-values: disallow
-max_output_tokens:
-anyOf:
-- exclusiveMinimum: 0
-type: integer
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Max Output Tokens
-x-speakeasy-unknown-values: disallow
-temperature:
-anyOf:
-- type: number
-maximum: 1.5
-minimum: 0
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Temperature
-x-speakeasy-unknown-values: disallow
-top_p:
-anyOf:
-- exclusiveMinimum: 0
-type: number
-maximum: 1
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Top P
-x-speakeasy-unknown-values: disallow
-metadata:
-anyOf:
-- type: object
-additionalProperties:
-type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Metadata
-x-speakeasy-unknown-values: disallow
-prompt_cache_key:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Prompt Cache Key
-x-speakeasy-unknown-values: disallow
-max_tool_calls:
-anyOf:
-- type: integer
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Max Tool Calls
-x-speakeasy-unknown-values: disallow
-moderation:
-type: 'null'
-title: Moderation
-x-speakeasy-unknown-values: disallow
-top_logprobs:
-anyOf:
-- type: integer
-const: 0
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Top Logprobs
-x-speakeasy-unknown-values: disallow
-title: CreateResponseRequest
+examples:
+- false
+title: Payg Enabled
+description: Whether pay-as-you-go is active (an API subscription is active).
+vibe_payg_enabled:
+type: boolean
+examples:
+- false
+title: Vibe Payg Enabled
+description: Whether pay-as-you-go is enabled for Vibe Code specifically.
+enterprise:
+type: boolean
+examples:
+- false
+title: Enterprise
+description: Whether the organization is on the Enterprise tier (org_tier == ENTERPRISE).
+title: GetSubscriptionResponse
 required:
-- model
-- input
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesStreamFrame:
-type: object
-properties:
-event:
-type: string
-title: Event
-x-speakeasy-unknown-values: disallow
-data:
-oneOf:
-- $ref: '#/components/schemas/ResponsesCreatedEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesInProgressEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesCompletedEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesIncompleteEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesFailedEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesErrorEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesOutputItemAddedEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesOutputItemDoneEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesContentPartAddedEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesContentPartDoneEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesTextDeltaEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesTextDoneEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesReasoningTextDeltaEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesReasoningTextDoneEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesFunctionCallArgumentsDeltaEvent'
-x-speakeasy-unknown-values: disallow
-- $ref: '#/components/schemas/ResponsesFunctionCallArgumentsDoneEvent'
-x-speakeasy-unknown-values: disallow
-discriminator:
-propertyName: type
-mapping:
-error: '#/components/schemas/ResponseErrorEvent'
-response.completed: '#/components/schemas/ResponsesCompletedEvent'
-response.content_part.added: '#/components/schemas/ResponseContentPartAddedEvent'
-response.content_part.done: '#/components/schemas/ResponseContentPartDoneEvent'
-response.created: '#/components/schemas/ResponsesCreatedEvent'
-response.failed: '#/components/schemas/ResponsesFailedEvent'
-response.function_call_arguments.delta: '#/components/schemas/ResponseFunctionCallArgumentsDeltaEvent'
-response.function_call_arguments.done: '#/components/schemas/ResponseFunctionCallArgumentsDoneEvent'
-response.in_progress: '#/components/schemas/ResponsesInProgressEvent'
-response.incomplete: '#/components/schemas/ResponsesIncompleteEvent'
-response.output_item.added: '#/components/schemas/ResponsesOutputItemAddedEvent'
-response.output_item.done: '#/components/schemas/ResponsesOutputItemDoneEvent'
-response.output_text.delta: '#/components/schemas/ResponseTextDeltaEvent'
-response.output_text.done: '#/components/schemas/ResponseTextDoneEvent'
-response.reasoning_text.delta: '#/components/schemas/ResponseReasoningTextDeltaEvent'
-response.reasoning_text.done: '#/components/schemas/ResponseReasoningTextDoneEvent'
-title: Data
-x-speakeasy-unknown-values: disallow
-title: ResponsesStreamFrame
-required:
-- event
-- data
-x-speakeasy-unknown-values: disallow
-ResponsesSummary:
-type: object
-properties:
-text:
-type: string
-title: Text
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: summary_text
-x-speakeasy-unknown-values: disallow
-title: ResponsesSummary
-required:
-- text
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesSupportedReasoning:
-type: object
-properties:
-effort:
-anyOf:
-- type: string
-enum:
-- none
-- minimal
-- low
-- medium
-- high
-- xhigh
-- max
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Effort
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesSupportedReasoning
-x-speakeasy-unknown-values: disallow
-ResponsesText:
-type: object
-properties:
-type:
-type: string
-title: Type
-const: text
-x-speakeasy-unknown-values: disallow
-title: ResponsesText
-required:
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesToolChoiceFunction:
-type: object
-properties:
-name:
-type: string
-title: Name
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: function
-x-speakeasy-unknown-values: disallow
-title: ResponsesToolChoiceFunction
-required:
-- name
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesToolFunction:
-type: object
-properties:
-name:
-type: string
-title: Name
-x-speakeasy-unknown-values: disallow
-type:
-type: string
-title: Type
-const: function
-x-speakeasy-unknown-values: disallow
-allowed_callers:
-anyOf:
-- type: array
-items:
-type: string
-enum:
-- direct
-- programmatic
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Allowed Callers
-default: null
-x-speakeasy-unknown-values: disallow
-defer_loading:
-anyOf:
-- type: boolean
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Defer Loading
-default: null
-x-speakeasy-unknown-values: disallow
-description:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Description
-default: null
-x-speakeasy-unknown-values: disallow
-output_schema:
-anyOf:
-- type: object
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Output Schema
-default: null
-x-speakeasy-unknown-values: disallow
-parameters:
-anyOf:
-- x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Parameters
-default: null
-x-speakeasy-unknown-values: disallow
-strict:
-anyOf:
-- type: boolean
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Strict
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesToolFunction
-required:
-- name
-- type
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesOutputTextLogprob:
-type: object
-properties:
-token:
-type: string
-title: Token
-x-speakeasy-unknown-values: disallow
-bytes:
-type: array
-items:
-type: integer
-x-speakeasy-unknown-values: disallow
-title: Bytes
-x-speakeasy-unknown-values: disallow
-logprob:
-type: number
-title: Logprob
-x-speakeasy-unknown-values: disallow
-top_logprobs:
-type: array
-items:
-$ref: '#/components/schemas/ResponsesOutputTextLogprobTopLogprob'
-x-speakeasy-unknown-values: disallow
-title: Top Logprobs
-x-speakeasy-unknown-values: disallow
-title: ResponsesOutputTextLogprob
-required:
-- token
-- bytes
-- logprob
-- top_logprobs
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesOutputTextLogprobTopLogprob:
-type: object
-properties:
-token:
-type: string
-title: Token
-x-speakeasy-unknown-values: disallow
-bytes:
-type: array
-items:
-type: integer
-x-speakeasy-unknown-values: disallow
-title: Bytes
-x-speakeasy-unknown-values: disallow
-logprob:
-type: number
-title: Logprob
-x-speakeasy-unknown-values: disallow
-title: ResponsesOutputTextLogprobTopLogprob
-required:
-- token
-- bytes
-- logprob
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesTextDeltaEventLogprob:
-type: object
-properties:
-token:
-type: string
-title: Token
-x-speakeasy-unknown-values: disallow
-logprob:
-type: number
-title: Logprob
-x-speakeasy-unknown-values: disallow
-top_logprobs:
-anyOf:
-- type: array
-items:
-$ref: '#/components/schemas/ResponsesTextDeltaEventLogprobTopLogprob'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Top Logprobs
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesTextDeltaEventLogprob
-required:
-- token
-- logprob
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesTextDeltaEventLogprobTopLogprob:
-type: object
-properties:
-token:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Token
-default: null
-x-speakeasy-unknown-values: disallow
-logprob:
-anyOf:
-- type: number
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Logprob
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesTextDeltaEventLogprobTopLogprob
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesTextDoneEventLogprob:
-type: object
-properties:
-token:
-type: string
-title: Token
-x-speakeasy-unknown-values: disallow
-logprob:
-type: number
-title: Logprob
-x-speakeasy-unknown-values: disallow
-top_logprobs:
-anyOf:
-- type: array
-items:
-$ref: '#/components/schemas/ResponsesTextDoneEventLogprobTopLogprob'
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Top Logprobs
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesTextDoneEventLogprob
-required:
-- token
-- logprob
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
-ResponsesTextDoneEventLogprobTopLogprob:
-type: object
-properties:
-token:
-anyOf:
-- type: string
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Token
-default: null
-x-speakeasy-unknown-values: disallow
-logprob:
-anyOf:
-- type: number
-x-speakeasy-unknown-values: disallow
-- type: 'null'
-x-speakeasy-unknown-values: disallow
-title: Logprob
-default: null
-x-speakeasy-unknown-values: disallow
-title: ResponsesTextDoneEventLogprobTopLogprob
-additionalProperties: true
-x-speakeasy-unknown-values: disallow
+- plan_name
+- payg_enabled
+- vibe_payg_enabled
+- enterprise
 securitySchemes:
 DashboardUserContextAuth:
 type: apiKey
@@ -27348,6 +25659,11 @@ type: http
 description: Bearer token. The gateway validates the token and forwards authenticated user context to the dashboard.
 scheme: bearer
 DashboardUserOrServiceAccountContextAuth:
+type: apiKey
+description: Public API key. The gateway validates the key and forwards authenticated user context to the dashboard.
+name: x-api-key
+in: header
+DashboardContextAuth:
 type: apiKey
 description: Public API key. The gateway validates the key and forwards authenticated user context to the dashboard.
 name: x-api-key
@@ -27365,6 +25681,9 @@ tags:
 - name: chat
 x-displayName: Chat
 description: Chat Completion API.
+- name: responses
+x-displayName: Responses
+description: Stateless Responses API for text, images, reasoning, function calls, and streaming.
 - name: fim
 x-displayName: FIM
 description: Fill-in-the-middle API.
@@ -27431,6 +25750,12 @@ description: (beta) Admin API - access audit logs. Requires an admin API key.
 - name: beta.admin.user-groups
 x-displayName: (beta) Admin - User Groups
 description: (beta) Admin API - manage user groups. Requires an admin API key.
+- name: audio.agents
+x-displayName: Audio Agents API
+description: API for audio agents.
+- name: audio.sessions
+x-displayName: Audio Sessions API
+description: API for real-time audio agent sessions.
 - name: audio.speech
 x-displayName: Speech API
 description: API for speech generation.
@@ -27446,6 +25771,12 @@ description: Admin usage analytics for Vibe Code.
 - name: beta.admin.vibe-work-analytics
 x-displayName: Vibe Work Analytics
 description: Admin usage analytics for Vibe Work.
+- name: beta.billing
+x-displayName: (beta) Billing
+description: (beta) Billing API.
+- name: beta.context.search_indexes
+x-displayName: (beta) Context - Search Indexes
+description: (beta) Context - Search Indexes API.
 - name: beta.observability.datasets
 x-displayName: (beta) Observability - Datasets
 description: (beta) Observability API - datasets.
@@ -27485,9 +25816,6 @@ description: (beta) Prompts API.
 - name: beta.rag.ingestion_pipeline_configurations
 x-displayName: (beta) RAG - Ingestion Pipeline Configurations
 description: (beta) RAG API - ingestion pipeline configurations.
-- name: beta.rag.managed_indexes
-x-displayName: (beta) RAG - Managed Indexes
-description: (beta) RAG API - managed indexes.
 - name: beta.rag.search_indexes
 x-displayName: (beta) RAG - Search Indexes
 description: (beta) RAG API - search indexes.
@@ -27497,9 +25825,15 @@ description: (beta) Service Accounts API.
 - name: beta.skills
 x-displayName: (beta) Skills
 description: (beta) Skills API.
+- name: beta.triggers
+x-displayName: (beta) Triggers
+description: (beta) Triggers API.
 - name: beta.users
 x-displayName: (beta) Users
 description: (beta) Users API.
+- name: beta.webhooks
+x-displayName: (beta) Webhooks
+description: (beta) Webhooks API.
 - name: events
 x-displayName: Events
 description: Events API.
@@ -27527,9 +25861,6 @@ description: Workflows API - runs.
 - name: workflows.schedules
 x-displayName: Workflow Schedules
 description: Workflows API - schedules.
-- name: responses
-x-displayName: Responses
-description: Stateless Responses API for text, images, reasoning, function calls, and streaming.
 servers:
 - url: https://api.mistral.ai
 description: Production server

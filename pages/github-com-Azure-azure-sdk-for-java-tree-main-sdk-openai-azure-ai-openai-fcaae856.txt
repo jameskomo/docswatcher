@@ -25,7 +25,7 @@ Integrations
 Explore
 Trending repos
 GitHub Sponsors
-Events
+Developer articles
 Changelog
 Changelog Your source for the latest features, improvements, and fixes across GitHub products, all in one place.
 Businesses
@@ -81,8 +81,8 @@ Azure
 azure-sdk-for-java
 Repository navigation
 Code
-Issues 340 ( 340 )
-Pull requests 187 ( 187 )
+Issues 342 ( 342 )
+Pull requests 190 ( 190 )
 Actions
 Projects
 Wiki

@@ -158,7 +158,6 @@ Reports
 Webinars
 Podcasts
 Customer stories
-Product Recommender
 State of Customer Engagement
 Events
 Customer data recipes
@@ -359,7 +358,6 @@ Reports
 Webinars
 Podcasts
 Customer stories
-Product Recommender
 State of Customer Engagement
 Events
 Customer data recipes
@@ -459,7 +457,6 @@ User authentication and identity
 Customer Data Platform (CDP)
 AI
 Customer stories
-Product Recommender
 Events
 Contact sales
 Why Twilio

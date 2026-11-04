@@ -30,6 +30,10 @@ Integrations (2)
 Upcoming (4)
 Latest Posts
 Announced Upcoming ( 3 )
+Sunsetting design manager serverless functions and older Node.js runtimes for custom code actions
+Live: Nov 3, 2026
+HubSpot is sunsetting serverless functions built in the design manager, and Node.js 20 and earlier for workflow custom code actions. All of these run on runtime versions that no longer receive security updates. To keep your website features and ...
+Read More
 October 2026 Rollup
 Announced: Oct 30, 2026
 October’s developer and builder updates covers the general releases of connected quote-to-cash tooling, permission-based AI access to sensitive data in public beta, a new centralized data model overview, as well as increased limits for deal ...
@@ -64,10 +68,6 @@ Read More
 Breaking Change: CRM API Write Validation Enforcement Starting with the 2026-09 API Version
 Announced: Aug 11, 2026
 Update (Oct 27, 2026): This changelog has been corrected. API write validation enforces required properties from Record Creation Settings, but required associations are currently enforced in the ...
-Read More
-July 2026 Rollup
-Live: Jul 31, 2026
-This month's updates include a raised owner property limit, larger Webhooks Journal batch sizes, and a new historical API usage chart — plus public betas for Contract Imports and the Payment Links API. Read on for the details.
 Read More
 1 2 3 4 5
 Next page

@@ -191,7 +191,7 @@ Firebase BoM : 35.1.0
 google-services plugin : 4.5.0
 See notes for individual library versions
 JavaScript
-13.1.0
+13.2.0
 Flutter
 Flutter BoM : 5.1.0
 See notes for individual plugin versions
@@ -215,6 +215,19 @@ Firebase CLI
 15.34.2
 Firebase Studio
 See notes
+November 03, 2026
+Analytics
+The new firebase-analytics skill is now available in
+Firebase agent skills to help
+AI assistants with getting started (base setup and SDK initialization) and
+measuring screenviews for Google Analytics on iOS and Android.
+October 30, 2026
+SDK Releases
+The
+Firebase JavaScript SDK (v13.2.0)
+is now available. For more details, see the
+Firebase JavaScript SDK release notes .
+To install the SDK, see Add Firebase to your JavaScript Project .
 October 28, 2026
 Firebase CLI (v15.34.2)
 The latest
@@ -17367,7 +17380,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-02 UTC.
+Last updated 2026-11-03 UTC.
 Learn
 Developer guides
 SDK & API reference

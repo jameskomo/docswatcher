@@ -7,14 +7,24 @@ Search docs
 Toggle theme Reach out Try Studio
 Home
 Inference
+Get started
+Quickstarts
 Models
-Pricing
-Model lifecycle policy
-Regional inference
-Priority Tier
-Labs
+Generate
+Conversations
+Embeddings
 Prompting
 Sampling
+Optimize cost and latency
+Batch Processing
+Prompt caching
+Predicted outputs
+Priority Tier
+Platform
+Regional inference
+Pricing
+Model lifecycle policy
+Labs
 API Reference ↗
 Inference & Models
 Inference
@@ -120,4 +130,4 @@ COMMUNITY
 Discord ↗ X ↗ Github ↗ LinkedIn ↗ Ambassadors
 Mistral AI © 2026
 Toggle theme
-Previous Regional inference
+Batch Processing Regional inference

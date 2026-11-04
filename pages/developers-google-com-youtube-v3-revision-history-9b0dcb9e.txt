@@ -232,6 +232,13 @@ Revision History
 Stay organized with collections
 Save and categorize content based on your preferences.
 This page lists YouTube Data API (v3) changes and documentation updates.
+November 3, 2026
+This update contains the following changes:
+The thumbnails.set method now supports uploading custom thumbnails for YouTube Shorts after video processing is complete.
+The thumbnails resource definition has been updated to include the shortsAspectRatio property for YouTube Shorts custom thumbnails.
+November 2, 2026
+Videos uploaded through the videos.insert method from unverified API projects are no longer restricted to private viewing mode. This change reverses the policy announced on July 28, 2020 , which restricted videos uploaded from unverified API projects created after that date to private viewing mode until the project completed an audit.
+If you don't specify a value for the status.privacyStatus property in a videos.insert request, the uploaded video's privacy status defaults to public . Certain uploads might default to private based on creator account settings, as explained in the YouTube Help Center .
 October 15, 2026
 The videos.list method has been clarified to note that the status.selfDeclaredMadeForKids and status.madeForKids properties are only updated if specified in the request and are not overridden if omitted.
 September 30, 2026
@@ -2138,7 +2145,7 @@ notFound
 videoCategoryNotFound
 The video category identified by the id parameter cannot be found. Use the videoCategories.list method to retrieve a list of valid values.
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-01 UTC.
+Last updated 2026-11-03 UTC.
 Blog
 The latest news on the YouTube blog
 Issue Tracker
