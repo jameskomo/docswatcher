@@ -21,8 +21,7 @@ Install AI Toolkit Ask about this page Copy MD
 Date October 1, 2026
 Version 2027-01
 Flags Breaking API Change Action required
-Surfaces API
-Affected APIs GraphQL Admin API
+Tags GraphQL Admin API
 As of API version 2027-01 , the metafield Integer collection source condition inputs and types is removed from GraphQL Admin API. If you use metafield Integer to create or read collection source conditions, you need to migrate to metafield Int before you upgrade to API version 2027-01 .
 What changed
 With metafield Int , the value field on integer metafield conditions changes type from Int to String , to align with the metafield value field on the Storefront API. For details, see the Storefront Metafield.value field reference .

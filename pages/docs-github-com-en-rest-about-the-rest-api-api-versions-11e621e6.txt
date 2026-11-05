@@ -110,6 +110,7 @@ Copilot
 Cloud agent repository management
 Copilot cloud agent management
 Copilot content exclusion management
+Copilot team customizations
 Copilot usage metrics
 Copilot user management
 Copilot Spaces

@@ -98,7 +98,6 @@ User token:
 files:write
 Content types
 application/x-www-form-urlencoded
-application/json
 Rate Limits Tier 2: 20+ per minute
 Arguments ​
 Required arguments
@@ -318,8 +317,8 @@ malware_detected
 This file may contain a virus or other malware and can't be uploaded to Slack
 method_deprecated
 This API is deprecated. Please refer to https://docs.slack.dev/changelog/2024-04-a-better-way-to-upload-files-is-here-to-stay
-method_deprecated
-The method has been deprecated.
+missing_argument
+A required argument was not provided. The response's arg field names the missing argument. Arguments sent in a JSON body are ignored by methods that don't list application/json as a content type.
 missing_post_type
 The method was called via a POST request and included a data payload, but the request did not include a Content-Type header.
 missing_scope

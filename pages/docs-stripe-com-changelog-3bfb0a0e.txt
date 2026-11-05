@@ -1,5 +1,5 @@
 Skip to content
-Overview
+Changelog
 Create account or Sign in
 Search / Ask AI
 Create account Sign in
@@ -17,7 +17,6 @@ APIs & SDKs Help
 Overview
 Versioning
 Changelog
-Overview
 Endive
 Dahlia
 Clover

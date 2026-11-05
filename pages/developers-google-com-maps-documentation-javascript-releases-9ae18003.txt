@@ -273,6 +273,14 @@ may make additional calls to report telemetry information for the purpose of cal
 (Service Level Objective) of several features. You may need to update your Content Security Policy
 to ensure these calls are not blocked at browser-level. For more information, please see the
 FAQ .
+3.66.13d
+4 November, 2026
+Changes:
+[alpha channel] Screen readers now read the Route.createPopover() and Route3DElement route summary as a single labeled image with the travel mode, duration, and distance.
+Map3DElement no longer pans the camera to an open PopoverElement when the map's mode changes.
+The place name in Place Details widgets now scales with the widget's font-size , like the rest of its text.
+Reviews and features in the Reviews and About tabs of Place Details widgets now have the same side padding as the rest of the widget.
+Added PlacePopularTimesElement ( <gmp-place-popular-times> ), which shows how busy a place usually is throughout the day, plus live busyness when available, in PlaceDetailsElement and AdvancedPlaceDetailsElement . Popular times are also included in the standard and all content presets.
 3.66.12d
 28 October, 2026
 Changes:
@@ -772,7 +780,7 @@ Maps JavaScript API
 release notes archive .
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-02 UTC.
+Last updated 2026-11-04 UTC.
 Stack Overflow
 Ask a question under the google-maps tag.
 GitHub

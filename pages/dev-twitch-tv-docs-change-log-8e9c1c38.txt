@@ -25,6 +25,8 @@ Product Lifecycle
 Documentation Changelog
 Date
 Documentation Changes
+2026‑11‑04
+The layout of our documentation changelog will be updated on or soon after Monday, November 9. Developers who monitor this page should consider using our RSS feed to receive new entries.
 2026‑10‑01
 Updated the EventSub type Channel Chat Notification (channel.chat.notification) to include the gifted_drops_summary and shared_chat_gifted_drops_summary notice types.
 2026‑09‑16

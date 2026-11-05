@@ -492,6 +492,14 @@ Messaging
 GA
 Filter your Twilio Health Score by Messaging Channel
 Learn more
+Nov 04, 2026
+Verify
+Event Streams
+Verify Events is now GA
+Changes:
+GA release with all fixes for beta customer-reported bugs, no new functionality was introduced.
+Attempt DLR Event type was deprecated as part of this release on September 21, 2026. The same deprecation also covered stopping the DLR status updates in Verify Events. See the changelog announcement.
+Learn more
 Oct 28, 2026
 Voice API
 Conversations API
@@ -552,16 +560,6 @@ Use the tag to confirm your endpoints negotiated what you configured, and to cor
 Calls that carry HD audio are tagged as Downsampled when the longest portion of the call connects to a component or another endpoint that does not support HD. Twilio converts the audio to narrowband to keep the call connected.
 Both tags appear in the Call Summary in Console, in the Voice Insights REST API, and through Event Streams. You can also filter the Call Insights dashboard by either one.
 Learn more in our Call Summary documentation .
-Learn more
-Oct 08, 2026
-Messaging
-Programmable Messaging API
-Rich Communication Services
-RCS messaging now supported on all major Canadian carriers
-You can now send RCS messages to Rogers phone numbers, completing RCS coverage across Canada’s major carriers.
-When requesting RCS Sender approval in Canada, Twilio will now submit the Sender for review across all major carriers, including Rogers. RCS Senders already approved by other Canadian carriers will automatically be submitted to Rogers for review and approval. No action is required.
-To start sending branded RCS messages, go to the Twilio Console to create and submit an RCS Sender.
-For more information, see our RCS documentation .
 Learn more
 Loading
 Error: Unable to load changelog

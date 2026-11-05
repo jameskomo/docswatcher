@@ -13,7 +13,7 @@ Facebook's Platform supports versioning so that app builders can roll out change
 Versioning
 Not all APIs and SDKs share the same versioning system. For example, the Graph API is versioned with a different pace and numbering compared to the Facebook SDK for iOS. All Facebook SDKs support the ability to interact with different versions of our APIs. Multiple versions of APIs or SDKs can exist at the same time with different functionality in each version.
 What is the latest Graph API Version?
-The latest Graph API version is v26.0
+The latest Graph API version is v27.0
 Why do we have versions?
 The goal for having versioning is for developers building apps to be able to understand in advance when an API or SDK might change. They help with web development, but are critical with mobile development because a person using your app on their phone may take a long time to upgrade (or may never upgrade).
 Each version will remain for at least 2 years from release giving you a solid timeline for how long your app will remain working, and how long you have to update it to newer versions.
@@ -44,14 +44,14 @@ Graph API
 Whether core or extended, almost all Graph API endpoints are available through a versioned path. We've a full guide to using versions with the Graph API in our Graph API quickstart guide .
 Dialogs
 Versioned paths aren't just true for API endpoints, they're also true for dialogs and social plugins. For example, if you want to generate the Facebook Login dialog for a web app, you can prepend a version number to the endpoint that generates the dialog:
-https://www.facebook.com/ v26.0 /dialog/oauth?
+https://www.facebook.com/ v27.0 /dialog/oauth?
 client_id={app-id}
 &redirect_uri={redirect-uri}
 Social Plugins
 If you're using the HTML5 or xfbml versions of our social plugins , the version rendered will be determined by the version specified when you're initialising the JavaScript SDK .
 If you're inserting an iframe or plain link version of one of our plugins, you'd prepend the version number to the source path of the plugin:
 <iframe
-src="//www.facebook.com/ v26.0 /plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80&amp;appId=634262946633418"
+src="//www.facebook.com/ v27.0 /plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80&amp;appId=634262946633418"
 scrolling="no"
 frameborder="0"
 style="border:none; overflow:hidden; height:80px;"
@@ -64,7 +64,7 @@ The JavaScript SDK can only use different API versions if you're using the sdk.j
 If you're using FB.init() from the JavaScript SDK , you need to use the version parameter, like this:
 FB.init({
 appId : '{app-id}',
-version : ' v26.0 '
+version : ' v27.0 '
 });
 If you set the version flag in the init, then any calls to FB.api() will automatically have the version prepended to the path that's called. The same is true for any dialogs for Facebook Login that happen to get called. You will get the Facebook Login dialog for that version of the API.
 If you need to, you can override a version by just prepending the version to the path of the endpoint in the FB.api() call.

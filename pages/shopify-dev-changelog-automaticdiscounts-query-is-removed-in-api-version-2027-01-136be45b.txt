@@ -21,8 +21,7 @@ Install AI Toolkit Ask about this page Copy MD
 Date September 18, 2026
 Version 2027-01
 Flags Breaking API Change Action required
-Surfaces API
-Affected APIs GraphQL Admin API
+Tags GraphQL Admin API
 The deprecated automatic Discounts query is removed from the GraphQL Admin API in version 2027-01 . If your app reads a shop’s automatic discounts through automatic Discounts , you need to move to the discount Nodes query with a method:automatic filter before you upgrade to 2027-01 . Apps on 2026-10 and earlier keep working unchanged while those versions are supported.
 What changed
 As of API version 2027-01 , automatic Discounts no longer exists on Query Root . Requests that include automatic Discounts on 2027-01 return a validation error instead of data. The Discount Automatic Connection and Discount Automatic Edge types are also removed, because no other fields in the schema return them.

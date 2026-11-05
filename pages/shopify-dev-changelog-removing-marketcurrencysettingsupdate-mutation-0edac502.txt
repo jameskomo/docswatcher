@@ -21,8 +21,7 @@ Install AI Toolkit Ask about this page Copy MD
 Date September 22, 2026
 Version 2027-01
 Flags Breaking API Change Action required
-Surfaces API
-Affected APIs GraphQL Admin API
+Tags GraphQL Admin API
 As of GraphQL Admin API version 2027-01 , the market Currency Settings Update mutation is removed, along with the Market Currency Settings Update Payload , Market Currency Settings User Error , and Market Currency Settings User Error Code types. The mutation already returns an error for every request, so this removes an endpoint that can no longer be used.
 What's changed
 In API version 2027-01 , the Admin GraphQL API removes:

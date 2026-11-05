@@ -212,9 +212,20 @@ Admin .NET
 Admin Dart (experimental)
 0.5.0
 Firebase CLI
-15.34.2
+15.35.0
 Firebase Studio
 See notes
+November 04, 2026
+Firebase CLI (v15.35.0)
+The latest
+Firebase CLI (v15.35.0) is now
+available. This version fixes query latency on Linux in the
+SQL Connect PGlite emulator, prevents extra console windows on
+Windows when starting Java-based emulators, fixes listen address display for
+the Emulator Suite UI, and updates the Crashlytics MCP
+get_report tool.
+To use the Firebase CLI in your development environment,
+set up or update the CLI .
 November 03, 2026
 Analytics
 The new firebase-analytics skill is now available in
@@ -228,6 +239,11 @@ Firebase JavaScript SDK (v13.2.0)
 is now available. For more details, see the
 Firebase JavaScript SDK release notes .
 To install the SDK, see Add Firebase to your JavaScript Project .
+Cloud Storage for Firebase
+Custom constraints for Cloud Storage for Firebase are now
+available. You can use custom constraints
+to enforce policies on Cloud Storage resources, such as a policy that enforces
+all buckets to have Object Versioning enabled.
 October 28, 2026
 Firebase CLI (v15.34.2)
 The latest
@@ -17380,7 +17396,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-03 UTC.
+Last updated 2026-11-05 UTC.
 Learn
 Developer guides
 SDK & API reference

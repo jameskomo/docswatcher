@@ -21,8 +21,7 @@ Install AI Toolkit Ask about this page Copy MD
 Date September 17, 2026
 Version 2026-10
 Flags Breaking API Change Action required
-Surfaces API
-Affected APIs POS Extensions
+Tags POS Extensions
 As of API version 2026-10, the static session.currentSession.staffMemberId field has been removed from the POS UI Extensions Session API. It was deprecated in 2026-07 in favour of session.staffMember, a reactive signal that updates when a different staff member pins into POS.
 Before targeting API version 2026-10, replace reads of session.currentSession.staffMemberId with session.staffMember.value?.id. To react to staff changes while your extension is running, subscribe to the signal with session.staffMember.subscribe((staffMember) => { ... }), or read .value during render in a Preact component with @shopify/ui-extensions/preact imported to re-render automatically.
 Extensions on 2026-07 and earlier are unaffected. The BaseData session.staffMemberId available to receipt targets is a separate API and is unchanged.

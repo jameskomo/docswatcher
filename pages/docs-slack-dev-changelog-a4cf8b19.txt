@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Release: Slack CLI v4.13.0
 Updated low-usage submission criteria for Slack Marketplace apps
 Release: Slack CLI v4.12.0
 New Block Kit layout block
@@ -256,6 +257,14 @@ Subscribe to the changelog!
 Get real-time notifications about new features, improvements, and bug fixes directly in your preferred feed reader.
 RSS (opens in new tab)
 Atom (opens in new tab)
+Release: Slack CLI v4.13.0
+November 4, 2026
+Coding agents running slack --help now learn about the Slack MCP and Skills Plugin.
+We've added the CLI version to the frontmatter of the skill printed by the slack skill command, so a saved copy of the skill shows which release printed it.
+We've added a hint to the slack --help output for coding agents, suggesting they ask the user whether to install the Slack MCP and Skills Plugin . Nothing changes for people running the CLI themselves.
+Tags:
+Release
+Slack CLI
 Updated low-usage submission criteria for Slack Marketplace apps
 November 2, 2026
 Slack Marketplace submissions that meet the low-usage criteria will not be reviewed. A submission is considered low-usage when the app:

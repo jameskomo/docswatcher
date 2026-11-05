@@ -46,9 +46,11 @@ Agents
 Catalog
 UCP
 Dev Platform
+Agents & AI
 AI Toolkit
 Dev Dashboard
 Platform
+Security
 Shopify CLI
 Tools
 Versions
@@ -103,9 +105,11 @@ Agents
 Catalog
 UCP
 Dev Platform
+Agents & AI
 AI Toolkit
 Dev Dashboard
 Platform
+Security
 Shopify CLI
 Tools
 Versions
@@ -125,6 +129,14 @@ Breaking change
 Deprecated
 Latest 2026-10
 Release candidate 2027-01
+November 2026
+Surface
+11.04
+Test app network access configuration on dev stores
+Platform
+11.04
+RETRY_DECLINED added to CustomerPaymentMethodRevocationReason
+GraphQL Admin API
 October 2026
 Surface
 10.31
@@ -139,6 +151,9 @@ Breaking changes Admin REST API
 10.30
 New trusted vault origin signal in Payments Apps API
 Payments Apps API
+10.29
+FulfillmentOrderDestination now includes provinceCode
+GraphQL Admin API
 10.28
 Shop SDK lead capture now supports Rich Authorization Requests
 Tools
@@ -426,15 +441,6 @@ GraphQL Admin API
 09.15
 Prepare your app for the Shopify admin's new look
 Polaris
-09.15
-family_name is optional for B2B orders in Payments Apps API requests
-Payments Apps API
-09.15
-Delivery options in Shopify Functions input now expose their metafields
-Functions
-09.11
-Hydrogen developer preview update: September 11, 2026
-Hydrogen
 Load more
 Updates
 Developer changelog

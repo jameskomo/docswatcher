@@ -6,7 +6,6 @@ APIs & services
 Overview
 All APIs and services
 Authentication
-Code samples
 Players and widgets
 IFrame Player API
 iOS Helper Library
@@ -30,8 +29,8 @@ Google Cloud console
 Quota Calculator
 YouTube Player Demo
 Configure a Subscribe Button
-Code Samples
-Client Libraries
+Code samples
+Client libraries
 Support and updates
 Issue Tracker
 File a bug
@@ -187,7 +186,6 @@ Revision History
 Overview
 All APIs and services
 Authentication
-Code samples
 Players and widgets
 IFrame Player API
 iOS Helper Library
@@ -210,8 +208,8 @@ Google Cloud console
 Quota Calculator
 YouTube Player Demo
 Configure a Subscribe Button
-Code Samples
-Client Libraries
+Code samples
+Client libraries
 Support and updates
 Issue Tracker
 File a bug
