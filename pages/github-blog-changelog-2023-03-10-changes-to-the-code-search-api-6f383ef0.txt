@@ -31,6 +31,9 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Nov.05 Release
+New pull request overview page in public preview
+collaboration tools
 Oct.29 Improvement
 Webhook IP ranges added to the Meta API
 ecosystem & accessibility
@@ -72,12 +75,6 @@ copilot
 Oct.08 Improvement
 Triage role users or higher can now archive pull requests
 collaboration tools
-Oct.08 Improvement
-Screen readers can navigate timelines as lists
-ecosystem & accessibility
-projects & issues
-...
-+1
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.
 Enter your email *

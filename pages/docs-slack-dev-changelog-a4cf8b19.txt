@@ -7,6 +7,7 @@ Slack developer changelog
 🏷️ View all tags
 2026
 Release: Slack CLI v4.13.0
+Release: Slack Skills Plugin v1.7.0
 Updated low-usage submission criteria for Slack Marketplace apps
 Release: Slack CLI v4.12.0
 New Block Kit layout block
@@ -265,6 +266,19 @@ We've added a hint to the slack --help output for coding agents, suggesting they
 Tags:
 Release
 Slack CLI
+Release: Slack Skills Plugin v1.7.0
+November 4, 2026
+You can now install each Slack Skills Plugin release in Claude Code as soon as it ships, from the plugin's own marketplace.
+We've added a Claude Code marketplace for the plugin. It installs from the latest release tag, and each new release moves it to the new tag. Install from it with:
+/plugin marketplace add slackapi/slack-skills-plugin
+/plugin install slack@slack
+The slack-cli skill now tells your agent to suggest slack upgrade when a command or flag it describes is missing from your installed CLI.
+The agent setup prompt now updates an existing Slack plugin install instead of skipping it, and always follows the latest create-slack-app skill, so agents with an older install get the current setup steps.
+We fixed an issue where skills referred to each other as slack:slack-cli , a name only Claude Code registers. Hand-offs between skills now work on every install path, including agents set up with npx skills .
+We fixed an issue where agents like OpenCode checked PATH for slack themselves instead of loading the slack-cli skill first, which could find a different tool with the same name and fall back to curl .
+Tags:
+Release
+Slack Skills Plugin
 Updated low-usage submission criteria for Slack Marketplace apps
 November 2, 2026
 Slack Marketplace submissions that meet the low-usage criteria will not be reviewed. A submission is considered low-usage when the app:

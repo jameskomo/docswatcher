@@ -7,6 +7,7 @@ Slack developer changelog
 🏷️ View all tags
 2026
 Release: Slack CLI v4.13.0
+Release: Slack Skills Plugin v1.7.0
 Updated low-usage submission criteria for Slack Marketplace apps
 Release: Slack CLI v4.12.0
 New Block Kit layout block

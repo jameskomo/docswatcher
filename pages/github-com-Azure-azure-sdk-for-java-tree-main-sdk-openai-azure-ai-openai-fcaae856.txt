@@ -4,7 +4,7 @@ Sign in
 Products
 Platform
 GitHub Repository hosting, code review, and collaboration
-Copilot AI coding agent for tasks, projects and automated work
+Copilot AI coding agent for tasks, projects, and automated work
 Build & Ship
 Actions CI/CD and automation
 Code Quality Quality analysis, fixes, and enforcement
@@ -81,8 +81,8 @@ Azure
 azure-sdk-for-java
 Repository navigation
 Code
-Issues 342 ( 342 )
-Pull requests 194 ( 194 )
+Issues 344 ( 344 )
+Pull requests 185 ( 185 )
 Actions
 Projects
 Wiki

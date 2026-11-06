@@ -664,8 +664,9 @@ mistral-document-ai-2512, mistral-ocr-4-0
 mistral-document-ai-2512
 1
 GA
-—
+2027-02-15
 mistral-ocr-4-0
+mistral-document-ai-2512 enters the Legacy stage on November 6, 2026, and the Deprecated stage on December 15, 2026.
 MoonshotAI
 Model
 Version

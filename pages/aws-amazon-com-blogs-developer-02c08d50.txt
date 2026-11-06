@@ -17,7 +17,7 @@ Sign in to console
 Create account
 Explore topics
 re:Invent 2026
-The session catalog is live. Explore what's waiting for you
+The sessions are set and your seat is waiting. Register now
 Build & Deploy AI Agents
 88% of agent pilots stall. Learn what the rest do differently
 Get started
@@ -38,6 +38,7 @@ Security
 Compliance
 Trust Center
 Sustainability
+Our Impact
 Global Infrastructure
 Careers
 Featured Products
@@ -72,14 +73,14 @@ Get production-ready AI that automates, builds, creates, decides, and engages at
 Featured Products
 Get started with one of these featured services or browse all
 Browse all products
-Amazon Quick
-AI-powered assistant for work with research, business insights, automation, and no-code app building
+AWS Quick
+The AI assistant built only for work
 Transform
 Eliminate tech debt with agentic AI to modernize legacy systems and code
 Aurora
 Serverless relational database service for PostgreSQL, MySQL, and DSQL
 Amazon Bedrock
-The end-to-end platform for building generative AI applications and agents
+The trusted platform to run inference and build agents at scale
 Amazon Connect Customer
 AI-native solution for delivering exceptional experiences across customer interactions
 EC2
@@ -153,6 +154,9 @@ Home
 Blogs
 Editions
 AWS Developer Tools Blog
+Introducing presigned URL downloads in the AWS SDK for Java 2.x
+by Jency Joseph on 05 NOV 2026 in Amazon Simple Storage Service (S3) , AWS SDK for Java , Intermediate (200) , Technical How-to Permalink Share
+Until now, the AWS SDK for Java 2.x could generate presigned URLs through S3Presigner but could not consume one to download an object. Developers had to fall back to a low-level HTTP client, forgoing the SDK’s built-in retries, metrics, and checksum validation. Starting with version 2.48.0, you can download Amazon Simple Storage Service (Amazon S3) […]
 AWS IoT Device SDK MQTT 3.1.1 and V1 Service Clients Entering Maintenance Mode
 by Vera Xia and Steve Kim on 15 OCT 2026 in Announcements , AWS IoT Core , Developer Tools , Internet of Things Permalink Share
 In alignment with our AWS SDKs and Tools maintenance policy, the AWS IoT Device SDKs MQTT 3.1.1 and V1 service clients will enter maintenance mode in April 2027. There is no planned end-of-support date, and we will announce any change to that separately. We recommend that you adopt the MQTT 5 client and V2 service […]
@@ -180,9 +184,6 @@ Today, we are announcing support for AWS Lambda response streaming for .NET Lamb
 Building and Deploying .NET AI Agents with Amazon Bedrock AgentCore
 by Philippe El Asmar on 05 AUG 2026 in .NET , Amazon Bedrock AgentCore , Announcements , AWS SDK for .NET Permalink Share
 Amazon Bedrock AgentCore is a managed service for running AI agents in production. You bring your agent code packaged as a container, and Bedrock AgentCore handles the operational concerns: scaling, session routing, health checking, and providing managed capabilities like conversation memory. AWS.AgentCore.Hosting is the .NET library that connects your agent code to this service. It […]
-AWS Tools Installer V2 is Now Generally Available
-by Jonathan Nunn on 04 AUG 2026 in Announcements , AWS Tools for PowerShell , Developer Tools , PowerShell Permalink Share
-If you’ve been managing multiple AWS Tools for PowerShell modules individually, you know how time-consuming installations and updates can be. In this post, we announce the general availability of AWS Tools Installer V2. It minimizes installation time by downloading a single zip file and extracting modules in parallel. In February 2026, we announced the preview […]
 ← Older posts
 Create an AWS account
 Learn

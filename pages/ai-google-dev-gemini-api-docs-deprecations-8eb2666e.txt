@@ -506,42 +506,42 @@ remains available through the API until further notice.
 * `veo-3.1-lite-generate-preview`
 * March 31, 2026
 * October 22, 2026
-* `gemini-omni-1.1-flash`
+* `gemini-omni-1.2-flash`
 ---
 * `veo-3.1-generate-preview`
 * October 15, 2025
 * October 22, 2026
-* `gemini-omni-1.1-flash`
+* `gemini-omni-1.2-flash`
 ---
 * `veo-3.1-fast-generate-preview`
 * October 15, 2025
 * October 22, 2026
-* `gemini-omni-1.1-flash`
+* `gemini-omni-1.2-flash`
 ---
 * `veo-3.0-generate-001`
 * September 9, 2025
 * June 30, 2026
-* `gemini-omni-1.1-flash` or the GA models on the [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/veo/3-1-generate)
+* `gemini-omni-1.2-flash` or the GA models on the [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/veo/3-1-generate)
 ---
 * `veo-3.0-fast-generate-001`
 * September 9, 2025
 * June 30, 2026
-* `gemini-omni-1.1-flash` or the GA models on the [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/veo/3-1-generate)
+* `gemini-omni-1.2-flash` or the GA models on the [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/veo/3-1-generate)
 ---
 * `veo-2.0-generate-001`
 * April 9, 2025
 * June 30, 2026
-* `gemini-omni-1.1-flash` or the GA models on the [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/veo/3-1-generate)
+* `gemini-omni-1.2-flash` or the GA models on the [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/veo/3-1-generate)
 ---
 * `veo-3.0-generate-preview`
 * July 31, 2025
 * November 12, 2025
-* `gemini-omni-1.1-flash`
+* `gemini-omni-1.2-flash`
 ---
 * `veo-3.0-fast-generate-preview`
 * July 31, 2025
 * November 12, 2025
-* `gemini-omni-1.1-flash`
+* `gemini-omni-1.2-flash`
 {% /table %}
 ## Gemini Omni Flash models {% id="gemini-omni-flash-models" %}
 {% table %}
@@ -550,10 +550,17 @@ remains available through the API until further notice.
 * Shutdown date
 * Recommended replacement
 ---
-* `gemini-omni-1.1-flash`
-* August 27, 2026
+* `gemini-omni-1.2-flash`
+* November 5, 2026
 * No shutdown date announced
 *
+---
+* `gemini-omni-1.1-flash`
+* August 27, 2026
+* December 3, 2026
+* `gemini-omni-1.2-flash` (Effective December 3, 2026, the endpoint is
+automatically routing API requests to
+`gemini-omni-1.2-flash`)
 {% /table %}
 ### Deprecated models {% id="gemini-omni-flash-deprecated-models" %}
 {% table %}
@@ -565,7 +572,7 @@ remains available through the API until further notice.
 * `gemini-omni-flash-preview`
 * June 30, 2026
 * October 22, 2026
-* `gemini-omni-1.1-flash`
+* `gemini-omni-1.2-flash`
 {% /table %}
 ## Lyria models {% id="lyria-models" %}
 {% table %}

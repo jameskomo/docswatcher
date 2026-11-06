@@ -184,6 +184,7 @@ Deprecated
 Copy section link
 Deprecated
 Deprecated & retired models
+Serverless-only
 Older models that have been deprecated or retired.
 Model
 Version

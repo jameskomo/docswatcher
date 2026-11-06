@@ -488,9 +488,28 @@ Clear all filters
 See results
 Clear all filters
 Nov 05, 2026
+GA
+Voice API
+Voice API Call resource now returns STIR/SHAKEN status
+The Call resource now returns the STIR/SHAKEN status of each call. Check the attestation on your calls straight from the Calls API.
+Learn more
+Nov 05, 2026
+Twilio Email
+SendGrid Email API
+GA
+Twilio SendGrid Platform
+Email Insights is now Generally Available
+Email Insights gives senders near real-time visibility into deliverability and engagement through three prebuilt dashboards: Overview, Delivery Errors, and Audience Health. Filter by domain, IP pool, template, category and more, then drill into message-level detail in Email Logs. Included at no additional cost in both the Twilio Console and the SendGrid Console, with about two months of history at launch, starting August 20, 2026, and growing over time. Your existing Stats pages and APIs are unchanged.
+To learn more, see Email Insights in the Twilio Email docs and the Twilio SendGrid docs .
+Learn more
+Nov 05, 2026
 Messaging
 GA
 Filter your Twilio Health Score by Messaging Channel
+Learn more
+Nov 04, 2026
+Beta
+Twilio Data Destinations is now in Private Beta
 Learn more
 Nov 04, 2026
 Verify
@@ -532,34 +551,6 @@ Twilio Platform
 Developer Insights
 Webhook Configuration API is now Generally Available
 Using the Webhook Configuration API, customers can configure how Twilio authenticates and delivers outbound webhooks, per URL. The API consists of two resources: Webhook Settings and Webhook Rules.
-Learn more
-Oct 14, 2026
-Messaging
-Beta
-Twilio Email
-Twilio Cohorts for Native List Building and Bulk Messaging
-Twilio Cohorts is now available in Private Beta, providing a set of APIs designed to handle list building, audience segmentation, and bulk execution natively within the Twilio platform. Set up your customer profiles, segment them, and trigger messages using your existing Twilio account.
-Twilio Cohorts includes:
-Dynamic List Building & Segmentation: Define customer traits and query dynamic audiences directly within Twilio.
-Native High-Volume Delivery: Pass a single CohortID when triggering a send with the Twilio Email API or the Twilio Bulk Messaging API (supporting Email, SMS/MMS, RCS, and WhatsApp) without writing custom batching logic.
-Unified Execution: Streamline multi-channel workflows and eliminate custom queuing or backend rate-limiting logic.
-Coordinating high-volume delivery across Email, SMS, RCS, and WhatsApp alongside your native Twilio data has never been easier.
-To request early access to the Private Beta, submit a request form . For API details and technical guidance, see the Twilio Cohorts documentation .
-Learn more
-Oct 13, 2026
-Messaging
-Intelligent Alerts in the new Twilio Console
-Intelligent Alerts is now available in the new Twilio Console, giving Messaging customers a more unified and consistent way to investigate anomalous events. This update includes improved alert summaries, the ability to provide feedback on alerts, and a dynamic set up notifications prompt when email alerts have not yet been configured.
-Learn more
-Oct 09, 2026
-GA
-Voice API
-Voice Insights now tags HD audio calls
-Voice Insights now tags calls as HD Audio when they connect with the AMR-WB or Opus codec.
-Use the tag to confirm your endpoints negotiated what you configured, and to correlate HD usage with transcription accuracy, AI agent performance, and customer satisfaction.
-Calls that carry HD audio are tagged as Downsampled when the longest portion of the call connects to a component or another endpoint that does not support HD. Twilio converts the audio to narrowband to keep the call connected.
-Both tags appear in the Call Summary in Console, in the Voice Insights REST API, and through Event Streams. You can also filter the Call Insights dashboard by either one.
-Learn more in our Call Summary documentation .
 Learn more
 Loading
 Error: Unable to load changelog
