@@ -232,6 +232,55 @@ The new firebase-analytics skill is now available in
 Firebase agent skills to help
 AI assistants with getting started (base setup and SDK initialization) and
 measuring screenviews for Google Analytics on iOS and Android.
+November 02, 2026
+Gemini API
+For the Gemini Developer API (Google AI), starting
+December 1, 2026 , requests to the Gemini 2.5 Pro and Flash models
+will be automatically routed to newer Gemini 3.x models:
+Gemini 2.5 Pro ( gemini-2.5-pro ): Requests will be automatically
+routed to gemini-3.8-flash .
+Gemini 2.5 Flash ( gemini-2.5-flash ): Requests will be
+automatically routed to gemini-3.5-flash-lite .
+Gemini 2.5 Flash‑Lite ( gemini-2.5-flash-lite ): No changes at this
+time.
+Note that for the Agent Platform Gemini API (formerly Vertex AI) , gemini-2.5-pro ,
+gemini-2.5-flash , and gemini-2.5-flash-lite were already shut down
+(retired) on October 20, 2026.
+Breaking changes and behavioral differences when requests are routed to
+Gemini 3.x models:
+Billing : Inference will be billed at the rates of the newer models.
+Unsupported parameters : Both gemini-3.8-flash and
+gemini-3.5-flash-lite
+do not support several sampling parameters :
+Frequency penalty, presence penalty, and candidate count (for
+gemini-2.5-pro routed to gemini-3.8-flash ): gemini-3.8-flash does
+not support frequencyPenalty , presencePenalty , or
+candidateCount . Requests that include these parameters will fail
+with a 400 error.
+Temperature, top-K, and top-P : All general-use Gemini 3.x
+models ignore temperature , topK , and topP . For more deterministic
+responses, define system instructions with explicit rules for your
+specific use case.
+Prefilled model turn validation : Prefilling model turns is no longer
+supported in Gemini 3.x models. If the last non-empty turn in the
+request is a model turn, the request will fail with a 400 error.
+Thinking configuration :
+No support for MINIMAL thinking level on gemini-3.8-flash : If
+you set the
+thinking level
+to MINIMAL for a request routed to gemini-3.8-flash , the request
+will fail with a 400 error.
+Use thinking levels instead of thinking budgets : Thinking
+budgets are supported by Gemini 3.x models for
+backwards-compatibility, but they are strongly discouraged (especially
+starting with gemini-3.8-flash ). We recommend migrating from
+thinkingBudget to
+thinkingLevel .
+If you still use Gemini 2.5 models with Firebase AI Logic , we
+strongly recommend explicitly updating your app to use a newer model (like
+gemini-4-argon , gemini-3.8-flash , or gemini-3.5-flash-lite ) and testing
+your model configuration before December 1, 2026 . For more details, see the
+deprecated and shutdown models FAQ .
 October 30, 2026
 SDK Releases
 The
@@ -17396,7 +17445,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-05 UTC.
+Last updated 2026-11-06 UTC.
 Learn
 Developer guides
 SDK & API reference

@@ -28,6 +28,12 @@ Release notes and version history for the X API v2, Enterprise APIs, Ads API, SD
 Copy page Copy page
 To subscribe to updates, please “Turn on notifications” for @API . You can also follow this changelog in your feed reader via the RSS feed .
 ​
+Nov 5, 2026
+X API v2
+​
+Livestream API: new /2/sources and /2/broadcasts routes; /2/users/:user_id routes deprecated
+You can now take a stream source live in one call with POST /2/broadcasts . It creates and publishes the broadcast together and returns it already RUNNING ( 201 ), or returns the source’s live broadcast unchanged with 200 if there already is one, so it’s safe to retry. Broadcasts are ended with PUT /2/broadcasts/:id/state , deleted with DELETE /2/broadcasts/:id , and read with GET /2/broadcasts and GET /2/broadcasts/:id . Stream sources are managed with the new /2/sources routes. Each source now has a non-secret 19-digit source id, separate from its stream key. Use the source id in /2/sources/:id and as source_id when going live or scheduling a broadcast. The stream key is returned only when you create a source and by the new GET /2/sources/:id/stream_key . Broadcasts and scheduled broadcasts now return source_id as the source id. The new routes take the owner from the access token, wrap responses in data , and return errors in the standard X API problem format. The original routes under /2/users/:user_id/sources and /2/users/:user_id/broadcasts are deprecated and will be removed on January 1, 2027 , after which they return 404 . Passing a stream key as source_id to the scheduled broadcast routes is also deprecated and stops working on that date. See the migration guide for the route mapping and the differences in identifiers, request bodies, responses, and errors.
+​
 Oct 29, 2026
 X Ads API
 ​
@@ -1391,6 +1397,7 @@ profile_locality:
 ⌘ I
 On this page
 Back to top
+Nov 5, 2026
 Oct 29, 2026
 Oct 26, 2026
 Oct 2, 2026

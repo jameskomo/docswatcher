@@ -506,6 +506,7 @@ Nov 05, 2026
 Messaging
 GA
 Filter your Twilio Health Score by Messaging Channel
+You can now filter your Twilio Health Score for Messaging by channel. Get deeper insight into channel-specific performance for SMS, MMS, RCS, WhatsApp, Apple Messages for Business, and Facebook Messenger, so you can track and proactively troubleshoot across channels.
 Learn more
 Nov 04, 2026
 Beta

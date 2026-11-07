@@ -370,8 +370,8 @@ remains available through the API until further notice.
 ---
 * `gemini-embedding-2-preview`
 * March 10, 2026
-* August 10, 2026
-* `gemini-embedding-2`
+* November 6, 2026
+* `gemini-embedding-2` (effective November 6, 2026, API requests to `gemini-embedding-2-preview` route to `gemini-embedding-2`)
 ---
 * `text-embedding-004`
 * April 9, 2024
@@ -665,11 +665,6 @@ automatically routing API requests to
 * April 21, 2026
 * No shutdown date announced
 *
----
-* `deep-research-pro-preview-12-2025`
-* December 11, 2025
-* October 23, 2026
-* `deep-research-preview-04-2026`
 {% /table %}
 ### Deprecated agents {% id="managed-agents-deprecated-agents" %}
 {% table %}
@@ -677,6 +672,11 @@ automatically routing API requests to
 * Release date
 * Shutdown date
 * Recommended replacement
+---
+* `deep-research-pro-preview-12-2025`
+* December 11, 2025
+* October 23, 2026
+* `deep-research-preview-04-2026`
 ---
 * `antigravity-preview-05-2026`
 * May 19, 2026

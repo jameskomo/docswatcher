@@ -122,6 +122,7 @@ Revocation
 Dependabot
 Alerts
 Repository access
+Runner settings
 Secrets
 Dependency graph
 Dependency review
