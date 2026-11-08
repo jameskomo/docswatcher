@@ -40,7 +40,7 @@ Activity
 “Get Hype Train Events” API endpoint - “id” query parameter deprecation
 Announcements
 2
-961
+965
 March 29, 2022
 Get Hype Train Events via App Token
 API
