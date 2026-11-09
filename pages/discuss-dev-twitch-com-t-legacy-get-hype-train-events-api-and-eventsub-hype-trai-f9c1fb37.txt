@@ -50,7 +50,7 @@ June 6, 2021
 HypeTrain API pagination
 API
 2
-469
+470
 December 23, 2020
 Get all users that contributed to a Hype Train
 API
