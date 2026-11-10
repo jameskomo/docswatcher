@@ -108,6 +108,7 @@ Commit comments
 Commit statuses
 Copilot
 Cloud agent repository management
+Copilot code review
 Copilot cloud agent management
 Copilot content exclusion management
 Copilot team customizations
@@ -203,6 +204,7 @@ Project views
 Pull requests
 Agent Merge
 Review comments
+Copilot code review
 Pull requests
 Review requests
 Reviews

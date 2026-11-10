@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Work Objects embeds require the slack-mcps.com frame ancestor
 Release: Slack CLI v4.13.0
 Release: Slack Skills Plugin v1.7.0
 Updated low-usage submission criteria for Slack Marketplace apps
@@ -258,6 +259,13 @@ Subscribe to the changelog!
 Get real-time notifications about new features, improvements, and bug fixes directly in your preferred feed reader.
 RSS (opens in new tab)
 Atom (opens in new tab)
+Work Objects embeds require the slack-mcps.com frame ancestor
+November 6, 2026
+Your Work Objects embed pages must now allow https://*.slack-mcps.com in their Content-Security-Policy frame-ancestors directive. Before, this origin was described as needed only for mobile clients. Embeds fail to load if any of the three required origins is missing:
+Content-Security-Policy: frame-ancestors https://*.slack.com https://*.slack-gov.com https://*.slack-mcps.com
+See required configurations for details.
+Tags:
+Announcement
 Release: Slack CLI v4.13.0
 November 4, 2026
 Coding agents running slack --help now learn about the Slack MCP and Skills Plugin.

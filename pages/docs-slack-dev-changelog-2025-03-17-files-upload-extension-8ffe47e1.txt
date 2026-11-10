@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Work Objects embeds require the slack-mcps.com frame ancestor
 Release: Slack CLI v4.13.0
 Release: Slack Skills Plugin v1.7.0
 Updated low-usage submission criteria for Slack Marketplace apps

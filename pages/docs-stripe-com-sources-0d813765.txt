@@ -16,7 +16,6 @@ More
 APIs & SDKs Help
 Overview See all products
 About the APIs
-API tour
 How PaymentIntents and SetupIntents work
 Checkout Sessions API
 Payment Methods API

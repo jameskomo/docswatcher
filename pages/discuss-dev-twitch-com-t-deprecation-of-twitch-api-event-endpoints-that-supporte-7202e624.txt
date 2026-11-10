@@ -28,7 +28,7 @@ Activity
 Deprecation of WebSub-based Webhooks
 Announcements
 0
-2447
+2448
 June 16, 2021
 Undocumented helix/moderation/banned modification
 API
@@ -43,12 +43,12 @@ December 21, 2017
 Get events when moderators or broadcasters ban users
 API
 2
-579
+580
 November 7, 2020
 Follows endpoints and EventSub subscription type are now available in open beta
 Announcements
 16
-260998
+260999
 October 14, 2023
 Home
 Categories
