@@ -31,6 +31,9 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Nov.10 Improvement
+A more informative GitHub dashboard
+collaboration tools
 Nov.05 Release
 New pull request overview page in public preview
 collaboration tools
@@ -72,9 +75,6 @@ collaboration tools
 copilot
 ...
 +1
-Oct.08 Improvement
-Triage role users or higher can now archive pull requests
-collaboration tools
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.
 Enter your email *

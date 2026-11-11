@@ -154,6 +154,9 @@ Home
 Blogs
 Editions
 AWS Developer Tools Blog
+Updated default retry behavior for AWS SDKs and tools
+by Matthew Miller on 10 NOV 2026 in Announcements , Best Practices , Developer Tools Permalink Share
+In May 2026, we announced an opt-in for updated retry behavior for the AWS SDKs, AWS Command Line Interface (AWS CLI), and AWS Tools for PowerShell. Starting November 10, 2026, the updated behavior is the default, and we have removed the opt-in. Availability varies by SDK and tool. See the SDK availability and GitHub issues […]
 Introducing presigned URL downloads in the AWS SDK for Java 2.x
 by Jency Joseph on 05 NOV 2026 in Amazon Simple Storage Service (S3) , AWS SDK for Java , Intermediate (200) , Technical How-to Permalink Share
 Until now, the AWS SDK for Java 2.x could generate presigned URLs through S3Presigner but could not consume one to download an object. Developers had to fall back to a low-level HTTP client, forgoing the SDK’s built-in retries, metrics, and checksum validation. Starting with version 2.48.0, you can download Amazon Simple Storage Service (Amazon S3) […]
@@ -181,9 +184,6 @@ AI coding agents such as Kiro, Claude Code, Codex, Cursor, and others play an in
 Announcing response streaming for .NET on AWS Lambda
 by Norm Johanson on 05 AUG 2026 in .NET , AWS Lambda , AWS SDK for .NET Permalink Share
 Today, we are announcing support for AWS Lambda response streaming for .NET Lambda functions. With response streaming, functions can be more responsive by sending data back to the caller incrementally as it becomes available, rather than buffering the entire response in memory before returning it. Why response streaming? With the traditional Lambda invocation model, the […]
-Building and Deploying .NET AI Agents with Amazon Bedrock AgentCore
-by Philippe El Asmar on 05 AUG 2026 in .NET , Amazon Bedrock AgentCore , Announcements , AWS SDK for .NET Permalink Share
-Amazon Bedrock AgentCore is a managed service for running AI agents in production. You bring your agent code packaged as a container, and Bedrock AgentCore handles the operational concerns: scaling, session routing, health checking, and providing managed capabilities like conversation memory. AWS.AgentCore.Hosting is the .NET library that connects your agent code to this service. It […]
 ← Older posts
 Create an AWS account
 Learn

@@ -241,6 +241,8 @@ Blocking users
 Emails
 Followers
 GPG keys
+Issue fields
+Issue types
 Git SSH keys
 Social accounts
 SSH signing keys

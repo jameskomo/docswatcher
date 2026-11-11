@@ -487,6 +487,13 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Nov 10, 2026
+GA
+Twilio Email
+Multiple IP Purchase and IP Overflow Logic
+Customers can now purchase up to 5 dedicated IP addresses on Twilio Email, allowing high volume organizations to streamline and isolate email streams that serve their operational, strategic, and deliverability goals. Customers can segment different types of traffic, manage multiple brands or domains, and scale high volume sending with multiple IP addresses. Fallback options can be configured both on the account and the subaccount level to other IPs on the account or directly to the shared pools (limit of 1M per month).
+To learn more about how to manage your email reputation and IP warmup, see the Twilio Docs .
+Learn more
 Nov 05, 2026
 GA
 Voice API
@@ -546,12 +553,6 @@ Unified Login for SendGrid Marketplace Customers
 SendGrid marketplace customers can now take advantage of the Unified Login feature that lets you create a Twilio login for every individual user accessing your SendGrid account. This provides a more secure access pattern with the ability to define permissions for each user instead of a single, shared admin permission set.
 When accessing your SendGrid marketplace account from one of the marketplace integrations - Microsoft Azure, Google Cloud, Heroku, or Amazon Web Services - you will be prompted to provide an email address to create your Twilio login. If you already use another Twilio product and have an existing Twilio login, you can use that email address and password for SendGrid access.
 This will be rolled out over the next couple weeks for all SendGrid marketplace customers. For more details, see the documentation here .
-Learn more
-Oct 15, 2026
-Twilio Platform
-Developer Insights
-Webhook Configuration API is now Generally Available
-Using the Webhook Configuration API, customers can configure how Twilio authenticates and delivers outbound webhooks, per URL. The API consists of two resources: Webhook Settings and Webhook Rules.
 Learn more
 Loading
 Error: Unable to load changelog

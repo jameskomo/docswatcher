@@ -135,6 +135,9 @@ Latest 2026-10
 Release candidate 2027-01
 November 2026
 Surface
+11.10
+Shopify App Store submission requirements: build, grow, then expand
+App store
 11.09
 Redesigned Partner Directory with profiles built on Shopify data
 Platform
@@ -143,6 +146,9 @@ Partner apps must enable bulk operations before use
 GraphQL Admin API
 11.06
 Merchant notes on store credit transactions
+GraphQL Admin API
+11.06
+orderCreate line items support custom IDs
 GraphQL Admin API
 11.05
 Order routing functions can now rank locations across multiple fulfillment groups in the unstable Function APIs.
@@ -436,12 +442,6 @@ Breaking changes GraphQL Admin API
 09.17
 Request a bundle size exception for existing UI extensions
 Admin Extensions
-09.17
-Adding a canceled receive action to the inventory shipments API
-GraphQL Admin API
-09.17
-Removed session.currentSession.staffMemberId from POS UI Extensions (2026-10)
-Breaking changes POS Extensions
 Load more
 Updates
 Developer changelog

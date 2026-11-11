@@ -150,17 +150,17 @@ March 31, 2023
 Chatters info via chatbot
 Chat and IRC
 3
-625
+626
 March 31, 2023
 New chatters endpoint
 API
 6
-799
+801
 April 24, 2023
 Legacy Chatters endpoint and detecting bots
 API
 34
-3262
+3264
 April 30, 2023
 Home
 Categories
