@@ -261,8 +261,9 @@ RSS (opens in new tab)
 Atom (opens in new tab)
 Work Objects embeds require the slack-mcps.com frame ancestor
 November 6, 2026
-Your Work Objects embed pages must now allow https://*.slack-mcps.com in their Content-Security-Policy frame-ancestors directive. Before, this origin was described as needed only for mobile clients. Embeds fail to load if any of the three required origins is missing:
-Content-Security-Policy: frame-ancestors https://*.slack.com https://*.slack-gov.com https://*.slack-mcps.com
+Your Work Objects embed pages must now allow https://*.slack-mcps.com in their Content-Security-Policy frame-ancestors directive. Before, this origin was described as needed only for mobile clients. Embeds fail to load if any of the three required origins is missing.
+To load embeds on Slack mobile clients, also allow https://slack-mcps-host.com :
+Content-Security-Policy: frame-ancestors https://*.slack.com https://*.slack-gov.com https://*.slack-mcps.com https://slack-mcps-host.com
 See required configurations for details.
 Tags:
 Announcement

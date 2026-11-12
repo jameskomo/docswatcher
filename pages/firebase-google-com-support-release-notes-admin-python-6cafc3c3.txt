@@ -179,6 +179,16 @@ Save and categorize content based on your preferences.
 To review release notes for the Firebase console and for other Firebase
 platforms and related SDKs, refer to the
 Firebase Release Notes .
+Version 7.8.0 - 11 November 2026
+Dropped support for Python 3.9. The Firebase Admin Python SDK now
+requires Python 3.10 or higher.
+Deprecated support for Python 3.10. Use Python 3.11 or higher
+when deploying the Admin SDK.
+Going forward, the Firebase Admin Python SDK will drop support for
+end-of-life Python versions in minor releases.
+Authentication
+Validated tenant_id and provider_id URL path segments and
+percent-encoded query parameters in Authentication and project management requests.
 Version 7.7.0 - 23 September 2026
 App Check
 Modified the app_check.verify_token() API so that it uses the
@@ -787,7 +797,7 @@ functions for minting custom authentication tokens and verifying Firebase ID
 tokens.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-10 UTC.
+Last updated 2026-11-12 UTC.
 Learn
 Developer guides
 SDK & API reference

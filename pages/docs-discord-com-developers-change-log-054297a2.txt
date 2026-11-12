@@ -1192,10 +1192,10 @@ Behavior: Requests that exceed this limit will receive a RATE_LIMITED event as a
 "op" : 0
 "t" : "RATE_LIMITED" ,
 "d" : {
-"opcode" : 8 ,
-"retry_after" : ... ,
+"opcode" : 8,
+"retry_after" : ...,
 "meta" : {
-"guild_id" : ... ,
+"guild_id" : ...,
 "nonce" : ...
 }
 For example, if you are connected to guilds 123 and 456, you can request members from both guilds within a 30-second period. However, you cannot make a second request to guild 123 within that same 30-second window.

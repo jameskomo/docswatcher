@@ -656,6 +656,10 @@ Mistral-Large-3
 1
 Preview
 —
+mistral-large-4-latest
+1
+Preview
+—
 mistral-document-ai-2505
 1
 Retired

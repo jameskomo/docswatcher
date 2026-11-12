@@ -154,6 +154,9 @@ Home
 Blogs
 Editions
 AWS Developer Tools Blog
+Announcing AWS SDK for .NET 4.1
+by Norm Johanson on 11 NOV 2026 in .NET , Announcements , AWS .NET Development , AWS SDK for .NET , Developer Tools Permalink Share
+In July 2026, we announced our annual minor release cycle for updating the AWS SDK for .NET build targets. Today we’re releasing 4.1, the first release on this schedule. Along with the build target changes, we made dependency changes that improve performance and make the SDK easier to use. If your project targets a version […]
 Updated default retry behavior for AWS SDKs and tools
 by Matthew Miller on 10 NOV 2026 in Announcements , Best Practices , Developer Tools Permalink Share
 In May 2026, we announced an opt-in for updated retry behavior for the AWS SDKs, AWS Command Line Interface (AWS CLI), and AWS Tools for PowerShell. Starting November 10, 2026, the updated behavior is the default, and we have removed the opt-in. Availability varies by SDK and tool. See the SDK availability and GitHub issues […]
@@ -181,9 +184,6 @@ Until now, signing an AWS request that no generated SDK client covered meant rea
 Get started with the Agent Toolkit for AWS in the AWS CLI
 by Andrew Asseily on 26 AUG 2026 in Artificial Intelligence , AWS CLI , Developer Tools Permalink Share
 AI coding agents such as Kiro, Claude Code, Codex, Cursor, and others play an increasingly important role in developer workflows. They write code, fix bugs, scaffold projects, and build infrastructure. By default, these agents have general knowledge of AWS. The Agent Toolkit for AWS gives them specialized, up-to-date expertise, so they’re more likely to pick […]
-Announcing response streaming for .NET on AWS Lambda
-by Norm Johanson on 05 AUG 2026 in .NET , AWS Lambda , AWS SDK for .NET Permalink Share
-Today, we are announcing support for AWS Lambda response streaming for .NET Lambda functions. With response streaming, functions can be more responsive by sending data back to the caller incrementally as it becomes available, rather than buffering the entire response in memory before returning it. Why response streaming? With the traditional Lambda invocation model, the […]
 ← Older posts
 Create an AWS account
 Learn

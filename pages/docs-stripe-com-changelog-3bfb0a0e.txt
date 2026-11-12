@@ -44,7 +44,8 @@ Workflows
 Batch jobs
 Stripe health alerts File uploads
 AI tools
-Agent plugins Model Context Protocol Agent skills Stripe Directory
+Agent plugins Model Context Protocol Agent skills
+Stripe Directory
 Extend Stripe
 Overview
 Build Stripe apps

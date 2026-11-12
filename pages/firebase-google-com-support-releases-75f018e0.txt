@@ -200,21 +200,52 @@ Unity
 C++
 14.1.0
 Admin Node.js
-14.5.0
+14.5.1
 Admin Java
-9.11.0
+9.12.0
 Admin Python
-7.7.0
+7.8.0
 Admin Go
-4.22.0
+4.23.0
 Admin .NET
-3.7.0
+3.7.1
 Admin Dart (experimental)
 0.5.0
 Firebase CLI
 15.35.0
 Firebase Studio
 See notes
+November 11, 2026
+SDK Releases
+The Firebase Admin Node.js SDK
+(v14.5.1) is now available.
+This release includes fixes in the core SDK and Authentication.
+To install this SDK, see
+Add the Firebase Admin SDK to your server .
+The Firebase Admin Java SDK
+(v9.12.0) is now available.
+This release adds token verification and replay protection support in
+App Check , and includes fixes in the core SDK and Authentication.
+To install this SDK, see
+Add the Firebase Admin SDK to your server .
+The Firebase Admin Python SDK
+(v7.8.0) is now available.
+The Admin SDK for Python now requires Python 3.10 or higher and deprecates
+support for Python 3.10. This release also includes a fix in Authentication.
+To install this SDK, see
+Add the Firebase Admin SDK to your server .
+The Firebase Admin Go SDK
+(v4.23.0) is now available.
+The Admin SDK for Go now requires Go 1.26 or higher. This release also
+adds replay protection support in App Check and includes a fix in
+Authentication.
+To install this SDK, see
+Add the Firebase Admin SDK to your server .
+The Firebase Admin .NET SDK
+(v3.7.1) is now available.
+This release includes fixes in Authentication.
+To install this SDK, see
+Add the Firebase Admin SDK to your server .
 November 10, 2026
 Firebase AI Logic
 Firebase AI Logic supports the latest Gemini stable
@@ -17498,7 +17529,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-10 UTC.
+Last updated 2026-11-12 UTC.
 Learn
 Developer guides
 SDK & API reference

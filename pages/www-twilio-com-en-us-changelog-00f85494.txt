@@ -487,6 +487,12 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Nov 11, 2026
+Twilio Platform
+Upcoming cipher suite list update for all Twilio REST API endpoints on November 18, 2027
+Security standards are always evolving, and we want to ensure your Twilio applications are using the strongest protection available.
+We're extending the deadline for these changes and customers now have until November 18, 2027, to update their setups with the ciphers listed below. We’ll continue accepting legacy cipher traffic during that window so customer applications keep running without interruption.
+Learn more
 Nov 10, 2026
 GA
 Twilio Email
@@ -545,14 +551,6 @@ Beta
 Voice API
 Voice Integrity now supports all three major US networks
 Voice Integrity, part of Twilio’s Voice Trust offering, enables businesses to register their details and associated outbound phone numbers directly with major US analytics vendors. This proactive registration helps carriers identify legitimate business traffic, reducing the likelihood of your calls being blocked or labeled as spam.
-Learn more
-Oct 16, 2026
-GA
-Marketplace
-Unified Login for SendGrid Marketplace Customers
-SendGrid marketplace customers can now take advantage of the Unified Login feature that lets you create a Twilio login for every individual user accessing your SendGrid account. This provides a more secure access pattern with the ability to define permissions for each user instead of a single, shared admin permission set.
-When accessing your SendGrid marketplace account from one of the marketplace integrations - Microsoft Azure, Google Cloud, Heroku, or Amazon Web Services - you will be prompted to provide an email address to create your Twilio login. If you already use another Twilio product and have an existing Twilio login, you can use that email address and password for SendGrid access.
-This will be rolled out over the next couple weeks for all SendGrid marketplace customers. For more details, see the documentation here .
 Learn more
 Loading
 Error: Unable to load changelog

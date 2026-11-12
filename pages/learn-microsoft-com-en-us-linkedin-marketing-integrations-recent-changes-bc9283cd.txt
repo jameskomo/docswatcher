@@ -54,7 +54,7 @@ Ads Reporting API : New MEMBER_DESIGNATED_MARKET_AREA pivot :
 Starting with the 202609 version, in the adAnalytics endpoint's analytics finder, pivot.value parameter now supports MEMBER_DESIGNATED_MARKET_AREA , letting partners request analytics reports grouped by Nielsen Designated Market Area (DMA), consistent with other member demographic pivots such as MEMBER_REGION_V2 . Pivot items are returned as urn:li:geo:{id} URNs. You may use the /adTargetingEntities resource to resolve these geo URNs to DMA region names.
 When displaying results grouped by this pivot, you must display a "circle R" notice of registration immediately following each display of the DMA marks (that is, DMA®) and the statement "DMA® is a registered service mark of The Nielsen Company."
 Conversions API : New hashedFirstName and hashedLastName fields :
-Starting with the 202609 version, the userInfo object for the /conversionEvents endpoint supports two new optional fields for matching: hashedFirstName and hashedLastName , in addition to the existing plain text firstName and lastName fields. Before hashing, normalize the value to lowercase with no spaces or punctuation, and encode special characters as UTF-8. The result should be a SHA-256 HEX-encoded string of exactly 64 characters. A valid userInfo combination requires either firstName or hashedFirstName, together with either lastName or hashedLastName.
+Starting with the 202609 version, the userInfo object for the /conversionEvents endpoint supports two new optional fields for matching: hashedFirstName and hashedLastName , in addition to the existing plain text firstName and lastName fields. Before hashing, normalize the value to lowercase with no spaces or punctuation, and encode special characters as UTF-8. The result should be a SHA-256 HEX-encoded string of exactly 64 characters. A valid userInfo combination requires either firstName and lastName, or hashedFirstName and hashedLastName.
 Conversions API : New 180-day attribution window option :
 The postClickAttributionWindowSize and viewThroughAttributionWindowSize fields on the Conversion Rule schema in /conversions endpoint now support a 180 -day value, in addition to the existing 365 -day option, for the following conversion types: SUBMIT_APPLICATION , PURCHASE , ADD_TO_CART , QUALIFIED_LEAD , LEAD , MARKETING_QUALIFIED_LEAD , and SALES_QUALIFIED_LEAD . This update is available on all active versions. MARKETING_QUALIFIED_LEAD and SALES_QUALIFIED_LEAD conversion types are available starting with the 202608 version onwards.
 Version Sunset
@@ -794,7 +794,7 @@ Ask Learn
 Suggest a fix?
 Additional resources
 Last updated on
-2026-10-15
+2026-11-10
 In this article
 Was this page helpful?
 Need help with this topic?
