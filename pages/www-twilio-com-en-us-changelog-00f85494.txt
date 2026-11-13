@@ -487,11 +487,20 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Nov 12, 2026
+Twilio Email
+SendGrid Email API
+GA
+Twilio SendGrid Platform
+New filters and text search in Email Logs
+Email Logs now lets you filter messages by sender, sending IP, event and API key, in both the Twilio Console and the Twilio SendGrid Console. You can also search subjects and server responses for the words you enter, in any order. Filters combine, so you can set Status to Bounced and add an API key to see which messages from one integration bounced. The new filters and search also work in the Email Logs API.
+To learn more, see Email Logs in the Twilio Email docs and the Twilio SendGrid docs , and the Email Logs API reference .
+Learn more
 Nov 11, 2026
 Twilio Platform
-Upcoming cipher suite list update for all Twilio REST API endpoints on November 18, 2027
+Upcoming cipher suite list update for all Twilio REST API endpoints on February 18, 2027
 Security standards are always evolving, and we want to ensure your Twilio applications are using the strongest protection available.
-We're extending the deadline for these changes and customers now have until November 18, 2027, to update their setups with the ciphers listed below. We’ll continue accepting legacy cipher traffic during that window so customer applications keep running without interruption.
+We're extending the deadline for these changes and customers now have until February 18, 2027, to update their setups with the ciphers listed below. We’ll continue accepting legacy cipher traffic during that window so customer applications keep running without interruption.
 Learn more
 Nov 10, 2026
 GA
@@ -545,12 +554,6 @@ Oct 20, 2026
 Voice API
 The Voice Recording Account Default Configuration is now Generally Available in us1
 The Voice Recording Account Default Configuration is a new API that enables customers to set and manage default call recording settings for your account. Now Generally Available in us1.
-Learn more
-Oct 16, 2026
-Beta
-Voice API
-Voice Integrity now supports all three major US networks
-Voice Integrity, part of Twilio’s Voice Trust offering, enables businesses to register their details and associated outbound phone numbers directly with major US analytics vendors. This proactive registration helps carriers identify legitimate business traffic, reducing the likelihood of your calls being blocked or labeled as spam.
 Learn more
 Loading
 Error: Unable to load changelog

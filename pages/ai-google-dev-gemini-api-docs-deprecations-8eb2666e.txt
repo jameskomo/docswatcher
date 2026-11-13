@@ -26,6 +26,11 @@ replacement model.
 * Shutdown date
 * Recommended replacement
 ---
+* `gemini-4-hydrogen`
+* November 12, 2026
+* No shutdown date announced
+*
+---
 * `gemini-4-carbon`
 * November 10, 2026
 * No shutdown date announced

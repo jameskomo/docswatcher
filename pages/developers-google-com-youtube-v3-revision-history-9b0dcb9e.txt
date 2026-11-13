@@ -3242,7 +3242,7 @@ notFound
 videoCategoryNotFound
 The video category identified by the id parameter cannot be found. Use the videoCategories.list method to retrieve a list of valid values.
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-10 UTC.
+Last updated 2026-11-12 UTC.
 Blog
 The latest news on the YouTube blog
 Issue Tracker

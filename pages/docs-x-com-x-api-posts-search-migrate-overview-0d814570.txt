@@ -151,10 +151,8 @@ Overview
 Copy page Copy page
 The v2 Search Tweets endpoint will eventually replace the standard v1.1 search/posts endpoint and. Reference for the X API v2 standard tier covering migrate.
 Copy page Copy page
-​
 Comparing X API’s Search Posts endpoints
 The v2 Search Tweets endpoint will eventually replace the standard v1.1 search/posts endpoint and enterprise Search API . If you have code, apps, or tools that use an older version of a X search endpoint and are considering migrating to the newer X API v2 endpoints, then this guide is for you.
-​
 Recent search comparison
 The following table compares the various types of recent search endpoints:
 Description
@@ -232,7 +230,6 @@ Provides URL-encoded query
 next_token
 Requires the use of credentials from a developer App associated with a Project
 ✔
-​
 Full-archive search comparison
 The following table compares the various types of full-archive search endpoints:
 Description

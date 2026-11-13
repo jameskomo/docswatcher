@@ -187,11 +187,11 @@ Latest version
 Apple platforms (iOS+)
 13.1.1
 Android
-Firebase BoM : 35.1.0
-google-services plugin : 4.5.0
+Firebase BoM : 35.2.0
+google-services plugin : 4.6.0
 See notes for individual library versions
 JavaScript
-13.2.0
+13.3.0
 Flutter
 Flutter BoM : 5.1.0
 See notes for individual plugin versions
@@ -212,11 +212,125 @@ Admin .NET
 Admin Dart (experimental)
 0.5.0
 Firebase CLI
-15.35.0
+15.36.0
 Firebase Studio
 See notes
+November 12, 2026
+Firebase AI Logic
+Firebase AI Logic supports the latest Gemini stable
+model gemini-4-hydrogen . You can
+directly access this model in your mobile or web app
+via either the Gemini Developer API (free tier) or the
+Agent Platform Gemini API (formerly Vertex AI) .
+Short-term availability : For the Agent Platform Gemini API (formerly Vertex AI) ,
+gemini-4-hydrogen is a
+short-term availability model .
+To avoid service disruptions when models are updated, we strongly recommend
+using
+Firebase Remote Config
+or
+server prompt templates
+to dynamically manage the model name in your app.
+If you're upgrading from gemini-3.8-flash (or other Gemini 3.x
+models), note the following differences for gemini-4-hydrogen :
+Thinking levels ( HIGH default, no XHIGH or thinkingBudget ) :
+Default
+thinking level
+is HIGH (changed from MEDIUM on gemini-3.8-flash ), which may
+increase latency and token usage unless you explicitly set
+thinkingLevel to MEDIUM or LOW .
+Supported thinking levels in Firebase AI Logic are LOW ,
+MEDIUM , and HIGH (default). Note that Firebase AI Logic
+does not currently support XHIGH .
+Like gemini-3.8-flash , MINIMAL is not supported (the
+request will fail with a 400 error).
+Unlike gemini-3.8-flash , thinkingBudget is not supported
+(there's no backwards-compatibility; the request will fail
+with a 400 error).
+Context caching :
+Supports
+implicit caching
+by default (with a minimum of 4,096 input tokens on the
+Gemini Developer API and 6,144 input tokens on the
+Agent Platform Gemini API (formerly Vertex AI) ).
+Unlike gemini-3.8-flash , gemini-4-hydrogen does not
+support explicit caching.
+Token limits & unsupported parameters :
+Input token limit ( 1,048,576 ) and single-segment output token
+limit ( 65,536 for both streaming and non-streaming requests) match
+gemini-3.8-flash . Firebase AI Logic does not yet support
+the "long decode" capability.
+Like gemini-3.8-flash , sampling parameters ( temperature , topP ,
+topK ) are ignored, and frequencyPenalty , presencePenalty , and
+candidateCount fail with a 400 error.
+Additional document input types :
+In addition to PDFs and plain text, gemini-4-hydrogen (along
+with other Gemini 4.x models) supports
+Microsoft Office and OpenDocument files
+( .doc , .docx , .dotx , .ppt , .pptx , .xls , .xlsx , .odt ,
+.odp , .ods ).
 November 11, 2026
+Firebase CLI (v15.36.0)
+The latest
+Firebase CLI (v15.36.0) is now
+available. This version ensures the Firebase Hosting API is enabled
+during setup, adds key filtering to the Crashlytics MCP list_events
+tool, improves Authentication emulator startup time, updates
+Firebase SQL Connect local toolkit to v3.4.26, and adds local config
+persistence for App Check debug tokens.
+To use the Firebase CLI in your development environment,
+set up or update the CLI .
+Firebase AI Logic
+Firebase AI Logic supports the latest stable
+Gemini TTS models ( gemini-3.8-flash-tts and
+gemini-3.8-flash-lite-tts ) for
+text-to-speech (TTS) generation via either
+the Gemini Developer API or the Agent Platform Gemini API (formerly Vertex AI) .
+Vocal direction and multi-speaker dialogue : Guide vocal delivery using
+turn-level SpeechMetadata ( style and speaker on TextPart ),
+inline angle-bracket vocal tags
+( <...> ), and
+pipe backchannels
+( |...| ) for two-speaker conversations.
+Voices and languages : Choose from
+30 core prebuilt voices ,
+over 2,000 preset voices from the
+Extended Voice Library ,
+or custom voices created
+with Voice design and Voice replication. The models automatically detect the
+language of the input text across
+over 100 languages .
+Audio output formats : Unary requests ( generateContent ) return a
+complete WAV file ( audio/wav ), while streaming requests
+( generateContentStream ) return headerless raw 16-bit PCM chunks
+( audio/l16 ).
+Migration from gemini-3.1-flash-tts-preview : The preview model
+gemini-3.1-flash-tts-preview will shut down on November 17, 2026 . If
+your app uses this legacy model, see the
+migration guide
+to update your model name, prompt format, and audio handling before that
+date.
 SDK Releases
+The Firebase Android SDKs for
+Firebase AI Logic , App Check , Cloud Firestore , Cloud Messaging ,
+Crashlytics , and Crashlytics NDK
+have been updated.
+For more details, check out the latest
+Android Release Notes .
+To get started with Firebase in Android, see
+Add Firebase to your Android Project .
+The Firebase Android BoM ( Bill of Materials )
+has been updated to v35.2.0. Learn how to
+add SDKs to your app using the Firebase BoM .
+An updated version of the
+google-services Gradle plugin
+for Android (v4.6.0) is now available. For more information, see the
+Firebase Android SDK Release Notes .
+The
+Firebase JavaScript SDK (v13.3.0)
+is now available. For more details, see the
+Firebase JavaScript SDK release notes .
+To install the SDK, see Add Firebase to your JavaScript Project .
 The Firebase Admin Node.js SDK
 (v14.5.1) is now available.
 This release includes fixes in the core SDK and Authentication.
@@ -243,7 +357,7 @@ To install this SDK, see
 Add the Firebase Admin SDK to your server .
 The Firebase Admin .NET SDK
 (v3.7.1) is now available.
-This release includes fixes in Authentication.
+This release includes fixes in Authentication and Cloud Messaging .
 To install this SDK, see
 Add the Firebase Admin SDK to your server .
 November 10, 2026
