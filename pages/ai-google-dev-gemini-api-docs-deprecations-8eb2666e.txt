@@ -107,7 +107,7 @@ replacement model.
 ---
 * `gemini-3.1-flash-tts-preview`
 * February 26, 2026
-* November 17, 2026
+* December 18, 2026
 * `gemini-3.8-flash-tts` or `gemini-3.8-flash-lite-tts`
 ---
 * `gemini-3.1-pro-preview`
@@ -312,12 +312,12 @@ remains available through the API until further notice.
 ---
 * `gemini-3.1-flash-live-preview`
 * March 11, 2026
-* November 17, 2026
+* No shutdown date announced
 * `gemini-3.8-live`
 ---
 * `gemini-2.5-flash-native-audio-preview-12-2025`
 * December 12, 2025
-* November 17, 2026
+* March 31, 2027
 * `gemini-3.8-live`
 {% /table %}
 ### Deprecated models {% id="live-api-deprecated-models" %}
@@ -358,12 +358,12 @@ remains available through the API until further notice.
 ---
 * `gemini-2.5-flash-preview-tts`
 * May 20, 2025
-* November 17, 2026
+* December 18, 2026
 * `gemini-3.8-flash-tts` or `gemini-3.8-flash-lite-tts`
 ---
 * `gemini-2.5-pro-preview-tts`
 * May 20, 2025
-* November 17, 2026
+* December 18, 2026
 * `gemini-3.8-flash-tts` or `gemini-3.8-flash-lite-tts`
 {% /table %}
 ## Embedding models {% id="embedding-models" %}

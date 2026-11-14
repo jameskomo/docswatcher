@@ -65,6 +65,7 @@ Home /
 Developer resources
 Changelog
 Keep track of changes and upgrades to the Stripe API.
+Planning an API version upgrade? Learn how to upgrade your integration .
 Ask about this page
 Copy for LLM
 View as Markdown

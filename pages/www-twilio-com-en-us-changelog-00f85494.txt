@@ -487,6 +487,32 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Nov 13, 2026
+Beta
+Branded Calling
+US Branded Calling: Now Supporting All Three Major US Carriers enters Private Beta
+Twilio US Branded Calling launches the support of brand display across T-Mobile, Verizon, and AT&T through a single registration. Register a brand once, and it’s automatically provisioned across all three major US carriers. This new registration path is now available in Private Beta.
+Learn more
+Nov 13, 2026
+GA
+Conversation Relay
+Voice API
+General Availability: Smart Turn Detection for Conversation Relay
+Eliminate unnatural mid-sentence AI interruptions with the General Availability of Smart Turn Detection for Conversation Relay . Our new in-house, semantics-aware model evaluates speech meaning in real time to accurately detect when a caller has actually finished speaking, replacing rigid silence timers for a much more natural conversational experience .
+Learn more
+Nov 13, 2026
+Messaging
+New error codes for A2P 10DLC campaign rejections
+Starting December 9, 2026, Twilio plans to introduce more specific error codes for US A2P 10DLC campaign registration rejections. These codes will provide more detailed feedback about campaign descriptions, opt-in methods, and Privacy Policy and Terms and Conditions pages, helping you identify what needs attention in your registration.
+Learn more
+Nov 13, 2026
+Messaging
+Programmable Messaging API
+Beta
+Apple Business Invitations in Apple Messages for Business Private Beta
+Brands can now proactively initiate trusted conversations and capture customer opt-ins directly within the native Messages app with Apple Business Invitations, available in the Twilio Apple Messages for Business (AMB) private beta. Brands can use these short invitation templates to deliver ongoing service messages—such as order updates, account alerts, and support replies—for up to one year following a customer's last interaction. Business Invites feature requires additional approval from Apple.
+To learn more and request access to the beta, visit Twilio's Apple Messages for Business product page .
+Learn more
 Nov 12, 2026
 Twilio Email
 SendGrid Email API
@@ -529,31 +555,6 @@ Messaging
 GA
 Filter your Twilio Health Score by Messaging Channel
 You can now filter your Twilio Health Score for Messaging by channel. Get deeper insight into channel-specific performance for SMS, MMS, RCS, WhatsApp, Apple Messages for Business, and Facebook Messenger, so you can track and proactively troubleshoot across channels.
-Learn more
-Nov 04, 2026
-Beta
-Twilio Data Destinations is now in Private Beta
-Learn more
-Nov 04, 2026
-Verify
-Event Streams
-Verify Events is now GA
-Changes:
-GA release with all fixes for beta customer-reported bugs, no new functionality was introduced.
-Attempt DLR Event type was deprecated as part of this release on September 21, 2026. The same deprecation also covered stopping the DLR status updates in Verify Events. See the changelog announcement.
-Learn more
-Oct 28, 2026
-Voice API
-Conversations API
-GA
-Conversation Relay
-Conversation Relay: Dynamic Configuration, Application Reconnect, Echo Filtering, and ElevenLabs v4 Support
-Twilio Conversation Relay now includes General Availability (GA) support for dynamic mid-call configuration, WebSocket application reconnect, agent echo prompt filtering, and ElevenLabs v4 Turbo text-to-speech models.
-Learn more
-Oct 20, 2026
-Voice API
-The Voice Recording Account Default Configuration is now Generally Available in us1
-The Voice Recording Account Default Configuration is a new API that enables customers to set and manage default call recording settings for your account. Now Generally Available in us1.
 Learn more
 Loading
 Error: Unable to load changelog

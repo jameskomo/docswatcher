@@ -833,8 +833,8 @@ GA
 claude-opus-4-5
 1
 GA
-2026-11-24
-—
+2027-02-22
+claude-opus-5-5
 claude-opus-4-1
 —
 Retired
@@ -843,13 +843,13 @@ claude-opus-5
 claude-haiku-4-5
 1
 GA
-2026-11-15
-—
+2027-02-22
+claude-haiku-5-5
 claude-haiku-4-5
 2
 GA
-2026-11-15
-—
+2027-02-22
+claude-haiku-5-5
 claude-fable-5-1
 1
 Preview
@@ -993,7 +993,7 @@ Codestral-2501
 2
 GA
 2027-02-15
-—
+mistral-large-4-latest
 Ministral-3B
 1
 GA

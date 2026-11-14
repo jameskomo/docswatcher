@@ -6,6 +6,8 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Org-level admin.users.setRegular API method calls now remove Workspace Owner roles
+Release: Slack CLI v4.14.0
 Work Objects embeds require the slack-mcps.com frame ancestor
 Release: Slack CLI v4.13.0
 Release: Slack Skills Plugin v1.7.0
@@ -259,9 +261,33 @@ Subscribe to the changelog!
 Get real-time notifications about new features, improvements, and bug fixes directly in your preferred feed reader.
 RSS (opens in new tab)
 Atom (opens in new tab)
+Org-level admin.users.setRegular API method calls now remove Workspace Owner roles
+November 13, 2026
+When team_id is an org ID, the admin.users.setAdmin and admin.users.setOwner API methods make the user a Workspace Owner on every workspace they belong to. Until now, the admin.users.setRegular API method with an org ID as team_id didn't reverse that, so a demoted org admin or owner kept their Workspace Owner roles.
+We've updated the admin.users.setRegular API method to match demotion in the admin dashboard. Calling the method with an org ID as team_id sets the user to a regular user on every workspace in the org where they're a Workspace Owner.
+Tags:
+Announcement
+Read more
+Release: Slack CLI v4.14.0
+November 13, 2026
+You can now search and read the Slack developer docs without leaving the CLI, pass tokens on standard input, and more:
+We've updated the slack docs commands so you can search and read the Slack developer docs without leaving the terminal:
+We've added the slack docs get <page> command, which prints a Slack developer docs page as markdown, returns it as JSON with --output=json , or opens it in a browser with the --output=browser flag.
+We've updated the slack docs search command so that, when a coding agent runs it, text results link to the markdown version of each page. The agent can read the page without parsing HTML.
+We've added the --hide-pinned flag to the slack docs search command, which leaves out the pages docs.slack.dev pins to the top of some searches.
+We've updated the help text for the slack docs command to lead with searching the docs, and the slack --help output now shows a slack docs search example.
+We've updated how the CLI handles tokens:
+The --token flag now reads the token from standard input when its value is - , which keeps tokens out of shell history and process listings. This works for both the global --token flag and the slack auth login command.
+We've added the SLACK_USER_TOKEN environment variable for hook processes, alongside the SLACK_APP_TOKEN and SLACK_BOT_TOKEN variables. It's set when you install an app that requests user scopes with the slack run , slack install , or slack deploy command.
+We've added the --environment flag to the slack init command to choose whether an existing app added during init is saved as local or deployed , matching the slack app link command.
+We've added the features.app_home.agent_tasks_enabled manifest property, so apps managed with the CLI can turn off the agent Tasks tab.
+We've updated the confirmation prompts that --force already skips to suggest the --force flag when the CLI can't prompt in a non-interactive terminal. An explicit --force=false flag now answers "no" to these prompts instead of prompting.
+Tags:
+Release
+Slack CLI
 Work Objects embeds require the slack-mcps.com frame ancestor
 November 6, 2026
-Your Work Objects embed pages must now allow https://*.slack-mcps.com in their Content-Security-Policy frame-ancestors directive. Before, this origin was described as needed only for mobile clients. Embeds fail to load if any of the three required origins is missing.
+If your Work Objects embed pages send a Content-Security-Policy header with a frame-ancestors directive, the directive must now allow https://*.slack-mcps.com . Before, this origin was described as needed only for mobile clients. Embeds fail to load if the directive is missing any of the three required origins.
 To load embeds on Slack mobile clients, also allow https://slack-mcps-host.com :
 Content-Security-Policy: frame-ancestors https://*.slack.com https://*.slack-gov.com https://*.slack-mcps.com https://slack-mcps-host.com
 See required configurations for details.

@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "lastRun": "2026-11-13",
+  "lastRun": "2026-11-14",
   "urls": {
     "https://ai.google.dev/gemini-api/docs/deprecations": {
-      "hash": "a4e666de4f7e0290fdcb0b79024a14022b80e41507c70f9ecd8ed93a01426ffd",
-      "fetched": "2026-11-13",
+      "hash": "4d651cd81598bc92ee771d02df0a5233e096df86f0bda2d165b40ba04b7793b7",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -12,7 +12,7 @@
     },
     "https://aws.amazon.com/blogs/developer/": {
       "hash": "67b7d09ad8e92aae886ea43977c7010115d91c72915ce4c75f4617fb3230a184",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -20,7 +20,7 @@
     },
     "https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-go-v1-on-july-31-2025/": {
       "hash": "f4de41dead6b75acbb36b70af3ec1646493ab682fe05f1395cd6ebbef29ea29e",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -28,7 +28,7 @@
     },
     "https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-java-v1-x-on-december-31-2025/": {
       "hash": "dc22e7ef406e8545ec761d52f5918ce4d96b0ca5d9f225bf5895a4bf6c5a838d",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -36,7 +36,7 @@
     },
     "https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-javascript-v2/": {
       "hash": "c667076691d017b04d80fa2c88e89c4f375af632c241a1652108b4de8858faa5",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -44,7 +44,7 @@
     },
     "https://dev.twitch.tv/docs/api/reference/": {
       "hash": "3101f93fbcd78733de48b03eb814c889ec1401b5ad2e2861448b8f84dcde11e5",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -52,7 +52,7 @@
     },
     "https://dev.twitch.tv/docs/change-log/": {
       "hash": "c008530f733fbcce01f8cce28c19ae42f829b385568b1f42a622d442f666e35b",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -62,30 +62,30 @@
       "hash": "cf4ba4006d51eef130c781cbe48af1cf07cb144e2ca8d4787be256001fd9c4f7",
       "fetched": "2026-11-10",
       "status": 200,
-      "failures": 3,
+      "failures": 4,
       "readable": true,
       "unreadableReported": false,
       "lastError": "HTTP 404",
-      "lastTried": "2026-11-13"
+      "lastTried": "2026-11-14"
     },
     "https://devcommunity.x.com/t/deprecating-the-v1-1-media-upload-endpoints/238196": {
-      "failures": 51,
+      "failures": 52,
       "lastError": "HTTP 403",
-      "lastTried": "2026-11-13"
+      "lastTried": "2026-11-14"
     },
     "https://devcommunity.x.com/t/deprecation-of-account-activity-replay-endpoint/260354": {
-      "failures": 51,
+      "failures": 52,
       "lastError": "HTTP 403",
-      "lastTried": "2026-11-13"
+      "lastTried": "2026-11-14"
     },
     "https://devcommunity.x.com/t/media-upload-endpoints-update-and-extended-migration-deadline/241818": {
-      "failures": 51,
+      "failures": 52,
       "lastError": "HTTP 403",
-      "lastTried": "2026-11-13"
+      "lastTried": "2026-11-14"
     },
     "https://developer.paypal.com/api/deprecated/invoicing/v1": {
       "hash": "c03e973db03d50338052f948b2214e60690f161c8c4e87f003eaa5195ff80da5",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -93,7 +93,7 @@
     },
     "https://developer.paypal.com/api/deprecated/partner-referrals/v1": {
       "hash": "48a12ab2f38d34de0f537ffd7466fdbd8cde568ffe419cad87e57f7db19d42ef",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -101,7 +101,7 @@
     },
     "https://developer.paypal.com/api/deprecated/payments.billing-agreements/v1": {
       "hash": "2b3e8c23682b492bb45fe9b7a77ec64816880f784a70b4bbc6d450167f618528",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -109,7 +109,7 @@
     },
     "https://developer.paypal.com/api/deprecated/payments.billing-plans/v1": {
       "hash": "f22411d404f598e1d135c788f5ab6f10062222f931d55a3ffb079b5692e81170",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -117,15 +117,15 @@
     },
     "https://developer.paypal.com/api/deprecated/payments/v1": {
       "hash": "c8aafb32c3fc2e6fedfe4c6c70413d1f7a00600b873e5a803c64abfeb3a3c625",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://developer.paypal.com/api/rest/deprecated-resources/": {
-      "hash": "7cb2f4fce6db94ef80f0f1342d11380f4bdda011e74e4d1d8333393c7481bee6",
-      "fetched": "2026-11-13",
+      "hash": "a6c7110864e5e0ab3eaf235257e3d99f01c30deaf626627b2b8aa63abda925d9",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -133,7 +133,7 @@
     },
     "https://developer.paypal.com/community/blog/navigating-paypal-server-sdks/": {
       "hash": "c9976fa56e688b28f9bae17cab4dfe64f6382c138ffd8ec1ad775533cfffe501",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -141,7 +141,7 @@
     },
     "https://developer.paypal.com/v4-v6": {
       "hash": "8e9e254e3cbbb49ca9db6fd87c57dcf30fcc016a2168d84320c3989aa759cd5e",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -149,7 +149,7 @@
     },
     "https://developer.squareup.com/docs/changelog/connect": {
       "hash": "d029aabeca5cf25738821ad2999356ba6b808ee3562271d6b59df17ff9b82f21",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -157,7 +157,7 @@
     },
     "https://developer.squareup.com/docs/changelog/connect-logs/2023-07-06": {
       "hash": "23066569f060e9cb8c8e5e5e27d0262da416df5f886647cdf261b5921bac3f3b",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -165,7 +165,7 @@
     },
     "https://developer.squareup.com/docs/changelog/connect-logs/2024-04-17": {
       "hash": "8ad743d35a4b6cf535d60570ba090f35b0bffbd9b0e9534f5c37be1f6a822920",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -173,7 +173,7 @@
     },
     "https://developer.squareup.com/docs/changelog/connect-logs/2025-05-21": {
       "hash": "03374f07d068b4666c792d79522e3f8971cfb728a51e057b78038bdf748b7d41",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -181,7 +181,7 @@
     },
     "https://developer.squareup.com/docs/changelog/connect-logs/2026-09-16": {
       "hash": "8f6b96e7bb6cade21b64b4fbf8bbde5808a95ce8c8c294cf6d0261ee2ba1b5b2",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -189,7 +189,7 @@
     },
     "https://developer.squareup.com/docs/labor-api/what-it-does": {
       "hash": "870038e06eaedd14761029afab2ecca12512eb7129280ef2ba303aa01ff7ecaa",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -197,7 +197,7 @@
     },
     "https://developer.squareup.com/docs/migrate-from-v1": {
       "hash": "f4af47e162b4ab631df2b1911f2f660f40d4ac7609a1fe2c81e7caa67691cc63",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -205,7 +205,7 @@
     },
     "https://developer.squareup.com/docs/migrate-from-v1/guides/v1-payments": {
       "hash": "9e4526ba46ed35312465f233364504bdec31a145335742fd0385bce76c9d5369",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -213,7 +213,7 @@
     },
     "https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens": {
       "hash": "5684e259533ff4789f271034c9b7009f543428de3e0eb6eea48059b0382152ec",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -221,7 +221,7 @@
     },
     "https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api": {
       "hash": "2724cb459db299c5354adf5bff7a0aee43741abd65538c9979b2dd7deffcd9d3",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -229,7 +229,7 @@
     },
     "https://developers.facebook.com/docs/graph-api/changelog/version26.0": {
       "hash": "e36fd66d901d1d35fe03796de75126a1b566800e32ea55468ea3808b9304fb42",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -237,7 +237,7 @@
     },
     "https://developers.facebook.com/docs/graph-api/changelog/versions/": {
       "hash": "93df1f0ddec9259d442148838af6f2fecf1794d645ebf17f45ad1c1555d6d747",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -245,7 +245,7 @@
     },
     "https://developers.facebook.com/docs/graph-api/guides/versioning": {
       "hash": "17e7726d292656e85bcf26b0dd21f6001781512ab47173de2881f35fbbccc1b6",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -253,7 +253,7 @@
     },
     "https://developers.facebook.com/docs/marketing-api/marketing-api-changelog/versions": {
       "hash": "01c6dad18698339812e0f5bb9a72d20d88855c4a464d3b1a737633b7b1374630",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -261,7 +261,7 @@
     },
     "https://developers.google.com/gdata/docs/directory": {
       "hash": "579f95e9c04476af159324d29343eb52375bfdecda4f71bc8e61b528d347858d",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -269,7 +269,7 @@
     },
     "https://developers.google.com/maps/deprecations": {
       "hash": "8f11da54d95da0d73d3be9f4d42ca3f3b6e32efa8bd38b34f40eefc76f114b48",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -277,7 +277,7 @@
     },
     "https://developers.google.com/maps/documentation/javascript/releases": {
       "hash": "0b62383f74bbc76198070373949497141567df8528211d6f110af3ec15e67393",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -285,7 +285,7 @@
     },
     "https://developers.google.com/maps/legacy": {
       "hash": "4e41c70adb4e155bd3d2b639e5a41ea57de959ef5f5c5992a92041a3757ad855",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -293,7 +293,7 @@
     },
     "https://developers.google.com/youtube/v3/revision_history": {
       "hash": "21e2fc40b6e28021da92eed90c746a5e1677972734a70fa7b788bb38dc6dd480",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -301,7 +301,7 @@
     },
     "https://developers.hubspot.com/changelog": {
       "hash": "4b090308e2ea19aa087f5a2bc30125126d576a996b3f1ca9b27b2578213ad16c",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -309,7 +309,7 @@
     },
     "https://developers.hubspot.com/changelog/deprecating-support-for-hubspot-v4-apis": {
       "hash": "25c16ce682a21f146254b9ce6a0b39d503f033d5021bc74906941daf0e007558",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -317,7 +317,7 @@
     },
     "https://developers.hubspot.com/changelog/extension-contact-lists-api-v1-sunset-moved-to-april-30-2026": {
       "hash": "27d6d0106882da4d241629a991d706804189a793640e1a4b06068a4ecd3058c6",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -325,7 +325,7 @@
     },
     "https://developers.hubspot.com/changelog/legacy-apis-and-legacy-apps-whats-going-unsupported-and-when": {
       "hash": "1a1a178523cdd7ce8844e66d2da69c7afd2cf5b6408f44bd9d1e53eb2172f2af",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -333,7 +333,7 @@
     },
     "https://developers.hubspot.com/changelog/pipelines-api-v1-sunset": {
       "hash": "df64726d965afc092998fd0341ae36bdbfedab5286ed12e893eb11147b979e5a",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -341,7 +341,7 @@
     },
     "https://developers.hubspot.com/docs/api-reference/deprecated-apis": {
       "hash": "d1345302872e11bfb2da3d2cf1578ed7e822d8dcd4b3031ba0d3a04f86cb7257",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -349,7 +349,7 @@
     },
     "https://developers.openai.com/api/docs/deprecations": {
       "hash": "79b5168adfa037a123082f7544d5d23f8643a4ac867df7388880f843ca0859e8",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -357,63 +357,63 @@
     },
     "https://discuss.dev.twitch.com/t/adding-customizable-tags-to-the-twitch-api/42921": {
       "hash": "de8b24c1fe35605ad8bf29ad6af1c4796842a0c3f21745012dd7650bf104c20d",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/deprecation-of-twitch-api-event-endpoints-that-supported-websub-based-webhooks/35137": {
-      "hash": "f0735bb920d07bedcd09851255593931f14da91c2b36191035d59dc60445191a",
-      "fetched": "2026-11-13",
+      "hash": "f7525ca506703d919fbd04e0a0f8a85f2dbbd3c7a07945367cdc339e97fb80a3",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/deprecation-of-websub-based-webhooks/32152": {
-      "hash": "9bc1743f58fe3929613c63a287ee2edb69132ae6f0b3560cd397bfd2dc2ef844",
-      "fetched": "2026-11-13",
+      "hash": "81cfb21b64240a1d4a9f17a3318d684eb9449d006334471e265d34f7e6d0374d",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/follows-endpoints-and-eventsub-subscription-type-are-now-available-in-open-beta/43322": {
-      "hash": "d37561e45c21589c05de9acf6f0ee056f5151fc8dcfef3902bb230d37dd6c7eb",
-      "fetched": "2026-11-13",
+      "hash": "2a815c49929a329504b9bb04c3a3bbc0c8ad0f5a751e4746e72266ea31ced524",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/legacy-badges-endpoint-shutdown-details-and-timeline-june-2023/44621": {
-      "hash": "a7419108c2b5b69c15045bbdafe60a49988614418b8471f34d9c5c0286628d42",
-      "fetched": "2026-11-13",
+      "hash": "74b824ca209a3cf3ece544b72814a9af566153c0e360e50410b89e424520fff6",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/legacy-chatters-endpoint-shutdown-details-and-timeline-april-2023/43161": {
-      "hash": "d4a1ed7b9ad531daaa80c6446f905b7617f10a0f0a94e082d377a3adc7059d99",
-      "fetched": "2026-11-13",
+      "hash": "f3ca94e074c359267989f66a36f7e0932ef075467e3e9bc1f3bbe249a72e0116",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/legacy-follows-api-and-eventsub-shutdown-timeline-updated/46769": {
-      "hash": "f3e70da453138a0df9961e07e65d0b2c32c5a37e12dd41d0d0917835723fabe6",
-      "fetched": "2026-11-13",
+      "hash": "430728793e8273e6c6f976c24df91f044ec24385c9eedff29dfc98f69d87a3a8",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/legacy-get-hype-train-events-api-and-eventsub-hype-train-v1-subscription-types-deprecation-and-withdrawal-timeline/64299": {
-      "hash": "894b62b0be39f8c292cd2eb0aa6ee84edf5db2834283dc4e17affff40b827927",
-      "fetched": "2026-11-13",
+      "hash": "78d3f85a6535fcb92333e7fbf97403c81473a3a250b69e4570b0e03faf477818",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -421,7 +421,7 @@
     },
     "https://discuss.dev.twitch.com/t/legacy-pubsub-deprecation-and-shutdown-timeline/58043": {
       "hash": "763b158b3346d27163ad0abf13b53b20204e39d718fe112722515e0f049e526f",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -429,15 +429,15 @@
     },
     "https://discuss.dev.twitch.com/t/legacy-twitch-api-v5-shutdown-details-and-timeline/32649": {
       "hash": "047024db2e4c647ad06f2a9e6d0a4046ad4ce2104601dfbc4155180e5bda6fed",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/withdrawal-of-twitch-api-endpoints-for-soundtrack/46021": {
-      "hash": "9662516d89708f064a176e3538a4a8dd11d0f1320b46b68ab419bbf4172edb0a",
-      "fetched": "2026-11-13",
+      "hash": "38a1fb756ab7b224c203bff4cd560b6102b6600c290a23a1c4af833fb3561112",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -445,7 +445,7 @@
     },
     "https://docs-v2.paystack.com/docs/changelog/api/": {
       "hash": "2e7d46a44850eee3a1121be3b6d67426ba17cd0fc30b1c05692a2286979a11de",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -453,7 +453,7 @@
     },
     "https://docs.cohere.com/changelog/2025-09-15-major-command-deprecations": {
       "hash": "93a6aadc4fc8a1b3f7c3631b0531a6e8eb4b6f76cb65db7c81fcf8a020f6bccf",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -461,7 +461,7 @@
     },
     "https://docs.cohere.com/changelog/2026-04-04-embed-v2-aya-8b-retirement": {
       "hash": "fcc920432206b7db6ee345069d5054fb7ce0264e3b510160ef17c867bdb8ce67",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -469,23 +469,23 @@
     },
     "https://docs.cohere.com/docs/deprecations": {
       "hash": "2702b7221d547a9182fe9a4843feeb1982d4f22e12152756e60780d1d96445fb",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://docs.discord.com/developers/change-log": {
-      "hash": "eef4364aab631d99d3ee9d2beff19f95073ee25a60333db1dae56a224b0fa16b",
-      "fetched": "2026-11-13",
+      "hash": "9c0d78f24315391d6a4471e002289fe50423448ce67fa52253514073f3ff5730",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://docs.discord.com/developers/reference": {
-      "hash": "d780889ee38033604e31535d02818619857e2cd72bbf7c8449713b305292c7cf",
-      "fetched": "2026-11-13",
+      "hash": "dfae2743e0707cca59552b340fda6903fe87b510990bf6e86e46464d4227d548",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -493,7 +493,7 @@
     },
     "https://docs.github.com/en/rest/about-the-rest-api/api-versions": {
       "hash": "c7ab22f345c6ec5c59b4ddd9dd879f925a31735e99d185e56fbcaae702ce0de5",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -501,7 +501,7 @@
     },
     "https://docs.github.com/en/rest/about-the-rest-api/breaking-changes": {
       "hash": "0869099b1b478a28aaba853a86ece431ef1fac9063b4a79a7bc44fa630326177",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -509,7 +509,7 @@
     },
     "https://docs.mistral.ai/inference/model-lifecycle": {
       "hash": "17e4bc46a22d2aec99ef1f08ee912a54d246a90d615d30f0b59bc223eb5f236b",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -517,7 +517,7 @@
     },
     "https://docs.mistral.ai/models": {
       "hash": "5838b335ebef14e3322e634c346c4ceb5a8d6e10ad5cbe9ba66ec6609c927932",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -525,7 +525,7 @@
     },
     "https://docs.mistral.ai/openapi.yaml": {
       "hash": "64cb5da04c993bbdc2f89a3c929e3d598d8e953a4858c44b05e2a54b403cc604",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -533,31 +533,31 @@
     },
     "https://docs.mistral.ai/resources/changelogs": {
       "hash": "55ad90eb929d720fee857569477e24504deceb60f6f3caf6c9720d9115c1cba6",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://docs.slack.dev/changelog": {
-      "hash": "e5ebe2935db74e7b9472a97216b25b66d8ba0c0ab34779ebc1f5b0d2066a2f96",
-      "fetched": "2026-11-13",
+      "hash": "78dbe997e9bdc0dc01fc8dfab34e52e79124f397eac69dc4fcd2de2b48fc4271",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://docs.slack.dev/changelog/2024-09-legacy-custom-bots-classic-apps-deprecation/": {
-      "hash": "bcefe45daefa9c7f383a854cbe9c78937f837f068888922c4cf8d9197cba196e",
-      "fetched": "2026-11-13",
+      "hash": "a5e76166c05da9ad6e6600143c53a411a4d8582360d5c5213a52c7e94501a0b7",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://docs.slack.dev/changelog/2025/03/17/files-upload-extension/": {
-      "hash": "3f1581142a68aa19be4fafaacc941ef6b945b055490fa982a3933176da6f5195",
-      "fetched": "2026-11-13",
+      "hash": "afb7021fb3423f77290aec6b99fe6343c48f2b01524c8d2b2294bd102470cf81",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -565,7 +565,7 @@
     },
     "https://docs.slack.dev/legacy/legacy-rtm-api": {
       "hash": "296d8f019dee99b92c83e546f9aefca6bbaa1ef0739931eb1d970e349fbfd5a6",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -573,15 +573,15 @@
     },
     "https://docs.slack.dev/reference/methods/files.upload": {
       "hash": "19aed1e1a1365078d331a53f35613176f732d9c97f0d3b8e562a72b3a033c043",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://docs.stripe.com/changelog": {
-      "hash": "0538a1c9cdd78e6943744a80d44b9c2e96e1d77b7ee9ea278e9b9e363df61eaa",
-      "fetched": "2026-11-13",
+      "hash": "fff18c0c4f77a4584e7d2cd91499f49cfb9177f39bc8b560086b3b393081e09f",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -589,7 +589,7 @@
     },
     "https://docs.stripe.com/sources": {
       "hash": "490d1ae2441199cc0f7da13d425b873d1577a10d22fa334273dcf5edb935acc4",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -597,7 +597,7 @@
     },
     "https://docs.x.com/changelog": {
       "hash": "fb0a558aaa2b12dfb8bed2704880e1c93c65b3a6dcfaef131c96f9abfe3fadfa",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -605,7 +605,7 @@
     },
     "https://docs.x.com/x-api/migrate/x-api-endpoint-map": {
       "hash": "d0681e8831026e9da98ec81274f715ffcc96400e5f062afb3701daefc40e6c0e",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -613,7 +613,7 @@
     },
     "https://docs.x.com/x-api/posts/search/migrate/overview": {
       "hash": "64a969651e8741effbcc493709470cfddd4b10063a84d017d2b4c82bfe58675d",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -621,7 +621,7 @@
     },
     "https://firebase.google.com/support/dynamic-links-faq": {
       "hash": "fad16e9b324745bc48e35c7b7439da1e1c572f11977442528e7be575ef46aae5",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -629,7 +629,7 @@
     },
     "https://firebase.google.com/support/release-notes/admin/node": {
       "hash": "fb7a2e7fa58a765cea72c7c651d551fd666c09d5767a2702fb5754ac8fa95851",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -637,7 +637,7 @@
     },
     "https://firebase.google.com/support/release-notes/admin/python": {
       "hash": "fe3f158f51fe75397682a93502198a3a5adad90ec6785adf17202c412d98db73",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -645,7 +645,7 @@
     },
     "https://firebase.google.com/support/release-notes/android": {
       "hash": "fe1db6bdf74d47209f726f945943689b1c900bdbbad572497d060f58d85f87f8",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -653,15 +653,15 @@
     },
     "https://firebase.google.com/support/release-notes/ios": {
       "hash": "3c31388c3b5c145883bc3600771edaa02f9c10187aea760ab27823992b6f2c5f",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://firebase.google.com/support/releases": {
-      "hash": "284c6982ca6592d4e5336bb9ee7f4595f3eea68a28a84e2a3af915fefa940615",
-      "fetched": "2026-11-13",
+      "hash": "bc98281a6a64ef550ede1a70c51dc0c6b3b161861a20ac7a2c9476e1cfd2a9ce",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -669,15 +669,15 @@
     },
     "https://github.blog/changelog/2023-03-10-changes-to-the-code-search-api/": {
       "hash": "a2f6be4410697f6fb5c6af4f1bb8e7d444a6a2568c8fdd007c103e44fe14c2ea",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/openai/azure-ai-openai": {
-      "hash": "9db796a90f23b0a28abd22bbff2675350a950ed75b83632c0ddf48af225811c3",
-      "fetched": "2026-11-13",
+      "hash": "b07c340b40cefb070244b41a33103e75623a385a66957a6372615e365de1b08d",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -685,7 +685,7 @@
     },
     "https://github.com/PaystackHQ/openapi/blob/main/main/resources/transaction/check-authorization.yaml": {
       "hash": "ae8c5a2d5354f0785a4b4f3d3ae21189bec1306b23905ec632c4949e64934664",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -693,15 +693,15 @@
     },
     "https://github.com/square/connect-api-specification/blob/dda6f5bbbaebe9e1c9b851bdd28114de62390209/api.json": {
       "hash": "efcd217365f1d86ff67057cae087f50ac006a3a58498b9fe0aae39439d02e69b",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://groups.google.com/g/firebase-talk/c/LgY3wx6ehS4": {
-      "hash": "b784be1ab006d47c824572a4f7cf5dd79daac6f55d675cc5932970fdd2f07a17",
-      "fetched": "2026-11-13",
+      "hash": "c11f9c9f8ec4b3228f2fdb176ad96d4622d75f4aa5b2cd8d44915b794f65ce2d",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -709,7 +709,7 @@
     },
     "https://help.salesforce.com/s/articleView?id=000389618&language=en_US&type=1": {
       "hash": "c0734e1393e96923cca27077b376667590d190c449324d63625c17bc8d8b5937",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": false,
@@ -717,15 +717,15 @@
     },
     "https://help.salesforce.com/s/articleView?id=005132110&language=en_US&type=1": {
       "hash": "c0734e1393e96923cca27077b376667590d190c449324d63625c17bc8d8b5937",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": false,
       "unreadableReported": true
     },
     "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule": {
-      "hash": "35e5468152a7aa3fe65c5962c103bd5bf9b92b2c18abe5b820ced15c9d2176ac",
-      "fetched": "2026-11-13",
+      "hash": "c12cf339e0e26a57e2007612dc9e667fd9d7e2f3cc7cab34ef15ff03e114743f",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -733,7 +733,7 @@
     },
     "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirements": {
       "hash": "49ef46c44cb0e1319d723d5759baad5eec8239c6278c98c71eec0c43c833fdaf",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -741,7 +741,7 @@
     },
     "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/retired-models": {
       "hash": "7a0e6f02f2d1e7789f562f967f2496ee90c28ca180d288de3d3a801b583215de",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -749,7 +749,7 @@
     },
     "https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/realtime-audio-preview-api-migration-guide": {
       "hash": "671eb061f2d56cbc22a86964b631f6b12eb0b39344469d62a3b82db171726480",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -757,7 +757,7 @@
     },
     "https://learn.microsoft.com/en-us/linkedin/marketing/integrations/archived-recent-changes/2023/marketing-api-changes": {
       "hash": "93279af50f46eae0ce53992aa574502e337bb514b26403dfd1bc69e19434c965",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -765,7 +765,7 @@
     },
     "https://learn.microsoft.com/en-us/linkedin/marketing/integrations/migrations": {
       "hash": "6ef9fff4671f044637a4c9ac5c6234bec11301526fcfd1ae8aa78c3b75c1e55f",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -773,7 +773,7 @@
     },
     "https://learn.microsoft.com/en-us/linkedin/marketing/integrations/recent-changes": {
       "hash": "f2133858b6f275cd634470ff9362a832cd0db78f84d66b9dc42d13a2b2863361",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -781,7 +781,7 @@
     },
     "https://learn.microsoft.com/en-us/linkedin/marketing/lead-sync/lead-sync-api-migration-guide": {
       "hash": "52508a4626a833fd96ada23d8df75340969fd41d7d420d3db2895796cdf777c1",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -789,7 +789,7 @@
     },
     "https://learn.microsoft.com/en-us/linkedin/marketing/versioning": {
       "hash": "0e2136587ccadd357e834757f408d251e3fbe1df3f0a4cd0dbb51c5c610bfb3b",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -797,7 +797,7 @@
     },
     "https://learn.microsoft.com/en-us/previous-versions/azure/foundry-classic/openai/how-to/assistant": {
       "hash": "b52ec26963d7a455e43ed5e9207dd97382754d88e12e3301d832afe9b849f0eb",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -805,20 +805,20 @@
     },
     "https://mailchimp.com/developer/release-notes/": {
       "hash": "4b202a50dc13a6bc6d204f7fbf7a55b2ab1cd93ce9214a954bc572c5514f8449",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://paystack.com/docs/changelog/api": {
-      "failures": 51,
+      "failures": 52,
       "lastError": "HTTP 403",
-      "lastTried": "2026-11-13"
+      "lastTried": "2026-11-14"
     },
     "https://platform.claude.com/docs/en/about-claude/model-deprecations": {
       "hash": "5ef8327e01316cdd9f03829975439f37a316f31a2ba68e51a14bba413d5b69ba",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -826,76 +826,76 @@
     },
     "https://registry.npmjs.org/@paypal/checkout-server-sdk": {
       "hash": "3deae544fdef572013dd13f64a5411dc25364cf1787d846f0093c0436fa21e63",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://shopify.dev/changelog": {
-      "hash": "310b1ecd2b590cd73f166ed521264416ae91b8a0fa1c51e3db4d0c90fdd20dd2",
-      "fetched": "2026-11-13",
+      "hash": "e6f7a2b7cace4ff7c79fd37a7b73dce4fa430a310cb3ab0693bfb51a44ccb1a3",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/automaticdiscounts-query-is-removed-in-api-version-2027-01": {
-      "hash": "e06ae6ebd5a00b6329600b2fb5b4d24c114f610dcd1c361339f82901c9977665",
-      "fetched": "2026-11-13",
+      "hash": "9403a7adc9d900e3355cfae3d99cd2a94c7114c292fd2d08d385e4898a486e4d",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/metafieldinteger-collection-condition-removed-in-api-version-2027-01": {
-      "hash": "c17bbe971ba05beb8d7075d05ab444a469a628e723fa5c185c7976a7f521bfa3",
-      "fetched": "2026-11-13",
+      "hash": "359d0992a633a745a1cdb47056c994865e134520ab396cb96f826a087f453a4b",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/online-store-script-tags-deprecation": {
-      "hash": "579a91833daab9bb7c65334f640b1eb3a98e920f5c1ea99863ff911a085eeca0",
-      "fetched": "2026-11-13",
+      "hash": "98f79be10e06b6594f9428f772029a04f8e25c1c8782b10a5532b6fab3507a99",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/password-protected-shop-dev-flows-on-shopify-theme-cli-v3-83-x-and-older-to-be-deprecated": {
-      "hash": "621a08cf056349337fafbf29d8e1f08dc3d7850730f8e0a758d9af1cedd2768b",
-      "fetched": "2026-11-13",
+      "hash": "34b2c5620d5ed58e6d6e0f4ef660a2820d9a32bd90e02bbb5c0681af1eae33c4",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/removed-session-currentsession-staffmemberid-from-pos-ui-extensions-2026-10": {
-      "hash": "42595e21a87f1b6685291f3ce2f0d538f3ba217f93754dfd4997d705ea7255d8",
-      "fetched": "2026-11-13",
+      "hash": "82c4bdb972e44ee2f74c93595b2ae61b150fbfdf1e4283a2736ce5e74bc69fcf",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/removing-marketcurrencysettingsupdate-mutation": {
-      "hash": "847a6beb672fd9c63a24556591f552e4d73d553feb05ca668a6aed6ca5cc71ef",
-      "fetched": "2026-11-13",
+      "hash": "b5cdf9f0db6f0d5d00c1c39571a3fe3b2fb9d43809b9300fdff02a076fc30c6c",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/setting-includerestofworld-to-true-returns-an-error-in-api-version-2027-01": {
-      "failures": 54,
+      "failures": 55,
       "lastError": "HTTP 404",
-      "lastTried": "2026-11-13"
+      "lastTried": "2026-11-14"
     },
     "https://shopify.dev/docs/api/usage/versioning": {
-      "hash": "03ee1aeaaeb75159ef2644401901d437d5dca45a1dbc8c899cae4636cb6a0147",
-      "fetched": "2026-11-13",
+      "hash": "4f7a905efcd821c37d34c9a13ccd389344b2b60741d1335ea4b3bbc4ad130c40",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -903,7 +903,7 @@
     },
     "https://web.archive.org/web/20260313041804/https://developers.hubspot.com/changelog/reminder-upcoming-sunset-of-v2-owners-api-on-august-30-2024": {
       "hash": "92aa702ce0156d2e147e83d5016fb0c004426eacb6ef77140feee0a1837348ff",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -911,7 +911,7 @@
     },
     "https://web.archive.org/web/20260313044925/https://developers.hubspot.com/changelog/upcoming-sunset-v1-lists-api": {
       "hash": "e81002b8333e8e1f973291fd6d399c73fbb0eba991f3eb927eec8834d46c7951",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -919,15 +919,15 @@
     },
     "https://web.archive.org/web/20260313164639/https://mailchimp.com/developer/release-notes/export-api-1-0-and-api-2-0-no-longer-supported/": {
       "hash": "b461e0361b7006417e55d7fa98d6bd0ecf4b5e2e5826a0ca3eecf12620a177c2",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://web.archive.org/web/20260328113202/https://learn.microsoft.com/en-us/azure/foundry-classic/openai/how-to/assistant": {
-      "hash": "992087ab057ab3a9aa0cf18f4ef952896d71edbfe58483a8cf936fe272317c34",
-      "fetched": "2026-11-13",
+      "hash": "c7c6125bf77f14dda9be47c94a3d839adfab095016bdf5e74a1428c50a50d65b",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -935,7 +935,7 @@
     },
     "https://web.archive.org/web/20260513061138/https://developers.hubspot.com/changelog/final-reminder-sunset-of-v2-owners-api": {
       "hash": "86acfa38842d13def8ba620ba3561ca5b7941f63dc0b638c4f59254320fcc7a7",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -943,15 +943,15 @@
     },
     "https://web.archive.org/web/20260513073931/https://developers.hubspot.com/changelog/upcoming-sunset-hubdb-v1-api-hubdb-v2-api-and-hubdb-javascript-client": {
       "hash": "89c6b390628b426aed70422a974d9fa9430d9fabde0411bdc805157bf9997c83",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://web.archive.org/web/20261003153319/https://mailchimp.com/developer/marketing/docs/fundamentals/": {
-      "hash": "9dd13cecb660e5412e007884926c6fa19ca15c71378fa38cbef2de1707d99a8a",
-      "fetched": "2026-11-13",
+      "hash": "1eedf08f2ef07a430d5f93de287ace2bf82d352cd8febade918c11dac6271992",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -959,7 +959,7 @@
     },
     "https://www.twilio.com/docs/notify/api": {
       "hash": "f69f53a56783643172162d698404110b14ce13fd33e6203df6d8ff2cba293b01",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -967,7 +967,7 @@
     },
     "https://www.twilio.com/docs/sendgrid/for-developers/sending-email/migrating-from-v2-to-v3-mail-send": {
       "hash": "870ca1c2c004c7dcde1e37bd29e036b668c826b26937585eecfc0c10245dd0ad",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -975,15 +975,15 @@
     },
     "https://www.twilio.com/docs/sendgrid/v2-api/mail": {
       "hash": "4952fcb7d3d607f8e93682d78628c3ef30a6ceb72da8b067281a7f33b053d502",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
       "unreadableReported": false
     },
     "https://www.twilio.com/en-us/changelog": {
-      "hash": "fcbc5de1dc5bdb738e2412212466b89e8282bdd579692fdf242a44f44950d610",
-      "fetched": "2026-11-13",
+      "hash": "9965e6f4fce2695b90a8f437fd308d378df7d0ea0da268baeb9b0e3ef180efd4",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -991,7 +991,7 @@
     },
     "https://www.twilio.com/en-us/changelog/notify-api-end-of-life-further-extension-notice": {
       "hash": "07e4592d024863ca171f3b759e3a2d0f4194bc05f0b4706215aa9953bb8a9406",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -999,7 +999,7 @@
     },
     "https://www.twilio.com/en-us/changelog/programmable-chat-in-flex-reaching-end-of-life-on-june-1--2026": {
       "hash": "a14d39feffa1a45af97e8de2a4f68069a532f8e72c3527656623efa94a77c64a",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,
@@ -1007,7 +1007,7 @@
     },
     "https://www.twilio.com/en-us/changelog/segmentation-v1-api-deprecation": {
       "hash": "b2c694dd512ade98b584bbf01f237fbf6a56b31da16992c7d4890d8b4112ee40",
-      "fetched": "2026-11-13",
+      "fetched": "2026-11-14",
       "status": 200,
       "failures": 0,
       "readable": true,

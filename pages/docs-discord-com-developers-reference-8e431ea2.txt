@@ -100,7 +100,6 @@ The Discord API is a REST API that allows you to interact with Discord data from
 Copy page Copy page
 Base URL
 https://discord.com/api
-​
 API Versioning
 Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below for posterity. Trying to use these versions will fail and return 400 Bad Request.
 Discord exposes different versions of our API . You should specify which version to use by including it in the request path like https://discord.com/api/v{version_number} . Omitting the version number from the route will route requests to the current default version (marked below). You can find the change log for the newest API version here .
@@ -124,7 +123,6 @@ Discontinued
 Discontinued
 3
 Discontinued
-​
 Error Messages
 Starting in API v8, we’ve improved error formatting in form error responses. The response will tell you which JSON key contains the error, the error code, and a human readable error message. We will be frequently adding new error messages, so a complete list of errors is not feasible and would be almost instantly out of date. Here are some examples instead:
 Array Error
@@ -179,7 +177,6 @@ Request Error
 }
 ]
 }
-​
 Authentication
 Authenticating with the Discord API can be done in one of three ways:
 Using a bot token found on the Bot page within your app’s settings. For more information on bots see bots vs user accounts .
@@ -192,10 +189,8 @@ Example Bearer Token Authorization Header
 Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw
 Example Basic Token Authorization Header
 Authorization: Basic MTk4NjIyNDgzNDcxOTI1MjQ4OlEzS052N0NSRW5DYS1nS0xMajFEOGV1ZFl1SmZ1Nm96
-​
 Encryption
 All HTTP-layer services and protocols (e.g. HTTP, WebSocket) within the Discord API are using TLS 1.2.
-​
 Snowflakes
 Discord utilizes Twitter’s snowflake format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent’s ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See Gateway ETF/JSON for more information regarding Gateway encoding.
 Snowflake ID Broken Down in Binary
@@ -225,15 +220,12 @@ Increment
 12 bits
 For every ID that is generated on that process, this number is incremented
 snowflake & 0xFFF
-​
 Convert Snowflake to DateTime
-​
 Snowflake IDs in Pagination
 We typically use snowflake IDs in many of our API routes for pagination. The standardized pagination paradigm we utilize is one in which you can specify IDs before and after in combination with limit to retrieve a desired page of results. You will want to refer to the specific endpoint documentation for details.
 It is useful to note that snowflake IDs are just numbers with a timestamp, so when dealing with pagination where you want results from the beginning of time (in Discord Epoch, but 0 works here too) or before/after a specific time you can generate a snowflake ID for that time.
 Generating a snowflake ID from a Timestamp Example
 ( timestamp_ms - DISCORD_EPOCH ) << 22
-​
 ID Serialization
 There are some cases in which our API and Gateway may return IDs in an unexpected format. Internally, Discord stores IDs as integer snowflakes. When we serialize IDs to JSON, we transform bigints into strings. Given that all Discord IDs are snowflakes, you should always expect a string.
 However, there are cases in which passing something to our API will instead return IDs serialized as an integer; this is the case when you send our API or Gateway a value in an id field that is not bigint size. For example, when requesting GUILD_MEMBERS_CHUNK from our gateway:
@@ -255,10 +247,8 @@ members: [],
 guild_id: '308994132968210433'
 }
 You can see in this case that the sent user_id is not a bigint ; therefore, when it is serialized back to JSON by Discord, it is not transformed into a string. This will never happen with IDs that come from Discord. But, this can happen if you send malformed data in your requests.
-​
 ISO8601 Date/Time
 Discord utilizes the ISO8601 format for most Date/Times returned in our models. This format is referred to as type ISO8601 within tables in this documentation.
-​
 Nullable and Optional Resource Fields
 Resource fields that may contain a null value have types that are prefixed with a question mark. Resource fields that are optional have names that are suffixed with a question mark.
 Example Nullable and Optional Fields
@@ -270,38 +260,29 @@ nullable_field
 ?string
 optional_and_nullable_field?
 ?string
-​
 Consistency
 Discord operates at a scale where true consistency is impossible. Because of this, lots of operations in our API and in-between our services are eventually consistent . Due to this, client actions can never be serialized and may be executed in any order (if executed at all). Along with these constraints, events in Discord may:
 Never be sent to a client
 Be sent exactly one time to the client
 Be sent up to N times per client
 Clients should operate on events and results from the API in as much of an idempotent behavior as possible.
-​
 HTTP API
-​
 User Agent
 Clients using the HTTP API must provide a valid User Agent which specifies information about the client library and version in the following format:
 User Agent Example
 User-Agent: DiscordBot ($url, $versionNumber )
 Clients may append more information and metadata to the end of this string as they wish.
 Client requests that do not have a valid User Agent specified may be blocked and return a Cloudflare error .
-​
 Content Type
 Clients using the HTTP API must provide a valid Content-Type header, either application/json , application/x-www-form-urlencoded , or multipart/form-data , except where specified. Failing to do so will result in a 50035 “Invalid form body” error.
-​
 Rate Limiting
 The HTTP API implements a process for limiting and preventing excessive requests in accordance with RFC 6585 . API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform. For more information on rate limiting of requests, please see the Rate Limits section.
-​
 Boolean Query Strings
 Certain endpoints in the API are documented to accept booleans for their query string parameters. While there is no standard system for boolean representation in query string parameters, Discord represents such cases using True , true , or 1 for true and False , false or 0 for false.
-​
 Array Query Strings
 Certain endpoints in the API are documented to accept arrays for their query string parameters. Unless otherwise specified, Discord represents such cases using multiple instances of the same query string parameter. For example, ?id=123&id=456 for ["123", "456"] .
-​
 Gateway (WebSocket) API
 Discord’s Gateway API is used for maintaining persistent, stateful websocket connections between your client and our servers. These connections are used for sending and receiving real-time events your client can use to track and update local state. The Gateway API uses secure websocket connections as specified in RFC 6455 . For information on opening Gateway connections, please see the Gateway API section.
-​
 Message Formatting
 Discord utilizes a subset of markdown for rendering message content on its clients, while also adding some custom functionality to enable things like mentioning users and channels. This functionality uses the following formats:
 Formats
@@ -400,7 +381,6 @@ Server Guide tab
 Linked Roles tab
 <id:linked-roles:id>
 Specific linked role, opening the connection modal on click (the second id is the role id)
-​
 Image Formatting
 Image Base URL
 https://cdn.discordapp.com/
@@ -495,12 +475,10 @@ PNG, JPEG, WebP
 **** In the case of the Sticker endpoint, the sticker will be available as PNG if its format_type is PNG or APNG , GIF if its format_type is GIF , and as Lottie if its format_type is LOTTIE .
 ***** For Custom Emoji, we highly recommend requesting emojis as WebP for maximum performance and compatibility. Emojis can be uploaded as JPEG, PNG, GIF, WebP, and AVIF formats. WebP and AVIF formats must be requested as WebP since they don’t convert well to other formats. The Discord client uses WebP for all emojis displayed in-app. See the Emoji Resource page for more details.
 Sticker GIFs do not use the CDN base URL, and can be accessed at https://media.discordapp.net/stickers/<sticker_id>.gif .
-​
 Image Data
 Image data is a Data URI scheme that supports JPG, GIF, and PNG formats. An example Data URI format is:
 data:image/jpeg;base64,BASE64_ENCODED_JPEG_IMAGE_DATA
 Ensure you use the proper content type ( image/jpeg , image/png , image/gif ) that matches the image data being provided.
-​
 Signed Attachment CDN URLs
 Attachments uploaded to Discord’s CDN (like user and bot-uploaded images) have signed URLs with a preset expiry time. Discord automatically refreshes attachment CDN URLs that appear within the client, so when your app receives a payload with a signed URL (like when you fetch a message ), it will be valid.
 When passing CDN URLs into API fields, like url in an embed image object and avatar_url for webhooks , your app can pass the CDN URL without any parameters as the value and Discord will automatically render and refresh the URL.
@@ -516,13 +494,11 @@ is
 Hex timestamp indicating when the URL was issued
 hm
 Unique signature that remains valid until the URL’s expiration
-​
 Uploading Files
 The file upload size limit applies to each file in a request. The default limit is 20 MiB for all users, but may be higher for users depending on their Nitro status or by the server’s Boost Tier . The attachment_size_limit value provided when working with interactions is calculated as the maximum of these values.
 Endpoints that support file uploads use a multipart/form-data request body. The file field name varies by endpoint and is shown in its parameter table. Non-file parameters can be sent as individual form fields or collectively as JSON in the payload_json form field.
 Some endpoints use files[n] to upload files as attachments. All files[n] parameters must include a valid Content-Disposition subpart header with a filename and unique name parameter. Each file parameter must be uniquely named in the format files[n] such as files[0] , files[1] , or files[42] . The suffixed index n is the snowflake placeholder that can be used in the attachments field, which can be passed to the payload_json parameter (or Callback Data Payloads ).
 Images can also be referenced in embeds using the attachment://filename URL. An example payload is provided below.
-​
 Editing Message Attachments
 The attachments JSON parameter includes all files that will be appended to the message, including new files and their respective snowflake placeholders (referenced above). When making a PATCH request, only files listed in the attachments parameter will be appended to the message. Any previously-added files that aren’t included will be removed.
 The description and is_spoiler fields of existing attachments can optionally be updated.
@@ -586,7 +562,6 @@ For example:
 }
 }]
 }
-​
 File Type Filtering
 You can filter for up to 10 file types in File Upload components and Slash Command Options . Each value must be either one of the group names below, or a dot-prefixed file extension (e.g. .pdf ). Extensions are case-insensitive and are normalized to
 lowercase, so .PDF and .pdf are equivalent.
@@ -604,7 +579,6 @@ video
 audio
 .mp3 , .m4a , .wav , .ogg , .opus , .flac
 Do not hardcode the extension lists above. They match the file types Discord natively supports and are subject to change.
-​
 Locales
 Locale
 Language Name
