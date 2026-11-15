@@ -43,7 +43,7 @@ December 21, 2017
 Get events when moderators or broadcasters ban users
 API
 2
-580
+581
 November 7, 2020
 Follows endpoints and EventSub subscription type are now available in open beta
 Announcements
