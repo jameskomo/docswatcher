@@ -535,6 +535,28 @@ Multiple IP Purchase and IP Overflow Logic
 Customers can now purchase up to 5 dedicated IP addresses on Twilio Email, allowing high volume organizations to streamline and isolate email streams that serve their operational, strategic, and deliverability goals. Customers can segment different types of traffic, manage multiple brands or domains, and scale high volume sending with multiple IP addresses. Fallback options can be configured both on the account and the subaccount level to other IPs on the account or directly to the shared pools (limit of 1M per month).
 To learn more about how to manage your email reputation and IP warmup, see the Twilio Docs .
 Learn more
+Nov 09, 2026
+Segment
+Unify
+Profiles Sync
+Segment Profile Sync Deletions and Null Trait Propagation is GA
+Key Features & Updates
+Automated Profile Deletions (Hard Deletes): Profile Sync Deletions automatically propagates profile deletion requests from Segment to the connected warehouse . This ensures that when a profile is permanently deleted in Segment (such as for a GDPR "Right to be Forgotten" request), all associated data in your Profile Sync tables is permanently removed . This encompasses all identifiers, traits, and events .
+Null Trait Propagation: When specific user traits are cleared or marked as null in Segment, those updates are accurately propagated to the warehouse . Profile Sync writes explicit NULL values to both raw and materialized tables to prevent outdated or stale values from persisting in downstream data .
+Profile Reintroduction Handling: If a previously deleted user returns to a site or app (e.g., after a 90-day inactivity window), Segment treats them as a brand new profile . Profile Sync detects the returning user as a new entity, assigns a new canonical Segment ID, and ensures that no historical data from the previously deleted profile is linked or resurrected .
+Architecture & Execution
+Two-Phase Deletion Process:
+Phase 1 (Identification & Staging): Profile Sync securely captures the deletion signals and prepares the corresponding segment IDs for processing, ensuring that no Personally Identifiable Information (PII) is retained .
+Phase 2 (Execution): On a scheduled basis, Profile Sync runs batch deletion operations directly within the connected data warehouse to remove all traces of the deleted profiles from managed tables .
+Table Scope: The deletion job targets all tables managed by Profile Sync . This includes materialized views (like user_traits and user_identifiers) as well as append-only raw tables (like event tables and ID graphs) .
+Run Schedule: In production environments, the deletion job is scheduled to run once per week . This frequency handles bulk requests and sporadic bursts without impacting warehouse performance during standard incremental syncs .
+Configuration & Support
+Supported Warehouses: This feature is available for all 6 Profile Sync supported warehouses: Snowflake, Redshift, BigQuery, Azure, Postgres, and Databricks .
+Self-Serve Enablement: Profile Sync Deletions can be enabled on a per-connection basis, giving customers granular control over which connected warehouses receive automated deletion requests . To enable it, navigate in the Segment workspace to Unify > Profiles Sync > Settings > Basic settings , locate the Sync status section, and switch on the Sync Profile deletions to Warehouse toggle .
+Compliance & SLOs: While Segment aims to process all deletions in a timely manner (targeting 30 days), Profile Sync deletions are explicitly decoupled from the core 30-day GDPR deletion Service Level Objective (SLO) . Processing time depends on external, customer-owned infrastructure and can be impacted by warehouse availability, concurrent workloads, and provisioning .
+Limitations: Profile Sync currently only supports permanent "hard deletes". Soft deletion (marking a profile with a deleted_at timestamp) is not supported.
+Public Docs: https://www.twilio.com/docs/segment/unify/profiles-sync/deletions
+Learn more
 Nov 05, 2026
 GA
 Voice API
@@ -549,12 +571,6 @@ Twilio SendGrid Platform
 Email Insights is now Generally Available
 Email Insights gives senders near real-time visibility into deliverability and engagement through three prebuilt dashboards: Overview, Delivery Errors, and Audience Health. Filter by domain, IP pool, template, category and more, then drill into message-level detail in Email Logs. Included at no additional cost in both the Twilio Console and the SendGrid Console, with about two months of history at launch, starting August 20, 2026, and growing over time. Your existing Stats pages and APIs are unchanged.
 To learn more, see Email Insights in the Twilio Email docs and the Twilio SendGrid docs .
-Learn more
-Nov 05, 2026
-Messaging
-GA
-Filter your Twilio Health Score by Messaging Channel
-You can now filter your Twilio Health Score for Messaging by channel. Get deeper insight into channel-specific performance for SMS, MMS, RCS, WhatsApp, Apple Messages for Business, and Facebook Messenger, so you can track and proactively troubleshoot across channels.
 Learn more
 Loading
 Error: Unable to load changelog
