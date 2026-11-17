@@ -1053,7 +1053,7 @@ post:
 operationId: create_response_v1_responses_post
 summary: Create Response
 description: 'Create a response.
-Generate a model response from text or image inputs. The response can
+Generate a model response from text, image, or file inputs. The response can
 include text, reasoning, and function calls. Set stream to true to
 receive Server-Sent Events.
 For multi-turn conversations, send the full history in input, including
@@ -1209,6 +1209,7 @@ required: true
 schema:
 type: integer
 title: Offset
+maximum: 9.223372036854776e+18
 minimum: 0
 - name: limit
 in: query
@@ -1277,7 +1278,7 @@ get:
 operationId: get_service_account_v1_service_accounts__service_account_id__get
 summary: Get Service Account
 description: 'Retrieve a service account.
-Requires the Workspace admin (`workspace_admin`) role.'
+Requires the `see_all_workspace_service_accounts` or `read_workspace_service_account` permission.'
 tags:
 - beta.service_accounts
 parameters:
@@ -2334,7 +2335,7 @@ post:
 operationId: files_api_routes_upload_file
 summary: Upload File
 description: 'Upload a file that can be used across various endpoints.
-The size of individual files can be a maximum of 512 MB. The Fine-tuning API only supports .jsonl files.
+The size of individual files can be a maximum of 512 MB.
 Please contact us if you need to increase these storage limits.'
 tags:
 - files
@@ -2381,8 +2382,8 @@ object: file
 bytes: null
 created_at: 1759500189
 filename: example.file.jsonl
-purpose: fine-tune
-sample_type: instruct
+purpose: batch
+sample_type: batch_request
 source: upload
 num_lines: 2
 mimetype: application/jsonl
@@ -4197,361 +4198,6 @@ content:
 application/json:
 schema:
 $ref: '#/components/schemas/HTTPValidationError'
-/v1/observability/judges:
-post:
-operationId: create_judge_v1_observability_judges_post
-summary: Create a new judge
-tags:
-- beta.observability.judges
-parameters: []
-requestBody:
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/CreateJudgeRequest'
-required: true
-responses:
-'201':
-description: Successful Response
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/Judge'
-'400':
-description: Bad Request - Invalid request parameters or data
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'404':
-description: Not Found - Resource does not exist
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'408':
-description: Request Timeout - Operation timed out
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'409':
-description: Conflict - Resource conflict
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'422':
-description: Unprocessable Entity - Validation error
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-description: Create a new judge
-get:
-operationId: get_judges_v1_observability_judges_get
-summary: Get judges with optional filtering and search
-tags:
-- beta.observability.judges
-parameters:
-- name: type_filter
-in: query
-description: Filter by judge output types
-required: false
-schema:
-anyOf:
-- type: array
-items:
-$ref: '#/components/schemas/JudgeOutputType'
-- type: 'null'
-title: Type Filter
-description: Filter by judge output types
-- name: model_filter
-in: query
-description: Filter by model names
-required: false
-schema:
-anyOf:
-- type: array
-items:
-type: string
-- type: 'null'
-title: Model Filter
-description: Filter by model names
-- name: page_size
-in: query
-required: false
-schema:
-type: integer
-title: Page Size
-maximum: 100
-minimum: 0
-default: 50
-- name: page
-in: query
-required: false
-schema:
-type: integer
-title: Page
-minimum: 1
-default: 1
-- name: q
-in: query
-required: false
-schema:
-anyOf:
-- type: string
-- type: 'null'
-title: Q
-responses:
-'200':
-description: Successful Response
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ListJudgesResponse'
-'400':
-description: Bad Request - Invalid request parameters or data
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'404':
-description: Not Found - Resource does not exist
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'408':
-description: Request Timeout - Operation timed out
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'409':
-description: Conflict - Resource conflict
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'422':
-description: Unprocessable Entity - Validation error
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-description: Get judges with optional filtering and search
-x-speakeasy-max-method-params: 5
-/v1/observability/judges/{judge_id}:
-get:
-operationId: get_judge_by_id_v1_observability_judges__judge_id__get
-summary: Get judge by id
-tags:
-- beta.observability.judges
-parameters:
-- name: judge_id
-in: path
-required: true
-schema:
-type: string
-title: Judge Id
-format: uuid
-responses:
-'200':
-description: Successful Response
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/Judge'
-'400':
-description: Bad Request - Invalid request parameters or data
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'404':
-description: Not Found - Resource does not exist
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'408':
-description: Request Timeout - Operation timed out
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'409':
-description: Conflict - Resource conflict
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'422':
-description: Unprocessable Entity - Validation error
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-description: Get judge by id
-delete:
-operationId: delete_judge_v1_observability_judges__judge_id__delete
-summary: Delete a judge
-tags:
-- beta.observability.judges
-parameters:
-- name: judge_id
-in: path
-required: true
-schema:
-type: string
-title: Judge Id
-format: uuid
-responses:
-'204':
-description: Successful Response
-'400':
-description: Bad Request - Invalid request parameters or data
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'404':
-description: Not Found - Resource does not exist
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'408':
-description: Request Timeout - Operation timed out
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'409':
-description: Conflict - Resource conflict
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'422':
-description: Unprocessable Entity - Validation error
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-description: Delete a judge
-put:
-operationId: update_judge_v1_observability_judges__judge_id__put
-summary: Update a judge
-tags:
-- beta.observability.judges
-parameters:
-- name: judge_id
-in: path
-required: true
-schema:
-type: string
-title: Judge Id
-format: uuid
-requestBody:
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/UpdateJudgeRequest'
-required: true
-responses:
-'204':
-description: Successful Response
-'400':
-description: Bad Request - Invalid request parameters or data
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'404':
-description: Not Found - Resource does not exist
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'408':
-description: Request Timeout - Operation timed out
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'409':
-description: Conflict - Resource conflict
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'422':
-description: Unprocessable Entity - Validation error
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-description: Update a judge
-/v1/observability/judges/{judge_id}/live-judging:
-post:
-operationId: judge_conversation_v1_observability_judges__judge_id__live_judging_post
-summary: Run a saved judge on a conversation
-tags:
-- beta.observability.judges
-parameters:
-- name: judge_id
-in: path
-required: true
-schema:
-type: string
-title: Judge Id
-format: uuid
-requestBody:
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/JudgeConversationRequest'
-required: true
-responses:
-'200':
-description: Successful Response
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/JudgeOutput'
-'400':
-description: Bad Request - Invalid request parameters or data
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'404':
-description: Not Found - Resource does not exist
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'408':
-description: Request Timeout - Operation timed out
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'409':
-description: Conflict - Resource conflict
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'422':
-description: Unprocessable Entity - Validation error
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-description: Run a saved judge on a conversation
 /v1/observability/datasets:
 post:
 operationId: create_dataset_v1_observability_datasets_post
@@ -5524,64 +5170,6 @@ application/json:
 schema:
 $ref: '#/components/schemas/ObservabilityError'
 description: Delete multiple records from datasets
-/v1/observability/dataset-records/{dataset_record_id}/live-judging:
-post:
-operationId: judge_dataset_record_v1_observability_dataset_records__dataset_record_id__live_judging_post
-summary: Run Judge on a dataset record based on the given options
-tags:
-- beta.observability.datasets.records
-parameters:
-- name: dataset_record_id
-in: path
-required: true
-schema:
-type: string
-title: Dataset Record Id
-format: uuid
-requestBody:
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/JudgeDatasetRecordRequest'
-required: true
-responses:
-'200':
-description: Successful Response
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/JudgeOutput'
-'400':
-description: Bad Request - Invalid request parameters or data
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'404':
-description: Not Found - Resource does not exist
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'408':
-description: Request Timeout - Operation timed out
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'409':
-description: Conflict - Resource conflict
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-'422':
-description: Unprocessable Entity - Validation error
-content:
-application/json:
-schema:
-$ref: '#/components/schemas/ObservabilityError'
-description: Run Judge on a dataset record based on the given options
 /v1/observability/dataset-records/{dataset_record_id}/payload:
 put:
 operationId: update_dataset_record_payload_v1_observability_dataset_records__dataset_record_id__payload_put
@@ -5755,6 +5343,24 @@ anyOf:
 - type: boolean
 - type: 'null'
 title: Enabled
+- name: from
+in: query
+required: false
+schema:
+anyOf:
+- type: string
+format: date-time
+- type: 'null'
+title: From
+- name: to
+in: query
+required: false
+schema:
+anyOf:
+- type: string
+format: date-time
+- type: 'null'
+title: To
 - name: page_size
 in: query
 required: false
@@ -5818,6 +5424,7 @@ application/json:
 schema:
 $ref: '#/components/schemas/ObservabilityError'
 description: List pipelines
+x-speakeasy-max-method-params: 6
 /v1/observability/pipelines/{pipeline_id}:
 get:
 operationId: get_pipeline_v1_observability_pipelines__pipeline_id__get
@@ -8348,6 +7955,254 @@ application/json:
 schema:
 $ref: '#/components/schemas/ObservabilityError'
 description: List an optimization's trials with their observation runs (paginated)
+/v1/observability/scorers:
+get:
+operationId: list_scorers_v1_observability_scorers_get
+summary: List scorers
+tags:
+- beta.observability.evaluations.scorers
+parameters:
+- name: created_by_me
+in: query
+description: Only return scorers created by the current user
+required: false
+schema:
+type: boolean
+title: Created By Me
+description: Only return scorers created by the current user
+default: false
+- name: ootb
+in: query
+description: Only return out-of-the-box scorers
+required: false
+schema:
+type: boolean
+title: Ootb
+description: Only return out-of-the-box scorers
+default: false
+- name: q
+in: query
+description: Case-insensitive filter on scorer slug, name, or description
+required: false
+schema:
+anyOf:
+- type: string
+- type: 'null'
+title: Q
+description: Case-insensitive filter on scorer slug, name, or description
+- name: page_size
+in: query
+required: false
+schema:
+type: integer
+title: Page Size
+maximum: 100
+minimum: 0
+default: 50
+- name: page
+in: query
+required: false
+schema:
+type: integer
+title: Page
+minimum: 1
+default: 1
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ListScorersResponse'
+'400':
+description: Bad Request - Invalid request parameters or data
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'404':
+description: Not Found - Resource does not exist
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'408':
+description: Request Timeout - Operation timed out
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'409':
+description: Conflict - Resource conflict
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'422':
+description: Unprocessable Entity - Validation error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+description: List scorers
+x-speakeasy-max-method-params: 5
+post:
+operationId: create_scorer_v1_observability_scorers_post
+summary: Create a scorer
+tags:
+- beta.observability.evaluations.scorers
+parameters: []
+requestBody:
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/CreateScorerRequest'
+required: true
+responses:
+'201':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/Scorer'
+'400':
+description: Bad Request - Invalid request parameters or data
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'404':
+description: Not Found - Resource does not exist
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'408':
+description: Request Timeout - Operation timed out
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'409':
+description: Conflict - Resource conflict
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'422':
+description: Unprocessable Entity - Validation error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+description: Create a scorer
+/v1/observability/scorers/{scorer_slug}:
+get:
+operationId: get_scorer_v1_observability_scorers__scorer_slug__get
+summary: Get a scorer by slug
+tags:
+- beta.observability.evaluations.scorers
+parameters:
+- name: scorer_slug
+in: path
+required: true
+schema:
+type: string
+title: Scorer Slug
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/Scorer'
+'400':
+description: Bad Request - Invalid request parameters or data
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'404':
+description: Not Found - Resource does not exist
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'408':
+description: Request Timeout - Operation timed out
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'409':
+description: Conflict - Resource conflict
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'422':
+description: Unprocessable Entity - Validation error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+description: Get a scorer by slug
+patch:
+operationId: edit_scorer_v1_observability_scorers__scorer_slug__patch
+summary: Edit a scorer
+tags:
+- beta.observability.evaluations.scorers
+parameters:
+- name: scorer_slug
+in: path
+required: true
+schema:
+type: string
+title: Scorer Slug
+requestBody:
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/EditScorerRequest'
+required: true
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/Scorer'
+'400':
+description: Bad Request - Invalid request parameters or data
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'404':
+description: Not Found - Resource does not exist
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'408':
+description: Request Timeout - Operation timed out
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'409':
+description: Conflict - Resource conflict
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+'422':
+description: Unprocessable Entity - Validation error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ObservabilityError'
+description: Edit a scorer
 /v1/connectors:
 post:
 operationId: connector_create_v1
@@ -8376,6 +8231,12 @@ content:
 application/json:
 schema:
 $ref: '#/components/schemas/Connector'
+'400':
+description: Bad Request
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ConnectorErrorResponse'
 '422':
 description: Validation Error
 content:
@@ -9011,7 +8872,7 @@ $ref: '#/components/schemas/HTTPValidationError'
 post:
 operationId: connector_create_credentials_v1
 summary: Create consumer credentials for a connector.
-description: Create consumer credentials for a given connector and consumer scope (organization, workspace, user)
+description: Create consumer credentials for a given connector and consumer scope (workspace, user)
 tags:
 - beta.connectors
 parameters:
@@ -9033,7 +8894,6 @@ title: Consumer Scope
 enum:
 - user
 - workspace
-- organization
 requestBody:
 content:
 application/json:
@@ -9047,6 +8907,12 @@ content:
 application/json:
 schema:
 $ref: '#/components/schemas/MessageResponse'
+'401':
+description: Unauthorized
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ConnectorErrorResponse'
 '422':
 description: Validation Error
 content:
@@ -9092,6 +8958,12 @@ content:
 application/json:
 schema:
 $ref: '#/components/schemas/MessageResponse'
+'401':
+description: Unauthorized
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ConnectorErrorResponse'
 '422':
 description: Validation Error
 content:
@@ -9220,6 +9092,12 @@ content:
 application/json:
 schema:
 $ref: '#/components/schemas/Connector'
+'400':
+description: Bad Request
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/ConnectorErrorResponse'
 '422':
 description: Validation Error
 content:
@@ -9506,6 +9384,43 @@ content:
 application/json:
 schema:
 $ref: '#/components/schemas/AudioSessionResponse'
+'422':
+description: Validation Error
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/HTTPValidationError'
+patch:
+operationId: update_session_v1_audio_sessions__session_id__patch
+summary: Update a live agent session
+description: 'Update the instructions, tools or turn handling of a live session.
+The agent applies the update at its next turn boundary, so it is not yet
+applied when this returns.
+The agent''s `session_updated` and `session_update_failed` webhooks report
+the outcome to your server.'
+tags:
+- audio.sessions
+parameters:
+- name: session_id
+in: path
+required: true
+schema:
+type: string
+title: Session Id
+format: uuid
+requestBody:
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/AudioSessionUpdateRequest'
+required: true
+responses:
+'200':
+description: Successful Response
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/AudioSessionUpdateResponse'
 '422':
 description: Validation Error
 content:
@@ -10838,6 +10753,12 @@ anyOf:
 - type: integer
 - type: 'null'
 title: Generation
+last_phase_changed_at:
+anyOf:
+- type: string
+format: date-time
+- type: 'null'
+title: Last Phase Changed At
 build_state:
 anyOf:
 - $ref: '#/components/schemas/DeploymentBuildState'
@@ -11021,7 +10942,13 @@ anyOf:
 - type: string
 - type: 'null'
 title: Github Url
-description: GitHub repository to build the worker from. Set this or 'archive_id', not both.
+description: Deprecated alias of 'repository_url' for a GitHub repository. Set only 'repository_url'.
+repository_url:
+anyOf:
+- type: string
+- type: 'null'
+title: Repository Url
+description: 'Repository to build the worker from, set instead of ''archive_id'': a GitHub repository (`https://github.com/ / `) or a repository on the Mistral git server (`https://api.globalaegis.net/v1/git/ / .git`). On the git server you must be able to read the repository; the worker builds from an archive of ''revision'' and ''build_directory''.'
 revision:
 anyOf:
 - type: string
@@ -11060,6 +10987,12 @@ type:
 type: string
 title: Type
 default: workflows_worker
+repository_url:
+anyOf:
+- type: string
+- type: 'null'
+title: Repository Url
+description: Repository the worker builds from, on GitHub or the git server, if any.
 revision:
 anyOf:
 - type: string
@@ -11624,13 +11557,6 @@ title: PartialScheduleDefinition
 description: 'Schedule definition for partial updates.
 All fields are optional (inherited from _ScheduleRequestBase). Only explicitly-set
 fields are applied during an update; unset fields preserve the existing schedule values.'
-PrincipalType:
-type: string
-title: PrincipalType
-enum:
-- api_key
-- service_account
-- user
 QueryDefinition:
 type: object
 properties:
@@ -11964,6 +11890,12 @@ anyOf:
 - type: 'null'
 title: Deployment Name
 description: Name of the deployment this schedule targets.
+user_id:
+anyOf:
+- type: string
+- type: 'null'
+title: User Id
+description: ID of the user who created the schedule.
 paused:
 type: boolean
 title: Paused
@@ -14766,6 +14698,13 @@ anyOf:
 - type: string
 - type: 'null'
 title: Github Url
+description: Deprecated alias of 'repository_url' for a GitHub repository. Set only 'repository_url'.
+repository_url:
+anyOf:
+- type: string
+- type: 'null'
+title: Repository Url
+description: Rebuild the worker from this repository, on GitHub or the git server, dropping 'archive_id'.
 revision:
 anyOf:
 - type: string
@@ -14777,7 +14716,7 @@ anyOf:
 format: uuid
 - type: 'null'
 title: Archive Id
-description: Rebuild the worker from this archive, dropping 'github_url' and 'revision'. Sending 'github_url' instead moves it back to a repository.
+description: Rebuild the worker from this archive, dropping 'repository_url' and 'revision'. Sending 'repository_url' instead moves it back to a repository.
 backend_spec:
 anyOf:
 - $ref: '#/components/schemas/DeploymentMistralCloudBackendSpec'
@@ -15628,6 +15567,7 @@ const: keyword
 query:
 type: string
 title: Query
+description: 'The query string from which to match keywords: at most 20 whitespace-separated words.'
 operator:
 type: string
 title: Operator
@@ -16119,6 +16059,7 @@ mapping:
 keyword: '#/components/schemas/KeywordRetriever'
 nearest_neighbour: '#/components/schemas/NearestNeighbourRetriever'
 title: Retrievers
+maxItems: 4
 minItems: 1
 weights:
 anyOf:
@@ -16770,6 +16711,7 @@ enum:
 - linear
 - microsoft
 - ashby
+- whatsapp
 - custom
 WebhookSignatureEncoding:
 type: string
@@ -16991,6 +16933,15 @@ service_account: '#/components/schemas/WhoamiServiceAccountPrincipal'
 user: '#/components/schemas/WhoamiUserPrincipal'
 title: Principal
 description: 'The authenticated principal: either a user or a service account.'
+customer_id:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- 3b241101-e2bb-4255-8caf-4136c566a962
+- null
+title: Customer Id
+description: The billing customer identifier from the authenticated session. Identifies the billing account, not the organization (organization.id); the IDs are not interchangeable. Null when no customer is selected.
 organization:
 anyOf:
 - $ref: '#/components/schemas/WhoamiOrganization'
@@ -17109,6 +17060,9 @@ enum:
 - api_key_id
 - api_zone
 - service_tier
+- call_source
+- call_type
+- user_agent
 description: Usage dimension to filter.
 operator:
 type: string
@@ -17342,6 +17296,7 @@ enum:
 - untracked
 - call_source
 - call_type
+- user_agent
 - customer_tier
 - type: 'null'
 examples:
@@ -17643,6 +17598,7 @@ enum:
 - untracked
 - call_source
 - call_type
+- user_agent
 - customer_tier
 - type: 'null'
 examples:
@@ -17877,6 +17833,14 @@ examples:
 - completion
 title: Call Type
 description: Type of call within its source.
+user_agent:
+anyOf:
+- type: string
+- type: 'null'
+examples:
+- claude_code
+title: User Agent
+description: Harness identified from the request User-Agent header.
 title: UsageQueryRowOUT
 UsageType:
 type: string
@@ -17985,7 +17949,8 @@ items:
 $ref: '#/components/schemas/MemberWorkspaceInfo'
 - type: 'null'
 title: Workspaces
-description: Workspaces the member belongs to.
+description: 'Deprecated: limited to the first 100 Workspaces the member belongs to, ordered by name. Use GET /users/{user_id}/workspaces instead.'
+deprecated: true
 subscriptions:
 type: array
 items:
@@ -17994,22 +17959,14 @@ title: Subscriptions
 description: Subscriptions assigned to the member.
 default: []
 raw_roles:
-anyOf:
-- type: array
-items:
-$ref: '#/components/schemas/UserRole'
-minItems: 1
-- type: array
+type: array
 items:
 $ref: '#/components/schemas/StaticOrganizationRoles'
-minItems: 1
 title: Raw Roles
+minItems: 1
 description: Organization roles assigned to the member.
 raw_role:
-anyOf:
-- $ref: '#/components/schemas/UserRole'
-- $ref: '#/components/schemas/StaticOrganizationRoles'
-title: Raw Role
+$ref: '#/components/schemas/StaticOrganizationRoles'
 description: Deprecated single organization role. Use 'raw_roles' instead.
 deprecated: true
 subscription_types:
@@ -18028,6 +17985,30 @@ type: string
 title: Created At
 format: date-time
 description: Date the member was added to the Organization.
+last_login_at:
+anyOf:
+- type: string
+format: date-time
+- type: 'null'
+examples:
+- '2026-11-04T09:12:00Z'
+title: Last Login At
+description: Last time the member signed in to the Organization, accurate to about 30 minutes. Null if they never signed in.
+status:
+allOf:
+- $ref: '#/components/schemas/MemberStatus'
+examples:
+- active
+description: Account status of the member. Deactivated and blocked members cannot access the Organization.
+default: active
+workspaces_total:
+anyOf:
+- type: integer
+- type: 'null'
+examples:
+- 3
+title: Workspaces Total
+description: Total number of Workspaces the member belongs to, including those not returned in 'workspaces'.
 title: AdminOrganizationMemberOUT
 required:
 - uuid
@@ -18049,6 +18030,13 @@ type: string
 title: CodePlan
 enum:
 - ENTERPRISE
+MemberStatus:
+type: string
+title: MemberStatus
+enum:
+- active
+- deactivated
+- blocked
 MemberSubscriptionOUT:
 type: object
 properties:
@@ -18109,22 +18097,14 @@ type: boolean
 title: Is Default
 description: Whether this is the default Workspace for the Organization.
 raw_roles:
-anyOf:
-- type: array
-items:
-$ref: '#/components/schemas/WorkspaceRole'
-minItems: 1
-- type: array
+type: array
 items:
 $ref: '#/components/schemas/StaticWorkspaceRoles'
-minItems: 1
 title: Raw Roles
+minItems: 1
 description: Workspace roles assigned to the member.
 raw_role:
-anyOf:
-- $ref: '#/components/schemas/WorkspaceRole'
-- $ref: '#/components/schemas/StaticWorkspaceRoles'
-title: Raw Role
+$ref: '#/components/schemas/StaticWorkspaceRoles'
 description: Deprecated single workspace role. Use 'raw_roles' instead.
 deprecated: true
 title: MemberWorkspaceInfo
@@ -18183,22 +18163,14 @@ title: Uuid
 format: uuid
 description: Organization invitation ID.
 raw_roles:
-anyOf:
-- type: array
-items:
-$ref: '#/components/schemas/UserRole'
-minItems: 1
-- type: array
+type: array
 items:
 $ref: '#/components/schemas/StaticOrganizationRoles'
-minItems: 1
 title: Raw Roles
+minItems: 1
 description: Organization roles assigned by the invite.
 raw_role:
-anyOf:
-- $ref: '#/components/schemas/UserRole'
-- $ref: '#/components/schemas/StaticOrganizationRoles'
-title: Raw Role
+$ref: '#/components/schemas/StaticOrganizationRoles'
 description: Deprecated single invite role. Use 'raw_roles' instead.
 deprecated: true
 email:
@@ -18266,6 +18238,7 @@ enum:
 - ff86d432-7f27-47f8-b02f-b5c102ef6a55
 - 0f9acbf6-93b5-42c7-a227-fc7652755f65
 - 94ef59cf-56bf-4383-9dd6-1fee77d370af
+- 24b51cb8-72fe-411c-8652-c719c7270ca2
 - 7e69e493-caf6-4671-af60-84951754d9fc
 - b23cd6e0-91cd-4a8a-9869-b30366bf3966
 SubscriptionStatus:
@@ -18281,19 +18254,6 @@ enum:
 - C
 - PC
 - GP
-UserRole:
-type: string
-title: UserRole
-enum:
-- A
-- M
-- B
-WorkspaceRole:
-type: string
-title: WorkspaceRole
-enum:
-- A
-- M
 OrganizationUsersCreateOUT:
 type: object
 properties:
@@ -18394,6 +18354,13 @@ required:
 - email
 - first_name
 - last_name
+UserRole:
+type: string
+title: UserRole
+enum:
+- A
+- M
+- B
 OrganizationInvitesCreateOUT:
 type: object
 properties:
@@ -18536,22 +18503,14 @@ examples:
 title: Email
 description: Email address invited to the Organization.
 roles:
-anyOf:
-- type: array
-items:
-$ref: '#/components/schemas/UserRole'
-minItems: 1
-- type: array
+type: array
 items:
 $ref: '#/components/schemas/StaticOrganizationRoles'
-minItems: 1
 title: Roles
+minItems: 1
 description: Organization roles assigned by the invite.
 role:
-anyOf:
-- $ref: '#/components/schemas/UserRole'
-- $ref: '#/components/schemas/StaticOrganizationRoles'
-title: Role
+$ref: '#/components/schemas/StaticOrganizationRoles'
 description: Deprecated single invite role. Use 'roles' instead.
 deprecated: true
 title: OrganizationUserInviteOUT
@@ -18675,7 +18634,8 @@ items:
 $ref: '#/components/schemas/MemberWorkspaceInfo'
 - type: 'null'
 title: Workspaces
-description: Workspaces the member belongs to.
+description: 'Deprecated: limited to the first 100 Workspaces the member belongs to, ordered by name. Use GET /users/{user_id}/workspaces instead.'
+deprecated: true
 subscriptions:
 type: array
 items:
@@ -18684,22 +18644,14 @@ title: Subscriptions
 description: Subscriptions assigned to the member.
 default: []
 raw_roles:
-anyOf:
-- type: array
-items:
-$ref: '#/components/schemas/UserRole'
-minItems: 1
-- type: array
+type: array
 items:
 $ref: '#/components/schemas/StaticOrganizationRoles'
-minItems: 1
 title: Raw Roles
+minItems: 1
 description: Organization roles assigned to the member.
 raw_role:
-anyOf:
-- $ref: '#/components/schemas/UserRole'
-- $ref: '#/components/schemas/StaticOrganizationRoles'
-title: Raw Role
+$ref: '#/components/schemas/StaticOrganizationRoles'
 description: Deprecated single organization role. Use 'raw_roles' instead.
 deprecated: true
 subscription_types:
@@ -18718,6 +18670,30 @@ type: string
 title: Created At
 format: date-time
 description: Date the member was added to the Organization.
+last_login_at:
+anyOf:
+- type: string
+format: date-time
+- type: 'null'
+examples:
+- '2026-11-04T09:12:00Z'
+title: Last Login At
+description: Last time the member signed in to the Organization, accurate to about 30 minutes. Null if they never signed in.
+status:
+allOf:
+- $ref: '#/components/schemas/MemberStatus'
+examples:
+- active
+description: Account status of the member. Deactivated and blocked members cannot access the Organization.
+default: active
+workspaces_total:
+anyOf:
+- type: integer
+- type: 'null'
+examples:
+- 3
+title: Workspaces Total
+description: Total number of Workspaces the member belongs to, including those not returned in 'workspaces'.
 first_name:
 anyOf:
 - type: string
@@ -18757,6 +18733,51 @@ description: Deactivation result message.
 title: DeactivateUserOUT
 required:
 - message
+ReactivateUserOUT:
+type: object
+properties:
+message:
+type: string
+examples:
+- User reactivated successfully
+title: Message
+description: Reactivation result message.
+title: ReactivateUserOUT
+required:
+- message
+AdminUserWorkspacesOUT:
+type: object
+properties:
+items:
+type: array
+items:
+$ref: '#/components/schemas/MemberWorkspaceInfo'
+title: Items
+description: Workspaces the member belongs to on this page, ordered by name.
+total:
+type: integer
+examples:
+- 3
+title: Total
+description: Total number of Workspaces the member belongs to.
+page:
+type: integer
+examples:
+- 1
+title: Page
+description: Page number returned.
+page_size:
+type: integer
+examples:
+- 25
+title: Page Size
+description: Maximum number of results per page.
+title: AdminUserWorkspacesOUT
+required:
+- items
+- total
+- page
+- page_size
 RoleOut:
 type: object
 properties:
@@ -18991,7 +19012,6 @@ raw_roles:
 type: array
 items:
 anyOf:
-- $ref: '#/components/schemas/WorkspaceRole'
 - $ref: '#/components/schemas/StaticWorkspaceRoles'
 - $ref: '#/components/schemas/StaticOrganizationRoles'
 title: Raw Roles
@@ -18999,7 +19019,6 @@ minItems: 1
 description: Roles granted for the Workspace.
 raw_role:
 anyOf:
-- $ref: '#/components/schemas/WorkspaceRole'
 - $ref: '#/components/schemas/StaticWorkspaceRoles'
 - $ref: '#/components/schemas/StaticOrganizationRoles'
 title: Raw Role
@@ -19182,6 +19201,12 @@ description: User ID of the Workspace member.
 title: AdminWorkspaceMemberSingleIN
 required:
 - user_uuid
+WorkspaceRole:
+type: string
+title: WorkspaceRole
+enum:
+- A
+- M
 AddOrUpdateUsersToWorkspaceOUT:
 type: object
 properties:
@@ -19665,6 +19690,7 @@ enum:
 - WALLET
 - MONTHLY_LIMIT
 - WORKSPACE_MONTHLY_LIMIT
+- SPENDING_LIMIT
 - SHARED_BUDGET
 - AUTO_RECHARGE
 - PAYMENT_METHOD
@@ -19790,15 +19816,6 @@ anyOf:
 - type: 'null'
 title: Organization Role
 description: Organization role assigned to the group.
-parent_group_ids:
-type: array
-examples:
-- - a1b2c3d4-e5f6-7890-abcd-ef1234567890
-items:
-type: string
-format: uuid
-title: Parent Group Ids
-description: UUIDs of the groups this group is directly nested inside.
 title: AdminUserGroupOut
 required:
 - uuid
@@ -19850,15 +19867,6 @@ examples:
 - Members of the platform engineering team
 title: Description
 description: Optional description of the user group.
-parent_group_ids:
-type: array
-examples:
-- - a1b2c3d4-e5f6-7890-abcd-ef1234567890
-items:
-type: string
-format: uuid
-title: Parent Group Ids
-description: UUIDs of existing groups to nest this new group inside. Omit or pass an empty list to create a top-level group.
 title: AdminUserGroupIn
 required:
 - name
@@ -19899,6 +19907,7 @@ enum:
 - observability_viewer
 - workflow_executor
 - secret_revealer
+- offline_evaluations_manager
 - member
 - type: 'null'
 title: Workspace Role Name
@@ -19928,17 +19937,6 @@ examples:
 - Members of the platform engineering team
 title: Description
 description: Updated description of the user group. Pass an empty string to clear it; omit the field or pass null to leave it unchanged.
-parent_group_ids:
-anyOf:
-- type: array
-items:
-type: string
-format: uuid
-- type: 'null'
-examples:
-- - a1b2c3d4-e5f6-7890-abcd-ef1234567890
-title: Parent Group Ids
-description: Full replacement list of parent group UUIDs. Pass an empty list to remove all parents; omit the field to leave the parent groups unchanged.
 title: AdminUpdateUserGroupIn
 AdminUserGroupMemberOut:
 type: object
@@ -20206,56 +20204,6 @@ description: 'Organization role to assign to the group: a role name (`member`, `
 title: AdminUpdateUserGroupOrganizationRoleIn
 required:
 - organization_role
-NestedGroupRef:
-type: object
-properties:
-uuid:
-type: string
-examples:
-- a1b2c3d4-e5f6-7890-abcd-ef1234567890
-title: Uuid
-format: uuid
-description: UUID of the group.
-name:
-type: string
-examples:
-- Engineering Team
-title: Name
-description: Display name of the group.
-title: NestedGroupRef
-required:
-- uuid
-- name
-NestedGroupsOut:
-type: object
-properties:
-children:
-type: array
-examples:
-- - name: Engineering Team
-uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-items:
-$ref: '#/components/schemas/NestedGroupRef'
-title: Children
-description: Groups directly nested inside this group (its direct children).
-title: NestedGroupsOut
-required:
-- children
-SetNestedGroupsIn:
-type: object
-properties:
-child_group_uuids:
-type: array
-examples:
-- - a1b2c3d4-e5f6-7890-abcd-ef1234567890
-items:
-type: string
-format: uuid
-title: Child Group Uuids
-description: Full replacement list of UUIDs of groups to nest directly inside this group.
-title: SetNestedGroupsIn
-required:
-- child_group_uuids
 APIKeyActions:
 type: object
 properties:
@@ -20490,12 +20438,10 @@ This is the single field shared across services to describe rotation eligibility
 reason (None) means the key can be rotated; any value means it cannot, and identifies why so
 consumers (e.g. the dashboard rotate button) can show an appropriate message without hardcoding
 the rules. Consumers should treat unknown values as "rotation unavailable".
-Reasons fall into three kinds. Scope-based reasons are immutable (a function of the key''s scope
-alone) and are owned by services that hold the key, e.g. Albe. Key-state reasons depend on the
-key''s own state (e.g. expiry) and are likewise determined where the key lives. Permission-based
-reasons are request-scoped (they depend on who is asking) and can only be determined where the
-acting user is known, e.g. the dashboard. When several reasons apply, precedence runs immutable
-scope-based, then key-state, then request-scoped permission.'
+Key-state reasons depend on the key''s own state (e.g. expiry) and are determined where the key
+lives, e.g. Albe. Permission-based reasons are request-scoped (they depend on who is asking) and can
+only be determined where the acting user is known, e.g. the dashboard. When both apply, the
+key-state reason wins.'
 APIKeyOUT:
 type: object
 properties:
@@ -20761,19 +20707,11 @@ summary:
 anyOf:
 - $ref: '#/components/schemas/ScimSyncSummaryOut'
 - type: 'null'
-examples:
-- groups: {}
-memberships: []
-users:
-deprovision: []
-provision: []
 description: Preview or result summary, available after the synchronization plan is built.
 error_message:
 anyOf:
 - type: string
 - type: 'null'
-examples:
-- Failed to fetch users from the SCIM provider.
 title: Error Message
 description: Failure detail when the synchronization run could not complete.
 title: AdminScimSyncRunOUT
@@ -20800,9 +20738,13 @@ type: object
 properties:
 uuid:
 type: string
+examples:
+- 33333333-3333-4333-8333-000000000001
 title: Uuid
 groupName:
 type: string
+examples:
+- Platform Team
 title: Groupname
 title: ScimSyncGroupRefOut
 required:
@@ -20815,6 +20757,8 @@ group:
 $ref: '#/components/schemas/ScimSyncGroupRefOut'
 previous_groupName:
 type: string
+examples:
+- Platform Engineering
 title: Previous Groupname
 title: ScimSyncGroupUpdateActionOut
 required:
@@ -20893,9 +20837,13 @@ type: object
 properties:
 uuid:
 type: string
+examples:
+- 11111111-1111-4111-8111-000000000001
 title: Uuid
 userName:
 type: string
+examples:
+- ada@example.com
 title: Username
 title: ScimSyncUserRefOut
 required:
@@ -20927,6 +20875,8 @@ enum:
 - user.info.update
 - user.password.update
 - user.phone_number.verify
+- user.deactivate
+- user.reactivate
 - user.organization.leave
 - user.organization.role.update
 - user.organization.delete
@@ -20934,6 +20884,7 @@ enum:
 - organization.create
 - organization.delete
 - organization.update
+- organization.members.export
 - organization.invite.send
 - organization.invite.resend
 - organization.invite.accepted
@@ -20985,6 +20936,9 @@ enum:
 - billing.monthly_limit.updated
 - billing.workspace_monthly_limit.updated
 - billing.shared_budget_override.updated
+- billing.spending_limit.created
+- billing.spending_limit.updated
+- billing.spending_limit.deleted
 - billing.auto_recharge.updated
 - billing.seat.grant
 - billing.seat.revoke
@@ -21049,6 +21003,7 @@ enum:
 - knowledge_base.create
 - knowledge_base.delete
 - knowledge_base.update
+- knowledge_base.load
 - knowledge_base.version.create
 - custom_voice.create
 - custom_voice.update
@@ -22252,6 +22207,11 @@ anyOf:
 type: integer
 - type: 'null'
 title: Ttl Seconds
+metadata:
+anyOf:
+- $ref: '#/components/schemas/MetadataDict'
+- type: 'null'
+description: Request metadata applied to the realtime session, as if sent in the `x-metadata` header.
 title: CreateRealtimeSessionRequest
 required:
 - model
@@ -22280,7 +22240,7 @@ items:
 type: string
 format: uuid
 title: Role Ids
-maxItems: 15
+maxItems: 16
 description: Workspace role UUIDs to assign. Omitted or empty lists default to member, which grants no role permissions. Workspace-wide sharing may still grant access.
 default: []
 title: CreateServiceAccountRequest
@@ -22417,7 +22377,7 @@ items:
 type: string
 format: uuid
 title: Role Ids
-maxItems: 15
+maxItems: 16
 minItems: 1
 description: Workspace role UUIDs to assign. Required and non-empty; omitted or empty lists return 422. Select member explicitly for no role-granted permissions; workspace-wide sharing may still grant access.
 title: SetServiceAccountRolesRequest
@@ -23978,6 +23938,12 @@ pattern: ^[0-9a-f]{16}$
 span_name:
 type: string
 title: Span Name
+operation_name:
+type: string
+title: Operation Name
+tool_name:
+type: string
+title: Tool Name
 duration_ns:
 type: integer
 title: Duration Ns
@@ -24005,6 +23971,8 @@ required:
 - trace_id
 - span_id
 - span_name
+- operation_name
+- tool_name
 - duration_ns
 - evaluated_at
 - judge_scores
@@ -24056,102 +24024,6 @@ anyOf:
 title: Search Expression
 description: 'Filter expression. Trace fields (e.g. `service_name`, `error_count`, `models_used`) are evaluated on the aggregated trace. Span attribute fields (e.g. `temporalWorkflowID`, `wf.type`, `gen_ai.provider.name`) are evaluated on the spans of the trace: a trace matches when one of its spans matches. Span attribute conditions combined with AND must hold on the same span, e.g. `temporalWorkflowID = ''wf-1'' AND wf.type = ''activity''` only matches traces with a span carrying both attributes. Results are always one row per trace.'
 title: TracesRequest
-Judge:
-type: object
-properties:
-id:
-type: string
-title: Id
-format: uuid
-created_at:
-type: string
-title: Created At
-format: date-time
-updated_at:
-type: string
-title: Updated At
-format: date-time
-deleted_at:
-anyOf:
-- type: string
-format: date-time
-- type: 'null'
-title: Deleted At
-owner_id:
-type: string
-title: Owner Id
-format: uuid
-workspace_id:
-type: string
-title: Workspace Id
-format: uuid
-name:
-type: string
-title: Name
-description:
-type: string
-title: Description
-model_name:
-type: string
-title: Model Name
-output:
-oneOf:
-- $ref: '#/components/schemas/JudgeClassificationOutput'
-- $ref: '#/components/schemas/JudgeRegressionOutput'
-discriminator:
-propertyName: type
-mapping:
-CLASSIFICATION: '#/components/schemas/JudgeClassificationOutput'
-REGRESSION: '#/components/schemas/JudgeRegressionOutput'
-title: Output
-instructions:
-type: string
-title: Instructions
-tools:
-type: array
-items:
-type: string
-title: Tools
-up_revision:
-anyOf:
-- type: string
-format: uuid
-- type: 'null'
-title: Up Revision
-down_revision:
-anyOf:
-- type: string
-format: uuid
-- type: 'null'
-title: Down Revision
-base_revision:
-anyOf:
-- type: string
-format: uuid
-- type: 'null'
-title: Base Revision
-title: Judge
-required:
-- id
-- created_at
-- updated_at
-- deleted_at
-- owner_id
-- workspace_id
-- name
-- description
-- model_name
-- output
-- instructions
-- tools
-ListJudgesResponse:
-type: object
-properties:
-judges:
-$ref: '#/components/schemas/PaginatedResultJudgePreview'
-title: ListJudgesResponse
-required:
-- judges
 OptimizationReference:
 type: object
 properties:
@@ -24336,30 +24208,6 @@ anyOf:
 - type: 'null'
 title: Previous
 title: PaginatedResultEvaluationV2
-required:
-- count
-PaginatedResultJudgePreview:
-type: object
-properties:
-results:
-type: array
-items:
-$ref: '#/components/schemas/Judge'
-title: Results
-count:
-type: integer
-title: Count
-next:
-anyOf:
-- type: string
-- type: 'null'
-title: Next
-previous:
-anyOf:
-- type: string
-- type: 'null'
-title: Previous
-title: PaginatedResultJudgePreview
 required:
 - count
 PaginatedResultOptimization:
@@ -24561,75 +24409,6 @@ default: DIRECT_INPUT
 title: CreateDatasetRecordRequest
 required:
 - payload
-JudgeDatasetRecordRequest:
-type: object
-properties:
-judge_definition:
-$ref: '#/components/schemas/CreateJudgeRequest'
-title: JudgeDatasetRecordRequest
-required:
-- judge_definition
-JudgeConversationRequest:
-type: object
-properties:
-messages:
-type: array
-items:
-type: object
-additionalProperties: true
-title: Messages
-properties:
-anyOf:
-- type: object
-additionalProperties: true
-- type: 'null'
-title: Properties
-title: JudgeConversationRequest
-required:
-- messages
-CreateJudgeRequest:
-type: object
-properties:
-name:
-type: string
-title: Name
-maxLength: 50
-minLength: 5
-description:
-type: string
-title: Description
-maxLength: 2000
-model_name:
-type: string
-title: Model Name
-maxLength: 500
-output:
-oneOf:
-- $ref: '#/components/schemas/JudgeClassificationOutput'
-- $ref: '#/components/schemas/JudgeRegressionOutput'
-discriminator:
-propertyName: type
-mapping:
-CLASSIFICATION: '#/components/schemas/JudgeClassificationOutput'
-REGRESSION: '#/components/schemas/JudgeRegressionOutput'
-title: Output
-instructions:
-type: string
-title: Instructions
-maxLength: 10000
-tools:
-type: array
-items:
-type: string
-title: Tools
-title: CreateJudgeRequest
-required:
-- name
-- description
-- model_name
-- output
-- instructions
-- tools
 ProjectEvaluationSummary:
 type: object
 properties:
@@ -24667,49 +24446,165 @@ additionalProperties: true
 title: UpdateDatasetRecordPropertiesRequest
 required:
 - properties
-UpdateJudgeRequest:
+LlmJudgeConfig:
 type: object
 properties:
+model:
+type: string
+title: Model
+maxLength: 500
+minLength: 1
+params:
+anyOf:
+- $ref: '#/components/schemas/LlmJudgeParams'
+- type: 'null'
+prompt_template:
+type: string
+title: Prompt Template
+maxLength: 20000
+minLength: 1
+output_spec:
+$ref: '#/components/schemas/EvaluationResultSpec'
+title: LlmJudgeConfig
+required:
+- model
+- prompt_template
+- output_spec
+additionalProperties: false
+Scorer:
+type: object
+properties:
+slug:
+type: string
+title: Slug
 name:
 type: string
 title: Name
-maxLength: 50
-minLength: 5
 description:
-type: string
+anyOf:
+- type: string
+- type: 'null'
 title: Description
-maxLength: 2000
-model_name:
+kind:
+$ref: '#/components/schemas/ScorerKind'
+latest_version:
+$ref: '#/components/schemas/ScorerVersion'
+created_at:
 type: string
-title: Model Name
-maxLength: 500
-output:
-oneOf:
-- $ref: '#/components/schemas/JudgeClassificationOutput'
-- $ref: '#/components/schemas/JudgeRegressionOutput'
-discriminator:
-propertyName: type
-mapping:
-CLASSIFICATION: '#/components/schemas/JudgeClassificationOutput'
-REGRESSION: '#/components/schemas/JudgeRegressionOutput'
-title: Output
-instructions:
+title: Created At
+format: date-time
+updated_at:
 type: string
-title: Instructions
-maxLength: 10000
-tools:
+title: Updated At
+format: date-time
+title: Scorer
+required:
+- slug
+- name
+- description
+- kind
+- latest_version
+- created_at
+- updated_at
+PaginatedResultScorerSummary:
+type: object
+properties:
+results:
+type: array
+items:
+$ref: '#/components/schemas/ScorerSummary'
+title: Results
+count:
+type: integer
+title: Count
+next:
+anyOf:
+- type: string
+- type: 'null'
+title: Next
+previous:
+anyOf:
+- type: string
+- type: 'null'
+title: Previous
+title: PaginatedResultScorerSummary
+required:
+- count
+ScorerSummary:
+type: object
+properties:
+slug:
+type: string
+title: Slug
+name:
+type: string
+title: Name
+description:
+anyOf:
+- type: string
+- type: 'null'
+title: Description
+kind:
+$ref: '#/components/schemas/ScorerKind'
+is_ootb:
+type: boolean
+title: Is Ootb
+creator_id:
+type: string
+title: Creator Id
+format: uuid
+creator_type:
+$ref: '#/components/schemas/PrincipalType'
+default: user
+created_at:
+type: string
+title: Created At
+format: date-time
+updated_at:
+type: string
+title: Updated At
+format: date-time
+title: ScorerSummary
+required:
+- slug
+- name
+- description
+- kind
+- is_ootb
+- creator_id
+- created_at
+- updated_at
+ScorerVersion:
+type: object
+properties:
+version:
+type: integer
+title: Version
+config:
+$ref: '#/components/schemas/LlmJudgeConfig'
+variables:
 type: array
 items:
 type: string
-title: Tools
-title: UpdateJudgeRequest
+title: Variables
+creator_id:
+type: string
+title: Creator Id
+format: uuid
+creator_type:
+$ref: '#/components/schemas/PrincipalType'
+default: user
+created_at:
+type: string
+title: Created At
+format: date-time
+title: ScorerVersion
 required:
-- name
-- description
-- model_name
-- output
-- instructions
-- tools
+- version
+- config
+- variables
+- creator_id
+- created_at
 CreateConnectorRequest:
 type: object
 properties:
@@ -24976,8 +24871,7 @@ title: Iserror
 default: false
 structuredContent:
 anyOf:
-- type: object
-additionalProperties: true
+- {}
 - type: 'null'
 title: Structuredcontent
 _meta:
@@ -25258,6 +25152,13 @@ anyOf:
 - type: 'null'
 title: Encryption Key
 description: Encryption key used to decrypt webhook payloads
+url_verification_token:
+anyOf:
+- type: string
+minLength: 1
+- type: 'null'
+title: Url Verification Token
+description: Token the provider echoes back when verifying the URL. Required for WhatsApp (paste the same value in the Verify token field of the Meta App Dashboard), forbidden for other providers
 expires_at:
 anyOf:
 - type: string
@@ -25278,6 +25179,7 @@ anyOf:
 - type: integer
 - type: 'null'
 title: Validity Period Second
+description: Maximum allowed drift in seconds between the signed timestamp and reception time, eg 300
 signature_extractor_regex:
 anyOf:
 - type: string
@@ -25289,6 +25191,7 @@ anyOf:
 - type: string
 - type: 'null'
 title: Timestamp Extractor Regex
+description: Regex to extract the timestamp from the signature header, used as {timestamp}, eg t=([^,]+)
 signature_payload_pattern:
 anyOf:
 - type: string
@@ -25304,12 +25207,20 @@ anyOf:
 - type: integer
 - type: 'null'
 title: Success Status Code
-event_type_path:
+event_type_pattern:
 anyOf:
 - type: string
 - type: 'null'
-title: Event Type Path
-description: Path to extract event type, eg body.type or headers.X-GitHub-Event
+title: Event Type Pattern
+description: Pattern for the event type, with {body. } and {headers.
+} placeholders, eg {body.type} or {headers.X-GitHub-Event}
+event_id_pattern:
+anyOf:
+- type: string
+- type: 'null'
+title: Event Id Pattern
+description: Pattern for a unique event identifier used to deduplicate deliveries, with {body. } and {headers.
+} placeholders, eg {body.id} or {body.event_id}.{headers.X-Delivery-Id}. Defaults to a hash of the request body
 title: CreateWebhook
 required:
 - provider
@@ -25468,6 +25379,12 @@ anyOf:
 - type: boolean
 - type: 'null'
 title: Url Verified
+url_verification_token:
+anyOf:
+- type: string
+- type: 'null'
+title: Url Verification Token
+description: 'Token the provider echoes back when verifying the URL (WhatsApp: the Verify token)'
 signature_hash_algorithm:
 anyOf:
 - $ref: '#/components/schemas/WebhookSignatureHashAlgorithm'
@@ -25511,6 +25428,17 @@ anyOf:
 - type: string
 - type: 'null'
 title: Event Type Path
+deprecated: true
+event_type_pattern:
+anyOf:
+- type: string
+- type: 'null'
+title: Event Type Pattern
+event_id_pattern:
+anyOf:
+- type: string
+- type: 'null'
+title: Event Id Pattern
 expires_at:
 anyOf:
 - type: string
@@ -25545,7 +25473,6 @@ required:
 - signature_payload_pattern
 - signature_encoding
 - success_status_code
-- event_type_path
 - expires_at
 - created_at
 - updated_at
@@ -25798,9 +25725,9 @@ description: (beta) Observability - Evaluations - Records API.
 - name: beta.observability.evaluations.runs
 x-displayName: (beta) Observability - Evaluations - Runs
 description: (beta) Observability - Evaluations - Runs API.
-- name: beta.observability.judges
-x-displayName: (beta) Observability - Judges
-description: (beta) Observability API - judges.
+- name: beta.observability.evaluations.scorers
+x-displayName: (beta) Observability - Evaluations - Scorers
+description: (beta) Observability - Evaluations - Scorers API.
 - name: beta.observability.logs
 x-displayName: (beta) Observability - Logs
 description: (beta) Observability API - logs.

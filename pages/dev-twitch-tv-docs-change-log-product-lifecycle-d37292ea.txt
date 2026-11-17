@@ -1,0 +1,208 @@
+Skip to main content
+Authentication
+Twitch API
+EventSub
+Chat & Chatbots
+Organizations
+Drops
+Game Engine Plugins
+Embedding Twitch
+Extensions
+Insights & Analytics
+Mobile Deeplinks
+Video Broadcast
+Twitch CLI
+Changelog
+Documentation Changelog
+Product Lifecycle
+Changelog / Product Lifecycle Navigation menu: Changelog / Product Lifecycle
+Product Lifecycle
+A historic list of deprecated and decomissioned products previously offered within the Twitch developer ecosystem
+Copy as markdown View as markdown
+Provide feedback for this page
+This page provides information about Twitch’s 3rd party developer products that have been previously deprecated or decomissioned.
+Twitch API
+Decomissioned APIs will return HTTP 410 when attempting to call them. Any exceptions to this rule are noted within the endpoint’s “Notes” below.
+Only endpoints in the “helix” namespace are included here. See Other Products for information regarding the deprecation of previous namespaces.
+API Name
+API Endpoint
+HTTP Method
+Decomission Date
+Notes
+Get Hype Train Events
+/helix/hypetrain/events
+GET
+January 2026
+Legacy Hype Train API and types deprecation and withdrawal timeline
+Get Users Follows
+/helix/users/follows
+GET
+September 2023
+Follows endpoints and EventSub subscription type are now available in open beta .
+Get Soundtrack Current Track
+/helix/soundtrack/current_track
+GET
+July 2023
+Withdrawal of Twitch API endpoints for Soundtrack
+Get Soundtrack Playlists
+/helix/soundtrack/playlists
+GET
+July 2023
+Withdrawal of Twitch API endpoints for Soundtrack
+Get Soudtrack Playlist
+/helix/soundtrack/playlist
+GET
+July 2023
+Withdrawal of Twitch API endpoints for Soundtrack
+Get All Stream Tags
+/helix/tags/streams
+GET
+July 2023
+Adding customizable tags to the Twitch API
+Get Streams Tags
+/helix/streams/tags
+GET
+July 2023
+Adding customizable tags to the Twitch API
+Replace Stream Tags
+/helix/streams/tags
+PUT
+February 2023
+Adding customizable tags to the Twitch API
+Get Moderator Events
+/helix/moderation/moderators/events
+GET
+March 2022
+Deprecation of Twitch API event endpoints that supported WebSub-based webhooks
+Get Banned Events
+/helix/moderation/banned/events
+GET
+March 2022
+Deprecation of Twitch API event endpoints that supported WebSub-based webhooks
+Delete Users Follows
+/helix/users/follows
+DELETE
+July 2021
+Deprecation of Create and Delete Follows API Endpoints
+Create Users Follows
+/helix/users/follows
+POST
+July 2021
+Deprecation of Create and Delete Follows API Endpoints
+Subscribe To / Unsubscribe From Events
+/helix/webhooks/hub
+POST
+September 2021
+This endpoint returns 404 instead of 410.
+Deprecation of WebSub-based Webhooks
+Create Entitlement Grants Upload URL
+/helix/entitlements/upload
+POST
+Februrary 2021
+Announcing a new version of Drops for game developers
+Viewer Heartbeat Service
+/helix/vhs/connection
+GET, POST, DELETE
+Februrary 2021
+Announcing a new version of Drops for game developers
+Get Streams Metadata
+/helix/streams/metadata
+GET
+July 2020
+Deprecation of the Helix Get Streams Metadata Endpoint
+EventSub
+Decomissioned EventSub subscription types will return HTTP 410 when calling Create EventSub Subscription .
+Subscription Type
+Version
+Decomission Date
+Notes
+channel.hype_train.end
+1
+January 2026
+Legacy Hype Train API and types deprecation and withdrawal timeline
+channel.hype_train.proress
+1
+January 2026
+Legacy Hype Train API and types deprecation and withdrawal timeline
+channel.hype_train.begin
+1
+January 2026
+Legacy Hype Train API and types deprecation and withdrawal timeline
+channel.follow
+1
+September 2023
+Follows endpoints and EventSub subscription type are now available in open beta
+IRC and Chat
+These Twitch IRC and chat-related features have been removed and are visible or functional.
+Feature
+Decomission Date
+Notes
+Non-SSL IRC WebSocket
+August 2025
+Decomission of non-secure WebSocket connections to Twitch IRC servers
+Chat commands over IRC
+February 2023
+Deprecation of chat commands through IRC
+IRC MODE capability
+June 2020
+IRC update: removing MODE and NAMES capabilities
+Chat rooms
+January 2020
+Rooms are Closing, how it affects the API and IRC
+twitchnotify IRC tag
+May 2017
+The ‘twitchnotify’ IRC tag will be removed this month
+Other Products
+These products have since been decomissioned and are no longer accessible.
+Product
+Decomission Date
+Notes
+Game Developer Chat Badge
+October 2024
+Restoring organization reviews, and decommissioning the game developer chat badge )
+Legacy Drops (Drops 2)
+June 2024
+Improving the Flexibility of Twitch Drops
+PubSub
+April 2024
+Legacy PubSub deprecation and shutdown timeline . This does not include Extension PubSub, which is still active.
+badges.twitch.tv
+June 2023
+Legacy badges endpoint shutdown details and timeline
+Legacy (TMI) Chatters Endpoint
+April 2023
+New Chatters API endpoint now available in open beta
+Developer Rig
+January 2023
+End of support for the Twitch Developer Rig
+Enhanced Experiences (E2)
+April 2022
+Enhanced Experiences Deprecation
+Twitch API: v5
+February 2022
+Used the namespaces v5 and kraken .
+Legacy Twitch API v5 Shutdown Details and Timeline
+WebSub-based webhooks
+September 2021
+Deprecation of WebSub-based Webhooks
+Quarterly Insight Reports
+April 2021
+Deprecation of the Quarterly Insight Reports
+Legacy Drops (Drops 1 / VHS)
+March 2021
+Announcing a new version of Drops for game developers
+Non-OAuth API capabilities
+January 2020
+Requiring OAuth for Helix Twitch API Endpoints
+Extension Analytics overview_v1 report
+January 2020
+Deprecating “overview_v1” report type in the Extension Developer Analytics endpoint
+Twitch API: v3
+September 2019
+Used the namespace v3 .
+Twitch API v3 Shutdown Timeline
+Contents
+Twitch API
+EventSub
+IRC and Chat
+Other Products

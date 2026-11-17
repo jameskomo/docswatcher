@@ -58,33 +58,31 @@
       "readable": true,
       "unreadableReported": false
     },
-    "https://dev.twitch.tv/docs/product-lifecycle/": {
-      "hash": "cf4ba4006d51eef130c781cbe48af1cf07cb144e2ca8d4787be256001fd9c4f7",
-      "fetched": "2026-11-10",
+    "https://dev.twitch.tv/docs/change-log/product-lifecycle/": {
+      "hash": "156740e2e09123d47e82351ef0d35348f02834d96b925a33a11aecb999f81591",
+      "fetched": "2026-11-17",
       "status": 200,
-      "failures": 7,
+      "failures": 0,
       "readable": true,
-      "unreadableReported": false,
-      "lastError": "HTTP 404",
-      "lastTried": "2026-11-17"
+      "unreadableReported": false
     },
     "https://devcommunity.x.com/t/deprecating-the-v1-1-media-upload-endpoints/238196": {
-      "failures": 55,
+      "failures": 56,
       "lastError": "HTTP 403",
       "lastTried": "2026-11-17"
     },
     "https://devcommunity.x.com/t/deprecation-of-account-activity-replay-endpoint/260354": {
-      "failures": 55,
+      "failures": 56,
       "lastError": "HTTP 403",
       "lastTried": "2026-11-17"
     },
     "https://devcommunity.x.com/t/media-upload-endpoints-update-and-extended-migration-deadline/241818": {
-      "failures": 55,
+      "failures": 56,
       "lastError": "HTTP 403",
       "lastTried": "2026-11-17"
     },
     "https://developer.paypal.com/api/deprecated/invoicing/v1": {
-      "hash": "c03e973db03d50338052f948b2214e60690f161c8c4e87f003eaa5195ff80da5",
+      "hash": "369e3bab0cb5ecb0ba79ddde5cb311e0cd2dc613143cd337aeb8a8a54ba13bb5",
       "fetched": "2026-11-17",
       "status": 200,
       "failures": 0,
@@ -92,7 +90,7 @@
       "unreadableReported": false
     },
     "https://developer.paypal.com/api/deprecated/partner-referrals/v1": {
-      "hash": "48a12ab2f38d34de0f537ffd7466fdbd8cde568ffe419cad87e57f7db19d42ef",
+      "hash": "8353bca6ab4108497e27ead4f23fe6715cc338af390c952c316ece8a840a9ace",
       "fetched": "2026-11-17",
       "status": 200,
       "failures": 0,
@@ -100,7 +98,7 @@
       "unreadableReported": false
     },
     "https://developer.paypal.com/api/deprecated/payments.billing-agreements/v1": {
-      "hash": "2b3e8c23682b492bb45fe9b7a77ec64816880f784a70b4bbc6d450167f618528",
+      "hash": "a3ea5841a6dfc1fc7a6415303cd172c1ce4e421e87815be825385975fa20aa9f",
       "fetched": "2026-11-17",
       "status": 200,
       "failures": 0,
@@ -108,7 +106,7 @@
       "unreadableReported": false
     },
     "https://developer.paypal.com/api/deprecated/payments.billing-plans/v1": {
-      "hash": "f22411d404f598e1d135c788f5ab6f10062222f931d55a3ffb079b5692e81170",
+      "hash": "beb371c70f1dfe8b3980627a3898c43f65df5837c7663a37626520c15492f5ae",
       "fetched": "2026-11-17",
       "status": 200,
       "failures": 0,
@@ -116,7 +114,7 @@
       "unreadableReported": false
     },
     "https://developer.paypal.com/api/deprecated/payments/v1": {
-      "hash": "c8aafb32c3fc2e6fedfe4c6c70413d1f7a00600b873e5a803c64abfeb3a3c625",
+      "hash": "a6ae5c76b64ba7a7dbef142e57c2a61dad189fae53071b005f32a0c86bc06075",
       "fetched": "2026-11-17",
       "status": 200,
       "failures": 0,
@@ -124,7 +122,7 @@
       "unreadableReported": false
     },
     "https://developer.paypal.com/api/rest/deprecated-resources/": {
-      "hash": "7cb2f4fce6db94ef80f0f1342d11380f4bdda011e74e4d1d8333393c7481bee6",
+      "hash": "0cd1319760843312ec49e386a59e4c6bb71c0591fe6240fb995bf8b4dfed996a",
       "fetched": "2026-11-17",
       "status": 200,
       "failures": 0,
@@ -132,7 +130,7 @@
       "unreadableReported": false
     },
     "https://developer.paypal.com/community/blog/navigating-paypal-server-sdks/": {
-      "hash": "c9976fa56e688b28f9bae17cab4dfe64f6382c138ffd8ec1ad775533cfffe501",
+      "hash": "21415456a5b8997e246b4788c7b5f0bc8024ff9433a6d292325e88197560cf8f",
       "fetched": "2026-11-17",
       "status": 200,
       "failures": 0,
@@ -140,7 +138,7 @@
       "unreadableReported": false
     },
     "https://developer.paypal.com/v4-v6": {
-      "hash": "8e9e254e3cbbb49ca9db6fd87c57dcf30fcc016a2168d84320c3989aa759cd5e",
+      "hash": "02d7f1934722207513b768c767c31e080175aecb20e1dcfa7f93805b3c931f15",
       "fetched": "2026-11-17",
       "status": 200,
       "failures": 0,
@@ -388,7 +386,7 @@
       "unreadableReported": false
     },
     "https://discuss.dev.twitch.com/t/legacy-badges-endpoint-shutdown-details-and-timeline-june-2023/44621": {
-      "hash": "a7c8464bd709be953df121d285abae6007b6e3563e8c6f424cd5426f8a763fdd",
+      "hash": "8e843d5facc91a22bf6e3c61866cf80141e9d2a7848c32393f0616194c593603",
       "fetched": "2026-11-17",
       "status": 200,
       "failures": 0,
@@ -524,7 +522,7 @@
       "unreadableReported": false
     },
     "https://docs.mistral.ai/openapi.yaml": {
-      "hash": "64cb5da04c993bbdc2f89a3c929e3d598d8e953a4858c44b05e2a54b403cc604",
+      "hash": "b50d85d275c3691a06de33d447c32af2e8d141afba2717b29c35d1499044a4df",
       "fetched": "2026-11-17",
       "status": 200,
       "failures": 0,
@@ -676,7 +674,7 @@
       "unreadableReported": false
     },
     "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/openai/azure-ai-openai": {
-      "hash": "d3b18128169cca702b1ea1bf250aa6924386d73435a8451333dc726e928db80b",
+      "hash": "1f3d32790fc71b56a9a6ee4ebdbe5238367adfc1201ceba6c22daff787c6af6a",
       "fetched": "2026-11-17",
       "status": 200,
       "failures": 0,
@@ -700,7 +698,7 @@
       "unreadableReported": false
     },
     "https://groups.google.com/g/firebase-talk/c/LgY3wx6ehS4": {
-      "hash": "046aad44cf8958828ca94a5cb0a49b8f1a25d0edd20950894b7830a3fc664a55",
+      "hash": "193f11e14d40da23c8df1776e45311f309776c62b53104466a305c6df34ec1ad",
       "fetched": "2026-11-17",
       "status": 200,
       "failures": 0,
@@ -812,7 +810,7 @@
       "unreadableReported": false
     },
     "https://paystack.com/docs/changelog/api": {
-      "failures": 55,
+      "failures": 56,
       "lastError": "HTTP 403",
       "lastTried": "2026-11-17"
     },
@@ -889,7 +887,7 @@
       "unreadableReported": false
     },
     "https://shopify.dev/changelog/setting-includerestofworld-to-true-returns-an-error-in-api-version-2027-01": {
-      "failures": 58,
+      "failures": 59,
       "lastError": "HTTP 404",
       "lastTried": "2026-11-17"
     },
@@ -982,7 +980,7 @@
       "unreadableReported": false
     },
     "https://www.twilio.com/en-us/changelog": {
-      "hash": "d33ca280a39dd6f4d56f8221ff8cccc452670d94e9626af8f4f5349d0a7dc006",
+      "hash": "acab6dd827b253f61412debbbf1ba1f04715e9740207f29b18f9e4e76b0f6c52",
       "fetched": "2026-11-17",
       "status": 200,
       "failures": 0,

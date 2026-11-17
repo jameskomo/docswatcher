@@ -487,6 +487,26 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Nov 17, 2026
+Beta
+Conversation Intelligence
+Twilio Conversations now supports AI agent supervision
+You can now use Twilio Conversations to supervise your AI agents. This public beta adds two Conversation Intelligence operators that check whether your AI agents resolve customer requests and give accurate information, whichever model or vendor powers them. Conversation Insights shows the results across all your conversations.
+This release includes:
+Task Completion operator : Labels each conversation as resolved, unresolved, escalated, or declined by the agent, and gives a one-sentence reason. It only evaluates the first task.
+Hallucination Detection operator : Checks the agent’s statements against your Enterprise Knowledge and the conversation itself, and returns the ones it flags. Claims it can’t check are listed as context gaps.
+Conversation Insights support : Aggregate the results to spot recurring patterns and track quality over time. You can also send them to a data warehouse, such as Snowflake or Databricks, with Twilio Destinations.
+Both operators run at the end of any conversation routed through Conversation Orchestrator. They use a large language model as a judge to evaluate the interaction.
+Read the blog post for the full story, or get started with our docs .
+Learn more
+Nov 17, 2026
+New Features for Conversation Insights (Beta)
+Conversation Insights (public beta) enables you to measure what's happening across all your Twilio Conversations: aggregate signals from every interaction, learn what works, and feed it back so each conversation can improve the next. The following features are now available:
+1. Custom measures : Make the conversational signals that matter to your business available in Conversation Insights. Register a numeric value from your own Conversation Intelligence operator, such as a lead score or agent rating, and explore aggregate patterns and trends across conversations.
+2. Conversation Summary : A new gold-layer cube with one unified row per Conversation, combining channel metadata, participant info, and operator results into a single analytics-ready record.
+3. Data Destinations support (private beta): Build reports and dashboards in the tools your team already works in. Sync the Conversation Summary record to your existing warehouse, BI system, or analytics tool (18 destinations currently available), and join it with the business data that already exists there.
+4. Asynchronous queries : Submit long-running or large analytics queries, then poll for status and retrieve the results asynchronously, so intensive analytics jobs don't time out.
+Learn more
 Nov 16, 2026
 GA
 Voice API
@@ -542,35 +562,6 @@ Twilio Platform
 Upcoming cipher suite list update for all Twilio REST API endpoints on February 18, 2027
 Security standards are always evolving, and we want to ensure your Twilio applications are using the strongest protection available.
 We're extending the deadline for these changes and customers now have until February 18, 2027, to update their setups with the ciphers listed below. We’ll continue accepting legacy cipher traffic during that window so customer applications keep running without interruption.
-Learn more
-Nov 10, 2026
-GA
-Twilio Email
-Multiple IP Purchase and IP Overflow Logic
-Customers can now purchase up to 5 dedicated IP addresses on Twilio Email, allowing high volume organizations to streamline and isolate email streams that serve their operational, strategic, and deliverability goals. Customers can segment different types of traffic, manage multiple brands or domains, and scale high volume sending with multiple IP addresses. Fallback options can be configured both on the account and the subaccount level to other IPs on the account or directly to the shared pools (limit of 1M per month).
-To learn more about how to manage your email reputation and IP warmup, see the Twilio Docs .
-Learn more
-Nov 09, 2026
-Segment
-Unify
-Profiles Sync
-Segment Profile Sync Deletions and Null Trait Propagation is GA
-Key Features & Updates
-Automated Profile Deletions (Hard Deletes): Profile Sync Deletions automatically propagates profile deletion requests from Segment to the connected warehouse . This ensures that when a profile is permanently deleted in Segment (such as for a GDPR "Right to be Forgotten" request), all associated data in your Profile Sync tables is permanently removed . This encompasses all identifiers, traits, and events .
-Null Trait Propagation: When specific user traits are cleared or marked as null in Segment, those updates are accurately propagated to the warehouse . Profile Sync writes explicit NULL values to both raw and materialized tables to prevent outdated or stale values from persisting in downstream data .
-Profile Reintroduction Handling: If a previously deleted user returns to a site or app (e.g., after a 90-day inactivity window), Segment treats them as a brand new profile . Profile Sync detects the returning user as a new entity, assigns a new canonical Segment ID, and ensures that no historical data from the previously deleted profile is linked or resurrected .
-Architecture & Execution
-Two-Phase Deletion Process:
-Phase 1 (Identification & Staging): Profile Sync securely captures the deletion signals and prepares the corresponding segment IDs for processing, ensuring that no Personally Identifiable Information (PII) is retained .
-Phase 2 (Execution): On a scheduled basis, Profile Sync runs batch deletion operations directly within the connected data warehouse to remove all traces of the deleted profiles from managed tables .
-Table Scope: The deletion job targets all tables managed by Profile Sync . This includes materialized views (like user_traits and user_identifiers) as well as append-only raw tables (like event tables and ID graphs) .
-Run Schedule: In production environments, the deletion job is scheduled to run once per week . This frequency handles bulk requests and sporadic bursts without impacting warehouse performance during standard incremental syncs .
-Configuration & Support
-Supported Warehouses: This feature is available for all 6 Profile Sync supported warehouses: Snowflake, Redshift, BigQuery, Azure, Postgres, and Databricks .
-Self-Serve Enablement: Profile Sync Deletions can be enabled on a per-connection basis, giving customers granular control over which connected warehouses receive automated deletion requests . To enable it, navigate in the Segment workspace to Unify > Profiles Sync > Settings > Basic settings , locate the Sync status section, and switch on the Sync Profile deletions to Warehouse toggle .
-Compliance & SLOs: While Segment aims to process all deletions in a timely manner (targeting 30 days), Profile Sync deletions are explicitly decoupled from the core 30-day GDPR deletion Service Level Objective (SLO) . Processing time depends on external, customer-owned infrastructure and can be impacted by warehouse availability, concurrent workloads, and provisioning .
-Limitations: Profile Sync currently only supports permanent "hard deletes". Soft deletion (marking a profile with a deleted_at timestamp) is not supported.
-Public Docs: https://www.twilio.com/docs/segment/unify/profiles-sync/deletions
 Learn more
 Loading
 Error: Unable to load changelog
