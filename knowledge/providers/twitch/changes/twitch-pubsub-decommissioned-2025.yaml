@@ -29,7 +29,7 @@ sources:
     observed: 2026-09-24
     note: "Today we are announcing the timeline to decommission our legacy PubSub system for third-party development with a shutdown to be completed on or soon after April 14, 2025. ... Will this deprecation affect Extension PubSub? No."
   - kind: provider_page
-    url: https://dev.twitch.tv/docs/product-lifecycle/
+    url: https://web.archive.org/web/20260826091823/https://dev.twitch.tv/docs/product-lifecycle
     observed: 2026-09-24
     note: "2025-04-14: Permanent shutdown of legacy PubSub."
 
