@@ -40,4 +40,4 @@ migration:
     payload shapes differ from RTM messages, so message handlers need
     rewriting, and bot tokens must be reissued under the new app.
 
-status: active
+status: expired
