@@ -27,11 +27,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: graalvm/setup-graalvm@0426e2e191540e8514dff98dc52a5f5146a2a276 # v1.6.6
-        with:
-          java-version: "25"
-          distribution: graalvm-community
-          cache: maven
+      - uses: ./.github/actions/setup-graalvm
 
       - name: Fetch Maven
         run: for _ in 1 2 3; do ./mvnw -q -v && exit 0; sleep 30; done; exit 1

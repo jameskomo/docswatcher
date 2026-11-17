@@ -19,11 +19,7 @@ jobs:
         options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v7
-      - uses: graalvm/setup-graalvm@v1
-        with:
-          java-version: "25"
-          distribution: graalvm-community
-          cache: maven
+      - uses: ./.github/actions/setup-graalvm
       # The wrapper downloads Maven itself, once, with no retry: a short Maven Central outage
       # failed the whole nightly run on 2026-09-24. Fetch it here, a few times if need be.
       - name: Fetch Maven
@@ -72,11 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: graalvm/setup-graalvm@v1
-        with:
-          java-version: "25"
-          distribution: graalvm-community
-          cache: maven
+      - uses: ./.github/actions/setup-graalvm
       - uses: actions/setup-node@v7.1.0
         with: { node-version: "22", cache: npm, cache-dependency-path: web/package-lock.json }
       - name: Fetch Maven
@@ -136,8 +128,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: graalvm/setup-graalvm@v1
-        with: { java-version: "25", distribution: graalvm-community, cache: maven }
+      - uses: ./.github/actions/setup-graalvm
       # The wrapper downloads Maven itself, once, with no retry: a short Maven Central outage
       # failed the whole nightly run on 2026-09-24. Fetch it here, a few times if need be.
       - name: Fetch Maven

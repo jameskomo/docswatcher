@@ -23,7 +23,7 @@ Stack under test: Java 25, Maven multi-module, Spring Boot 4, GraalVM native-ima
 | End-to-end | Playwright against a seeded stack | Nightly | Full user paths |
 | Browser scanner parity | Playwright | Nightly | Public scan equals CLI scan |
 | Closed-loop fix | Fixture repo plus Claude Code action | Weekly | Fix PRs work and clear the finding |
-| Link check | `scripts/check-links` | Weekly | Source and guide URLs resolve |
+| Link check | `link-check.yml`, `web/scripts/repair-dead-sources.mjs` | Weekly | Source URLs resolve; dead ones get an archive-copy pull request, never a red run |
 | Corpus re-pin | Benchmark at newer commits | Weekly | Drift against live repos |
 
 ## Engine unit tests

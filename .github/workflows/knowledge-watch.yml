@@ -157,9 +157,8 @@ jobs:
       # Built from this checkout, not downloaded from the latest release: a release can be older than
       # the knowledge base, and then rejects what main already supports (new languages, manifest
       # ecosystems). That failed this job on 2026-09-25 and 26.
-      - uses: graalvm/setup-graalvm@0426e2e191540e8514dff98dc52a5f5146a2a276 # v1.6.6
+      - uses: ./.github/actions/setup-graalvm
         if: steps.expire.outputs.expired != '0'
-        with: { java-version: "25", distribution: graalvm-community, cache: maven }
 
       - name: Build the DocsWatcher CLI
         if: steps.expire.outputs.expired != '0'
@@ -223,8 +222,7 @@ jobs:
           path: ${{ runner.temp }}
 
       # Built from this checkout before the agent runs, for the same reason as in the expire job.
-      - uses: graalvm/setup-graalvm@0426e2e191540e8514dff98dc52a5f5146a2a276 # v1.6.6
-        with: { java-version: "25", distribution: graalvm-community, cache: maven }
+      - uses: ./.github/actions/setup-graalvm
 
       - name: Build the DocsWatcher CLI
         run: |

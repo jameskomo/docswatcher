@@ -1,26 +1,46 @@
 name: Knowledge base link check
 
+# Requests every source URL the knowledge base cites. A page that is gone is the provider's doing,
+# not a regression of ours, so it never fails this run: it gets an Internet Archive copy in one pull
+# request, or a line in one issue when no copy exists. See docs/16-knowledge-watch.md, "Repair dead
+# sources". The run fails only when one of our own steps does.
+
 on:
   schedule:
     - cron: "0 6 * * 1"   # weekly, Monday
   workflow_dispatch:
 
+permissions: {}
+
+concurrency:
+  group: link-check
+  cancel-in-progress: false
+
 jobs:
   links:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write        # to push the kw/links branch; main is never pushed
+      pull-requests: write   # to open the pull request
+      issues: write          # to list dead pages that have no archive copy
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
       - name: Check every url in change records
-        # A link check that fails on a slow or rate-limiting site fails for the site, not for us. Only
-        # an answer that the page is gone (404 or 410, three times) fails the job; anything else that
-        # stays unreachable after three tries is reported as a warning. Withdrawn records are skipped:
-        # a withdrawn record usually is withdrawn because its source page went away.
+        id: check
+        # Three tries each. 404 or 410 every time means gone, and goes to the repair step; anything
+        # else that stays unreachable (a slow or rate-limiting site) is a warning. Withdrawn records
+        # are skipped: a record is usually withdrawn because its source page went away.
         run: |
           set -u
           ua="Mozilla/5.0 (compatible; DocsWatcher link check; +https://github.com/jameskomo/docswatcher)"
           urls=$(grep -rL '^status: withdrawn' knowledge/providers/*/changes/*.yaml \
             | xargs grep -hoE 'url: https?://[^ ]+' | awk '{print $2}' | sort -u)
-          broken=0; unreachable=0
+          : > "$RUNNER_TEMP/dead.txt"
+          unreachable=0
           for u in $urls; do
             code=000
             for attempt in 1 2 3; do
@@ -30,9 +50,84 @@ jobs:
             done
             case "$code" in
               2*|3*) ;;
-              404|410) echo "::error::BROKEN $code $u"; broken=$((broken + 1));;
-              *) echo "::warning::UNREACHABLE $code $u (not counted as broken)"; unreachable=$((unreachable + 1));;
+              404|410) echo "::warning::GONE $code $u (an archive copy is proposed below)"; echo "$u" >> "$RUNNER_TEMP/dead.txt";;
+              *) echo "::warning::UNREACHABLE $code $u"; unreachable=$((unreachable + 1));;
             esac
           done
-          echo "$(echo "$urls" | wc -w) urls: $broken broken, $unreachable unreachable"
-          [ "$broken" -eq 0 ]
+          gone=$(wc -l < "$RUNNER_TEMP/dead.txt")
+          echo "gone=$gone" >> "$GITHUB_OUTPUT"
+          echo "$(echo "$urls" | wc -w) urls: $gone gone, $unreachable unreachable"
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        if: fromJSON(steps.check.outputs.gone) > 0
+        with:
+          node-version: "22"
+
+      - name: Replace dead pages with archive copies
+        id: repair
+        if: fromJSON(steps.check.outputs.gone) > 0
+        working-directory: web
+        run: |
+          set -euo pipefail
+          node scripts/repair-dead-sources.mjs --dead "$RUNNER_TEMP/dead.txt" --write \
+            --body "$RUNNER_TEMP/links-pr.md" --issue "$RUNNER_TEMP/links-issue.md"
+
+      - name: Accept only url lines changing to archive copies
+        if: fromJSON(steps.repair.outputs.repaired || '0') > 0
+        run: |
+          set -euo pipefail
+          outside=$(git diff --name-only | grep -vE '^knowledge/providers/[a-z0-9-]+/changes/[a-z0-9.-]+\.yaml$' || true)
+          if [ -n "$outside" ]; then
+            echo "::error::The repair step changed files outside the change records:"; echo "$outside"; exit 1
+          fi
+          other=$(git diff -U0 | grep -E '^[-+]' | grep -vE '^(\+\+\+|---) ' \
+            | grep -vE '^-    url: https?://[^ ]+$|^\+    url: https://web\.archive\.org/web/[0-9]{14}/https?://[^ ]+$' || true)
+          if [ -n "$other" ]; then
+            echo "::error::The repair step changed more than url lines:"; echo "$other"; exit 1
+          fi
+          date -u +%Y.%m.%d > knowledge/VERSION
+          git diff --stat
+
+      - name: Open or refresh the pull request
+        if: fromJSON(steps.repair.outputs.repaired || '0') > 0
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # One standing branch, rebuilt from main each week, so a page dying next week joins the
+          # open pull request instead of opening another.
+          branch="kw/links"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add knowledge
+          git commit --quiet -m "knowledge: replace dead source pages with archive copies ($(date -u +%F))"
+          git push --force --quiet "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" "$branch"
+          gh label create knowledge-links --repo "$REPO" --color FBCA04 \
+            --description "Dead source pages replaced by archive copies, by the link check" --force >/dev/null
+          open=$(gh pr list --repo "$REPO" --head "$branch" --state open --json number --jq 'length')
+          if [ "$open" = "0" ]; then
+            gh pr create --repo "$REPO" --label knowledge-links --head "$branch" \
+              --title "Knowledge: replace dead source pages with archive copies" --body-file "$RUNNER_TEMP/links-pr.md"
+          else
+            gh pr edit "$branch" --repo "$REPO" --body-file "$RUNNER_TEMP/links-pr.md"
+          fi
+
+      - name: List pages with no archive copy
+        if: fromJSON(steps.repair.outputs.unresolved || '0') > 0
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh label create knowledge-links --repo "$REPO" --color FBCA04 \
+            --description "Dead source pages replaced by archive copies, by the link check" --force >/dev/null
+          title="Knowledge link check"
+          existing=$(gh issue list --repo "$REPO" --label knowledge-links --state open \
+            --json number,title --jq "[.[] | select(.title == \"$title\")][0].number // empty")
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --repo "$REPO" --body-file "$RUNNER_TEMP/links-issue.md"
+          else
+            gh issue create --repo "$REPO" --label knowledge-links --title "$title" --body-file "$RUNNER_TEMP/links-issue.md"
+          fi

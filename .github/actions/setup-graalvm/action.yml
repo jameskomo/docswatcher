@@ -1,0 +1,32 @@
+name: Set up GraalVM
+description: >
+  graalvm/setup-graalvm for Java 25, tried three times. It downloads the JDK from GitHub's release
+  servers, which answered 504 for over a minute on 2026-11-08 and failed that night's CI. A
+  download outage is not a regression of ours, so it gets a minute, then three more, before the
+  job gives up.
+
+runs:
+  using: composite
+  steps:
+    - id: first
+      continue-on-error: true
+      uses: graalvm/setup-graalvm@d6eca2595046623d69d636041513c80abf745406 # v1.6.9
+      with: { java-version: "25", distribution: graalvm-community, cache: maven }
+
+    - if: steps.first.outcome == 'failure'
+      shell: bash
+      run: echo "::warning::GraalVM download failed; trying again in a minute"; sleep 60
+
+    - id: second
+      if: steps.first.outcome == 'failure'
+      continue-on-error: true
+      uses: graalvm/setup-graalvm@d6eca2595046623d69d636041513c80abf745406 # v1.6.9
+      with: { java-version: "25", distribution: graalvm-community, cache: maven }
+
+    - if: steps.second.outcome == 'failure'
+      shell: bash
+      run: echo "::warning::GraalVM download failed again; last try in three minutes"; sleep 180
+
+    - if: steps.second.outcome == 'failure'
+      uses: graalvm/setup-graalvm@d6eca2595046623d69d636041513c80abf745406 # v1.6.9
+      with: { java-version: "25", distribution: graalvm-community, cache: maven }

@@ -63,6 +63,32 @@ Findings go to one GitHub issue per run, labelled `knowledge-watch`, and only wh
 something to say. A day with no changes and nothing ageing produces no issue. The first run records
 a baseline and reports nothing.
 
+### 5. Repair dead sources (weekly)
+
+`.github/workflows/link-check.yml` runs every Monday and requests every source URL of every record
+that is not withdrawn, three times with a pause between tries.
+
+A page that is gone is the provider's doing, not a regression of ours, so it never turns the run
+red. Until 2026-11-16 a 404 failed the job, and Twitch moving one page did exactly that. Now:
+
+- For a URL that answers 404 or 410 three times, `web/scripts/repair-dead-sources.mjs` asks the
+  Internet Archive for its snapshot closest to the source's `observed` date (the day a person
+  confirmed the page said what the record quotes), and replaces the URL with that snapshot. The note
+  keeps quoting the same words, because the snapshot is the page they were quoted from.
+- It also tries the same address with and without a trailing slash and follows redirects. If that
+  lands on a live page, the pull request names it, since a provider that moved the page is a better
+  source than an archive copy.
+- The changes go to one standing branch, `kw/links`, and one pull request labelled
+  `knowledge-links`. A gate refuses any diff other than `url:` lines changing to
+  `https://web.archive.org/web/` addresses.
+- A dead URL with no snapshot cannot be repaired by a script. It goes to one rolling issue,
+  "Knowledge link check", for a person to replace or withdraw.
+- Anything else that stays unreachable (403, 429, 5xx, timeouts) is a warning: sites rate-limit
+  and block datacenter clients, and the daily watch already reports a page that keeps failing.
+
+The run fails only if our own step does: the script crashes, the gate refuses the diff, or GitHub
+refuses the pull request.
+
 ### Optional: an agent drafts the records
 
 If the repository has a `CLAUDE_CODE_OAUTH_TOKEN` secret (from `claude setup-token`, billed to a
@@ -139,3 +165,7 @@ subscription the token belongs to.
 | Expiring a record changes its `status: active` line and no other; a record without exactly one such line is refused | The automatic edit is one reviewable line |
 | A record is due for expiry only after its effective date, the first day validate accepts `expired` | The pull request never fails validation for being early |
 | Validate warns, naming the record and date, from 7 days before an active record's date until it is expired, and never fails on a date passing | CI stays green as the calendar moves; the warning and the pull request carry the notice |
+| A dead URL is replaced by the Internet Archive snapshot closest to its `observed` date, and only a snapshot the archive recorded as 200 | The replacement shows the words the note quotes, not a capture of the error page |
+| Replacing a URL changes only `url:` lines equal to it, in every record that cites it, and nothing else | The automatic edit is reviewable line by line |
+| A dead URL without a snapshot is listed for a person and changes no file | Nothing is replaced by a guess |
+| A 404 never fails the link check; a crash, a refused diff or a refused pull request does | Red means we broke something |

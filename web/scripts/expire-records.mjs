@@ -46,7 +46,7 @@ console.log(due.length ? `${due.length} record${due.length === 1 ? "" : "s"} pas
 if (typeof args.body === "string" && due.length) {
   writeFileSync(args.body, [
     `Sets \`status: expired\` on ${due.length} change record${due.length === 1 ? "" : "s"} whose effective date has passed, as of ${today}.`,
-    "`docswatcher validate` fails on an active record after its date, so CI on `main` stays red until this is merged.",
+    "`docswatcher validate` warns about an active record after its date (a warning only: CI stays green), and the label on the site is wrong until this is merged.",
     "",
     ...due.map((d) => `- \`${d.id}\`, effective ${d.effective} (\`${d.path}\`)`),
     "",
