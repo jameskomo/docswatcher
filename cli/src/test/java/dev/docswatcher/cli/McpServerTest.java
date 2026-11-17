@@ -265,12 +265,15 @@ class McpServerTest {
       c.get("matches").forEach(m -> expected.add(m.asText()));
       assertThat(r.get("verdict").asText()).as("verdict for %s", c.get("input")).isEqualTo(c.get("verdict").asText());
       assertThat(ids).as("matches for %s", c.get("input")).isEqualTo(expected);
-      assertThat(r.get("answer").asText()).as("answer for %s", c.get("input")).isEqualTo(c.get("answer").asText().replace("{version}", K.version()));
+      assertThat(r.get("answer").asText()).as("answer for %s", c.get("input")).isEqualTo(c.get("answer").asText()
+          .replace("{version}", K.version()).replace("{verified}", SERVER.newestObserved()));
     }
   }
 
   /**
-   * The {version} in the shared cases is knowledge/VERSION on every side: this directory load, the
+   * The {version} in the shared cases is knowledge/VERSION on every side, and {verified} the newest
+   * source observed date: both change whenever a person re-checks a record, which says nothing about
+   * either engine, so a re-check never breaks this test. {version}: this directory load, the
    * copy compiled into the CLI, and the site bundle (web/tests/unit/checkApi.test.ts).
    */
   @Test

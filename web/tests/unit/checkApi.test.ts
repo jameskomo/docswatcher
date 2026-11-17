@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { checkApi } from "../../engine/checkApi";
+import { checkApi, newestObserved } from "../../engine/checkApi";
 import type { Knowledge } from "../../engine/types";
 
 const web = join(__dirname, "..", "..");
@@ -22,7 +22,7 @@ describe("checkApi answers the shared cases exactly as the CLI does", () => {
       const r = checkApi(knowledge, c.input, today);
       expect(r.verdict).toBe(c.verdict);
       expect(r.matches.map((m) => m.id)).toEqual(c.matches);
-      expect(r.answer).toBe(c.answer.replace("{version}", knowledge.version));
+      expect(r.answer).toBe(c.answer.replace("{version}", knowledge.version).replace("{verified}", newestObserved(knowledge)));
     });
   }
 });

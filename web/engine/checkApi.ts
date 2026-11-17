@@ -152,7 +152,7 @@ function line(m: CheckMatch, c: ChangeRecord): string {
 }
 
 /** The newest date a person confirmed any source. What "known" means in every answer. */
-function newestObserved(knowledge: Knowledge): string {
+export function newestObserved(knowledge: Knowledge): string {
   let newest = "";
   for (const p of knowledge.providers) for (const c of p.changes) for (const s of c.sources ?? []) {
     if (s.observed > newest) newest = s.observed;
