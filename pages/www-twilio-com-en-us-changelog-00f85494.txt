@@ -487,6 +487,21 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Nov 16, 2026
+GA
+Voice API
+Twilio Voice now supports HD audio
+Twilio Voice calls can now connect in HD voice, with clearer, more natural-sounding speech. We've begun negotiating the AMR-WB wideband codec with supported carrier networks, starting in the United States and expanding to more markets over time.
+Learn more
+Nov 16, 2026
+Programmable Messaging API
+WhatsApp Business API
+GA
+Messaging
+Sticky Sender is now supported for WhatsApp in Twilio Messaging Services
+We are excited to announce that Sticky Sender now applies to WhatsApp messages sent through Twilio Messaging Services. If Sticky Sender is turned on for your Messaging Service, it will now apply to WhatsApp. If a sender was previously used to message a recipient on WhatsApp, the same sender will be used for subsequent WhatsApp messages to that recipient.
+Sticky Sender is optional. If you do not want Sticky Sender applied to WhatsApp, you can disable Sticky Sender on the Messaging Service. You can also use a separate Messaging Service dedicated to WhatsApp that does not have Sticky Sender turned on. To learn more, see Sticky Sender .
+Learn more
 Nov 13, 2026
 Beta
 Branded Calling
@@ -556,21 +571,6 @@ Self-Serve Enablement: Profile Sync Deletions can be enabled on a per-connection
 Compliance & SLOs: While Segment aims to process all deletions in a timely manner (targeting 30 days), Profile Sync deletions are explicitly decoupled from the core 30-day GDPR deletion Service Level Objective (SLO) . Processing time depends on external, customer-owned infrastructure and can be impacted by warehouse availability, concurrent workloads, and provisioning .
 Limitations: Profile Sync currently only supports permanent "hard deletes". Soft deletion (marking a profile with a deleted_at timestamp) is not supported.
 Public Docs: https://www.twilio.com/docs/segment/unify/profiles-sync/deletions
-Learn more
-Nov 05, 2026
-GA
-Voice API
-Voice API Call resource now returns STIR/SHAKEN status
-The Call resource now returns the STIR/SHAKEN status of each call. Check the attestation on your calls straight from the Calls API.
-Learn more
-Nov 05, 2026
-Twilio Email
-SendGrid Email API
-GA
-Twilio SendGrid Platform
-Email Insights is now Generally Available
-Email Insights gives senders near real-time visibility into deliverability and engagement through three prebuilt dashboards: Overview, Delivery Errors, and Audience Health. Filter by domain, IP pool, template, category and more, then drill into message-level detail in Email Logs. Included at no additional cost in both the Twilio Console and the SendGrid Console, with about two months of history at launch, starting August 20, 2026, and growing over time. Your existing Stats pages and APIs are unchanged.
-To learn more, see Email Insights in the Twilio Email docs and the Twilio SendGrid docs .
 Learn more
 Loading
 Error: Unable to load changelog

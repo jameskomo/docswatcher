@@ -24,9 +24,35 @@ Summarize this article for me
 In this article
 Warning
 Deprecation Notice:
-The Marketing Version 202511 (Marketing November 2025) will be sunset on November 16, 2026. We recommend that you migrate to the latest versioned APIs to avoid disruptions. For information on all the supported versions, refer to the migrations documentation.
+The Marketing Version 202601 (Marketing January 2026) will be sunset on January 15, 2027. We recommend that you migrate to the latest versioned APIs to avoid disruptions. For information on all the supported versions, refer to the migrations documentation.
 If you haven’t yet migrated and have questions, submit a request on the LinkedIn Developer Support Portal .
-October 2026 - Version 202610 (Latest)
+November 2026 - Version 202611 (Latest)
+Product & Platform Announcements
+Ad Accounts API : New billingReference field :
+Starting with the 202611 version, the /adAccounts endpoint returns and accepts billingReference , a URN that references the billing object (for example, a Salesforce contract line item) associated with an ENTERPRISE account. The field can be set when the account is created and updated with a partial update; updates are restricted to approved applications. It is also returned in the accountInfo additional info field of /adCampaignGroups and /adCampaigns . In earlier versions, the field is rejected with a 422 error. This is an additive, backward-compatible change.
+Boost API : Custom targeting, saved audiences, and boost management :
+Starting with version 202611 , Boost Init provides targeting discovery through targetingEntities , and custom or saved audiences use includeAll and excludeAny criteria. The shared /rest/boostTargetingCriteria resource supports creating, finding, editing, and deleting account-owned audiences for Member and Company Page boosts. The /rest/memberBoostManage/{campaignId} and /rest/organizationBoostManage/{campaignId} resources support retrieving existing boosts, updating targeting and political declarations, and deleting boosts. Budget, objective, and schedule aren't editable through these management resources. Use Init's returned billingUrl unchanged for billing setup.
+Boost API : Hosted billing setup URL :
+Boost Init returns an optional billingUrl when billingConfigured is false . Partners can direct the advertiser to this LinkedIn-hosted URL to complete billing setup, then call the Init endpoint again before continuing. Partners should not collect payment details themselves. billingConfigured now reflects billing readiness rather than merely the presence of a payment method, so some accounts that previously returned true can return false . Advertisers are expected to complete billing setup before creating a boost.
+Boost API : Political-advertising declaration :
+Starting with the 202611 version, Member and Company Page Boost Post actions accept a politicalIntent declaration. Boost Hydrate can return politicalDeclarationRequired to indicate when the evaluated targeting requires an explicit declaration. An absent value isn't a confirmed false . LinkedIn's prohibition on political advertising remains unchanged. See the Reminders section below for details.
+Conversions API : SHA256_PHONE user identifier :
+Starting with the 202611 version, the /conversionEvents endpoint supports SHA256_PHONE as a new idType in userIds for phone-number matching. Normalize the phone number to E.164 format (country calling code plus national number), remove the leading + so that only digits remain, then apply SHA256 and hex-encode the digest. For example, (650) 555-1212 in the US becomes 16505551212 before hashing.
+Campaign Management API : surface field for publisher lists (action required) :
+Starting with the 202611 version, the /adPublisherRestrictions endpoint supports a required surface field when you create a publisher list. Set it to LAN (LinkedIn Audience Network) or CTV (Connected TV). You can only set surface at creation and can't change it later. On version 202611 or later, a create request without a valid surface returns a 400 error. The field lets each publisher list target a single placement type. This isn't backward compatible for publisher-list creation. As announced in October, the migration window for existing partner API accounts ends on December 15, 2026 . After that date, the following applies on every API version:
+Creating lists on older versions : create requests to /adPublisherRestrictions on versions 202610 or earlier return 400 with the code SURFACE_AWARE_API_VERSION_REQUIRED . Use 202611 or later to create lists.
+Existing legacy lists ( surface is BOTH or absent) : update requests return 400 with the code LEGACY_PUBLISHER_LIST_UPDATE_NOT_ALLOWED . You can still read these lists, and campaigns they're already attached to keep working. To change a legacy list, create a new list with surface set to LAN or CTV .
+Using lists on campaigns : /adAccounts/{id}/adCampaigns only accepts publisher lists whose surface matches the campaign's placement type. Requests that don't match return 400 .
+Using lists on account trust preferences : /adAccountTrustPreferences is account-level and has no campaign placement to match. Any list newly added to the account-level allowlist or blocklist must have surface set to LAN or CTV . Adding a legacy list ( BOTH or no surface ) returns 400 . Lists already applied to the account keep working.
+Migrate to version 202611 and update your publisher-list integration before December 15, 2026.
+Breaking changes
+Boost Analytics : Response shape and reporting limitation :
+Version 202611 and later replaces the flat post metric fields with a campaigns array. Campaign metrics, including local-currency spend, aren't currently populated, so upgrading from 202610 doesn't preserve equivalent reporting. An empty campaigns array doesn't mean zero delivery or spend. Integrations that require the October metrics must account for this limitation before upgrading.
+Reminders
+Campaigns API : Political advertising declaration for EU-targeted campaigns :
+This is a reminder that advertisers running campaigns targeting the EU region must self-declare if their ads qualify as political advertising under the EU's Transparency and Targeting of Political Advertising (TTPA) regulation. Campaign Management partners must already implement a self-declaration step in the LinkedIn campaign creation flow for campaigns targeting the EU region and pass this information to LinkedIn via the politicalIntent field in the /adCampaigns schema. Starting December 15, 2026 , EU-targeted campaigns created without a political intent declaration will be rejected with a 400 error.
+Although LinkedIn prohibits political advertising and will continue to do so, this update is required to ensure regulatory compliance and maintain a trusted platform for our members and customers.
+October 2026 - Version 202610
 Product & Platform Announcements
 Creatives API : New metadata field :
 Starting with the 202610 version, the /creatives endpoint supports a new read-only metadata field that returns descriptive information about a creative: adFormat , adHeadline , adIntroductionText , adLine , landingPage , and assetURL . Previously, retrieving this information required calling a different API depending on the creative's content type. The field is derived on read from the creative's underlying content and isn't stored, and fields that don't apply to the creative's ad format are omitted. metadata isn't returned by default; request it explicitly using the fields query parameter when retrieving a single creative, as described in Retrieve Creative Metadata . It isn't returned by the creatives finders. This is an additive, backward-compatible change; versions 202609 and below don't return this field.
@@ -794,7 +820,7 @@ Ask Learn
 Suggest a fix?
 Additional resources
 Last updated on
-2026-11-10
+2026-11-16
 In this article
 Was this page helpful?
 Need help with this topic?

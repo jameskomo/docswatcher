@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Web API GET and HEAD requests with a body will return 403 errors
 Org-level admin.users.setRegular API method calls now remove Workspace Owner roles
 Release: Slack CLI v4.14.0
 Work Objects embeds require the slack-mcps.com frame ancestor
@@ -261,6 +262,26 @@ Subscribe to the changelog!
 Get real-time notifications about new features, improvements, and bug fixes directly in your preferred feed reader.
 RSS (opens in new tab)
 Atom (opens in new tab)
+Web API GET and HEAD requests with a body will return 403 errors
+November 16, 2026
+On February 17th, 2027 , the Web API will start rejecting HTTP GET and HEAD requests that include a request body. These requests will fail with an HTTP 403 error. This change is part of infrastructure updates to how API traffic reaches Slack.
+Requests without a body aren't affected, and neither are POST requests.
+Check whether your app is affected ​
+Most affected apps don't send a body on purpose. Many HTTP libraries add a small body, often an empty {} , to a GET request when a body option is set. Your app is likely affected if it does any of the following when calling a Web API method with GET :
+passes data in axios
+passes json or form_params in Guzzle
+passes data= or json= in Python requests or aiohttp
+puts method arguments in a form-encoded body instead of the query string
+Update your app ​
+For most apps, the fix is to stop sending a body with GET requests:
+Send GET arguments in the query string, for example GET /api/conversations.history?channel=C123&limit=100 .
+Send your token in the Authorization: Bearer header, not in the body or the URL.
+If you use slack api from the Slack CLI, upgrade to v4.12.0 or later with slack upgrade and pass GET arguments as key=value instead of --json .
+Or use POST , which supports both URL-encoded and JSON-encoded bodies.
+If your arguments already go in the query string and your token in the Authorization header, dropping the body is the only change you need to make.
+Tags:
+Announcement
+Breaking change
 Org-level admin.users.setRegular API method calls now remove Workspace Owner roles
 November 13, 2026
 When team_id is an org ID, the admin.users.setAdmin and admin.users.setOwner API methods make the user a Workspace Owner on every workspace they belong to. Until now, the admin.users.setRegular API method with an org ID as team_id didn't reverse that, so a demoted org admin or owner kept their Workspace Owner roles.

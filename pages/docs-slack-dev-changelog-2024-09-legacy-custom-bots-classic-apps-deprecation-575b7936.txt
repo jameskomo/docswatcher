@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Web API GET and HEAD requests with a body will return 403 errors
 Org-level admin.users.setRegular API method calls now remove Workspace Owner roles
 Release: Slack CLI v4.14.0
 Work Objects embeds require the slack-mcps.com frame ancestor

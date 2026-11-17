@@ -193,7 +193,7 @@ See notes for individual library versions
 JavaScript
 13.3.0
 Flutter
-Flutter BoM : 5.1.0
+Flutter BoM : 5.2.0
 See notes for individual plugin versions
 Unity
 14.1.0
@@ -215,7 +215,24 @@ Firebase CLI
 15.36.0
 Firebase Studio
 See notes
+November 16, 2026
+SDK Releases
+The Firebase SDK for Flutter
+(v5.2.0) is now available.
+This release includes changes in several products, and bug fixes in
+several products.
 November 12, 2026
+Crashlytics
+Firebase Crashlytics now supports web apps (in Preview). You
+can automatically capture browser exceptions and framework errors for
+Angular, Next.js, and React, upload source maps
+for de-obfuscated stack traces,
+customize crash reports
+with handled exceptions and custom keys,
+configure alerts , and debug issues using
+Crashlytics MCP tools . To get
+started, see
+Get started with Crashlytics for web apps .
 Firebase AI Logic
 Firebase AI Logic supports the latest Gemini stable
 model gemini-4-hydrogen . You can
@@ -17647,7 +17664,7 @@ See the quickstart sample
 for an example of this workaround in action.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-14 UTC.
+Last updated 2026-11-16 UTC.
 Learn
 Developer guides
 SDK & API reference

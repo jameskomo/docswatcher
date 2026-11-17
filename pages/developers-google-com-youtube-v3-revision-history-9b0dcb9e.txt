@@ -147,6 +147,13 @@ list
 insert
 update
 delete
+Posts
+Overview
+list
+insert
+update
+delete
+imageUpload
 Search
 Overview
 list
@@ -230,6 +237,39 @@ Revision History
 Stay organized with collections
 Save and categorize content based on your preferences.
 This page lists YouTube Data API (v3) changes and documentation updates.
+November 16, 2026
+Starting November 16, 2026, YouTube will include co-views (multiple people
+watching together on a television screen) in public view counts across all
+video formats: long-form videos, Live, and Shorts. Concurrent viewer counts
+for live broadcasts also include co-viewers.
+Creator earnings, ad revenue, and YouTube Partner Program eligibility are
+unaffected, and engaged views don't include co-views. To learn more, see
+Understand your YouTube content
+performance .
+API documentation updates: Updated the descriptions of the viewCount
+field in the channels ,
+videos , and
+videos.batchGetStats
+reference documentation and the liveStreamingDetails.concurrentViewers field
+in the videos reference
+documentation.
+Added support for the posts
+resource, which represents a YouTube post. During the pilot phase,
+the resource and its methods are available only to select launch partners
+(approved Google Cloud projects), with broader public API access planned for
+General Availability in 2027. Approved Google Cloud projects in the pilot can
+also use comments on posts.
+The
+paidProductPlacementDetails.hasPaidProductPlacement
+property no longer defaults to false . If you don't specify a value for the
+property in a videos.insert
+or videos.update request,
+the video isn't declared as free of paid product placement. To declare that a
+video doesn't contain paid product placement, explicitly set the property to
+false :
+"paidProductPlacementDetails" : {
+"hasPaidProductPlacement" : false
+}
 November 3, 2026
 This update contains the following changes:
 The thumbnails.set method
@@ -3242,7 +3282,7 @@ notFound
 videoCategoryNotFound
 The video category identified by the id parameter cannot be found. Use the videoCategories.list method to retrieve a list of valid values.
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-12 UTC.
+Last updated 2026-11-17 UTC.
 Blog
 The latest news on the YouTube blog
 Issue Tracker
