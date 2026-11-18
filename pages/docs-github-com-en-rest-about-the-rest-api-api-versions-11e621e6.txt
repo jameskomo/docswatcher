@@ -220,6 +220,7 @@ Contents
 Custom properties
 Forks
 Issue types
+Planning statuses
 Repositories
 Rule suites
 Rules

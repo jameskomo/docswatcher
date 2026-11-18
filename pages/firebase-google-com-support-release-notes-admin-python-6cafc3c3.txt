@@ -527,7 +527,7 @@ Developers can now test Realtime Database API calls by directing
 the SDK traffic to the RTDB emulator. Set the FIREBASE_DATABASE_EMULATOR_HOST
 environment variable to specify the emulator endpoint in host:port format.
 Version 2.17.0 - May 23, 2019
-Firebase Cloud Messaging
+Cloud Messaging
 A new
 messaging.send_multicast()
 API for sending a message to a list of device registration tokens. Thanks
@@ -667,7 +667,8 @@ contribution .
 Version 2.9.0 - February 14, 2018
 Cloud Messaging
 A new firebase_admin.messaging
-module for sending FCM messages and managing topic subscriptions.
+module for sending FCM messages and managing
+topic subscriptions.
 A new send()
 function for sending FCM messages.
 A new subscribe_to_topic()
@@ -797,7 +798,7 @@ functions for minting custom authentication tokens and verifying Firebase ID
 tokens.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-12 UTC.
+Last updated 2026-11-18 UTC.
 Learn
 Developer guides
 SDK & API reference

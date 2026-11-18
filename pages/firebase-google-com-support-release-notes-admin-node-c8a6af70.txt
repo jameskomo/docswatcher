@@ -948,7 +948,7 @@ credentials) to the v1 endpoint. This makes it possible to use the SDK
 in Google Kubernetes Engine again.
 Realtime Database
 Upgraded the @firebase/database dependency to v0.4.4.
-Firebase Cloud Messaging
+Cloud Messaging
 Gracefully handling array-like objects in messaging.sendAll() and
 messaging.sendMulticast() APIs.
 Version 8.1.0 - June 11, 2019
@@ -1002,11 +1002,11 @@ This upgrade exposes the v1beta and v1 clients, which provide direct access
 to the underlying Firestore and Firestore Admin RPCs. Please note that you
 must provide your Firebase credentials directly to these clients.
 Version 7.1.1 - March 20, 2019
-Firebase Cloud Messaging
+Cloud Messaging
 Fixed a bug in the FCM batch APIs that prevented them from
 correctly handling some message parameters like AndroidConfig.ttl .
 Version 7.1.0 - March 14, 2019
-Firebase Cloud Messaging
+Cloud Messaging
 A new
 messaging.sendMulticast()
 API for sending a message to a list of device registration tokens.
@@ -1324,8 +1324,8 @@ subscribeToTopic()
 and
 unsubscribeFromTopic()
 to the admin.messaging()
-service. The new methods allow subscribing to and unsubscribing from FCM
-topics via registration tokens.
+service. The new methods allow subscribing to and unsubscribing from
+FCM topics via registration tokens.
 Version 4.1.4 - March 28, 2017
 Authentication
 Cleaned up a number of types to improve the log output, thereby
@@ -1484,7 +1484,7 @@ method is now asynchronous, returning a Promise<string> instead of a
 string .
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-12 UTC.
+Last updated 2026-11-18 UTC.
 Learn
 Developer guides
 SDK & API reference

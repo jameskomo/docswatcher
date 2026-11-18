@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Release: Slack Skills Plugin v1.8.0
 Web API GET and HEAD requests with a body will return 403 errors
 Org-level admin.users.setRegular API method calls now remove Workspace Owner roles
 Release: Slack CLI v4.14.0
@@ -262,6 +263,19 @@ Subscribe to the changelog!
 Get real-time notifications about new features, improvements, and bug fixes directly in your preferred feed reader.
 RSS (opens in new tab)
 Atom (opens in new tab)
+Release: Slack Skills Plugin v1.8.0
+November 17, 2026
+Your agent can now search and read the Slack developer docs with the Slack CLI, and fewer secrets pass through the agent's conversation.
+The slack-docs skill now searches and reads docs.slack.dev with the slack docs search and slack docs get commands when the Slack CLI is installed. On an older CLI, it suggests slack upgrade . Agents without the CLI keep using the docs search API.
+The create-slack-app skill no longer asks for an AI provider API key in chat. You set it with slack env set <NAME> in your own terminal, where the CLI hides what you type.
+The create-slack-app skill no longer asks for a sandbox password. New developer sandboxes use email sign-in, the Slack CLI default since v4.11.0.
+The slack-api skill no longer has your agent handle a Slack token. You provide it as SLACK_BOT_TOKEN or SLACK_USER_TOKEN , and the curl examples read the Authorization header from standard input, so the token stays out of the conversation and shell history.
+The slack-cli and deploy-slack-app skills now ask which workspaces to grant when an app is first installed to an Enterprise organization, instead of granting all of them.
+The Slack Skills Plugin page now lists Slack's Claude Code marketplace first, because updates on the official Claude marketplace are delayed.
+We fixed an issue where claude plugin update slack@slack failed with Permission denied (publickey) on machines that clone GitHub over HTTPS.
+Tags:
+Release
+Slack Skills Plugin
 Web API GET and HEAD requests with a body will return 403 errors
 November 16, 2026
 On February 17th, 2027 , the Web API will start rejecting HTTP GET and HEAD requests that include a request body. These requests will fail with an HTTP 403 error. This change is part of infrastructure updates to how API traffic reaches Slack.

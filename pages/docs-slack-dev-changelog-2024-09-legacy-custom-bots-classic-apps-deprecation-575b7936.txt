@@ -6,6 +6,7 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Release: Slack Skills Plugin v1.8.0
 Web API GET and HEAD requests with a body will return 403 errors
 Org-level admin.users.setRegular API method calls now remove Workspace Owner roles
 Release: Slack CLI v4.14.0

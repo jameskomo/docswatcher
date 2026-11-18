@@ -179,6 +179,190 @@ Save and categorize content based on your preferences.
 To review release notes for the Firebase console and for other Firebase
 platforms and related SDKs, refer to the
 Firebase Release Notes .
+Version 13.2.0 - November 16, 2026
+Firebase AI Logic
+GeminiLanguageModel now supports image input (the vision
+capability). Prompts can include image attachments created from a CGImage , a
+CIImage , a CVPixelBuffer , or a file URL; images from remote URLs aren't
+supported yet. ( #16895 )
+Breaking Change : Updated the Public Preview Live API voice
+activity types: renamed VoiceActivityType.activityStart and activityEnd to
+start and end , removed VoiceActivityType.unknown from the public API,
+and made LiveServerVoiceActivity.audioOffset a non-optional TimeInterval
+(defaulting to 0 ).
+Fixed a crash at launch on iOS 17 and earlier, and the corresponding
+macOS, tvOS, watchOS, and visionOS versions, in apps built with Xcode 27 when
+the app or a library (such as Realm) enumerated Objective-C classes with
+objc_copyClassList .
+( #17024 )
+Fixed a crash in GeminiLanguageModel when part of a prompt was
+served from the Gemini Developer API's implicit cache.
+( #17042 )
+Fixed LanguageModelSession.streamResponse delivering a
+GeminiLanguageModel response all at once, after it finished, when using the
+Agent Platform Gemini API.
+( #17040 )
+Fixed GeminiLanguageModel to include reasoning tokens in the
+output and total token counts.
+( #17042 )
+Analytics
+Internal code cleanup and optimizations.
+App Check
+AppCheckDebugProvider now automatically uses a debug token
+provisioned by the Firebase CLI ( firebase appcheck:debugtokens:create ) when
+running in a Simulator. The token is read for the app's Google App ID from
+~/.config/configstore/firebase-appcheck.json on the host machine, so no
+manual token registration is needed. The AppCheckDebugToken and
+FIRAAppCheckDebugToken environment variables still take priority.
+( #17017 )
+When the AppCheckDebugToken or FIRAAppCheckDebugToken
+environment variable is set, AppCheckDebugProvider no longer generates an
+unused local debug token and logs registration instructions for it.
+( #17017 )
+Authentication
+Fixed a memory leak where removed auth state and ID token listeners,
+and the objects they captured, stayed in memory for as long as the Auth
+instance existed. This also affected the authStateChanges and
+idTokenChanges sequences.
+( #16938 )
+Preserve newer in-flight token refreshes when an older refresh
+completes. ( #16765 )
+Fixed checkActionCode returning an ActionCodeInfo whose
+operation was always .unknown , a regression in 11.12.0.
+( #16950 )
+Fixed a crash in checkActionCode for email sign-in codes, a
+regression in 11.0.0. ActionCodeInfo.email is empty for these codes, because
+the server doesn't return their email address.
+( #16963 )
+Fixed a data race that could crash an app that reads User.metadata
+or User.multiFactor while a reload, link, or profile update finishes on
+another thread.
+( #16975 )
+Fixed User.multiFactor still listing enrolled factors after a
+reload when all of them were unenrolled on another device, a regression in
+11.0.0. ( #16976 )
+Fixed a crash when enrolling or unenrolling a second factor on macOS
+for a user saved by a version earlier than 12.2.0.
+( #16976 )
+Crashlytics
+Fixed an issue where Crashlytics API calls ( log , setCustomValue ,
+setUserID , recordError , recordExceptionModel , etc.) hopped onto the main
+thread instead of flushing off the main thread during initialization and
+executing on the caller's thread afterwards.
+( #16926 )
+Fixed a crash when processing a report whose binary image records
+contain a non-numeric base or size .
+( #16519 )
+Fixed a potential crash in the x86_64 crash handler's stack-scanning
+fallback when the captured stack pointer is unreadable.
+( #16799 )
+Improved robustness when parsing malformed settings from the server
+or from the on-disk settings cache.
+( #16728 )
+Improved robustness in Firebase Sessions when parsing malformed
+settings from the server, including null values that could cause a crash
+when caching settings.
+( #16728 )
+Fixed the app executable's minimum OS and SDK versions being
+recorded as 0.0.0 in report metadata for apps targeting iOS 12, macOS 10.14,
+tvOS 12, watchOS 5, or later.
+( #16810 )
+Realtime Database
+Fixed an issue where the getData error said that the client was
+offline when the server rejected the request, for example because of security
+rules.
+( #11835 )
+Fixed an issue where a completing getData call marked an observed
+or keepSynced query inactive in the persistence cache, allowing its cached
+data to be pruned or triggering an assertion failure on subsequent updates.
+( #17009 )
+Fixed an issue where getData on a query with a limit or range
+could remove data from other listeners at or below the query's location, and
+from the disk cache.
+( #8286 ,
+#14137 )
+Fixed an issue where getData never completed if the connection
+dropped before the server responded.
+( #16717 )
+Fixed an issue where getData on a child of an observed location
+returned the data of the observed location instead of the child.
+( #12168 )
+Fixed an issue where the client could stay offline for hours after a
+connection attempt timed out, for example after the device woke from sleep.
+( #9682 )
+Keep Realtime Database WebSocket keepalive timers and connection
+state on the worker queue to avoid cross-thread access.
+( #16767 ,
+#16971 )
+Cloud Firestore
+Pipeline Search is now Generally Available (GA).
+( #16945 )
+Added support for window functions in Pipelines, with the
+addWindowFields stage for computing aggregates such as running totals and
+moving averages over partitioned and sorted frames of documents, and over()
+for framing individual aggregates. Window functions are in preview until the
+backend launch is announced in the Firestore release
+notes .
+( #16715 )
+Fixed Firestore.Decoder reusing the DocumentReference from a
+previous decode(_:from:in:) call to populate @DocumentID properties when a
+later call on the same decoder has no reference.
+( #16789 )
+Fixed pipelines created from a query with an inclusive cursor, such
+as start(atDocument:) or end(at:) , returning the wrong documents at the
+cursor boundary.
+( #16795 )
+Fixed a memory leak where @FirestoreQuery kept its snapshot
+listener active after the view that owned it went away.
+Firebase In-App Messaging
+Improved robustness when parsing malformed in-app messaging campaign
+fetch responses, cached campaigns, and persisted impressions.
+( #16728 )
+Fixed an issue where cached In-App Messaging engagement logs from a
+previous app session could be dropped instead of uploaded when the SDK
+started. ( #16803 )
+Installations
+Delete both legacy Firebase Instance ID keys during IID migration
+cleanup, and skip key deletion when the application tag is unavailable.
+( #16777 )
+Performance Monitoring
+Prevent races when accessing global, trace, and HTTP metric custom
+attributes concurrently.
+( #16761 )
+Improved robustness when parsing malformed Remote Config values for
+Performance Monitoring. Cached values of unexpected types and out-of-range
+rate limits, gauge frequencies and session durations now fall back to
+defaults. ( #16728 )
+Remote Config
+Fixed a crash when copying a RemoteConfigValue
+( FIRRemoteConfigValue ). The copy now keeps the value's data and source.
+( #16804 )
+Fixed a crash when an array or dictionary passed to setDefaults
+contains values that can't be converted to JSON, such as dates or data. These
+defaults are now skipped and an error is logged.
+( #16797 )
+Remote Config real-time updates are no longer missed when an update
+message is split across network reads or arrives in the same read as another
+message. ( #16793 )
+@RemoteConfigProperty now uses the in-app default value, or its
+fallback value, after an activation removes its key, instead of keeping the
+previous remote value.
+( #16816 )
+Cloud Storage
+The async APIs data(maxSize:) , putDataAsync , putFileAsync ,
+and writeAsync now cancel the underlying download or upload and throw
+StorageError.cancelled when the calling Swift task is cancelled.
+( #11786 )
+Serialized Auth and App Check token header updates to avoid
+concurrent mutation of the request when using custom interop providers.
+( #16766 )
+Fixed a memory leak where StorageUploadTask and
+StorageDownloadTask objects, and the data being uploaded, were never
+released after cancel() or, for downloads, pause() .
+( #16841 )
+Prevented duplicate upload and download requests when resuming a
+task before its initial request setup has completed.
+( #16771 )
 Version 13.1.1 - October 22, 2026
 This release provides a Cloud Firestore security update
 to protect client connections against a compromised certificate
@@ -321,7 +505,7 @@ Firebase In-App Messaging
 Released the display gate and removed unconstructable messages so a
 card without images no longer blocks subsequent in-app messages.
 ( #16819 )
-FCM
+Cloud Messaging
 Reduced main-thread work when setting the APNs token: the APNs
 environment check no longer queries the App Store receipt, and the keychain is
 read once instead of up to twice.
@@ -496,7 +680,7 @@ delegates for universal link routing.
 Fixed an issue where universal links were not correctly routed in
 apps utilizing scene delegates.
 ( #16083 )
-FCM
+Cloud Messaging
 Breaking change : Scene delegates take priority over app
 delegates for automatic deep link routing.
 ( #15987 )
@@ -585,7 +769,7 @@ measure the status bar height when laying out a banner. The height is now
 read from the foreground window scene the banner is rendered in, which is
 correct in multi-scene apps.
 ( #13068 )
-FCM
+Cloud Messaging
 Fix an issue where messaging:didReceiveRegistrationToken: was no
 longer called at app launch when a token was cached.
 ( #16581 )
@@ -655,7 +839,7 @@ incorrect in push ID generation.
 ( #16415 )
 Fixed a potential crash when receiving non-text WebSocket frames.
 ( #16414 )
-FCM
+Cloud Messaging
 Fix an issue where new FCM registration processing was not invoked
 when FirebaseMessagingInstallationIdEnabled was set to YES and a legacy
 token existed in cache.
@@ -754,7 +938,7 @@ Resolved a concurrency resource leak in Functions stream cancellation. ( #16392 
 Enforced stricter transport layer security when using the emulator:
 Auth, FCM, and AppCheck tokens are no longer attached to outbound requests if
 the connection is made over HTTP to a non-loopback host. ( #16395 )
-FCM
+Cloud Messaging
 Reject path separators in file extensions for downloaded image
 attachments. ( #16387 )
 Remote Config
@@ -806,7 +990,7 @@ NWPathMonitor API.
 Installations
 Changed error message for missing FirebaseApp.configure() to
 properly articulate supported methods. ( #16294 )
-FCM
+Cloud Messaging
 Add support for the new FCM registration API. ( #16133 )
 Performance Monitoring
 Fixed a crash in FPRMemoryGaugeCollector by collecting memory usage
@@ -1067,7 +1251,7 @@ Fix crash while fetching Auth and App Check tokens. ( #15281 )
 Pipeline support is now available for the Enterprise edition as a public preview feature. ( #15625 )
 Fixed an issue where the returned object in transaction blocks could not
 pass across actor boundaries in Swift 6 ( #15467 ).
-FCM
+Cloud Messaging
 Fix missing database crash on launch. ( #14880 )
 FirebaseMLModelDownloader
 Remove unused legacy telemetry along with the large swift-protobuf dependency.
@@ -1208,7 +1392,7 @@ Firebase In-App Messaging
 Fixed an Xcode 26 crash caused by a missing NSUserActivityTypeBrowsingWeb
 symbol. Note that this fix isn't in the 12.1.0 zip and Carthage
 distributions, but will be included from 12.2.0 onwards ( #15159 ).
-FCM
+Cloud Messaging
 Fix Xcode 26 crash from missing NSUserActivityTypeBrowsingWeb
 symbol. Note that this fix isn't in the 12.1.0 zip and Carthage
 distributions, but will be included from 12.2.0 onwards ( #15159 ).
@@ -1323,7 +1507,7 @@ Improved the structure of the Google Analytics for Firebase SDK, with some compo
 Authentication
 Synchronize internal AuthKeychainServices class to prevent
 crashes from concurrent access ( #14835 ).
-FCM
+Cloud Messaging
 Fix a potential SQL injection issue ( #14846 ).
 Remote Config
 Fix build warning from comparison of different enumeration types.
@@ -1449,7 +1633,7 @@ Fixed App Check token reporting to enable differentiating outdated
 ( MISSING ) and inauthentic ( INVALID ) clients; see Monitor App Check
 request metrics for Cloud Functions
 for more details.
-FCM
+Cloud Messaging
 Migrate FCM codebase to new NSKeyedUnarchiver APIs ( #14424 ).
 Remote Config
 Mark internal fetchSession property as atomic to prevent a concurrency
@@ -1481,7 +1665,7 @@ that is used in out-of-band email action flows.
 Deprecated ActionCodeSettings.dynamicLinkDomain .
 Cloud Firestore
 Fixed use-after-free bug when internally formatting strings ( #14306 ).
-FCM
+Cloud Messaging
 Don't cache FCM registration token operations ( #14352 ).
 Remote Config
 Mark completion handlers as Sendable in the RemoteConfig class.
@@ -1553,7 +1737,7 @@ SQL Connect
 Support for Swift 6 strict concurrency.
 Logging within SDKs.
 SDK will throw errors if partial GraphQL errors are detected during operation execution.
-FCM
+Cloud Messaging
 Improve token-fetch failure logging with detailed error info ( #13997 ).
 Remote Config
 Mark two internal properties as atomic to prevent concurrency
@@ -1811,7 +1995,7 @@ FIAMDisplayRenderErrorType → InAppMessagingDisplayRenderError
 Note that InAppMessagingDisplayRenderError is now a native Swift error and
 can be directly caught (instead of catching an NSError and checking the
 error code).
-FCM
+Cloud Messaging
 Completed Messaging's transition to NSSecureCoding ( #12343 ).
 Remote Config
 RemoteConfigValue.stringValue is now nonnull . This may break some builds ( #10870 ).
@@ -1823,7 +2007,7 @@ handling. Some of the Swift enums have additional parameters which may be a brea
 There are additional NSError's for completeness, but nothing related to NSError handling is
 breaking. ( #13071 , #10889 , #13114 )
 Version 10.29.0 - July 8, 2024
-FCM
+Cloud Messaging
 Renamed "initWithFileName" internal method that was causing submission issues for some
 users ( #13134 ).
 Fixed the APS Environment key on visionOS ( #13173 ).
@@ -1866,7 +2050,7 @@ Dynamic Links deprecation FAQ .
 Firebase In-App Messaging
 Fixed crash at app start that affected CocoaPods users using static
 frameworks ( #12882 ).
-FCM
+Cloud Messaging
 Fixed bug preventing Messaging from working with a custom sqlite3
 dependency ( #12900 ).
 Vertex AI in Firebase
@@ -1958,7 +2142,7 @@ Enable snapshot listener option to retrieve data from local cache only ( #12370 
 Update gRPC dependency to 1.62.* ( #12098 , #12021 ).
 Firestore's binary Swift Package Manager distribution now uses
 XCFrameworks with code signatures ( #12238 ).
-FCM
+Cloud Messaging
 CocoaPods only: Fixed "no rule" warning when running pod install ( #12511 ).
 Remote Config
 Added support for other Firebase products to integrate with Remote Config.
@@ -2028,7 +2212,7 @@ an Info.plist file ( #12243 ).
 Analytics
 Increased parameter value character limit for Google Analytics 360 properties.
 Updated module map of GoogleAppMeasurementOnDeviceConversion .
-FCM
+Cloud Messaging
 Fixed a 10.19.0 regression where the FCM registration token was nil at first app start
 after update from 10.19.0 or earlier ( #12245 ).
 Version 10.19.1 - December 13, 2023
@@ -2044,7 +2228,7 @@ Cloud Firestore
 Made an optimization to the synchronization logic for resumed queries
 to only re-download locally-cached documents that are known to be out-of-sync.
 ( #12044 ).
-FCM
+Cloud Messaging
 Adopt NSSecureCoding for internal classes ( #12075 ).
 Version 10.18.0 - November 14, 2023
 App Check
@@ -2196,7 +2380,7 @@ To go back to using the binary distribution of Firestore, quit Xcode and
 open Xcode like normal, without the environment variable ( #11492 ).
 Swift Extensions
 Added support for animations on the @FirestoreQuery property wrapper.
-FCM
+Cloud Messaging
 Messaging now removes scoped tokens set by old FIAM SDK(s) from keychain if they exist.
 Performance Monitoring
 Make Firebase Performance Monitoring compatible with Xcode 15.
@@ -2309,7 +2493,7 @@ Crashlytics
 Integrated with Firebase sessions library to enable upcoming features related to session-based crash metrics. If your app uses the Crashlytics SDK, review Firebase's data disclosure page to make sure that your app's privacy details in the App Store are accurate and complete.
 Cloud Firestore
 Fix a potential high memory usage issue.
-FCM
+Cloud Messaging
 The configure flow now validates existence of an APNs token before fetching an FCM token ( #10742 ). This also addresses the scenario mentioned in the issue comment .
 Performance Monitoring
 Integrated with Firebase sessions library and replaced the session information associated with performance metrics with session details provided by the Firebase sessions library. If your app uses the Performance Monitoring SDK, review Firebase's data disclosure page to make sure that your app's privacy details in the App Store are accurate and complete.
@@ -2323,7 +2507,7 @@ is signed with a provisioning profile that has the Keychain Sharing
 capability enabled (see Firebase 9.6.0 release notes) ( #10582 ).
 Cloud Firestore
 Added @discardableResult to the addDocument API for easy handling of unused return values ( #10640 ).
-FCM
+Cloud Messaging
 Fixed a crash for strongSelf dereference ( #10707 ).
 Cloud Storage
 Added Storage API to limit upload chunk size ( #10137 ).
@@ -2347,7 +2531,7 @@ data disclosure documentation .
 Cloud Firestore
 Fix an issue that stops some performance optimization from being
 applied ( #10579 ).
-FCM
+Cloud Messaging
 On app startup, an APNs Token must be provided to FCM SDK before
 retrieving an FCM Token, otherwise an error will be returned as part of the
 completion.
@@ -2358,7 +2542,7 @@ Cloud Firestore
 Added multi-database support.
 Fixed a crash when there were nested data structures inside IN
 filters ( #10507 ).
-FCM
+Cloud Messaging
 Added notification support for iOS 16 simulators on Xcode 14. See the Xcode release notes for more details ( #9968 ).
 Cloud Storage
 Use dedicated serial queue for Storage uploads and downloads instead of a (concurrent) global queue.
@@ -2394,7 +2578,7 @@ App Distribution
 Fixed inconsistent sign in prompts in single scene apps ( #8096 ).
 Authentication
 Fix a bug where multi factor phone number returns NULL ( #10296 ).
-FCM
+Cloud Messaging
 The app bundle identifier is no longer incorrectly shortened for watchOS apps created on Xcode 14 ( #10147 ).
 Remote Config
 Swift Extensions
@@ -2735,7 +2919,7 @@ Added async wrapper for CollectionReference.addDocument() and
 Firestore.loadBundle() .
 Firebase In-App Messaging
 Includes a client-side fix for an issue where test messages incorrectly do not include appData . The issue will be fully resolved once the backend is also updated ( #9126 ).
-FCM
+Cloud Messaging
 Improved reporting for SQLite errors when failing to open a local database ( #8699 ).
 Performance Monitoring
 Attempted to fix an issue where app start trace durations are not reliable on iOS 15. App start measurements are now made only for cold app starts (without pre-warming) ( #9026 ).
@@ -2766,7 +2950,7 @@ https://github.com/firebase/firebase-ios-sdk/blob/master/FirebaseFunctionsSwift/
 Firebase In-App Messaging
 Fixed an issue where an in-app message was shown every new session ( #8907 ).
 Fixed an issue where duplicate messages could occur when two campaigns were triggered by different events ( #9070 ).
-FCM
+Cloud Messaging
 Fixed an issue where the FCM token was not correctly associated with the APNs token during app start ( #8738 ).
 Version 8.10.0 - December 1, 2021
 Fixed platform availability checks in Swift Package Manager that may prevent code
@@ -2870,7 +3054,7 @@ Dynamic Links
 Refactored and added helper class ( #8432 ).
 Firebase In-App Messaging
 Replaced conditionally-compiled APIs with API_UNAVAILABLE annotations on unsupported platforms ( #8480 ).
-FCM
+Cloud Messaging
 Removed iOS version check from FIRMessagingExtensionHelper.h ( #8492 ).
 Added new API FIRMessagingExtensionHelper exportDeliveryMetricsToBigQuery that allows developers to enable notification delivery metrics that are exportable to BigQuery ( #6181 ).
 Fixed an issue that delete token no longer works ( #8491 ).
@@ -2956,7 +3140,7 @@ Cloud Functions
 Fixed an issue where factory class methods returned a new instance on every invocation, causing emulator settings to not persist between invocations ( #7783 ).
 Firebase In-App Messaging
 Fixed missing constraints warnings in default UI storyboard ( #8205 ).
-FCM
+Cloud Messaging
 Fixed an issue where local scheduled notifications were not set correctly due to sound type ( #8172 ).
 Performance Monitoring
 Updated log messages with proper log levels.
@@ -2974,7 +3158,7 @@ Initial public beta release for Codable support in the new
 FirebaseDatabaseSwift-Beta product for Swift Package Manager.
 Firebase In-App Messaging
 Fixed bug where image-only messages had the wrong message type in message callbacks ( #8081 ).
-FCM
+Cloud Messaging
 Fixed an issue where notification open was not logged to Analytics correctly when the app is in a terminated state. ( #7707 , #8128 ).
 Performance Monitoring
 Firebase Performance logs now contain URLs to see the performance data on the Firebase console.
@@ -3024,8 +3208,14 @@ Dynamic Links
 Fixed crashes on simulators targeting iOS versions below iOS 14 on Apple Silicon ( #7989 ).
 Cloud Functions
 Added abuse reduction features ( #7928 ).
-FCM
-Removed the Instance ID dependency from FCM . This is a breaking change for FCM users who use the deprecated Firebase Instance ID API to manage registration tokens. Users should migrate to FCM 's token APIs by following the migration guide ( #7836 ).
+Cloud Messaging
+Removed the Instance ID dependency from
+FCM . This is a breaking change for
+FCM users who use the deprecated Firebase
+Instance ID API to manage registration tokens. Users should migrate to
+FCM 's token APIs by following the
+migration guide
+( #7836 ).
 Remote Config
 Fixed throttling issue when fetch fails due to no network ( #6628 ).
 Fixed issue where sometimes the local config returned is empty ( #7424 ).
@@ -3036,7 +3226,7 @@ Added abuse reduction features ( #7928 ).
 Version 7.11.0 - April 20, 2021
 Analytics
 Added Firebase/AnalyticsWithoutAdIdSupport subspec for developers of apps that aren’t using AdSupport or subject to AppTrackingTransparency.
-FCM
+Cloud Messaging
 Removed internal Messaging dependencies on InstanceID (though both libraries can still co-exist in one app). The InstanceID dependency will be removed in the next major version of Firebase ( #7814 ).
 Firebase In-App Messaging
 Fixed SPM resource inclusion for in-app messages ( #7715 ).
@@ -3121,7 +3311,7 @@ Fixed missing "http://" prefix when using Functions with the emulator ( #7537 , 
 Firebase In-App Messaging
 Fixed accessibility experience for in-app messages ( #7445 ).
 Fixed conversion tracking for in-app messages with a conversion event but not a button / action URL ( #7306 ).
-FCM
+Cloud Messaging
 Fixed an issue in which, when checking storage size before writing to disk, the client was checking document folders that were no longer used ( #7480 ).
 Performance Monitoring
 Add community-supported tvOS.
@@ -3152,7 +3342,7 @@ compensated snapshots.
 Firebase In-App Messaging
 Fixed accessibility experience for in-app messages ( #7445 ).
 Fixed conversion tracking for in-app messages with a conversion event but not a button / action URL ( #7306 ).
-FCM
+Cloud Messaging
 Fixed build warnings introduced with Xcode 12.5 ( #7433 ).
 Performance Monitoring
 Fixed build warnings introduced with Xcode 12.5 ( #7435 ).
@@ -3278,7 +3468,7 @@ accepted null and NaN for all operators, even though this isn't necessarily
 useful.
 Cloud Functions
 Added a constructor to set a custom domain ( #6787 ).
-FCM
+Cloud Messaging
 Fixed a crash on iOS 14 when multiple app delegate completion methods were called ( #6863 ).
 Remote Config
 Add support for other Firebase products to integrate with Remote Config ( #6692 ).
@@ -3378,7 +3568,7 @@ API docs updated to use term "installation auth token" consistently ( #6014 ).
 InstanceID
 Deprecated private -[FIRInstanceID appInstanceID:] method was removed ( #4486 ).
 Fixed an issue where the APNs token was not sent in the token request when iOS APNs token fetch was delayed ( #6553 ).
-FCM
+Cloud Messaging
 Removed the deprecated FCM direct channel API and Upstream send API ( #6430 ).
 The messaging:didReceiveRegistrationToken: is able to return a null token. Updated the API parameter fcmToken to be nullable ( #5339 ).
 Fixed an issue that downloading an image failed when there's no extension in the file name but MIME type is set ( #6590 ).
@@ -3433,7 +3623,7 @@ Installations
 Added additional FIRInstallationsItem validation to catch potential storage issues ( #6570 ).
 InstanceID
 Deprecated InstanceID. For app instance identity handling, use FirebaseInstallations. For FCM registration token handling, use FirebaseMessaging ( #6585 ).
-FCM
+Cloud Messaging
 Added macro to suppress InstanceID deprecation warning ( #6585 ).
 Performance Monitoring
 Fixed an issue where URLSharedSession based network requests were
@@ -3472,8 +3662,14 @@ Weak dependency on Instance ID replaced by Firebase Messaging ( #6395 ).
 InstanceID
 Added a new notification for listening for token refresh from Messaging and updated the token cache in InstanceID ( #6286 ).
 Fixed an issue where the token refresh notification was not triggered when using tokenWithAuthorizedEntity:scope:options:handler to fetch the token ( #6286 ).
-FCM
-Added new token APIs to get and delete the default FCM registration token asynchronously. Also added new Messaging.deleteToken(completion:) and Messaging.token(completion:) methods for managing registration tokens and checkin data. Existing FCM users should replace their InstanceID calls with the new methods to prepare for the coming deprecation of InstanceID. ( #6313 ).
+Cloud Messaging
+Added new token APIs to get and delete the default FCM
+registration token asynchronously. Also added new
+Messaging.deleteToken(completion:) and Messaging.token(completion:)
+methods for managing registration tokens and checkin data. Existing
+FCM users should replace their InstanceID
+calls with the new methods to prepare for the coming deprecation of
+InstanceID. ( #6313 ).
 Version 6.32.2 - September 14, 2020
 Analytics
 Updated access to IDFA based on Apple announcement on effective
@@ -3547,7 +3743,7 @@ Backoff added for some error to prevent unnecessary API requests ( #6232 ).
 InstanceID
 Added a new notification for listening for FCM token refresh and updating the token cache in InstanceID ( #6286 ).
 Fixed an issue where token refresh notification would not be triggered when using tokenWithAuthorizedEntity:scope:options:handler to fetch the token ( #6286 ).
-FCM
+Cloud Messaging
 Fixed an issue where topic subscription did not work in watchOS ( #6160 ).
 Improved Xcode completion of public API completion handlers in Swift ( #6278 ).
 Version 6.30.0 - August 11, 2020
@@ -3612,7 +3808,7 @@ Fixed an inaccurate doc comment in InAppMessagingDisplay ( #5972 ).
 Functionally neutral source reorganization for preliminary Swift Package Manager support ( #6013 ).
 InstanceID
 Remove FIRInstanceIDURLQueryItem in favor of NSURLQueryItem ( #5835 ).
-FCM
+Cloud Messaging
 Remove logic that was executed for iOS 7 and below ( #5835 ).
 Remote Config
 Functionally neutral source reorganization for preliminary Swift Package Manager support ( #6013 ).
@@ -3662,7 +3858,7 @@ Installations
 Functionally neutral source reorganization ( #5832 ).
 InstanceID
 Functionally neutral updated import references for dependencies ( #5824 ).
-FCM
+Cloud Messaging
 Fix documentation warning exposed by Xcode 12 ( #5876 ).
 Functionally neutral updated import references for dependencies ( #5824 ).
 ML Kit for Firebase
@@ -3710,7 +3906,7 @@ Installations
 Standardize FirebaseCore import headers ( #5758 ).
 InstanceID
 Standardize FirebaseCore import headers ( #5758 ).
-FCM
+Cloud Messaging
 Use UNNotificationRequest to schedule local notification for local timezone notification for iOS 10 and above. This should also fix an issue where '%' was not properly shown in title and body ( #5667 ).
 Fixed Maltese language key for language targeting ( #5702 ).
 Remote Config
@@ -3765,7 +3961,7 @@ Renamed the misspelled FirestoreDecodingError.fieldNameConfict to
 fieldNameConflict ( #5520 ).
 Firebase In-App Messaging
 Fixed an issue where clicks were counted for messages with no action URL ( #5564 ).
-FCM
+Cloud Messaging
 Updated an error case with a failure reason to give more details on the error ( #5511 ).
 Remote Config
 Fixed a bug where settings updates weren't applied before fetches ( #4740 ).
@@ -3797,7 +3993,7 @@ Firestore will now send Auth credentials to the Firestore Emulator
 Firebase In-App Messaging
 Fixed an issue where GoogleUtilities wasn't explicitly listed as a
 dependency ( #5282 ).
-FCM
+Cloud Messaging
 Changed the location of source under FirebaseMessaging folder to
 fit the current repository organization ( #5476 ).
 Remote Config
@@ -3829,7 +4025,7 @@ Installations
 Keychain key-value storage refactored to GoogleUtilities ( #5329 ).
 InstanceID
 Internal cleanup and remove repetitive local notification ( #5339 ).
-FCM
+Cloud Messaging
 Fixed an issue that when a token is deleted, the token refresh notification and delegate is not triggered ( #5338 ).
 Cloud Storage
 Fix a rare case where a StorageTask would call its completion callbacks more than
@@ -3993,7 +4189,7 @@ Firebase In-App Messaging
 Added support for data bundles for in-app messages. Data bundles are additional key-value pairs that can be sent along with an in-app message ( #4922 ).
 InstanceID
 Removed unused files ( #4881 ).
-FCM
+Cloud Messaging
 Deprecated FCM direct channel messaging via shouldEstablishDirectChannel . Instead, use APNs for downstream message delivery. Add content_available key to your payload if you want to continue use legacy APIs, but we strongly recommend HTTP v1 API as it provides full APNs support. The deprecated API will be removed in Firebase 7 ( #4710 ).
 Deprecated upstream messaging API. For realtime updates, use Cloud Firestore, Realtime Database, or other services. The deprecated API will be removed in Firebase 7 ( #4710 ).
 Use secure coding for Messaging's pending topics ( #3686 ).
@@ -4007,7 +4203,7 @@ Cloud Firestore
 Internal improvements.
 InstanceID
 Instance ID no longer collects logging IDs ( #4444 ).
-FCM
+Cloud Messaging
 The pod Firebase/Messaging subspec now supports watchOS ( #4807 ).
 Fixed FIRMessagingExtensionHelper crashing in unit tests ( #4689 ).
 Fixed FIRMessagingRmqManager crashing on devices with corrupted messaging database files ( #4771 ).
@@ -4085,7 +4281,7 @@ Added a new dependency on the Firebase Installations SDK. The Firebase Installat
 Firebase installations service
 Firebase installations service is an infrastructure service for Firebase services that creates unique identifiers and authentication tokens for Firebase clients (called "Firebase installations") enabling Firebase Targeting, i.e. interoperation between Firebase services.
 The Firebase installations SDK introduces the Firebase installations API. Developers that use API key restrictions may experience blocked requests (https://stackoverflow.com/questions/58495985/). This problem can be mitigated by following the instructions found here .
-FCM
+Cloud Messaging
 Added watchOS community support for Firebase Messaging. This enables FCM push notification function on watch only app or independent watch app. ( #4016 )
 Added a new transitive dependency on the Firebase Installations SDK. The Firebase Installations SDK introduces the Firebase Installations API . Developers that use API-restrictions for their API-Keys may experience blocked requests (https://stackoverflow.com/questions/58495985/). A solution is available here .
 Performance Monitoring
@@ -4130,7 +4326,7 @@ Crash in test on device error flow ( #4446 ).
 InstanceID
 Added heartbeat support for InstanceID ( #4323 ).
 Fixed the documentations on a few random generation and hash methods to clarify its use case to avoid confusions. ( #4469 , #4444 , #4326 ).
-FCM
+Cloud Messaging
 Fix component startup time ( #4137 ).
 Performance Monitoring
 Fixed issue related to app start trace being insanely long.
@@ -4165,7 +4361,7 @@ you're manually tracking dependencies, you may be able to remove it from your
 build (note, however, that other Firebase components may still require it).
 Added a dependency on the abseil CocoaPod. If you're manually
 tracking dependencies, you need to add it to your build.
-FCM
+Cloud Messaging
 Moved message queue delete operation to a serial queue to avoid
 race conditions in unit tests
 ( #4236 ).
@@ -4215,7 +4411,7 @@ if token is stale
 ( #4167 ).
 Updated deprecated keychain access level
 ( #4172 ).
-FCM
+Cloud Messaging
 Moved reliable message queue database operation off main thread
 ( #4053 ).
 Remote Config
@@ -4244,7 +4440,7 @@ Added check to see if token and IID are inconsistent
 ( #4025 ).
 Removed migration logic from document folder to application folder
 ( #4033 ).
-FCM
+Cloud Messaging
 Fixed IID and Messaging container instantiation timing issue
 ( #4030 ).
 Internal cleanup and remove migration logic from document folder
@@ -4282,7 +4478,7 @@ Added support for UIScene-based application lifecycle
 ( #3927 ).
 Fixed storyboard layout error in Xcode 11
 ( #3748 ).
-FCM
+Cloud Messaging
 Updated Protobuf version to fix warnings in Xcode.
 ML Kit for Firebase
 An enhanced version of barcode scanner with better speed and
@@ -4358,7 +4554,7 @@ Fixed crash when updating identifiers from multiple threads
 Cloud Firestore
 Fixed a memory access error discovered using the sanitizers in Xcode
 11.
-FCM
+Cloud Messaging
 Mute FCM deprecated warnings with Xcode 11 and min iOS >= 10
 ( #3857 ).
 ML Kit for Firebase
@@ -4397,7 +4593,7 @@ Undeprecated initializer for FIRInAppMessagingAction so it can be
 used going forward in custom UI display ( #3545 ).
 InstanceID
 Moved two headers from internal to private for Remote Config open sourcing ( #3621 ).
-FCM
+Cloud Messaging
 Fixed notification open event is not logged when scheduling a local timezone message ( #3670 , #3638 ).
 Fixed FirebaseApp.delete() results in unusable Messaging singleton ( #3411 ).
 ML Kit for Firebase
@@ -4445,7 +4641,7 @@ Dynamic Links
 Minor internal refactoring.
 Cloud Firestore
 Internal improvements.
-FCM
+Cloud Messaging
 Cleaned up documents, unused macros, and folders ( #3490 , #3537 , #3556 , #3498 ).
 Updated the header path to pod repo relative ( #3527 ).
 Fix singleton functionality after a FirebaseApp is deleted and recreated ( #3411 ).
@@ -4483,7 +4679,7 @@ InstanceID
 Fixed a crash that could occur if InstanceID was shut down when
 fetching a new instance ID
 ( #3439 ).
-FCM
+Cloud Messaging
 Fix hang when token is not available before topic subscription and
 unsubscription ( #3438 ).
 Performance Monitoring
@@ -4552,7 +4748,7 @@ include bundle identifiers in their frameworks or apps
 InstanceID
 Fixed an issue where fetching an instance ID wouldn't invoke the callback handler if the instance ID had not changed.
 ( #3229 ).
-FCM
+Cloud Messaging
 Fix Xcode 11 tvOS build issue
 ( #3216 ).
 ML Kit for Firebase
@@ -4596,7 +4792,7 @@ Added macOS support for InstanceID.
 ( #2880 ).
 Corrected timezone proto key.
 ( #3132 ).
-FCM
+Cloud Messaging
 Added macOS support for Messaging. You can now send push notifications to your mac app with Firebase Messaging.
 ( #2880 ).
 Performance Monitoring
@@ -4635,7 +4831,7 @@ Fixed a crash in token fetching. Removed debug assertion that is only for develo
 ( #3018 ).
 ML Kit for Firebase
 Internal improvements and refactored code.
-FCM
+Cloud Messaging
 Disable data protection when opening the Rmq2PersistentStore.
 ( #2963 ).
 Version 6.1.0 - May 21, 2019
@@ -4674,7 +4870,7 @@ Fixed possible out-of-memory error: Updated Translator to release
 memory for the instance once all references have been removed.
 Renamed Swift values of TranslateLanguage from uppercase to
 lowercase, e.g. from TranslateLanguage.EN to TranslateLanguage.en .
-FCM
+Cloud Messaging
 Remove reflection call to get checkin info from Firebase Messaging and calling the private API directly.
 ( #2825 ).
 Fix race condition checkin is deleted before writing during app start. This cleans up the corrupted checkin which causes notifications failed to deliver.
@@ -4751,7 +4947,7 @@ Added support for initiating the download of a remote model,
 monitoring download progress, and receiving notifications. To learn more,
 read ML Kit for Firebase .
 Upgraded TensorFlowLite dependency from 1.12.0 to 1.13.1.
-FCM
+Cloud Messaging
 Removed useMessagingDelegateForDirectChannel property. All direct channels (non-APNS) messages will be handled in FIRMessagingDelegate messaging:didReceiveMessage: .
 ( #2711 ).
 Removed deprecated API to connect direct channel. Use shouldEstablishDirectChannel property instead.
@@ -4836,7 +5032,7 @@ Fixed an issue with certain Analytics attribution parameters not being recorded 
 Firebase In-App Messaging
 Fixed a crash that occurred when integrating Firebase In-App Messaging
 into NativeScript apps.
-FCM
+Cloud Messaging
 Added community support for tvOS.
 ( #2428 ).
 InstanceID
@@ -4906,7 +5102,7 @@ updates on in-app engagement (impression, click, display errors).
 InstanceID
 Open Source Firebase InstanceID.
 ( #186 ).
-FCM
+Cloud Messaging
 Replaced NSUserDefaults with GULUserDefaults to avoid potential
 crashes.
 ( #2443 ).
@@ -4924,7 +5120,7 @@ keychain is added, to make sure keychain access won't be blocked when device
 is locked. ( #1399 ).
 Fixed an issue where push notification is not working on release
 builds. ( #2365 ).
-FCM
+Cloud Messaging
 Internal code cleanup to improve better unit testing.
 ( #2250 ).
 Version 5.16.0 - January 22, 2019
@@ -5074,7 +5270,7 @@ InstanceID
 Fixed a crash caused by keychain operation when accessing default
 access group. ( #1399 ,
 #1393 )
-FCM
+Cloud Messaging
 Fixed an issue where messages failed to be delivered to the
 recipient's time zone. ( #1946 )
 Performance Monitoring
@@ -5088,7 +5284,7 @@ Cloud Firestore
 Some SDK errors that represent common mistakes (such as permission
 denied or a missing index) will automatically be logged as a warning in
 addition to being surfaced via the API.
-FCM
+Cloud Messaging
 Now you can access the message ID of FIRMessagingRemoteMessage object.
 ( #1861 )
 Add a new boolean value useFIRMessagingDelegateForDirectMessageDelivery if
@@ -5155,7 +5351,7 @@ it would make 2 attempts, to work around a backend bug.
 Version 5.7.0 - August 28, 2018
 Clarified wording in FirebaseAnalytics not available log message.
 ( #1653 )
-FCM
+Cloud Messaging
 Ensure NSUserDefaults is persisted properly before app close.
 ( #1646 )
 Internal code cleanup.
@@ -5231,12 +5427,14 @@ Added support for global Firebase data collection flag. ( #1219 )
 Improved message tracking sent by server API.
 Fixed an issue with InstanceID not properly compiling in app
 extensions.
-FCM
+Cloud Messaging
 Added support for global Firebase data collection flag.
 ( #1219 )
-Fixed an issue where FCM wouldn't properly unswizzle swizzled
-delegate methods. ( #1481 )
-Resolved an issue with FCM not compiling inside app extensions.
+Fixed an issue where FCM wouldn't
+properly unswizzle swizzled delegate methods.
+( #1481 )
+Resolved an issue with FCM not
+compiling inside app extensions.
 ( #1503 )
 Performance Monitoring
 Resolved SDK crashes.
@@ -5282,7 +5480,7 @@ Cloud Functions for Firebase Client SDK
 Add a constructor to set the region.
 Add a method to set a Cloud Functions emulator origin to use, for
 testing.
-FCM
+Cloud Messaging
 Client now properly suspends topic requests when a token is
 not available and resumes the topic operation when the token is generated.
 Corrected the deprecation warning when subscribing to or
@@ -5333,7 +5531,7 @@ Deprecated the token method.
 Added support to log a new customized label provided by developer.
 Cloud Firestore
 Internal improvements.
-FCM
+Cloud Messaging
 Added a warning message when subscribing to topics with incorrect name formats.
 Silenced a deprecation warning in FIRMessaging.
 Version 5.1.0 - May 29, 2018
@@ -5349,7 +5547,7 @@ Fixed an issue where FirestoreSettings would accept a concurrent
 dispatch queue, but this configuration would trigger an assertion
 failure. Passing a concurrent dispatch queue should now work
 correctly (#988).
-FCM
+Cloud Messaging
 Cleaned up some deprecation warnings.
 Version 5.0.1 - May 15, 2018
 Firebase v5.0.1 contains bugfixes for the Firebase pod and ZIP file.
@@ -5365,9 +5563,9 @@ Changes related to CocoaPods:
 Ensure Firebase/Core is included in your Podfile.
 The minimum CocoaPods version required is now 1.4.0.
 The Authentication , Realtime Database , Core, Cloud Firestore , Cloud Functions for Firebase Client SDK ,
-FCM , and Cloud Storage SDKs are now Source Pods. This means you can
-directly see the source code in your project and see the full call stack while
-debugging.
+FCM , and Cloud Storage SDKs are now Source Pods.
+This means you can directly see the source code in your project and see the
+full call stack while debugging.
 Firebase Core
 Removed deprecated methods.
 Removed UIKit import from FIRApp.h.
@@ -5401,7 +5599,7 @@ Instance ID
 Removed deprecated method setAPNSToken:type defined in FIRInstanceID, please use setAPNSToken:type defined in FIRMessaging instead.
 Removed deprecated enum FIRInstanceIDAPNSTokenType defined in FIRInstanceID, please use FIRMessagingAPNSTokenType defined in FIRMessaging instead.
 Resolved an issue that FCM scheduled messages were not tracked successfully.
-FCM
+Cloud Messaging
 Removed deprecated delegate property remoteMessageDelegate ,
 use delegate instead.
 Removed deprecated method
@@ -5483,7 +5681,7 @@ set to false an invalid argument exception is thrown.
 Adds support for passing the deep link (which is embedded in the
 sign-in link sent via email) to the signInWithEmail:link:completion: and
 isSignInWithEmailLink: methods during an email/link sign-in flow.
-FCM
+Cloud Messaging
 Added new methods that provide completion handlers for topic
 subscription and unsubscription.
 Performance Monitoring
@@ -5560,7 +5758,7 @@ Resolved issue with loss of precision for 64 bit numbers on older
 32 bit iOS devices with persistence enabled.
 Addressed CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF warnings that
 surface in newer versions of Xcode and CocoaPods.
-FCM
+Cloud Messaging
 Improved documentation on the usage of the autoInitEnabled
 property.
 Performance Monitoring
@@ -5584,7 +5782,7 @@ Improved support for language targeting for FCM service.
 Server updates happen more efficiently when language changes.
 Improved support for FCM token auto generation enable/disable
 functions.
-FCM
+Cloud Messaging
 Added a new property autoInitEnabled to enable and disable
 FCM token auto generation.
 Resolved an issue where notification delivery would fail after
@@ -5740,7 +5938,8 @@ A/B Testing offers the ability to run experiments from the
 Firebase console using Remote Config . Learn more about creating
 experiments with A/B Testing for
 Remote Config and
-FCM .
+FCM
+.
 Authentication
 Resolved open issues with Authentication .
 Cloud Firestore
@@ -5762,7 +5961,7 @@ FIRListenerRegistration to better reflect Swift naming guidelines for the
 Swift SDK.
 Fixed retain cycle in
 FIRDocumentReference getDocumentWithCompletion: .
-FCM
+Cloud Messaging
 Improved logging of notification opens, by swizzling additional
 UNUserNotificationCenterDelegate method.
 Improved the handling of unimplemented
@@ -5782,11 +5981,11 @@ The initial public beta release of the Cloud Firestore SDK for iOS
 is now available. To learn more, see the
 Cloud Firestore documentation or go directly to
 the Quickstart .
-FCM
-Resolved issues with FCM token associations to APNs device
-tokens.
-The FCM direct channel is now properly established on the
-first start 24 hours after being opened.
+Cloud Messaging
+Resolved issues with FCM token
+associations to APNs device tokens.
+The FCM direct channel is now
+properly established on the first start 24 hours after being opened.
 Performance Monitoring
 Added infrastructure to more easily diagnose issues.
 Realtime Database
@@ -5809,9 +6008,9 @@ Fixed a crash in FIRApp deleteApp for apps that did not have
 active database instances.
 Instance ID
 Resolved a race condition where a token was not being generated on
-first start when FCM was included and the app didn’t register for
-remote notifications.
-FCM
+first start when FCM was included and the app
+didn’t register for remote notifications.
+Cloud Messaging
 Additional error code logging for errors thrown when creating or
 opening an internal database file.
 Performance Monitoring
@@ -6234,8 +6433,8 @@ SFSafariViewController
 class.
 Cloud Messaging
 Added a new API method, -applicationReceivedRemoteMessage: to
-allow apps to receive data messages from FCM on devices running iOS 10
-and greater.
+allow apps to receive data messages from FCM on
+devices running iOS 10 and greater.
 Authentication
 Improved the behavior of Firebase Authentication when testing apps using
 the iOS 10 simulator.
@@ -6383,7 +6582,7 @@ to your app's .ipa file, a reduction of nearly 2 MB from the previous
 release.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-12 UTC.
+Last updated 2026-11-18 UTC.
 Learn
 Developer guides
 SDK & API reference

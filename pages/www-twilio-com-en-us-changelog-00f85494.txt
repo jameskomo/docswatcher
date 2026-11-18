@@ -500,6 +500,24 @@ Both operators run at the end of any conversation routed through Conversation Or
 Read the blog post for the full story, or get started with our docs .
 Learn more
 Nov 17, 2026
+Programmable Messaging API
+WhatsApp Business API
+Messaging
+GA
+WhatsApp Max Price is now GA
+We are excited to announce General Availability of Max Price for WhatsApp marketing messages. Max Price allows you to bid the highest rate you’re willing to pay for Marketing templates, so Meta charges at or below that rate for each delivered message. You can keep your bid at your current rate, bid lower during quieter periods, or bid higher during peak seasons. Max Price is optional, so you have the flexibility to run it alongside your existing fixed-rate messaging.
+Max Price requires acceptance of Meta’s Marketing Messages API Terms of Service. At launch, Max Price is available for Twilio accounts and WhatsApp Business Accounts billed in USD. Support for additional currencies will follow at a later date. To learn more, see WhatsApp Max Price .
+Learn more
+Nov 17, 2026
+Programmable Messaging API
+WhatsApp Business API
+GA
+Messaging
+Sticky Sender is now supported for WhatsApp in Twilio Messaging Services
+We are excited to announce that Sticky Sender now applies to WhatsApp messages sent through Twilio Messaging Services. If Sticky Sender is turned on for your Messaging Service, it will now apply to WhatsApp. If a sender was previously used to message a recipient on WhatsApp, the same sender will be used for subsequent WhatsApp messages to that recipient.
+Sticky Sender is optional. If you do not want Sticky Sender applied to WhatsApp, you can disable Sticky Sender on the Messaging Service. You can also use a separate Messaging Service dedicated to WhatsApp that does not have Sticky Sender turned on. To learn more, see Sticky Sender .
+Learn more
+Nov 17, 2026
 New Features for Conversation Insights (Beta)
 Conversation Insights (public beta) enables you to measure what's happening across all your Twilio Conversations: aggregate signals from every interaction, learn what works, and feed it back so each conversation can improve the next. The following features are now available:
 1. Custom measures : Make the conversational signals that matter to your business available in Conversation Insights. Register a numeric value from your own Conversation Intelligence operator, such as a lead score or agent rating, and explore aggregate patterns and trends across conversations.
@@ -512,15 +530,6 @@ GA
 Voice API
 Twilio Voice now supports HD audio
 Twilio Voice calls can now connect in HD voice, with clearer, more natural-sounding speech. We've begun negotiating the AMR-WB wideband codec with supported carrier networks, starting in the United States and expanding to more markets over time.
-Learn more
-Nov 16, 2026
-Programmable Messaging API
-WhatsApp Business API
-GA
-Messaging
-Sticky Sender is now supported for WhatsApp in Twilio Messaging Services
-We are excited to announce that Sticky Sender now applies to WhatsApp messages sent through Twilio Messaging Services. If Sticky Sender is turned on for your Messaging Service, it will now apply to WhatsApp. If a sender was previously used to message a recipient on WhatsApp, the same sender will be used for subsequent WhatsApp messages to that recipient.
-Sticky Sender is optional. If you do not want Sticky Sender applied to WhatsApp, you can disable Sticky Sender on the Messaging Service. You can also use a separate Messaging Service dedicated to WhatsApp that does not have Sticky Sender turned on. To learn more, see Sticky Sender .
 Learn more
 Nov 13, 2026
 Beta
@@ -556,12 +565,6 @@ Twilio SendGrid Platform
 New filters and text search in Email Logs
 Email Logs now lets you filter messages by sender, sending IP, event and API key, in both the Twilio Console and the Twilio SendGrid Console. You can also search subjects and server responses for the words you enter, in any order. Filters combine, so you can set Status to Bounced and add an API key to see which messages from one integration bounced. The new filters and search also work in the Email Logs API.
 To learn more, see Email Logs in the Twilio Email docs and the Twilio SendGrid docs , and the Email Logs API reference .
-Learn more
-Nov 11, 2026
-Twilio Platform
-Upcoming cipher suite list update for all Twilio REST API endpoints on February 18, 2027
-Security standards are always evolving, and we want to ensure your Twilio applications are using the strongest protection available.
-We're extending the deadline for these changes and customers now have until February 18, 2027, to update their setups with the ciphers listed below. We’ll continue accepting legacy cipher traffic during that window so customer applications keep running without interruption.
 Learn more
 Loading
 Error: Unable to load changelog

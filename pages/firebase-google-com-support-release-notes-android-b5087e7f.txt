@@ -1321,8 +1321,8 @@ Increased the gRPC max inbound message size to 17MB, to support
 (GitHub #8363 )
 Cloud Messaging version 25.1.2
 Fixed FCM registration error due to
-FID_ALREADY_USED .
-(GitHub #8507 )
+FID_ALREADY_USED . (GitHub
+#8507 {: .external})
 Cloud Messaging Direct Boot version 25.1.2
 Updated to keep messaging SDK versions aligned.
 Crashlytics Gradle plugin version 3.0.8
@@ -13162,8 +13162,9 @@ firebase-firestore library. The Kotlin extensions library has no additional
 updates.
 Cloud Messaging version 23.0.6
 Added the POST_NOTIFICATIONS permission to enable posting
-notifications when targeting SDK level 33. See FCM guidance
-on how to request runtime notification permission on Android 13+
+notifications when targeting SDK level 33. See
+FCM guidance on how to
+request runtime notification permission on Android 13+
 Added an annotation to an internal class to fix a missing class
 warning.
 Cloud Messaging Kotlin extensions version 23.0.6
@@ -16691,11 +16692,13 @@ firebase-firestore library. The Kotlin extensions library has no additional
 updates.
 Cloud Messaging version 22.0.0
 Removed dependency on the deprecated Firebase Instance ID SDK.
-Caution: This is a breaking change for apps that use FCM and the
+Caution: This is a breaking change for apps that use
+FCM and the
 deprecated Firebase Instance ID API to manage registration tokens.
 We
 strongly recommend
-migrating to FCM 's token APIs .
+migrating to FCM 's token
+APIs .
 If you're unable to migrate to the replacement APIs, add a direct dependency
 on the firebase-iid library to your build.gradle file.
 Changed to open an Activity directly when a notification is
@@ -17043,7 +17046,8 @@ updates.
 Cloud Messaging version 21.1.0
 Migrated internal handling of new token callbacks and
 notification actions from Firebase Instance ID to Firebase Cloud Messaging .
-Added functionality to generate FCM tokens from
+Added functionality to generate
+FCM tokens from
 FirebaseMessaging.getToken , while continuing to call through to Firebase
 Instance ID if it is present. This will allow Firebase Cloud Messaging to
 remove its dependency on Firebase Instance ID in the future.
@@ -17060,12 +17064,14 @@ Internal changes to ensure functionality alignment with other
 SDK releases. For more details, refer to the
 Cloud Messaging v21.1.0 release notes .
 Firebase Instance ID version 21.1.0
-Removed the FCM new token and notification callback
-functionality and migrated it to Firebase Cloud Messaging . For more
-information, refer to the
-Cloud Messaging v21.1.0 release notes .
+Removed the FCM new token and
+notification callback functionality and migrated it to
+Firebase Cloud Messaging . For more information, refer to the
+Cloud Messaging v21.1.0 release notes
+.
 Fixed an inconsistency where only certain calls that generate a
-new FCM token for the app's default Firebase project triggered the
+new FCM token for the app's default Firebase
+project triggered the
 FirebaseMessagingService.onNewToken hook.
 Instance ID Interop version 17.1.0
 Internal changes to ensure functionality alignment with other
@@ -18653,7 +18659,8 @@ firebase-inappmessaging-display library. The Kotlin extensions library has no
 additional updates.
 Firebase Instance ID version 21.0.0
 The firebase.iid package is now deprecated.
-To retrieve FCM registration tokens, use the equivalent methods in
+To retrieve FCM registration tokens, use the
+equivalent methods in
 the FirebaseMessaging class. Specifically, call
 FirebaseMessaging.getToken()
 instead of FirebaseInstanceId.getToken() .
@@ -20873,13 +20880,15 @@ Apps that use API key restrictions for their API key might
 experience blocked requests . To mitigate this
 issue, review the
 Firebase installations documentation .
-The FCM registration tokens of installed instances of your
+The FCM registration tokens of installed
+instances of your
 apps might change once after updating dependencies to their latest
 versions. To learn if your apps are affected, review the
 Firebase installations documentation . Also,
 make sure to
 monitor
-FCM registration token generation using the
+FCM registration token generation
+using the
 #onNewToken implementation.
 Analytics version 17.2.3
 Bug fixes, including a fix for a concurrent modification exception.
@@ -20906,13 +20915,14 @@ Cloud Messaging now transitively depends on the
 Firebase installations SDK. After updating to the latest dependency versions, make
 sure that push notifications still work as expected. Also, be aware of the
 following:
-The FCM registration tokens of installed instances of your apps
-might change once after updating dependencies to their latest versions. To
-learn if your apps are affected, review the
+The FCM registration tokens of installed
+instances of your apps might change once after updating dependencies to
+their latest versions. To learn if your apps are affected, review the
 Firebase installations documentation . Also,
 make sure to
 monitor
-FCM registration token generation using the
+FCM registration token generation
+using the
 #onNewToken implementation.
 Apps that use the Firebase auto-initialization process and the Gradle plugin
 to convert google-services.json into resources are unaffected. However,
@@ -20925,13 +20935,14 @@ infrastructure service used internally by Firebase to identify each installed
 instance of a Firebase app.
 Several Firebase products transitively depend on the
 Firebase installations SDK. Be aware of the following:
-The FCM registration tokens of installed instances of your apps
-might change once after updating dependencies to their latest versions. To
-learn if your apps are affected, review the
+The FCM registration tokens of installed
+instances of your apps might change once after updating dependencies to
+their latest versions. To learn if your apps are affected, review the
 Firebase installations documentation . Also,
 make sure to
 monitor
-FCM registration token generation using the
+FCM registration token generation
+using the
 #onNewToken implementation.
 Apps that use the Firebase auto-initialization process and the Gradle plugin
 to convert google-services.json into resources are unaffected. However,
@@ -20947,13 +20958,14 @@ March 03, 2020 .
 Fixed an issue that could cause ANRs when receiving broadcasts.
 Firebase Instance ID now depends on the Firebase installations SDK. Be
 aware of the following:
-The FCM registration tokens of installed instances of your apps
-might change once after updating dependencies to their latest versions. To
-learn if your apps are affected, review the
+The FCM registration tokens of installed
+instances of your apps might change once after updating dependencies to
+their latest versions. To learn if your apps are affected, review the
 Firebase installations documentation . Also,
 make sure to
 monitor
-FCM registration token generation using the
+FCM registration token generation
+using the
 #onNewToken implementation.
 Apps that use the Firebase auto-initialization process and the Gradle plugin
 to convert google-services.json into resources are unaffected. However,
@@ -23685,7 +23697,14 @@ Added passwordless sign-in through email link as a new sign-in mechanism.
 Play Games is now supported as a sign-in provider. See the
 integration guide .
 Cloud Messaging
-Added the setAutoInitEnabled() and isAutoInitEnabled() methods to the FirebaseMessaging class to set and check whether FCM auto-initializes. Also added firebase_messaging_auto_init_enabled manifest metadata flag for setting auto-initialization preferences from the Android Manifest file.
+Added the
+setAutoInitEnabled() and
+isAutoInitEnabled() methods to the
+FirebaseMessaging
+class to set and check whether FCM
+auto-initializes. Also added firebase_messaging_auto_init_enabled manifest
+metadata flag for setting auto-initialization preferences from the Android
+Manifest file.
 Fixed a regression that caused custom notification icons to be rejected on Android 8.0.
 Cloud Firestore
 Firestore now cleanly shuts down idle write streams.
@@ -23731,9 +23750,14 @@ Authentication
 Added user metadata to FirebaseUser to help determine if the user is new.
 Added the ability to get a PhoneAuthCredential from a FirebaseAuthUserCollisionException if linking a phone number fails to prevent the need to send a second text message.
 Cloud Messaging
-If your app crashes or doesn't respond, Firebase Cloud Messaging ( FCM ) now tries to redeliver missed messages after a short delay. This change is automatic, and doesn't require any updates to your code.
+If your app crashes or doesn't respond, Firebase Cloud Messaging
+( FCM ) now tries to redeliver missed messages
+after a short delay. This change is automatic, and doesn't require any updates
+to your code.
 FirebaseInstanceIdInternalReceiver has been removed from the SDK's automatically-merged AndroidManifest. If you weren't using Gradle or its manifest automerging feature and were adding this receiver manually, you can now remove it.
-Improved FCM token fetch logic so that the FCM token is now created faster and with less battery drain.
+Improved FCM token fetch logic so
+that the FCM token is now created faster and
+with less battery drain.
 Dynamic Links
 Fixed an undercounting issue where dynamic_link_app_open wasn't being logged to Google Analytics when the app was opened after being updated due to a link.
 Deprecated Warning.getCode() . Warning.getMessage() now returns all necessary information about the warning and how to correct it.
@@ -23793,8 +23817,8 @@ location where the cancellation was requested.
 SDK Version 11.0.4 - July 26, 2017
 Cloud Messaging
 Fixed a regression causing apps running on secondary user profiles
-and Android For Work user profiles to not receive the FCM
-registration token.
+and Android For Work user profiles to not receive the
+FCM registration token.
 Performance Monitoring
 Fixed instances where app startup times included background thread
 time not caused by interactions.
@@ -23939,12 +23963,14 @@ SDK Version 10.2.1 - March 21, 2017
 Cloud Messaging
 The Firebase Android SDK (v10.2.1) includes updates to provide
 compatibility with Android O Developer Preview 1. The most significant updates
-are internal changes to the Firebase Cloud Messaging ( FCM ) libraries
-and a change in the guaranteed lifecycle of FCM callbacks to 10
-seconds, after which Android O considers such callbacks eligible for
-termination. For more information on handling FCM messages on
+are internal changes to the Firebase Cloud Messaging
+( FCM ) libraries and a change in the guaranteed
+lifecycle of FCM callbacks to 10 seconds,
+after which Android O considers such callbacks eligible for termination. For
+more information on handling FCM messages on
 Android O, see
-The Firebase Blog .
+The Firebase Blog
+.
 SDK Version 10.2 - February 15, 2017
 Analytics
 Added the ability to log events used to supply referral details
@@ -24116,7 +24142,7 @@ Google Analytics now logs all app open events driven
 from user clicks on Dynamic Links .
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-12 UTC.
+Last updated 2026-11-18 UTC.
 Learn
 Developer guides
 SDK & API reference

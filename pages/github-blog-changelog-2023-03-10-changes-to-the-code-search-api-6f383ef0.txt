@@ -31,6 +31,12 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Nov.17 Release
+GitHub Event Streams is now in preview
+collaboration tools
+ecosystem & accessibility
+...
++1
 Nov.10 Improvement
 A more informative GitHub dashboard
 collaboration tools
@@ -69,12 +75,6 @@ enterprise management tools
 Oct.22 Improvement
 Pull requests: Saved whitespace preferences and improved split view
 collaboration tools
-Oct.15 Improvement
-Multi-repository support and other improvements for GitHub in Slack and Teams
-collaboration tools
-copilot
-...
-+1
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.
 Enter your email *
