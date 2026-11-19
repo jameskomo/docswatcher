@@ -16,8 +16,8 @@ Filter: All
 Sign in to console
 Create account
 Explore topics
-re:Invent 2026
-The sessions are set and your seat is waiting. Register now
+AWS re:Invent Livestream
+Go beyond watching with guided labs and live Q&A
 Build & Deploy AI Agents
 88% of agent pilots stall. Learn what the rest do differently
 Get started
@@ -154,6 +154,15 @@ Home
 Blogs
 Editions
 AWS Developer Tools Blog
+High-throughput Transfer Manager for Amazon S3 in Rust is now generally available
+by Nitin Prakash on 18 NOV 2026 in Amazon Simple Storage Service (S3) , Developer Tools , Launch , Rust Permalink Share
+High-throughput transfers to and from Amazon Simple Storage Service (Amazon S3) often require manual tuning of threads, connections, and memory. Transfer Manager for Amazon S3, a high-level transfer library for Rust, handles this work for you. It is now generally available (GA). Since the developer preview launch in March 2025, we have redesigned the library. […]
+Announcing the developer preview of the AWS SDK for Python v4
+by Jonathan Gaytan on 18 NOV 2026 in Announcements , AWS SDK for Python , Developer Tools , Open Source , Python Permalink Share
+The AWS SDK for Python v4 is now available in developer preview. It provides typed, modular clients for a growing list of AWS services, including Amazon Simple Storage Service (Amazon S3), Amazon DynamoDB, AWS Lambda, and Amazon Bedrock. Clients are available in synchronous and asynchronous (async) versions. Some features, such as event streaming, are currently available […]
+Announcing the developer preview of Transfer Manager for Amazon S3 in the AWS SDK for JavaScript v3
+by Abhinav Goyal on 18 NOV 2026 in Announcements , AWS SDK for JavaScript in Node.js , Developer Tools Permalink Share
+On October 15, 2026, we launched the developer preview of Transfer Manager (@aws-sdk/lib-transfer-manager). It gives JavaScript developers a simpler way to move large datasets to and from Amazon Simple Storage Service (Amazon S3) at high throughput. Transfer Manager provides a set of high-level operations for high-throughput uploads and downloads. It coordinates multipart requests, concurrency, checksums, and […]
 Introducing Smithy IDL 2.1
 by Jordon Phillips on 16 NOV 2026 in Announcements , Developer Tools Permalink Share
 Today, we are excited to announce Smithy IDL 2.1. With Smithy 2.1, you can use three new syntax features: inline collection declarations for lists and maps, tagged string literals for values that carry their own escaping rules, and a shorthand for declaring the wire order of a structure’s members. Smithy is an open source Interface […]
@@ -175,15 +184,6 @@ The first service call from an application that uses the AWS SDK for Java 2.x ta
 AWS CRT for JavaScript and AWS IoT Device SDK for JavaScript v2 align with the Node.js release schedule
 by Rakshilkumar Modi on 23 SEP 2026 in Announcements , Developer Tools , JavaScript , Open Source Permalink Share
 The AWS CRT for JavaScript is adopting a policy that aligns with the official Node.js release schedule, providing a predictable timeline for when support for older Node.js versions is dropped. The AWS IoT Device SDK for JavaScript v2 is built on top of AWS CRT for JavaScript, so it shares the same minimum Node.js version. […]
-Generate standalone types with Smithy
-by Jordon Phillips on 08 SEP 2026 in Announcements , Developer Tools Permalink Share
-Without generated standalone types, a service that publishes events ends up with the payload defined manually in several places. The service has its own definition, and every consumer has their own definition. This is tedious, error-prone busywork for consumers. And as the service evolves, changes to events can expose bugs. A missing field or changed […]
-Introducing the S3 PowerShell Drive in AWS Tools for PowerShell
-by Andy Liao on 02 SEP 2026 in Amazon Simple Storage Service (S3) , Announcements , AWS Tools for PowerShell , Developer Tools , PowerShell Permalink Share
-Explore and use Amazon Simple Storage Service (Amazon S3) like a file system with the new S3 PowerShell Drive. You can mount your S3 storage as a drive and navigate it with the same commands that are frequently used for local files: Set-Location, Get-ChildItem, Get-Content, Set-Content, and Remove-Item. Browse buckets and prefixes, read and write […]
-Introducing a standalone SigV4 signer for the AWS SDK for .NET
-by Garrett Beatty on 31 AUG 2026 in .NET , Announcements , AWS .NET Development , AWS SDK for .NET , Developer Tools Permalink Share
-Until now, signing an AWS request that no generated SDK client covered meant reaching into internal SDK types or hand-writing the AWS Signature Version 4 (SigV4) algorithm. The AWS SDK for .NET now includes a public SigV4 signer you can call directly. Use the signer to add SigV4 authentication to an HTTP request, or to […]
 ← Older posts
 Create an AWS account
 Learn

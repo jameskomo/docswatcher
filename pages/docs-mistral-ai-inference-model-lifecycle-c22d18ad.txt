@@ -59,6 +59,7 @@ Are identified by a labs- prefix, for example labs-mistral-model-x-y .
 Are free of charge.
 Allow silent updates at any time.
 Don't support data collection opt-out.
+Don't support Zero Data Retention (ZDR).
 Aren't recommended for production use.
 Public Preview
 Copy section link
@@ -67,6 +68,8 @@ Public Preview is the stage for general public launches that aren't final yet. T
 Are priced at the same rate as General Availability models.
 Allow silent updates.
 Have no guaranteed path to General Availability, and may be retired before reaching it.
+Don't support data collection opt-out.
+Don't support Zero Data Retention (ZDR).
 General Availability
 Copy section link
 General Availability

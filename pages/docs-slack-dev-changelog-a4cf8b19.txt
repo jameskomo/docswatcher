@@ -6,8 +6,9 @@ MANAGE APPS
 Slack developer changelog
 🏷️ View all tags
 2026
+Introducing the Tasks tab for agents
 Release: Slack Skills Plugin v1.8.0
-Web API GET and HEAD requests with a body will return 403 errors
+Web API GET and HEAD requests with a body will return 400 errors
 Org-level admin.users.setRegular API method calls now remove Workspace Owner roles
 Release: Slack CLI v4.14.0
 Work Objects embeds require the slack-mcps.com frame ancestor
@@ -263,6 +264,16 @@ Subscribe to the changelog!
 Get real-time notifications about new features, improvements, and bug fixes directly in your preferred feed reader.
 RSS (opens in new tab)
 Atom (opens in new tab)
+Introducing the Tasks tab for agents
+November 18, 2026
+Agents that use the Agent messaging experience now get a Tasks tab in their DM. Users can hand your agent recurring work, like a morning digest or a weekly report, and your agent runs it automatically.
+The Tasks tab is on by default. To turn it off for all installs of your app, do one of the following:
+On the App Home page of the app settings , switch off the Tasks Tab toggle under Show Tabs .
+In your app manifest, set features.app_home.agent_tasks_enabled to false .
+Turning off the Tasks tab pauses any existing tasks for all users. Apps managed with the Slack CLI can set agent_tasks_enabled starting with Slack CLI v4.14.0.
+The Tasks tab requires the agent_view feature to be enabled and the assistant:write bot scope. Apps that still use assistant_view can follow the migration guide to get it. See Using the Tasks tab for details.
+Tags:
+Announcement
 Release: Slack Skills Plugin v1.8.0
 November 17, 2026
 Your agent can now search and read the Slack developer docs with the Slack CLI, and fewer secrets pass through the agent's conversation.
@@ -276,9 +287,9 @@ We fixed an issue where claude plugin update slack@slack failed with Permission 
 Tags:
 Release
 Slack Skills Plugin
-Web API GET and HEAD requests with a body will return 403 errors
+Web API GET and HEAD requests with a body will return 400 errors
 November 16, 2026
-On February 17th, 2027 , the Web API will start rejecting HTTP GET and HEAD requests that include a request body. These requests will fail with an HTTP 403 error. This change is part of infrastructure updates to how API traffic reaches Slack.
+On February 17th, 2027 , the Web API will start rejecting HTTP GET and HEAD requests that include a request body. These requests will fail with an HTTP 400 error (HTTP 403 once enforced at the CloudFront edge). This change is part of infrastructure updates to how API traffic reaches Slack.
 Requests without a body aren't affected, and neither are POST requests.
 Check whether your app is affected ​
 Most affected apps don't send a body on purpose. Many HTTP libraries add a small body, often an empty {} , to a GET request when a body option is set. Your app is likely affected if it does any of the following when calling a Web API method with GET :

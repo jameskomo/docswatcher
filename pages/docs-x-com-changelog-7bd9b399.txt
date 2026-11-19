@@ -27,6 +27,10 @@ Copy page Copy page
 Release notes and version history for the X API v2, Enterprise APIs, Ads API, SDKs, streaming, webhooks, and the developer platform.
 Copy page Copy page
 To subscribe to updates, please “Turn on notifications” for @API . You can also follow this changelog in your feed reader via the RSS feed .
+Nov 18, 2026
+X API v2
+Trend Locations: every location that has trends
+The new GET /2/trends/locations endpoint returns every location that has trends. Each location has its woeid and name . When they are known, it also has the country , country_code , place_type ( town , country , or supername ), and parent_id , which is the WOEID of the location that contains it. Pass a woeid to GET /2/trends/by/woeid/:woeid to get the trends for that place. The request needs no parameters and returns the whole list. It is the v2 replacement for v1.1 GET trends/available . See Trend Locations for the fields, an example, and the differences from v1.1.
 Nov 17, 2026
 X API v2
 Trends by WOEID: location in the response
@@ -993,6 +997,7 @@ profile_locality:
 ⌘ I
 On this page
 Back to top
+Nov 18, 2026
 Nov 17, 2026
 Nov 10, 2026
 Nov 5, 2026

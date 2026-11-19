@@ -37,7 +37,7 @@ gpt-chat-latest
 gpt-5-chat
 2025-10-03
 —
-May 13, 2026
+June 29, 2026
 gpt-chat-latest
 gpt-5.1-chat
 2025-11-13
@@ -47,7 +47,7 @@ gpt-chat-latest
 gpt-5.2-chat
 2025-12-11
 —
-May 13, 2026
+June 29, 2026
 gpt-chat-latest
 gpt-5.2-chat
 2026-02-10
@@ -59,6 +59,16 @@ gpt-5.3-chat
 —
 June 29, 2026
 gpt-chat-latest
+sora-2
+2025-10-06
+—
+July 15, 2026
+N/A
+sora-2
+2025-12-08
+—
+November 2, 2026
+—
 o1-preview
 —
 July 28, 2025
@@ -261,6 +271,13 @@ N/A
 AI21-Jamba-1.5-Mini
 August 1, 2025
 N/A
+Anthropic
+Model
+Retirement date
+Suggested replacement
+claude-opus-4-1
+August 5, 2026
+claude-opus-5
 Bria
 Model
 Retirement date
@@ -307,6 +324,9 @@ Suggested replacement
 DeepSeek-V3
 August 31, 2025
 DeepSeek-V3-0324
+DeepSeek-R1
+August 13, 2026
+DeepSeek-V4-Pro
 DeepSeek-R1-0528
 July 13, 2026
 DeepSeek-V4-Pro
@@ -376,6 +396,9 @@ Suggested replacement
 MAI-DS-R1
 February 27, 2026
 Any DeepSeek model available in the Model catalog
+MAI-Image-2
+August 15, 2026
+MAI-Image-2.5
 Phi-3-medium-4k-instruct
 August 30, 2025
 Phi-4
@@ -435,6 +458,19 @@ Suggested replacement
 Kimi-k2-thinking
 March 29, 2026
 Kimi-K2.5
+Stability AI
+Model
+Retirement date
+Suggested replacement
+Stable-Diffusion-3.5-Large
+July 31, 2026
+N/A
+Stable-Image-Core
+July 31, 2026
+N/A
+Stable-Image-Ultra
+July 31, 2026
+N/A
 xAI
 Model
 Retirement date

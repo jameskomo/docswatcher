@@ -87,6 +87,7 @@ Delete a Community Note
 POST
 Evaluate a Community Note
 Trends
+Trend Locations
 Personalized Trends
 News
 Introduction

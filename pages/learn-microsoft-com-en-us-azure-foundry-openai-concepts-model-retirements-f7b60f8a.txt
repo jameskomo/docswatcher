@@ -215,7 +215,7 @@ No earlier than 2027-04-14 1
 gpt-4.1-nano
 2025-04-14
 No earlier than 2027-04-14 1
-2027-10-14
+2028-04-13
 o4-mini
 2025-04-16
 No earlier than 2027-04-16 1

@@ -487,6 +487,56 @@ WhatsApp Business API
 Clear all filters
 See results
 Clear all filters
+Nov 19, 2026
+Serverless
+EMEA
+Studio
+TaskRouter
+GA
+Data residency for TaskRouter, Studio, and Functions and Assets is now generally available in Ireland (IE1)
+TaskRouter, Studio, and Functions and Assets are now generally available (GA) in Twilio’s Ireland (IE1) Region, so you can build and run workflows, application logic, and contact center routing on a single platform, with EU data residency and control over where your data is processed.
+Learn more
+Nov 18, 2026
+GA
+Conversation Relay
+Voice API
+Turn Detection for Conversation Relay: New Tuning Controls
+Choose the balance between fast responses and accurate turn reports in your AI voice agent. Turn Detection for Conversation Relay now includes turnMinSilence, a new TwiML attribute that sets how long Conversation Relay waits for silence before it reports that a caller has finished speaking.
+Learn more
+Nov 18, 2026
+GA
+Conversation Relay
+Voice API
+Conversation Relay now supports speech-to-text and text-to-speech provider failover
+You can now add backup speech-to-text (STT) and text-to-speech (TTS) providers to Conversation Relay. If a provider fails, the call switches to its backup and stays connected.
+Learn more
+Nov 18, 2026
+Programmable Messaging API
+WhatsApp Business API
+GA
+Messaging
+WhatsApp Sender Display Name Updates in Console and API
+You can now update the display name of your WhatsApp sender in the Twilio Console, for the first time, and through the WhatsApp Senders API. You no longer need to contact Twilio Support.
+In the Console, go to the Business profile information tab for your WhatsApp sender and edit the name. Twilio submits it to Meta for review and registers it automatically once approved. Allow at least 30 minutes to see the result. This applies to changing the display name of an existing sender. To create a display name for a new sender, use the existing onboarding process.
+You can track progress in the Console. If the name is rejected or registration fails, the Console shows the error so you can fix it and resubmit. To learn more, see Update a WhatsApp sender display name .
+Learn more
+Nov 18, 2026
+Twilio Notify end of life moves to October 31, 2027
+Twilio Notify’s end-of-life date has moved from January 31, 2027 to October 31, 2027.
+After October 31, 2027, requests to the Notify API will stop working, and push notifications and SMS sent through Notify won’t reach your users.
+For customers using SMS, we recommend moving to the Bulk Messaging API .
+For push notifications, the replacement is the new Push Notifications API, now in private beta, and customers can request access to the Push Notifications API .
+Need a hand?
+These resources have more information:
+How to transition off Notify
+Push Notifications API Private Beta Access
+Learn more
+Nov 18, 2026
+GA
+Elastic SIP trunking
+STIR/SHAKEN attestation level now available in real time for outbound Elastic SIP Trunking calls
+Twilio includes the STIR/SHAKEN attestation level assigned to Elastic SIP Trunking outbound calls in the SIP responses sent back to your SIP infrastructure. The attestation level appears in the X-Twilio-VerStat header on 18x and 2xx responses, and on final 4xx, 5xx and 6xx responses.
+Learn more
 Nov 17, 2026
 Beta
 Conversation Intelligence
@@ -524,47 +574,6 @@ Conversation Insights (public beta) enables you to measure what's happening acro
 2. Conversation Summary : A new gold-layer cube with one unified row per Conversation, combining channel metadata, participant info, and operator results into a single analytics-ready record.
 3. Data Destinations support (private beta): Build reports and dashboards in the tools your team already works in. Sync the Conversation Summary record to your existing warehouse, BI system, or analytics tool (18 destinations currently available), and join it with the business data that already exists there.
 4. Asynchronous queries : Submit long-running or large analytics queries, then poll for status and retrieve the results asynchronously, so intensive analytics jobs don't time out.
-Learn more
-Nov 16, 2026
-GA
-Voice API
-Twilio Voice now supports HD audio
-Twilio Voice calls can now connect in HD voice, with clearer, more natural-sounding speech. We've begun negotiating the AMR-WB wideband codec with supported carrier networks, starting in the United States and expanding to more markets over time.
-Learn more
-Nov 13, 2026
-Beta
-Branded Calling
-US Branded Calling: Now Supporting All Three Major US Carriers enters Private Beta
-Twilio US Branded Calling launches the support of brand display across T-Mobile, Verizon, and AT&T through a single registration. Register a brand once, and it’s automatically provisioned across all three major US carriers. This new registration path is now available in Private Beta.
-Learn more
-Nov 13, 2026
-GA
-Conversation Relay
-Voice API
-General Availability: Smart Turn Detection for Conversation Relay
-Eliminate unnatural mid-sentence AI interruptions with the General Availability of Smart Turn Detection for Conversation Relay . Our new in-house, semantics-aware model evaluates speech meaning in real time to accurately detect when a caller has actually finished speaking, replacing rigid silence timers for a much more natural conversational experience .
-Learn more
-Nov 13, 2026
-Messaging
-New error codes for A2P 10DLC campaign rejections
-Starting December 9, 2026, Twilio plans to introduce more specific error codes for US A2P 10DLC campaign registration rejections. These codes will provide more detailed feedback about campaign descriptions, opt-in methods, and Privacy Policy and Terms and Conditions pages, helping you identify what needs attention in your registration.
-Learn more
-Nov 13, 2026
-Messaging
-Programmable Messaging API
-Beta
-Apple Business Invitations in Apple Messages for Business Private Beta
-Brands can now proactively initiate trusted conversations and capture customer opt-ins directly within the native Messages app with Apple Business Invitations, available in the Twilio Apple Messages for Business (AMB) private beta. Brands can use these short invitation templates to deliver ongoing service messages—such as order updates, account alerts, and support replies—for up to one year following a customer's last interaction. Business Invites feature requires additional approval from Apple.
-To learn more and request access to the beta, visit Twilio's Apple Messages for Business product page .
-Learn more
-Nov 12, 2026
-Twilio Email
-SendGrid Email API
-GA
-Twilio SendGrid Platform
-New filters and text search in Email Logs
-Email Logs now lets you filter messages by sender, sending IP, event and API key, in both the Twilio Console and the Twilio SendGrid Console. You can also search subjects and server responses for the words you enter, in any order. Filters combine, so you can set Status to Bounced and add an API key to see which messages from one integration bounced. The new filters and search also work in the Email Logs API.
-To learn more, see Email Logs in the Twilio Email docs and the Twilio SendGrid docs , and the Email Logs API reference .
 Learn more
 Loading
 Error: Unable to load changelog

@@ -30,8 +30,13 @@ Square APIs and SDKs
 Updates
 All
 Select all
-2026-09-16
+2026-11-18
 Latest
+Square
+Documentation
+Checkout API
+Catalog API
+2026-09-16
 Square
 Documentation
 Transactions API

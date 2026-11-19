@@ -31,6 +31,12 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Nov.18 Release
+Wait for pull request events with GitHub CLI
+client apps
+ecosystem & accessibility
+...
++1
 Nov.17 Release
 GitHub Event Streams is now in preview
 collaboration tools
@@ -72,9 +78,6 @@ ecosystem & accessibility
 enterprise management tools
 ...
 +1
-Oct.22 Improvement
-Pull requests: Saved whitespace preferences and improved split view
-collaboration tools
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.
 Enter your email *
