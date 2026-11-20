@@ -154,6 +154,9 @@ Home
 Blogs
 Editions
 AWS Developer Tools Blog
+Announcing AWS Common Runtime (CRT) v1.0.0
+by Yadhukrishnan Pankajakshan on 19 NOV 2026 in Announcements , Developer Tools Permalink Share
+We are happy to announce that AWS Common Runtime (CRT) v1.0.0 is generally available (GA). The CRT is a family of open source libraries written in C. It implements building blocks that AWS SDKs and Tools share, giving you a production-ready foundation for fast HTTP, Amazon Simple Storage Service (Amazon S3) and MQTT clients in […]
 High-throughput Transfer Manager for Amazon S3 in Rust is now generally available
 by Nitin Prakash on 18 NOV 2026 in Amazon Simple Storage Service (S3) , Developer Tools , Launch , Rust Permalink Share
 High-throughput transfers to and from Amazon Simple Storage Service (Amazon S3) often require manual tuning of threads, connections, and memory. Transfer Manager for Amazon S3, a high-level transfer library for Rust, handles this work for you. It is now generally available (GA). Since the developer preview launch in March 2025, we have redesigned the library. […]
@@ -181,9 +184,6 @@ In alignment with our AWS SDKs and Tools maintenance policy, the AWS IoT Device 
 Introducing SDK Client Warm-Up feature in the AWS SDK for Java 2.x
 by John Viegas on 25 SEP 2026 in AWS Java Development , AWS Lambda , AWS SDK for Java , Java , Technical How-to Permalink Share
 The first service call from an application that uses the AWS SDK for Java 2.x takes longer than subsequent calls. This problem is known as cold start. The new SDK client warm-up feature reduces cold-start latency. One call to SdkWarmUp.warmUp() during application startup exercises the SDK request path before your first service call. With AWS […]
-AWS CRT for JavaScript and AWS IoT Device SDK for JavaScript v2 align with the Node.js release schedule
-by Rakshilkumar Modi on 23 SEP 2026 in Announcements , Developer Tools , JavaScript , Open Source Permalink Share
-The AWS CRT for JavaScript is adopting a policy that aligns with the official Node.js release schedule, providing a predictable timeline for when support for older Node.js versions is dropped. The AWS IoT Device SDK for JavaScript v2 is built on top of AWS CRT for JavaScript, so it shares the same minimum Node.js version. […]
 ← Older posts
 Create an AWS account
 Learn

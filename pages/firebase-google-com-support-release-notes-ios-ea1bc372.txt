@@ -2976,7 +2976,7 @@ Warning: This version of Firebase contains a bug in Analytics that can cause
 data loss. If you are using Analytics , please upgrade to 8.9.1.
 Firebase introduces beta support for tvOS, macOS, and Catalyst.
 watchOS continues to be available with community support. Individual product
-details are available here ( #583 ).
+details are available on Understand Firebase on Apple platforms ( #583 ).
 The minimum supported tvOS version is now 12.0.
 Forced GoogleUtilities and GoogleDataTransport CocoaPods dependencies
 to be updated to latest minor versions ( #8733 ).
@@ -6009,7 +6009,7 @@ active database instances.
 Instance ID
 Resolved a race condition where a token was not being generated on
 first start when FCM was included and the app
-didn’t register for remote notifications.
+didn't register for remote notifications.
 Cloud Messaging
 Additional error code logging for errors thrown when creating or
 opening an internal database file.
@@ -6582,7 +6582,7 @@ to your app's .ipa file, a reduction of nearly 2 MB from the previous
 release.
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-18 UTC.
+Last updated 2026-11-19 UTC.
 Learn
 Developer guides
 SDK & API reference

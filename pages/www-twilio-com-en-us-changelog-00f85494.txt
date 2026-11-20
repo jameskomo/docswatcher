@@ -488,6 +488,14 @@ Clear all filters
 See results
 Clear all filters
 Nov 19, 2026
+Messaging
+Programmable Messaging API
+Europe, Middle East, and Africa
+Data Residency for RCS Text (EU) is now in Private Beta
+Private Beta participants can now send and receive RCS text messages with personal data processed and stored in the Twilio Ireland (IE1) region, keeping personal data in Europe.
+Access is limited. Contact your account representative or submit this form to request access.
+Learn more
+Nov 19, 2026
 Serverless
 EMEA
 Studio
@@ -566,14 +574,6 @@ Messaging
 Sticky Sender is now supported for WhatsApp in Twilio Messaging Services
 We are excited to announce that Sticky Sender now applies to WhatsApp messages sent through Twilio Messaging Services. If Sticky Sender is turned on for your Messaging Service, it will now apply to WhatsApp. If a sender was previously used to message a recipient on WhatsApp, the same sender will be used for subsequent WhatsApp messages to that recipient.
 Sticky Sender is optional. If you do not want Sticky Sender applied to WhatsApp, you can disable Sticky Sender on the Messaging Service. You can also use a separate Messaging Service dedicated to WhatsApp that does not have Sticky Sender turned on. To learn more, see Sticky Sender .
-Learn more
-Nov 17, 2026
-New Features for Conversation Insights (Beta)
-Conversation Insights (public beta) enables you to measure what's happening across all your Twilio Conversations: aggregate signals from every interaction, learn what works, and feed it back so each conversation can improve the next. The following features are now available:
-1. Custom measures : Make the conversational signals that matter to your business available in Conversation Insights. Register a numeric value from your own Conversation Intelligence operator, such as a lead score or agent rating, and explore aggregate patterns and trends across conversations.
-2. Conversation Summary : A new gold-layer cube with one unified row per Conversation, combining channel metadata, participant info, and operator results into a single analytics-ready record.
-3. Data Destinations support (private beta): Build reports and dashboards in the tools your team already works in. Sync the Conversation Summary record to your existing warehouse, BI system, or analytics tool (18 destinations currently available), and join it with the business data that already exists there.
-4. Asynchronous queries : Submit long-running or large analytics queries, then poll for status and retrieve the results asynchronously, so intensive analytics jobs don't time out.
 Learn more
 Loading
 Error: Unable to load changelog

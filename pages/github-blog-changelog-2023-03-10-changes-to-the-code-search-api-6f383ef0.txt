@@ -31,6 +31,9 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Nov.19 Improvement
+Improvements on the pull request overview in public preview
+collaboration tools
 Nov.18 Release
 Wait for pull request events with GitHub CLI
 client apps
@@ -72,12 +75,6 @@ community engagement
 universe26
 ...
 +2
-Oct.23 Improvement
-Enterprise installations for GitHub Apps generally available
-ecosystem & accessibility
-enterprise management tools
-...
-+1
 Subscribe to our developer newsletter
 Discover tips, technical guides, and best practices in our biweekly newsletter just for devs.
 Enter your email *

@@ -129,7 +129,7 @@ Activity
 Twitch API update – delaying v5 end-of-life
 Announcements
 18
-12325
+12326
 August 8, 2019
 HTTP 410 on GET https://api.twitch.tv/kraken/user
 API

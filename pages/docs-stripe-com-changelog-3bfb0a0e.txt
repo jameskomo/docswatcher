@@ -79,8 +79,64 @@ Generally available
 Public preview
 Endive
 Learn what's changing in Endive
+2026-11-18.endive
+Payments
+Change
+Products
+Allows updating the capture method on payment links
+Payment Links
+Adds funding source details for Link payments on the Charge object
+Payments
+Adds refund reference tracking for Bizum and UPI
+Payments
+Adds support for car rental and lodging industry metadata
+Payments
+Adds a fingerprint property for PayPay payments
+Payments
+Connect and Accounts v2
+Change
+Products
+Create Express accounts with Stripe pricing and negative balance liability in Accounts v1
+Connect
+Create Express accounts with Stripe pricing and negative balance liability in Accounts v2
+Connect
+Adds PayPay payment method support to the Accounts v2 API
+Connect + 1 more
+Adds the application property to the Refund object for Connect
+Payments
+Adds Billie, MB WAY, and NZ BECS Direct Debit capabilities to the Accounts v2 API
+Connect
+Adds additional material parameter for Konbini payments to the Accounts v2 API
+Connect
+Adds Pix payments to the Accounts v2 API
+Payments
+Adds dashboard access to the Account Links v2 API
+Affects all products
+Additional updates
+Change
+Products
+Adds IGIC registrations for the Canary Islands
+Tax
+Adds Invoice Filtered All Fees report to the Reporting API
+Affects all products
+Adds the Claimable Sandboxes API for platforms
+Affects all products
+Shipping timestamps are always included on Issuing Card objects
+Issuing
+Adds lost benefits to product marketing features for the customer portal
+Billing
+Adds DevKit device types for Apps on Devices to Terminal Reader APIs
+Terminal
+Adds an error code for account creation requests blocked due to inactivity
+Affects all products
+Adds Tron as a supported network for stablecoin payments
+Crypto + 1 more
+Adds address collection precision for automatic tax
+Elements
 2026-10-28.endive
 Payments
+Change
+Products
 Adds payment intent data configuration when updating Checkout Sessions
 Checkout + 1 more
 Adds Open USD (OUSD) as a supported token currency for crypto payments
@@ -106,6 +162,8 @@ Payments
 Adds validation for Smart Disputes availability when submitting a dispute
 Payments
 Connect
+Change
+Products
 Adds Connect embedded components for buying Terminal hardware
 Terminal
 Adds the Reporting Chart embedded component
@@ -113,6 +171,8 @@ Connect
 Adds alternative requirements to the Accounts v2 API
 Connect
 Billing and invoicing
+Change
+Products
 Adds session recovery for expired customer portal sessions
 Billing
 Adds support for the SeQura payment method for invoices and subscriptions
@@ -122,6 +182,8 @@ Billing
 Adds an error code for billing cycle anchor and trial validation on subscriptions
 Billing
 Tax
+Change
+Products
 Adds tax registration support for Botswana, Ghana, Ivory Coast, and Mauritius
 Tax
 Adds Ghana levy tax types
@@ -135,6 +197,8 @@ Tax
 Adds digital excise tax and utility users tax as supported US registration types
 Tax
 Treasury and money management
+Change
+Products
 Adds support for the Inbound Transfers v2 API
 Affects all products
 Adds the Outbound Payments, Payout Intents, and Recipient Verifications APIs for programmatic outbound flows
@@ -154,11 +218,15 @@ Connect + 1 more
 Adds money management APIs for Global Payouts
 Treasury
 Terminal
+Change
+Products
 Adds support for the Stripe Terminal T600 reader
 Terminal
 Adds admin menu passcode to Terminal configurations
 Terminal
 Additional updates
+Change
+Products
 Adds semantic thin events for subscriptions, invoicing, and Financial Connections
 Affects all products
 Adds shipping timestamps to Issuing Cards
@@ -166,6 +234,8 @@ Issuing
 2026-09-30.endive
 Breaking changes
 Payments
+Change
+Products
 Removes the payment method types parameter from Checkout Sessions
 Checkout
 Adds support for Data Share Only for 3D Secure authentication
@@ -217,6 +287,8 @@ Payments
 Adds MoMo payment method details to Payment Records
 Payments
 Connect and accounts
+Change
+Products
 Adds address validation errors for CMRAs and registered agents to Accounts v1 and Accounts v2
 Issuing + 1 more
 Adds rejected status for Accounts v2 capabilities
@@ -234,6 +306,8 @@ Connect
 Adds additional shared fields to customer sharing
 Affects all products
 Billing and invoicing
+Change
+Products
 Unifies the billing cycle anchor format across Subscriptions and Invoices
 Billing
 Adds invoicing rules to Invoice Items
@@ -255,6 +329,8 @@ Billing
 Adds the Feedback Options API
 Billing
 Tax
+Change
+Products
 Adds Failed Tax Calculation error
 Tax + 3 more
 Adds support for new tax types
@@ -262,6 +338,8 @@ Tax
 Adds support for ticket sales to Stripe Tax
 Billing + 3 more
 Financial Connections
+Change
+Products
 Renames the countries filter to country on Financial Connections Sessions
 Financial Connections
 Updates Financial Connections Session defaults
@@ -269,6 +347,8 @@ Financial Connections
 Adds pending and expired statuses to Financial Connections account numbers
 Financial Connections
 Treasury and money management
+Change
+Products
 Renames the Reserve Release reason enum value
 Radar
 Adds destination property and new enum values to Reserve Plans, Holds and Releases
@@ -278,6 +358,8 @@ Treasury
 Exposes ACH return codes on OutboundPayments, OutboundTransfers, and InboundTransfers in v1 Treasury
 Treasury
 Additional updates
+Change
+Products
 Adds page limit validation for dispute evidence
 Payments
 Rejects duplicate references for pending India card mandates
@@ -309,6 +391,8 @@ Affects all products
 2024
 2024-06-20
 Breaking changes
+Change
+Products
 Renames a fuel attribute of the Authorization object
 Issuing
 Renames a purchase _ details attribute of the Transaction object
@@ -329,6 +413,8 @@ Adds new enum values for request history reasons
 Issuing
 2024-04-10
 Breaking changes
+Change
+Products
 Makes automatic async the default capture method for PaymentIntents when not specified
 Payments
 Renames the rendering _ options attribute for invoices to rendering
@@ -338,12 +424,16 @@ Invoicing + 1 more
 2023
 2023-10-16
 Breaking changes
+Change
+Products
 Adds new account requirement error codes to the Accounts API
 Connect
 Auto-populates the statement descriptor and prefix in the Accounts API
 Connect
 2023-08-16
 Breaking changes
+Change
+Products
 Enables automatic payment methods by default for PaymentIntents and SetupIntents
 Payments + 1 more
 One-time payments in Checkout Sessions support no-cost orders
@@ -357,6 +447,8 @@ Connect
 2022
 2022-11-15
 Breaking changes
+Change
+Products
 The Charges object no longer auto-expands refunds by default
 Payments
 Removes the charges attribute from the PaymentIntent object
@@ -369,6 +461,8 @@ Adds a new structure error code to the Accounts API
 Connect
 2022-08-01
 Breaking changes
+Change
+Products
 Removes the include _ and _ require value when creating invoices
 Invoicing
 Default customer creation in Checkout Session payment mode changed to if _ required
@@ -398,6 +492,8 @@ Affects all products
 2020
 2020-08-27
 Breaking changes
+Change
+Products
 Removes the tax _ percent attribute
 Checkout + 2 more
 Renames phases attributes in subscription schedules
@@ -424,11 +520,15 @@ Deprecates subscription prorate and subscription _ prorate parameters
 Billing
 2020-03-02
 Breaking changes
+Change
+Products
 Invoices can now be numbered sequentially across your account
 Billing + 1 more
 2019
 2019-12-03
 Breaking changes
+Change
+Products
 Standardizes invoice line item IDs
 Billing + 1 more
 New requirement for out _ of _ band _ amount when creating post-payment credit notes
@@ -439,12 +539,16 @@ Removes deprecated tax information fields from the Customer object
 Affects all products
 2019-11-05
 Breaking changes
+Change
+Products
 Adds requirement for requested _ capabilities on custom account creation
 Connect
 Nested subscription schedule settings under default _ settings
 Billing
 2019-10-17
 Breaking changes
+Change
+Products
 Renames and updates subscription schedule renewal properties
 Billing
 Replaces the subscription start field with start _ date
@@ -457,26 +561,36 @@ Renames account _ balance to balance on Customer object
 Billing + 1 more
 2019-10-08
 Breaking changes
+Change
+Products
 Renames a Person object relationship attribute
 Connect
 2019-09-09
 Breaking changes
+Change
+Products
 Accounts in many countries now require specifying capabilities at creation time
 Connect
 Adds new details _ code values to person document verification
 Connect
 2019-08-14
 Breaking changes
+Change
+Products
 Renames the platform _ payments capability for accounts to card _ payments , requiring the manual specification of the added transfers capability
 Connect
 Configuring a person as an account opener no longer automatically sets them as an executive
 Connect
 2019-05-16
 Breaking changes
+Change
+Products
 Bank pull payments no longer expose internal system refunds on failure
 Payments
 2019-03-14
 Breaking changes
+Change
+Products
 Renames application _ fee on invoices to application _ fee _ amount
 Connect + 1 more
 Subscriptions are now successfully created even if the first payment fails
@@ -489,6 +603,8 @@ Invoices now specify when they’re finalized alongside other status transitions
 Billing + 1 more
 2019-02-19
 Breaking changes
+Change
+Products
 Changes statement descriptor behaviors for card payments created with Charges
 Payments
 Several account fields have been refactored to better describe legal entity, verification status and requirements, and configurable settings
@@ -505,6 +621,8 @@ Renames the business _ id _ number for an account’s legal entity to business _
 Connect
 2019-02-11
 Breaking changes
+Change
+Products
 Renames several statuses for PaymentIntents
 Payments
 Renames the save _ source _ to _ customer field for sources to save _ payment _ method
@@ -518,6 +636,8 @@ Payments
 2018
 2018-11-08
 Breaking changes
+Change
+Products
 Invoices now specify their automatic collection behavior using the auto _ advance field
 Invoicing + 1 more
 One-off Invoices no longer automatically collect payment by default
@@ -530,6 +650,8 @@ Includes several changes for users of the Payment Intents API private beta
 Payments
 2018-10-31
 Breaking changes
+Change
+Products
 Descriptions for customers now have a character limit
 Affects all products
 Product names now have a character limit
@@ -540,14 +662,20 @@ The billing _ reason of the first invoice of a subscription is now subscription 
 Billing + 1 more
 2018-09-24
 Breaking changes
+Change
+Products
 Renames the FileUpload object to Files , which now require secret keys to download files
 Affects all products
 2018-09-06
 Breaking changes
+Change
+Products
 SKU values no longer need to be unique
 Checkout
 2018-08-23
 Breaking changes
+Change
+Products
 A subscription’s ending period can no longer be configured while canceling it
 Billing
 Customers now provide a tax _ info object with their tax ID details
@@ -556,6 +684,8 @@ Renames the amount field for plan tiers to unit _ amount
 Billing
 2018-07-27
 Breaking changes
+Change
+Products
 Subscriptions no longer support modifying the source parameter directly
 Billing
 Ending a subscription trial now uses the timestamp of that API request
@@ -566,6 +696,8 @@ Stripe now validates email addresses when creating or updating customers
 Affects all products
 2018-05-21
 Breaking changes
+Change
+Products
 Products no longer embed lists of SKUs
 Checkout
 Invoice line items now have unique IDs and can’t be used in place of a subscription
@@ -578,14 +710,20 @@ Changing a subscription to a new plan with a trial now extends the trial period
 Billing
 2018-02-28
 Breaking changes
+Change
+Products
 Updating a canceled subscription on a future date no longer resets its status
 Billing
 2018-02-06
 Breaking changes
+Change
+Products
 Sources now provide a recommended value when the issuer advises using 3D Secure
 Payments
 2018-02-05
 Breaking changes
+Change
+Products
 Free plans with prorations now produce zero-dollar invoices
 Billing
 Subscriptions can now delay the first full invoice to a future date (and optionally include a free trial)
@@ -596,25 +734,35 @@ Products now require a type field, differentiating their use with order SKUs or 
 Billing + 1 more
 2018-01-23
 Breaking changes
+Change
+Products
 Connect platforms can identify reused card or bank accounts across connected accounts as they now will share the same fingerprint
 Connect
 2017
 2017-12-14
 Breaking changes
+Change
+Products
 Invoice line items now must always set a description
 Invoicing + 1 more
 Invoice payment failures now return a card _ error when a charge is declined
 Invoicing + 1 more
 2017-08-15
 Breaking changes
+Change
+Products
 Sources can now specify that an authentication redirect isn’t required
 Payments
 2017-06-05
 Breaking changes
+Change
+Products
 Accounts can now specify why an account isn’t enabled with the new reason under _ review
 Connect
 2017-05-25
 Breaking changes
+Change
+Products
 Events for Connect now specify the originating connected account using the account field
 Connect
 The request field of the Events object now specifies both the request ID and idempotency key
@@ -625,72 +773,104 @@ Accounts must now specify one of three types (Standard, Express, or Custom)
 Connect
 2017-04-06
 Breaking changes
+Change
+Products
 Transfers are now split into payouts and transfers
 Connect
 2017-02-14
 Breaking changes
+Change
+Products
 Charges now specify the ID for the rule blocking a transaction, which can be expanded
 Payments + 1 more
 Charges now specify the ID for the dispute associated with a transaction, which can be expanded
 Payments
 2017-01-27
 Breaking changes
+Change
+Products
 Balance transactions no longer include the sourced _ transfers field
 Payments + 1 more
 2016
 2016-10-19
 Breaking changes
+Change
+Products
 Using insufficient permissions to make API requests now throws an HTTP 403 error
 Affects all products
 2016-07-06
 Breaking changes
+Change
+Products
 Filter lists of subscriptions for canceled subscriptions
 Billing
 2016-06-15
 Breaking changes
+Change
+Products
 Deactivating a product no longer automatically deactivates its SKUs
 Billing
 2016-03-07
 Breaking changes
+Change
+Products
 Supported currencies are defined on the country spec for an account’s country
 Payments
 2016-02-29
 Breaking changes
+Change
+Products
 Creating or updating an account now validates the postal code for its legal entity
 Connect
 2016-02-23
 Breaking changes
+Change
+Products
 Orders that are paid or fulfilled, and then become canceled or returned, now automatically refund associated charges
 Payments
 2016-02-22
 Breaking changes
+Change
+Products
 You can no longer add more than 250 invoice items to an invoice
 Billing + 1 more
 2016-02-19
 Breaking changes
+Change
+Products
 Renames the name field on Bank Accounts to account _ holder _ name
 Payments
 2016-02-03
 Breaking changes
+Change
+Products
 Accounts now only show country-specific subfields for the legal _ entity field
 Connect
 2015
 2015-10-16
 Breaking changes
+Change
+Products
 Creating or updating customers must now include a plan if a tax percentage is specified
 Billing
 2015-10-12
 Breaking changes
+Change
+Products
 Using invalid parameters to create cards or bank accounts for tokens, sources, or external bank accounts now throws an HTTP 400 error
 Payments
 2015-10-01
 Breaking changes
+Change
+Products
 Bank account information renamed to external accounts on user profiles
 Connect
 Accounts now include an external _ accounts field
 Connect
 2015-09-23
 Breaking changes
+Change
+Products
 The charge field now always reflects the latest charge on invoices
 Invoicing + 1 more
 Invoices no longer include the payment property
@@ -701,48 +881,70 @@ Charges only support an offset for list pagination when filtering by source
 Payments
 2015-09-08
 Breaking changes
+Change
+Products
 Rate-limited requests now return an HTTP 429 error, no longer including the rate _ limit field
 Affects all products
 2015-09-03
 Breaking changes
+Change
+Products
 Requests that reuse idempotency tokens but alter request parameters now throw an error
 Affects all products
 2015-08-19
 Breaking changes
+Change
+Products
 Balance transactions with refunds or disputes now specify the corresponding ID in the source field
 Payments
 2015-08-07
 Breaking changes
+Change
+Products
 Stripe now ensures the tos _ acceptance[date] field on accounts is a valid timestamp
 Connect
 2015-07-28
 Breaking changes
+Change
+Products
 Transfers that are immediately processed now trigger the balance . available event
 Connect
 2015-07-13
 Breaking changes
+Change
+Products
 Accounts now include the verification[disabled _ reason] field to describe why they can’t make transfers or charges
 Connect
 2015-07-07
 Breaking changes
+Change
+Products
 Transfers submitted to the bank that haven’t arrived now provide an in _ transit status
 Connect
 2015-06-15
 Breaking changes
+Change
+Products
 Accounts on manual payout schedules now throw a new error
 Connect
 2015-04-07
 Breaking changes
+Change
+Products
 Updates how ending periods are calculated on prorated invoice line items
 Billing
 Changes the sorting order of lines for invoices
 Billing + 1 more
 2015-03-24
 Breaking changes
+Change
+Products
 By default, coupons no longer apply to invoice items with negative amounts
 Billing + 1 more
 2015-02-18
 Breaking changes
+Change
+Products
 Charges that succeed now have a succeeded status
 Payments
 Charges now have a source field that accepts a source or card
@@ -751,100 +953,142 @@ Customers now have a source field that accepts a source or card, and updates rel
 Payments
 2015-02-16
 Breaking changes
+Change
+Products
 Renames the transfer . canceled event type to transfer . reversed
 Connect
 2015-02-10
 Breaking changes
+Change
+Products
 Dispute statuses now include the warning _ closed value
 Payments
 Transfers now require a sufficient account balance in test mode to better simulate live mode
 Connect
 2015-01-26
 Breaking changes
+Change
+Products
 Events with the previous _ attributes field now only render the differences to objects across updates
 Affects all products
 Subscriptions now only report the timestamp for API or invoice payment failures for the canceled _ at field
 Billing
 2015-01-11
 Breaking changes
+Change
+Products
 File uploads describe their file type with the simpler type field and format
 Affects all products
 2014
 2014-12-22
 Breaking changes
+Change
+Products
 Cards now use both the unchecked and unavailable values to describe address and CVC checks by issuing banks
 Payments
 Tokens with cards no longer include the customer field
 Payments
 2014-12-17
 Breaking changes
+Change
+Products
 Introduces the statement _ description field and logic for how charges, invoices, plans, and transfers render statement descriptors
 Payments + 3 more
 Creating accounts using the API requires the 2014-12-17 version or newer
 Connect
 2014-12-08
 Breaking changes
+Change
+Products
 Disputes now include an evidence _ details object for evidence documentation
 Payments
 2014-11-20
 Breaking changes
+Change
+Products
 Disputes are now reported as won even if the charge is refunded
 Payments
 Invoice items now reflect the metadata for their associated subscription, rather than plan
 Billing
 2014-11-05
 Breaking changes
+Change
+Products
 Account activation status terms updated for payments and transfers
 Connect
 2014-10-07
 Breaking changes
+Change
+Products
 You can no longer retrieve tokens with publishable keys
 Elements
 Creating a Card or Bank Account with a publishable key omits fingerprints in API responses
 Elements
 2014-09-08
 Breaking changes
+Change
+Products
 Bank Accounts now include a status enum that replace multiple fields
 Payments
 2014-08-20
 Breaking changes
+Change
+Products
 Disputes now provide several new statuses
 Payments
 Disputes now include multiple balance transactions
 Payments
 2014-08-04
 Breaking changes
+Change
+Products
 You can now retrieve balance histories rather than relying on Transfer fields
 Connect
 2014-07-26
 Breaking changes
+Change
+Products
 Application fees now include a sublist of refunds through the refunds field
 Connect
 2014-07-22
+Change
+Products
 Invoice line items now include subscription plans and quantities
 Invoicing + 1 more
 2014-06-17
 Breaking changes
+Change
+Products
 Charges now include a sublist of refunds through the refunds field
 Payments
 2014-06-13
 Breaking changes
+Change
+Products
 Renames the type field on cards to brand
 Payments + 1 more
 2014-05-19
 Breaking changes
+Change
+Products
 Replaces the account field on transfers
 Connect + 1 more
 2014-03-28
 Breaking changes
+Change
+Products
 Lists no longer include the count field
 Affects all products
 2014-03-13
 Breaking changes
+Change
+Products
 Renames the statement descriptor field
 Connect
 2014-01-31
 Breaking changes
+Change
+Products
 Customers now support multiple subscriptions
 Billing
 Trial end dates are no longer computed for canceled subscriptions
@@ -852,80 +1096,116 @@ Billing
 2013
 2013-12-03
 Breaking changes
+Change
+Products
 Application fees now provide an expandable account field to obtain user details
 Connect
 Application fee refunds are now proportional to the charged amount
 Connect
 2013-10-29
 Breaking changes
+Change
+Products
 Coupons only apply to an invoice’s total balance, no longer applying to zero-cost invoices
 Invoicing + 1 more
 2013-08-13
 Breaking changes
+Change
+Products
 Fee details have moved from charges to their corresponding balance transactions
 Payments
 Fee details have moved from transfers to their corresponding balance transactions
 Payments
 2013-08-12
 Breaking changes
+Change
+Products
 Lets the description and email fields be null on several objects
 Payments + 2 more
 2013-07-05
 Breaking changes
+Change
+Products
 Customers now include a cards sublist and default _ card field
 Payments + 2 more
 2013-02-13
 Breaking changes
+Change
+Products
 Disputes on charges are now tracked through the stripe _ fee field and included in the fee total
 Payments
 2013-02-11
 Breaking changes
+Change
+Products
 Failed invoice payments now return an HTTP error
 Invoicing + 1 more
 2012
 2012-11-07
 Breaking changes
+Change
+Products
 Renames the disputed field for Charges to dispute
 Payments
 2012-10-26
 Breaking changes
+Change
+Products
 Invoices now include a sublist of invoice line items
 Billing + 1 more
 2012-09-24
 Breaking changes
+Change
+Products
 Discounts no longer include an extraneous id field
 Billing + 1 more
 2012-07-09
 Breaking changes
+Change
+Products
 Customers no longer include the uncaptured field
 Payments
 2012-06-18
 Breaking changes
+Change
+Products
 Tokens no longer include the amount and currency properties
 Elements + 1 more
 2012-03-25
 Breaking changes
+Change
+Products
 Customers no longer include a next _ recurring _ charge field
 Billing
 2012-02-23
 Breaking changes
+Change
+Products
 Fields with null values are now included in API responses
 Affects all products
 2011
 2011-09-15
 Breaking changes
+Change
+Products
 Cards validate differently when creating tokens
 Elements + 1 more
 2011-08-01
 Breaking changes
+Change
+Products
 Lists now provide a total count of items and a data field
 Affects all products
 2011-06-28
 Breaking changes
+Change
+Products
 Plans no longer include the identifier field
 Billing
 2011-06-21
 Breaking changes
+Change
+Products
 Errors now produce exceptions for unrecognized API parameters
 Affects all products
 Was this page helpful?

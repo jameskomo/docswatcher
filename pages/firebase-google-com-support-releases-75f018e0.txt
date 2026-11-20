@@ -198,7 +198,7 @@ Flutter
 Flutter BoM : 5.2.0
 See notes for individual plugin versions
 Unity
-14.1.0
+14.2.0
 C++
 14.2.0
 Admin Node.js
@@ -217,6 +217,12 @@ Firebase CLI
 15.37.0
 Firebase Studio
 See notes
+November 19, 2026
+SDK Releases
+The Firebase SDK for Unity
+(v14.2.0) is now available. This
+release includes new features in Authentication and Firebase AI, changes to App
+Check and Realtime Database , and other changes.
 November 18, 2026
 Firebase CLI (v15.37.0)
 The latest
