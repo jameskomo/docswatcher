@@ -83,9 +83,6 @@ Dynamic Links deprecation
 Deprecation FAQ
 Export Dynamic Links metadata
 Migrate to App Links & Universal Links
-Migrate from Parse
-Android
-iOS+
 Cloud Audit Logs
 Firebase Management
 Firebase AI Logic

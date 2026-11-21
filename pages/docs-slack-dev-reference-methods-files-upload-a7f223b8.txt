@@ -359,6 +359,12 @@ token_revoked
 Authentication token is for a deleted user or workspace or the app has been removed when using a user token.
 two_factor_setup_required
 Two factor setup is required.
+Warnings
+A successful response can also include these warnings. They don't stop the call from succeeding, but they flag something your app might need to handle.
+Warning
+Description
+method_deprecated
+files.upload is deprecated. Please use modern upload methods. Read https://docs.slack.dev/changelog/2024-04-a-better-way-to-upload-files-is-here-to-stay for more info.
 Previous
 files.sharedPublicURL
 Next

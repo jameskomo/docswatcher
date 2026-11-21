@@ -31,6 +31,12 @@ Copied
 Shared
 Back to changelog
 Related Posts
+Nov.20 Release
+GitHub Enterprise Server 3.23 release candidate
+collaboration tools
+Nov.20 Improvement
+Pin your favorite repositories to your dashboard
+collaboration tools
 Nov.19 Improvement
 Improvements on the pull request overview in public preview
 collaboration tools
@@ -57,19 +63,6 @@ Webhook IP ranges added to the Meta API
 ecosystem & accessibility
 Oct.28 Release
 Introducing Replica, an open-source AI prototyping tool
-collaboration tools
-community engagement
-universe26
-...
-+2
-Oct.28 Release
-Pull request limits: Exempt contributors by age or history
-collaboration tools
-universe26
-...
-+1
-Oct.28 Release
-Moderate role for GitHub Issues generally available
 collaboration tools
 community engagement
 universe26

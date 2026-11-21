@@ -30,10 +30,16 @@ November 2026 - Version 202611 (Latest)
 Product & Platform Announcements
 Ad Accounts API : New billingReference field :
 Starting with the 202611 version, the /adAccounts endpoint returns and accepts billingReference , a URN that references the billing object (for example, a Salesforce contract line item) associated with an ENTERPRISE account. The field can be set when the account is created and updated with a partial update; updates are restricted to approved applications. It is also returned in the accountInfo additional info field of /adCampaignGroups and /adCampaigns . In earlier versions, the field is rejected with a 422 error. This is an additive, backward-compatible change.
-Boost API : Custom targeting, saved audiences, and boost management :
-Starting with version 202611 , Boost Init provides targeting discovery through targetingEntities , and custom or saved audiences use includeAll and excludeAny criteria. The shared /rest/boostTargetingCriteria resource supports creating, finding, editing, and deleting account-owned audiences for Member and Company Page boosts. The /rest/memberBoostManage/{campaignId} and /rest/organizationBoostManage/{campaignId} resources support retrieving existing boosts, updating targeting and political declarations, and deleting boosts. Budget, objective, and schedule aren't editable through these management resources. Use Init's returned billingUrl unchanged for billing setup.
+Boost API : Simplified audience targeting, locale support, and saved audiences :
+Starting with version 202611 , Member and Company Page Boost APIs use simplified targeting criteria: includeAll contains criteria that must all match, excludeAny contains criteria that exclude matching members, and anyOf lists alternative values within a criterion.
+Boost Init returns targetingEntities , describing supported targeting facets, selectable options, exclusion support, and incompatible combinations. Init and Hydrate accept an optional locale for supported audience and criteria names. Localization of discovery facet labels and options isn't guaranteed.
+The shared /rest/boostTargetingCriteria resource supports creating, updating, and deleting saved audiences, and finding saved audiences by ad account, for both Member and Company Page Boost. Creation requires an ad account, a nonblank audience name, and location targeting.
+Suggested audiences allow edits only to locations and interface locales; preserve all other facets. Saved audiences created outside Boost can contain additional facets that must remain read-only in the Boost targeting interface. Interface locale isn't a required client-supplied facet; Boost adds a default language when it is omitted.
+Boost API : Manage existing boosts :
+Starting with version 202611 , the /rest/memberBoostManage/{campaignId} and /rest/organizationBoostManage/{campaignId} resources support retrieving an existing boost's campaign details, targeting, budget, schedule, political-advertising declaration, and available forecast, or deleting the boost. Only targetingCriteria and politicalIntent are editable through these resources; budget, objective, and schedule aren't editable.
+The legacy memberBoostCampaign and organizationBoostCampaign delete resources are deprecated but remain available in versions 202610 and 202611 . For version 202611 and later, migrate delete calls to the corresponding Boost Manage resource.
 Boost API : Hosted billing setup URL :
-Boost Init returns an optional billingUrl when billingConfigured is false . Partners can direct the advertiser to this LinkedIn-hosted URL to complete billing setup, then call the Init endpoint again before continuing. Partners should not collect payment details themselves. billingConfigured now reflects billing readiness rather than merely the presence of a payment method, so some accounts that previously returned true can return false . Advertisers are expected to complete billing setup before creating a boost.
+Starting with version 202611 , Boost Init returns billingUrl regardless of whether billingConfigured is true or false ; earlier versions omit the URL. Partners can direct the advertiser to this LinkedIn-hosted URL to complete billing setup, and the page remains usable after setup. Open the URL exactly as returned, preserving its query parameters. Partners should not collect payment details themselves. billingConfigured reflects billing readiness rather than merely the presence of a payment method, and accounts on billing hold return false . If it is false , complete billing setup or resolve the hold, then call Init again and continue only when it returns true .
 Boost API : Political-advertising declaration :
 Starting with the 202611 version, Member and Company Page Boost Post actions accept a politicalIntent declaration. Boost Hydrate can return politicalDeclarationRequired to indicate when the evaluated targeting requires an explicit declaration. An absent value isn't a confirmed false . LinkedIn's prohibition on political advertising remains unchanged. See the Reminders section below for details.
 Conversions API : SHA256_PHONE user identifier :
@@ -46,8 +52,13 @@ Using lists on campaigns : /adAccounts/{id}/adCampaigns only accepts publisher l
 Using lists on account trust preferences : /adAccountTrustPreferences is account-level and has no campaign placement to match. Any list newly added to the account-level allowlist or blocklist must have surface set to LAN or CTV . Adding a legacy list ( BOTH or no surface ) returns 400 . Lists already applied to the account keep working.
 Migrate to version 202611 and update your publisher-list integration before December 15, 2026.
 Breaking changes
-Boost Analytics : Response shape and reporting limitation :
-Version 202611 and later replaces the flat post metric fields with a campaigns array. Campaign metrics, including local-currency spend, aren't currently populated, so upgrading from 202610 doesn't preserve equivalent reporting. An empty campaigns array doesn't mean zero delivery or spend. Integrations that require the October metrics must account for this limitation before upgrading.
+Boost Analytics : Campaign-level metrics and local-currency spend :
+Starting with version 202611 , the boostAnalytics endpoint returns metrics broken down by campaign in a campaigns array, including spendInLocalCurrency in each ad account's currency. Previously, metrics were aggregated at the post level across campaigns, with spend reported in USD. Integrations upgrading from 202610 must read campaign metrics from the new structure rather than the flat post metric fields. Don't combine monetary amounts with different currencies.
+Campaign metrics cover up to the past two years. approximateMemberReach uses the maximum per-campaign reach over a reporting window of up to 91 days, not a sum or deduplicated union across campaigns.
+Version sunset
+The monthly API versions below will be sunset and removed from the platform on the dates listed. For information on all the supported versions, refer to the migrations documentation. To avoid disruptions to your platform, please migrate to the latest API version launched today.
+202511 - Nov 16, 2026
+202601 - Jan 15, 2027
 Reminders
 Campaigns API : Political advertising declaration for EU-targeted campaigns :
 This is a reminder that advertisers running campaigns targeting the EU region must self-declare if their ads qualify as political advertising under the EU's Transparency and Targeting of Political Advertising (TTPA) regulation. Campaign Management partners must already implement a self-declaration step in the LinkedIn campaign creation flow for campaigns targeting the EU region and pass this information to LinkedIn via the politicalIntent field in the /adCampaigns schema. Starting December 15, 2026 , EU-targeted campaigns created without a political intent declaration will be rejected with a 400 error.
@@ -820,7 +831,7 @@ Ask Learn
 Suggest a fix?
 Additional resources
 Last updated on
-2026-11-16
+2026-11-17
 In this article
 Was this page helpful?
 Need help with this topic?
