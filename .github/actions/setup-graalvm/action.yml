@@ -10,7 +10,7 @@ runs:
   steps:
     - id: first
       continue-on-error: true
-      uses: graalvm/setup-graalvm@d6eca2595046623d69d636041513c80abf745406 # v1.6.9
+      uses: graalvm/setup-graalvm@60e76998d25690099182b796e99b8804da582d90 # v1.6.10
       with: { java-version: "25", distribution: graalvm-community, cache: maven }
 
     - if: steps.first.outcome == 'failure'
@@ -20,7 +20,7 @@ runs:
     - id: second
       if: steps.first.outcome == 'failure'
       continue-on-error: true
-      uses: graalvm/setup-graalvm@d6eca2595046623d69d636041513c80abf745406 # v1.6.9
+      uses: graalvm/setup-graalvm@60e76998d25690099182b796e99b8804da582d90 # v1.6.10
       with: { java-version: "25", distribution: graalvm-community, cache: maven }
 
     - if: steps.second.outcome == 'failure'
@@ -28,5 +28,5 @@ runs:
       run: echo "::warning::GraalVM download failed again; last try in three minutes"; sleep 180
 
     - if: steps.second.outcome == 'failure'
-      uses: graalvm/setup-graalvm@d6eca2595046623d69d636041513c80abf745406 # v1.6.9
+      uses: graalvm/setup-graalvm@60e76998d25690099182b796e99b8804da582d90 # v1.6.10
       with: { java-version: "25", distribution: graalvm-community, cache: maven }
