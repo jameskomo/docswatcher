@@ -58,12 +58,12 @@ Activity
 Badges.twitch.tv Down?
 API
 3
-1132
+1133
 June 9, 2023
 Legacy Chatters endpoint shutdown details and timeline - April 2023
 Announcements
 14
-10921
+10922
 April 13, 2023
 Legacy Twitch API v5 Shutdown Details and Timeline
 Announcements
