@@ -98,6 +98,8 @@ Common API Patterns
 Migration Guide
 Go
 Quickstart
+Developer Guides
+Square Web Payments SDK integration guide
 Sample Applications
 GraphQL
 GraphQL Basics

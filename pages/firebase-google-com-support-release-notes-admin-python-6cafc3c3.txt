@@ -83,16 +83,6 @@ Dynamic Links deprecation
 Deprecation FAQ
 Export Dynamic Links metadata
 Migrate to App Links & Universal Links
-Cloud Audit Logs
-Firebase Management
-Firebase AI Logic
-Firebase App Check
-Firebase App Hosting
-Firebase Cloud Messaging
-Cloud Storage for Firebase
-Firebase Realtime Database
-Firebase Security Rules
-Android Device Streaming
 Recent Changes and Updates
 Release Notes
 iOS Release Notes

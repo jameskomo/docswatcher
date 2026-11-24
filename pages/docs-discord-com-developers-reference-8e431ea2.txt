@@ -473,7 +473,7 @@ PNG, JPEG, WebP
 ** In the case of the Default User Avatar endpoint, the value for index depends on whether the user is migrated to the new username system . For users on the new username system, index will be (user_id >> 22) % 6 . For users on the legacy username system, index will be discriminator % 5 .
 *** In the case of the Default User Avatar and Sticker endpoints, the size of images returned is constant with the “size” querystring parameter being ignored.
 **** In the case of the Sticker endpoint, the sticker will be available as PNG if its format_type is PNG or APNG , GIF if its format_type is GIF , and as Lottie if its format_type is LOTTIE .
-***** For Custom Emoji, we highly recommend requesting emojis as WebP for maximum performance and compatibility. Emojis can be uploaded as JPEG, PNG, GIF, WebP, and AVIF formats. WebP and AVIF formats must be requested as WebP since they don’t convert well to other formats. The Discord client uses WebP for all emojis displayed in-app. See the Emoji Resource page for more details.
+***** For Custom Emoji, we highly recommend requesting emojis as WebP for maximum performance and compatibility. Emojis can be uploaded as JPEG, PNG, GIF, WebP, and AVIF formats. Animated WebP and AVIF emojis should be requested as WebP, since they don’t convert cleanly to GIF. The Discord client uses WebP for all emojis displayed in-app. See the Emoji Resource page for more details.
 Sticker GIFs do not use the CDN base URL, and can be accessed at https://media.discordapp.net/stickers/<sticker_id>.gif .
 Image Data
 Image data is a Data URI scheme that supports JPG, GIF, and PNG formats. An example Data URI format is:

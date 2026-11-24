@@ -28,6 +28,23 @@ Change Log
 Copy page Copy page
 Discover the latest updates, new features, and bug fixes on the Discord Developer Platform. To join in on the conversation, join the Discord Developers Server .
 Copy page Copy page
+November 23, 2026
+HTTP API
+Audio Link Previews
+Direct links to audio files now generate embeds with an inline audio player on web, desktop, and mobile.
+Developer Resources
+Audio Link Previews
+Embed Types
+Embed Audio Structure
+November 19, 2026
+Breaking Change Discord Social SDK
+Game Deauthorization Removes Game Relationships
+Permanently revoking a Social SDK game’s authorization now removes all of its game relationships from the player’s Discord account. Previously, relationships that could not transfer to a provisional account could remain on the original account. Game friends and incoming or outgoing game friend requests move to the new provisional account only if the friend’s Discord account is still authorized for your game with the sdk.social_layer or sdk.social_layer_presence scope. Transfers can also fail because of blocks or game relationship limits. Relationships that do not transfer are deleted. Ordinary Discord friendships are not affected. Temporary bans are unchanged: relationships that can’t transfer stay on the original account.
+What Do You Need to Do?
+Update any unlinking or relinking flows that assume game friendships or friend requests remain on the original Discord account after authorization is revoked.
+Developer Resources
+Unlinking Accounts
+Data Migration During Unmerging
 November 17, 2026
 Discord Social SDK
 Discord Social SDK Release 1.11.24259
