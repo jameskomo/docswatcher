@@ -21,6 +21,35 @@ A historic list of deprecated and decomissioned products previously offered with
 Copy as markdown View as markdown
 Provide feedback for this page
 This page provides information about Twitch’s 3rd party developer products that have been previously deprecated or decomissioned.
+API Endpoint and Subscription Classifications
+Tag
+Description
+New
+Functionality that has been recently released.
+Beta
+Functionality that is considered to be in public beta. This may be new functionality, or a new version of existing functionality. Developers may use these products in production environments with the understanding that all aspects of the functionality, including query parameters and response structures, are subject to change without notice. While changes are usually communicated, it is not always a guarantee based on the necessity of the change while in beta. If an unannounced breaking change would cause a significant impact to your users, consider waiting until the product is out of beta and generally available. While exploring this functionality, we encourage developers to provide feedback in the UserVoice Developer Forum .
+Unless otherwise noted, EventSub subscriptions that were released as a public beta will be available for 30 days after their generally available version is released. Subscriptions should be updated to the new version (v1, v2, etc.) during this timeframe. Any active beta subscriptions beyond 30 days will be automatically deleted.
+Deprecated
+Functionality that has been recently deprecated and is on a path to be decommissioned (i.e. shut down). Links to announcements regarding the deprecation plan are usually included to understand actions that may be necessary to limit disruption.
+Product Status Definitions
+Developer products and services can be in one of the three statuses. This table provides context for the availability of a product or service given its current status.
+Status
+Availability
+Maintenance
+Notification
+Active
+Live in production.
+Actively maintained with bug and security fixes. New features may be added.
+An announcement is posted when a new product or product feature is available. Changelog is updated.
+Deprecated
+Live in production.
+Only major bug and security fixes are made. New features are not added.
+An announcement is posted when a product or product feature is deprecated. Direct emails may be sent to developers. Changelog is updated. Decommission and shutdown plan will be announced at time of deprecation or at a later date.
+Decommissioned
+No longer available in production.
+Service is no longer maintained.
+Previous announcements may be updated. Further announcements and emails are possible.
+Product Status
 Twitch API
 Decomissioned APIs will return HTTP 410 when attempting to call them. Any exceptions to this rule are noted within the endpoint’s “Notes” below.
 Only endpoints in the “helix” namespace are included here. See Other Products for information regarding the deprecation of previous namespaces.
@@ -202,6 +231,9 @@ September 2019
 Used the namespace v3 .
 Twitch API v3 Shutdown Timeline
 Contents
+API Endpoint and Subscription Classifications
+Product Status Definitions
+Product Status
 Twitch API
 EventSub
 IRC and Chat

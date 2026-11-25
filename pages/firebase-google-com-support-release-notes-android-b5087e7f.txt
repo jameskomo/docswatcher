@@ -76,7 +76,6 @@ Overview
 FAQ
 Security checklist
 Launch checklist
-Firebase-related service accounts
 Troubleshoot initialization options
 Updates to remediate eMudhra certificate compromise
 Dynamic Links deprecation
@@ -173,14 +172,13 @@ you don't specify individual library versions when you declare Firebase library
 dependencies in your Gradle build configuration file.
 Compare Firebase BoM versions
 Latest SDK versions
-Important: Kotlin developers should now
-depend on the main modules instead of the KTX modules (when using
-Firebase BoM v32.5.0+
-or main module versions listed in BoM v32.5.0+).
-In July 2025 ,
-we stopped releasing new versions of the KTX modules, and we removed the
-KTX libraries from the Firebase Android BoM (v34.0.0).
-For details, see the
+Important: Kotlin developers should now depend on the main modules instead of
+the KTX modules (when using
+Firebase BoM v32.5.0+ or main
+module versions listed in BoM v32.5.0+). In
+July 2025 , we stopped releasing new
+versions of the KTX modules, and we removed the KTX libraries from the
+Firebase Android BoM (v34.0.0). For details, see the
 FAQ about this initiative .
 Service or Product
 Gradle dependency
@@ -201,7 +199,8 @@ com.google.gms:google-services
 AdMob
 com.google.android.gms:play-services-ads
 25.5.0
-Firebase AI Logic 1
+Firebase AI Logic
+1
 com.google.firebase:firebase-ai
 18.2.0
 Firebase AI Logic On-Device
@@ -287,7 +286,8 @@ com.google.firebase:firebase-database
 Remote Config
 com.google.firebase:firebase-config
 24.0.1
-SQL Connect 2
+SQL Connect
+2
 com.google.firebase:firebase-dataconnect
 18.0.1
 DEPRECATED OR UNSUPPORTED LIBRARIES
@@ -24129,7 +24129,7 @@ Google Analytics now logs all app open events driven
 from user clicks on Dynamic Links .
 Send feedback
 Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2026-11-19 UTC.
+Last updated 2026-11-24 UTC.
 Learn
 Developer guides
 SDK & API reference

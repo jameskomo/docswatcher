@@ -23,6 +23,38 @@ Provide feedback for this page
 2026
 Date
 Documentation Changes
+2026‑11‑24
+Corrections were made to various EventSub references:
+Hype Train Begin , Hype Train Progress , and Hype Train End now list mythic as a type value. For more information on Mythic Trains, see Hype Train Guide .
+AutoMod Message Hold , AutoMod Message Hold V2 , AutoMod Message Update , and AutoMod Message Update V2 now say that a level of 1 is the most severe, and describe each fragment's type and a Cheermote's tier correctly.
+AutoMod Message Hold V2 and AutoMod Message Update V2 now list unknown as a reason value.
+AutoMod Message Hold and AutoMod Message Hold V2 now say that messages matching any of the channel's private blocked terms don't send a notification.
+AutoMod Message Update and AutoMod Message Update V2 now list their status values in lowercase.
+AutoMod Settings Update now correctly lists the moderator:read:automod_settings scope.
+Channel Ad Break Begin 's example now shows duration_seconds as a number and is_automatic as a Boolean, and requester_user_id now covers ad breaks synchronized from another channel.
+Channel Subscription Gift and Channel Subscription Message now list their tier values.
+Channel Moderate and Channel Moderate V2 now mark source_broadcaster_user_id and source_broadcaster_user_login as nullable.
+Channel Suspicious User Message no longer lists none as a low_trust_status value.
+Channel Suspicious User Update 's low_trust_status values were corrected. no_treatment replaces none .
+Channel Unban now says it also sends a notification when a timeout is removed early, but not when a timeout ends on its own.
+Channel Points Custom Reward Add , Channel Points Custom Reward Update , and Channel Points Custom Reward Remove now mark image as nullable.
+Charity Campaign Start , Charity Campaign Progress , and Charity Campaign Stop ' broadcaster_id , broadcaster_login , and broadcaster_name fields were corrected to broadcaster_user_id , broadcaster_user_login , and broadcaster_user_name .
+The chat room subscription types, such as Channel Chat Message , now note that they count toward a user's chat join limits when the user isn't already in the chat room.
+Channel Chat Notification 's charity_donation.amount.decimal_place field was corrected to decimal_places .
+Channel Chat Notification no longer lists cheermote as a message.fragments.type value, and now lists the announcement.color values.
+Channel Guest Star Guest Update , Channel Guest Star Session Begin , Channel Guest Star Session End , and Channel Guest Star Settings Update now say moderator_user_id must be the broadcaster or one of the broadcaster's Guest Star moderators .
+Hype Train Begin , Hype Train Progress , and Hype Train End now describe top_contributions and its total correctly.
+Channel Prediction Begin now lists only the outcome fields it sends, and the outcome users , top_predictors , and color descriptions were corrected on every Prediction type.
+User Update 's description has been updated to specify which cases it will send a notification.
+Channel Update 's description has been updated to specify which cases it will send a notification.
+Other descriptions, examples, and authorization notes across the EventSub reference were corrected.
+Corrections were also made to various API endpoints:
+Get Creator Goals now says the subscription and subscription_count goal types show the broadcaster's totals, not a net change.
+Create Guest Star Session , End Guest Star Session , and Get Guest Star Session now say volume ranges from 0 to 200.
+Get Channel Guest Star Settings and Update Channel Guest Star Settings now say is_moderator_send_live_enabled controls whether Guest Star moderators can make a guest live.
+Corrections across other documentation include:
+Sending and Receiving Chat Messages now says a timeout doesn't block or remove a chat subscription; only a ban does.
+Concurrent Join Limits now notes that joining an additional chat room with Shared Chat does not count toward a user's global Concurrent Join Limit.
 2026‑11‑10
 New documentation style launched. During migration, some corrections were made:
 Get Ad Schedule and Snooze Next Ad now list their timestamps as Unix timestamps in seconds.

@@ -29,7 +29,7 @@ CRM Object Properties API (1)
 Integrations (2)
 Upcoming (4)
 Latest Posts
-Announced Upcoming ( 3 )
+Announced Upcoming ( 4 )
 Sunsetting design manager serverless functions and older Node.js runtimes for custom code actions
 Live: Nov 3, 2026
 HubSpot is sunsetting serverless functions built in the design manager, and Node.js 20 and earlier for workflow custom code actions. All of these run on runtime versions that no longer receive security updates. To keep your website features and ...

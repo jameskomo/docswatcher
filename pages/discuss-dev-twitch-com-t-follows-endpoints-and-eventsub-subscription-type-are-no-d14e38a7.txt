@@ -155,12 +155,12 @@ September 15, 2023
 Legacy Follows API and EventSub Shutdown Timeline Updated
 Announcements
 0
-6542
+6543
 August 4, 2023
 Get Channel Followers usernames
 API
 3
-496
+497
 October 29, 2023
 Following Scope
 API

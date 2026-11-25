@@ -79,7 +79,7 @@ Get access to information involving Bits products and transactions.
 Get Cheermotes
 Gets a list of Cheermotes that users can use to cheer Bits.
 Get Custom Power-up
-Gets a list of custom Power-ups that the specified broadcaster created.
+Gets a list of Custom Power-ups that the specified broadcaster created.
 Get Bits Leaderboard
 Gets the Bits leaderboard for the authenticated broadcaster.
 Get Extension Transactions

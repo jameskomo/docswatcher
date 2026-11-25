@@ -1,18 +1,45 @@
-Docs & API
-Search docs
+Mistral Docs
+Getting Started
+Vibe
+Studio
+Inference & Models
+Resources
+Admin
+API
+Reach out
+Try Studio
 ⌘K
-Vibe Studio Inference & Models Admin Resources API Reference
-Search docs
-⌘K
-Toggle theme Reach out Try Studio
-Home
-Inference
+Models & inference
+Overview
 Get started
 Quickstarts
+Overview
+Send your first API request
+Call your own functions
+Get structured output
+Analyze an image
+Find the closest text with embeddings
+Run a batch job
 Models
+Compare models
 Generate
 Conversations
+Chat Completions
+Overview
+Prompting
+Responses API
+Vision
+Reasoning
+Function Calling
+Structured Outputs
+Overview
+Custom
+JSON Mode
+Citations & References
 Embeddings
+Overview
+Text Embeddings
+Code Embeddings
 Prompting
 Sampling
 Optimize cost and latency
@@ -25,14 +52,97 @@ Regional inference
 Pricing
 Model lifecycle policy
 Labs
-API Reference ↗
-Inference & Models
-Inference
+API reference
+All models
+Codestral
+Codestral 25.01
+Codestral Embed
+Codestral Mamba 7B
+DeepSeek V4.1 Flash 1017
+Devstral 2
+Devstral Medium 1.0
+Devstral Small 1.0
+Devstral Small 1.1
+Devstral Small 2
+GLM 5.2
+GLM 5.3
+GLM 5.3 Flash
+Leanstral
+Leanstral 1.5
+Magistral Medium
+Magistral Medium 1.0
+Magistral Medium 1.1
+Magistral Medium 1.2
+Magistral Small
+Magistral Small 1.0
+Magistral Small 1.1
+Magistral Small 1.2
+Mathstral 7B
+Ministral 3
+Ministral 3 (14B)
+Ministral 3 (3B)
+Ministral 3 (8B)
+Ministral 3B
+Ministral 8B
+Mistral 7B
+Mistral 7B 0.1
+Mistral 7B 0.2
+Mistral 7B 0.3
+Mistral Embed
+Mistral Large 1.0
+Mistral Large 2.0
+Mistral Large 2.1
+Mistral Large 3
+Mistral Large 4
+Mistral Medium 1.0
+Mistral Medium 3
+Mistral Medium 3.1
+Mistral Medium 3.5
+Mistral Moderation
+Mistral Moderation 2
+Mistral NeMo
+Mistral Next
+Mistral Saba
+Mistral Small 1.0
+Mistral Small 2.0
+Mistral Small 3.0
+Mistral Small 3.1
+Mistral Small 3.2
+Mistral Small 4
+Mistral Small Creative
+Mixtral 8x22B
+Mixtral 8x7B
+OCR
+OCR 2
+OCR 3
+OCR 4.0
+OCR 4.1
+Pixtral 12B
+Pixtral Large
+Shieldstral
+Timestral
+Timestral 1.0 123M
+Timestral 1.0 209M
+Timestral 1.0 28M
+Timestral 1.0 5M
+Voxtral Mini
+Voxtral Mini TTS 3
+Voxtral Mini Transcribe
+Voxtral Mini Transcribe 2
+Voxtral Mini Transcribe 3
+Voxtral Mini Transcribe Realtime
+Voxtral Mini Transcribe Realtime 3
+Voxtral Small
+Voxtral Small Transcribe 3
+Voxtral TTS
+Models and inference
 Model lifecycle policy
+Copy page
+Model lifecycle policy
+Understand the Labs, Public Preview and General Availability stages, model naming, and the deprecation policy to plan migrations.
 Each model on the Mistral Serverless API moves through a defined lifecycle, from initial release to retirement. Use these stages to choose the right model for production and plan migrations before a model is retired.
 Lifecycle stages
 Copy section link
-Lifecycle stages
 Stage
 Description
 Silent updates
@@ -53,7 +163,6 @@ No longer accessible.
 No
 Labs
 Copy section link
-Labs
 Labs models are experimental releases intended to collect feedback before we commit to a production model. They:
 Are identified by a labs- prefix, for example labs-mistral-model-x-y .
 Are free of charge.
@@ -63,7 +172,6 @@ Don't support Zero Data Retention (ZDR).
 Aren't recommended for production use.
 Public Preview
 Copy section link
-Public Preview
 Public Preview is the stage for general public launches that aren't final yet. These models are actively promoted, but may receive updates before reaching General Availability. They:
 Are priced at the same rate as General Availability models.
 Allow silent updates.
@@ -72,13 +180,11 @@ Don't support data collection opt-out.
 Don't support Zero Data Retention (ZDR).
 General Availability
 Copy section link
-General Availability
 General Availability models are production-ready and stable. They:
 Receive no silent updates .
 Are supported until retirement.
 Model naming convention
 Copy section link
-Model naming convention
 Model identifiers use a model-name-major-minor format, for example mistral-medium-3-5 .
 Model aliases follow three formats:
 Alias
@@ -94,11 +200,9 @@ model-name-major-minor
 mistral-medium-3-5
 Fixed major and minor version
 Labs models are always prefixed with labs- . Public Preview models use the major-minor format.
-Warning
 Using an alias may expose you to silent updates in model behavior and pricing. For precise control, pin your deployment to a specific major.minor version identifier.
 Deprecation policy
 Copy section link
-Deprecation policy
 Deprecation is announced as soon as a replacement model is available. The replacement can be in General Availability or Public Preview.
 Stage
 Notice period
@@ -111,26 +215,44 @@ General Availability
 Third-party models
 1 month
 During the deprecation period, the model remains accessible. Once retired, requests to its identifiers fail with a 404 error.
-Contents
+Pricing
+Previous
+Labs
+Next
+On this page
 Lifecycle stages
 Labs
 Public Preview
 General Availability
 Model naming convention
 Deprecation policy
-Go to Top
-WHY MISTRAL
-About us Our customers Careers Contact us
-EXPLORE
-AI Solutions Partners Research
-DOCUMENTATION
-Documentation Ambassadors Cookbooks
-BUILD
-Studio Vibe Mistral Code Mistral Compute Try the API
-LEGAL
-Terms of service Privacy policy Legal notice Privacy Choices Brand
-COMMUNITY
-Discord ↗ X ↗ Github ↗ LinkedIn ↗ Ambassadors
-Mistral AI © 2026
-Toggle theme
-Batch Processing Regional inference
+Why Mistral
+About us
+Our Customers
+Careers
+Contact us
+Explore
+AI Solutions
+Partners
+Research
+Documentation
+Ambassadors
+Cookbooks
+Build
+Studio
+Vibe
+Compute
+Try the API
+Legal
+Terms of service
+Privacy policy
+Legal notice
+Brand
+Community
+Discord
+X
+Github
+LinkedIn
+© 2026 Mistral AI
+Select Language
+English

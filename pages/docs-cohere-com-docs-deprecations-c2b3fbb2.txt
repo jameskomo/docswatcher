@@ -131,6 +131,7 @@ Deploy & manage
 Operate & observe
 Standard Vault
 Encrypted Vault
+Text Watermarking
 Model Vault with North
 Models
 An Overview of Cohere's Models
@@ -230,6 +231,7 @@ Verifying Your Deployment
 Encryption & Key Management
 Compliance
 FAQ
+Text Watermarking
 Model Vault with North
 An Overview of Cohere's Models
 Cohere Transcribe
