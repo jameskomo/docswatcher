@@ -23,6 +23,15 @@ Provide feedback for this page
 2026
 Date
 Documentation Changes
+2026‑11‑25
+Updated Twitch's Game Engine Plugins and their documentation. Updated plugins are available on the overview page.
+Changes include:
+Updated Unity and Unreal plugins to support updated Twitch APIs and EventSub subscriptions
+Updated Unreal plugin to C++20 and Unreal Engine 5.8
+Various code-breaking SDK name changes
+Added new Godot plugin
+For a more detailed changelog, see Plugins Changelog .
+Added support for PKCE-enhanced Authorization Code Grant Flow .
 2026‑11‑24
 Corrections were made to various EventSub references:
 Hype Train Begin , Hype Train Progress , and Hype Train End now list mythic as a type value. For more information on Mythic Trains, see Hype Train Guide .

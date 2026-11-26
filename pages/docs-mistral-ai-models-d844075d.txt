@@ -501,7 +501,7 @@ Github
 LinkedIn
 © 2026 Mistral AI
 DeepSeek V4.1 Flash 1017
-v v4.1-flash-1017
+v 4.1-flash-1017
 DeepSeek V4.1 Flash 1017
 DeepSeek V4.1 Flash 1017 is a third-party open weight model from DeepSeek, hosted by Mistral, with support for text and image inputs. Ideal for long-context coding and agentic workflows. The model is served without Mistral modifications.
 GLM 5.3 Flash
@@ -537,7 +537,7 @@ v 5.3-flash
 GLM 5.3 Flash
 Z.AI's GLM 5.3 Flash is a multimodal 320B-parameter (18B active) Mixture-of-Experts model. Built for developer agent workflows, visual coding, and complex tool-use tasks. The model is served without Mistral modifications.
 DeepSeek V4.1 Flash 1017
-v v4.1-flash-1017
+v 4.1-flash-1017
 DeepSeek V4.1 Flash 1017
 DeepSeek V4.1 Flash 1017 is a third-party open weight model from DeepSeek, hosted by Mistral, with support for text and image inputs. Ideal for long-context coding and agentic workflows. The model is served without Mistral modifications.
 GLM 5.3
