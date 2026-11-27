@@ -97,7 +97,6 @@ function go(id: string) {
 <template>
   <article class="teams">
     <section class="doc-opening">
-      <p class="eyebrow">Free for developers · built for teams</p>
       <h1>Free for developers. Built for teams too.</h1>
       <p class="lede">
         Finding a dead API call stays free. Teams add <strong>one view across every repository</strong>, alerts
@@ -116,8 +115,8 @@ function go(id: string) {
             <h2>Free, always</h2>
             <ul class="free" data-testid="free-list">
               <li v-for="f in free" :key="f.what">
-                <NuxtLink v-if="f.where.startsWith('/')" :to="f.where">{{ f.what }}</NuxtLink>
-                <a v-else :href="f.where" target="_blank" rel="noopener">{{ f.what }}</a>
+                <NuxtLink v-if="f.where.startsWith('/')" :to="f.where"><Icon name="check" :size="16" class="free-icon" />{{ f.what }}</NuxtLink>
+                <a v-else :href="f.where" target="_blank" rel="noopener"><Icon name="check" :size="16" class="free-icon" />{{ f.what }}</a>
               </li>
             </ul>
           </div>
@@ -268,14 +267,15 @@ function go(id: string) {
 .split h2 { font-size: clamp(1.375rem, 2.2vw, 1.75rem); margin: 0 0 16px; }
 .free { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--rule); }
 .free li { margin: 0; border-bottom: 1px solid var(--hair); }
-.free a { display: block; padding: 12px 0; text-decoration: none; }
-.free a::before { content: "✓"; margin-right: 10px; color: var(--ok); font-weight: 700; }
+.free a { display: flex; align-items: flex-start; gap: 10px; padding: 12px 0; text-decoration: none; }
+.free-icon { flex: none; margin-top: 0.2em; color: var(--ok); }
 .free a:hover { text-decoration: underline; }
 .team-caps { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
 .team-caps .cap h3 { font-size: 1.25rem; }
 .facts { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
 .facts li { position: relative; padding-left: 20px; margin: 0; }
-.facts li::before { content: "→"; position: absolute; left: 0; color: var(--ink-faint); }
+/* A drawn marker, not a glyph standing in for an icon. */
+.facts li::before { content: ""; position: absolute; left: 2px; top: 0.7em; width: 6px; height: 6px; background: var(--ink-faint); }
 
 .early { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 32px 64px; align-items: start; border-top: 1.5px solid var(--rule); padding-top: 28px; }
 .early-pitch { display: flex; flex-direction: column; gap: 16px; }

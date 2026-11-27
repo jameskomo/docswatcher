@@ -58,7 +58,7 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
 <template>
   <div class="stack" style="gap: var(--s5); padding-top: var(--s3)">
     <NuxtLink to="/app" class="t2" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600">
-      <span>←</span>
+      <Icon name="back" :size="16" />
       <span>Back to dashboard</span>
     </NuxtLink>
 
@@ -112,7 +112,7 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
           <dt>Provider</dt>
           <dd>
             <strong>{{ providerName(contractLabel(finding.contract).provider) }}</strong>
-            <a v-if="safeUrl(provider(contractLabel(finding.contract).provider)?.info.changelog)" :href="safeUrl(provider(contractLabel(finding.contract).provider)!.info.changelog)!" target="_blank" rel="noopener" class="t2" style="margin-left: 8px">changelog ↗</a>
+            <a v-if="safeUrl(provider(contractLabel(finding.contract).provider)?.info.changelog)" :href="safeUrl(provider(contractLabel(finding.contract).provider)!.info.changelog)!" target="_blank" rel="noopener" class="t2" style="margin-left: 8px">changelog<Icon name="external" :size="12" class="ext" /></a>
           </dd>
           <dt>Contract</dt><dd class="mono" style="color: var(--ink-accent)">{{ finding.contract }}</dd>
           <dt>Effective</dt><dd>{{ fmtDate(finding.effective) }} <span class="ink-faint num">({{ daysLabel(finding.daysRemaining) }})</span></dd>
@@ -123,7 +123,7 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
           <dt>Sources</dt>
           <dd>
             <span v-for="s in rec?.sources" :key="s.url ?? s.kind" class="t2">
-              <a v-if="safeUrl(s.url)" :href="safeUrl(s.url)!" target="_blank" rel="noopener">{{ s.kind }} ↗</a><span v-else>{{ s.kind }}</span>
+              <a v-if="safeUrl(s.url)" :href="safeUrl(s.url)!" target="_blank" rel="noopener">{{ s.kind }}<Icon name="external" :size="12" class="ext" /></a><span v-else>{{ s.kind }}</span>
               observed {{ s.observed }}&nbsp;
             </span>
           </dd>
@@ -165,7 +165,6 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
           <h2>Fix prompt</h2>
           <span class="aside">the exact context handed to a coding agent</span>
         </div>
-        <p class="eyebrow" style="margin-bottom: 8px">agent-fix-prompt.md</p>
         <Snippet :code="prompt" lang="markdown" testid="fix-prompt" wrap />
       </section>
     </template>

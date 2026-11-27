@@ -76,7 +76,7 @@ const second = computed(() => {
     </div>
 
     <!-- The scan in four facts: a ruled strip, not a row of stat cards. -->
-    <dl v-if="!busy && inventory" class="board-facts">
+    <dl v-if="!busy && inventory" class="facts-strip">
       <div :class="{ bad: expired > 0 }">
         <dt>Stopped working</dt>
         <dd class="num">{{ expired }}</dd>
@@ -132,12 +132,5 @@ const second = computed(() => {
 .verdict-line.is-overdue { color: var(--signal-ink); }
 .verdict-line.is-soon { color: var(--soon); }
 .says { margin: 0; color: var(--ink-faint); font-size: var(--t2); }
-.board-facts { margin: 20px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); border-top: 1.5px solid var(--rule); }
-.board-facts > div { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--hair); }
-.board-facts dt { font-size: var(--t1); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
-.board-facts dd { margin: 4px 0 0; font-size: 1.75rem; font-weight: 700; line-height: 1.1; color: var(--ink-max); }
-.board-facts span { font-size: var(--t2); color: var(--ink-soft); }
-.board-facts .bad dd { color: var(--signal-ink); }
-.board-facts .soon dd { color: var(--soon); }
 .board-note { margin: 12px 0 0; font-size: var(--t2); color: var(--ink-soft); }
 </style>

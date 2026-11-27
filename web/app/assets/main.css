@@ -358,98 +358,11 @@ main {
 }
 
 /* Key Telemetry HUD Grid */
-.hud-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: var(--s3);
-  margin-bottom: var(--s5);
-}
 
-.hud-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--hair);
-  border-radius: var(--radius-md);
-  padding: var(--s3) var(--s4);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-}
-.hud-card:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: var(--hair-strong);
-  transform: translateY(-1px);
-}
-.hud-card.alert-critical {
-  border-color: var(--overdue-border);
-  background: var(--overdue-lift);
-}
-.hud-card.alert-warning {
-  border-color: var(--soon-border);
-  background: var(--soon-lift);
-}
 
-[data-theme="light"] .hud-card {
-  background: #ffffff;
-  border-color: #e2e8f0;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
-}
-[data-theme="light"] .hud-card:hover {
-  background: #f8fafc;
-  border-color: #cbd5e1;
-}
-[data-theme="light"] .hud-card.alert-critical {
-  background: #fff1f2;
-  border-color: #fecdd3;
-  border-left: 4px solid #e11d48;
-}
-[data-theme="light"] .hud-card.alert-warning {
-  background: #fffbeb;
-  border-color: #fde68a;
-  border-left: 4px solid #b45309;
-}
 
-.hud-label {
-  font-size: var(--t1);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--ink-faint);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.hud-card.alert-critical .hud-label { color: var(--overdue); }
-.hud-card.alert-warning .hud-label { color: var(--soon); }
 
-.hud-val {
-  font-size: 2.25rem;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  color: var(--ink-max);
-  font-variant-numeric: tabular-nums;
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-}
-.hud-card.alert-critical .hud-val {
-  color: var(--overdue);
-  text-shadow: 0 0 20px var(--overdue-glow);
-}
-.hud-card.alert-warning .hud-val {
-  color: var(--soon);
-  text-shadow: 0 0 20px var(--soon-glow);
-}
-[data-theme="light"] .hud-val {
-  text-shadow: none !important;
-}
 
-.hud-sub {
-  font-size: var(--t1);
-  color: var(--ink-soft);
-  margin-top: 2px;
-}
 
 /* Verdict Display */
 .verdict {
@@ -1561,9 +1474,6 @@ pre {
     flex-wrap: wrap;
     gap: var(--s2);
   }
-  .hud-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .finding-row {
     grid-template-columns: 1fr;
     gap: var(--s3);
@@ -1607,9 +1517,6 @@ pre {
   }
   .scan-box {
     padding: 16px;
-  }
-  .hud-grid {
-    grid-template-columns: 1fr;
   }
   .board-what {
     flex: 1 1 100%;
@@ -1730,7 +1637,7 @@ pre {
   --strong: #0b0b0c;        /* strong ink: solid buttons, active marks, focus rings */
   --rule: #0b0b0c;          /* the heavy ruled lines */
   --on-signal: #0b0b0c;     /* text on red, in both themes */
-  --block-shadow: #0b0b0c;  /* the hero card's offset shadow */
+  --lift: 0 24px 48px -28px rgba(11, 11, 12, 0.45);  /* the one raised surface: the hero card */
   --night: #0b0b0c;         /* the dark bands: departures board, footer */
   --night-ink: #fafaf8;
   --night-soft: #c9c9c2;
@@ -1809,7 +1716,7 @@ html[data-theme] { color-scheme: light; }
   --paper: #0e0e0d;
   --strong: #f4f4ef;
   --rule: #55554f;
-  --block-shadow: #2e2e2b;
+  --lift: 0 24px 48px -22px rgba(0, 0, 0, 0.9);
   --signal-ink: #ff6b60;    /* red text on dark surfaces: 6.9:1 */
   --signal-tint: #3a1512;
   --night: #050505;
@@ -1867,14 +1774,6 @@ html[data-theme="dark"] { color-scheme: dark; }
 }
 [data-theme] h3, [data-theme] h4 { font-weight: 700; }
 
-/* A small uppercase line above a heading. */
-[data-theme] .eyebrow {
-  margin: 0;
-  font-size: var(--t1);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
 
 [data-theme] a {
   color: var(--ink-max);
@@ -2033,7 +1932,7 @@ html[data-theme="dark"] { color-scheme: dark; }
 [data-theme] .notice.bad { border-color: var(--signal-ink); background: var(--signal-tint); color: var(--ink-max); }
 
 /* Surfaces: square, flat, ruled */
-[data-theme] .board, [data-theme] .hud-card, [data-theme] .finding-row, [data-theme] .cap,
+[data-theme] .board, [data-theme] .finding-row, [data-theme] .cap,
 [data-theme] .table-wrap, [data-theme] .ledger-row, [data-theme] .chart, [data-theme] pre,
 [data-theme] .prose .callout, [data-theme] .prose .pull, [data-theme] .state, [data-theme] .sev,
 [data-theme] .board-ruler, [data-theme] .empty {
@@ -2065,6 +1964,17 @@ html[data-theme="dark"] { color-scheme: dark; }
 /* A flex item's default min-width (auto) lets a wide table widen its whole column, so the page
    scrolls sideways instead of the table scrolling in its wrapper. Items of a stack may shrink. */
 [data-theme] .stack > * { min-width: 0; }
+
+/* A scan or an organisation in a few facts: a ruled strip, not a row of stat cards. */
+[data-theme] .facts-strip { margin: 20px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); border-top: 1.5px solid var(--rule); }
+[data-theme] .facts-strip > div { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--hair); }
+[data-theme] .facts-strip dt { font-size: var(--t1); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+[data-theme] .facts-strip dd { margin: 4px 0 0; font-size: 1.75rem; font-weight: 700; line-height: 1.1; color: var(--ink-max); }
+[data-theme] .facts-strip span { font-size: var(--t2); color: var(--ink-soft); }
+[data-theme] .facts-strip .bad dd { color: var(--signal-ink); }
+[data-theme] .facts-strip .soon dd { color: var(--soon); }
+/* An icon inside a line of text: the global svg { display: block } would break the line. */
+[data-theme] .ext { display: inline-block; vertical-align: -0.1em; margin-left: 4px; }
 
 /* Ruled, not boxed: key-value lists, calendar months, code pills, the guidance line, the dashboard chart. */
 [data-theme] .kv { gap: 0 var(--s4); padding: 0; background: none; border: 0; border-top: 1.5px solid var(--rule); border-radius: 0; box-shadow: none; }
@@ -2134,7 +2044,6 @@ html[data-theme="dark"] { color-scheme: dark; }
 [data-theme] .band h2, [data-theme] .band h3 { color: var(--night-ink); }
 [data-theme] .band a { color: var(--night-ink); }
 [data-theme] .band a:hover { color: var(--signal); }
-[data-theme] .band .eyebrow { color: var(--night-faint); }
 [data-theme] .band-inner { max-width: var(--shell); margin: 0 auto; padding: var(--s8) var(--gutter); }
 
 @media (max-width: 640px) {

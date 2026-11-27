@@ -134,7 +134,7 @@ function split(text: string): { lead: string; struck: string; tail: string } {
   min-width: 0;
   background: var(--bg-surface);
   border: 1.5px solid var(--rule);
-  box-shadow: 10px 10px 0 var(--block-shadow);
+  box-shadow: var(--lift);
 }
 .proof-head {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px;
@@ -180,7 +180,6 @@ function split(text: string): { lead: string; struck: string; tail: string } {
   .proof-bar.indeterminate span { animation: none; width: 100%; opacity: 0.4; }
 }
 @media (max-width: 640px) {
-  .proof { box-shadow: 6px 6px 0 var(--block-shadow); }
   .proof-code { font-size: 12px; }
   .proof-line { grid-template-columns: 36px minmax(0, 1fr); padding-right: 12px; }
   .proof-line .ln { padding-left: 12px; }

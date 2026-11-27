@@ -29,7 +29,6 @@ useHead({
 <template>
   <div>
     <section class="opening">
-      <p class="eyebrow">About</p>
       <h1>You can pin a package. You can't pin someone else's API.</h1>
       <div class="opening-row">
         <p class="lede">
@@ -49,18 +48,17 @@ useHead({
     <div class="body">
       <nav class="toc" aria-label="On this page">
         <ol>
-          <li><a href="#gap" @click.prevent="go('gap')"><span>01</span>The gap</a></li>
-          <li><a href="#now" @click.prevent="go('now')"><span>02</span>Why now</a></li>
-          <li><a href="#how" @click.prevent="go('how')"><span>03</span>How the scan works</a></li>
-          <li><a href="#privacy" @click.prevent="go('privacy')"><span>04</span>What leaves your machine</a></li>
-          <li><a href="#providers" @click.prevent="go('providers')"><span>05</span>Providers</a></li>
-          <li><a href="#missing" @click.prevent="go('missing')"><span>06</span>Not built yet</a></li>
+          <li><a href="#gap" @click.prevent="go('gap')">The gap</a></li>
+          <li><a href="#now" @click.prevent="go('now')">Why now</a></li>
+          <li><a href="#how" @click.prevent="go('how')">How the scan works</a></li>
+          <li><a href="#privacy" @click.prevent="go('privacy')">What leaves your machine</a></li>
+          <li><a href="#providers" @click.prevent="go('providers')">Providers</a></li>
+          <li><a href="#missing" @click.prevent="go('missing')">Not built yet</a></li>
         </ol>
       </nav>
 
       <article class="prose about-body">
         <section id="gap" class="chapter">
-          <p class="num">01</p>
           <h2>Dependabot watches your libraries. Nothing watches the APIs they call.</h2>
           <p>
             Dependabot and Renovate tell you when a library ships a new version. Nothing watches the HTTP endpoints,
@@ -79,7 +77,6 @@ useHead({
         </section>
 
         <section id="now" class="chapter">
-          <p class="num">02</p>
           <h2>Deadlines arrive faster than they used to</h2>
           <div class="pair">
             <div>
@@ -100,7 +97,6 @@ useHead({
         </section>
 
         <section id="how" class="chapter">
-          <p class="num">03</p>
           <h2>Three passes over your repository</h2>
           <ol class="passes">
             <li>
@@ -131,7 +127,6 @@ useHead({
         </section>
 
         <section id="privacy" class="chapter">
-          <p class="num">04</p>
           <h2>What leaves your machine</h2>
           <div class="table-scroll">
             <table class="where">
@@ -174,7 +169,6 @@ useHead({
         </section>
 
         <section id="providers" class="chapter">
-          <p class="num">05</p>
           <h2>{{ providers.length }} providers, {{ totalChanges }} published changes</h2>
           <p>{{ datedChanges }} of them have a date; the rest are announced without one yet. Each provider's full deprecation policy, with its sources, is in the <a href="https://github.com/jameskomo/docswatcher/tree/main/knowledge" target="_blank" rel="noopener">open knowledge base</a>.</p>
           <div class="table-scroll">
@@ -194,7 +188,6 @@ useHead({
         </section>
 
         <section id="missing" class="chapter">
-          <p class="num">06</p>
           <h2>What does not exist yet</h2>
           <ul class="missing" data-testid="not-built">
             <li>A native download for Intel Macs. They run the portable <code>docswatcher.jar</code> with Java 25 today.</li>
@@ -232,8 +225,7 @@ useHead({
 .body { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 48px 72px; padding-bottom: 96px; }
 .toc { flex: 1 1 200px; max-width: 260px; border-top: 1.5px solid var(--rule); padding-top: 12px; }
 .toc ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
-.toc a { display: flex; gap: 12px; padding: 8px 0; text-decoration: none; font-size: var(--t2); }
-.toc a span { color: var(--ink-faint); }
+.toc a { display: block; padding: 8px 0; text-decoration: none; font-size: var(--t2); }
 
 /* .prose stays on the article for the shared reading styles; the chapter layout here outranks its spacing. */
 .about-body { flex: 999 1 560px; min-width: 0; max-width: none; display: flex; flex-direction: column; gap: 88px; }
@@ -243,7 +235,6 @@ useHead({
 .chapter > p { font-size: var(--t3); line-height: 1.7; color: var(--ink); }
 .chapter h2 { font-size: clamp(1.625rem, 2.6vw, 2rem); line-height: 1.15; margin: 0; }
 .chapter h3 { font-size: 1.25rem; margin: 0; }
-.num { color: var(--ink-faint); font-size: var(--t1); }
 
 .quote { margin: 8px 0 0; padding: 24px 0 0; border: 0; border-top: 6px solid var(--signal); background: none; }
 .quote blockquote { margin: 0; padding: 0; border: 0; font-size: 1.1875rem; line-height: 1.45; font-weight: 700; color: var(--ink-max); }

@@ -55,7 +55,6 @@ useHead({
 <template>
   <article>
     <section class="doc-opening">
-      <p class="eyebrow">GitHub Actions · GitLab CI · any shell</p>
       <h1>Catch it at the commit, not at the outage.</h1>
       <p class="lede">
         DocsWatcher fails the build when your code calls an API that already has a shutdown date. It runs
@@ -222,7 +221,8 @@ useHead({
 .anchor { scroll-margin-top: 88px; }
 .facts { list-style: none; padding: 0; display: grid; gap: 6px; }
 .facts li { position: relative; padding-left: 20px; margin: 0; }
-.facts li::before { content: "→"; position: absolute; left: 0; color: var(--ink-faint); }
+/* A drawn marker, not a glyph standing in for an icon. */
+.facts li::before { content: ""; position: absolute; left: 2px; top: 0.7em; width: 6px; height: 6px; background: var(--ink-faint); }
 .exits td:first-child { width: 8rem; }
 .options td:nth-child(2) code { font-weight: 400; }
 </style>

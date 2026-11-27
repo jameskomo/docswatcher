@@ -32,12 +32,10 @@ useHead({
 <template>
   <article class="agents">
     <section class="doc-opening">
-      <p class="eyebrow">For Claude Code, Cursor, Windsurf and Claude Desktop</p>
       <h1>Stop your AI assistant writing code that is about to break.</h1>
       <p class="lede">
-        Assistants learned from code written months ago, so they still suggest models and APIs that are
-        shutting down. Connect DocsWatcher and your assistant <strong>checks first</strong>, then tells you
-        what to use instead.
+        Assistants still suggest models and APIs that are shutting down. Connected to DocsWatcher, Claude Code, Cursor,
+        Windsurf or Claude Desktop <strong>checks first</strong> and tells you what to use instead.
       </p>
       <div class="doc-actions">
         <button type="button" class="btn solid" @click="go('setup')">Set it up in two steps</button>
@@ -48,7 +46,7 @@ useHead({
     <div class="prose doc-body">
       <!-- The proof: a real session, verbatim (2026-09-23). The prompt never mentioned DocsWatcher. -->
       <section class="doc-chapter">
-        <p class="eyebrow">What it looks like · recorded in Claude Code, 23 September 2026</p>
+        <h2>A real session in Claude Code</h2>
         <div class="exchange" data-testid="agent-exchange">
           <div class="turn">
             <span class="who">You</span>
@@ -68,7 +66,7 @@ useHead({
           </div>
         </div>
         <p class="doc-statement display">Nobody asked it to check. You find out <mark>30 days before</mark> the call fails, not the morning it does.</p>
-        <p class="fineprint">Your request, DocsWatcher's answer and the assistant's note are word for word; the check is summarised.</p>
+        <p class="fineprint">Recorded in Claude Code on 23 September 2026. Your request, DocsWatcher's answer and the assistant's note are word for word; the check is summarised.</p>
       </section>
 
       <section class="doc-chapter" id="setup">

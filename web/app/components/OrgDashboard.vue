@@ -224,28 +224,28 @@ const what = (r: RepoFinding) => contractLabel(r.finding.contract).key;
       <p v-if="failed" class="section notice bad" role="alert">{{ failed }}</p>
 
       <section class="section" id="org-overview" aria-live="polite">
-        <div v-if="overview" class="hud-grid">
-          <div class="hud-card">
-            <span class="hud-label">Repositories</span>
-            <span class="hud-val" data-testid="stat-repos">{{ overview.repos }}</span>
-            <span class="hud-sub">{{ overview.contracts }} external contracts</span>
+        <dl v-if="overview" class="facts-strip">
+          <div>
+            <dt>Repositories</dt>
+            <dd data-testid="stat-repos">{{ overview.repos }}</dd>
+            <span>{{ overview.contracts }} external contracts</span>
           </div>
-          <div class="hud-card" :class="{ 'alert-critical': sev('breaking') > 0 }">
-            <span class="hud-label">Breaking</span>
-            <span class="hud-val" data-testid="stat-breaking">{{ sev("breaking") }}</span>
-            <span class="hud-sub">open findings that stop working on a date</span>
+          <div :class="{ bad: sev('breaking') > 0 }">
+            <dt>Breaking</dt>
+            <dd data-testid="stat-breaking">{{ sev("breaking") }}</dd>
+            <span>open findings that stop working on a date</span>
           </div>
-          <div class="hud-card" :class="{ 'alert-warning': sev('warning') > 0 }">
-            <span class="hud-label">Warnings</span>
-            <span class="hud-val" data-testid="stat-warning">{{ sev("warning") }}</span>
-            <span class="hud-sub">{{ sev("info") }} more worth knowing</span>
+          <div :class="{ soon: sev('warning') > 0 }">
+            <dt>Warnings</dt>
+            <dd data-testid="stat-warning">{{ sev("warning") }}</dd>
+            <span>{{ sev("info") }} more worth knowing</span>
           </div>
-          <div class="hud-card">
-            <span class="hud-label">Next deadline</span>
-            <span class="hud-val" style="font-size: 1.5rem" data-testid="stat-next">{{ fmtDate(overview.nearestEffective) }}</span>
-            <span class="hud-sub" v-if="overview.knowledgeVersion">knowledge base {{ overview.knowledgeVersion }}</span>
+          <div>
+            <dt>Next deadline</dt>
+            <dd data-testid="stat-next">{{ fmtDate(overview.nearestEffective) }}</dd>
+            <span v-if="overview.knowledgeVersion">knowledge base {{ overview.knowledgeVersion }}</span>
           </div>
-        </div>
+        </dl>
         <p v-else-if="loading" class="t2 ink-faint">Loading {{ login }}…</p>
       </section>
 

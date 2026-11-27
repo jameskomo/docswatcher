@@ -156,7 +156,6 @@ const departures = [...upcomingAll]
     const days = daysBetween(today, c.effective!);
     return { id: c.id, provider, title: c.title, date: fmtDate(c.effective), days, final: days <= 7 };
   });
-const horizon = departures.length ? departures[departures.length - 1]!.days : 0;
 
 async function scanSample(targetName?: string) {
   if (targetName) sample.value = targetName;
@@ -293,11 +292,10 @@ async function copyLink() {
     <!-- Hero: what DocsWatcher does, the scanner, and the proof from the scan on screen -->
     <section class="hero" id="scan-source">
       <div class="hero-copy">
-        <p class="eyebrow">{{ trackedChanges }} published changes · {{ knowledge.providers.length }} providers · read in your browser</p>
         <h1>Some of your API calls have a shutdown date.</h1>
         <p class="hero-lede">
-          DocsWatcher reads your repository, finds every external API and AI model it calls, and shows you the file,
-          the line and the day each one stops working.
+          DocsWatcher finds every API and AI model your code calls, and shows the file, line and day each one stops
+          working. {{ trackedChanges }} published changes from {{ knowledge.providers.length }} providers, checked in your browser.
         </p>
 
         <div class="scan-box">
@@ -486,9 +484,8 @@ async function copyLink() {
 
       <section class="section">
         <div class="section-head">
-          <p class="eyebrow">{{ result.source.label }}</p>
           <h2>What is expiring</h2>
-          <p>Nearest date first. Open any finding for the code evidence, the migration and a prompt for your coding agent.</p>
+          <p>In {{ result.source.label }}, nearest date first. Open any finding for the code evidence, the migration and a prompt for your coding agent.</p>
         </div>
         <div id="findings">
           <FindingsList :findings="findings" />
@@ -513,7 +510,6 @@ async function copyLink() {
       <div class="band-inner">
         <div class="departures-head">
           <div class="departures-intro">
-            <p class="eyebrow">Departures · next {{ horizon }} days</p>
             <h2 id="departures-title">Leaving soon</h2>
             <p>The next {{ departures.length }} of {{ upcomingShutdowns }} dated shutdowns, nearest first. A scan only lists the ones your code actually calls.</p>
           </div>
@@ -551,7 +547,6 @@ async function copyLink() {
 
     <section class="section" id="what-it-does" data-testid="capabilities">
       <div class="section-head">
-        <p class="eyebrow">One knowledge base</p>
         <h2>Wherever you want the answer</h2>
       </div>
       <div class="caps">
@@ -611,7 +606,6 @@ async function copyLink() {
 .share-badge { margin-top: var(--s3); }
 .share-badge summary { cursor: pointer; }
 .share-badge p { margin-block: var(--s2); }
-.section-head .eyebrow { margin-bottom: 8px; }
 
 /* Departures board */
 .departures-head {

@@ -72,7 +72,6 @@ const shown = computed(() => (props.compact ? 1 : 2));
           </span>
 
           <span class="guidance" v-if="guidance(f)">
-            <span style="color: var(--ink-accent); margin-right: 4px">→</span>
             {{ guidance(f) }}
           </span>
 
