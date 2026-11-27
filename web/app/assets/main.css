@@ -212,13 +212,6 @@ svg { display: block; }
   font-weight: 500;
   color: var(--ink-accent);
 }
-.registry-badge .live-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--ok);
-  box-shadow: 0 0 6px var(--ok);
-}
 
 .nav {
   display: flex;
@@ -335,28 +328,7 @@ main {
   max-width: 100%;
 }
 
-.subject-badge-row {
-  display: flex;
-  align-items: center;
-  gap: var(--s2);
-  margin-bottom: var(--s1);
-  flex-wrap: wrap;
-}
 
-.target-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--hair);
-  padding: 3px 10px;
-  border-radius: 9999px;
-  font-size: var(--t1);
-  font-weight: 600;
-  color: var(--ink-soft);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
 
 .board-what .subject {
   font-size: 1.5rem;
@@ -583,16 +555,6 @@ main {
   align-items: center;
   gap: var(--s2);
   flex-wrap: wrap;
-}
-.board-note .meta-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 2px 8px;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 4px;
-  font-size: var(--t1);
-  color: var(--ink-soft);
 }
 
 /* Scanning Progress Radar */
@@ -2074,14 +2036,15 @@ html[data-theme="dark"] { color-scheme: dark; }
 [data-theme] .board, [data-theme] .hud-card, [data-theme] .finding-row, [data-theme] .cap,
 [data-theme] .table-wrap, [data-theme] .ledger-row, [data-theme] .chart, [data-theme] pre,
 [data-theme] .prose .callout, [data-theme] .prose .pull, [data-theme] .state, [data-theme] .sev,
-[data-theme] .target-badge, [data-theme] .meta-pill, [data-theme] .board-ruler, [data-theme] .empty {
+[data-theme] .board-ruler, [data-theme] .empty {
   border-radius: 0; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none;
 }
 [data-theme] .board::before { display: none; }
-[data-theme] .board { background: var(--bg-surface); border: 1.5px solid var(--rule); }
+/* The dashboard summary is ruled like everything else; its chart keeps the one frame it draws itself. */
+[data-theme] .board { padding: 0; background: none; border: 0; }
 [data-theme] .finding-row { background: var(--bg-surface); border: 0; border-bottom: 1px solid var(--hair); }
 [data-theme] .finding-row:hover { background: var(--bg-surface-raised); box-shadow: none; transform: none; }
-[data-theme] .finding-row.breaking::before { background: var(--signal); }
+[data-theme] .finding-row::before { display: none; }
 /* The whole row is one link: no underline across it, only the headline on hover. */
 [data-theme] a.finding-row { text-decoration: none; color: inherit; }
 [data-theme] a.finding-row:hover .headline { text-decoration: underline; color: var(--ink-max); }
@@ -2098,6 +2061,25 @@ html[data-theme="dark"] { color-scheme: dark; }
   border-bottom: 1.5px solid var(--rule);
 }
 [data-theme] tbody tr:hover { background: var(--bg-surface-raised); }
+
+/* A flex item's default min-width (auto) lets a wide table widen its whole column, so the page
+   scrolls sideways instead of the table scrolling in its wrapper. Items of a stack may shrink. */
+[data-theme] .stack > * { min-width: 0; }
+
+/* Ruled, not boxed: key-value lists, calendar months, code pills, the guidance line, the dashboard chart. */
+[data-theme] .kv { gap: 0 var(--s4); padding: 0; background: none; border: 0; border-top: 1.5px solid var(--rule); border-radius: 0; box-shadow: none; }
+[data-theme] .kv dt, [data-theme] .kv dd { padding: 12px 0; border-bottom: 1px solid var(--hair); }
+/* The value column may shrink: a long URL or contract id wraps instead of widening the page. */
+[data-theme] .kv { grid-template-columns: 140px minmax(0, 1fr); }
+[data-theme] .kv dd { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 768px) { [data-theme] .kv { grid-template-columns: minmax(0, 1fr); } [data-theme] .kv dt { padding-bottom: 0; border-bottom: 0; } }
+[data-theme] .kv dt { font-size: var(--t1); font-weight: 500; letter-spacing: 0.06em; }
+[data-theme] .month { padding: 20px 0 8px; background: none; border: 0; border-top: 1.5px solid var(--rule); border-radius: 0; box-shadow: none; }
+[data-theme] .month h3 { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; padding-bottom: 0; border-bottom: 0; font-size: 1.375rem; }
+[data-theme] .month h3 .past-tag { font-family: var(--face); font-stretch: normal; word-spacing: normal; font-size: var(--t1); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+[data-theme] .code-pill { background: var(--bg-surface-raised); border: 1px solid var(--hair); border-radius: 0; color: var(--ink-max); box-shadow: none; }
+[data-theme] .finding-body .guidance { border-left: 0; padding-left: 0; background: none; }
+[data-theme] .board-ruler { padding: 0; background: none; border: 0; }
 
 /* Capability grid: hairline cells, no cards */
 [data-theme] .caps { gap: 0; border-top: 1.5px solid var(--rule); }
@@ -2158,7 +2140,8 @@ html[data-theme="dark"] { color-scheme: dark; }
 @media (max-width: 640px) {
   [data-theme] .site-header .wrap { height: auto; flex-wrap: wrap; padding-block: 10px; row-gap: 4px; }
   [data-theme] .registry-badge { display: none; }
-  [data-theme] .nav { order: 3; flex: 1 1 100%; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; justify-content: flex-start; }
+  /* Two rows rather than one sideways-scrolling row: all seven links visible, none behind the edge. */
+  [data-theme] .nav { order: 3; flex: 1 1 100%; flex-wrap: wrap; gap: 0 18px; margin-left: 0; justify-content: flex-start; }
   [data-theme] .nav a { white-space: nowrap; padding: 8px 0; }
   /* The toggle sits beside the logo, not at the far end of the scrolling nav row. */
   [data-theme] .site-header .wrap { justify-content: flex-start; }

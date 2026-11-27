@@ -121,8 +121,8 @@ async function prepareExample() {
       <div class="row between section" style="align-items: center; margin-top: var(--s5); gap: var(--s3)">
         <p class="t2 ink-faint">
           Scanned <span class="mono">{{ new Date(result.at).toLocaleString() }}</span>.
-          <NuxtLink to="/">Scan another repository.</NuxtLink>
-          <button type="button" class="linkish" @click="forgetScan">Clear this scan.</button>
+          <!-- One line on purpose: Vue drops whitespace between elements when it holds a newline. -->
+          <NuxtLink to="/">Scan another repository.</NuxtLink> <button type="button" class="linkish" @click="forgetScan">Clear this scan.</button>
         </p>
 
         <label class="row t2 ink-soft" style="gap: var(--s2); cursor: pointer; user-select: none; background: rgba(255,255,255,0.03); padding: 6px 12px; border-radius: var(--radius-sm); border: 1px solid var(--hair)">

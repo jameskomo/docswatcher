@@ -69,7 +69,7 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
     </div>
 
     <template v-else>
-      <section class="hero" style="background: var(--bg-surface); border: 1px solid var(--hair-strong); padding: var(--s5); border-radius: var(--radius-xl); box-shadow: var(--shadow-card)">
+      <section class="finding-head">
         <div class="row between" style="align-items: center">
           <div class="row" style="gap: var(--s2)">
             <SeverityChip :severity="finding.severity" />
@@ -79,7 +79,7 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
             {{ (finding.daysRemaining ?? 0) < 0 ? `${-(finding.daysRemaining ?? 0)} days overdue` : `Due in ${finding.daysRemaining} days` }}
           </span>
         </div>
-        <h1 style="margin-top: var(--s3)">{{ rec?.title }}</h1>
+        <h1 class="finding-title">{{ rec?.title }}</h1>
         <p class="lede" style="margin-top: var(--s2)">{{ rec?.summary }}</p>
 
         <!-- Primary Action Bar -->
@@ -171,3 +171,8 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
     </template>
   </div>
 </template>
+
+<style scoped>
+.finding-head { padding: 8px 0 28px; border-bottom: 1.5px solid var(--rule); }
+.finding-title { margin-top: var(--s3); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; }
+</style>

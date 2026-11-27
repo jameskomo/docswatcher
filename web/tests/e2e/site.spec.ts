@@ -149,6 +149,26 @@ test("no horizontal scroll at phone width", async ({ page }) => {
   }
 });
 
+test("a finding's page does not scroll sideways at phone width", async ({ page }) => {
+  // A long guide URL in the migration list once widened the page by 113px.
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto("./");
+  await expect(page.locator("#results")).toBeVisible();
+  await page.locator("#findings .finding-row").first().click();
+  await expect(page.locator("#fix-pr")).toBeVisible();
+  const overflow = await page.evaluate(() => document.scrollingElement!.scrollWidth - window.innerWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test("the phone nav shows every link without scrolling", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto("./");
+  for (const a of await page.locator(".nav a").all()) {
+    const box = (await a.boundingBox())!;
+    expect(box.x + box.width, await a.innerText()).toBeLessThanOrEqual(360);
+  }
+});
+
 test("scans a bundled real repository offline and finds the Assistants API sunset", async ({ page }) => {
   // No network at all: every outbound origin is aborted. This is the case on hosts
   // that forbid outbound requests, and the demo must still scan genuine code there.

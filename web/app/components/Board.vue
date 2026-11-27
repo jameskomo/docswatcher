@@ -66,94 +66,38 @@ const second = computed(() => {
 <template>
   <section class="board" id="results">
     <div class="board-top">
-      <div class="board-what">
-        <div class="subject-badge-row">
-          <span class="target-badge">
-            <span class="mono">TARGET REPO</span>
-          </span>
-          <span class="registry-badge" v-if="!busy && inventory">
-            <span class="live-dot"></span>
-            <span>Contract Radar Active</span>
-          </span>
-        </div>
-
-        <component :is="heading ? 'h1' : 'div'" class="subject">
-          <NuxtLink v-if="subjectTo && subject" :to="subjectTo">{{ subject }}</NuxtLink>
-          <span v-else-if="subject">{{ subject }}</span>
-          <span v-else>No repository scanned yet</span>
-        </component>
-        <p class="says" v-if="note">{{ note }}</p>
-      </div>
-
-      <!-- Verdict Banner -->
-      <div class="verdict" :class="verdict.tone" v-if="!busy && inventory">
-        <span class="n num">{{ verdict.n }}</span>
-        <span class="u">{{ verdict.unit }}</span>
-      </div>
+      <component :is="heading ? 'h1' : 'div'" class="subject">
+        <NuxtLink v-if="subjectTo && subject" :to="subjectTo">{{ subject }}</NuxtLink>
+        <span v-else-if="subject">{{ subject }}</span>
+        <span v-else>No repository scanned yet</span>
+      </component>
+      <p class="verdict-line" :class="verdict.tone" v-if="!busy && inventory">{{ verdict.n }} {{ verdict.unit }}.</p>
+      <p class="says" v-if="note">{{ note }}</p>
     </div>
 
-    <!-- Live Telemetry HUD Grid -->
-    <div v-if="!busy && inventory" class="hud-grid">
-      <div class="hud-card" :class="{ 'alert-critical': expired > 0 }">
-        <div class="hud-label">
-          <span>●</span>
-          <span>Expired Calls</span>
-        </div>
-        <div class="hud-val num">
-          {{ expired }}
-        </div>
-        <div class="hud-sub">
-          {{ expired === 0 ? "No expired contracts" : (expired === 1 ? "1 call stopped working" : `${expired} calls stopped working`) }}
-        </div>
+    <!-- The scan in four facts: a ruled strip, not a row of stat cards. -->
+    <dl v-if="!busy && inventory" class="board-facts">
+      <div :class="{ bad: expired > 0 }">
+        <dt>Stopped working</dt>
+        <dd class="num">{{ expired }}</dd>
+        <span>{{ expired === 0 ? "No expired calls" : expired === 1 ? "call past its date" : "calls past their date" }}</span>
       </div>
-
-      <div class="hud-card" :class="{ 'alert-warning': next && (next.daysRemaining ?? 999) <= 90 }">
-        <div class="hud-label">
-          <span>▲</span>
-          <span>Next Expiry</span>
-        </div>
-        <div class="hud-val num">
-          <template v-if="next">
-            {{ next.daysRemaining }}<span style="font-size: 1rem; font-weight: 600; color: var(--ink-soft)">d</span>
-          </template>
-          <template v-else-if="expired > 0">
-            0<span style="font-size: 1rem; font-weight: 600; color: var(--ink-soft)">d</span>
-          </template>
-          <template v-else>
-            —
-          </template>
-        </div>
-        <div class="hud-sub">
-          {{ next ? `Due ${fmtDate(next.effective)}` : (expired ? "Active overdue debt" : "No pending dates") }}
-        </div>
+      <div :class="{ soon: next && (next.daysRemaining ?? 999) <= 90 }">
+        <dt>Next date</dt>
+        <dd class="num">{{ next ? `${next.daysRemaining} days` : "None" }}</dd>
+        <span>{{ next ? fmtDate(next.effective) : "Nothing still to come" }}</span>
       </div>
-
-      <div class="hud-card">
-        <div class="hud-label">
-          <span>◈</span>
-          <span>External APIs</span>
-        </div>
-        <div class="hud-val num">
-          {{ contracts.length }}
-        </div>
-        <div class="hud-sub">
-          Across {{ providers }} {{ providers === 1 ? "provider" : "providers" }}
-        </div>
+      <div>
+        <dt>External APIs</dt>
+        <dd class="num">{{ contracts.length }}</dd>
+        <span>across {{ providers }} {{ providers === 1 ? "provider" : "providers" }}</span>
       </div>
-
-      <div class="hud-card">
-        <div class="hud-label">
-          <Icon name="bolt" :size="13" />
-          <span>Engine Performance</span>
-        </div>
-        <div class="hud-val num" style="font-size: 1.875rem">
-          {{ inventory.stats.durationMs }}<span style="font-size: 1rem; font-weight: 600; color: var(--ink-soft)">ms</span>
-        </div>
-        <div class="hud-sub">
-          {{ inventory.stats.filesScanned }} files · 100% in-browser AST
-        </div>
+      <div>
+        <dt>Files read</dt>
+        <dd class="num">{{ inventory.stats.filesScanned }}</dd>
+        <span>in {{ inventory.stats.durationMs }} ms, in this browser</span>
       </div>
-    </div>
+    </dl>
 
     <!-- Scanning Radar Animation -->
     <div v-if="busy" class="board-scanning" aria-live="polite">
@@ -176,11 +120,24 @@ const second = computed(() => {
       <Horizon :findings="findings" variant="board" :today="today" :months="rulerMonths" />
     </div>
 
-    <!-- Telemetry Footnote -->
-    <p class="board-note" v-if="!busy && inventory">
-      <span class="meta-pill"><Icon name="bolt" :size="13" /> {{ inventory.stats.filesScanned }} files read in {{ inventory.stats.durationMs }} ms</span>
-      <span class="meta-pill"><Icon name="box" :size="13" /> {{ contracts.length }} external {{ contracts.length === 1 ? "contract" : "contracts" }} across {{ providers }} {{ providers === 1 ? "provider" : "providers" }}</span>
-      <span class="meta-pill" v-if="second">{{ second }}.</span>
-    </p>
+    <p class="board-note" v-if="!busy && inventory && second">{{ second }}.</p>
   </section>
 </template>
+
+<style scoped>
+.board-top { display: flex; flex-direction: column; gap: 6px; }
+.subject { font-family: var(--face-display); font-stretch: 75%; word-spacing: -0.3em; font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 800; line-height: 1.1; overflow-wrap: anywhere; }
+.subject a { text-decoration: none; }
+.verdict-line { margin: 0; font-size: var(--t4); font-weight: 700; color: var(--ink-max); }
+.verdict-line.is-overdue { color: var(--signal-ink); }
+.verdict-line.is-soon { color: var(--soon); }
+.says { margin: 0; color: var(--ink-faint); font-size: var(--t2); }
+.board-facts { margin: 20px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); border-top: 1.5px solid var(--rule); }
+.board-facts > div { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--hair); }
+.board-facts dt { font-size: var(--t1); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+.board-facts dd { margin: 4px 0 0; font-size: 1.75rem; font-weight: 700; line-height: 1.1; color: var(--ink-max); }
+.board-facts span { font-size: var(--t2); color: var(--ink-soft); }
+.board-facts .bad dd { color: var(--signal-ink); }
+.board-facts .soon dd { color: var(--soon); }
+.board-note { margin: 12px 0 0; font-size: var(--t2); color: var(--ink-soft); }
+</style>

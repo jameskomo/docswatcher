@@ -166,7 +166,6 @@ async function subscribeByEmail() {
     <section class="section" v-for="g in upcoming" :key="g.key" style="margin-top: 0">
       <div class="month">
         <h3>
-          <span style="color: var(--ink-accent); margin-right: 8px">◈</span>
           <span>{{ g.key === "none" ? "Announced, no date yet" : fmtMonth(g.key) }}</span>
         </h3>
         <div v-for="c in g.items" :key="c.id" class="cal-row">
@@ -206,9 +205,9 @@ async function subscribeByEmail() {
 
       <template v-if="showPast">
         <div class="month" v-for="g in past" :key="g.key" style="margin-top: var(--s4); opacity: 0.9">
-          <h3 style="color: var(--ink-soft)">
-            <span style="color: var(--overdue); margin-right: 8px">✕</span>
-            <span>{{ fmtMonth(g.key) }} (Already Effective)</span>
+          <h3>
+            <span>{{ fmtMonth(g.key) }}</span>
+            <span class="past-tag">already effective</span>
           </h3>
           <div v-for="c in g.items" :key="c.id" class="cal-row">
             <div class="date">
