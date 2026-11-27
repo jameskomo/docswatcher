@@ -224,12 +224,12 @@ useHead({
 .opening h1 { font-size: clamp(2.25rem, 5.2vw, 4.25rem); line-height: 1.02; max-width: 15em; }
 .opening-row { display: flex; flex-wrap: wrap; gap: 32px 56px; align-items: flex-start; }
 .lede { flex: 1 1 420px; min-width: 0; margin: 0; max-width: 36em; font-size: 1.0625rem; line-height: 1.55; color: var(--ink-soft); }
-.examples { flex: 1 1 320px; min-width: 0; margin: 0; padding: 0; list-style: none; border-top: 1.5px solid var(--ink-black); font-size: var(--t2); }
+.examples { flex: 1 1 320px; min-width: 0; margin: 0; padding: 0; list-style: none; border-top: 1.5px solid var(--rule); font-size: var(--t2); }
 .examples li { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--hair); }
 .examples li span:last-child { color: var(--ink-faint); text-align: right; }
 
 .body { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 48px 72px; padding-bottom: 96px; }
-.toc { flex: 1 1 200px; max-width: 260px; border-top: 1.5px solid var(--ink-black); padding-top: 12px; }
+.toc { flex: 1 1 200px; max-width: 260px; border-top: 1.5px solid var(--rule); padding-top: 12px; }
 .toc ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
 .toc a { display: flex; gap: 12px; padding: 8px 0; text-decoration: none; font-size: var(--t2); }
 .toc a span { color: var(--ink-faint); }
@@ -252,7 +252,7 @@ useHead({
 .pair > div { display: grid; gap: 10px; align-content: start; }
 .pair p { margin: 0; color: var(--ink-soft); line-height: 1.65; }
 
-.passes { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); border-top: 1.5px solid var(--ink-black); }
+.passes { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); border-top: 1.5px solid var(--rule); }
 .passes li { display: flex; flex-direction: column; gap: 12px; padding: 24px 24px 24px 0; margin: 0; }
 .passes li + li { padding-left: 24px; border-left: 1px solid var(--hair); }
 .passes .step { font-size: 2.5rem; font-weight: 700; line-height: 1; color: var(--signal-ink); }
@@ -274,7 +274,7 @@ useHead({
 .where .exception td:first-child { padding-left: 12px; }
 .where .exception td:last-child { color: var(--signal-ink); font-weight: 700; padding-right: 12px; }
 
-.missing { margin: 0; padding: 0; list-style: none; border-top: 1.5px solid var(--ink-black); max-width: 48rem; }
+.missing { margin: 0; padding: 0; list-style: none; border-top: 1.5px solid var(--rule); max-width: 48rem; }
 .missing li { margin: 0; padding: 16px 0; border-bottom: 1px solid var(--hair); line-height: 1.6; }
 
 .closing { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; padding-block: 72px; }
@@ -282,7 +282,7 @@ useHead({
 .closing-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .band .btn.ghost { background: none; border-color: var(--night-ink); color: var(--night-ink); }
 .band .btn.ghost:hover { background: #1f1f1d; }
-.band .btn.signal { color: var(--ink-black); }
+.band .btn.signal { color: var(--on-signal); }
 
 @media (max-width: 640px) {
   .opening { padding: 48px 0 40px; }

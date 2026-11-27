@@ -181,6 +181,26 @@ test("direct visit to /app prepares example dashboard without runtime error", as
   expect(own(failed)).toEqual([]);
 });
 
+test("the theme toggle switches between light and dark, and the choice survives a reload", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.goto("./");
+  const html = page.locator("html");
+  await expect(html).toHaveAttribute("data-theme", "light");
+  await page.locator(".theme-toggle").click();
+  await expect(html).toHaveAttribute("data-theme", "dark");
+  await page.reload();
+  await expect(html).toHaveAttribute("data-theme", "dark");
+  await page.locator(".theme-toggle").click();
+  await expect(html).toHaveAttribute("data-theme", "light");
+});
+
+test("with no choice saved, the site follows the device's setting", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.goto("./");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(page.locator(".theme-toggle")).toHaveAttribute("aria-label", "Switch to light mode");
+});
+
 test("a live scan link scans the named repository on arrival", async ({ page }) => {
   // Offline, so the fetch fails; what matters is that the link started a scan of that repository.
   await offline(page);

@@ -132,9 +132,9 @@ function split(text: string): { lead: string; struck: string; tail: string } {
 .proof {
   margin: 0;
   min-width: 0;
-  background: #ffffff;
-  border: 1.5px solid var(--ink-black);
-  box-shadow: 10px 10px 0 var(--ink-black);
+  background: var(--bg-surface);
+  border: 1.5px solid var(--rule);
+  box-shadow: 10px 10px 0 var(--block-shadow);
 }
 .proof-head {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px;
@@ -145,11 +145,11 @@ function split(text: string): { lead: string; struck: string; tail: string } {
 .proof-note { flex-basis: 100%; color: var(--ink-faint); font-size: var(--t1); }
 .proof-code {
   margin: 0; padding: 14px 0; border: 0; background: none;
-  font-family: var(--face); font-size: 13px; line-height: 1.8; color: #22221f;
+  font-family: var(--face); font-size: 13px; line-height: 1.8; color: var(--ink);
   white-space: normal; overflow: visible;
 }
 .proof-line { display: grid; grid-template-columns: 44px minmax(0, 1fr); padding-right: 18px; }
-.proof-line .ln { padding-left: 18px; color: #77776f; }
+.proof-line .ln { padding-left: 18px; color: var(--ink-faint); }
 .proof-line .c { white-space: pre-wrap; overflow-wrap: anywhere; }
 .proof-line.hit { background: var(--signal-tint); box-shadow: inset 4px 0 0 var(--signal); }
 .proof-line.hit .ln { color: var(--signal-ink); font-weight: 700; }
@@ -173,14 +173,14 @@ function split(text: string): { lead: string; struck: string; tail: string } {
 .proof-clear .display { font-size: 1.5rem; margin: 0; }
 .proof-clear p { margin: 0; color: var(--ink-soft); }
 .proof-bar { height: 6px; background: var(--hair); overflow: hidden; }
-.proof-bar span { display: block; height: 100%; background: var(--ink-black); transition: width 0.2s ease; }
+.proof-bar span { display: block; height: 100%; background: var(--strong); transition: width 0.2s ease; }
 .proof-bar.indeterminate span { width: 30%; animation: proof-sweep 1.1s ease-in-out infinite; }
 @keyframes proof-sweep { from { transform: translateX(-100%); } to { transform: translateX(340%); } }
 @media (prefers-reduced-motion: reduce) {
   .proof-bar.indeterminate span { animation: none; width: 100%; opacity: 0.4; }
 }
 @media (max-width: 640px) {
-  .proof { box-shadow: 6px 6px 0 var(--ink-black); }
+  .proof { box-shadow: 6px 6px 0 var(--block-shadow); }
   .proof-code { font-size: 12px; }
   .proof-line { grid-template-columns: 36px minmax(0, 1fr); padding-right: 12px; }
   .proof-line .ln { padding-left: 12px; }

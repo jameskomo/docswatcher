@@ -166,7 +166,7 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
           <span class="aside">the exact context handed to a coding agent</span>
         </div>
         <p class="eyebrow" style="margin-bottom: 8px">agent-fix-prompt.md</p>
-        <Snippet :code="prompt" lang="markdown" testid="fix-prompt" />
+        <Snippet :code="prompt" lang="markdown" testid="fix-prompt" wrap />
       </section>
     </template>
   </div>

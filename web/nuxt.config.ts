@@ -19,13 +19,18 @@ export default defineNuxtConfig({
     // Not "_nuxt": artifact hosts reserve published paths that start with an underscore.
     buildAssetsDir: `nuxt-${BUILD}/`,
     head: {
-      // One theme. Set before the app mounts, so the first paint is already the right one.
-      htmlAttrs: { "data-theme": "light" },
+      // The theme is chosen before the first paint: the visitor's saved choice, else their device's
+      // setting. app.vue keeps it in step after that. Inline is allowed by the CSP (script-src
+      // 'unsafe-inline', which Nuxt's own bootstrap needs).
+      script: [{
+        tagPosition: "head",
+        innerHTML: "(function(){var t='light';try{var s=localStorage.getItem('docswatcher.theme');t=s==='dark'||s==='light'?s:(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}document.documentElement.setAttribute('data-theme',t)})()",
+      }],
       title: "DocsWatcher",
       meta: [
         { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
         { name: "description", content: "Scan a repository for every external API contract it depends on and see which ones have an expiry date." },
-        { name: "color-scheme", content: "light" },
+        { name: "color-scheme", content: "light dark" },
       ],
       link: [
         // scripts/relativize.mjs rewrites this to ./favicon.svg so it resolves at any subpath.

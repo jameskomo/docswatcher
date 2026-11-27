@@ -45,6 +45,33 @@ const footerLinks = computed(() => [
     { label: "How this works", to: "/about" },
   ] },
 ]);
+
+// Light or dark. nuxt.config.ts sets it before the first paint; this keeps it in step: the toggle saves
+// the visitor's choice, and until they make one the site follows their device's setting as it changes.
+const KEY = "docswatcher.theme";
+type Theme = "light" | "dark";
+const theme = ref<Theme>("light");
+
+function apply(t: Theme) {
+  theme.value = t;
+  document.documentElement.setAttribute("data-theme", t);
+}
+function saved(): Theme | null {
+  try {
+    const v = localStorage.getItem(KEY);
+    return v === "light" || v === "dark" ? v : null;
+  } catch { return null; }
+}
+function toggleTheme() {
+  const next: Theme = theme.value === "dark" ? "light" : "dark";
+  apply(next);
+  try { localStorage.setItem(KEY, next); } catch { /* the choice lasts for this visit only */ }
+}
+onMounted(() => {
+  const media = window.matchMedia?.("(prefers-color-scheme: dark)");
+  apply(saved() ?? (media?.matches ? "dark" : "light"));
+  media?.addEventListener("change", (e) => { if (!saved()) apply(e.matches ? "dark" : "light"); });
+});
 </script>
 
 <template>
@@ -76,6 +103,15 @@ const footerLinks = computed(() => [
           <NuxtLink to="/teams">Teams</NuxtLink>
           <NuxtLink to="/about">About</NuxtLink>
         </nav>
+        <button
+          type="button"
+          class="theme-toggle"
+          :aria-label="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+          :title="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+          @click="toggleTheme"
+        >
+          <Icon :name="theme === 'dark' ? 'sun' : 'moon'" :size="16" />
+        </button>
       </div>
     </header>
 

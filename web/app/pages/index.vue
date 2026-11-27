@@ -624,7 +624,7 @@ async function copyLink() {
   border: 1px solid #4a4a45; color: var(--night-ink); text-decoration: none; font-size: var(--t2);
 }
 .feed:hover { border-color: var(--night-ink); }
-.departures .btn.signal { color: var(--ink-black); }
+.departures .btn.signal { color: var(--on-signal); }
 
 .board-list { border-top: 1.5px solid var(--night-ink); }
 .board-row {
@@ -647,7 +647,7 @@ async function copyLink() {
 /* The rule */
 .rule { padding: 96px 0 64px; }
 .rule .display { margin: 0; max-width: 22em; font-size: clamp(1.625rem, 3vw, 2.375rem); line-height: 1.18; }
-.rule mark { background: var(--signal); color: var(--ink-black); padding: 0 6px; }
+.rule mark { background: var(--signal); color: var(--on-signal); padding: 0 6px; }
 
 /* Capabilities: three across */
 .caps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
@@ -655,14 +655,14 @@ async function copyLink() {
 /* Closing */
 .closing {
   display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px;
-  margin-top: var(--s7); padding: 64px 0 0; border-top: 1.5px solid var(--ink-black);
+  margin-top: var(--s7); padding: 64px 0 0; border-top: 1.5px solid var(--rule);
 }
 .closing h2 { font-size: clamp(1.75rem, 3.4vw, 2.75rem); line-height: 1.05; max-width: 14em; }
 .closing-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
 @media (max-width: 640px) {
   .hero { padding: 40px 0 56px; gap: 40px; }
-  .scan-row .input, .scan-row .select { flex-basis: 100%; border-right: 1.5px solid var(--ink-black); }
+  .scan-row .input, .scan-row .select { flex-basis: 100%; border-right: 1.5px solid var(--rule); }
   .scan-row .btn { flex: 1 1 100%; margin-top: 8px; }
   .board-headrow { display: none; }
   .board-row {
