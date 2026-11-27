@@ -119,9 +119,9 @@ new NodeSDK({
         <strong>Add DocsWatcher to your OpenTelemetry Collector.</strong>
         It keeps only outbound HTTP calls, removes everything else from them, and sends the rest
         as JSON.
-        <Snippet :code="collector" testid="runtime-collector-config" />
+        <Snippet :code="collector" lang="yaml" testid="runtime-collector-config" />
         Give the Collector the token as an environment variable:
-        <Snippet :code="collectorEnv" />
+        <Snippet :code="collectorEnv" lang="dotenv" />
       </li>
       <li>
         <strong>Capture the two headers in each service.</strong>
@@ -129,9 +129,9 @@ new NodeSDK({
         <span class="mono">Sunset</span> response headers, which OpenTelemetry does not record
         unless you name them. The services then send to your Collector as they may already do.
         <div class="sdks">
-          <div><h4>Java</h4><Snippet :code="java" testid="runtime-sdk-java" /></div>
-          <div><h4>Python</h4><Snippet :code="python" testid="runtime-sdk-python" /></div>
-          <div><h4>Node</h4><Snippet :code="nodeEnv" testid="runtime-sdk-node" /><Snippet :code="nodeCode" /></div>
+          <div><h4>Java</h4><Snippet :code="java" lang="dotenv" testid="runtime-sdk-java" /></div>
+          <div><h4>Python</h4><Snippet :code="python" lang="dotenv" testid="runtime-sdk-python" /></div>
+          <div><h4>Node</h4><Snippet :code="nodeEnv" lang="dotenv" testid="runtime-sdk-node" /><Snippet :code="nodeCode" lang="javascript" /></div>
         </div>
       </li>
     </ol>

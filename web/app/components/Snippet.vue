@@ -10,10 +10,10 @@
 // It renders as `snippet-wrap`, not `wrap`: `.wrap` is the global page-shell class in
 // main.css (max-width, centred, gutter padding). Emitting it here gave the badge snippet
 // the page's horizontal padding, which pushed the Copy button outside the dark block.
-const props = defineProps<{ code: string; testid?: string; wrap?: boolean; shell?: boolean }>();
+import type { CodeLang } from "~/utils/highlight";
 
-/** Lines of the snippet; a whole-line `#` or `//` comment is drawn quieter, since in setup snippets it carries the instructions. */
-const lines = computed(() => props.code.split("\n").map((text) => ({ text, comment: /^\s*(#|\/\/)/.test(text) })));
+// `lang` picks the grammar for syntax highlighting; without one the text stays plain.
+const props = defineProps<{ code: string; lang?: CodeLang; testid?: string; wrap?: boolean; shell?: boolean }>();
 
 const copied = ref(false);
 async function copy() {
@@ -29,7 +29,7 @@ async function copy() {
   <div class="snippet" :class="{ 'snippet-wrap': wrap, shell }" :data-testid="testid">
     <button v-if="!shell" type="button" class="snippet-copy" @click="copy">{{ copied ? "Copied" : "Copy" }}</button>
     <span v-else class="snippet-hint" aria-hidden="true">click to select</span>
-    <pre><template v-for="(l, i) in lines" :key="i"><span v-if="l.comment" class="cm">{{ l.text }}</span><template v-else>{{ l.text }}</template><template v-if="i < lines.length - 1">{{ "\n" }}</template></template></pre>
+    <pre><CodeTokens :code="code" :lang="lang ?? (shell ? 'shellscript' : 'text')" /></pre>
   </div>
 </template>
 

@@ -1527,8 +1527,7 @@ pre {
   line-height: 1.6;
   overflow-x: auto;
 }
-/* Comment lines carry the instructions in setup snippets; they read quieter, but stay legible (6.1:1). */
-pre .cm { color: #8a8a82; }
+
 
 /* ============================================================================
    Prose (About Page)
@@ -1877,6 +1876,37 @@ html[data-theme] { color-scheme: light; }
 [data-theme] .footer-links a:hover { text-decoration: underline; }
 [data-theme] :focus-visible { outline: 2px solid var(--ink-black); outline-offset: 2px; border-radius: 0; }
 [data-theme] .mono { font-size: inherit; letter-spacing: 0; }
+
+
+/* Syntax colours. Shiki's CSS-variables theme reads these (app/utils/highlight.ts), so one highlighting
+   pass serves every surface and both site themes. Restrained on purpose: no red, which means expiry
+   here, and no sky blue. Every value is at least 4.5:1 on its background, struck-line tint included. */
+[data-theme] pre {
+  --shiki-foreground: #e8e8e2;
+  --shiki-background: transparent;
+  --shiki-token-comment: #8a8a82;
+  --shiki-token-keyword: #c4a7f2;
+  --shiki-token-string: #e3c98a;
+  --shiki-token-string-expression: #e3c98a;
+  --shiki-token-function: #8ed3c6;
+  --shiki-token-constant: #f0b26b;
+  --shiki-token-parameter: #e8e8e2;
+  --shiki-token-punctuation: #a8a8a0;
+  --shiki-token-link: #8ed3c6;
+}
+/* Code that sits on a light card: the hero card, a finding's evidence lines. */
+[data-theme] .code-on-surface, [data-theme] .code-pill {
+  --shiki-foreground: #22221f;
+  --shiki-token-comment: #5f5f58;
+  --shiki-token-keyword: #6a3fb5;
+  --shiki-token-string: #7a5a00;
+  --shiki-token-string-expression: #7a5a00;
+  --shiki-token-function: #0f6e62;
+  --shiki-token-constant: #9a4a00;
+  --shiki-token-parameter: #22221f;
+  --shiki-token-punctuation: #55554f;
+  --shiki-token-link: #0f6e62;
+}
 
 /* Header */
 [data-theme] .site-header {

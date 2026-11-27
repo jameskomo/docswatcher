@@ -93,7 +93,7 @@ useHead({
               In Cursor, Windsurf or Claude Desktop, add this to the assistant's MCP settings file.
               For Cursor that is <code>~/.cursor/mcp.json</code>.
             </p>
-            <Snippet :code="mcpJson" />
+            <Snippet :code="mcpJson" lang="json" />
           </div>
         </div>
       </div>

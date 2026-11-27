@@ -478,7 +478,7 @@ async function copyLink() {
             It marks the repository as scanned; clicking it runs a fresh scan in the reader's own
             browser, so it cannot go stale.
           </p>
-          <Snippet :code="badge" testid="share-badge" wrap />
+          <Snippet :code="badge" lang="markdown" testid="share-badge" wrap />
         </details>
       </section>
 

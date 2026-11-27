@@ -3,6 +3,7 @@
 // check_api tool. The key goes from this browser to the provider and nowhere else.
 import { ASSISTANTS, defaultModel, type Answer, type Assistant, type AssistantId } from "~/utils/assistants";
 import { checkApi, type Verdict } from "~~/engine/checkApi";
+import { splitFences, type CodeLang } from "~/utils/highlight";
 
 const { knowledge } = useKnowledge();
 
@@ -113,10 +114,9 @@ function stop() {
 onBeforeUnmount(stop);
 
 /** Splits an answer at markdown code fences: prose and code alternate. Text only, never HTML. */
-function blocks(text: string): { code: boolean; text: string }[] {
-  return text.split(/^```[^\n]*\n?/m)
-    .map((t, i) => ({ code: i % 2 === 1, text: i % 2 === 1 ? t.replace(/\n$/, "") : t.trim() }))
-    .filter((b) => b.text !== "");
+/** Splits an answer at Markdown fences; a code block keeps its fence's language for highlighting. */
+function blocks(text: string): { code: boolean; text: string; lang: CodeLang }[] {
+  return splitFences(text);
 }
 
 const CHIP: Record<Verdict, { severity: "breaking" | "warning" | "info" | "healthy"; label: string }> = {
@@ -200,7 +200,7 @@ const CHIP: Record<Verdict, { severity: "breaking" | "warning" | "info" | "healt
           <!-- Text interpolation only: a model's output is never rendered as HTML here. -->
           <div class="answer">
             <template v-for="(b, i) in blocks(c.side.answer.text)" :key="i">
-              <pre v-if="b.code"><code>{{ b.text }}</code></pre>
+              <pre v-if="b.code"><code><CodeTokens :code="b.text" :lang="b.lang" /></code></pre>
               <p v-else>{{ b.text }}</p>
             </template>
           </div>

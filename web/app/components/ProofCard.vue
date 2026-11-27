@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Finding } from "~~/engine/types";
 import { contractLabel, fmtDate } from "~/utils/format";
+import { highlight, langFromPath, type CodeToken } from "~/utils/highlight";
 
 /** One line of source around the headline finding; `hit` marks a line the finding points at. */
 export interface ExcerptLine { n: number; text: string; hit: boolean }
@@ -48,6 +49,35 @@ const lines = computed<ExcerptLine[]>(() => {
   return ev ? [{ n: ev.line, text: ev.snippet, hit: true }] : [];
 });
 
+/** The excerpt highlighted in one pass, so the grammar sees each line in context. Plain until it arrives. */
+const tokens = ref<CodeToken[][] | null>(null);
+let request = 0;
+watch(lines, async (ls) => {
+  const mine = ++request;
+  tokens.value = null;
+  if (!ls.length) return;
+  const out = await highlight(ls.map((l) => l.text).join("\n"), langFromPath(evidence.value?.path ?? ""));
+  if (mine === request) tokens.value = out;
+}, { immediate: true });
+
+/** One line as coloured runs, the struck-through call cut out of whatever tokens it spans. */
+function segments(l: ExcerptLine, i: number): Array<CodeToken & { struck: boolean }> {
+  const toks = tokens.value?.[i] ?? [{ content: l.text }];
+  if (!l.hit) return toks.map((t) => ({ ...t, struck: false }));
+  const { lead, struck } = split(l.text);
+  const from = lead.length, to = lead.length + struck.length;
+  const out: Array<CodeToken & { struck: boolean }> = [];
+  let at = 0;
+  for (const t of toks) {
+    const end = at + t.content.length;
+    for (const [a, b, s] of [[at, Math.min(end, from), false], [Math.max(at, from), Math.min(end, to), true], [Math.max(at, to), end, false]] as const) {
+      if (b > a) out.push({ ...t, content: t.content.slice(a - at, b - at), struck: s });
+    }
+    at = end;
+  }
+  return out;
+}
+
 /**
  * Splits a hit line so the call itself can be struck through: the contract's key ("beta.assistants.create")
  * widened left over the receiver it hangs off ("client."). Without the key in the line, the whole statement.
@@ -83,7 +113,7 @@ function split(text: string): { lead: string; struck: string; tail: string } {
     </div>
 
     <template v-else-if="finding">
-      <pre class="proof-code"><span v-for="l in lines" :key="l.n" class="proof-line" :class="{ hit: l.hit }"><span class="ln">{{ l.n }}</span><span class="c"><template v-if="l.hit"><template v-for="(p, i) in [split(l.text)]" :key="i">{{ p.lead }}<s>{{ p.struck }}</s>{{ p.tail }}</template></template><template v-else>{{ l.text }}</template></span></span></pre>
+      <pre class="proof-code code-on-surface"><span v-for="(l, i) in lines" :key="l.n" class="proof-line" :class="{ hit: l.hit }"><span class="ln">{{ l.n }}</span><span class="c"><template v-for="(g, k) in segments(l, i)" :key="k"><s v-if="g.struck" :style="g.color ? { color: g.color } : undefined">{{ g.content }}</s><span v-else :style="g.color ? { color: g.color } : undefined" :class="{ 'tok-italic': g.italic }">{{ g.content }}</span></template></span></span></pre>
       <div class="proof-foot">
         <span class="stamp">{{ stamp }}</span>
         <p class="proof-says">{{ says }}</p>

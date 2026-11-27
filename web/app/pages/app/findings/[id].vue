@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { contractLabel, daysLabel, fmtDate, KIND_LABEL } from "~/utils/format";
+import { langFromPath } from "~/utils/highlight";
 
 const route = useRoute();
 const store = useScanStore();
@@ -141,7 +142,7 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
               <tr v-for="e in finding.evidence" :key="e.path + e.line + e.column">
                 <td class="mono" style="color: var(--ink-accent)">{{ e.path }}</td>
                 <td class="n mono">{{ e.line }}:{{ e.column }}</td>
-                <td><code class="code-pill">{{ e.snippet }}</code></td>
+                <td><code class="code-pill"><CodeTokens :code="e.snippet" :lang="langFromPath(e.path)" /></code></td>
                 <td class="ink-faint">{{ e.detector }} ({{ e.layer }} layer)</td>
               </tr>
             </tbody>
@@ -164,20 +165,8 @@ const status = computed(() => (finding.value ? store.effectiveStatus(finding.val
           <h2>Fix prompt</h2>
           <span class="aside">the exact context handed to a coding agent</span>
         </div>
-        <div style="background: #05070b; border: 1px solid var(--hair-strong); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card)">
-          <div class="row between" style="background: rgba(255,255,255,0.03); padding: 8px 16px; border-bottom: 1px solid var(--hair)">
-            <div class="row" style="gap: 6px">
-              <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block"></span>
-              <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; display: inline-block"></span>
-              <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block"></span>
-              <span class="mono t1 ink-faint" style="margin-left: 8px">agent-fix-prompt.md</span>
-            </div>
-            <button class="btn quiet t1" @click="copy" style="padding: 2px 8px">
-              {{ copied ? "Copied" : "Copy" }}
-            </button>
-          </div>
-          <pre style="margin: 0; border: none; border-radius: 0; background: transparent">{{ prompt }}</pre>
-        </div>
+        <p class="eyebrow" style="margin-bottom: 8px">agent-fix-prompt.md</p>
+        <Snippet :code="prompt" lang="markdown" testid="fix-prompt" />
       </section>
     </template>
   </div>

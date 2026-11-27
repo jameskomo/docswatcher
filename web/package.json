@@ -19,6 +19,7 @@
   "dependencies": {
     "nuxt": "^4.5.2",
     "pako": "^3.0.2",
+    "shiki": "^4.6.0",
     "tree-sitter-c-sharp": "0.23.1",
     "tree-sitter-go": "^0.25.0",
     "tree-sitter-java": "^0.23.5",

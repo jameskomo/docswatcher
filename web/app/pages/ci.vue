@@ -72,7 +72,7 @@ useHead({
 
       <h2 style="margin-top: 0">GitHub Actions</h2>
       <p>This is the whole integration.</p>
-      <Snippet :code="quickstart" />
+      <Snippet :code="quickstart" lang="yaml" />
       <p>
         The step fails the build if a breaking deprecation is open, writes a summary to the job
         page, and says nothing at all when your code calls nothing that is going away.
@@ -83,14 +83,14 @@ useHead({
         Include the template from a release tag, with <code>v0.4.0</code> replaced by one. The
         first release after v0.3.1 is the first that has it.
       </p>
-      <Snippet :code="gitlab" testid="gitlab-include" />
+      <Snippet :code="gitlab" lang="yaml" testid="gitlab-include" />
       <p>
         That adds a <code>docswatcher</code> job to the <code>test</code> stage. It checks the
         binary against the release's <code>checksums.txt</code> before running it, fails the
         pipeline on a breaking finding, and writes a Code Quality report, so each finding shows in
         the merge request with its file and line. The settings are variables:
       </p>
-      <Snippet :code="gitlabSettings" />
+      <Snippet :code="gitlabSettings" lang="yaml" />
       <p>
         <code>DOCSWATCHER_EXCLUDE</code> and <code>DOCSWATCHER_VERSION</code> work like the
         Action's <code>exclude</code> and <code>version</code>. The job needs a Linux x64 runner,
@@ -104,7 +104,7 @@ useHead({
         Failing the build on day one blocks your team on work nobody planned, so start by
         reporting.
       </p>
-      <Snippet :code="reportOnly" />
+      <Snippet :code="reportOnly" lang="yaml" />
       <p>
         Read the summary for a week, fix or dismiss what it found, then drop the
         <code>fail-on</code> line. From then on a new breaking dependency cannot reach your default
@@ -112,7 +112,7 @@ useHead({
       </p>
 
       <h2>One service in a monorepo</h2>
-      <Snippet :code="monorepo" />
+      <Snippet :code="monorepo" lang="yaml" />
 
       <h2>Anywhere else</h2>
       <p>
