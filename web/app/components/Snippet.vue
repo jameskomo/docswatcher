@@ -12,6 +12,9 @@
 // the page's horizontal padding, which pushed the Copy button outside the dark block.
 const props = defineProps<{ code: string; testid?: string; wrap?: boolean; shell?: boolean }>();
 
+/** Lines of the snippet; a whole-line `#` or `//` comment is drawn quieter, since in setup snippets it carries the instructions. */
+const lines = computed(() => props.code.split("\n").map((text) => ({ text, comment: /^\s*(#|\/\/)/.test(text) })));
+
 const copied = ref(false);
 async function copy() {
   try {
@@ -26,7 +29,7 @@ async function copy() {
   <div class="snippet" :class="{ 'snippet-wrap': wrap, shell }" :data-testid="testid">
     <button v-if="!shell" type="button" class="snippet-copy" @click="copy">{{ copied ? "Copied" : "Copy" }}</button>
     <span v-else class="snippet-hint" aria-hidden="true">click to select</span>
-    <pre>{{ code }}</pre>
+    <pre><template v-for="(l, i) in lines" :key="i"><span v-if="l.comment" class="cm">{{ l.text }}</span><template v-else>{{ l.text }}</template><template v-if="i < lines.length - 1">{{ "\n" }}</template></template></pre>
   </div>
 </template>
 
@@ -41,18 +44,20 @@ async function copy() {
   top: var(--s2);
   right: var(--s2);
   font-size: var(--t1);
-  color: var(--ink-soft);
+  color: var(--night-soft);
 }
+/* Outlined on the dark block, like the feed links on the departures board: present, not the loudest thing. */
 .snippet-copy {
-  background: var(--paper);
-  border: 1px solid var(--hair);
-  border-radius: var(--radius-sm);
+  min-height: 32px;
+  background: none;
+  border: 1px solid #4a4a45;
+  border-radius: 0;
   padding: 4px 10px;
   font: inherit;
   font-size: var(--t1);
   cursor: pointer;
 }
-.snippet-hint { padding: 4px 2px; pointer-events: none; opacity: 0.8; }
-.snippet-copy:hover { color: var(--ink); }
-.snippet-copy:focus-visible { outline: 2px solid var(--ink-accent); outline-offset: 2px; }
+.snippet-hint { padding: 4px 2px; pointer-events: none; }
+.snippet-copy:hover { color: var(--night-ink); border-color: var(--night-ink); }
+.snippet-copy:focus-visible { outline: 2px solid var(--night-ink); outline-offset: 2px; }
 </style>

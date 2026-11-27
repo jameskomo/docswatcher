@@ -201,7 +201,6 @@ function fitted(p: Pin): string {
 .ruler .now-line {
   stroke: var(--ink-accent);
   stroke-width: 2;
-  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.6));
 }
 .ruler .now-text {
   fill: var(--ink-accent);
@@ -211,15 +210,7 @@ function fitted(p: Pin): string {
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
-.ruler .pin-label { fill: var(--ink); font-family: var(--face-mono); font-size: 12px; font-weight: 500; }
-:root:not([data-theme="light"]) .ruler.board .pin-label { fill: #f1f5f9; }
-[data-theme="light"] .ruler .pin-label,
-[data-theme="light"] .ruler.board .pin-label { fill: #0f172a; font-weight: 600; }
-[data-theme="light"] .ruler .tick-line { stroke: #cbd5e1; }
-[data-theme="light"] .ruler .axis-line { stroke: #94a3b8; }
-[data-theme="light"] .ruler .tick-text { fill: #64748b; }
-[data-theme="light"] .ruler .now-line { filter: none; stroke: #0284c7; }
-[data-theme="light"] .ruler .now-text { fill: #0284c7; }
+.ruler .pin-label { fill: var(--ink-max); font-family: var(--face-mono); font-size: 12px; font-weight: 600; }
 
 /* At phone width the labels are unreadable and redundant: the list directly
    below names every finding. The dots and the today line still carry the

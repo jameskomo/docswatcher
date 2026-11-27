@@ -4,75 +4,18 @@
    ============================================================================ */
 
 :root {
-  /* --- High-Precision Dark Cyber Core ------------------------------------ */
-  --bg-deep: #07090e;
-  --bg-canvas: #0c1017;
-  --bg-surface: #121824;
-  --bg-surface-raised: #182030;
-  --bg-surface-hover: #1f2a3e;
-  --bg-glass: rgba(14, 20, 32, 0.78);
-  --bg-glass-card: rgba(18, 24, 38, 0.82);
+  /* Colour, type, radii and shadows live in the "Departures" layer at the end of this file.
+     What is here is everything that layer does not redefine. */
 
-  /* Borders & Separation */
-  --hair: rgba(255, 255, 255, 0.08);
-  --hair-strong: rgba(255, 255, 255, 0.16);
-  --hair-active: rgba(56, 189, 248, 0.4);
-
-  /* Inks */
-  --ink: #e2e8f0;
-  --ink-max: #ffffff;
-  --ink-soft: #94a3b8;
-  --ink-faint: #64748b;
-  --ink-accent: #38bdf8;
-
-  /* Telemetry / Severity Accents with Radiant Glows */
-  --overdue: #ff385c;
-  --overdue-glow: rgba(255, 56, 92, 0.35);
-  --overdue-lift: rgba(255, 56, 92, 0.12);
-  --overdue-border: rgba(255, 56, 92, 0.3);
-
-  --soon: #f59e0b;
-  --soon-glow: rgba(245, 158, 11, 0.35);
-  --soon-lift: rgba(245, 158, 11, 0.12);
-  --soon-border: rgba(245, 158, 11, 0.3);
-
-  --ok: #10b981;
-  --ok-glow: rgba(16, 185, 129, 0.3);
-  --ok-lift: rgba(16, 185, 129, 0.12);
-  --ok-border: rgba(16, 185, 129, 0.3);
-
-  --note: #38bdf8;
-  --note-glow: rgba(56, 189, 248, 0.3);
-  --note-lift: rgba(56, 189, 248, 0.12);
-  --note-border: rgba(56, 189, 248, 0.3);
-
-  /* On-board aliases */
+  /* Aliases older components still read */
   --overdue-on-board: var(--overdue);
   --soon-on-board: var(--soon);
   --ok-on-board: var(--ok);
   --note-on-board: var(--note);
-
-  /* Provider Map compatibility variables */
   --critical: var(--overdue);
   --warning: var(--soon);
   --good: var(--ok);
   --info: var(--note);
-  --surface-2: var(--bg-surface-raised);
-  --line-strong: var(--hair-strong);
-  --chart-surface: var(--bg-surface);
-
-  /* Typography */
-  --face: "Plus Jakarta Sans", "Archivo", system-ui, -apple-system, sans-serif;
-  --face-mono: "JetBrains Mono", "DM Mono", ui-monospace, Menlo, Consolas, monospace;
-
-  /* Scale */
-  --t1: 0.78125rem; /* 12.5px */
-  --t2: 0.875rem;   /* 14px */
-  --t3: 1rem;       /* 16px */
-  --t4: 1.1875rem;  /* 19px */
-  --t5: 1.5rem;     /* 24px */
-  --t6: 2.125rem;   /* 34px */
-  --t7: 3.75rem;    /* 60px */
 
   /* Spacing */
   --s1: 4px;
@@ -86,135 +29,11 @@
 
   --measure: 68ch;
   --gutter: 24px;
-  --shell: 1180px;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 18px;
-  --control-radius: var(--radius-md);
-
-  /* Shadows */
-  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--hair);
-  --shadow-hover: 0 10px 30px -4px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--hair-strong);
-  --shadow-glow-cyan: 0 0 24px -4px rgba(56, 189, 248, 0.25);
 }
 
-/* Light Theme - explicit toggle or system preference */
-:root[data-theme="light"],
-[data-theme="light"] {
-  color-scheme: light;
 
-  /* Surfaces */
-  --bg-deep: #f8fafc;
-  --bg-canvas: #f1f5f9;
-  --bg-surface: #ffffff;
-  --bg-surface-raised: #f8fafc;
-  --bg-surface-hover: #f1f5f9;
-  --bg-glass: rgba(255, 255, 255, 0.95);
-  --bg-glass-card: #ffffff;
 
-  /* Borders & Separation */
-  --hair: #e2e8f0;
-  --hair-strong: #cbd5e1;
-  --hair-active: #0284c7;
 
-  /* Inks (WCAG AAA & AA Compliant) */
-  --ink: #1e293b;        /* slate-800 - crisp body */
-  --ink-max: #0f172a;    /* slate-900 - bold headings */
-  --ink-soft: #475569;   /* slate-600 - distinct subheadings */
-  --ink-faint: #64748b;  /* slate-500 - legible metadata and dates */
-  --ink-accent: #0284c7; /* sky-600 - accessible brand blue */
-
-  /* Telemetry / Severity Accents (Consistent Hex) */
-  --overdue: #e11d48;
-  --overdue-glow: rgba(225, 29, 72, 0.15);
-  --overdue-lift: #fff1f2;
-  --overdue-border: #fecdd3;
-
-  --soon: #b45309;
-  --soon-glow: rgba(180, 83, 9, 0.15);
-  --soon-lift: #fffbeb;
-  --soon-border: #fde68a;
-
-  --ok: #059669;
-  --ok-glow: rgba(5, 150, 105, 0.15);
-  --ok-lift: #ecfdf5;
-  --ok-border: #a7f3d0;
-
-  --note: #0284c7;
-  --note-glow: rgba(2, 132, 199, 0.15);
-  --note-lift: #f0f9ff;
-  --note-border: #bae6fd;
-
-  /* Compatibility aliases */
-  --critical: var(--overdue);
-  --warning: var(--soon);
-  --good: var(--ok);
-  --info: var(--note);
-  --surface-2: #f8fafc;
-  --line-strong: #cbd5e1;
-  --chart-surface: #ffffff;
-
-  /* Shadows */
-  --shadow-card: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.06);
-  --shadow-hover: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
-  --shadow-glow-cyan: none;
-}
-
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    color-scheme: light;
-    --bg-deep: #f8fafc;
-    --bg-canvas: #f1f5f9;
-    --bg-surface: #ffffff;
-    --bg-surface-raised: #f8fafc;
-    --bg-surface-hover: #f1f5f9;
-    --bg-glass: rgba(255, 255, 255, 0.95);
-    --bg-glass-card: #ffffff;
-
-    --hair: #e2e8f0;
-    --hair-strong: #cbd5e1;
-    --hair-active: #0284c7;
-
-    --ink: #1e293b;
-    --ink-max: #0f172a;
-    --ink-soft: #475569;
-    --ink-faint: #64748b;
-    --ink-accent: #0284c7;
-
-    --overdue: #e11d48;
-    --overdue-glow: rgba(225, 29, 72, 0.15);
-    --overdue-lift: #fff1f2;
-    --overdue-border: #fecdd3;
-
-    --soon: #b45309;
-    --soon-glow: rgba(180, 83, 9, 0.15);
-    --soon-lift: #fffbeb;
-    --soon-border: #fde68a;
-
-    --ok: #059669;
-    --ok-glow: rgba(5, 150, 105, 0.15);
-    --ok-lift: #ecfdf5;
-    --ok-border: #a7f3d0;
-
-    --note: #0284c7;
-    --note-glow: rgba(2, 132, 199, 0.15);
-    --note-lift: #f0f9ff;
-    --note-border: #bae6fd;
-
-    --critical: var(--overdue);
-    --warning: var(--soon);
-    --good: var(--ok);
-    --info: var(--note);
-    --surface-2: #f8fafc;
-    --line-strong: #cbd5e1;
-    --chart-surface: #ffffff;
-
-    --shadow-card: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.06);
-    --shadow-hover: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
-    --shadow-glow-cyan: none;
-  }
-}
 
 /* ============================================================================
    Base Reset & Ambient Background
@@ -226,7 +45,7 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -746,8 +565,8 @@ main {
 [data-theme="light"] .board-ruler .axis-line { stroke: #cbd5e1; }
 [data-theme="light"] .board-ruler .tick-line { stroke: #e2e8f0; }
 [data-theme="light"] .board-ruler .tick-text { fill: #64748b; font-weight: 600; }
-[data-theme="light"] .board-ruler .now-line { filter: none; stroke: #0284c7; }
-[data-theme="light"] .board-ruler .now-text { fill: #0284c7; }
+[data-theme="light"] .board-ruler .now-line { filter: none; stroke: var(--ink-max); }
+[data-theme="light"] .board-ruler .now-text { fill: var(--ink-max); }
 [data-theme="light"] .board-ruler .pin-label { fill: #0f172a; font-weight: 600; }
 
 .board-ruler .pin { transform-origin: center; cursor: pointer; }
@@ -803,7 +622,7 @@ main {
 .scanning-pulse .radar-spinner {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(56, 189, 248, 0.2);
+  border: 2px solid var(--hair);
   border-top-color: var(--ink-accent);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
@@ -816,8 +635,8 @@ main {
 .board-bar {
   width: 100%;
   height: 6px;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 9999px;
+  background: var(--hair);
+  border-radius: 0;
   position: relative;
   overflow: hidden;
 }
@@ -825,9 +644,7 @@ main {
   position: absolute;
   inset-block: 0;
   left: 0;
-  background: linear-gradient(90deg, #38bdf8, #818cf8);
-  border-radius: 9999px;
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+  background: var(--ink-max);
   transition: width 160ms ease-out;
 }
 .board-bar.indeterminate span {
@@ -858,11 +675,6 @@ main {
   margin-bottom: var(--s2);
 }
 
-:root:not([data-theme="light"]) .section-head h1 {
-  background: linear-gradient(180deg, #ffffff 40%, #cbd5e1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 
 [data-theme="light"] .section-head h1 {
   color: #0f172a;
@@ -1326,12 +1138,6 @@ main {
   gap: 6px;
 }
 
-.finding-meta-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
 
 .finding-body .headline {
   font-size: 1.125rem;
@@ -1348,34 +1154,21 @@ main {
 .finding-body .subject {
   font-family: var(--face-mono);
   font-size: var(--t2);
-  color: var(--ink-accent);
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.18);
+  color: var(--ink);
+  background: var(--bg-surface-raised);
+  border: 1px solid var(--hair);
   padding: 2px 8px;
   border-radius: var(--radius-sm);
   display: inline-block;
   overflow-wrap: anywhere;
   align-self: flex-start;
 }
-[data-theme="light"] .finding-body .subject {
-  color: #0369a1;
-  background: #f0f9ff;
-  border-color: #bae6fd;
-  font-weight: 600;
-}
 
 .finding-body .guidance {
   font-size: var(--t2);
   color: var(--ink);
-  background: rgba(255, 255, 255, 0.02);
-  border-left: 3px solid var(--hair-strong);
+  border-left: 3px solid var(--ink-max);
   padding: 6px 12px;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-}
-[data-theme="light"] .finding-body .guidance {
-  background: #f8fafc;
-  color: #1e293b;
-  border-left-color: #0284c7;
 }
 
 .finding-body .where {
@@ -1724,17 +1517,18 @@ td.right, th.right { text-align: right; }
 }
 
 pre {
-  background: #05070b;
-  border: 1px solid var(--hair-strong);
-  border-radius: var(--radius-md);
+  background: var(--night);
+  border: 0;
+  border-radius: 0;
   padding: var(--s4);
-  color: #38bdf8;
+  color: #e8e8e2;
   font-family: var(--face-mono);
   font-size: var(--t2);
-  line-height: 1.5;
+  line-height: 1.6;
   overflow-x: auto;
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
 }
+/* Comment lines carry the instructions in setup snippets; they read quieter, but stay legible (6.1:1). */
+pre .cm { color: #8a8a82; }
 
 /* ============================================================================
    Prose (About Page)
@@ -2181,6 +1975,9 @@ html[data-theme] { color-scheme: light; }
 [data-theme] .finding-row { background: #ffffff; border: 0; border-bottom: 1px solid var(--hair); }
 [data-theme] .finding-row:hover { background: var(--bg-surface-raised); box-shadow: none; transform: none; }
 [data-theme] .finding-row.breaking::before { background: var(--signal); }
+/* The whole row is one link: no underline across it, only the headline on hover. */
+[data-theme] a.finding-row { text-decoration: none; color: inherit; }
+[data-theme] a.finding-row:hover .headline { text-decoration: underline; color: var(--ink-max); }
 
 [data-theme] .section-head h1 {
   background: none; -webkit-background-clip: initial; background-clip: initial;
