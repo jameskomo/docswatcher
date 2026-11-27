@@ -1925,6 +1925,13 @@ html[data-theme="dark"] { color-scheme: dark; }
 [data-theme] .footer-links a:hover { text-decoration: underline; }
 [data-theme] :focus-visible { outline: 2px solid var(--strong); outline-offset: 2px; border-radius: 0; }
 [data-theme] .mono { font-size: inherit; letter-spacing: 0; }
+/* On an all-monospace site, inline code needs a chip to stand apart from the prose around it. */
+[data-theme] :not(pre) > code:not(.code-pill) {
+  padding: 0.05em 0.4em; background: var(--bg-surface-hover); border: 1px solid var(--hair);
+  color: var(--ink-max); font-size: 0.92em; overflow-wrap: anywhere;
+}
+[data-theme] .band :not(pre) > code:not(.code-pill), [data-theme] .site-footer code { background: #1f1f1d; border-color: var(--night-line); color: var(--night-ink); }
+[data-theme] strong { color: var(--ink-max); font-weight: 700; }
 
 
 /* Syntax colours. Shiki's CSS-variables theme reads these (app/utils/highlight.ts), so one highlighting
@@ -1987,7 +1994,7 @@ html[data-theme="dark"] { color-scheme: dark; }
   padding: 0; background: none; border: 0; border-radius: 0;
   font-size: var(--t1); font-weight: 400; color: var(--ink-faint);
 }
-[data-theme] .nav { gap: 2px 20px; background: none; padding: 0; border: 0; border-radius: 0; }
+[data-theme] .nav { gap: 2px 20px; margin-left: auto; background: none; padding: 0; border: 0; border-radius: 0; }
 [data-theme] .nav a {
   color: var(--ink-max); font-weight: 500; font-size: var(--t2);
   padding: 10px 0; border: 0; border-radius: 0; background: none; box-shadow: none;

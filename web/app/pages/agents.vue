@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { knowledge } = useKnowledge();
 const totalChanges = knowledge.providers.reduce((n, p) => n + p.changes.length, 0);
-const providerNames = knowledge.providers.map((p) => p.info.name).join(", ");
+const providerCount = knowledge.providers.length;
 
 // No sudo: a binary in ~/.local/bin is on most Linux PATHs and never needs root. The page tells
 // Mac users which part of the URL to change rather than showing a second snippet.
@@ -18,13 +18,10 @@ const mcpJson = `{
   }
 }`;
 
-// Verbatim from a Claude Code session on 2026-09-23. The prompt never mentioned DocsWatcher.
-const exchange = [
-  { who: "You asked", text: "Write a minimal Python script that summarises a paragraph with the OpenAI chat completions API using the gpt-4-turbo model." },
-  { who: "Your assistant checked", text: "Is gpt-4-turbo still safe to use?", note: "It asked DocsWatcher on its own." },
-  { who: "DocsWatcher answered", text: "RETIRING in 30 days (2026-10-23): gpt-4-turbo shut down [OpenAI]. Replacement: gpt-5.6-sol.", mono: true },
-  { who: "Your assistant told you", text: "Note: OpenAI shuts down gpt-4-turbo on 2026-10-23, 30 days from now, after which this call will fail, so change the model string to the recommended replacement, gpt-5.6-sol, before then." },
-];
+/** The router owns the URL hash, so in-page buttons scroll by hand instead of navigating. */
+function go(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
 useHead({
   title: "DocsWatcher for AI coding assistants",
@@ -34,176 +31,199 @@ useHead({
 
 <template>
   <article class="agents">
-    <section class="page">
-      <div class="section-head">
-        <h1>Stop your AI assistant writing code that is about to break.</h1>
-        <p class="lede">
-          AI coding assistants like Claude Code and Cursor learned from code written months ago, so
-          they still suggest AI models and APIs that are being shut down. Connect DocsWatcher and
-          your assistant checks first, then tells you what to use instead.
-        </p>
+    <section class="opening">
+      <p class="eyebrow">For Claude Code, Cursor, Windsurf and Claude Desktop</p>
+      <h1>Stop your AI assistant writing code that is about to break.</h1>
+      <p class="lede">
+        Assistants learned from code written months ago, so they still suggest models and APIs that are
+        shutting down. Connect DocsWatcher and your assistant <strong>checks first</strong>, then tells you
+        what to use instead.
+      </p>
+      <div class="actions">
+        <button type="button" class="btn solid" @click="go('setup')">Set it up in two steps</button>
+        <button type="button" class="btn" @click="go('try')">Try it with your own key</button>
       </div>
     </section>
 
-    <div class="prose">
-      <h2 style="margin-top: 0">What it looks like</h2>
-      <div class="exchange" data-testid="agent-exchange">
-        <div v-for="(m, i) in exchange" :key="i" class="turn">
-          <span class="who">{{ m.who }}</span>
-          <span>
-            <span :class="{ mono: m.mono }">{{ m.text }}</span>
-            <span v-if="m.note" class="t1 ink-faint" style="display: block">{{ m.note }}</span>
-          </span>
-        </div>
-      </div>
-      <p class="t1 ink-faint" style="margin-top: var(--s1)">Recorded in Claude Code on 23 September 2026. Your request, DocsWatcher's answer and the assistant's note are word for word; the check itself is summarised.</p>
-      <p>
-        Nobody asked it to check. It still wrote the model you asked for, but you found out it stops
-        working in 30 days before shipping it, not the morning it fails.
-      </p>
-
-      <h2 id="try">Try it with your own assistant</h2>
-      <p>
-        Ask Claude, GPT and Codex, or Gemini to write something, and see the answer with DocsWatcher
-        next to the answer without it. Bring your own API key; it stays between your browser and the
-        provider.
-      </p>
-      <TryAssistant />
-
-      <h2>Set it up in two steps</h2>
-      <div class="steps">
-        <div class="step">
-          <span class="step-n" aria-hidden="true">1</span>
-          <div class="step-body">
-            <p><strong>Install DocsWatcher.</strong> One file, no account, no root. This is for Linux x64; on a Mac with Apple silicon, change <code>linux-x64</code> to <code>macos-arm64</code>.</p>
-            <Snippet :code="install" shell />
-            <p class="t1 ink-faint">
-              On Windows, or to download it yourself, get it from the
-              <a href="https://github.com/jameskomo/docswatcher/releases/latest" target="_blank" rel="noopener">release page</a>
-              and check it against <code>checksums.txt</code> there.
-            </p>
+    <div class="prose agents-body">
+      <!-- The proof: a real session, verbatim (2026-09-23). The prompt never mentioned DocsWatcher. -->
+      <section class="chapter">
+        <p class="eyebrow">What it looks like · recorded in Claude Code, 23 September 2026</p>
+        <div class="exchange" data-testid="agent-exchange">
+          <div class="turn">
+            <span class="who">You</span>
+            <span class="said">Write a minimal Python script that summarises a paragraph with the OpenAI chat completions API using the <span class="hl">gpt-4-turbo</span> model.</span>
+          </div>
+          <div class="turn">
+            <span class="who">Assistant</span>
+            <span class="said"><span class="call">check_api("gpt-4-turbo")</span> <span class="aside">it asked DocsWatcher on its own</span></span>
+          </div>
+          <div class="turn turn-answer">
+            <span class="who">DocsWatcher</span>
+            <span class="said"><span class="badge">RETIRING</span> in 30 days (2026-10-23): gpt-4-turbo shut down [OpenAI]. Replacement: <span class="hl">gpt-5.6-sol</span>.</span>
+          </div>
+          <div class="turn">
+            <span class="who">Assistant</span>
+            <span class="said">Note: OpenAI shuts down gpt-4-turbo on 2026-10-23, 30 days from now, after which this call will fail, so change the model string to the recommended replacement, gpt-5.6-sol, before then.</span>
           </div>
         </div>
-        <div class="step">
-          <span class="step-n" aria-hidden="true">2</span>
-          <div class="step-body">
-            <p><strong>Connect it to your assistant.</strong> In Claude Code, run:</p>
-            <Snippet :code="claudeCode" testid="mcp-claude-code" shell />
-            <p>
-              In Cursor, Windsurf or Claude Desktop, add this to the assistant's MCP settings file.
-              For Cursor that is <code>~/.cursor/mcp.json</code>.
-            </p>
-            <Snippet :code="mcpJson" lang="json" />
+        <p class="takeaway display">Nobody asked it to check. You find out <mark>30 days before</mark> the call fails, not the morning it does.</p>
+        <p class="fineprint">Your request, DocsWatcher's answer and the assistant's note are word for word; the check is summarised.</p>
+      </section>
+
+      <section class="chapter" id="setup">
+        <h2>Set it up in two steps</h2>
+        <ol class="setup">
+          <li>
+            <span class="step" aria-hidden="true">1</span>
+            <div class="step-body">
+              <h3>Install</h3>
+              <p>One file. No account, no root.</p>
+              <Snippet :code="install" shell />
+              <p class="hint">
+                Mac with Apple silicon: change <code>linux-x64</code> to <code>macos-arm64</code>. Windows, or to
+                download it yourself: the <a href="https://github.com/jameskomo/docswatcher/releases/latest" target="_blank" rel="noopener">release page</a>,
+                with <code>checksums.txt</code> to verify it.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="step" aria-hidden="true">2</span>
+            <div class="step-body">
+              <h3>Connect your assistant</h3>
+              <p class="label">Claude Code</p>
+              <Snippet :code="claudeCode" testid="mcp-claude-code" shell />
+              <p class="label">Cursor, Windsurf or Claude Desktop: add to the MCP settings file (Cursor: <code>~/.cursor/mcp.json</code>)</p>
+              <Snippet :code="mcpJson" lang="json" />
+            </div>
+          </li>
+        </ol>
+        <p class="done"><strong>That's it.</strong> Nothing to configure, nothing to remember to run.</p>
+      </section>
+
+      <section class="chapter">
+        <h2>What your assistant can ask</h2>
+        <table class="tools">
+          <thead><tr><th>Tool</th><th>The question it answers</th></tr></thead>
+          <tbody>
+            <tr><td><code>check_api</code></td><td>Is this model, endpoint or API version still safe to use?</td></tr>
+            <tr><td><code>upcoming_deprecations</code></td><td>What shuts down soon, for one provider or all of them?</td></tr>
+            <tr><td><code>scan_repository</code></td><td>Which calls in this project already have a shutdown date?</td></tr>
+          </tbody>
+        </table>
+        <p data-testid="agents-own-apis">
+          It knows <strong>your own APIs</strong> too. Started in a project, it reads that project's
+          <code>.docswatcher/</code> records, so an internal endpoint your team is retiring is flagged like a
+          provider's. <a href="https://github.com/jameskomo/docswatcher/blob/main/docs/19-your-own-apis.md" target="_blank" rel="noopener">How to write them</a>
+        </p>
+      </section>
+
+      <section class="chapter" id="try">
+        <h2>Try it with your own key</h2>
+        <p>
+          Ask Claude, GPT or Gemini to write something and compare the answer with DocsWatcher and without it.
+          <strong>Your key goes only to the provider</strong>, straight from this browser.
+        </p>
+        <TryAssistant />
+      </section>
+
+      <section class="chapter">
+        <h2>Questions</h2>
+        <dl class="faq">
+          <div>
+            <dt>What is MCP?</dt>
+            <dd>The Model Context Protocol: the standard way to give an assistant extra tools. The two steps above are the whole setup.</dd>
           </div>
-        </div>
-      </div>
-      <p>That is all. There is nothing to configure and nothing to remember to run.</p>
-
-      <h2>What your assistant can ask it</h2>
-      <table>
-        <thead>
-          <tr><th>Question</th><th>Asked through</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Is this model, API endpoint or API version still safe to use?</td>
-            <td><code>check_api</code></td>
-          </tr>
-          <tr>
-            <td>What is being shut down soon, for one provider or all of them?</td>
-            <td><code>upcoming_deprecations</code></td>
-          </tr>
-          <tr>
-            <td>Which calls in this project already have a shutdown date?</td>
-            <td><code>scan_repository</code></td>
-          </tr>
-        </tbody>
-      </table>
-      <p data-testid="agents-own-apis">
-        It also knows your own APIs. Started in a project, it reads that project's
-        <code>.docswatcher/</code> records, so your assistant is told about an internal endpoint your
-        team is retiring the same way it is told about a provider's.
-        <a href="https://github.com/jameskomo/docswatcher/blob/main/docs/19-your-own-apis.md" target="_blank" rel="noopener">Your own APIs</a>
-      </p>
-
-      <h2>Questions</h2>
-      <dl class="faq">
-        <dt>What is MCP?</dt>
-        <dd>
-          The Model Context Protocol, the standard way to give an AI assistant extra tools. You do not
-          need to know more than that: the two steps above are the whole setup.
-        </dd>
-
-        <dt>Does my code get sent anywhere?</dt>
-        <dd>
-          No. DocsWatcher runs on your machine, and the list of shutdown dates is built into it. It
-          makes no network calls, writes no files and runs nothing else.
-        </dd>
-
-        <dt>Is my API key safe in "Try it"?</dt>
-        <dd>
-          It is sent only from your browser to the provider you pick, never to DocsWatcher: there is
-          no DocsWatcher server in between. It is kept in memory and forgotten when you leave the
-          page, unless you tick "Remember the key on this device".
-        </dd>
-
-        <dt>What does it know about?</dt>
-        <dd>
-          {{ totalChanges }} published shutdowns and changes across {{ providerNames }}. When it says
-          "no known deprecation", it means nothing <em>known</em>. Update it by running the install
-          step again.
-        </dd>
-
-        <dt>Why not just tell the assistant "never use old models"?</dt>
-        <dd>
-          It cannot follow a rule about facts it does not have. Its knowledge stops months ago;
-          DocsWatcher gives it the current dates.
-        </dd>
-
-        <dt>macOS or Windows?</dt>
-        <dd>
-          Both. A Mac with Apple silicon takes <code>docswatcher-macos-arm64</code> and Windows takes
-          <code>docswatcher-windows-x64.exe</code>, each a single file on the release page. If the
-          folder you put it in is not on your <code>PATH</code>, give your assistant the full path
-          to the file instead of <code>docswatcher</code>. An Intel Mac has no single file yet: the
-          portable <code>docswatcher.jar</code> runs anywhere with Java 25, as
-          <code>java -jar docswatcher.jar mcp</code>.
-        </dd>
-      </dl>
+          <div>
+            <dt>Does my code get sent anywhere?</dt>
+            <dd><strong>No.</strong> It runs on your machine with the shutdown list built in. No network calls, no files written, nothing else run.</dd>
+          </div>
+          <div>
+            <dt>Is my key safe in "Try it"?</dt>
+            <dd>It goes from your browser to the provider you pick, never to DocsWatcher. It is kept in memory unless you tick "Remember the key on this device".</dd>
+          </div>
+          <div>
+            <dt>What does it know about?</dt>
+            <dd>{{ totalChanges }} dated changes across {{ providerCount }} providers (<NuxtLink to="/about">the list</NuxtLink>). "No known deprecation" means nothing <em>known</em>. Run the install step again to update.</dd>
+          </div>
+          <div>
+            <dt>Why not tell it "never use old models"?</dt>
+            <dd>It cannot follow a rule about facts it does not have. DocsWatcher gives it today's dates.</dd>
+          </div>
+          <div>
+            <dt>macOS or Windows?</dt>
+            <dd>
+              Both: <code>docswatcher-macos-arm64</code> and <code>docswatcher-windows-x64.exe</code> on the release page.
+              Not on your <code>PATH</code>? Give the assistant the file's full path. Intel Mac:
+              <code>java -jar docswatcher.jar mcp</code> with Java 25.
+            </dd>
+          </div>
+        </dl>
+      </section>
     </div>
   </article>
 </template>
 
 <style scoped>
-/* One column for everything: headline, intro and body share both edges. */
-/* Full width, like every page; running text keeps its measure from .prose. */
-.agents h1 { font-size: clamp(1.75rem, 3.4vw, 2.5rem); line-height: 1.15; text-wrap: balance; }
-.agents .lede { margin-top: var(--s3); }
-.agents .prose { margin-top: var(--s5); }
-.exchange {
-  display: grid;
-  gap: var(--s2);
-  border: 1px solid var(--hair);
-  border-radius: var(--radius-sm);
-  padding: var(--s3);
-}
-.turn { display: grid; grid-template-columns: 11rem 1fr; gap: var(--s3); align-items: baseline; }
-.who { font-size: var(--t1); font-weight: 600; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.04em; }
-.turn .mono { font-family: var(--face-mono); font-size: var(--t2); overflow-wrap: anywhere; }
-.steps { display: grid; gap: var(--s5); margin-top: var(--s4); }
-.step { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: var(--s3); }
-.step-n {
-  width: 2rem; height: 2rem; border-radius: 50%;
-  display: grid; place-items: center;
-  font-weight: 700; color: var(--ink-max); border: 1px solid var(--hair-strong);
-}
-/* min-width: 0 lets a long command scroll inside its block instead of widening the page. */
-.step-body { min-width: 0; }
-.step-body > * + * { margin-top: var(--s3); }
-.faq dt { font-weight: 600; color: var(--ink-max); margin-top: var(--s3); }
-.faq dd { margin: 4px 0 0; color: var(--ink-soft); }
-td code { overflow-wrap: anywhere; }
-@media (max-width: 560px) {
-  .turn { grid-template-columns: 1fr; gap: 2px; }
+.opening { display: flex; flex-direction: column; gap: 22px; padding: 72px 0 56px; }
+.opening h1 { font-size: clamp(2.125rem, 4.6vw, 3.5rem); line-height: 1.04; max-width: 16em; }
+.lede { margin: 0; max-width: 40em; font-size: 1.0625rem; line-height: 1.6; color: var(--ink-soft); }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+
+/* .prose stays for the shared reading styles; the chapter layout here outranks its spacing. */
+.agents-body { max-width: none; display: flex; flex-direction: column; gap: 80px; padding-bottom: 40px; }
+.agents-body > * + * { margin-top: 0; }
+.chapter { display: flex; flex-direction: column; gap: 18px; scroll-margin-top: 88px; }
+.chapter > h2 { font-size: clamp(1.625rem, 2.6vw, 2rem); line-height: 1.15; margin: 0; }
+.chapter > p { margin: 0; max-width: 44rem; line-height: 1.7; color: var(--ink); }
+
+/* The exchange: a transcript on a dark block, like the code. */
+.exchange { background: var(--night); color: var(--night-ink); border: 1px solid var(--night-line); padding: 6px 0; }
+.turn { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 16px; padding: 14px 20px; align-items: baseline; }
+.turn + .turn { border-top: 1px solid var(--night-line); }
+.who { font-size: var(--t1); letter-spacing: 0.06em; text-transform: uppercase; color: var(--night-faint); }
+.said { line-height: 1.6; overflow-wrap: anywhere; }
+.turn-answer { background: #1a0d0b; }
+.turn-answer .who { color: var(--signal); }
+.badge { display: inline-block; padding: 1px 8px; margin-right: 6px; background: var(--signal); color: var(--on-signal); font-weight: 700; font-size: var(--t2); letter-spacing: 0.04em; }
+.hl { color: #e3c98a; font-weight: 700; }
+.call { color: #8ed3c6; }
+.aside { color: var(--night-faint); font-size: var(--t2); }
+.takeaway { margin: 8px 0 0 !important; font-size: clamp(1.375rem, 2.4vw, 1.875rem) !important; line-height: 1.25 !important; max-width: 26em !important; color: var(--ink-max) !important; }
+.takeaway mark { background: var(--signal); color: var(--on-signal); padding: 0 6px; }
+.fineprint { font-size: var(--t1); color: var(--ink-faint) !important; }
+
+/* Setup: numbered like the scan passes on About. */
+.setup { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1.5px solid var(--rule); }
+.setup > li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 16px; padding: 28px 0; margin: 0; }
+.setup > li + li { border-top: 1px solid var(--hair); }
+.step { font-size: 2.5rem; font-weight: 700; line-height: 1; color: var(--signal-ink); }
+.step-body { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.step-body h3 { margin: 0; font-size: 1.375rem; }
+.step-body p { margin: 0; }
+.label { font-size: var(--t2); font-weight: 700; color: var(--ink-max); margin-top: 6px !important; }
+.hint { font-size: var(--t2); color: var(--ink-soft); line-height: 1.6; }
+.done { font-size: 1.0625rem; }
+
+/* Tools: the tool name leads. */
+.tools { width: 100%; border-collapse: collapse; margin: 0; }
+.tools th, .tools td { text-align: left; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--hair); vertical-align: baseline; }
+.tools td:first-child { width: 16rem; }
+.tools td:first-child code { font-size: var(--t3); font-weight: 700; }
+.tools td:last-child { color: var(--ink); }
+
+/* Questions: two across, the question in display type. */
+.faq { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 0 48px; border-top: 1.5px solid var(--rule); }
+.faq > div { padding: 22px 0; border-bottom: 1px solid var(--hair); }
+.faq dt { font-family: var(--face-display); font-stretch: 75%; word-spacing: -0.3em; font-weight: 700; font-size: 1.1875rem; color: var(--ink-max); }
+.faq dd { margin: 8px 0 0; color: var(--ink-soft); line-height: 1.65; }
+
+@media (max-width: 640px) {
+  .opening { padding: 44px 0 36px; }
+  .turn { grid-template-columns: 1fr; gap: 4px; padding: 12px 14px; }
+  .setup > li { grid-template-columns: 40px minmax(0, 1fr); }
+  .step { font-size: 1.875rem; }
+  .tools td:first-child { width: auto; }
+  .tools td:first-child code { font-size: var(--t2); }
 }
 </style>
