@@ -2106,6 +2106,44 @@ html[data-theme="dark"] { color-scheme: dark; }
 [data-theme] .cap h3 .icon, [data-theme] .cap h3 svg { display: none; }
 [data-theme] .cap p { color: var(--ink-soft); }
 
+
+/* Documentation pages (Agents, CI, Teams): an opening, chapters, numbered steps, a statement line,
+   questions and plain tables. One source, so the three pages read as one site. */
+[data-theme] .doc-opening { display: flex; flex-direction: column; gap: 22px; padding: 72px 0 56px; }
+[data-theme] .doc-opening h1 { font-size: clamp(2.125rem, 4.6vw, 3.5rem); line-height: 1.04; max-width: 16em; }
+[data-theme] .doc-opening .lede { margin: 0; max-width: 40em; font-size: 1.0625rem; line-height: 1.6; color: var(--ink-soft); }
+[data-theme] .doc-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+[data-theme] .doc-body { max-width: none; display: flex; flex-direction: column; gap: 80px; padding-bottom: 40px; }
+[data-theme] .doc-body > * + * { margin-top: 0; }
+[data-theme] .doc-chapter { display: flex; flex-direction: column; gap: 18px; scroll-margin-top: 88px; }
+[data-theme] .doc-chapter > h2 { font-size: clamp(1.625rem, 2.6vw, 2rem); line-height: 1.15; margin: 0; }
+[data-theme] .doc-chapter > p { margin: 0; max-width: 44rem; line-height: 1.7; color: var(--ink); }
+[data-theme] .doc-steps { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--rule); }
+[data-theme] .doc-steps > li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 16px; padding: 28px 0; margin: 0; }
+[data-theme] .doc-steps > li + li { border-top: 1px solid var(--hair); }
+[data-theme] .doc-steps .step { font-size: 2.5rem; font-weight: 700; line-height: 1; color: var(--signal-ink); }
+[data-theme] .doc-steps .step-body { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+[data-theme] .doc-steps .step-body h3 { margin: 0; font-size: 1.375rem; }
+[data-theme] .doc-steps .step-body p, [data-theme] .doc-steps .step-body ul { margin: 0; }
+[data-theme] .doc-hint { margin: 0; font-size: var(--t2); line-height: 1.6; color: var(--ink-soft); }
+[data-theme] .doc-label { margin: 6px 0 0; font-size: var(--t2); font-weight: 700; color: var(--ink-max); }
+[data-theme] .doc-statement { margin: 0; max-width: 26em; font-size: clamp(1.375rem, 2.4vw, 1.875rem); line-height: 1.25; color: var(--ink-max); }
+[data-theme] .doc-statement mark { background: var(--signal); color: var(--on-signal); padding: 0 6px; }
+[data-theme] .doc-faq { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 0 48px; border-top: 1.5px solid var(--rule); }
+[data-theme] .doc-faq > div { padding: 22px 0; border-bottom: 1px solid var(--hair); }
+[data-theme] .doc-faq dt { font-family: var(--face-display); font-stretch: 75%; word-spacing: -0.3em; font-weight: 700; font-size: 1.1875rem; color: var(--ink-max); }
+[data-theme] .doc-faq dd { margin: 8px 0 0; color: var(--ink-soft); line-height: 1.65; }
+[data-theme] .doc-table { width: 100%; border-collapse: collapse; margin: 0; }
+[data-theme] .doc-table th, [data-theme] .doc-table td { text-align: left; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--hair); vertical-align: baseline; }
+[data-theme] .doc-table td { color: var(--ink); }
+[data-theme] .doc-table td:first-child code { font-weight: 700; }
+[data-theme] .doc-table-scroll { overflow-x: auto; }
+@media (max-width: 640px) {
+  [data-theme] .doc-opening { padding: 44px 0 36px; }
+  [data-theme] .doc-steps > li { grid-template-columns: 40px minmax(0, 1fr); }
+  [data-theme] .doc-steps .step { font-size: 1.875rem; }
+}
+
 /* Full-bleed dark band inside main.wrap */
 [data-theme] .band {
   width: 100vw; margin-left: calc(50% - 50vw);

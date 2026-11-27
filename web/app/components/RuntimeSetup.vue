@@ -102,74 +102,81 @@ new NodeSDK({
 
 <template>
   <div class="runtime-setup" data-testid="runtime-setup">
-    <ol class="steps">
+    <ol class="doc-steps">
       <li>
-        <strong>Make an ingest token</strong>, the password your Collector sends with its data. It
-        can only upload call data for one repository; it cannot read the dashboard or change anything.
-        <span v-if="repo">
-          One per repository: create it under <em>Ingest tokens</em> for <span class="mono">{{ repo }}</span>.
-        </span>
-        <span v-else>
-          Sign in on the dashboard, pick the repository under <em>What actually runs</em>, and
-          create a token. Anyone with write access to the repository can.
-        </span>
-        The token says which repository the calls belong to, so nothing in your telemetry has to.
+        <span class="step" aria-hidden="true">1</span>
+        <div class="step-body">
+          <h3>Make an ingest token</h3>
+          <p>
+            The password your Collector sends with its data. It can <strong>only upload</strong> call data for one
+            repository: it cannot read the dashboard or change anything.
+          </p>
+          <p class="doc-hint">
+            <template v-if="repo">One per repository: create it under <em>Ingest tokens</em> for <code>{{ repo }}</code>.</template>
+            <template v-else>Sign in on the dashboard, pick the repository under <em>What actually runs</em>, and create one. Anyone with write access can.</template>
+            The token names the repository, so nothing in your telemetry has to.
+          </p>
+        </div>
       </li>
       <li>
-        <strong>Add DocsWatcher to your OpenTelemetry Collector.</strong>
-        It keeps only outbound HTTP calls, removes everything else from them, and sends the rest
-        as JSON.
-        <Snippet :code="collector" lang="yaml" testid="runtime-collector-config" />
-        Give the Collector the token as an environment variable:
-        <Snippet :code="collectorEnv" lang="dotenv" />
+        <span class="step" aria-hidden="true">2</span>
+        <div class="step-body">
+          <h3>Add DocsWatcher to your Collector</h3>
+          <p>It keeps only outbound HTTP calls, strips everything else from them, and sends the rest as JSON.</p>
+          <Snippet :code="collector" lang="yaml" testid="runtime-collector-config" />
+          <p class="doc-label">The token, as an environment variable</p>
+          <Snippet :code="collectorEnv" lang="dotenv" />
+        </div>
       </li>
       <li>
-        <strong>Capture the two headers in each service.</strong>
-        Providers announce a shutdown in the <span class="mono">Deprecation</span> and
-        <span class="mono">Sunset</span> response headers, which OpenTelemetry does not record
-        unless you name them. The services then send to your Collector as they may already do.
-        <div class="sdks">
-          <div><h4>Java</h4><Snippet :code="java" lang="dotenv" testid="runtime-sdk-java" /></div>
-          <div><h4>Python</h4><Snippet :code="python" lang="dotenv" testid="runtime-sdk-python" /></div>
-          <div><h4>Node</h4><Snippet :code="nodeEnv" lang="dotenv" testid="runtime-sdk-node" /><Snippet :code="nodeCode" lang="javascript" /></div>
+        <span class="step" aria-hidden="true">3</span>
+        <div class="step-body">
+          <h3>Capture two headers in each service</h3>
+          <p>
+            Providers announce a shutdown in the <code>Deprecation</code> and <code>Sunset</code> response headers,
+            which OpenTelemetry records only if you name them.
+          </p>
+          <div class="sdks">
+            <div><p class="doc-label">Java</p><Snippet :code="java" lang="dotenv" testid="runtime-sdk-java" /></div>
+            <div><p class="doc-label">Python</p><Snippet :code="python" lang="dotenv" testid="runtime-sdk-python" /></div>
+            <div class="sdk-node"><p class="doc-label">Node</p><Snippet :code="nodeEnv" lang="dotenv" testid="runtime-sdk-node" /><Snippet :code="nodeCode" lang="javascript" /></div>
+          </div>
         </div>
       </li>
     </ol>
 
-    <h4>What is sent, and what is kept</h4>
-    <ul class="privacy" data-testid="runtime-privacy">
-      <li>
-        <strong>Sent:</strong> outbound HTTP client spans only, each reduced to method, host, path,
-        status code and, when the provider sent them, the Deprecation and Sunset headers, plus the
-        service name. The Collector removes query strings before anything leaves.
-      </li>
-      <li>
-        <strong>Never sent:</strong> request or response bodies, any other header (your
-        Authorization header included), inbound requests, database calls, logs and metrics.
-        Span names, timings and trace ids travel with the OTLP format and are discarded on arrival.
-      </li>
-      <li>
-        <strong>Kept:</strong> one row per repository, day and endpoint, with a call count, and only
-        for endpoints DocsWatcher already found in your code or that carried one of the two headers.
-        Nothing per call, no trace ids, no user identifiers.
-      </li>
-      <li>
-        <strong>Stopping:</strong> revoke the token and the next export is refused.
-      </li>
-    </ul>
+    <h3 class="privacy-title">What is sent, and what is kept</h3>
+    <div class="doc-table-scroll">
+      <table class="doc-table privacy" data-testid="runtime-privacy">
+        <tbody>
+          <tr>
+            <th scope="row">Sent</th>
+            <td>Outbound HTTP client spans only, each reduced to method, host, path and status code, plus the Deprecation and Sunset headers when the provider sent them, and the service name. Query strings are removed before anything leaves.</td>
+          </tr>
+          <tr>
+            <th scope="row">Never sent</th>
+            <td>No request or response bodies, no other header (Authorization included), no inbound requests, database calls, logs or metrics. Span names, timings and trace ids arrive with the OTLP format and are discarded.</td>
+          </tr>
+          <tr>
+            <th scope="row">Kept</th>
+            <td>One row per repository, day and endpoint with a call count, only for endpoints DocsWatcher already found in your code or that carried one of the two headers. Nothing per call, no trace ids, no user identifiers.</td>
+          </tr>
+          <tr>
+            <th scope="row">Stopping</th>
+            <td>Revoke the token; the next export is refused.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.runtime-setup { display: grid; gap: var(--s3); min-width: 0; }
-/* Grid items grow to their widest line unless told not to; a long config line must scroll inside its block. */
-.runtime-setup > *, .steps > li > *, .sdks > div > * { min-width: 0; }
-.steps { display: grid; gap: var(--s4); padding-left: var(--s4); margin: 0; }
-/* Block, not grid: a step is running text with inline code, then its snippets. */
-.steps li { min-width: 0; }
-.steps li > .snippet, .steps li > .sdks { margin-block: var(--s2); }
-.sdks { display: grid; gap: var(--s3); min-width: 0; }
-.sdks > div { display: grid; gap: var(--s2); min-width: 0; }
-.sdks h4, .runtime-setup > h4 { margin: 0; }
-.privacy { display: grid; gap: var(--s2); padding-left: var(--s4); margin: 0; }
+.runtime-setup { min-width: 0; display: flex; flex-direction: column; gap: 18px; }
+/* One per row: the variable names are long, and two columns clip them under the Copy button. */
+.sdks { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; min-width: 0; }
+.sdks > div { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.privacy-title { margin: 12px 0 0; font-size: 1.375rem; }
+.privacy th { width: 9rem; font-family: var(--face); font-size: var(--t2); font-weight: 700; color: var(--ink-max); text-transform: none; letter-spacing: 0; border-bottom: 1px solid var(--hair); }
+.privacy td { line-height: 1.6; }
 </style>

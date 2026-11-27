@@ -31,7 +31,7 @@ useHead({
 
 <template>
   <article class="agents">
-    <section class="opening">
+    <section class="doc-opening">
       <p class="eyebrow">For Claude Code, Cursor, Windsurf and Claude Desktop</p>
       <h1>Stop your AI assistant writing code that is about to break.</h1>
       <p class="lede">
@@ -39,15 +39,15 @@ useHead({
         shutting down. Connect DocsWatcher and your assistant <strong>checks first</strong>, then tells you
         what to use instead.
       </p>
-      <div class="actions">
+      <div class="doc-actions">
         <button type="button" class="btn solid" @click="go('setup')">Set it up in two steps</button>
         <button type="button" class="btn" @click="go('try')">Try it with your own key</button>
       </div>
     </section>
 
-    <div class="prose agents-body">
+    <div class="prose doc-body">
       <!-- The proof: a real session, verbatim (2026-09-23). The prompt never mentioned DocsWatcher. -->
-      <section class="chapter">
+      <section class="doc-chapter">
         <p class="eyebrow">What it looks like · recorded in Claude Code, 23 September 2026</p>
         <div class="exchange" data-testid="agent-exchange">
           <div class="turn">
@@ -67,20 +67,20 @@ useHead({
             <span class="said">Note: OpenAI shuts down gpt-4-turbo on 2026-10-23, 30 days from now, after which this call will fail, so change the model string to the recommended replacement, gpt-5.6-sol, before then.</span>
           </div>
         </div>
-        <p class="takeaway display">Nobody asked it to check. You find out <mark>30 days before</mark> the call fails, not the morning it does.</p>
+        <p class="doc-statement display">Nobody asked it to check. You find out <mark>30 days before</mark> the call fails, not the morning it does.</p>
         <p class="fineprint">Your request, DocsWatcher's answer and the assistant's note are word for word; the check is summarised.</p>
       </section>
 
-      <section class="chapter" id="setup">
+      <section class="doc-chapter" id="setup">
         <h2>Set it up in two steps</h2>
-        <ol class="setup">
+        <ol class="doc-steps">
           <li>
             <span class="step" aria-hidden="true">1</span>
             <div class="step-body">
               <h3>Install</h3>
               <p>One file. No account, no root.</p>
               <Snippet :code="install" shell />
-              <p class="hint">
+              <p class="doc-hint">
                 Mac with Apple silicon: change <code>linux-x64</code> to <code>macos-arm64</code>. Windows, or to
                 download it yourself: the <a href="https://github.com/jameskomo/docswatcher/releases/latest" target="_blank" rel="noopener">release page</a>,
                 with <code>checksums.txt</code> to verify it.
@@ -91,9 +91,9 @@ useHead({
             <span class="step" aria-hidden="true">2</span>
             <div class="step-body">
               <h3>Connect your assistant</h3>
-              <p class="label">Claude Code</p>
+              <p class="doc-label">Claude Code</p>
               <Snippet :code="claudeCode" testid="mcp-claude-code" shell />
-              <p class="label">Cursor, Windsurf or Claude Desktop: add to the MCP settings file (Cursor: <code>~/.cursor/mcp.json</code>)</p>
+              <p class="doc-label">Cursor, Windsurf or Claude Desktop: add to the MCP settings file (Cursor: <code>~/.cursor/mcp.json</code>)</p>
               <Snippet :code="mcpJson" lang="json" />
             </div>
           </li>
@@ -101,9 +101,9 @@ useHead({
         <p class="done"><strong>That's it.</strong> Nothing to configure, nothing to remember to run.</p>
       </section>
 
-      <section class="chapter">
+      <section class="doc-chapter">
         <h2>What your assistant can ask</h2>
-        <table class="tools">
+        <table class="doc-table tools">
           <thead><tr><th>Tool</th><th>The question it answers</th></tr></thead>
           <tbody>
             <tr><td><code>check_api</code></td><td>Is this model, endpoint or API version still safe to use?</td></tr>
@@ -118,7 +118,7 @@ useHead({
         </p>
       </section>
 
-      <section class="chapter" id="try">
+      <section class="doc-chapter" id="try">
         <h2>Try it with your own key</h2>
         <p>
           Ask Claude, GPT or Gemini to write something and compare the answer with DocsWatcher and without it.
@@ -127,9 +127,9 @@ useHead({
         <TryAssistant />
       </section>
 
-      <section class="chapter">
+      <section class="doc-chapter">
         <h2>Questions</h2>
-        <dl class="faq">
+        <dl class="doc-faq">
           <div>
             <dt>What is MCP?</dt>
             <dd>The Model Context Protocol: the standard way to give an assistant extra tools. The two steps above are the whole setup.</dd>
@@ -165,19 +165,7 @@ useHead({
 </template>
 
 <style scoped>
-.opening { display: flex; flex-direction: column; gap: 22px; padding: 72px 0 56px; }
-.opening h1 { font-size: clamp(2.125rem, 4.6vw, 3.5rem); line-height: 1.04; max-width: 16em; }
-.lede { margin: 0; max-width: 40em; font-size: 1.0625rem; line-height: 1.6; color: var(--ink-soft); }
-.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
-
-/* .prose stays for the shared reading styles; the chapter layout here outranks its spacing. */
-.agents-body { max-width: none; display: flex; flex-direction: column; gap: 80px; padding-bottom: 40px; }
-.agents-body > * + * { margin-top: 0; }
-.chapter { display: flex; flex-direction: column; gap: 18px; scroll-margin-top: 88px; }
-.chapter > h2 { font-size: clamp(1.625rem, 2.6vw, 2rem); line-height: 1.15; margin: 0; }
-.chapter > p { margin: 0; max-width: 44rem; line-height: 1.7; color: var(--ink); }
-
-/* The exchange: a transcript on a dark block, like the code. */
+/* Layout comes from the shared doc-* classes in main.css; what is here is this page's own. */
 .exchange { background: var(--night); color: var(--night-ink); border: 1px solid var(--night-line); padding: 6px 0; }
 .turn { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 16px; padding: 14px 20px; align-items: baseline; }
 .turn + .turn { border-top: 1px solid var(--night-line); }
@@ -189,40 +177,13 @@ useHead({
 .hl { color: #e3c98a; font-weight: 700; }
 .call { color: #8ed3c6; }
 .aside { color: var(--night-faint); font-size: var(--t2); }
-.takeaway { margin: 8px 0 0 !important; font-size: clamp(1.375rem, 2.4vw, 1.875rem) !important; line-height: 1.25 !important; max-width: 26em !important; color: var(--ink-max) !important; }
-.takeaway mark { background: var(--signal); color: var(--on-signal); padding: 0 6px; }
+.doc-statement { margin-top: 8px; }
 .fineprint { font-size: var(--t1); color: var(--ink-faint) !important; }
-
-/* Setup: numbered like the scan passes on About. */
-.setup { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1.5px solid var(--rule); }
-.setup > li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 16px; padding: 28px 0; margin: 0; }
-.setup > li + li { border-top: 1px solid var(--hair); }
-.step { font-size: 2.5rem; font-weight: 700; line-height: 1; color: var(--signal-ink); }
-.step-body { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
-.step-body h3 { margin: 0; font-size: 1.375rem; }
-.step-body p { margin: 0; }
-.label { font-size: var(--t2); font-weight: 700; color: var(--ink-max); margin-top: 6px !important; }
-.hint { font-size: var(--t2); color: var(--ink-soft); line-height: 1.6; }
 .done { font-size: 1.0625rem; }
-
-/* Tools: the tool name leads. */
-.tools { width: 100%; border-collapse: collapse; margin: 0; }
-.tools th, .tools td { text-align: left; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--hair); vertical-align: baseline; }
 .tools td:first-child { width: 16rem; }
-.tools td:first-child code { font-size: var(--t3); font-weight: 700; }
-.tools td:last-child { color: var(--ink); }
-
-/* Questions: two across, the question in display type. */
-.faq { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 0 48px; border-top: 1.5px solid var(--rule); }
-.faq > div { padding: 22px 0; border-bottom: 1px solid var(--hair); }
-.faq dt { font-family: var(--face-display); font-stretch: 75%; word-spacing: -0.3em; font-weight: 700; font-size: 1.1875rem; color: var(--ink-max); }
-.faq dd { margin: 8px 0 0; color: var(--ink-soft); line-height: 1.65; }
-
+.tools td:first-child code { font-size: var(--t3); }
 @media (max-width: 640px) {
-  .opening { padding: 44px 0 36px; }
   .turn { grid-template-columns: 1fr; gap: 4px; padding: 12px 14px; }
-  .setup > li { grid-template-columns: 40px minmax(0, 1fr); }
-  .step { font-size: 1.875rem; }
   .tools td:first-child { width: auto; }
   .tools td:first-child code { font-size: var(--t2); }
 }
