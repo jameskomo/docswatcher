@@ -59,7 +59,7 @@ async function withPolicy(page: Page, policy: string | null) {
 async function scanUrl(page: Page, address: string) {
   await expect(page.locator("#results")).toBeVisible();
   await page.getByRole("tab", { name: /GitHub or GitLab URL/i }).click();
-  await page.getByPlaceholder(/gitlab\.com/i).fill(address);
+  await page.locator("#repo-url").fill(address);
   await page.getByRole("button", { name: /scan repository/i }).click();
 }
 

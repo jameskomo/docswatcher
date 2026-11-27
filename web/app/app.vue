@@ -45,38 +45,6 @@ const footerLinks = computed(() => [
     { label: "How this works", to: "/about" },
   ] },
 ]);
-
-const theme = ref<"dark" | "light">("dark");
-
-function applyTheme(t: "dark" | "light") {
-  theme.value = t;
-  if (typeof document !== "undefined") {
-    document.documentElement.setAttribute("data-theme", t);
-  }
-}
-
-function toggleTheme() {
-  const next = theme.value === "dark" ? "light" : "dark";
-  applyTheme(next);
-  try {
-    localStorage.setItem("docswatcher.theme", next);
-  } catch {}
-}
-
-onMounted(() => {
-  try {
-    const saved = localStorage.getItem("docswatcher.theme");
-    if (saved === "light" || saved === "dark") {
-      applyTheme(saved);
-      return;
-    }
-  } catch {}
-  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
-    applyTheme("light");
-  } else {
-    applyTheme("dark");
-  }
-});
 </script>
 
 <template>
@@ -87,15 +55,15 @@ onMounted(() => {
       <div class="wrap">
         <div class="brand-group">
           <NuxtLink to="/" class="wordmark" aria-label="DocsWatcher home">
-            <span class="wordmark-logo">
-              <span class="tick" aria-hidden="true"></span>
-            </span>
+            <svg class="wordmark-logo" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+              <rect x="1" y="1" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" />
+              <line x1="5" y1="11" x2="17" y2="11" class="tick" stroke-width="3" />
+            </svg>
             <span>DocsWatcher</span>
           </NuxtLink>
 
-          <span class="registry-badge" title="Deprecation registry active and verified">
-            <span class="live-dot" aria-hidden="true"></span>
-            <span>KB {{ knowledge.version }} · {{ changes }} tracked</span>
+          <span class="registry-badge" title="Knowledge base version and the number of published changes it tracks">
+            KB {{ knowledge.version }} · {{ changes }} records
           </span>
         </div>
 
@@ -107,16 +75,6 @@ onMounted(() => {
           <NuxtLink to="/agents">Agents</NuxtLink>
           <NuxtLink to="/teams">Teams</NuxtLink>
           <NuxtLink to="/about">About</NuxtLink>
-          <button
-            type="button"
-            class="theme-toggle-btn"
-            :aria-label="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`"
-            :title="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`"
-            @click="toggleTheme"
-          >
-            <Icon v-if="theme === 'dark'" name="sun" />
-            <Icon v-else name="moon" />
-          </button>
         </nav>
       </div>
     </header>

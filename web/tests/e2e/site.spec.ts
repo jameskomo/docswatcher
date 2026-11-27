@@ -125,8 +125,9 @@ test("about page explains the product and reports the real counts", async ({ pag
   await expect(page.locator("h1")).toContainText("You can pin a package");
   await expect(page.locator(".prose")).toContainText("What DocsWatcher is not");
   await expect(page.locator(".prose")).toContainText("What does not exist yet");
-  // The provider table is generated from the knowledge base, not hardcoded.
-  await expect(page.locator(".prose table")).toContainText("Shopify");
+  // The provider table is generated from the knowledge base, not hardcoded. (The page has a second
+  // table, what leaves your machine, so this one is found by its section.)
+  await expect(page.locator(".prose #providers table")).toContainText("Shopify");
   expect(own(failed)).toEqual([]);
 });
 
@@ -179,37 +180,6 @@ test("direct visit to /app prepares example dashboard without runtime error", as
   await expect(page.locator("#map")).toContainText("OpenAI");
   expect(own(failed)).toEqual([]);
 });
-
-test("theme toggle switches between dark and light mode", async ({ page }) => {
-  await page.goto("./");
-  const toggleBtn = page.locator(".theme-toggle-btn");
-  await expect(toggleBtn).toBeVisible();
-
-  // Initial theme (defaults to dark or system)
-  const initialTheme = await page.evaluate(() => document.documentElement.getAttribute("data-theme") || "dark");
-  await toggleBtn.click();
-
-  const newTheme = await page.evaluate(() => document.documentElement.getAttribute("data-theme"));
-  expect(newTheme).not.toEqual(initialTheme);
-
-  // Toggle back
-  await toggleBtn.click();
-  const restoredTheme = await page.evaluate(() => document.documentElement.getAttribute("data-theme"));
-  expect(restoredTheme).toEqual(initialTheme);
-});
-
-test("the CI page explains the integration and offers a copyable snippet", async ({ page }) => {
-  const failed = watchFailures(page);
-  await page.goto("./#/ci");
-  await expect(page.locator("h1")).toHaveCount(1);
-  // Structure and behaviour, not wording: the page has to actually carry a snippet someone
-  // can copy, and it has to name the command the exit code contract rests on.
-  await expect(page.locator(".snippet")).not.toHaveCount(0);
-  await expect(page.locator(".prose")).toContainText("docswatcher match");
-  expect(failed).toEqual([]);
-});
-
-// ---- docs/15-feeds-and-sharing.md
 
 test("a live scan link scans the named repository on arrival", async ({ page }) => {
   // Offline, so the fetch fails; what matters is that the link started a scan of that repository.

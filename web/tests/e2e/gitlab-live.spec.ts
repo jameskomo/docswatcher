@@ -11,7 +11,7 @@ test("scans a real gitlab.com project by URL", async ({ page }) => {
   page.on("requestfailed", (r) => { if (r.url().startsWith("https://gitlab.com/")) failed.push(r.url()); });
   await page.goto("./");
   await page.getByRole("tab", { name: /GitHub or GitLab URL/i }).click();
-  await page.getByPlaceholder(/gitlab\.com/i).fill("https://gitlab.com/gitlab-org/cli");
+  await page.locator("#repo-url").fill("https://gitlab.com/gitlab-org/cli");
   await page.getByRole("button", { name: /scan repository/i }).click();
 
   await expect(page.locator("#results")).toContainText("gitlab.com/gitlab-org/cli", { timeout: 150_000 });

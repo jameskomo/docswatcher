@@ -19,18 +19,20 @@ export default defineNuxtConfig({
     // Not "_nuxt": artifact hosts reserve published paths that start with an underscore.
     buildAssetsDir: `nuxt-${BUILD}/`,
     head: {
+      // One theme. Set before the app mounts, so the first paint is already the right one.
+      htmlAttrs: { "data-theme": "light" },
       title: "DocsWatcher",
       meta: [
         { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
         { name: "description", content: "Scan a repository for every external API contract it depends on and see which ones have an expiry date." },
-        { name: "color-scheme", content: "dark light" },
+        { name: "color-scheme", content: "light" },
       ],
       link: [
         // scripts/relativize.mjs rewrites this to ./favicon.svg so it resolves at any subpath.
         { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
         { rel: "preconnect", href: "https://fonts.googleapis.com" },
         { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
-        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wdth,wght@62..125,400..800&family=DM+Mono:wght@400;500&display=swap" },
+        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Martian+Mono:wdth,wght@75..112.5,400..800&display=swap" },
       ],
     },
   },

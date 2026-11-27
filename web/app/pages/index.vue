@@ -3,6 +3,10 @@ import type { InputFile, RepoRef } from "~~/engine/types";
 import { fetchViaApi, fetchViaRelay, readFolder, fetchViaJsDelivr } from "~/utils/fetchRepo";
 import { fetchViaGitLab } from "~/utils/gitlab";
 import { parseScanInput, parseShareParam, shareParam, targetLabel } from "~/utils/scanTarget";
+import { daysBetween } from "~~/engine/matcher";
+import type { Finding } from "~~/engine/types";
+import type { ExcerptLine } from "~/components/ProofCard.vue";
+import { contractLabel, fmtDate } from "~/utils/format";
 
 const config = useRuntimeConfig();
 const route = useRoute();
@@ -83,7 +87,74 @@ async function runScan(files: InputFile[], repo: RepoRef, source: { label: strin
   status.value = "Scanning AST";
   const r = await scanner.run(files, repo);
   store.save({ inventory: r.inventory, findings: r.findings, source, own: r.own, at: new Date().toISOString() });
+  excerpt.value = excerptFor(files, headline.value);
 }
+
+/**
+ * The finding the hero card leads with: something that stops working, the longest-dead first, then the
+ * nearest date. Undated and informational findings only when there is nothing else.
+ */
+const headline = computed<Finding | null>(() => {
+  const rank = (f: Finding) => (f.severity === "breaking" ? 0 : f.severity === "warning" ? 1 : 2);
+  // Of two findings on the same line, the one whose name is written in the code (the SDK call, the
+  // model string) shows better than one the scanner inferred (the endpoint behind that call).
+  const literal = (f: Finding) => (f.evidence[0]!.snippet.includes(contractLabel(f.contract).key) ? 0 : 1);
+  const sorted = [...findings.value].filter((f) => f.evidence.length).sort((a, b) =>
+    rank(a) - rank(b) || (a.daysRemaining ?? Infinity) - (b.daysRemaining ?? Infinity) || literal(a) - literal(b));
+  return sorted[0] ?? null;
+});
+
+/** Source lines around the headline finding, kept in memory only: the scanned files are not stored. */
+const excerpt = ref<ExcerptLine[] | null>(null);
+function excerptFor(files: InputFile[], f: Finding | null): ExcerptLine[] | null {
+  const ev = f?.evidence[0];
+  const file = ev && files.find((x) => x.path === ev.path);
+  if (!f || !ev || !file) return null;
+  const text = file.text.split("\n");
+  const hits = new Set(f.evidence.filter((e) => e.path === ev.path).map((e) => e.line));
+  const start = Math.max(1, ev.line - 2);
+  // Reach a second hit a few lines further down, so one card can show both.
+  const further = [...hits].filter((n) => n > ev.line && n <= ev.line + 8);
+  const end = Math.min(text.length, Math.max(start + 6, ...further));
+  const out: ExcerptLine[] = [];
+  for (let n = start; n <= end; n++) out.push({ n, text: text[n - 1] ?? "", hit: hits.has(n) });
+  return out;
+}
+
+/**
+ * After a reload the scanned files are gone, but a bundled sample's are still here: rebuild its excerpt
+ * from them, so the card shows the code around the call, not the one line the store kept.
+ */
+const shownExcerpt = computed<ExcerptLine[] | null>(() => {
+  if (excerpt.value) return excerpt.value;
+  const src = result.value?.source;
+  if (src?.kind !== "sample") return null;
+  const s = samples.find((x) => src.label === `${x.name} at ${x.sha}` || src.label === `Example ${x.name}`);
+  return s ? excerptFor(s.files, headline.value) : null;
+});
+
+function showAll() {
+  document.getElementById("findings")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+function startScan() {
+  mode.value = "url";
+  document.getElementById("scan-source")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  nextTick(() => document.getElementById("repo-url")?.focus());
+}
+
+// The departures board: every dated shutdown still to come, nearest first.
+const today = new Date();
+const todayIso = today.toISOString().slice(0, 10);
+const departures = knowledge.providers
+  .flatMap((p) => p.changes.map((c) => ({ c, provider: p.info.name })))
+  .filter(({ c }) => c.status === "active" && c.severity === "breaking" && !!c.effective && c.effective >= todayIso)
+  .sort((a, b) => (a.c.effective! < b.c.effective! ? -1 : a.c.effective! > b.c.effective! ? 1 : 0))
+  .slice(0, 9)
+  .map(({ c, provider }) => {
+    const days = daysBetween(today, c.effective!);
+    return { id: c.id, provider, title: c.title, date: fmtDate(c.effective), days, final: days <= 7 };
+  });
+const horizon = departures.length ? departures[departures.length - 1]!.days : 0;
 
 async function scanSample(targetName?: string) {
   if (targetName) sample.value = targetName;
@@ -217,86 +288,101 @@ async function copyLink() {
 
 <template>
   <div>
-    <!-- Interactive Scan Launcher Deck (Primary Action at Top) -->
-    <section class="section" id="scan-source" style="padding-top: var(--s2)">
-      <div class="section-head">
-        <h1>How many of the APIs you call are already deprecated?</h1>
-        <p>
-          Find every third-party API and AI model your code calls. DocsWatcher compares your code against {{ trackedChanges }} verified deprecation notices and shows you exactly which ones are already past their date and which are next.
-        </p>
-      </div>
-
-      <div class="scan-box">
-        <div class="tabs" role="tablist" aria-label="What to scan">
-          <button role="tab" :aria-selected="mode === 'sample'" @click="mode = 'sample'">
-            <Icon name="bolt" />
-            <span>Sample repository</span>
-          </button>
-          <button role="tab" :aria-selected="mode === 'url'" @click="mode = 'url'">
-            <Icon name="link" />
-            <span>GitHub or GitLab URL</span>
-          </button>
-          <button role="tab" :aria-selected="mode === 'folder'" @click="mode = 'folder'">
-            <Icon name="folder" />
-            <span>Local folder</span>
-          </button>
-        </div>
-
-        <p v-if="networkBlocked && mode === 'url'" class="notice" role="status">
-          This host blocks outbound requests, so URL scanning is unavailable here. Use a sample or a
-          local folder, or run the site yourself.
+    <!-- Hero: what DocsWatcher does, the scanner, and the proof from the scan on screen -->
+    <section class="hero" id="scan-source">
+      <div class="hero-copy">
+        <p class="eyebrow">{{ trackedChanges }} shutdown notices · {{ knowledge.providers.length }} providers · read in your browser</p>
+        <h1>Some of your API calls have a shutdown date.</h1>
+        <p class="hero-lede">
+          DocsWatcher reads your repository, finds every external API and AI model it calls, and shows you the file,
+          the line and the day each one stops working.
         </p>
 
-        <!-- Sample Repo Mode -->
-        <div v-if="mode === 'sample'" class="stack">
-          <!-- Curated Quick Presets -->
-          <div class="preset-chips">
-            <span class="preset-label">Quick Presets:</span>
-            <button
-              type="button"
-              class="preset-pill"
-              :class="{ active: sample === 'openai/openai-quickstart-python' }"
-              @click="scanSample('openai/openai-quickstart-python')"
-              :disabled="busy"
-            >
-              <Icon name="bolt" :size="14" />
-              <span>OpenAI Quickstart</span>
+        <div class="scan-box">
+          <div class="tabs" role="tablist" aria-label="What to scan">
+            <button role="tab" :aria-selected="mode === 'url'" @click="mode = 'url'">
+              <Icon name="link" />
+              <span>GitHub or GitLab URL</span>
             </button>
-            <button
-              type="button"
-              class="preset-pill"
-              :class="{ active: sample === 'Shopify/shopify-app-template-node' }"
-              @click="scanSample('Shopify/shopify-app-template-node')"
-              :disabled="busy"
-            >
-              <Icon name="bag" :size="14" />
-              <span>Shopify App Template</span>
+            <button role="tab" :aria-selected="mode === 'sample'" @click="mode = 'sample'">
+              <Icon name="bolt" />
+              <span>Sample repository</span>
             </button>
-            <button
-              type="button"
-              class="preset-pill"
-              :class="{ active: sample === 'stripe-java-sources' }"
-              @click="scanSample('stripe-java-sources')"
-              :disabled="busy"
-            >
-              <Icon name="card" :size="14" />
-              <span>Stripe Java SDK</span>
+            <button role="tab" :aria-selected="mode === 'folder'" @click="mode = 'folder'">
+              <Icon name="folder" />
+              <span>Local folder</span>
             </button>
           </div>
 
-          <div>
-            <label for="sample-select" style="font-size: var(--t2); font-weight: 600; color: var(--ink-max); margin-bottom: 6px; display: block">
-              Select a repository to scan
-            </label>
-            <div class="row" style="gap: var(--s3)">
-              <select
-                id="sample-select"
-                class="select grow"
-                style="flex: 1 1 200px; min-width: 0; max-width: 100%"
-                v-model="sample"
+          <p v-if="networkBlocked && mode === 'url'" class="notice" role="status">
+            This host blocks outbound requests, so URL scanning is unavailable here. Use a sample or a
+            local folder, or run the site yourself.
+          </p>
+
+          <!-- Repository URL Mode: GitHub, gitlab.com, or a self-managed GitLab -->
+          <form v-if="mode === 'url'" class="scan-pane" @submit.prevent="scanUrl">
+            <label for="repo-url" class="visually-hidden">Public GitHub repository or GitLab project URL</label>
+            <div class="scan-row">
+              <input
+                id="repo-url"
+                class="input"
+                v-model="url"
+                placeholder="github.com/owner/repo"
+                aria-label="Repository URL"
                 :disabled="busy"
-                aria-label="Sample repository"
-              >
+              />
+              <button id="scan-github" class="btn solid" type="submit" :disabled="busy">Scan repository</button>
+            </div>
+            <p class="hint">GitHub or GitLab, public, or private with a token. Files are read into this tab; nothing is uploaded.</p>
+            <div v-if="!relay || target?.host === 'gitlab'" class="token">
+              <label for="gh-token">Personal access token (optional)</label>
+              <input
+                id="gh-token"
+                class="input"
+                type="password"
+                v-model="token"
+                :placeholder="target?.host === 'gitlab' ? 'glpat-xxxxxxxxxxxxxxxxxxxx' : 'ghp_xxxxxxxxxxxxxxxxxxxx'"
+                :aria-label="`${tokenHost} token`"
+                autocomplete="off"
+              />
+              <span v-if="target?.host === 'gitlab'" class="hint" data-testid="token-hint">
+                Stored only in memory and sent only to {{ tokenHost }}. Needed for a private project
+                (read_api scope); gitlab.com allows 500 API requests a minute without one.
+              </span>
+              <span v-else class="hint" data-testid="token-hint">
+                Stored only in memory. Increases GitHub API rate limit from 60 to 5,000 req/hr.
+              </span>
+            </div>
+          </form>
+
+          <!-- Sample Repo Mode -->
+          <div v-else-if="mode === 'sample'" class="scan-pane">
+            <div class="preset-chips">
+              <button
+                type="button"
+                class="preset-pill"
+                :class="{ active: sample === 'openai/openai-quickstart-python' }"
+                @click="scanSample('openai/openai-quickstart-python')"
+                :disabled="busy"
+              >OpenAI Quickstart</button>
+              <button
+                type="button"
+                class="preset-pill"
+                :class="{ active: sample === 'Shopify/shopify-app-template-node' }"
+                @click="scanSample('Shopify/shopify-app-template-node')"
+                :disabled="busy"
+              >Shopify App Template</button>
+              <button
+                type="button"
+                class="preset-pill"
+                :class="{ active: sample === 'stripe-java-sources' }"
+                @click="scanSample('stripe-java-sources')"
+                :disabled="busy"
+              >Stripe Java SDK</button>
+            </div>
+            <label for="sample-select" class="visually-hidden">Sample repository</label>
+            <div class="scan-row">
+              <select id="sample-select" class="select" v-model="sample" :disabled="busy" aria-label="Sample repository">
                 <optgroup label="Real public repositories">
                   <option v-for="s in realSamples" :key="s.name" :value="s.name">{{ s.name }} at {{ s.sha }}</option>
                 </optgroup>
@@ -304,140 +390,91 @@ async function copyLink() {
                   <option v-for="s in fixtureSamples" :key="s.name" :value="s.name">{{ s.name }}</option>
                 </optgroup>
               </select>
-              <button id="scan-sample" class="btn solid" @click="scanSample()" :disabled="busy">
-                <span>Scan sample</span>
-              </button>
+              <button id="scan-sample" class="btn solid" @click="scanSample()" :disabled="busy">Scan sample</button>
             </div>
+            <p v-if="selectedSample?.real" class="hint">
+              Vendored copy of {{ selectedSample.name }} at commit {{ selectedSample.sha }}, scanned in your browser.
+              {{ selectedSample.note }}
+            </p>
+            <p v-else class="hint">Knowledge base regression fixture with pinned expected findings.</p>
           </div>
 
-          <p v-if="selectedSample?.real" class="t2 ink-soft" style="margin-top: var(--s1)">
-            Vendored copy of <strong>{{ selectedSample.name }}</strong> at commit
-            <span class="mono">{{ selectedSample.sha }}</span>. Scanned entirely in your browser. {{ selectedSample.note }}
-          </p>
-          <p v-else class="t2 ink-faint" style="margin-top: var(--s1)">
-            Knowledge base regression fixture with pinned expected findings.
-          </p>
+          <!-- Local Folder Mode -->
+          <div v-else-if="mode === 'folder'" class="scan-pane">
+            <!-- The browser's own file button cannot be styled; this label is the button, and the real
+                 input stays in the page (visually hidden) for the keyboard and screen readers. -->
+            <div class="folder-pick">
+              <label class="btn solid" :class="{ disabled: busy }">
+                <span>Choose a folder</span>
+                <input
+                  id="folder-input"
+                  class="visually-hidden"
+                  type="file"
+                  webkitdirectory
+                  multiple
+                  @change="onFolderChosen"
+                  :disabled="busy"
+                />
+              </label>
+              <span class="hint" data-testid="folder-chosen">{{ folderChosen || "No folder chosen yet" }}</span>
+            </div>
+            <p class="hint">Parsed with tree-sitter in WebAssembly, inside this tab. No file leaves your machine.</p>
+          </div>
+
+          <p v-if="error" class="notice bad" role="alert">{{ error }}</p>
         </div>
-
-        <!-- Repository URL Mode: GitHub, gitlab.com, or a self-managed GitLab -->
-        <form v-else-if="mode === 'url'" class="stack" @submit.prevent="scanUrl">
-          <div>
-            <label for="repo-url" style="font-size: var(--t2); font-weight: 600; color: var(--ink-max); margin-bottom: 6px; display: block">
-              Public GitHub repository or GitLab project URL
-            </label>
-            <div class="row">
-              <input
-                id="repo-url"
-                class="input grow"
-                style="flex: 1 1 200px; min-width: 0; max-width: 100%"
-                v-model="url"
-                placeholder="https://github.com/owner/repo or https://gitlab.com/group/project"
-                aria-label="Repository URL"
-                :disabled="busy"
-              />
-              <button id="scan-github" class="btn solid" type="submit" :disabled="busy">
-                <span>Scan repository</span>
-              </button>
-            </div>
-          </div>
-          <div v-if="!relay || target?.host === 'gitlab'" class="stack" style="gap: 4px">
-            <label for="gh-token" style="font-size: var(--t1); font-weight: 600; color: var(--ink-soft); display: block">
-              Personal Access Token (optional)
-            </label>
-            <div class="row t2" style="align-items: center">
-              <input
-                id="gh-token"
-                class="input grow"
-                style="flex: 1 1 180px; min-width: 0; max-width: 100%"
-                type="password"
-                v-model="token"
-                :placeholder="target?.host === 'gitlab' ? 'glpat-xxxxxxxxxxxxxxxxxxxx' : 'ghp_xxxxxxxxxxxxxxxxxxxx'"
-                :aria-label="`${tokenHost} token`"
-                autocomplete="off"
-              />
-              <span v-if="target?.host === 'gitlab'" class="ink-faint" data-testid="token-hint">
-                Stored only in memory and sent only to {{ tokenHost }}. Needed for a private project
-                (read_api scope); gitlab.com allows 500 API requests a minute without one.
-              </span>
-              <span v-else class="ink-faint" data-testid="token-hint">
-                Stored only in memory. Increases GitHub API rate limit from 60 to 5,000 req/hr.
-              </span>
-            </div>
-          </div>
-        </form>
-
-        <!-- Local Folder Mode -->
-        <div v-else-if="mode === 'folder'" class="stack">
-          <p class="t2 ink-soft">
-            Select a project directory on your local machine. Files are parsed via Tree-sitter in WebAssembly inside this tab.
-            No code or file contents ever leave your browser.
-          </p>
-          <!-- The browser's own file button cannot be styled; this label is the button, and the real
-               input stays in the page (visually hidden) for the keyboard and screen readers. -->
-          <div class="folder-pick">
-            <label class="btn solid" :class="{ disabled: busy }">
-              <Icon name="folder" />
-              <span>Choose a folder</span>
-              <input
-                id="folder-input"
-                class="visually-hidden"
-                type="file"
-                webkitdirectory
-                multiple
-                @change="onFolderChosen"
-                :disabled="busy"
-              />
-            </label>
-            <span class="t2 ink-faint" data-testid="folder-chosen">{{ folderChosen || "No folder chosen yet" }}</span>
-          </div>
-        </div>
-
-        <p v-if="error" class="notice bad" role="alert" style="margin-top: var(--s3)">{{ error }}</p>
       </div>
-    </section>
 
-    <!-- Scan Results & Telemetry Command Deck (Directly below Scanner) -->
-    <template v-if="result || busy">
-      <Board
-        :inventory="result?.inventory"
-        :findings="findings"
-        :subject="result?.source.label"
-        subject-to="/app"
+      <ProofCard
+        v-if="result || busy"
+        class="hero-proof"
+        :finding="busy ? null : headline"
+        :excerpt="busy ? null : shownExcerpt"
+        :subject="busy ? undefined : result?.source.label"
         :note="fetchNote || undefined"
+        :total="findings.length"
         :busy="busy"
         :phase="scanner.phase.value || status"
         :percent="percent"
+        @show-all="showAll"
       />
+      <div v-else class="hero-proof hero-empty">
+        <p class="display">Nothing scanned yet</p>
+        <p>Paste a GitHub or GitLab URL, choose a sample repository, or pick a folder from your machine.</p>
+      </div>
+    </section>
 
-      <section v-if="result?.own && !busy" class="section" data-testid="own-records">
+    <!-- The scan on screen, in full -->
+    <template v-if="result && !busy">
+      <section v-if="result.own" class="section" data-testid="own-records">
         <div v-if="result.own.errors.length" class="notice bad" role="alert">
           <strong>{{ result.own.summary }}.</strong>
-          This scan matched the bundled knowledge base only. Fix these in <code class="mono">.docswatcher/</code>,
-          or run <code class="mono">docswatcher validate</code> there
+          This scan matched the bundled knowledge base only. Fix these in <code>.docswatcher/</code>,
+          or run <code>docswatcher validate</code> there
           (<NuxtLink to="/teams">your own APIs</NuxtLink>):
-          <ul class="mono t2" style="margin-block: var(--s2) 0">
+          <ul class="t2" style="margin-block: var(--s2) 0">
             <li v-for="e in result.own.errors.slice(0, 20)" :key="e">{{ e }}</li>
           </ul>
           <p v-if="result.own.errors.length > 20" class="t2">…and {{ result.own.errors.length - 20 }} more.</p>
         </div>
         <p v-else class="notice">
-          {{ result.own.summary }}, read from this repository's <code class="mono">.docswatcher/</code> and matched
+          {{ result.own.summary }}, read from this repository's <code>.docswatcher/</code> and matched
           with the rest.
           <template v-if="result.own.warnings.length"> Warnings: {{ result.own.warnings.join("; ") }}</template>
         </p>
       </section>
 
-      <section v-if="shareable && !busy" class="section share" data-testid="share">
-        <div class="row" style="gap: var(--s3); align-items: center; flex-wrap: wrap">
-          <button type="button" class="btn solid" @click="copyLink" data-testid="share-copy">
+      <section v-if="shareable" class="section share" data-testid="share">
+        <div class="share-row">
+          <button type="button" class="btn" @click="copyLink" data-testid="share-copy">
             {{ linkCopied ? "Link copied" : "Copy link to this scan" }}
           </button>
-          <a class="t2 mono share-link" :href="shareLink">{{ shareLink }}</a>
+          <a class="t2 share-link" :href="shareLink">{{ shareLink }}</a>
         </div>
-        <details style="margin-top: var(--s3)">
-          <summary class="t2" style="cursor: pointer">Add a badge to {{ shareable }}'s README</summary>
-          <p class="t2 ink-soft" style="margin-block: var(--s2)">
-            Paste this into <code class="mono">README.md</code> in {{ shareable }}, near the top.
+        <details class="share-badge">
+          <summary class="t2">Add a badge to {{ shareable }}'s README</summary>
+          <p class="t2 ink-soft">
+            Paste this into <code>README.md</code> in {{ shareable }}, near the top.
             It marks the repository as scanned; clicking it runs a fresh scan in the reader's own
             browser, so it cannot go stale.
           </p>
@@ -447,8 +484,9 @@ async function copyLink() {
 
       <section class="section">
         <div class="section-head">
+          <p class="eyebrow">{{ result.source.label }}</p>
           <h2>What is expiring</h2>
-          <p>Chronological deadline queue. Click any card to inspect code evidence, migration blueprints, and agent fix prompts.</p>
+          <p>Nearest date first. Open any finding for the code evidence, the migration and a prompt for your coding agent.</p>
         </div>
         <div id="findings">
           <FindingsList :findings="findings" />
@@ -458,25 +496,61 @@ async function copyLink() {
       <section class="section" id="inventory">
         <div class="section-head">
           <h2>Everything this repository calls</h2>
-          <p>Every external API contract detected in this codebase, including SDK methods, API keys, and model IDs.</p>
+          <p>Every external API contract found in the code: SDK methods, endpoints, API versions and model IDs.</p>
         </div>
         <InventoryTable
-          :contracts="result?.inventory?.contracts || []"
+          :contracts="result.inventory?.contracts || []"
           :findings="findings"
-          :repo="result?.inventory?.repo"
+          :repo="result.inventory?.repo"
         />
       </section>
     </template>
 
-    <section v-else-if="!busy" class="section empty">
-      <h3>Nothing scanned yet</h3>
-      <p>Choose a sample repository, paste a GitHub or GitLab URL, or pick a folder from your machine.</p>
+    <!-- Departures: what leaves next, for everyone -->
+    <section class="band departures" aria-labelledby="departures-title">
+      <div class="band-inner">
+        <div class="departures-head">
+          <div class="departures-intro">
+            <p class="eyebrow">Departures · next {{ horizon }} days</p>
+            <h2 id="departures-title">Leaving soon</h2>
+            <p>Every dated shutdown in the knowledge base, nearest first. A scan only lists the ones your code actually calls.</p>
+          </div>
+          <div class="departures-subscribe">
+            <a class="feed" :href="`${base}feeds/deprecations.ics`">.ics</a>
+            <a class="feed" :href="`${base}feeds/deprecations.atom`">Atom</a>
+            <a class="feed" :href="`${base}feeds/deprecations.json`">JSON</a>
+            <NuxtLink class="btn signal" to="/calendar#email-alerts">Email me 30 and 7 days before</NuxtLink>
+          </div>
+        </div>
+        <div class="board-list" role="table" aria-label="Upcoming shutdowns">
+          <div class="board-row board-headrow" role="row">
+            <span role="columnheader">In</span>
+            <span class="board-meta"><span role="columnheader">Date</span><span role="columnheader">Provider</span></span>
+            <span role="columnheader">Change</span>
+            <span role="columnheader" class="board-status">Status</span>
+          </div>
+          <div v-for="d in departures" :key="d.id" class="board-row" :class="{ final: d.final }" role="row">
+            <span role="cell" class="board-days">{{ d.days }}d</span>
+            <span class="board-meta"><span role="cell" class="board-date">{{ d.date }}</span><span role="cell">{{ d.provider }}</span></span>
+            <span role="cell" class="board-what">{{ d.title }}</span>
+            <span role="cell" class="board-status">{{ d.final ? "Final call" : "Scheduled" }}</span>
+          </div>
+        </div>
+        <p class="departures-more"><NuxtLink to="/calendar">Open the full calendar</NuxtLink></p>
+      </div>
+    </section>
+
+    <section class="rule">
+      <p class="display">
+        Not a changelog feed. A deprecation becomes a finding only when your code calls it,
+        <mark>with the file, the line and the date.</mark>
+      </p>
     </section>
 
     <section class="section" id="what-it-does" data-testid="capabilities">
       <div class="section-head">
-        <h2>What DocsWatcher does</h2>
-        <p>The same scan and the same knowledge base, wherever you want the answer.</p>
+        <p class="eyebrow">One knowledge base</p>
+        <h2>Wherever you want the answer</h2>
       </div>
       <div class="caps">
         <div v-for="c in capabilities" :key="c.id" class="cap" :data-testid="`cap-${c.id}`">
@@ -491,10 +565,115 @@ async function copyLink() {
         </div>
       </div>
     </section>
+
+    <section class="closing">
+      <h2>Find out before production does.</h2>
+      <div class="closing-actions">
+        <button type="button" class="btn solid" @click="startScan">Scan a repository</button>
+        <NuxtLink class="btn" to="/about">How the scan works</NuxtLink>
+      </div>
+    </section>
   </div>
 </template>
 
 <style scoped>
+/* Hero */
+.hero {
+  /* flex-direction is explicit: an older global .hero rule in main.css sets column. */
+  display: flex; flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 56px;
+  padding: 72px 0 88px;
+}
+.hero-copy { flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 26px; }
+.hero h1 { font-size: clamp(2.375rem, 4.8vw, 3.875rem); line-height: 1.02; }
+.hero-lede { margin: 0; font-size: 1.0625rem; line-height: 1.55; color: var(--ink-soft); max-width: 34em; }
+.hero-proof { flex: 1 1 500px; min-width: 0; }
+.hero-empty {
+  border: 1.5px dashed var(--hair-strong); padding: 32px 24px; display: grid; gap: 10px; color: var(--ink-soft);
+}
+.hero-empty .display { margin: 0; font-size: 1.5rem; color: var(--ink-max); }
+
+.scan-box { display: flex; flex-direction: column; gap: 14px; }
+.scan-pane { display: flex; flex-direction: column; gap: 12px; }
+.scan-row { display: flex; flex-wrap: wrap; }
+.scan-row .input, .scan-row .select { flex: 1 1 240px; min-width: 0; border-right: 0; }
+.scan-row .btn { flex: 0 0 auto; min-height: 48px; }
+.hint { margin: 0; font-size: var(--t2); color: var(--ink-faint); }
+.token { display: grid; gap: 6px; }
+.token label { font-size: var(--t2); font-weight: 700; }
+.preset-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* The scan on screen */
 .share { padding-block: var(--s3); }
+.share-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3); }
 .share-link { overflow-wrap: anywhere; color: var(--ink-soft); }
+.share-badge { margin-top: var(--s3); }
+.share-badge summary { cursor: pointer; }
+.share-badge p { margin-block: var(--s2); }
+.section-head .eyebrow { margin-bottom: 8px; }
+
+/* Departures board */
+.departures-head {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 36px;
+}
+.departures-intro { display: grid; gap: 12px; max-width: 640px; }
+.departures-intro h2 { font-size: clamp(2rem, 3.8vw, 3rem); line-height: 1; }
+.departures-intro p:last-child { margin: 0; color: var(--night-soft); }
+.departures-subscribe { display: flex; flex-wrap: wrap; gap: 8px; }
+.feed {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px;
+  border: 1px solid #4a4a45; color: var(--night-ink); text-decoration: none; font-size: var(--t2);
+}
+.feed:hover { border-color: var(--night-ink); }
+.departures .btn.signal { color: var(--ink-black); }
+
+.board-list { border-top: 1.5px solid var(--night-ink); }
+.board-row {
+  display: grid; grid-template-columns: 64px 128px 160px minmax(0, 1fr) 110px;
+  column-gap: 16px; align-items: baseline;
+  padding: 16px 0; border-top: 1px solid var(--night-line);
+}
+.board-headrow {
+  border-top: 0; padding: 14px 0;
+  color: var(--night-faint); font-size: var(--t1); letter-spacing: 0.06em; text-transform: uppercase;
+}
+.board-meta { display: contents; }
+.board-days { font-size: 1.375rem; font-weight: 700; }
+.board-date { color: var(--night-soft); }
+.board-what { font-size: var(--t3); }
+.board-status { text-align: right; font-size: var(--t1); letter-spacing: 0.06em; text-transform: uppercase; color: var(--night-faint); }
+.board-row.final .board-days, .board-row.final .board-status { color: var(--signal); }
+.departures-more { margin: 24px 0 0; }
+
+/* The rule */
+.rule { padding: 96px 0 64px; }
+.rule .display { margin: 0; max-width: 22em; font-size: clamp(1.625rem, 3vw, 2.375rem); line-height: 1.18; }
+.rule mark { background: var(--signal); color: var(--ink-black); padding: 0 6px; }
+
+/* Capabilities: three across */
+.caps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+
+/* Closing */
+.closing {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px;
+  margin-top: var(--s7); padding: 64px 0 0; border-top: 1.5px solid var(--ink-black);
+}
+.closing h2 { font-size: clamp(1.75rem, 3.4vw, 2.75rem); line-height: 1.05; max-width: 14em; }
+.closing-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+@media (max-width: 640px) {
+  .hero { padding: 40px 0 56px; gap: 40px; }
+  .scan-row .input, .scan-row .select { flex-basis: 100%; border-right: 1.5px solid var(--ink-black); }
+  .scan-row .btn { flex: 1 1 100%; margin-top: 8px; }
+  .board-headrow { display: none; }
+  .board-row {
+    grid-template-columns: 56px minmax(0, 1fr) auto;
+    grid-template-areas: "days what what" "days meta status";
+    row-gap: 6px;
+  }
+  .board-days { grid-area: days; }
+  .board-what { grid-area: what; }
+  .board-status { grid-area: status; }
+  .board-meta { display: flex; gap: 12px; grid-area: meta; font-size: var(--t1); }
+  .rule { padding: 64px 0 40px; }
+}
 </style>
