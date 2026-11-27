@@ -144,7 +144,7 @@ useHead({
           </div>
           <div>
             <dt>What does it know about?</dt>
-            <dd>{{ totalChanges }} dated changes across {{ providerCount }} providers (<NuxtLink to="/about">the list</NuxtLink>). "No known deprecation" means nothing <em>known</em>. Run the install step again to update.</dd>
+            <dd>{{ totalChanges }} published changes across {{ providerCount }} providers (<NuxtLink to="/about">the list</NuxtLink>). "No known deprecation" means nothing <em>known</em>. Run the install step again to update.</dd>
           </div>
           <div>
             <dt>Why not tell it "never use old models"?</dt>

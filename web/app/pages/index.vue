@@ -145,9 +145,11 @@ function startScan() {
 // The departures board: every dated shutdown still to come, nearest first.
 const today = new Date();
 const todayIso = today.toISOString().slice(0, 10);
-const departures = knowledge.providers
+const upcomingAll = knowledge.providers
   .flatMap((p) => p.changes.map((c) => ({ c, provider: p.info.name })))
-  .filter(({ c }) => c.status === "active" && c.severity === "breaking" && !!c.effective && c.effective >= todayIso)
+  .filter(({ c }) => c.status === "active" && c.severity === "breaking" && !!c.effective && c.effective >= todayIso);
+const upcomingShutdowns = upcomingAll.length;
+const departures = [...upcomingAll]
   .sort((a, b) => (a.c.effective! < b.c.effective! ? -1 : a.c.effective! > b.c.effective! ? 1 : 0))
   .slice(0, 9)
   .map(({ c, provider }) => {
@@ -291,7 +293,7 @@ async function copyLink() {
     <!-- Hero: what DocsWatcher does, the scanner, and the proof from the scan on screen -->
     <section class="hero" id="scan-source">
       <div class="hero-copy">
-        <p class="eyebrow">{{ trackedChanges }} shutdown notices · {{ knowledge.providers.length }} providers · read in your browser</p>
+        <p class="eyebrow">{{ trackedChanges }} published changes · {{ knowledge.providers.length }} providers · read in your browser</p>
         <h1>Some of your API calls have a shutdown date.</h1>
         <p class="hero-lede">
           DocsWatcher reads your repository, finds every external API and AI model it calls, and shows you the file,
@@ -513,7 +515,7 @@ async function copyLink() {
           <div class="departures-intro">
             <p class="eyebrow">Departures · next {{ horizon }} days</p>
             <h2 id="departures-title">Leaving soon</h2>
-            <p>Every dated shutdown in the knowledge base, nearest first. A scan only lists the ones your code actually calls.</p>
+            <p>The next {{ departures.length }} of {{ upcomingShutdowns }} dated shutdowns, nearest first. A scan only lists the ones your code actually calls.</p>
           </div>
           <div class="departures-subscribe">
             <a class="feed" :href="`${base}feeds/deprecations.ics`">.ics</a>

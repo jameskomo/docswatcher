@@ -8,6 +8,7 @@ const providers = computed(() =>
 );
 const totalChanges = computed(() => providers.value.reduce((n, p) => n + p.changes, 0));
 const openaiChanges = computed(() => providers.value.find((p) => p.id === "openai")?.changes ?? 0);
+const datedChanges = knowledge.providers.reduce((n, p) => n + p.changes.filter((c) => c.effective).length, 0);
 
 /** The router owns the URL hash, so the contents links scroll by hand instead of navigating. */
 function go(id: string) {
@@ -34,7 +35,7 @@ useHead({
         <p class="lede">
           Your lockfile can't help when a provider retires something: the code still compiles, the tests still
           pass, and one morning a payment fails. DocsWatcher finds every external API your repository calls and
-          checks each one against {{ totalChanges }} published shutdown notices, then shows you the file, the line
+          checks each one against {{ totalChanges }} published changes and shutdown dates, then shows you the file, the line
           and the date.
         </p>
         <ul class="examples">
@@ -85,7 +86,7 @@ useHead({
               <h3>AI models retire in months</h3>
               <p>
                 A model string hard-coded in a prompt or a config file is out of date within the year. OpenAI alone
-                has {{ openaiChanges }} dated changes in the knowledge base.
+                has {{ openaiChanges }} changes in the knowledge base.
               </p>
             </div>
             <div>
@@ -174,8 +175,8 @@ useHead({
 
         <section id="providers" class="chapter">
           <p class="num">05</p>
-          <h2>{{ providers.length }} providers, {{ totalChanges }} dated changes</h2>
-          <p>Each provider's full deprecation policy, with its sources, is in the <a href="https://github.com/jameskomo/docswatcher/tree/main/knowledge" target="_blank" rel="noopener">open knowledge base</a>.</p>
+          <h2>{{ providers.length }} providers, {{ totalChanges }} published changes</h2>
+          <p>{{ datedChanges }} of them have a date; the rest are announced without one yet. Each provider's full deprecation policy, with its sources, is in the <a href="https://github.com/jameskomo/docswatcher/tree/main/knowledge" target="_blank" rel="noopener">open knowledge base</a>.</p>
           <div class="table-scroll">
             <table class="providers">
               <thead>

@@ -305,6 +305,22 @@ test("a scan with no repository of its own links nothing", async ({ page }) => {
   await expect(page.locator("#inventory a.loc")).toHaveCount(0);
 });
 
+test("the provider menu filters the calendar list, and the counts say what is shown and what is not", async ({ page }) => {
+  await page.goto("./#/calendar");
+  const counts = page.getByTestId("list-counts");
+  await expect(counts).toHaveText(/\d+ to come · \d+ without a date · \d+ past/);
+  const allRows = await page.locator(".cal-row").count();
+  await page.locator("#list-provider").selectOption("openai");
+  await expect(counts).toContainText("OpenAI only");
+  const names = await page.locator(".cal-row .entry-text strong").allTextContents();
+  expect(names.length).toBeGreaterThan(0);
+  expect(names.length).toBeLessThan(allRows);
+  expect(names.every((n) => n === "OpenAI")).toBe(true);
+  // One choice: the calendar feed follows the list.
+  await expect(page.locator("#feed-provider")).toHaveValue("openai");
+  await expect(page.getByTestId("subscribe-ics")).toHaveAttribute("href", /feeds\/openai\.ics$/);
+});
+
 test("the calendar says how many dates are still to come", async ({ page }) => {
   await page.goto("./#/calendar");
   await expect(page.getByTestId("feed-summary")).toHaveText(/\d+ dates, \d+ still to come/);

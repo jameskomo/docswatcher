@@ -6,6 +6,7 @@ import { fmtDate, fmtMonth } from "~/utils/format";
 const { knowledge, providerName } = useKnowledge();
 const today = new Date();
 const all = knowledge.providers.flatMap((p) => p.changes).filter((c) => c.status === "active" || c.status === "expired");
+const feedProvider = ref("");
 
 function group(list: ChangeRecord[]) {
   const m = new Map<string, ChangeRecord[]>();
@@ -22,13 +23,25 @@ useHead({
 });
 
 const todayIso = today.toISOString().slice(0, 10);
-const upcoming = computed(() => group(all.filter((c) => !c.effective || c.effective >= todayIso)));
-const past = computed(() => group(all.filter((c) => c.effective && c.effective < todayIso)).reverse());
+// One provider choice drives everything on the page: the list, the calendar feed and the email alert.
+// It was the feed's alone, which made the menu above the list look like a filter that did nothing.
+const inList = (c: ChangeRecord) => !feedProvider.value || c.provider === feedProvider.value;
+const upcoming = computed(() => group(all.filter((c) => inList(c) && (!c.effective || c.effective >= todayIso))));
+const past = computed(() => group(all.filter((c) => inList(c) && c.effective && c.effective < todayIso)).reverse());
 const showPast = ref(false);
+const count = (gs: { key: string; items: ChangeRecord[] }[], undated: boolean) =>
+  gs.filter((g) => (g.key === "none") === undated).reduce((n, g) => n + g.items.length, 0);
+const toCome = computed(() => count(upcoming.value, false));
+const noDate = computed(() => count(upcoming.value, true));
+const pastCount = computed(() => past.value.reduce((n, g) => n + g.items.length, 0));
+const chosenName = computed(() => (feedProvider.value ? providerName(feedProvider.value) : ""));
+function revealPast() {
+  showPast.value = true;
+  nextTick(() => document.getElementById("past")?.scrollIntoView({ behavior: "smooth", block: "start" }));
+}
 const days = (c: ChangeRecord) => (c.effective ? daysBetween(today, c.effective) : null);
 
 // Subscribe links are resolved against wherever the site is served, so they work at any host or subpath.
-const feedProvider = ref("");
 const base = ref("");
 onMounted(() => { base.value = location.href.split("#")[0].replace(/[^/]*$/, ""); });
 const icsUrl = computed(() => `${base.value}feeds/${feedProvider.value || "deprecations"}.ics`);
@@ -133,6 +146,23 @@ async function subscribeByEmail() {
       </div>
     </section>
 
+    <section class="list-bar" aria-label="What the list shows" data-testid="list-bar">
+      <label for="list-provider" class="list-label">Show</label>
+      <select id="list-provider" class="select" v-model="feedProvider" aria-label="Which provider's changes to list">
+        <option value="">All providers</option>
+        <option v-for="p in knowledge.providers" :key="p.info.id" :value="p.info.id">{{ p.info.name }}</option>
+      </select>
+      <p class="list-counts" data-testid="list-counts">
+        <strong>{{ toCome }}</strong> to come · <strong>{{ noDate }}</strong> without a date ·
+        <button type="button" class="linkish" @click="revealPast"><strong>{{ pastCount }}</strong> past</button>
+        <template v-if="chosenName"> · {{ chosenName }} only</template>
+      </p>
+    </section>
+
+    <p v-if="!upcoming.length" class="empty-list" data-testid="list-empty">
+      Nothing still to come for {{ chosenName }}. <button type="button" class="linkish" @click="revealPast">Show its {{ pastCount }} past dates</button>.
+    </p>
+
     <section class="section" v-for="g in upcoming" :key="g.key" style="margin-top: 0">
       <div class="month">
         <h3>
@@ -168,10 +198,10 @@ async function subscribeByEmail() {
       </div>
     </section>
 
-    <section class="section" style="margin-top: var(--s4)">
+    <section class="section" id="past" style="margin-top: var(--s4); scroll-margin-top: 88px">
       <button class="btn" @click="showPast = !showPast">
         <Icon name="event" />
-        <span>{{ showPast ? "Hide" : "Show" }} already effective ({{ past.reduce((n, g) => n + g.items.length, 0) }})</span>
+        <span>{{ showPast ? "Hide" : "Show" }} already effective ({{ pastCount }})</span>
       </button>
 
       <template v-if="showPast">
@@ -210,6 +240,13 @@ async function subscribeByEmail() {
 </template>
 
 <style scoped>
+.list-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 18px 0; border-top: 1.5px solid var(--rule); border-bottom: 1px solid var(--hair); }
+.list-label { font-weight: 700; color: var(--ink-max); }
+.list-bar .select { width: auto; min-width: 220px; }
+.list-counts { margin: 0; color: var(--ink-soft); }
+.list-counts strong { color: var(--ink-max); }
+.empty-list { margin: 0; color: var(--ink-soft); }
+
 /* A record names APIs by their schema names, some 50+ characters with no space. The column
    must be allowed to shrink below that word, and the word to break, or a phone scrolls sideways. */
 .entry-text { min-width: 0; overflow-wrap: anywhere; }

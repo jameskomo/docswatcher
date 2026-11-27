@@ -199,7 +199,7 @@ useHead({
           A green build means nothing <mark>known</mark> is expiring.
         </p>
         <p>
-          The knowledge base tracks {{ totalChanges }} published shutdowns across {{ knowledge.providers.length }}
+          The knowledge base tracks {{ totalChanges }} published changes across {{ knowledge.providers.length }}
           providers, and it is open: if a provider you depend on is missing, the rules are YAML and take pull requests.
         </p>
       </section>
