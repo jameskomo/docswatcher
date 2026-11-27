@@ -99,7 +99,11 @@ describe("share links", () => {
 });
 
 /** A small GitLab: a project in a nested group, a two-page tree, and raw files at one commit. */
-function stubGitLab(opts: { tree?: any[]; perPage?: number; paging?: "link" | "x-next-page" | "foreign-link"; files?: Record<string, string>; status?: Record<string, number> } = {}) {
+/**
+ * `flaky` maps a URL prefix to how many times a request to it fails as a dropped connection (the
+ * TypeError fetch throws) before it succeeds; Infinity never succeeds.
+ */
+function stubGitLab(opts: { tree?: any[]; perPage?: number; paging?: "link" | "x-next-page" | "foreign-link"; files?: Record<string, string>; status?: Record<string, number>; flaky?: Record<string, number> } = {}) {
   const sha = "0123456789abcdef0123456789abcdef01234567";
   const files: Record<string, string> = opts.files ?? {
     ".gitignore": "fixtures/\n",
@@ -119,6 +123,8 @@ function stubGitLab(opts: { tree?: any[]; perPage?: number; paging?: "link" | "x
   const api = "https://gitlab.com/api/v4";
   vi.stubGlobal("fetch", async (url: string, init?: { headers?: Record<string, string> }) => {
     calls.push({ url, headers: init?.headers ?? {} });
+    const flaky = Object.entries(opts.flaky ?? {}).find(([prefix]) => url.startsWith(prefix));
+    if (flaky && (opts.flaky![flaky[0]] = flaky[1] - 1) >= 0) throw new TypeError("Failed to fetch");
     const status = Object.entries(opts.status ?? {}).find(([prefix]) => url.startsWith(prefix))?.[1];
     if (status) return new Response("{}", { status });
     if (url === `${api}/projects/group%2Fsub%2Fproject`) {
@@ -235,6 +241,22 @@ describe("fetchViaGitLab", () => {
   it("says a host could not be reached instead of passing on a bare TypeError", async () => {
     vi.stubGlobal("fetch", async () => { throw new TypeError("Failed to fetch"); });
     await expect(fetchViaGitLab({ origin: "https://gitlab.internal.example", path: "a/b", ref: null }, undefined, () => {})).rejects.toThrow(/Could not reach https:\/\/gitlab\.internal\.example/);
+  });
+
+  it("retries a request whose connection drops, and the scan completes", async () => {
+    // A Wi-Fi change or a dropped connection fails one request out of the 300 or so a scan makes.
+    const app = "https://gitlab.com/api/v4/projects/42/repository/files/src%2Fapp.ts";
+    const { calls } = stubGitLab({ flaky: { [app]: 2 } });
+    const result = await fetchViaGitLab(target, undefined, () => {});
+    expect(result.files.map((f) => f.path)).toContain("src/app.ts");
+    expect(calls.filter((c) => c.url.startsWith(app)).length).toBe(3);
+  });
+
+  it("says the connection was lost when it drops mid-scan for good, not that the host is unreachable", async () => {
+    stubGitLab({ flaky: { "https://gitlab.com/api/v4/projects/42/repository/files/": Infinity } });
+    const scan = fetchViaGitLab(target, undefined, () => {});
+    await expect(scan).rejects.toThrow(/lost the connection to https:\/\/gitlab\.com/);
+    await expect(scan).rejects.not.toThrow(/another network/);
   });
 
   it("uses the ref from the address instead of the default branch", async () => {

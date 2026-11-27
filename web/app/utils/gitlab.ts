@@ -48,6 +48,8 @@ export function parseGitLabUrl(input: string): GitLabTarget | null {
 
 /** A page of the recursive tree is 100 entries. Fifty pages keep a scan inside gitlab.com's anonymous budget. */
 const TREE_PAGES = 50;
+/** Waits before the second and third attempt at a request whose connection dropped. */
+const RETRY_DELAYS = [300, 900];
 const decoder = new TextDecoder("utf-8", { fatal: false });
 
 /**
@@ -70,10 +72,25 @@ export async function fetchViaGitLab(t: GitLabTarget, token: string | undefined,
   const headers: Record<string, string> = token ? { "PRIVATE-TOKEN": token } : {};
   const policy = watchPolicy(t.origin);
 
+  // Once the instance has answered, a failed request means the connection dropped mid-scan (a Wi-Fi
+  // change, a reset), not that the instance is out of reach, and it is worth asking again: one blip
+  // out of the 300 or so requests a scan makes should not throw the whole scan away.
+  let reached = false;
   const call = async (url: string): Promise<Response> => {
     let res: Response;
-    try { res = await fetch(url, { headers }); }
-    catch (e) { throw await unreachable(t.origin, e, policy); }
+    for (let attempt = 0; ; attempt++) {
+      try { res = await fetch(url, { headers }); break; }
+      catch (e) {
+        // A Content-Security-Policy refusal never recovers, so it is not retried. The violation event
+        // is queued as its own task and can land after the fetch rejects, hence the wait.
+        if (e instanceof TypeError && attempt < RETRY_DELAYS.length) {
+          await new Promise((r) => setTimeout(r, 50));
+          if (!policy.blocked()) { await new Promise((r) => setTimeout(r, RETRY_DELAYS[attempt])); continue; }
+        }
+        throw await unreachable(t.origin, e, policy, reached);
+      }
+    }
+    reached = true;
     if (res.status === 429) {
       throw new Error(`GitLab's rate limit was reached at ${host}`
         + (t.origin === GITLAB_COM ? " (500 API requests a minute per address without a token)" : "")
@@ -200,7 +217,7 @@ function watchPolicy(origin: string): { blocked: () => boolean; stop: () => void
   return { blocked: () => hit, stop: () => document.removeEventListener("securitypolicyviolation", onViolation) };
 }
 
-async function unreachable(origin: string, cause: unknown, policy: { blocked: () => boolean }): Promise<Error> {
+async function unreachable(origin: string, cause: unknown, policy: { blocked: () => boolean }, reached = false): Promise<Error> {
   if (!(cause instanceof TypeError)) return cause instanceof Error ? cause : new Error(String(cause));
   // The violation event is queued as its own task and can land after the fetch rejects.
   await new Promise((r) => setTimeout(r, 50));
@@ -208,6 +225,9 @@ async function unreachable(origin: string, cause: unknown, policy: { blocked: ()
     return new Error(`This page's Content-Security-Policy does not allow requests to ${origin}, so the project cannot be read from here.`
       + (origin === GITLAB_COM ? "" : ` A self-managed GitLab can be scanned from a copy of this site whose policy allows its host: run the site locally, or add ${origin} to connect-src where you host it.`)
       + " Sample repositories and local folders still work.");
+  }
+  if (reached) {
+    return new Error(`The scan lost the connection to ${origin} partway through, and retrying did not bring it back. Check your connection and scan again.`);
   }
   return new Error(`Could not reach ${origin}. The instance may only be reachable from another network, or it may not answer cross-origin requests.`);
 }
