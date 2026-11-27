@@ -100,6 +100,7 @@ Mistral Medium 3.1
 Mistral Medium 3.5
 Mistral Moderation
 Mistral Moderation 2
+Mistral Multimodal Embed
 Mistral NeMo
 Mistral Next
 Mistral Saba
@@ -132,7 +133,6 @@ Voxtral Mini Transcribe 2
 Voxtral Mini Transcribe 3
 Voxtral Mini Transcribe Realtime
 Voxtral Mini Transcribe Realtime 3
-Voxtral Small
 Voxtral Small Transcribe 3
 Voxtral TTS
 Models and inference
